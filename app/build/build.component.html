@@ -1,0 +1,15 @@
+<div class="col-xs-12">
+	<section>
+		<form class="form-inline" *ngFor="#query of mapping.resultQuery.result">
+		  <single-query 
+		  [mapping]="mapping" 
+		  [config]="config" 
+		  [query]="query"
+		  [queryList]="queryList"></single-query>
+		</form>
+		<a href="javascript:void(0);"
+		 class="btn btn-info"
+		 (click)="addQuery();">Add new query</a>
+	</section>
+	<button  class="btn btn-info mt-10" (click) = "buildQuery()">Build Query</button>
+</div>

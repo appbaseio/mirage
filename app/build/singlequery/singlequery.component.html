@@ -1,0 +1,15 @@
+<div class="form-group">
+	<select class="form-control" [(ngModel)]="query.field">
+		<option value="">--select any field--</option>
+		<option *ngFor="#oo of mapping.resultQuery.availableFields, #i=index" [value]="i">{{oo.name}}</option>
+	</select>
+	<select *ngIf="query.field != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')" 
+		class="form-control" [(ngModel)]="query.query">
+		<option value="">--select any query--</option>
+		<option *ngFor="#oo of queryList.not_analyzed, #i=index" [value]="i">{{oo.name}}</option>
+	</select>
+	<input class="form-control"
+	 *ngIf="query.field != '' && query.query != ''"
+	  type="text"
+	  [(ngModel)] = "query.input" />
+</div>

@@ -1,0 +1,36 @@
+<div class="app-container">
+	<form class="col-xs-12 init-ES" id="init-ES">
+	<div class="esContainer">
+		<div class="form-group m-0 col-xs-8 pd-0 pr-5">
+			<input type="text"
+			[(ngModel)]="config.url"
+			class="form-control" 
+			name="url" 
+			placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
+		</div>
+		<div class="form-group m-0 col-xs-4 pd-0 pr-5">
+			<input type="text" 
+			[(ngModel)]="config.appname"
+			class="form-control"
+			name="appname" 
+			placeholder="Index name to browse data from" value="moviedb" />
+		</div>
+		<div class="submit-btn-container">
+			<a (click)="connect()" class="btn btn-default submit-btn">Connect</a>
+		</div>
+	</div>
+</form>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-6"><query-build [mapping]="mapping" [config]="config"></query-build></div>
+			<div class="col-xs-6"><query-result [mapping]="mapping" [config]="config"></query-result></div>
+		</div>
+
+		<div class="row">
+			<h3>Query Result</h3>
+			<p>
+				<query-run [mapping]="mapping" [config]="config"></query-run>
+			</p>
+		</div>
+	</div>
+</div>
