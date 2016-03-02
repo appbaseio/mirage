@@ -16,7 +16,10 @@
 			placeholder="Index name to browse data from" value="moviedb" />
 		</div>
 		<div class="submit-btn-container">
-			<a (click)="connect()" class="btn btn-default submit-btn">Connect</a>
+			<a (click)="connect()" [class.btn-info] ="mapping.mapping != null" class="btn btn-default submit-btn">
+				<span *ngIf = "mapping.mapping == null">Connect</span>
+				<span *ngIf = "mapping.mapping != null">Connected</span>
+			</a>
 		</div>
 	</div>
 </form>
