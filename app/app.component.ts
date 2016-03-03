@@ -1,5 +1,4 @@
 import {Component, OnInit} from "angular2/core";
-import {HeaderComponent} from "./header/header.component";
 import {BuildComponent} from "./build/build.component";
 import {ResultComponent} from "./result/result.component";
 import {RunComponent} from "./run/run.component";
@@ -13,7 +12,6 @@ import {$http} from './shared/httpwrap'
 })
 
 export class AppComponent implements OnInit {
-	public heros: string = 'asdjfkse';
 	public mapping: any = { 
 							types: [], 
 							mapping: null,
@@ -23,15 +21,7 @@ export class AppComponent implements OnInit {
 							},
 							output:{}
 						};
-	
-	//For default config
-	// public config: Config = {
-	// 	url: "https://uHg3p7p70:155898a9-e597-430e-8e2b-61fd1914c0d0@scalr.api.appbase.io",
-	// 	appname: "moviedb",
-	// 	username: "",
- 	// 		password: "" 
-	// };
-
+	public detectChange: string = null;
 	public config: Config = {
 		url: "",
 		appname: "",
@@ -39,10 +29,20 @@ export class AppComponent implements OnInit {
 		password: "" 
 	};
 
+	// For default config
+	// public config: Config = {
+	// 	url: "https://uHg3p7p70:155898a9-e597-430e-8e2b-61fd1914c0d0@scalr.api.appbase.io",
+	// 	appname: "moviedb",
+	// 	username: "",
+ 	// 		password: "" 
+	// };
+
+
 	ngOnInit() {
 		this.getLocalConfig();
   	}
 
+  	//Get config from localstorage 
 	getLocalConfig() {
 		var url = window.localStorage.getItem('url');
 		var appname = window.localStorage.getItem('appname');
@@ -53,11 +53,14 @@ export class AppComponent implements OnInit {
 		}
 	}
 
+	//Set config from localstorage
 	setLocalConfig(url, appname) {
 		window.localStorage.setItem('url', url);
 		window.localStorage.setItem('appname', appname);
 	}
 
+	// Connect with config url and appname
+	// do mapping request  
 	connect() {
 		var APPNAME = this.config.appname;
 		var URL = this.config.url;
@@ -72,10 +75,12 @@ export class AppComponent implements OnInit {
 			self.mapping.mapping = res;
 			self.mapping.types = self.seprateType(res);
 			self.setLocalConfig(self.config.url, self.config.appname);
+			self.detectChange = "done";
 	   	});
 	}
-		
-	seprateType(mappingObj){
+	
+	// Seprate the types from mapping	
+	seprateType(mappingObj) {
 		var mapObj = mappingObj[this.config.appname].mappings;
 		var types = [];
 		for(var type in mapObj){
@@ -85,4 +90,3 @@ export class AppComponent implements OnInit {
 	}
 
 }
-
