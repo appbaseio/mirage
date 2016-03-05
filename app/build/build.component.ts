@@ -32,14 +32,15 @@ export class BuildComponent {
 	buildQuery() {
 		var result = this.mapping.resultQuery.result;
 		var objChain = [];
-		result.forEach(function(val) {
-			var query = this.queryList.not_analyzed[val.query].apply;
-			var field = this.mapping.resultQuery.availableFields[val.field].name;
-			var input = val.input;
-			var sampleobj = {};
-			sampleobj[query] = {};
-			sampleobj[query][field] = input;
-			objChain.push(sampleobj);
+		
+		result.forEach(function(val0) {
+			var childExists = false;
+			result.forEach(function(val1) {
+				if (val0.id == val1.parent_id){
+					childExists = true;
+				}
+			});
+			val0.appliedQuery = this.createQuery(val0, childExists);	
 		}.bind(this));
 		var es_query = {
 			"query": {
@@ -48,7 +49,39 @@ export class BuildComponent {
 				}
 			}
 		}
+		this.buildSubQuery()
+		result.forEach(function(val) {
+			if(val.parent_id == 0) {
+				objChain.push(val.appliedQuery)
+			}
+		});
 		this.mapping.resultQuery.final = JSON.stringify(es_query, null, 4);
 	}
+
+	buildSubQuery() {
+		var result = this.mapping.resultQuery.result;
+		result.forEach(function(val0){
+			if (val0.parent_id != 0) {
+				result.forEach(function(val1){
+					if(val0.parent_id == val1.id) {
+						val1.appliedQuery['bool']['must'].push(val0.appliedQuery);
+					}
+				}.bind(this));	
+			}
+		}.bind(this));
+	}
+
+	createQuery(val, childExists) {
+		var query = this.queryList.not_analyzed[val.query].apply;
+		var field = this.mapping.resultQuery.availableFields[val.field].name;
+		var input = val.input;
+		var sampleobj = {};
+		sampleobj[query] = {};
+		sampleobj[query][field] = input;
+		if (childExists)
+			sampleobj['bool'] = { 'must': [] };
+		return sampleobj;
+	}
+
 }
 
