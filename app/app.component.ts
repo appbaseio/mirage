@@ -16,11 +16,12 @@ export class AppComponent implements OnInit {
 							types: [], 
 							mapping: null,
 							resultQuery:{'type':'',
-								'result':[],
-								'final':"{}"
+								'result': [],
+								'final': "{}"
 							},
-							output:{}
-						};
+							output: {},
+							queryId: 1
+	};
 	public detectChange: string = null;
 	public config: Config = {
 		url: "",

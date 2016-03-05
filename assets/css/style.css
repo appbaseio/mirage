@@ -22,6 +22,12 @@
 .m-0{
   margin: 0;
 }
+.m-b0 {
+  margin-bottom: 0;
+}
+.m-b15{
+  margin-bottom: 15px;
+}
 .mt-10{
   margin-top: 10px;
 }
@@ -33,7 +39,7 @@
 }
 .app-container{
   position: relative;
-  padding-top: 60px;
+  padding-top: 40px;
 }
 .init-ES, footer {
     position: absolute;
@@ -50,4 +56,13 @@
     position: absolute;
     right: 5px;
     width: 125px;
+}
+.queryRight {
+  padding: 15px 15px 15px 0;
+  background: #f2f2f2;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.queryLeft {
+  padding: 15px;
 }

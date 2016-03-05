@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component, OnInit} from "angular2/core";
 import {prettyJson} from "../shared/pipes/prettyJson";
 import {MappingService} from "../shared/mapping.service";
 import {$http} from '../shared/httpwrap';
@@ -15,11 +15,15 @@ import {TypesComponent} from "./types/types.component";
 	directives: [TypesComponent]
 })
 
-export class ResultComponent {
+export class ResultComponent implements OnInit {
 	public mapping;
 	public config;
 	constructor(private mappingService: MappingService) { }
 	
+	ngOnInit() {
+		var resultHeight = $(window).height() - 170;
+		$('.queryRight textarea').css({  height:resultHeight });
+	}
 
 	runQuery() {
 		var self = this;

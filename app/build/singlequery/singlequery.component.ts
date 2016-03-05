@@ -4,11 +4,40 @@ import {Component} from "angular2/core";
 	selector: 'single-query',
 	templateUrl: './app/build/singlequery/singlequery.component.html',
 	styleUrls: ['./app/build/singlequery/singlequery.component.css'],
-	inputs: ['mapping', 'config', 'query', 'queryList']
+	inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'removeQuery'],
+	directives: [SinglequeryComponent]
 })
 
 export class SinglequeryComponent {
 	public mapping;
 	public config;
 	public queryList = this.queryList;
+	public addQuery;
+	public removeQuery;
+	public removeArray = [];
+
+	addSubQuery(id) {
+		this.addQuery(id);
+	}
+	removeInQuery(id: number) {
+		var resulQueries = this.mapping.resultQuery.result;
+		this.removeArray.push(id);
+		var removeFlag = true;
+		resulQueries.forEach(function(v, i) {
+			if(v.parent_id == id) {
+				this.removeInQuery(v.id);
+				removeFlag = false;
+			}
+		}.bind(this));
+
+		if (removeFlag) {
+			this.removeArray.forEach(function(remove_q){
+				resulQueries.forEach(function(v, i) {
+					if (v.id == remove_q) {
+						resulQueries.splice(i, 1);
+					}
+				}.bind(this));				
+			}.bind(this));
+		}
+	}
 }

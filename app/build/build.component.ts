@@ -14,12 +14,18 @@ export class BuildComponent {
 	public mapping;
 	public config;
 	public queryList = queryList;
-	addQuery() {
+	
+	addQuery(parent_id: number) {
 		var queryObj = {
 				field: '',
 				query: '',
-				input: ''
+				input: '',
+				parent_id: 0,
+				id: 0
 		};
+		queryObj.id =  this.mapping.queryId;
+		queryObj.parent_id = parent_id;
+		this.mapping.queryId += 1;
 		this.mapping.resultQuery.result.push(queryObj);
 	}
 
