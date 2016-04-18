@@ -13,7 +13,7 @@
 	</select>
 	<select  class="form-control form-element" *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')" [(ngModel)]="query.query">
 		<option value="">-- select any query --</option>
-		<option *ngFor="#oo of queryList[query.analyzeTest], #i=index" [value]="i">{{oo.name}}</option>
+		<option *ngFor="#oo of queryList[query.analyzeTest][query.type], #i=index" [value]="i">{{oo.name}}</option>
 	</select>
 	<div class="form-group form-element">
 		<input class="form-control" *ngIf="query.field != '' && query.query != ''" type="text" [(ngModel)] = "query.input" />

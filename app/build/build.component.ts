@@ -24,6 +24,7 @@ export class BuildComponent {
 					query: '',
 					input: '',
 					analyzeTest: '',
+					type: '',
 					parent_id: 0,
 					id: 0
 			};
@@ -81,7 +82,7 @@ export class BuildComponent {
 	}
 
 	createQuery(val, childExists) {
-		var query = this.queryList[val.analyzeTest][val.query].apply;
+		var query = this.queryList[val.analyzeTest][val.type][val.query].apply;
 		var field = this.mapping.resultQuery.availableFields[val.field].name;
 		var input = val.input;
 		var sampleobj = {};

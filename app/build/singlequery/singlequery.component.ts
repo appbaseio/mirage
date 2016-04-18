@@ -46,6 +46,7 @@ export class SinglequeryComponent {
 		setTimeout(function() {
 			var field = self.mapping.resultQuery.availableFields[self.query.field];
 			self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed'; 
+			self.query.type = field.type;
 		},300);
 	}
 }
