@@ -15,6 +15,7 @@ export class SinglequeryComponent {
 	public addQuery;
 	public removeQuery;
 	public removeArray = [];
+	public query = this.query;
 
 	addSubQuery(id) {
 		this.addQuery(id);
@@ -39,5 +40,12 @@ export class SinglequeryComponent {
 				}.bind(this));				
 			}.bind(this));
 		}
+	}
+	analyzeTest() {
+		var self = this;
+		setTimeout(function() {
+			var field = self.mapping.resultQuery.availableFields[self.query.field];
+			self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed'; 
+		},300);
 	}
 }

@@ -16,17 +16,26 @@ export class BuildComponent {
 	public queryList = queryList;
 	
 	addQuery(parent_id: number) {
-		var queryObj = {
-				field: '',
-				query: '',
-				input: '',
-				parent_id: 0,
-				id: 0
-		};
-		queryObj.id =  this.mapping.queryId;
-		queryObj.parent_id = parent_id;
-		this.mapping.queryId += 1;
-		this.mapping.resultQuery.result.push(queryObj);
+		
+		// Only if type is selected
+		if(this.mapping.types) {
+			var queryObj = {
+					field: '',
+					query: '',
+					input: '',
+					analyzeTest: '',
+					parent_id: 0,
+					id: 0
+			};
+			queryObj.id =  this.mapping.queryId;
+			queryObj.parent_id = parent_id;
+			this.mapping.queryId += 1;
+			this.mapping.resultQuery.result.push(queryObj);
+		}
+
+		else {
+			alert('Select type first.');
+		}
 	}
 
 	buildQuery() {
@@ -72,7 +81,7 @@ export class BuildComponent {
 	}
 
 	createQuery(val, childExists) {
-		var query = this.queryList.not_analyzed[val.query].apply;
+		var query = this.queryList[val.analyzeTest][val.query].apply;
 		var field = this.mapping.resultQuery.availableFields[val.field].name;
 		var input = val.input;
 		var sampleobj = {};

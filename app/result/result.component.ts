@@ -27,10 +27,10 @@ export class ResultComponent implements OnInit {
 
 	runQuery() {
 		var self = this;
-		var createUrl = this.config.url + '/' + this.config.appname + '/'+ this.mapping.resultQuery.type + '/_search';
+		var createUrl = this.config.url + '/' + this.config.appname + '/'+ this.mapping.selectedTypes + '/_search';
 		var autho = "Basic " + btoa(self.config.username + ':' + self.config.password);
 		var payload = JSON.parse(this.mapping.resultQuery.final);
-
+		// console.log(this.mapping.resultQuery);
 		$http.post(createUrl, payload, autho).then(function(res) {
 			self.mapping.output = JSON.stringify(res);
 		});
