@@ -41,12 +41,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="subQuery">
-			<form class="form-inline" *ngFor="#queryIn of mapping.resultQuery.result" >
-				<div *ngIf="queryIn.parent_id != 0 && queryIn.parent_id == query.id">{{queryIn.id}}
-					<single-query [mapping]="mapping" [config]="config" [query]="queryIn" [queryList]="queryList" [addQuery]="addQuery" [removeQuery]="removeQuery"></single-query>
-				</div>
-			</form>
-		</div>
+	</div>
+	<div class="subQuery">
+		<form class="form-inline" *ngFor="#queryIn of mapping.resultQuery.result" >
+			<div *ngIf="queryIn.parent_id != 0 && queryIn.parent_id == query.id">{{queryIn.id}}
+				<single-query [mapping]="mapping" [config]="config" [query]="queryIn" [queryList]="queryList" [addQuery]="addQuery" [removeQuery]="removeQuery"></single-query>
+			</div>
+		</form>
 	</div>
 </div>
