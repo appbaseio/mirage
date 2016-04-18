@@ -85,11 +85,34 @@ export class BuildComponent {
 		var query = this.queryList[val.analyzeTest][val.type][val.query].apply;
 		var field = this.mapping.resultQuery.availableFields[val.field].name;
 		var input = val.input;
-		var sampleobj = {};
-		sampleobj[query] = {};
-		sampleobj[query][field] = input;
+		var sampleobj = this.setQueryFormat(query, field, val);
 		if (childExists)
 			sampleobj['bool'] = { 'must': [] };
+		return sampleobj;
+	}
+
+	setQueryFormat(query, field, val) {
+		var sampleobj = {};
+		switch (query) {
+			case "gt":
+			case "lt":
+				 	sampleobj['range'] = {};
+				 	sampleobj['range'][field] = {};
+				 	sampleobj['range'][field][query] = val.input;
+				break;
+			case "range":
+			 	sampleobj['range'] = {};
+			 	sampleobj['range'][field] = {};
+			 	sampleobj['range'][field] = {
+			 		'from': val.from,
+			 		'to': val.to
+			 	};
+			break;
+			default:
+					sampleobj[query] = {};
+					sampleobj[query][field] = val.input;
+				break;
+		}
 		return sampleobj;
 	}
 

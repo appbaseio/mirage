@@ -15,8 +15,32 @@
 		<option value="">-- select any query --</option>
 		<option *ngFor="#oo of queryList[query.analyzeTest][query.type], #i=index" [value]="i">{{oo.name}}</option>
 	</select>
-	<div class="form-group form-element">
-		<input class="form-control" *ngIf="query.field != '' && query.query != ''" type="text" [(ngModel)] = "query.input" />
+	<div *ngIf="query.field != '' && query.query != ''">
+		<div [ngSwitch]="queryList[query.analyzeTest][query.type][query.query].apply">
+			<div *ngSwitchWhen="'range'">
+				<div class="form-group form-element">
+					<input type="number" class="form-control" placeholder="from" [(ngModel)] = "query.from" />	    
+				</div>
+				<div class="form-group form-element">
+					<input type="number" class="form-control" placeholder="to" [(ngModel)] = "query.to" />	    
+				</div>
+			</div>
+			<div *ngSwitchWhen="'gt'">
+				<div class="form-group form-element">
+					<input type="number" class="form-control" placeholder="Greater than" [(ngModel)] = "query.input" />	    
+				</div>
+			</div>
+			<div *ngSwitchWhen="'lt'">
+				<div class="form-group form-element">
+					<input type="number" class="form-control" placeholder="Less than" [(ngModel)] = "query.input" />	    
+				</div>
+			</div>
+			<div *ngSwitchDefault>
+				<div class="form-group form-element">
+					<input type="text" class="form-control" placeholder="Value" [(ngModel)] = "query.input" />	    
+				</div>
+			</div>
+        </div>
 	</div>
 	<!-- <div class="subQuery">
 	     <form class="form-inline"
