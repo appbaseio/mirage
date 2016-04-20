@@ -56,5 +56,20 @@ export var queryList = {
 				apply: 'lt'
 			}
 		]	
-	}
+	},
+	'boolQuery': [
+		{
+			name: 'must',
+			apply: 'must'
+		}, {
+			name: 'must_not',
+			apply: 'must_not'
+		}, {
+			name: 'should',
+			apply: 'should'
+		}, {
+			name: 'filter',
+			apply: 'filter'
+		}
+	]
 };

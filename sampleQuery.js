@@ -140,37 +140,101 @@
 
 // 8) multiple-1
 {
-   "query" : {
-      "filtered" : {
-         "filter" : {
-            "bool" : {
-              "should" : [
-                { "term" : {"productID" : "KDKE-B-9947-#kL5"}}, 
-                { "bool" : { 
-                  "must" : [
-                    { "term" : {"productID" : "JODL-X-1937-#pV7"}}, 
-                    { "term" : {"price" : 30}},
-                    {
-                    	"bool": {
-                    		"must" :{
-                    			"match" : {}
-                    		}
-                    	}
-                    } 
-                  ]
-                }}
-              ]
-           }
-         }
-      }
-   }
+	"query": {
+		"filtered": {
+			"filter": {
+				"bool": {
+					"should": [{
+						"term": {
+							"productID": "KDKE-B-9947-#kL5"
+						}
+					}, {
+						"bool": {
+							"must": [{
+								"term": {
+									"productID": "JODL-X-1937-#pV7"
+								}
+							}, {
+								"term": {
+									"price": 30
+								}
+							}, {
+								"bool": {
+									"must": {
+										"match": {}
+									}
+								}
+							}]
+						}
+					}]
+				}
+			}
+		}
+	}
 }
 
 // 9) terms
 {
-    "constant_score" : {
-        "filter" : {
-            "terms" : { "user" : ["kimchy", "elasticsearch"]}
-        }
-    }
+	"constant_score": {
+		"filter": {
+			"terms": {
+				"user": ["kimchy", "elasticsearch"]
+			}
+		}
+	}
+}
+
+// 10) Product example
+{
+	"query": {
+		"bool": {
+			"must": [{
+				"match": {
+					"name": "door"
+				}
+			}],
+			"must_not": [{
+					"range": {
+						"price": {
+							"gt": 20
+						}
+					}
+				}, {
+					"match": {
+						"name": "green"
+					}
+				}
+
+			]
+		}
+	}
+}
+
+// 11) Deep
+
+{
+	"query": {
+		"bool": {
+			"must": [{
+				"match": {
+					"name": "testing"
+				}
+			}, {
+				"bool": {
+					"must": {
+						"match": {
+							"name": "testing"
+						}
+					}
+				}
+			}],
+			"should": [{
+				"range": {
+					"price": {
+						"lt": 50
+					}
+				}
+			}]
+		}
+	}
 }

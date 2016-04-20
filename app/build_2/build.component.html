@@ -3,20 +3,19 @@
 		<form class="form-inline"
 		 *ngFor="#queryIn of mapping.resultQuery.result"
 		 >
-		 	<div *ngIf="queryIn.parent_id == 0">
-				<bool-query 
+			 <div *ngIf="queryIn.parent_id == 0">
+				<single-query 
 					[mapping]="mapping"
 					[config]="config" 
 					[query]="queryIn" 
 					[queryList]="queryList"
 					[addQuery]="addQuery"
-					[addBoolQuery]="addBoolQuery"
 					[removeQuery]="removeQuery">
-				</bool-query>
+				</single-query>
 			</div>	
 		</form>
 		<div class="col-xs-12 pd-0">
-			<button class="btn btn-info pull-left" (click)="addBoolQuery(0);">Add new query</button>
+			<button class="btn btn-info pull-left" (click)="addQuery(0);">Add new query</button>
 			<button class="btn btn-info pull-right" (click) = "buildQuery()">Build Query</button>
 		</div>
 		<p>{{mapping.resultQuery.result | json}}</p>

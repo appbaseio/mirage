@@ -1,0 +1,46 @@
+<div class="form-group single_query col-xs-12">
+	<div class="action-btn-group">
+		<a href="javascript:void(0)" (click)="addSubQuery(query.id)" class="btn btn-info">
+			<i class="fa fa-plus"></i> Nested query
+		</a>
+		<a href="javascript:void(0)" (click)="removeInQuery(query.id)" class="btn btn-danger">
+			<i class="fa fa-trash"></i>
+		</a>
+	</div>
+	<select class="form-control form-element" [(ngModel)]="query.boolparam">
+		<option *ngFor="#oo of queryList.boolQuery, #i=index" [value]="i">{{oo.name}}</option>
+	</select>
+	<div class="internvalQuery">
+		<form class="form-inline"
+		 *ngFor="#queryIn of query.internal, #internalIndex=index"
+		 >
+			<single-query 
+				[mapping]="mapping"
+				[config]="config" 
+				[query]="queryIn" 
+				[queryList]="queryList"
+				[internalIndex]="internalIndex"
+				[internal]="query.internal">
+			</single-query>
+
+		</form>
+		<div class="col-xs-12 pd-0">
+			<button class="btn btn-info pull-left" (click)="addQuery(query);">Add internal query</button>
+		</div>
+	</div>
+	<div class="subQuery">
+		<form class="form-inline" *ngFor="#queryIn of mapping.resultQuery.result">
+			<div *ngIf="queryIn.parent_id != 0 && queryIn.parent_id == query.id">
+				<bool-query 
+					[mapping]="mapping"
+					[config]="config" 
+					[query]="queryIn" 
+					[queryList]="queryList"
+					[addQuery]="addQuery"
+					[addBoolQuery]="addBoolQuery"
+					[removeQuery]="removeQuery">
+				</bool-query>
+			</div>
+		</form>
+	</div>
+</div>

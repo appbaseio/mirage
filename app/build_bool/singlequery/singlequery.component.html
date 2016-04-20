@@ -1,0 +1,15 @@
+<div class="form-group single_query col-xs-12">
+	<div class="action-btn-group">
+		<a href="javascript:void(0)" (click)="addSubQuery(query.id)" class="btn btn-info">
+			<i class="fa fa-plus"></i>
+		</a>
+		<a href="javascript:void(0)" (click)="removeInQuery(query.id)" class="btn btn-danger">
+			<i class="fa fa-trash"></i>
+		</a>
+	</div>
+	<select class="form-control form-element" [(ngModel)]="query.boolparam">
+		<option *ngFor="#oo of queryList.boolQuery, #i=index" [value]="i">{{oo.name}}</option>
+	</select>
+	<div class="subQuery">
+	</div>
+</div>

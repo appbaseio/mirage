@@ -1,5 +1,5 @@
-import {Component} from "angular2/core";
-import {SinglequeryComponent} from "./singlequery/singlequery.component";
+import {Component, OnInit} from "angular2/core";
+import {BoolqueryComponent} from "./boolquery/boolquery.component";
 import {queryList} from "../shared/queryList";
 
 @Component({
@@ -7,26 +7,29 @@ import {queryList} from "../shared/queryList";
 	templateUrl: './app/build/build.component.html',
 	styleUrls: ['./app/build/build.component.css'],
 	inputs: ['mapping', 'config'],
-	directives: [SinglequeryComponent]
+	directives: [BoolqueryComponent]
 })
 
-export class BuildComponent {
+export class BuildComponent  implements OnInit {
 	public mapping;
 	public config;
 	public queryList = queryList;
 	
-	addQuery(parent_id: number) {
-		
+	ngOnInit() {
+		// this.mapping.resultQuery.result = [ 
+		// 	{ "boolparam": 0, "parent_id": 0, "id": 1, "internal": []}, 
+		// 	{ "boolparam": 0, "parent_id": 1, "id": 2, "internal": [] } 
+		// ];
+	}
+
+	addBoolQuery(parent_id: number) {
 		// Only if type is selected
 		if(this.mapping.types) {
 			var queryObj = {
-					field: '',
-					query: '',
-					input: '',
-					analyzeTest: '',
-					type: '',
+					boolparam: 0,
 					parent_id: 0,
-					id: 0
+					id: 0,
+					internal: []
 			};
 			queryObj.id =  this.mapping.queryId;
 			queryObj.parent_id = parent_id;
@@ -39,37 +42,77 @@ export class BuildComponent {
 		}
 	}
 
+	addQuery(boolQuery) {
+		// Only if type is selected
+		if(this.mapping.types) {
+			var queryObj = {
+					field: '',
+					query: '',
+					input: '',
+					analyzeTest: '',
+					type: ''
+			};
+			boolQuery.internal.push(queryObj);
+		}
+
+		else {
+			alert('Select type first.');
+		}
+	}
+
 	buildQuery() {
-		var result = this.mapping.resultQuery.result;
-		var objChain = [];
-		
-		result.forEach(function(val0) {
-			var childExists = false;
-			result.forEach(function(val1) {
-				if (val0.id == val1.parent_id){
-					childExists = true;
+		var self = this;
+		var results = this.mapping.resultQuery.result;
+		var finalresult = {};
+		var es_final = {
+			'query': {
+				'bool' : finalresult
+			}
+		};
+		results.forEach(function(result) {
+			result.availableQuery = self.buildInsideQuery(result);
+		});
+
+		results.forEach(function(result0) {
+			results.forEach(function(result1) {
+				if(result1.parent_id == result0.id) {
+					var current_query = {
+						'bool':{}
+					};
+					var currentBool = self.queryList['boolQuery'][result1['boolparam']].apply;
+					current_query['bool'][currentBool] = result1.availableQuery;
+					result0.availableQuery.push(current_query);	
 				}
 			});
-			val0.appliedQuery = this.createQuery(val0, childExists);	
-		}.bind(this));
-		var es_query = {
-			"query": {
-				"bool": {
-					"must": objChain
-				}
-			}
-		}
-		this.buildSubQuery()
-		result.forEach(function(val) {
-			if(val.parent_id == 0) {
-				objChain.push(val.appliedQuery)
+		});
+		console.log(results);
+		results.forEach(function(result) {
+			if(result.parent_id === 0) {
+				var currentBool = self.queryList['boolQuery'][result['boolparam']].apply;
+				finalresult[currentBool] = result.availableQuery;
 			}
 		});
-		this.mapping.resultQuery.final = JSON.stringify(es_query, null, 4);
+		this.mapping.resultQuery.final = JSON.stringify(es_final, null, 4);
+	}
+
+	buildInsideQuery(result) {
+		var objChain = [];
+		result.internal.forEach(function(val0) {
+			var childExists = false;
+			val0.appliedQuery = this.createQuery(val0, childExists);	
+			console.log(val0.appliedQuery);
+		}.bind(this));
+
+		
+		// this.buildSubQuery()
+		result.internal.forEach(function(val) {
+			objChain.push(val.appliedQuery)
+		});
+		return objChain;
 	}
 
 	buildSubQuery() {
-		var result = this.mapping.resultQuery.result;
+		var result = this.mapping.resultQuery.result[0];
 		result.forEach(function(val0){
 			if (val0.parent_id != 0) {
 				result.forEach(function(val1){
@@ -86,8 +129,6 @@ export class BuildComponent {
 		var field = this.mapping.resultQuery.availableFields[val.field].name;
 		var input = val.input;
 		var sampleobj = this.setQueryFormat(query, field, val);
-		if (childExists)
-			sampleobj['bool'] = { 'must': [] };
 		return sampleobj;
 	}
 
