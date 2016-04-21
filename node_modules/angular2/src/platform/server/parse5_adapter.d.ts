@@ -74,10 +74,13 @@ export declare class Parse5DomAdapter extends DomAdapter {
     tagName(element: any): string;
     attributeMap(element: any): Map<string, string>;
     hasAttribute(element: any, attribute: string): boolean;
+    hasAttributeNS(element: any, ns: string, attribute: string): boolean;
     getAttribute(element: any, attribute: string): string;
+    getAttributeNS(element: any, ns: string, attribute: string): string;
     setAttribute(element: any, attribute: string, value: string): void;
     setAttributeNS(element: any, ns: string, attribute: string, value: string): void;
     removeAttribute(element: any, attribute: string): void;
+    removeAttributeNS(element: any, ns: string, name: string): void;
     templateAwareRoot(el: any): any;
     createHtmlDocument(): Document;
     defaultDoc(): Document;

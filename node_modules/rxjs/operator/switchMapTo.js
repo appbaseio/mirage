@@ -1,14 +1,13 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
-function switchMapTo(observable, projectResult) {
-    return this.lift(new SwitchMapToOperator(observable, projectResult));
+function switchMapTo(observable, resultSelector) {
+    return this.lift(new SwitchMapToOperator(observable, resultSelector));
 }
 exports.switchMapTo = switchMapTo;
 var SwitchMapToOperator = (function () {
@@ -20,60 +19,59 @@ var SwitchMapToOperator = (function () {
         return new SwitchMapToSubscriber(subscriber, this.observable, this.resultSelector);
     };
     return SwitchMapToOperator;
-})();
+}());
 var SwitchMapToSubscriber = (function (_super) {
     __extends(SwitchMapToSubscriber, _super);
     function SwitchMapToSubscriber(destination, inner, resultSelector) {
         _super.call(this, destination);
         this.inner = inner;
         this.resultSelector = resultSelector;
-        this.hasCompleted = false;
         this.index = 0;
     }
     SwitchMapToSubscriber.prototype._next = function (value) {
-        var index = this.index++;
         var innerSubscription = this.innerSubscription;
         if (innerSubscription) {
             innerSubscription.unsubscribe();
         }
-        this.add(this.innerSubscription = subscribeToResult_1.subscribeToResult(this, this.inner, value, index));
+        this.add(this.innerSubscription = subscribeToResult_1.subscribeToResult(this, this.inner, value, this.index++));
     };
     SwitchMapToSubscriber.prototype._complete = function () {
         var innerSubscription = this.innerSubscription;
-        this.hasCompleted = true;
         if (!innerSubscription || innerSubscription.isUnsubscribed) {
-            this.destination.complete();
+            _super.prototype._complete.call(this);
         }
+    };
+    SwitchMapToSubscriber.prototype._unsubscribe = function () {
+        this.innerSubscription = null;
     };
     SwitchMapToSubscriber.prototype.notifyComplete = function (innerSub) {
         this.remove(innerSub);
-        var prevSubscription = this.innerSubscription;
-        if (prevSubscription) {
-            prevSubscription.unsubscribe();
-        }
         this.innerSubscription = null;
-        if (this.hasCompleted) {
-            this.destination.complete();
+        if (this.isStopped) {
+            _super.prototype._complete.call(this);
         }
     };
-    SwitchMapToSubscriber.prototype.notifyError = function (err) {
-        this.destination.error(err);
-    };
-    SwitchMapToSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex) {
+    SwitchMapToSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
         var _a = this, resultSelector = _a.resultSelector, destination = _a.destination;
         if (resultSelector) {
-            var result = tryCatch_1.tryCatch(resultSelector)(outerValue, innerValue, outerIndex, innerIndex);
-            if (result === errorObject_1.errorObject) {
-                destination.error(errorObject_1.errorObject.e);
-            }
-            else {
-                destination.next(result);
-            }
+            this.tryResultSelector(outerValue, innerValue, outerIndex, innerIndex);
         }
         else {
             destination.next(innerValue);
         }
     };
+    SwitchMapToSubscriber.prototype.tryResultSelector = function (outerValue, innerValue, outerIndex, innerIndex) {
+        var _a = this, resultSelector = _a.resultSelector, destination = _a.destination;
+        var result;
+        try {
+            result = resultSelector(outerValue, innerValue, outerIndex, innerIndex);
+        }
+        catch (err) {
+            destination.error(err);
+            return;
+        }
+        destination.next(result);
+    };
     return SwitchMapToSubscriber;
-})(OuterSubscriber_1.OuterSubscriber);
+}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=switchMapTo.js.map

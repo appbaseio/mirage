@@ -1,1 +1,1 @@
-export declare function isDate(value: any): boolean;
+export declare function isDate(value: any): value is Date;

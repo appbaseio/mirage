@@ -19,7 +19,7 @@ function _getJsonpConnections() {
     return _jsonpConnections;
 }
 // Make sure not to evaluate this in a non-browser environment!
-export let BrowserJsonp = class {
+export let BrowserJsonp = class BrowserJsonp {
     // Construct a <script> element with the specified URL
     build(url) {
         let node = document.createElement('script');

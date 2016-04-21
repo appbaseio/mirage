@@ -129,7 +129,7 @@ export class RequestOptions {
  * console.log('req.url:', req.url); // https://google.com
  * ```
  */
-export let BaseRequestOptions = class extends RequestOptions {
+export let BaseRequestOptions = class BaseRequestOptions extends RequestOptions {
     constructor() {
         super({ method: RequestMethod.Get, headers: new Headers() });
     }

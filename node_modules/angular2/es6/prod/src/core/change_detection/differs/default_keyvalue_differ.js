@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { MapWrapper, StringMapWrapper } from 'angular2/src/facade/collection';
 import { stringify, looseIdentical, isJsObject, CONST, isBlank } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';
-export let DefaultKeyValueDifferFactory = class {
+export let DefaultKeyValueDifferFactory = class DefaultKeyValueDifferFactory {
     supports(obj) { return obj instanceof Map || isJsObject(obj); }
     create(cdRef) { return new DefaultKeyValueDiffer(); }
 };
@@ -106,7 +106,7 @@ export class DefaultKeyValueDiffer {
                     newSeqRecord = records.get(key);
                 }
                 else {
-                    newSeqRecord = new KVChangeRecord(key);
+                    newSeqRecord = new KeyValueChangeRecord(key);
                     records.set(key, newSeqRecord);
                     newSeqRecord.currentValue = value;
                     this._addToAdditions(newSeqRecord);
@@ -325,7 +325,7 @@ export class DefaultKeyValueDiffer {
         }
     }
 }
-export class KVChangeRecord {
+export class KeyValueChangeRecord {
     constructor(key) {
         this.key = key;
         this.previousValue = null;

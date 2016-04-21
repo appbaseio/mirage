@@ -1,1 +1,1 @@
-export declare function toPromise<T>(PromiseCtor?: PromiseConstructor): Promise<T>;
+export declare function toPromise<T>(PromiseCtor?: typeof Promise): Promise<T>;

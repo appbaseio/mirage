@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -35,11 +36,11 @@ var SubscribeOnObservable = (function (_super) {
         var delay = this.delayTime;
         var source = this.source;
         var scheduler = this.scheduler;
-        subscriber.add(scheduler.schedule(SubscribeOnObservable.dispatch, delay, {
+        return scheduler.schedule(SubscribeOnObservable.dispatch, delay, {
             source: source, subscriber: subscriber
-        }));
+        });
     };
     return SubscribeOnObservable;
-})(Observable_1.Observable);
+}(Observable_1.Observable));
 exports.SubscribeOnObservable = SubscribeOnObservable;
 //# sourceMappingURL=SubscribeOnObservable.js.map

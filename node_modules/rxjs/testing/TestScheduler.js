@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -216,6 +217,6 @@ var TestScheduler = (function (_super) {
         return testMessages;
     };
     return TestScheduler;
-})(VirtualTimeScheduler_1.VirtualTimeScheduler);
+}(VirtualTimeScheduler_1.VirtualTimeScheduler));
 exports.TestScheduler = TestScheduler;
 //# sourceMappingURL=TestScheduler.js.map

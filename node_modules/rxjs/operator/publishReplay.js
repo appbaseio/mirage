@@ -1,3 +1,4 @@
+"use strict";
 var ReplaySubject_1 = require('../subject/ReplaySubject');
 var multicast_1 = require('./multicast');
 function publishReplay(bufferSize, windowTime, scheduler) {

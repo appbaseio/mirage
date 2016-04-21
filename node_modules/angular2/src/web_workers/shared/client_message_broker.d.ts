@@ -1,5 +1,4 @@
 import { MessageBus } from "angular2/src/web_workers/shared/message_bus";
-import { Promise } from "angular2/src/facade/async";
 import { Serializer } from "angular2/src/web_workers/shared/serializer";
 import { Type } from "angular2/src/facade/lang";
 export { Type } from "angular2/src/facade/lang";

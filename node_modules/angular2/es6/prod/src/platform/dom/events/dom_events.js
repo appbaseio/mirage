@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { DOM } from 'angular2/src/platform/dom/dom_adapter';
 import { Injectable } from 'angular2/core';
 import { EventManagerPlugin } from './event_manager';
-export let DomEventsPlugin = class extends EventManagerPlugin {
+export let DomEventsPlugin = class DomEventsPlugin extends EventManagerPlugin {
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
     supports(eventName) { return true; }

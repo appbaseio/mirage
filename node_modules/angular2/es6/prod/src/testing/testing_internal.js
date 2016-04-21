@@ -110,6 +110,7 @@ function _it(jsmFn, name, testFn, testTimeOut) {
     if (testFn instanceof FunctionWithParamTokens) {
         // The test case uses inject(). ie `it('test', inject([AsyncTestCompleter], (async) => { ...
         // }));`
+        let testFnT = testFn;
         if (testFn.hasToken(AsyncTestCompleter)) {
             jsmFn(name, (done) => {
                 var completerProvider = provide(AsyncTestCompleter, {
@@ -123,14 +124,14 @@ function _it(jsmFn, name, testFn, testTimeOut) {
                 testInjector.addProviders([completerProvider]);
                 runner.run();
                 inIt = true;
-                testInjector.execute(testFn);
+                testInjector.execute(testFnT);
                 inIt = false;
             }, timeOut);
         }
         else {
             jsmFn(name, () => {
                 runner.run();
-                testInjector.execute(testFn);
+                testInjector.execute(testFnT);
             }, timeOut);
         }
     }
@@ -204,7 +205,4 @@ export class SpyObject {
         newSpy.and.returnValue(null);
         return newSpy;
     }
-}
-export function isInInnerZone() {
-    return global.zone._innerZone === true;
 }

@@ -1,4 +1,3 @@
-export { TypeLiteral } from './type_literal';
 /**
  * A unique object used for retrieving items from the {@link Injector}.
  *

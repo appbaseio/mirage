@@ -1,5 +1,5 @@
 import { Provider } from 'angular2/core';
-export { RouterLinkTransform } from 'angular2/src/router/router_link_transform';
+export { RouterLinkTransform } from 'angular2/src/router/directives/router_link_transform';
 /**
  * Enables the router link DSL.
  *

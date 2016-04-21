@@ -52,10 +52,6 @@ export declare enum ChangeDetectionStrategy {
      * `Default` means that the change detector's mode will be set to `CheckAlways` during hydration.
      */
     Default = 5,
-    /**
-     * This is an experimental feature. Works only in Dart.
-     */
-    OnPushObserve = 6,
 }
 /**
  * List of possible {@link ChangeDetectionStrategy} values.

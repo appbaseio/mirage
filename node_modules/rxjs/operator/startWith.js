@@ -1,8 +1,19 @@
-var fromArray_1 = require('../observable/fromArray');
+"use strict";
+var ArrayObservable_1 = require('../observable/ArrayObservable');
 var ScalarObservable_1 = require('../observable/ScalarObservable');
-var empty_1 = require('../observable/empty');
-var concat_static_1 = require('./concat-static');
+var EmptyObservable_1 = require('../observable/EmptyObservable');
+var concat_1 = require('./concat');
 var isScheduler_1 = require('../util/isScheduler');
+/**
+ * Returns an Observable that emits the items in a specified Iterable before it begins to emit items emitted by the
+ * source Observable.
+ *
+ * <img src="./img/startWith.png" width="100%">
+ *
+ * @param {Values} an Iterable that contains the items you want the modified Observable to emit first.
+ * @returns {Observable} an Observable that emits the items in the specified Iterable and then emits the items
+ * emitted by the source Observable.
+ */
 function startWith() {
     var array = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -13,17 +24,17 @@ function startWith() {
         array.pop();
     }
     else {
-        scheduler = void 0;
+        scheduler = null;
     }
     var len = array.length;
     if (len === 1) {
-        return concat_static_1.concat(new ScalarObservable_1.ScalarObservable(array[0], scheduler), this);
+        return concat_1.concatStatic(new ScalarObservable_1.ScalarObservable(array[0], scheduler), this);
     }
     else if (len > 1) {
-        return concat_static_1.concat(new fromArray_1.ArrayObservable(array, scheduler), this);
+        return concat_1.concatStatic(new ArrayObservable_1.ArrayObservable(array, scheduler), this);
     }
     else {
-        return concat_static_1.concat(new empty_1.EmptyObservable(scheduler), this);
+        return concat_1.concatStatic(new EmptyObservable_1.EmptyObservable(scheduler), this);
     }
 }
 exports.startWith = startWith;

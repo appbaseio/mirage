@@ -3,7 +3,6 @@ import { ElementRef } from './element_ref';
 import { HostViewFactoryRef, EmbeddedViewRef, HostViewRef, ViewRef } from './view_ref';
 import { ViewContainerRef } from './view_container_ref';
 import { TemplateRef } from './template_ref';
-import { AppViewListener } from './view_listener';
 import { RootRenderer } from 'angular2/src/core/render/api';
 /**
  * Service exposing low level API for creating, moving and destroying Views.
@@ -139,10 +138,9 @@ export declare abstract class AppViewManager {
 }
 export declare class AppViewManager_ extends AppViewManager {
     private _renderer;
-    private _viewListener;
     private _appId;
     private _nextCompTypeId;
-    constructor(_renderer: RootRenderer, _viewListener: AppViewListener, _appId: string);
+    constructor(_renderer: RootRenderer, _appId: string);
     getViewContainer(location: ElementRef): ViewContainerRef;
     getHostElement(hostViewRef: ViewRef): ElementRef;
     getNamedElementInComponentView(hostLocation: ElementRef, variableName: string): ElementRef;

@@ -53,4 +53,3 @@ export declare class SpyObject {
     prop(name: any, value: any): void;
     static stub(object?: any, config?: any, overrides?: any): any;
 }
-export declare function isInInnerZone(): boolean;

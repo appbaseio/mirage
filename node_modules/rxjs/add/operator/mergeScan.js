@@ -1,3 +1,4 @@
+"use strict";
 var Observable_1 = require('../../Observable');
 var mergeScan_1 = require('../../operator/mergeScan');
 var observableProto = Observable_1.Observable.prototype;

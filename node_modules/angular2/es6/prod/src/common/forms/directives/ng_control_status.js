@@ -17,7 +17,7 @@ import { isPresent } from 'angular2/src/facade/lang';
  * Directive automatically applied to Angular forms that sets CSS classes
  * based on control status (valid/invalid/dirty/etc).
  */
-export let NgControlStatus = class {
+export let NgControlStatus = class NgControlStatus {
     constructor(cd) {
         this._cd = cd;
     }

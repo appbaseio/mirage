@@ -60,13 +60,11 @@
             "ghostMode.submit":  "Form Submissions will be synced",
             "ghostMode.inputs":  "Text inputs (including text-areas) will be synced",
             "ghostMode.toggles": "Radio + Checkboxes changes will be synced",
-            codeSync:            "Reload the browser or inject CSS when watched files change"
+            codeSync:            "Reload or Inject files they change"
         };
 
         // If watching files, add the code-sync toggle
-        if (hasWatchers(ctrl.options.files)) {
-            ctrl.syncItems.push(addItem("codeSync", ["codeSync"], ctrl.options.codeSync, taglines["codeSync"]));
-        }
+        ctrl.syncItems.push(addItem("codeSync", ["codeSync"], ctrl.options.codeSync, taglines["codeSync"]));
 
         Object.keys(ctrl.options.ghostMode).forEach(function (item) {
             if (item !== "forms" && item !== "location") {
@@ -86,15 +84,6 @@
                 title: ucfirst(item),
                 tagline: tagline
             };
-        }
-
-        function hasWatchers (files) {
-            if (!files) {
-                return false;
-            }
-            return Object.keys(files).some(function (key) {
-                return files[key].length;
-            });
         }
     }
 

@@ -11,6 +11,7 @@ import { resolveForwardRef, Injectable } from 'angular2/src/core/di';
 import { isPresent, stringify } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { PipeMetadata } from 'angular2/src/core/metadata';
+import { ReflectorReader } from 'angular2/src/core/reflection/reflector_reader';
 import { reflector } from 'angular2/src/core/reflection/reflection';
 function _isPipeMetadata(type) {
     return type instanceof PipeMetadata;
@@ -22,12 +23,20 @@ function _isPipeMetadata(type) {
  *
  * See {@link Compiler}
  */
-export let PipeResolver = class {
+export let PipeResolver = class PipeResolver {
+    constructor(_reflector) {
+        if (isPresent(_reflector)) {
+            this._reflector = _reflector;
+        }
+        else {
+            this._reflector = reflector;
+        }
+    }
     /**
      * Return {@link PipeMetadata} for a given `Type`.
      */
     resolve(type) {
-        var metas = reflector.annotations(resolveForwardRef(type));
+        var metas = this._reflector.annotations(resolveForwardRef(type));
         if (isPresent(metas)) {
             var annotation = metas.find(_isPipeMetadata);
             if (isPresent(annotation)) {
@@ -39,6 +48,6 @@ export let PipeResolver = class {
 };
 PipeResolver = __decorate([
     Injectable(), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [ReflectorReader])
 ], PipeResolver);
-export var CODEGEN_PIPE_RESOLVER = new PipeResolver();
+export var CODEGEN_PIPE_RESOLVER = new PipeResolver(reflector);

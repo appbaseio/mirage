@@ -8,13 +8,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { provide, Component } from 'angular2/core';
-import { bootstrap } from 'angular2/bootstrap';
+import { bootstrap } from 'angular2/platform/browser';
 import { CanActivate, RouteConfig, APP_BASE_HREF, ROUTER_DIRECTIVES } from 'angular2/router';
 function checkIfWeHavePermission(instruction) {
     return instruction.params['id'] == '1';
 }
 // #docregion canActivate
-let ControlPanelCmp = class {
+let ControlPanelCmp = class ControlPanelCmp {
 };
 ControlPanelCmp = __decorate([
     Component({ selector: 'control-panel-cmp', template: `<div>Settings: ...</div>` }),
@@ -22,7 +22,7 @@ ControlPanelCmp = __decorate([
     __metadata('design:paramtypes', [])
 ], ControlPanelCmp);
 // #enddocregion
-let HomeCmp = class {
+let HomeCmp = class HomeCmp {
 };
 HomeCmp = __decorate([
     Component({
@@ -38,7 +38,7 @@ HomeCmp = __decorate([
     }), 
     __metadata('design:paramtypes', [])
 ], HomeCmp);
-let AppCmp = class {
+let AppCmp = class AppCmp {
 };
 AppCmp = __decorate([
     Component({

@@ -1,3 +1,4 @@
+"use strict";
 function not(pred, thisArg) {
     function notPred() {
         return !(notPred.pred.apply(notPred.thisArg, arguments));

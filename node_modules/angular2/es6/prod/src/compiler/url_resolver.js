@@ -35,7 +35,7 @@ export var DEFAULT_PACKAGE_URL_PROVIDER = new Provider(PACKAGE_ROOT_URL, { useVa
  *
  * {@example compiler/ts/url_resolver/url_resolver.ts region='url_resolver'}
  */
-export let UrlResolver = class {
+export let UrlResolver = class UrlResolver {
     constructor(packagePrefix = null) {
         if (isPresent(packagePrefix)) {
             this._packagePrefix = StringWrapper.stripRight(packagePrefix, "/") + "/";

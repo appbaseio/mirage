@@ -12,6 +12,6 @@ export declare class HotObservable<T> extends Subject<T> implements Subscription
     logSubscribedFrame: () => number;
     logUnsubscribedFrame: (index: number) => void;
     constructor(messages: TestMessage[], scheduler: Scheduler);
-    _subscribe(subscriber: Subscriber<any>): Subscription<T>;
+    protected _subscribe(subscriber: Subscriber<any>): Subscription | Function | void;
     setup(): void;
 }

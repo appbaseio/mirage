@@ -9,11 +9,13 @@ const LINK_STYLE_REL_VALUE = 'stylesheet';
 const STYLE_ELEMENT = 'style';
 const SCRIPT_ELEMENT = 'script';
 const NG_NON_BINDABLE_ATTR = 'ngNonBindable';
+const NG_PROJECT_AS = 'ngProjectAs';
 export function preparseElement(ast) {
     var selectAttr = null;
     var hrefAttr = null;
     var relAttr = null;
     var nonBindable = false;
+    var projectAs = null;
     ast.attrs.forEach(attr => {
         let lcAttrName = attr.name.toLowerCase();
         if (lcAttrName == NG_CONTENT_SELECT_ATTR) {
@@ -27,6 +29,11 @@ export function preparseElement(ast) {
         }
         else if (attr.name == NG_NON_BINDABLE_ATTR) {
             nonBindable = true;
+        }
+        else if (attr.name == NG_PROJECT_AS) {
+            if (attr.value.length > 0) {
+                projectAs = attr.value;
+            }
         }
     });
     selectAttr = normalizeNgContentSelect(selectAttr);
@@ -44,7 +51,7 @@ export function preparseElement(ast) {
     else if (nodeName == LINK_ELEMENT && relAttr == LINK_STYLE_REL_VALUE) {
         type = PreparsedElementType.STYLESHEET;
     }
-    return new PreparsedElement(type, selectAttr, hrefAttr, nonBindable);
+    return new PreparsedElement(type, selectAttr, hrefAttr, nonBindable, projectAs);
 }
 export var PreparsedElementType;
 (function (PreparsedElementType) {
@@ -55,11 +62,12 @@ export var PreparsedElementType;
     PreparsedElementType[PreparsedElementType["OTHER"] = 4] = "OTHER";
 })(PreparsedElementType || (PreparsedElementType = {}));
 export class PreparsedElement {
-    constructor(type, selectAttr, hrefAttr, nonBindable) {
+    constructor(type, selectAttr, hrefAttr, nonBindable, projectAs) {
         this.type = type;
         this.selectAttr = selectAttr;
         this.hrefAttr = hrefAttr;
         this.nonBindable = nonBindable;
+        this.projectAs = projectAs;
     }
 }
 function normalizeNgContentSelect(selectAttr) {

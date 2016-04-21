@@ -31,7 +31,7 @@ import { isBlank } from 'angular2/src/facade/lang';
  * - `<div template="ngIf condition">...</div>`
  * - `<template [ngIf]="condition"><div>...</div></template>`
  */
-export let NgIf = class {
+export let NgIf = class NgIf {
     constructor(_viewContainer, _templateRef) {
         this._viewContainer = _viewContainer;
         this._templateRef = _templateRef;

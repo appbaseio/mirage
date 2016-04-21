@@ -1,16 +1,24 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var asap_1 = require('../scheduler/asap');
+var isDate_1 = require('../util/isDate');
 var Subscriber_1 = require('../Subscriber');
 var Notification_1 = require('../Notification');
-var queue_1 = require('../scheduler/queue');
-var isDate_1 = require('../util/isDate');
+/**
+ * Returns an Observable that delays the emission of items from the source Observable
+ * by a given timeout or until a given Date.
+ * @param {number|Date} delay the timeout value or date until which the emission of the source items is delayed.
+ * @param {Scheduler} [scheduler] the Scheduler to use for managing the timers that handle the timeout for each item.
+ * @returns {Observable} an Observable that delays the emissions of the source Observable by the specified timeout or Date.
+ */
 function delay(delay, scheduler) {
-    if (scheduler === void 0) { scheduler = queue_1.queue; }
+    if (scheduler === void 0) { scheduler = asap_1.asap; }
     var absoluteDelay = isDate_1.isDate(delay);
-    var delayFor = absoluteDelay ? (+delay - scheduler.now()) : delay;
+    var delayFor = absoluteDelay ? (+delay - scheduler.now()) : Math.abs(delay);
     return this.lift(new DelayOperator(delayFor, scheduler));
 }
 exports.delay = delay;
@@ -23,7 +31,7 @@ var DelayOperator = (function () {
         return new DelaySubscriber(subscriber, this.delay, this.scheduler);
     };
     return DelayOperator;
-})();
+}());
 var DelaySubscriber = (function (_super) {
     __extends(DelaySubscriber, _super);
     function DelaySubscriber(destination, delay, scheduler) {
@@ -79,12 +87,12 @@ var DelaySubscriber = (function (_super) {
         this.scheduleNotification(Notification_1.Notification.createComplete());
     };
     return DelaySubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 var DelayMessage = (function () {
     function DelayMessage(time, notification) {
         this.time = time;
         this.notification = notification;
     }
     return DelayMessage;
-})();
+}());
 //# sourceMappingURL=delay.js.map

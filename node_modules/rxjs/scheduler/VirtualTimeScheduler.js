@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -8,7 +9,7 @@ var VirtualTimeScheduler = (function () {
     function VirtualTimeScheduler() {
         this.actions = [];
         this.active = false;
-        this.scheduled = false;
+        this.scheduledId = null;
         this.index = 0;
         this.sorted = false;
         this.frame = 0;
@@ -63,7 +64,7 @@ var VirtualTimeScheduler = (function () {
     };
     VirtualTimeScheduler.frameTimeFactor = 10;
     return VirtualTimeScheduler;
-})();
+}());
 exports.VirtualTimeScheduler = VirtualTimeScheduler;
 var VirtualAction = (function (_super) {
     __extends(VirtualAction, _super);
@@ -114,5 +115,5 @@ var VirtualAction = (function (_super) {
         _super.prototype.unsubscribe.call(this);
     };
     return VirtualAction;
-})(Subscription_1.Subscription);
+}(Subscription_1.Subscription));
 //# sourceMappingURL=VirtualTimeScheduler.js.map

@@ -5,5 +5,6 @@ export declare class MapPolyfill {
     get(key: any): any;
     set(key: any, value: any): this;
     delete(key: any): boolean;
-    forEach(cb: any, thisArg: any): void;
+    clear(): void;
+    forEach(cb: Function, thisArg: any): void;
 }

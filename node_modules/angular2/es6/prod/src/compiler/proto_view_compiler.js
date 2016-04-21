@@ -28,7 +28,7 @@ export var METADATA_MODULE_REF = moduleRef('package:angular2/src/core/metadata/v
 const IMPLICIT_TEMPLATE_VAR = '\$implicit';
 const CLASS_ATTR = 'class';
 const STYLE_ATTR = 'style';
-export let ProtoViewCompiler = class {
+export let ProtoViewCompiler = class ProtoViewCompiler {
     constructor() {
     }
     compileProtoViewRuntime(metadataCache, component, template, pipes) {

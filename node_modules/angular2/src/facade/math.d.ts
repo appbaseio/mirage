@@ -1,2 +1,2 @@
-export declare var Math: Math;
+export declare var Math: any;
 export declare var NaN: any;

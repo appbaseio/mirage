@@ -8,10 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from 'angular2/core';
-export let MyComponent = class {
+export let MyComponent = class MyComponent {
 };
 MyComponent = __decorate([
     Component({ selector: 'my-component', template: '<h1>My Component</h1>' }), 
     __metadata('design:paramtypes', [])
 ], MyComponent);
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibXlfY29tcG9uZW50LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiYW5ndWxhcjIvZXhhbXBsZXMvY29yZS90cy9wcm9kX21vZGUvbXlfY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbIk15Q29tcG9uZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7T0FBTyxFQUFDLFNBQVMsRUFBQyxNQUFNLGVBQWU7QUFFdkM7QUFFQUEsQ0FBQ0E7QUFGRDtJQUFDLFNBQVMsQ0FBQyxFQUFDLFFBQVEsRUFBRSxjQUFjLEVBQUUsUUFBUSxFQUFFLHVCQUF1QixFQUFDLENBQUM7O2dCQUV4RTtBQUFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtDb21wb25lbnR9IGZyb20gJ2FuZ3VsYXIyL2NvcmUnO1xuXG5AQ29tcG9uZW50KHtzZWxlY3RvcjogJ215LWNvbXBvbmVudCcsIHRlbXBsYXRlOiAnPGgxPk15IENvbXBvbmVudDwvaDE+J30pXG5leHBvcnQgY2xhc3MgTXlDb21wb25lbnQge1xufVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibXlfY29tcG9uZW50LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZGlmZmluZ19wbHVnaW5fd3JhcHBlci1vdXRwdXRfcGF0aC1vWERPNHAydi50bXAvYW5ndWxhcjIvZXhhbXBsZXMvY29yZS90cy9wcm9kX21vZGUvbXlfY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7OztPQUFPLEVBQUMsU0FBUyxFQUFDLE1BQU0sZUFBZTtBQUd2QztBQUNBLENBQUM7QUFGRDtJQUFDLFNBQVMsQ0FBQyxFQUFDLFFBQVEsRUFBRSxjQUFjLEVBQUUsUUFBUSxFQUFFLHVCQUF1QixFQUFDLENBQUM7O2VBQUE7QUFFeEUiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge0NvbXBvbmVudH0gZnJvbSAnYW5ndWxhcjIvY29yZSc7XG5cbkBDb21wb25lbnQoe3NlbGVjdG9yOiAnbXktY29tcG9uZW50JywgdGVtcGxhdGU6ICc8aDE+TXkgQ29tcG9uZW50PC9oMT4nfSlcbmV4cG9ydCBjbGFzcyBNeUNvbXBvbmVudCB7XG59XG4iXX0=

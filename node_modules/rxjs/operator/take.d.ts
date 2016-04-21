@@ -1,1 +1,2 @@
-export declare function take(total: any): any;
+import { Observable } from '../Observable';
+export declare function take<T>(total: number): Observable<T>;

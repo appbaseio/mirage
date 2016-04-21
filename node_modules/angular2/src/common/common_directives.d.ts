@@ -5,7 +5,7 @@ import { Type } from 'angular2/src/facade/lang';
  * NgModel).
  *
  * This collection can be used to quickly enumerate all the built-in directives in the `directives`
- * property of the `@Component` or `@View` decorators.
+ * property of the `@Component` decorator.
  *
  * ### Example
  *

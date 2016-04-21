@@ -1,12 +1,18 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
+/**
+ * Returns an Observable that applies the given function to each item of the source Observable
+ * to create a new Observable, which are then concatenated together to produce a new Observable.
+ * @param {function} project function called for each item of the source to produce a new Observable.
+ * @param {function} [resultSelector] optional function for then selecting on each inner Observable.
+ * @returns {Observable} an Observable containing all the projected Observables of each item of the source concatenated together.
+ */
 function exhaustMap(project, resultSelector) {
     return this.lift(new SwitchFirstMapOperator(project, resultSelector));
 }
@@ -20,7 +26,7 @@ var SwitchFirstMapOperator = (function () {
         return new SwitchFirstMapSubscriber(subscriber, this.project, this.resultSelector);
     };
     return SwitchFirstMapOperator;
-})();
+}());
 var SwitchFirstMapSubscriber = (function (_super) {
     __extends(SwitchFirstMapSubscriber, _super);
     function SwitchFirstMapSubscriber(destination, project, resultSelector) {
@@ -33,16 +39,19 @@ var SwitchFirstMapSubscriber = (function (_super) {
     }
     SwitchFirstMapSubscriber.prototype._next = function (value) {
         if (!this.hasSubscription) {
-            var index = this.index++;
-            var destination = this.destination;
-            var result = tryCatch_1.tryCatch(this.project)(value, index);
-            if (result === errorObject_1.errorObject) {
-                destination.error(result.e);
-            }
-            else {
-                this.hasSubscription = true;
-                this.add(subscribeToResult_1.subscribeToResult(this, result, value, index));
-            }
+            this.tryNext(value);
+        }
+    };
+    SwitchFirstMapSubscriber.prototype.tryNext = function (value) {
+        var index = this.index++;
+        var destination = this.destination;
+        try {
+            var result = this.project(value, index);
+            this.hasSubscription = true;
+            this.add(subscribeToResult_1.subscribeToResult(this, result, value, index));
+        }
+        catch (err) {
+            destination.error(err);
         }
     };
     SwitchFirstMapSubscriber.prototype._complete = function () {
@@ -51,19 +60,23 @@ var SwitchFirstMapSubscriber = (function (_super) {
             this.destination.complete();
         }
     };
-    SwitchFirstMapSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex) {
+    SwitchFirstMapSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
         var _a = this, resultSelector = _a.resultSelector, destination = _a.destination;
         if (resultSelector) {
-            var result = tryCatch_1.tryCatch(resultSelector)(outerValue, innerValue, outerIndex, innerIndex);
-            if (result === errorObject_1.errorObject) {
-                destination.error(errorObject_1.errorObject.e);
-            }
-            else {
-                destination.next(result);
-            }
+            this.trySelectResult(outerValue, innerValue, outerIndex, innerIndex);
         }
         else {
             destination.next(innerValue);
+        }
+    };
+    SwitchFirstMapSubscriber.prototype.trySelectResult = function (outerValue, innerValue, outerIndex, innerIndex) {
+        var _a = this, resultSelector = _a.resultSelector, destination = _a.destination;
+        try {
+            var result = resultSelector(outerValue, innerValue, outerIndex, innerIndex);
+            destination.next(result);
+        }
+        catch (err) {
+            destination.error(err);
         }
     };
     SwitchFirstMapSubscriber.prototype.notifyError = function (err) {
@@ -76,5 +89,5 @@ var SwitchFirstMapSubscriber = (function (_super) {
         }
     };
     return SwitchFirstMapSubscriber;
-})(OuterSubscriber_1.OuterSubscriber);
+}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=exhaustMap.js.map

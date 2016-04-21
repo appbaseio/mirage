@@ -1,6 +1,8 @@
 import { Subject } from './Subject';
 import { Observable } from './Observable';
-import { Subscription } from './Subscription';
+import { Operator } from './Operator';
+import { Observer } from './Observer';
+import { Subscription, UnsubscriptionError } from './Subscription';
 import { Subscriber } from './Subscriber';
 import { AsyncSubject } from './subject/AsyncSubject';
 import { ReplaySubject } from './subject/ReplaySubject';
@@ -19,4 +21,4 @@ declare var Scheduler: {
 declare var Symbol: {
     rxSubscriber: any;
 };
-export { Subject, Scheduler, Observable, Subscriber, Subscription, Symbol, AsyncSubject, ReplaySubject, BehaviorSubject, ConnectableObservable, Notification, EmptyError, ArgumentOutOfRangeError, ObjectUnsubscribedError };
+export { Subject, Scheduler, Observable, Observer, Operator, Subscriber, Subscription, Symbol, AsyncSubject, ReplaySubject, BehaviorSubject, ConnectableObservable, Notification, EmptyError, ArgumentOutOfRangeError, ObjectUnsubscribedError, UnsubscriptionError };

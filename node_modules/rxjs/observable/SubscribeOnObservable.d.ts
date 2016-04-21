@@ -10,7 +10,7 @@ export declare class SubscribeOnObservable<T> extends Observable<T> {
     static dispatch<T>({source, subscriber}: {
         source: any;
         subscriber: any;
-    }): Subscription<T>;
+    }): Subscription;
     constructor(source: Observable<T>, delayTime?: number, scheduler?: Scheduler);
-    _subscribe(subscriber: Subscriber<T>): void;
+    protected _subscribe(subscriber: Subscriber<T>): Subscription;
 }

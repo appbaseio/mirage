@@ -1,16 +1,17 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = require('../Subscriber');
-var queue_1 = require('../scheduler/queue');
+var asap_1 = require('../scheduler/asap');
 var isDate_1 = require('../util/isDate');
+var Subscriber_1 = require('../Subscriber');
 function timeout(due, errorToSend, scheduler) {
     if (errorToSend === void 0) { errorToSend = null; }
-    if (scheduler === void 0) { scheduler = queue_1.queue; }
+    if (scheduler === void 0) { scheduler = asap_1.asap; }
     var absoluteTimeout = isDate_1.isDate(due);
-    var waitFor = absoluteTimeout ? (+due - scheduler.now()) : due;
+    var waitFor = absoluteTimeout ? (+due - scheduler.now()) : Math.abs(due);
     return this.lift(new TimeoutOperator(waitFor, absoluteTimeout, errorToSend, scheduler));
 }
 exports.timeout = timeout;
@@ -25,7 +26,7 @@ var TimeoutOperator = (function () {
         return new TimeoutSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.errorToSend, this.scheduler);
     };
     return TimeoutOperator;
-})();
+}());
 var TimeoutSubscriber = (function (_super) {
     __extends(TimeoutSubscriber, _super);
     function TimeoutSubscriber(destination, absoluteTimeout, waitFor, errorToSend, scheduler) {
@@ -84,5 +85,5 @@ var TimeoutSubscriber = (function (_super) {
         this.error(this.errorToSend || new Error('timeout'));
     };
     return TimeoutSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=timeout.js.map

@@ -13,7 +13,7 @@ import { isPresent, stringify, isBlank } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { ViewMetadata } from '../core/metadata';
 import { ViewResolver } from 'angular2/src/core/linker/view_resolver';
-export let MockViewResolver = class extends ViewResolver {
+export let MockViewResolver = class MockViewResolver extends ViewResolver {
     constructor() {
         super();
         /** @internal */

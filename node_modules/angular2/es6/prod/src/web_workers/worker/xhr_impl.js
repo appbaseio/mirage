@@ -15,7 +15,7 @@ import { XHR_CHANNEL } from 'angular2/src/web_workers/shared/messaging_api';
  * Implementation of compiler/xhr that relays XHR requests to the UI side where they are sent
  * and the result is proxied back to the worker
  */
-export let WebWorkerXHRImpl = class extends XHR {
+export let WebWorkerXHRImpl = class WebWorkerXHRImpl extends XHR {
     constructor(messageBrokerFactory) {
         super();
         this._messageBroker = messageBrokerFactory.createMessageBroker(XHR_CHANNEL);

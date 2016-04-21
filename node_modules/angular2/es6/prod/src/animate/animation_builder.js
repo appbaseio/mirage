@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from 'angular2/src/core/di';
 import { CssAnimationBuilder } from './css_animation_builder';
 import { BrowserDetails } from './browser_details';
-export let AnimationBuilder = class {
+export let AnimationBuilder = class AnimationBuilder {
     /**
      * Used for DI
      * @param browserDetails

@@ -1,3 +1,4 @@
+import { Observable } from '../Observable';
 /**
  * Takes an Observable of Observables, and collects all observables from it. Once the outer observable
  * completes, it subscribes to all collected observables and "combines" their values, such that:
@@ -10,4 +11,4 @@
  *   most recent values from each collected observable as arguments, in order.
  * @returns {Observable} an observable of projected results or arrays of recent values.
  */
-export declare function combineAll<T, R>(project?: (...values: Array<any>) => R): any;
+export declare function combineAll<T, R>(project?: (...values: Array<any>) => R): Observable<R>;

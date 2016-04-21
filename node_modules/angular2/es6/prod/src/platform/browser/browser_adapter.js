@@ -217,12 +217,19 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return res;
     }
     hasAttribute(element, attribute) { return element.hasAttribute(attribute); }
+    hasAttributeNS(element, ns, attribute) {
+        return element.hasAttributeNS(ns, attribute);
+    }
     getAttribute(element, attribute) { return element.getAttribute(attribute); }
+    getAttributeNS(element, ns, name) {
+        return element.getAttributeNS(ns, name);
+    }
     setAttribute(element, name, value) { element.setAttribute(name, value); }
     setAttributeNS(element, ns, name, value) {
         element.setAttributeNS(ns, name, value);
     }
     removeAttribute(element, attribute) { element.removeAttribute(attribute); }
+    removeAttributeNS(element, ns, name) { element.removeAttributeNS(ns, name); }
     templateAwareRoot(el) { return this.isTemplateElement(el) ? this.content(el) : el; }
     createHtmlDocument() {
         return document.implementation.createHTMLDocument('fakeTitle');

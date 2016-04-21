@@ -13,7 +13,7 @@ import { TemplateCompiler } from './template_compiler';
 import { Injectable } from 'angular2/src/core/di';
 export class RuntimeCompiler extends Compiler {
 }
-export let RuntimeCompiler_ = class extends Compiler_ {
+export let RuntimeCompiler_ = class RuntimeCompiler_ extends Compiler_ {
     constructor(_templateCompiler) {
         super();
         this._templateCompiler = _templateCompiler;

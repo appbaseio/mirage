@@ -1,6 +1,5 @@
 import { HostViewFactoryRef } from 'angular2/src/core/linker/view_ref';
 import { Type } from 'angular2/src/facade/lang';
-import { Promise } from 'angular2/src/facade/async';
 import { HostViewFactoryRef_ } from 'angular2/src/core/linker/view_ref';
 /**
  * Low-level service for compiling {@link Component}s into {@link ProtoViewRef ProtoViews}s, which

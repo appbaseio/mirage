@@ -1,11 +1,20 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
+/**
+ * Returns an Observable that skips all items emitted by the source Observable as long as a specified condition holds
+ * true, but emits all further source items as soon as the condition becomes false.
+ *
+ * <img src="./img/skipWhile.png" width="100%">
+ *
+ * @param {Function} predicate - a function to test each item emitted from the source Observable.
+ * @returns {Observable<T>} an Observable that begins emitting items emitted by the source Observable when the
+ * specified predicate becomes false.
+ */
 function skipWhile(predicate) {
     return this.lift(new SkipWhileOperator(predicate));
 }
@@ -18,7 +27,7 @@ var SkipWhileOperator = (function () {
         return new SkipWhileSubscriber(subscriber, this.predicate);
     };
     return SkipWhileOperator;
-})();
+}());
 var SkipWhileSubscriber = (function (_super) {
     __extends(SkipWhileSubscriber, _super);
     function SkipWhileSubscriber(destination, predicate) {
@@ -29,20 +38,22 @@ var SkipWhileSubscriber = (function (_super) {
     }
     SkipWhileSubscriber.prototype._next = function (value) {
         var destination = this.destination;
-        if (this.skipping === true) {
-            var index = this.index++;
-            var result = tryCatch_1.tryCatch(this.predicate)(value, index);
-            if (result === errorObject_1.errorObject) {
-                destination.error(result.e);
-            }
-            else {
-                this.skipping = Boolean(result);
-            }
+        if (this.skipping) {
+            this.tryCallPredicate(value);
         }
-        if (this.skipping === false) {
+        if (!this.skipping) {
             destination.next(value);
         }
     };
+    SkipWhileSubscriber.prototype.tryCallPredicate = function (value) {
+        try {
+            var result = this.predicate(value, this.index++);
+            this.skipping = Boolean(result);
+        }
+        catch (err) {
+            this.destination.error(err);
+        }
+    };
     return SkipWhileSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=skipWhile.js.map

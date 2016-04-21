@@ -5,10 +5,7 @@
 hookConstructor(function(constructor) {
   return function() {
     constructor.apply(this, arguments);
-
-    // prepare amd define
-    if (this.has('@@amd-helpers'))
-      this.get('@@amd-helpers').createDefine();
+    __global.define = this.amdDefine;
   };
 });
 

@@ -4,9 +4,9 @@
 var tfunk = require("tfunk");
 
 /**
- * Lodash for utils
+ * Lodash.clonedeep for deep cloning
  */
-var _     = require("lodash");
+var cloneDeep = require("lodash.clonedeep");
 
 /**
  * opt-merger for option merging
@@ -86,9 +86,9 @@ var Logger = function(config) {
  */
 Logger.prototype.setOnce = function (path, value) {
 
-    if (!_.isUndefined(this.config[path])) {
+    if (typeof this.config[path] !== "undefined") {
 
-        if (_.isUndefined(this._memo[path])) {
+        if (typeof this._memo[path] === "undefined") {
             this._memo[path] = this.config[path];
         }
 
@@ -181,10 +181,10 @@ Logger.prototype.setLevelPrefixes = function (state) {
  * @param prefix
  */
 Logger.prototype.setPrefix = function (prefix) {
-    if (_.isString(prefix)) {
+    if (typeof prefix === "string") {
         this.compiler.prefix = this.compiler.compile(prefix, true);
     }
-    if (_.isFunction(prefix)) {
+    if (typeof prefix === "function") {
         this.compiler.prefix = prefix;
     }
 };
@@ -259,7 +259,7 @@ Logger.prototype.mute = function (bool) {
  */
 Logger.prototype.clone = function (opts) {
 
-    var config = _.cloneDeep(this.config);
+    var config = cloneDeep(this.config);
 
     if (typeof opts === "function") {
         config = opts(config) || {};

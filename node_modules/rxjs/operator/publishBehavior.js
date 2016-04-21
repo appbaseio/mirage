@@ -1,3 +1,4 @@
+"use strict";
 var BehaviorSubject_1 = require('../subject/BehaviorSubject');
 var multicast_1 = require('./multicast');
 function publishBehavior(value) {

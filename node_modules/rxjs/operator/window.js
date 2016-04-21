@@ -1,10 +1,12 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = require('../Subscriber');
 var Subject_1 = require('../Subject');
+var OuterSubscriber_1 = require('../OuterSubscriber');
+var subscribeToResult_1 = require('../util/subscribeToResult');
 function window(closingNotifier) {
     return this.lift(new WindowOperator(closingNotifier));
 }
@@ -17,16 +19,25 @@ var WindowOperator = (function () {
         return new WindowSubscriber(subscriber, this.closingNotifier);
     };
     return WindowOperator;
-})();
+}());
 var WindowSubscriber = (function (_super) {
     __extends(WindowSubscriber, _super);
     function WindowSubscriber(destination, closingNotifier) {
         _super.call(this, destination);
         this.destination = destination;
         this.closingNotifier = closingNotifier;
-        this.add(closingNotifier._subscribe(new WindowClosingNotifierSubscriber(this)));
+        this.add(subscribeToResult_1.subscribeToResult(this, closingNotifier));
         this.openWindow();
     }
+    WindowSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.openWindow();
+    };
+    WindowSubscriber.prototype.notifyError = function (error, innerSub) {
+        this._error(error);
+    };
+    WindowSubscriber.prototype.notifyComplete = function (innerSub) {
+        this._complete();
+    };
     WindowSubscriber.prototype._next = function (value) {
         this.window.next(value);
     };
@@ -49,22 +60,5 @@ var WindowSubscriber = (function (_super) {
         destination.next(newWindow);
     };
     return WindowSubscriber;
-})(Subscriber_1.Subscriber);
-var WindowClosingNotifierSubscriber = (function (_super) {
-    __extends(WindowClosingNotifierSubscriber, _super);
-    function WindowClosingNotifierSubscriber(parent) {
-        _super.call(this, null);
-        this.parent = parent;
-    }
-    WindowClosingNotifierSubscriber.prototype._next = function () {
-        this.parent.openWindow();
-    };
-    WindowClosingNotifierSubscriber.prototype._error = function (err) {
-        this.parent._error(err);
-    };
-    WindowClosingNotifierSubscriber.prototype._complete = function () {
-        this.parent._complete();
-    };
-    return WindowClosingNotifierSubscriber;
-})(Subscriber_1.Subscriber);
+}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=window.js.map

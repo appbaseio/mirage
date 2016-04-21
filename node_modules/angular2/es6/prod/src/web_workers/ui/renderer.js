@@ -16,7 +16,7 @@ import { bind } from './bind';
 import { EventDispatcher } from 'angular2/src/web_workers/ui/event_dispatcher';
 import { RenderStore } from 'angular2/src/web_workers/shared/render_store';
 import { ServiceMessageBrokerFactory } from 'angular2/src/web_workers/shared/service_message_broker';
-export let MessageBasedRenderer = class {
+export let MessageBasedRenderer = class MessageBasedRenderer {
     constructor(_brokerFactory, _bus, _serializer, _renderStore, _rootRenderer) {
         this._brokerFactory = _brokerFactory;
         this._bus = _bus;

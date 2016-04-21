@@ -95,4 +95,5 @@ export declare class HostViewFactory {
     constructor(selector: string, viewFactory: Function);
 }
 export declare function flattenNestedViewRenderNodes(nodes: any[]): any[];
+export declare function findLastRenderNode(node: any): any;
 export declare function checkSlotCount(componentName: string, expectedSlotCount: number, projectableNodes: any[][]): void;

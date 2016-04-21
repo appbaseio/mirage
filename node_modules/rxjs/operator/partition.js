@@ -1,3 +1,4 @@
+"use strict";
 var not_1 = require('../util/not');
 var filter_1 = require('./filter');
 function partition(predicate, thisArg) {

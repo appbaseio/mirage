@@ -1,1 +1,1 @@
-export declare function tryCatch(fn: Function): Function;
+export declare function tryCatch<T extends Function>(fn: T): T;

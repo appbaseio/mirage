@@ -8,9 +8,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from 'angular2/core';
-import { bootstrap } from 'angular2/bootstrap';
+import { bootstrap } from 'angular2/platform/browser';
 // #docregion NumberPipe
-export let NumberPipeExample = class {
+export let NumberPipeExample = class NumberPipeExample {
     constructor() {
         this.pi = 3.141;
         this.e = 2.718281828459045;
@@ -30,7 +30,7 @@ NumberPipeExample = __decorate([
 ], NumberPipeExample);
 // #enddocregion
 // #docregion PercentPipe
-export let PercentPipeExample = class {
+export let PercentPipeExample = class PercentPipeExample {
     constructor() {
         this.a = 0.259;
         this.b = 1.3495;
@@ -48,7 +48,7 @@ PercentPipeExample = __decorate([
 ], PercentPipeExample);
 // #enddocregion
 // #docregion CurrencyPipe
-export let CurrencyPipeExample = class {
+export let CurrencyPipeExample = class CurrencyPipeExample {
     constructor() {
         this.a = 0.259;
         this.b = 1.3495;
@@ -65,7 +65,7 @@ CurrencyPipeExample = __decorate([
     __metadata('design:paramtypes', [])
 ], CurrencyPipeExample);
 // #enddocregion
-export let AppCmp = class {
+export let AppCmp = class AppCmp {
 };
 AppCmp = __decorate([
     Component({

@@ -13,7 +13,7 @@ import { DirectiveProvider } from './element';
 import { DirectiveResolver, CODEGEN_DIRECTIVE_RESOLVER } from './directive_resolver';
 import { PipeProvider } from '../pipes/pipe_provider';
 import { PipeResolver, CODEGEN_PIPE_RESOLVER } from './pipe_resolver';
-export let ResolvedMetadataCache = class {
+export let ResolvedMetadataCache = class ResolvedMetadataCache {
     constructor(_directiveResolver, _pipeResolver) {
         this._directiveResolver = _directiveResolver;
         this._pipeResolver = _pipeResolver;

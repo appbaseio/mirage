@@ -1,11 +1,10 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
 /**
  * Returns an observable of a single number that represents the number of items that either:
  * Match a provided predicate function, _or_ if a predicate is not provided, the number
@@ -32,7 +31,7 @@ var CountOperator = (function () {
         return new CountSubscriber(subscriber, this.predicate, this.source);
     };
     return CountOperator;
-})();
+}());
 var CountSubscriber = (function (_super) {
     __extends(CountSubscriber, _super);
     function CountSubscriber(destination, predicate, source) {
@@ -43,17 +42,24 @@ var CountSubscriber = (function (_super) {
         this.index = 0;
     }
     CountSubscriber.prototype._next = function (value) {
-        var predicate = this.predicate;
-        var passed = true;
-        if (predicate) {
-            passed = tryCatch_1.tryCatch(predicate)(value, this.index++, this.source);
-            if (passed === errorObject_1.errorObject) {
-                this.destination.error(passed.e);
-                return;
-            }
+        if (this.predicate) {
+            this._tryPredicate(value);
         }
-        if (passed) {
-            this.count += 1;
+        else {
+            this.count++;
+        }
+    };
+    CountSubscriber.prototype._tryPredicate = function (value) {
+        var result;
+        try {
+            result = this.predicate(value, this.index++, this.source);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        if (result) {
+            this.count++;
         }
     };
     CountSubscriber.prototype._complete = function () {
@@ -61,5 +67,5 @@ var CountSubscriber = (function (_super) {
         this.destination.complete();
     };
     return CountSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=count.js.map

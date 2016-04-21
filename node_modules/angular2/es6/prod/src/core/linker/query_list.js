@@ -47,6 +47,10 @@ export class QueryList {
      */
     reduce(fn, init) { return this._results.reduce(fn, init); }
     /**
+     * executes function for each element in a query.
+     */
+    forEach(fn) { this._results.forEach(fn); }
+    /**
      * converts QueryList into an array
      */
     toArray() { return ListWrapper.clone(this._results); }

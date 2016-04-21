@@ -1,4 +1,3 @@
-import { Observable } from '../Observable';
 /**
  * Joins every Observable emitted by the source (an Observable of Observables), in a serial
  * fashion. Subscribing to each one only when the previous one has completed, and merging
@@ -10,4 +9,4 @@ import { Observable } from '../Observable';
  *
  * @returns {Observable} an observable of values merged from the incoming observables.
  */
-export declare function concatAll<T>(): Observable<T>;
+export declare function concatAll<T>(): T;

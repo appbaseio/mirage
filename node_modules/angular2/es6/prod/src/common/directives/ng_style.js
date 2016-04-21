@@ -60,7 +60,7 @@ import { isPresent, isBlank } from 'angular2/src/facade/lang';
  * In this example the `font-style`, `font-size` and `font-weight` styles will be updated
  * based on the `style` property's value changes.
  */
-export let NgStyle = class {
+export let NgStyle = class NgStyle {
     constructor(_differs, _ngEl, _renderer) {
         this._differs = _differs;
         this._ngEl = _ngEl;

@@ -3,6 +3,7 @@ import { OnChanges, SimpleChange } from 'angular2/core';
 import { ControlValueAccessor } from './control_value_accessor';
 import { NgControl } from './ng_control';
 import { Control } from '../model';
+import { ValidatorFn, AsyncValidatorFn } from './validators';
 /**
  * Binds a domain model to a form control.
  *
@@ -36,7 +37,7 @@ export declare class NgModel extends NgControl implements OnChanges {
     }): void;
     control: Control;
     path: string[];
-    validator: Function;
-    asyncValidator: Function;
+    validator: ValidatorFn;
+    asyncValidator: AsyncValidatorFn;
     viewToModelUpdate(newValue: any): void;
 }

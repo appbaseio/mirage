@@ -1,1 +1,1 @@
-export declare function isNumeric(val: any): boolean;
+export declare function isNumeric(val: any): val is number;

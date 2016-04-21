@@ -24,7 +24,7 @@ export const VIEW_JIT_IMPORTS = CONST_EXPR({
     'flattenNestedViewRenderNodes': flattenNestedViewRenderNodes,
     'checkSlotCount': checkSlotCount
 });
-export let ViewCompiler = class {
+export let ViewCompiler = class ViewCompiler {
     constructor() {
     }
     compileComponentRuntime(component, template, styles, protoViews, changeDetectorFactories, componentViewFactory) {

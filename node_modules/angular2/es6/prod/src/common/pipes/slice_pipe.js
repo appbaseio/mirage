@@ -63,13 +63,14 @@ import { InvalidPipeArgumentException } from './invalid_pipe_argument_exception'
  *
  * {@example core/pipes/ts/slice_pipe/slice_pipe_example.ts region='SlicePipe_string'}
  */
-export let SlicePipe = class {
+let SlicePipe_1;
+export let SlicePipe = SlicePipe_1 = class SlicePipe {
     transform(value, args = null) {
         if (isBlank(args) || args.length == 0) {
             throw new BaseException('Slice pipe requires one argument');
         }
         if (!this.supports(value)) {
-            throw new InvalidPipeArgumentException(SlicePipe, value);
+            throw new InvalidPipeArgumentException(SlicePipe_1, value);
         }
         if (isBlank(value))
             return value;
@@ -82,7 +83,7 @@ export let SlicePipe = class {
     }
     supports(obj) { return isString(obj) || isArray(obj); }
 };
-SlicePipe = __decorate([
+SlicePipe = SlicePipe_1 = __decorate([
     Pipe({ name: 'slice', pure: false }),
     Injectable(), 
     __metadata('design:paramtypes', [])

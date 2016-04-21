@@ -1,6 +1,11 @@
 import { Lexer, Token } from './lexer';
 import { Reflector } from 'angular2/src/core/reflection/reflection';
 import { AST, BindingPipe, LiteralMap, TemplateBinding, ASTWithSource } from './ast';
+export declare class SplitInterpolation {
+    strings: string[];
+    expressions: string[];
+    constructor(strings: string[], expressions: string[]);
+}
 export declare class Parser {
     /** @internal */ _lexer: Lexer;
     constructor(/** @internal */ _lexer: Lexer, providedReflector?: Reflector);
@@ -11,6 +16,7 @@ export declare class Parser {
     private _parseQuote(input, location);
     parseTemplateBindings(input: string, location: any): TemplateBinding[];
     parseInterpolation(input: string, location: any): ASTWithSource;
+    splitInterpolation(input: string, location: string): SplitInterpolation;
     wrapLiteralPrimitive(input: string, location: any): ASTWithSource;
     private _checkNoInterpolation(input, location);
     private _findInterpolationErrorColumn(parts, partInErrIdx);

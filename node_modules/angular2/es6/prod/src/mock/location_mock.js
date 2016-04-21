@@ -12,7 +12,7 @@ import { EventEmitter, ObservableWrapper } from 'angular2/src/facade/async';
 /**
  * A spy for {@link Location} that allows tests to fire simulated location events.
  */
-export let SpyLocation = class {
+export let SpyLocation = class SpyLocation {
     constructor() {
         this.urlChanges = [];
         /** @internal */

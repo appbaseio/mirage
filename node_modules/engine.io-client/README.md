@@ -1,12 +1,12 @@
 
 # Engine.IO client
 
-[![Build Status](https://secure.travis-ci.org/Automattic/engine.io-client.png)](http://travis-ci.org/Automattic/engine.io-client)
-[![NPM version](https://badge.fury.io/js/engine.io-client.png)](http://badge.fury.io/js/engine.io-client)
+[![Build Status](https://secure.travis-ci.org/socketio/engine.io-client.svg)](http://travis-ci.org/socketio/engine.io-client)
+[![NPM version](https://badge.fury.io/js/engine.io-client.svg)](http://badge.fury.io/js/engine.io-client)
 
-This is the client for [Engine.IO](http://github.com/automattic/engine.io),
+This is the client for [Engine.IO](http://github.com/socketio/engine.io),
 the implementation of transport-based cross-browser/cross-device
-bi-directional communication layer for [Socket.IO](http://github.com/automattic/socket.io).
+bi-directional communication layer for [Socket.IO](http://github.com/socketio/socket.io).
 
 ## How to use
 
@@ -102,6 +102,22 @@ socket.on('open', function(){
 });
 ```
 
+### Node.js with extraHeaders
+```js
+var opts = {
+  extraHeaders: {
+    'X-Custom-Header-For-My-Project': 'my-secret-access-token',
+    'Cookie': 'user_session=NI2JlCKF90aE0sJZD9ZzujtdsUqNYSBYxzlTsvdSUe35ZzdtVRGqYFr0kdGxbfc5gUOkR9RGp20GVKza; path=/; expires=Tue, 07-Apr-2015 18:18:08 GMT; secure; HttpOnly'
+  }
+};
+
+var socket = require('engine.io-client')('ws://localhost', opts);
+socket.on('open', function(){
+  socket.on('message', function(data){});
+  socket.on('close', function(){});
+});
+```
+
 ## Features
 
 - Lightweight
@@ -155,6 +171,10 @@ Exposed as `eio` in the browser standalone build.
   - Fired if an error occurs with a transport we're trying to upgrade to.
 - `upgrade`
   - Fired upon upgrade success, after the new transport is set
+- `ping`
+  - Fired upon _flushing_ a ping packet (ie: actual packet write out)
+- `pong`
+  - Fired upon receiving a pong packet.
 
 #### Methods
 
@@ -176,9 +196,9 @@ Exposed as `eio` in the browser standalone build.
         will be used instead.
       - `forceBase64` (`Boolean`): forces base 64 encoding for polling transport even when XHR2 responseType is available and WebSocket even if the used standard supports binary.
       - `enablesXDR` (`Boolean`): enables XDomainRequest for IE8 to avoid loading bar flashing with click sound. default to `false` because XDomainRequest has a flaw of not sending cookie.
-      - `timestampRequests` (`Boolean`): whether to add the timestamp with
-        each transport request. Note: this is ignored if the browser is
-        IE or Android, in which case requests are always stamped (`false`)
+      - `timestampRequests` (`Boolean`): whether to add the timestamp with each
+        transport request. Note: polling requests are always stamped unless this
+        option is explicitly set to `false` (`false`)
       - `timestampParam` (`String`): timestamp parameter (`t`)
       - `policyPort` (`Number`): port the policy server listens on (`843`)
       - `path` (`String`): path to connect to, default is `/engine.io`
@@ -189,7 +209,7 @@ Exposed as `eio` in the browser standalone build.
       - `rememberUpgrade` (`Boolean`): defaults to false.
         If true and if the previous websocket connection to the server succeeded,
         the connection attempt will bypass the normal upgrade process and will initially
-        try websocket. A connection attempt following a transport error will use the 
+        try websocket. A connection attempt following a transport error will use the
         normal upgrade process. It is recommended you turn this on only when using
         SSL/TLS connections, or if you know that your network does not block websockets.
       - `pfx` (`String`): Certificate, Private key and CA certificates to use for SSL. Can be used in Node.js client environment to manually specify certificate information.
@@ -197,13 +217,20 @@ Exposed as `eio` in the browser standalone build.
       - `passphrase` (`String`): A string of passphrase for the private key or pfx. Can be used in Node.js client environment to manually specify certificate information.
       - `cert` (`String`): Public x509 certificate to use. Can be used in Node.js client environment to manually specify certificate information.
       - `ca` (`String`|`Array`): An authority certificate or array of authority certificates to check the remote host against.. Can be used in Node.js client environment to manually specify certificate information.
-      - `ciphers` (`String`): A string describing the ciphers to use or exclude. Consult the [cipher format list](http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT) for details on the format.. Can be used in Node.js client environment to manually specify certificate information.
+      - `ciphers` (`String`): A string describing the ciphers to use or exclude. Consult the [cipher format list](http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT) for details on the format. Can be used in Node.js client environment to manually specify certificate information.
       - `rejectUnauthorized` (`Boolean`): If true, the server certificate is verified against the list of supplied CAs. An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent. Can be used in Node.js client environment to manually specify certificate information.
+      - `perMessageDeflate` (`Object|Boolean`): parameters of the WebSocket permessage-deflate extension
+        (see [ws module](https://github.com/einaros/ws) api docs). Set to `false` to disable. (`true`)
+        - `threshold` (`Number`): data is compressed only if the byte size is above this value. This option is ignored on the browser. (`1024`)
+      - `extraHeaders` (`Object`): Headers that will be passed for each request to the server (via xhr-polling and via websockets). These values then can be used during handshake or for special proxies. Can only be used in Node.js client environment.
 - `send`
     - Sends a message to the server
     - **Parameters**
       - `String` | `ArrayBuffer` | `ArrayBufferView` | `Blob`: data to send
+      - `Object`: optional, options object
       - `Function`: optional, callback upon `drain`
+    - **Options**
+      - `compress` (`Boolean`): whether to compress sending data. This option is ignored and forced to be `true` on the browser. (`true`)
 - `close`
     - Disconnects the client.
 
@@ -220,7 +247,7 @@ The transport class. Private. _Inherits from EventEmitter_.
 ## Tests
 
 `engine.io-client` is used to test
-[engine](http://github.com/automattic/engine.io). Running the `engine.io`
+[engine](http://github.com/socketio/engine.io). Running the `engine.io`
 test suite ensures the client works and vice-versa.
 
 Browser tests are run using [zuul](https://github.com/defunctzombie/zuul). You can
@@ -247,7 +274,7 @@ To contribute patches, run tests or benchmarks, make sure to clone the
 repository:
 
 ```bash
-git clone git://github.com/automattic/engine.io-client.git
+git clone git://github.com/socketio/engine.io-client.git
 ```
 
 Then:

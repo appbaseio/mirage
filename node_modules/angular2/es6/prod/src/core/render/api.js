@@ -5,6 +5,14 @@ export class RenderComponentType {
         this.styles = styles;
     }
 }
+export class RenderDebugInfo {
+    constructor(injector, component, providerTokens, locals) {
+        this.injector = injector;
+        this.component = component;
+        this.providerTokens = providerTokens;
+        this.locals = locals;
+    }
+}
 export class Renderer {
 }
 /**

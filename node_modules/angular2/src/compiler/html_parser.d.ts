@@ -1,9 +1,9 @@
 import { HtmlAst } from './html_ast';
-import { ParseError, ParseLocation } from './parse_util';
+import { ParseError, ParseSourceSpan } from './parse_util';
 export declare class HtmlTreeError extends ParseError {
     elementName: string;
-    static create(elementName: string, location: ParseLocation, msg: string): HtmlTreeError;
-    constructor(elementName: string, location: ParseLocation, msg: string);
+    static create(elementName: string, span: ParseSourceSpan, msg: string): HtmlTreeError;
+    constructor(elementName: string, span: ParseSourceSpan, msg: string);
 }
 export declare class HtmlParseTreeResult {
     rootNodes: HtmlAst[];

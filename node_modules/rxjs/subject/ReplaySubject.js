@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -5,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subject_1 = require('../Subject');
 var queue_1 = require('../scheduler/queue');
+var observeOn_1 = require('../operator/observeOn');
 var ReplaySubject = (function (_super) {
     __extends(ReplaySubject, _super);
     function ReplaySubject(bufferSize, windowTime, scheduler) {
@@ -12,9 +14,9 @@ var ReplaySubject = (function (_super) {
         if (windowTime === void 0) { windowTime = Number.POSITIVE_INFINITY; }
         _super.call(this);
         this.events = [];
+        this.scheduler = scheduler;
         this.bufferSize = bufferSize < 1 ? 1 : bufferSize;
         this._windowTime = windowTime < 1 ? 1 : windowTime;
-        this.scheduler = scheduler;
     }
     ReplaySubject.prototype._next = function (value) {
         var now = this._getNow();
@@ -24,9 +26,13 @@ var ReplaySubject = (function (_super) {
     };
     ReplaySubject.prototype._subscribe = function (subscriber) {
         var events = this._trimBufferThenGetEvents(this._getNow());
+        var scheduler = this.scheduler;
+        if (scheduler) {
+            subscriber.add(subscriber = new observeOn_1.ObserveOnSubscriber(subscriber, scheduler));
+        }
         var index = -1;
         var len = events.length;
-        while (!subscriber.isUnsubscribed && ++index < len) {
+        while (++index < len && !subscriber.isUnsubscribed) {
             subscriber.next(events[index].value);
         }
         return _super.prototype._subscribe.call(this, subscriber);
@@ -58,7 +64,7 @@ var ReplaySubject = (function (_super) {
         return events;
     };
     return ReplaySubject;
-})(Subject_1.Subject);
+}(Subject_1.Subject));
 exports.ReplaySubject = ReplaySubject;
 var ReplayEvent = (function () {
     function ReplayEvent(time, value) {
@@ -66,5 +72,5 @@ var ReplayEvent = (function () {
         this.value = value;
     }
     return ReplayEvent;
-})();
+}());
 //# sourceMappingURL=ReplaySubject.js.map

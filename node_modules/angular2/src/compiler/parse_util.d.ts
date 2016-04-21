@@ -11,15 +11,15 @@ export declare class ParseSourceFile {
     url: string;
     constructor(content: string, url: string);
 }
-export declare abstract class ParseError {
-    location: ParseLocation;
-    msg: string;
-    constructor(location: ParseLocation, msg: string);
-    toString(): string;
-}
 export declare class ParseSourceSpan {
     start: ParseLocation;
     end: ParseLocation;
     constructor(start: ParseLocation, end: ParseLocation);
+    toString(): string;
+}
+export declare abstract class ParseError {
+    span: ParseSourceSpan;
+    msg: string;
+    constructor(span: ParseSourceSpan, msg: string);
     toString(): string;
 }

@@ -14,7 +14,7 @@ import { DOM } from 'angular2/src/platform/dom/dom_adapter';
 import { Inject, Injectable } from 'angular2/src/core/di';
 import { SetWrapper } from 'angular2/src/facade/collection';
 import { DOCUMENT } from './dom_tokens';
-export let SharedStylesHost = class {
+export let SharedStylesHost = class SharedStylesHost {
     constructor() {
         /** @internal */
         this._styles = [];
@@ -39,7 +39,7 @@ SharedStylesHost = __decorate([
     Injectable(), 
     __metadata('design:paramtypes', [])
 ], SharedStylesHost);
-export let DomSharedStylesHost = class extends SharedStylesHost {
+export let DomSharedStylesHost = class DomSharedStylesHost extends SharedStylesHost {
     constructor(doc) {
         super();
         this._hostNodes = new Set();

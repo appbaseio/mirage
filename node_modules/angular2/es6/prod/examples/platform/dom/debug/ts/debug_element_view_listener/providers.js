@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from 'angular2/core';
 import { bootstrap, ELEMENT_PROBE_PROVIDERS } from 'angular2/platform/browser';
-let MyAppComponent = class {
+let MyAppComponent = class MyAppComponent {
 };
 MyAppComponent = __decorate([
     Component({ selector: 'my-component' }), 

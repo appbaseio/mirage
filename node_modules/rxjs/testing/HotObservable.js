@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -36,7 +37,7 @@ var HotObservable = (function (_super) {
         }
     };
     return HotObservable;
-})(Subject_1.Subject);
+}(Subject_1.Subject));
 exports.HotObservable = HotObservable;
 applyMixins_1.applyMixins(HotObservable, [SubscriptionLoggable_1.SubscriptionLoggable]);
 //# sourceMappingURL=HotObservable.js.map

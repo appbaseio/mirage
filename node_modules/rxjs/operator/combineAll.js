@@ -1,4 +1,5 @@
-var combineLatest_support_1 = require('./combineLatest-support');
+"use strict";
+var combineLatest_1 = require('./combineLatest');
 /**
  * Takes an Observable of Observables, and collects all observables from it. Once the outer observable
  * completes, it subscribes to all collected observables and "combines" their values, such that:
@@ -12,7 +13,7 @@ var combineLatest_support_1 = require('./combineLatest-support');
  * @returns {Observable} an observable of projected results or arrays of recent values.
  */
 function combineAll(project) {
-    return this.lift(new combineLatest_support_1.CombineLatestOperator(project));
+    return this.lift(new combineLatest_1.CombineLatestOperator(project));
 }
 exports.combineAll = combineAll;
 //# sourceMappingURL=combineAll.js.map

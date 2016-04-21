@@ -10,33 +10,10 @@
 */
 var __globalName = typeof self != 'undefined' ? 'self' : 'global';
 
-hook('reduceRegister_', function(reduceRegister) {
-  return function(load, register) {
-    if (register)
-      return reduceRegister.call(this, load, register);
-
-    load.metadata.format = 'global';
-    var entry = load.metadata.entry = createEntry();
-    var globalValue = readMemberExpression(load.metadata.exports, __global);
-    entry.execute = function() {
-      return globalValue;
-    };
-  };
-});
-
 hook('fetch', function(fetch) {
   return function(load) {
     if (load.metadata.exports && !load.metadata.format)
       load.metadata.format = 'global';
-
-    // A global with exports, no globals and no deps
-    // can be loaded via a script tag
-    if (load.metadata.format == 'global' && !load.metadata.authorization
-        && load.metadata.exports && !load.metadata.globals 
-        && (!load.metadata.deps || load.metadata.deps.length == 0)
-        && load.metadata.scriptLoad !== false)
-      load.metadata.scriptLoad = true;
-
     return fetch.call(this, load);
   };
 });
@@ -45,25 +22,12 @@ hook('fetch', function(fetch) {
 // we can't do it with AMD support side-by-side since AMD support means defining the
 // global define, and global support means not definining it, yet we don't have any hook
 // into the "pre-execution" phase of a script tag being loaded to handle both cases
-
-
 hook('instantiate', function(instantiate) {
   return function(load) {
     var loader = this;
 
     if (!load.metadata.format)
       load.metadata.format = 'global';
-
-    // globals shorthand support for:
-    // globals = ['Buffer'] where we just require 'Buffer' in the current context
-    if (load.metadata.globals) {
-      if (load.metadata.globals instanceof Array) {
-        var globals = {};
-        for (var i = 0; i < load.metadata.globals.length; i++)
-          globals[load.metadata.globals[i]] = load.metadata.globals[i];
-        load.metadata.globals = globals;
-      }
-    }
 
     // global is a fallback module format
     if (load.metadata.format == 'global' && !load.metadata.registered) {
@@ -74,8 +38,11 @@ hook('instantiate', function(instantiate) {
 
       entry.deps = [];
 
-      for (var g in load.metadata.globals)
-        entry.deps.push(load.metadata.globals[g]);
+      for (var g in load.metadata.globals) {
+        var gl = load.metadata.globals[g];
+        if (gl)
+          entry.deps.push(gl);
+      }
 
       entry.execute = function(require, exports, module) {
 
@@ -83,7 +50,8 @@ hook('instantiate', function(instantiate) {
         if (load.metadata.globals) {
           globals = {};
           for (var g in load.metadata.globals)
-            globals[g] = require(load.metadata.globals[g]);
+            if (load.metadata.globals[g])
+              globals[g] = require(load.metadata.globals[g]);
         }
         
         var exportName = load.metadata.exports;

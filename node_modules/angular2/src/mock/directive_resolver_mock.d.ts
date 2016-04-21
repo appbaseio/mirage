@@ -17,6 +17,6 @@ export declare class MockDirectiveResolver extends DirectiveResolver {
      * @deprecated
      */
     setViewBindingsOverride(type: Type, viewBindings: any[]): void;
-    setProvidersOverride(type: Type, bindings: any[]): void;
-    setViewProvidersOverride(type: Type, viewBindings: any[]): void;
+    setProvidersOverride(type: Type, providers: any[]): void;
+    setViewProvidersOverride(type: Type, viewProviders: any[]): void;
 }

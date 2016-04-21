@@ -1,4 +1,3 @@
-export declare class EmptyError implements Error {
-    name: string;
-    message: string;
+export declare class EmptyError extends Error {
+    constructor();
 }

@@ -1,4 +1,5 @@
-'use strict';var __extends = (this && this.__extends) || function (d, b) {
+'use strict';"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -22,21 +23,22 @@ var MockNgZone = (function (_super) {
     __extends(MockNgZone, _super);
     function MockNgZone() {
         _super.call(this, { enableLongStackTrace: false });
-        this._mockOnEventDone = new async_1.EventEmitter(false);
+        /** @internal */
+        this._mockOnStable = new async_1.EventEmitter(false);
     }
-    Object.defineProperty(MockNgZone.prototype, "onEventDone", {
-        get: function () { return this._mockOnEventDone; },
+    Object.defineProperty(MockNgZone.prototype, "onStable", {
+        get: function () { return this._mockOnStable; },
         enumerable: true,
         configurable: true
     });
     MockNgZone.prototype.run = function (fn) { return fn(); };
     MockNgZone.prototype.runOutsideAngular = function (fn) { return fn(); };
-    MockNgZone.prototype.simulateZoneExit = function () { async_1.ObservableWrapper.callNext(this.onEventDone, null); };
+    MockNgZone.prototype.simulateZoneExit = function () { async_1.ObservableWrapper.callNext(this.onStable, null); };
     MockNgZone = __decorate([
         di_1.Injectable(), 
         __metadata('design:paramtypes', [])
     ], MockNgZone);
     return MockNgZone;
-})(ng_zone_1.NgZone);
+}(ng_zone_1.NgZone));
 exports.MockNgZone = MockNgZone;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmdfem9uZV9tb2NrLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiYW5ndWxhcjIvc3JjL21vY2svbmdfem9uZV9tb2NrLnRzIl0sIm5hbWVzIjpbIk1vY2tOZ1pvbmUiLCJNb2NrTmdab25lLmNvbnN0cnVjdG9yIiwiTW9ja05nWm9uZS5vbkV2ZW50RG9uZSIsIk1vY2tOZ1pvbmUucnVuIiwiTW9ja05nWm9uZS5ydW5PdXRzaWRlQW5ndWxhciIsIk1vY2tOZ1pvbmUuc2ltdWxhdGVab25lRXhpdCJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFBQSxtQkFBeUIsc0JBQXNCLENBQUMsQ0FBQTtBQUNoRCx3QkFBcUIsZ0NBQWdDLENBQUMsQ0FBQTtBQUN0RCxzQkFBOEMsMkJBQTJCLENBQUMsQ0FBQTtBQUUxRTs7R0FFRztBQUNIO0lBQ2dDQSw4QkFBTUE7SUFJcENBO1FBQ0VDLGtCQUFNQSxFQUFDQSxvQkFBb0JBLEVBQUVBLEtBQUtBLEVBQUNBLENBQUNBLENBQUNBO1FBQ3JDQSxJQUFJQSxDQUFDQSxnQkFBZ0JBLEdBQUdBLElBQUlBLG9CQUFZQSxDQUFNQSxLQUFLQSxDQUFDQSxDQUFDQTtJQUN2REEsQ0FBQ0E7SUFFREQsc0JBQUlBLG1DQUFXQTthQUFmQSxjQUFvQkUsTUFBTUEsQ0FBQ0EsSUFBSUEsQ0FBQ0EsZ0JBQWdCQSxDQUFDQSxDQUFDQSxDQUFDQTs7O09BQUFGO0lBRW5EQSx3QkFBR0EsR0FBSEEsVUFBSUEsRUFBWUEsSUFBU0csTUFBTUEsQ0FBQ0EsRUFBRUEsRUFBRUEsQ0FBQ0EsQ0FBQ0EsQ0FBQ0E7SUFFdkNILHNDQUFpQkEsR0FBakJBLFVBQWtCQSxFQUFZQSxJQUFTSSxNQUFNQSxDQUFDQSxFQUFFQSxFQUFFQSxDQUFDQSxDQUFDQSxDQUFDQTtJQUVyREoscUNBQWdCQSxHQUFoQkEsY0FBMkJLLHlCQUFpQkEsQ0FBQ0EsUUFBUUEsQ0FBQ0EsSUFBSUEsQ0FBQ0EsV0FBV0EsRUFBRUEsSUFBSUEsQ0FBQ0EsQ0FBQ0EsQ0FBQ0EsQ0FBQ0E7SUFoQmxGTDtRQUFDQSxlQUFVQSxFQUFFQTs7bUJBaUJaQTtJQUFEQSxpQkFBQ0E7QUFBREEsQ0FBQ0EsQUFqQkQsRUFDZ0MsZ0JBQU0sRUFnQnJDO0FBaEJZLGtCQUFVLGFBZ0J0QixDQUFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtJbmplY3RhYmxlfSBmcm9tICdhbmd1bGFyMi9zcmMvY29yZS9kaSc7XG5pbXBvcnQge05nWm9uZX0gZnJvbSAnYW5ndWxhcjIvc3JjL2NvcmUvem9uZS9uZ196b25lJztcbmltcG9ydCB7RXZlbnRFbWl0dGVyLCBPYnNlcnZhYmxlV3JhcHBlcn0gZnJvbSAnYW5ndWxhcjIvc3JjL2ZhY2FkZS9hc3luYyc7XG5cbi8qKlxuICogQSBtb2NrIGltcGxlbWVudGF0aW9uIG9mIHtAbGluayBOZ1pvbmV9LlxuICovXG5ASW5qZWN0YWJsZSgpXG5leHBvcnQgY2xhc3MgTW9ja05nWm9uZSBleHRlbmRzIE5nWm9uZSB7XG4gIC8qKiBAaW50ZXJuYWwgKi9cbiAgX21vY2tPbkV2ZW50RG9uZTogRXZlbnRFbWl0dGVyPGFueT47XG5cbiAgY29uc3RydWN0b3IoKSB7XG4gICAgc3VwZXIoe2VuYWJsZUxvbmdTdGFja1RyYWNlOiBmYWxzZX0pO1xuICAgIHRoaXMuX21vY2tPbkV2ZW50RG9uZSA9IG5ldyBFdmVudEVtaXR0ZXI8YW55PihmYWxzZSk7XG4gIH1cblxuICBnZXQgb25FdmVudERvbmUoKSB7IHJldHVybiB0aGlzLl9tb2NrT25FdmVudERvbmU7IH1cblxuICBydW4oZm46IEZ1bmN0aW9uKTogYW55IHsgcmV0dXJuIGZuKCk7IH1cblxuICBydW5PdXRzaWRlQW5ndWxhcihmbjogRnVuY3Rpb24pOiBhbnkgeyByZXR1cm4gZm4oKTsgfVxuXG4gIHNpbXVsYXRlWm9uZUV4aXQoKTogdm9pZCB7IE9ic2VydmFibGVXcmFwcGVyLmNhbGxOZXh0KHRoaXMub25FdmVudERvbmUsIG51bGwpOyB9XG59XG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmdfem9uZV9tb2NrLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZGlmZmluZ19wbHVnaW5fd3JhcHBlci1vdXRwdXRfcGF0aC1qYWtYbk1tTC50bXAvYW5ndWxhcjIvc3JjL21vY2svbmdfem9uZV9tb2NrLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFBLG1CQUF5QixzQkFBc0IsQ0FBQyxDQUFBO0FBQ2hELHdCQUFxQixnQ0FBZ0MsQ0FBQyxDQUFBO0FBQ3RELHNCQUE4QywyQkFBMkIsQ0FBQyxDQUFBO0FBRTFFOztHQUVHO0FBRUg7SUFBZ0MsOEJBQU07SUFJcEM7UUFBZ0Isa0JBQU0sRUFBQyxvQkFBb0IsRUFBRSxLQUFLLEVBQUMsQ0FBQyxDQUFDO1FBSHJELGdCQUFnQjtRQUNSLGtCQUFhLEdBQXNCLElBQUksb0JBQVksQ0FBQyxLQUFLLENBQUMsQ0FBQztJQUViLENBQUM7SUFFdkQsc0JBQUksZ0NBQVE7YUFBWixjQUFpQixNQUFNLENBQUMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUM7OztPQUFBO0lBRTdDLHdCQUFHLEdBQUgsVUFBSSxFQUFZLElBQVMsTUFBTSxDQUFDLEVBQUUsRUFBRSxDQUFDLENBQUMsQ0FBQztJQUV2QyxzQ0FBaUIsR0FBakIsVUFBa0IsRUFBWSxJQUFTLE1BQU0sQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDLENBQUM7SUFFckQscUNBQWdCLEdBQWhCLGNBQTJCLHlCQUFpQixDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQztJQWIvRTtRQUFDLGVBQVUsRUFBRTs7a0JBQUE7SUFjYixpQkFBQztBQUFELENBQUMsQUFiRCxDQUFnQyxnQkFBTSxHQWFyQztBQWJZLGtCQUFVLGFBYXRCLENBQUEiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge0luamVjdGFibGV9IGZyb20gJ2FuZ3VsYXIyL3NyYy9jb3JlL2RpJztcbmltcG9ydCB7Tmdab25lfSBmcm9tICdhbmd1bGFyMi9zcmMvY29yZS96b25lL25nX3pvbmUnO1xuaW1wb3J0IHtFdmVudEVtaXR0ZXIsIE9ic2VydmFibGVXcmFwcGVyfSBmcm9tICdhbmd1bGFyMi9zcmMvZmFjYWRlL2FzeW5jJztcblxuLyoqXG4gKiBBIG1vY2sgaW1wbGVtZW50YXRpb24gb2Yge0BsaW5rIE5nWm9uZX0uXG4gKi9cbkBJbmplY3RhYmxlKClcbmV4cG9ydCBjbGFzcyBNb2NrTmdab25lIGV4dGVuZHMgTmdab25lIHtcbiAgLyoqIEBpbnRlcm5hbCAqL1xuICBwcml2YXRlIF9tb2NrT25TdGFibGU6IEV2ZW50RW1pdHRlcjxhbnk+ID0gbmV3IEV2ZW50RW1pdHRlcihmYWxzZSk7XG5cbiAgY29uc3RydWN0b3IoKSB7IHN1cGVyKHtlbmFibGVMb25nU3RhY2tUcmFjZTogZmFsc2V9KTsgfVxuXG4gIGdldCBvblN0YWJsZSgpIHsgcmV0dXJuIHRoaXMuX21vY2tPblN0YWJsZTsgfVxuXG4gIHJ1bihmbjogRnVuY3Rpb24pOiBhbnkgeyByZXR1cm4gZm4oKTsgfVxuXG4gIHJ1bk91dHNpZGVBbmd1bGFyKGZuOiBGdW5jdGlvbik6IGFueSB7IHJldHVybiBmbigpOyB9XG5cbiAgc2ltdWxhdGVab25lRXhpdCgpOiB2b2lkIHsgT2JzZXJ2YWJsZVdyYXBwZXIuY2FsbE5leHQodGhpcy5vblN0YWJsZSwgbnVsbCk7IH1cbn1cbiJdfQ==

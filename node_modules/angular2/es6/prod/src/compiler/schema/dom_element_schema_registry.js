@@ -14,7 +14,7 @@ import { DOM } from 'angular2/src/platform/dom/dom_adapter';
 import { splitNsName } from 'angular2/src/compiler/html_tags';
 import { ElementSchemaRegistry } from './element_schema_registry';
 const NAMESPACE_URIS = CONST_EXPR({ 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' });
-export let DomElementSchemaRegistry = class extends ElementSchemaRegistry {
+export let DomElementSchemaRegistry = class DomElementSchemaRegistry extends ElementSchemaRegistry {
     constructor(...args) {
         super(...args);
         this._protoElements = new Map();

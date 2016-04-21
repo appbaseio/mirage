@@ -3,15 +3,16 @@ System.register("angular2/src/http/interfaces", [], true, function(require, expo
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var ConnectionBackend = (function() {
     function ConnectionBackend() {}
     return ConnectionBackend;
-  })();
+  }());
   exports.ConnectionBackend = ConnectionBackend;
   var Connection = (function() {
     function Connection() {}
     return Connection;
-  })();
+  }());
   exports.Connection = Connection;
   global.define = __define;
   return module.exports;
@@ -21,6 +22,7 @@ System.register("angular2/src/http/headers", ["angular2/src/facade/lang", "angul
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var lang_1 = require("angular2/src/facade/lang");
   var exceptions_1 = require("angular2/src/facade/exceptions");
   var collection_1 = require("angular2/src/facade/collection");
@@ -87,7 +89,15 @@ System.register("angular2/src/http/headers", ["angular2/src/facade/lang", "angul
       return collection_1.MapWrapper.values(this._headersMap);
     };
     Headers.prototype.toJSON = function() {
-      return lang_1.Json.stringify(this.values());
+      var serializableHeaders = {};
+      this._headersMap.forEach(function(values, name) {
+        var list = [];
+        collection_1.iterateListLike(values, function(val) {
+          return list = collection_1.ListWrapper.concat(list, val.split(','));
+        });
+        serializableHeaders[name] = list;
+      });
+      return serializableHeaders;
     };
     Headers.prototype.getAll = function(header) {
       var headers = this._headersMap.get(header);
@@ -97,7 +107,7 @@ System.register("angular2/src/http/headers", ["angular2/src/facade/lang", "angul
       throw new exceptions_1.BaseException('"entries" method is not implemented on Headers class');
     };
     return Headers;
-  })();
+  }());
   exports.Headers = Headers;
   global.define = __define;
   return module.exports;
@@ -107,6 +117,7 @@ System.register("angular2/src/http/enums", [], true, function(require, exports, 
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   (function(RequestMethod) {
     RequestMethod[RequestMethod["Get"] = 0] = "Get";
     RequestMethod[RequestMethod["Post"] = 1] = "Post";
@@ -142,6 +153,7 @@ System.register("angular2/src/http/url_search_params", ["angular2/src/facade/lan
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var lang_1 = require("angular2/src/facade/lang");
   var collection_1 = require("angular2/src/facade/collection");
   function paramParser(rawParams) {
@@ -249,7 +261,7 @@ System.register("angular2/src/http/url_search_params", ["angular2/src/facade/lan
       this.paramsMap.delete(param);
     };
     return URLSearchParams;
-  })();
+  }());
   exports.URLSearchParams = URLSearchParams;
   global.define = __define;
   return module.exports;
@@ -259,6 +271,7 @@ System.register("angular2/src/http/static_response", ["angular2/src/facade/lang"
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var lang_1 = require("angular2/src/facade/lang");
   var exceptions_1 = require("angular2/src/facade/exceptions");
   var http_utils_1 = require("angular2/src/http/http_utils");
@@ -290,7 +303,7 @@ System.register("angular2/src/http/static_response", ["angular2/src/facade/lang"
       throw new exceptions_1.BaseException('"arrayBuffer()" method not implemented on Response superclass');
     };
     return Response;
-  })();
+  }());
   exports.Response = Response;
   global.define = __define;
   return module.exports;
@@ -300,6 +313,7 @@ System.register("angular2/src/http/base_response_options", ["angular2/core", "an
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var __extends = (this && this.__extends) || function(d, b) {
     for (var p in b)
       if (b.hasOwnProperty(p))
@@ -356,7 +370,7 @@ System.register("angular2/src/http/base_response_options", ["angular2/core", "an
       });
     };
     return ResponseOptions;
-  })();
+  }());
   exports.ResponseOptions = ResponseOptions;
   var BaseResponseOptions = (function(_super) {
     __extends(BaseResponseOptions, _super);
@@ -370,7 +384,7 @@ System.register("angular2/src/http/base_response_options", ["angular2/core", "an
     }
     BaseResponseOptions = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BaseResponseOptions);
     return BaseResponseOptions;
-  })(ResponseOptions);
+  }(ResponseOptions));
   exports.BaseResponseOptions = BaseResponseOptions;
   global.define = __define;
   return module.exports;
@@ -380,6 +394,7 @@ System.register("angular2/src/http/backends/browser_xhr", ["angular2/core"], tru
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
@@ -404,7 +419,7 @@ System.register("angular2/src/http/backends/browser_xhr", ["angular2/core"], tru
     };
     BrowserXhr = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BrowserXhr);
     return BrowserXhr;
-  })();
+  }());
   exports.BrowserXhr = BrowserXhr;
   global.define = __define;
   return module.exports;
@@ -414,6 +429,7 @@ System.register("angular2/src/http/backends/browser_jsonp", ["angular2/core", "a
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
@@ -472,7 +488,7 @@ System.register("angular2/src/http/backends/browser_jsonp", ["angular2/core", "a
     };
     BrowserJsonp = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BrowserJsonp);
     return BrowserJsonp;
-  })();
+  }());
   exports.BrowserJsonp = BrowserJsonp;
   global.define = __define;
   return module.exports;
@@ -482,6 +498,7 @@ System.register("angular2/src/http/http_utils", ["angular2/src/facade/lang", "an
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var lang_1 = require("angular2/src/facade/lang");
   var enums_1 = require("angular2/src/http/enums");
   var exceptions_1 = require("angular2/src/facade/exceptions");
@@ -521,6 +538,7 @@ System.register("angular2/src/http/base_request_options", ["angular2/src/facade/
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var __extends = (this && this.__extends) || function(d, b) {
     for (var p in b)
       if (b.hasOwnProperty(p))
@@ -576,7 +594,7 @@ System.register("angular2/src/http/base_request_options", ["angular2/src/facade/
       });
     };
     return RequestOptions;
-  })();
+  }());
   exports.RequestOptions = RequestOptions;
   var BaseRequestOptions = (function(_super) {
     __extends(BaseRequestOptions, _super);
@@ -588,7 +606,7 @@ System.register("angular2/src/http/base_request_options", ["angular2/src/facade/
     }
     BaseRequestOptions = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BaseRequestOptions);
     return BaseRequestOptions;
-  })(RequestOptions);
+  }(RequestOptions));
   exports.BaseRequestOptions = BaseRequestOptions;
   global.define = __define;
   return module.exports;
@@ -598,6 +616,7 @@ System.register("angular2/src/http/backends/xhr_backend", ["angular2/src/http/en
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
@@ -681,7 +700,7 @@ System.register("angular2/src/http/backends/xhr_backend", ["angular2/src/http/en
       });
     }
     return XHRConnection;
-  })();
+  }());
   exports.XHRConnection = XHRConnection;
   var XHRBackend = (function() {
     function XHRBackend(_browserXHR, _baseResponseOptions) {
@@ -693,7 +712,7 @@ System.register("angular2/src/http/backends/xhr_backend", ["angular2/src/http/en
     };
     XHRBackend = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [browser_xhr_1.BrowserXhr, base_response_options_1.ResponseOptions])], XHRBackend);
     return XHRBackend;
-  })();
+  }());
   exports.XHRBackend = XHRBackend;
   global.define = __define;
   return module.exports;
@@ -703,6 +722,7 @@ System.register("angular2/src/http/backends/jsonp_backend", ["angular2/src/http/
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var __extends = (this && this.__extends) || function(d, b) {
     for (var p in b)
       if (b.hasOwnProperty(p))
@@ -742,7 +762,7 @@ System.register("angular2/src/http/backends/jsonp_backend", ["angular2/src/http/
   var JSONPConnection = (function() {
     function JSONPConnection() {}
     return JSONPConnection;
-  })();
+  }());
   exports.JSONPConnection = JSONPConnection;
   var JSONPConnection_ = (function(_super) {
     __extends(JSONPConnection_, _super);
@@ -830,7 +850,7 @@ System.register("angular2/src/http/backends/jsonp_backend", ["angular2/src/http/
       this._responseData = data;
     };
     return JSONPConnection_;
-  })(JSONPConnection);
+  }(JSONPConnection));
   exports.JSONPConnection_ = JSONPConnection_;
   var JSONPBackend = (function(_super) {
     __extends(JSONPBackend, _super);
@@ -838,7 +858,7 @@ System.register("angular2/src/http/backends/jsonp_backend", ["angular2/src/http/
       _super.apply(this, arguments);
     }
     return JSONPBackend;
-  })(interfaces_1.ConnectionBackend);
+  }(interfaces_1.ConnectionBackend));
   exports.JSONPBackend = JSONPBackend;
   var JSONPBackend_ = (function(_super) {
     __extends(JSONPBackend_, _super);
@@ -852,7 +872,7 @@ System.register("angular2/src/http/backends/jsonp_backend", ["angular2/src/http/
     };
     JSONPBackend_ = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [browser_jsonp_1.BrowserJsonp, base_response_options_1.ResponseOptions])], JSONPBackend_);
     return JSONPBackend_;
-  })(JSONPBackend);
+  }(JSONPBackend));
   exports.JSONPBackend_ = JSONPBackend_;
   global.define = __define;
   return module.exports;
@@ -862,6 +882,7 @@ System.register("angular2/src/http/static_request", ["angular2/src/http/headers"
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var headers_1 = require("angular2/src/http/headers");
   var http_utils_1 = require("angular2/src/http/http_utils");
   var lang_1 = require("angular2/src/facade/lang");
@@ -887,7 +908,7 @@ System.register("angular2/src/http/static_request", ["angular2/src/http/headers"
       return lang_1.isPresent(this._body) ? this._body.toString() : '';
     };
     return Request;
-  })();
+  }());
   exports.Request = Request;
   global.define = __define;
   return module.exports;
@@ -897,6 +918,7 @@ System.register("angular2/src/http/http", ["angular2/src/facade/lang", "angular2
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var __extends = (this && this.__extends) || function(d, b) {
     for (var p in b)
       if (b.hasOwnProperty(p))
@@ -988,7 +1010,7 @@ System.register("angular2/src/http/http", ["angular2/src/facade/lang", "angular2
     };
     Http = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [interfaces_1.ConnectionBackend, base_request_options_1.RequestOptions])], Http);
     return Http;
-  })();
+  }());
   exports.Http = Http;
   var Jsonp = (function(_super) {
     __extends(Jsonp, _super);
@@ -1012,7 +1034,7 @@ System.register("angular2/src/http/http", ["angular2/src/facade/lang", "angular2
     };
     Jsonp = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [interfaces_1.ConnectionBackend, base_request_options_1.RequestOptions])], Jsonp);
     return Jsonp;
-  })(Http);
+  }(Http));
   exports.Jsonp = Jsonp;
   global.define = __define;
   return module.exports;
@@ -1022,6 +1044,7 @@ System.register("angular2/http", ["angular2/core", "angular2/src/http/http", "an
   var global = System.global,
       __define = global.define;
   global.define = undefined;
+  "use strict";
   var core_1 = require("angular2/core");
   var http_1 = require("angular2/src/http/http");
   var xhr_backend_1 = require("angular2/src/http/backends/xhr_backend");

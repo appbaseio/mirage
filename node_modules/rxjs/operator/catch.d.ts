@@ -7,4 +7,4 @@ import { Observable } from '../Observable';
  * @return {Observable} an observable that originates from either the source or the observable returned by the
  *  catch `selector` function.
  */
-export declare function _catch<T>(selector: (err: any, caught: Observable<any>) => Observable<any>): Observable<T>;
+export declare function _catch<T, R>(selector: (err: any, caught: Observable<T>) => Observable<R>): Observable<R>;

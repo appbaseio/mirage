@@ -8,6 +8,6 @@ export * from './di/decorators';
 export { forwardRef, resolveForwardRef, ForwardRefFn } from './di/forward_ref';
 export { Injector } from './di/injector';
 export { Binding, ProviderBuilder, ResolvedBinding, ResolvedFactory, Dependency, bind, Provider, ResolvedProvider, provide } from './di/provider';
-export { Key, TypeLiteral } from './di/key';
+export { Key } from './di/key';
 export { NoProviderError, AbstractProviderError, CyclicDependencyError, InstantiationError, InvalidProviderError, NoAnnotationError, OutOfBoundsError } from './di/exceptions';
 export { OpaqueToken } from './di/opaque_token';

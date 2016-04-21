@@ -4,8 +4,8 @@
 <script src="./es6-shim.js"></script>
 <script>
 Promise.resolve(2);
-Promise();
-new Promise();
+try { Promise(); } catch (e) { alert(e); }
+try { new Promise(); } catch (e) { alert(e); }
 </script>
 </head>
 </html>

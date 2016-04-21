@@ -1,12 +1,23 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
 var EmptyError_1 = require('../util/EmptyError');
+/**
+ * Returns an Observable that emits the single item emitted by the source Observable that matches a specified
+ * predicate, if that Observable emits one such item. If the source Observable emits more than one such item or no
+ * such items, notify of an IllegalArgumentException or NoSuchElementException respectively.
+ *
+ * <img src="./img/single.png" width="100%">
+ *
+ * @param {Function} a predicate function to evaluate items emitted by the source Observable.
+ * @returns {Observable<T>} an Observable that emits the single item emitted by the source Observable that matches
+ * the predicate.
+ .
+ */
 function single(predicate) {
     return this.lift(new SingleOperator(predicate, this));
 }
@@ -20,7 +31,7 @@ var SingleOperator = (function () {
         return new SingleSubscriber(subscriber, this.predicate, this.source);
     };
     return SingleOperator;
-})();
+}());
 var SingleSubscriber = (function (_super) {
     __extends(SingleSubscriber, _super);
     function SingleSubscriber(destination, predicate, source) {
@@ -41,18 +52,23 @@ var SingleSubscriber = (function (_super) {
     };
     SingleSubscriber.prototype._next = function (value) {
         var predicate = this.predicate;
-        var currentIndex = this.index++;
+        this.index++;
         if (predicate) {
-            var result = tryCatch_1.tryCatch(predicate)(value, currentIndex, this.source);
-            if (result === errorObject_1.errorObject) {
-                this.destination.error(result.e);
-            }
-            else if (result) {
-                this.applySingleValue(value);
-            }
+            this.tryNext(value);
         }
         else {
             this.applySingleValue(value);
+        }
+    };
+    SingleSubscriber.prototype.tryNext = function (value) {
+        try {
+            var result = this.predicate(value, this.index, this.source);
+            if (result) {
+                this.applySingleValue(value);
+            }
+        }
+        catch (err) {
+            this.destination.error(err);
         }
     };
     SingleSubscriber.prototype._complete = function () {
@@ -66,5 +82,5 @@ var SingleSubscriber = (function (_super) {
         }
     };
     return SingleSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=single.js.map

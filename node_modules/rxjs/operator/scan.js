@@ -1,11 +1,21 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
+/**
+ * Returns an Observable that applies a specified accumulator function to each item emitted by the source Observable.
+ * If a seed value is specified, then that value will be used as the initial value for the accumulator.
+ * If no seed value is specified, the first item of the source is used as the seed.
+ * @param {function} accumulator The accumulator function called on each item.
+ *
+ * <img src="./img/scan.png" width="100%">
+ *
+ * @param {any} [seed] The initial accumulator value.
+ * @returns {Obervable} An observable of the accumulated values.
+ */
 function scan(accumulator, seed) {
     return this.lift(new ScanOperator(accumulator, seed));
 }
@@ -19,7 +29,7 @@ var ScanOperator = (function () {
         return new ScanSubscriber(subscriber, this.accumulator, this.seed);
     };
     return ScanOperator;
-})();
+}());
 var ScanSubscriber = (function (_super) {
     __extends(ScanSubscriber, _super);
     function ScanSubscriber(destination, accumulator, seed) {
@@ -47,16 +57,20 @@ var ScanSubscriber = (function (_super) {
             this.destination.next(value);
         }
         else {
-            var result = tryCatch_1.tryCatch(this.accumulator).call(this, this.seed, value);
-            if (result === errorObject_1.errorObject) {
-                this.destination.error(errorObject_1.errorObject.e);
-            }
-            else {
-                this.seed = result;
-                this.destination.next(this.seed);
-            }
+            return this._tryNext(value);
         }
     };
+    ScanSubscriber.prototype._tryNext = function (value) {
+        var result;
+        try {
+            result = this.accumulator(this.seed, value);
+        }
+        catch (err) {
+            this.destination.error(err);
+        }
+        this.seed = result;
+        this.destination.next(result);
+    };
     return ScanSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=scan.js.map

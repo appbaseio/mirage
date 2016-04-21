@@ -1,13 +1,14 @@
 /**
 Some credit for this helper goes to http://github.com/YuzuJS/setImmediate
 */
+"use strict";
 var root_1 = require('./root');
 var ImmediateDefinition = (function () {
     function ImmediateDefinition(root) {
         this.root = root;
-        if (root.setImmediate) {
-            this.setImmediate = root.setImmediate;
-            this.clearImmediate = root.clearImmediate;
+        if (root.setImmediate && typeof root.setImmediate === 'function') {
+            this.setImmediate = root.setImmediate.bind(root);
+            this.clearImmediate = root.clearImmediate.bind(root);
         }
         else {
             this.nextHandle = 1;
@@ -59,14 +60,14 @@ var ImmediateDefinition = (function () {
         // The test against `importScripts` prevents this implementation from being installed inside a web worker,
         // where `root.postMessage` means something completely different and can't be used for this purpose.
         if (root.postMessage && !root.importScripts) {
-            var postMessageIsAsynchronous = true;
+            var postMessageIsAsynchronous_1 = true;
             var oldOnMessage = root.onmessage;
             root.onmessage = function () {
-                postMessageIsAsynchronous = false;
+                postMessageIsAsynchronous_1 = false;
             };
             root.postMessage('', '*');
             root.onmessage = oldOnMessage;
-            return postMessageIsAsynchronous;
+            return postMessageIsAsynchronous_1;
         }
         return false;
     };
@@ -202,7 +203,7 @@ var ImmediateDefinition = (function () {
         return fn;
     };
     return ImmediateDefinition;
-})();
+}());
 exports.ImmediateDefinition = ImmediateDefinition;
 exports.Immediate = new ImmediateDefinition(root_1.root);
 //# sourceMappingURL=Immediate.js.map

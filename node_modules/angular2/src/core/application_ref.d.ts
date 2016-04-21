@@ -1,7 +1,6 @@
 import { NgZone } from 'angular2/src/core/zone/ng_zone';
 import { Type } from 'angular2/src/facade/lang';
 import { Provider, Injector } from 'angular2/src/core/di';
-import { Promise } from 'angular2/src/facade/async';
 import { ComponentRef } from 'angular2/src/core/linker/dynamic_component_loader';
 import { ChangeDetectorRef } from 'angular2/src/core/change_detection/change_detector_ref';
 /**

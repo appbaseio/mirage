@@ -67,6 +67,14 @@ export interface NgMatchers extends jasmine.Matchers {
      */
     toThrowErrorWith(expectedMessage: any): boolean;
     /**
+     * Expect a string to match the given regular expression.
+     *
+     * ## Example
+     *
+     * {@example testing/ts/matchers.ts region='toMatchPattern'}
+     */
+    toMatchPattern(expectedMessage: any): boolean;
+    /**
      * Invert the matchers.
      */
     not: NgMatchers;

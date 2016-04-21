@@ -13,6 +13,7 @@ import { BaseException } from 'angular2/src/facade/exceptions';
 import { ListWrapper, StringMapWrapper } from 'angular2/src/facade/collection';
 import { DirectiveMetadata, ComponentMetadata, InputMetadata, OutputMetadata, HostBindingMetadata, HostListenerMetadata, ContentChildrenMetadata, ViewChildrenMetadata, ContentChildMetadata, ViewChildMetadata } from 'angular2/src/core/metadata';
 import { reflector } from 'angular2/src/core/reflection/reflection';
+import { ReflectorReader } from 'angular2/src/core/reflection/reflector_reader';
 function _isDirectiveMetadata(type) {
     return type instanceof DirectiveMetadata;
 }
@@ -23,16 +24,24 @@ function _isDirectiveMetadata(type) {
  *
  * See {@link Compiler}
  */
-export let DirectiveResolver = class {
+export let DirectiveResolver = class DirectiveResolver {
+    constructor(_reflector) {
+        if (isPresent(_reflector)) {
+            this._reflector = _reflector;
+        }
+        else {
+            this._reflector = reflector;
+        }
+    }
     /**
      * Return {@link DirectiveMetadata} for a given `Type`.
      */
     resolve(type) {
-        var typeMetadata = reflector.annotations(resolveForwardRef(type));
+        var typeMetadata = this._reflector.annotations(resolveForwardRef(type));
         if (isPresent(typeMetadata)) {
             var metadata = typeMetadata.find(_isDirectiveMetadata);
             if (isPresent(metadata)) {
-                var propertyMetadata = reflector.propMetadata(type);
+                var propertyMetadata = this._reflector.propMetadata(type);
                 return this._mergeWithPropertyMetadata(metadata, propertyMetadata, type);
             }
         }
@@ -134,6 +143,6 @@ export let DirectiveResolver = class {
 };
 DirectiveResolver = __decorate([
     Injectable(), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [ReflectorReader])
 ], DirectiveResolver);
-export var CODEGEN_DIRECTIVE_RESOLVER = new DirectiveResolver();
+export var CODEGEN_DIRECTIVE_RESOLVER = new DirectiveResolver(reflector);

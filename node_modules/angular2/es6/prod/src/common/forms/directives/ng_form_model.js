@@ -90,7 +90,7 @@ const formDirectiveProvider = CONST_EXPR(new Provider(ControlContainer, { useExi
  * }
  *  ```
  */
-export let NgFormModel = class extends ControlContainer {
+export let NgFormModel = class NgFormModel extends ControlContainer {
     constructor(_validators, _asyncValidators) {
         super();
         this._validators = _validators;

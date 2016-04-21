@@ -1,4 +1,3 @@
-import { Promise } from 'angular2/src/facade/async';
 import { DomAdapter } from 'angular2/src/platform/dom/dom_adapter';
 import { ElementRef } from 'angular2/src/core/linker/element_ref';
 export declare class Rectangle {

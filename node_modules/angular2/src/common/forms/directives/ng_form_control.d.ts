@@ -3,6 +3,7 @@ import { OnChanges, SimpleChange } from 'angular2/core';
 import { NgControl } from './ng_control';
 import { Control } from '../model';
 import { ControlValueAccessor } from './control_value_accessor';
+import { ValidatorFn, AsyncValidatorFn } from './validators';
 /**
  * Binds an existing {@link Control} to a DOM element.
  *
@@ -62,8 +63,8 @@ export declare class NgFormControl extends NgControl implements OnChanges {
         [key: string]: SimpleChange;
     }): void;
     path: string[];
-    validator: Function;
-    asyncValidator: Function;
+    validator: ValidatorFn;
+    asyncValidator: AsyncValidatorFn;
     control: Control;
     viewToModelUpdate(newValue: any): void;
     private _isControlChanged(changes);

@@ -1,3 +1,4 @@
+"use strict";
 var AsyncSubject_1 = require('../subject/AsyncSubject');
 var multicast_1 = require('./multicast');
 function publishLast() {

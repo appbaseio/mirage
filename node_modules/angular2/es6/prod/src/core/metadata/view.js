@@ -66,7 +66,7 @@ export var VIEW_ENCAPSULATION_VALUES = [ViewEncapsulation.Emulated, ViewEncapsul
  * }
  * ```
  */
-export let ViewMetadata = class {
+export let ViewMetadata = class ViewMetadata {
     constructor({ templateUrl, template, directives, pipes, encapsulation, styles, styleUrls } = {}) {
         this.templateUrl = templateUrl;
         this.template = template;

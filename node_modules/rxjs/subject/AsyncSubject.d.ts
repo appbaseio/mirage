@@ -2,11 +2,9 @@ import { Subject } from '../Subject';
 import { Subscriber } from '../Subscriber';
 import { Subscription } from '../Subscription';
 export declare class AsyncSubject<T> extends Subject<T> {
-    _value: T;
-    _hasNext: boolean;
-    _isScalar: boolean;
-    constructor();
-    _subscribe(subscriber: Subscriber<any>): Subscription<T>;
-    _next(value: T): void;
-    _complete(): void;
+    value: T;
+    hasNext: boolean;
+    protected _subscribe(subscriber: Subscriber<any>): Subscription | Function | void;
+    protected _next(value: T): void;
+    protected _complete(): void;
 }

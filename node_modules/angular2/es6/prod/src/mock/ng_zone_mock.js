@@ -13,15 +13,16 @@ import { EventEmitter, ObservableWrapper } from 'angular2/src/facade/async';
 /**
  * A mock implementation of {@link NgZone}.
  */
-export let MockNgZone = class extends NgZone {
+export let MockNgZone = class MockNgZone extends NgZone {
     constructor() {
         super({ enableLongStackTrace: false });
-        this._mockOnEventDone = new EventEmitter(false);
+        /** @internal */
+        this._mockOnStable = new EventEmitter(false);
     }
-    get onEventDone() { return this._mockOnEventDone; }
+    get onStable() { return this._mockOnStable; }
     run(fn) { return fn(); }
     runOutsideAngular(fn) { return fn(); }
-    simulateZoneExit() { ObservableWrapper.callNext(this.onEventDone, null); }
+    simulateZoneExit() { ObservableWrapper.callNext(this.onStable, null); }
 };
 MockNgZone = __decorate([
     Injectable(), 

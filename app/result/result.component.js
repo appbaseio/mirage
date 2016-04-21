@@ -1,4 +1,6 @@
-System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mapping.service", '../shared/httpwrap'], function(exports_1) {
+System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mapping.service", '../shared/httpwrap', "./types/types.component"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +10,7 @@ System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mappi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, prettyJson_1, mapping_service_1, httpwrap_1;
+    var core_1, prettyJson_1, mapping_service_1, httpwrap_1, types_component_1;
     var ResultComponent;
     return {
         setters:[
@@ -23,45 +25,34 @@ System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mappi
             },
             function (httpwrap_1_1) {
                 httpwrap_1 = httpwrap_1_1;
+            },
+            function (types_component_1_1) {
+                types_component_1 = types_component_1_1;
             }],
         execute: function() {
             ResultComponent = (function () {
                 function ResultComponent(mappingService) {
                     this.mappingService = mappingService;
                 }
-                ResultComponent.prototype.changeType = function () {
-                    setTimeout(function () {
-                        this.mapping.resultQuery.result = [];
-                        var mapObj = this.mapping.mapping[this.config.appname].mappings[this.mapping.resultQuery.type].properties;
-                        var availableFields = [];
-                        for (var field in mapObj) {
-                            var obj = {
-                                name: field,
-                                type: mapObj[field]['type'],
-                                index: mapObj[field]['index']
-                            };
-                            switch (obj.type) {
-                                case 'long':
-                                case 'integer':
-                                case 'short':
-                                case 'byte':
-                                case 'double':
-                                case 'float':
-                                    obj.type = 'numeric';
-                                    break;
-                            }
-                            availableFields.push(obj);
-                        }
-                        this.mapping.resultQuery.availableFields = availableFields;
-                    }.bind(this), 300);
+                ResultComponent.prototype.ngOnInit = function () {
+                    var self = this;
+                    this.editorHookHelp.applyEditor();
+                    var resultHeight = $(window).height() - 170;
+                    $('.queryRight .codemirror').css({ height: resultHeight });
+                };
+                ResultComponent.prototype.ngOnChanges = function (changes) {
+                    console.log('result change', changes);
                 };
                 ResultComponent.prototype.runQuery = function () {
                     var self = this;
-                    var createUrl = this.config.url + '/' + this.config.appname + '/' + this.mapping.resultQuery.type + '/_search';
+                    var createUrl = this.config.url + '/' + this.config.appname + '/' + this.mapping.selectedTypes + '/_search';
                     var autho = "Basic " + btoa(self.config.username + ':' + self.config.password);
-                    var payload = JSON.parse(this.mapping.resultQuery.final);
+                    var getQuery = this.editorHookHelp.getValue();
+                    var payload = JSON.parse(getQuery);
+                    // console.log(this.mapping.resultQuery);
                     httpwrap_1.$http.post(createUrl, payload, autho).then(function (res) {
-                        self.mapping.output = JSON.stringify(res);
+                        self.mapping.output = JSON.stringify(res, null, 2);
+                        self.responseHookHelp.setValue(self.mapping.output);
                     });
                 };
                 ResultComponent = __decorate([
@@ -69,14 +60,15 @@ System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mappi
                         selector: 'query-result',
                         templateUrl: './app/result/result.component.html',
                         styleUrls: ['./app/result/result.component.css'],
-                        inputs: ['mapping', 'config'],
+                        inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'responseHookHelp'],
                         pipes: [prettyJson_1.prettyJson],
-                        providers: [mapping_service_1.MappingService]
+                        providers: [mapping_service_1.MappingService],
+                        directives: [types_component_1.TypesComponent]
                     }), 
                     __metadata('design:paramtypes', [mapping_service_1.MappingService])
                 ], ResultComponent);
                 return ResultComponent;
-            })();
+            }());
             exports_1("ResultComponent", ResultComponent);
         }
     }

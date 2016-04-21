@@ -32,7 +32,7 @@ export var METADATA_CACHE_MODULE_REF = moduleRef('package:angular2/src/core/link
  * extracts templates, and eventually produces a compiled version of the component
  * ready for linking into an application.
  */
-export let TemplateCompiler = class {
+export let TemplateCompiler = class TemplateCompiler {
     constructor(_runtimeMetadataResolver, _templateNormalizer, _templateParser, _styleCompiler, _cdCompiler, _protoViewCompiler, _viewCompiler, _resolvedMetadataCache, _genConfig) {
         this._runtimeMetadataResolver = _runtimeMetadataResolver;
         this._templateNormalizer = _templateNormalizer;
@@ -66,6 +66,10 @@ export let TemplateCompiler = class {
             hostProperties: directive.hostProperties,
             hostAttributes: directive.hostAttributes,
             lifecycleHooks: directive.lifecycleHooks,
+            providers: directive.providers,
+            viewProviders: directive.viewProviders,
+            queries: directive.queries,
+            viewQueries: directive.viewQueries,
             template: normalizedTemplate
         }));
     }

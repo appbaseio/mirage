@@ -24,8 +24,9 @@ import { reflector } from 'angular2/src/core/reflection/reflection';
 import { Injectable, Inject, Optional } from 'angular2/src/core/di';
 import { PLATFORM_DIRECTIVES, PLATFORM_PIPES } from 'angular2/src/core/platform_directives_and_pipes';
 import { MODULE_SUFFIX } from './util';
+import { assertArrayOfStrings } from './assertions';
 import { getUrlScheme } from 'angular2/src/compiler/url_resolver';
-export let RuntimeMetadataResolver = class {
+export let RuntimeMetadataResolver = class RuntimeMetadataResolver {
     constructor(_directiveResolver, _pipeResolver, _viewResolver, _platformDirectives, _platformPipes) {
         this._directiveResolver = _directiveResolver;
         this._pipeResolver = _pipeResolver;
@@ -34,6 +35,23 @@ export let RuntimeMetadataResolver = class {
         this._platformPipes = _platformPipes;
         this._directiveCache = new Map();
         this._pipeCache = new Map();
+        this._anonymousTypes = new Map();
+        this._anonymousTypeIndex = 0;
+    }
+    /**
+     * Wrap the stringify method to avoid naming things `function (arg1...) {`
+     */
+    sanitizeName(obj) {
+        let result = stringify(obj);
+        if (result.indexOf('(') < 0) {
+            return result;
+        }
+        let found = this._anonymousTypes.get(obj);
+        if (!found) {
+            this._anonymousTypes.set(obj, this._anonymousTypeIndex++);
+            found = this._anonymousTypes.get(obj);
+        }
+        return `anonymous_type_${found}_`;
     }
     getDirectiveMetadata(directiveType) {
         var meta = this._directiveCache.get(directiveType);
@@ -43,9 +61,11 @@ export let RuntimeMetadataResolver = class {
             var templateMeta = null;
             var changeDetectionStrategy = null;
             if (dirMeta instanceof md.ComponentMetadata) {
+                assertArrayOfStrings('styles', dirMeta.styles);
                 var cmpMeta = dirMeta;
                 moduleUrl = calcModuleUrl(directiveType, cmpMeta);
                 var viewMeta = this._viewResolver.resolve(directiveType);
+                assertArrayOfStrings('styles', viewMeta.styles);
                 templateMeta = new cpl.CompileTemplateMetadata({
                     encapsulation: viewMeta.encapsulation,
                     template: viewMeta.template,
@@ -60,7 +80,7 @@ export let RuntimeMetadataResolver = class {
                 exportAs: dirMeta.exportAs,
                 isComponent: isPresent(templateMeta),
                 dynamicLoadable: true,
-                type: new cpl.CompileTypeMetadata({ name: stringify(directiveType), moduleUrl: moduleUrl, runtime: directiveType }),
+                type: new cpl.CompileTypeMetadata({ name: this.sanitizeName(directiveType), moduleUrl: moduleUrl, runtime: directiveType }),
                 template: templateMeta,
                 changeDetection: changeDetectionStrategy,
                 inputs: dirMeta.inputs,
@@ -78,7 +98,7 @@ export let RuntimeMetadataResolver = class {
             var pipeMeta = this._pipeResolver.resolve(pipeType);
             var moduleUrl = reflector.importUri(pipeType);
             meta = new cpl.CompilePipeMetadata({
-                type: new cpl.CompileTypeMetadata({ name: stringify(pipeType), moduleUrl: moduleUrl, runtime: pipeType }),
+                type: new cpl.CompileTypeMetadata({ name: this.sanitizeName(pipeType), moduleUrl: moduleUrl, runtime: pipeType }),
                 name: pipeMeta.name,
                 pure: pipeMeta.pure
             });

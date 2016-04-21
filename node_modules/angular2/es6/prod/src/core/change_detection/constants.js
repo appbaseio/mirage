@@ -55,10 +55,6 @@ export var ChangeDetectionStrategy;
      * `Default` means that the change detector's mode will be set to `CheckAlways` during hydration.
      */
     ChangeDetectionStrategy[ChangeDetectionStrategy["Default"] = 5] = "Default";
-    /**
-     * This is an experimental feature. Works only in Dart.
-     */
-    ChangeDetectionStrategy[ChangeDetectionStrategy["OnPushObserve"] = 6] = "OnPushObserve";
 })(ChangeDetectionStrategy || (ChangeDetectionStrategy = {}));
 /**
  * List of possible {@link ChangeDetectionStrategy} values.
@@ -69,8 +65,7 @@ export var CHANGE_DETECTION_STRATEGY_VALUES = [
     ChangeDetectionStrategy.CheckAlways,
     ChangeDetectionStrategy.Detached,
     ChangeDetectionStrategy.OnPush,
-    ChangeDetectionStrategy.Default,
-    ChangeDetectionStrategy.OnPushObserve
+    ChangeDetectionStrategy.Default
 ];
 /**
  * List of possible {@link ChangeDetectorState} values.

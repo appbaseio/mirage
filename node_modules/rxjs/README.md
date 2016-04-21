@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.org/ReactiveX/RxJS.svg?branch=master)](https://travis-ci.org/ReactiveX/RxJS)
 [![Coverage Status](https://coveralls.io/repos/ReactiveX/RxJS/badge.svg?branch=master&service=github)](https://coveralls.io/github/ReactiveX/RxJS?branch=master)
 [![npm version](https://badge.fury.io/js/%40reactivex%2Frxjs.svg)](http://badge.fury.io/js/%40reactivex%2Frxjs)
+[![Join the chat at https://gitter.im/Reactive-Extensions/RxJS](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Reactive-Extensions/RxJS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/rxjs5.svg)](https://saucelabs.com/u/rxjs5)
 
 # RxJS 5 (beta)
 
@@ -43,7 +46,7 @@ import 'rxjs/add/operator/map';
 Observable.of(1,2,3).map(x => x + '!!!'); // etc
 ```
 
-To import what you need and use it with ES7 function bind (best overall method, if possible):
+To import what you need and use it with ES next function bind (best overall method, if possible):
 
 ```js
 import {Observable} from 'rxjs/Observable';
@@ -99,7 +102,7 @@ npm install @reactivex/rxjs
 If you are using npm **version 2** before this library has achieved a stable version, you need to specify the library version explicitly:
 
 ```sh
-npm install @reactivex/rxjs@5.0.0-alpha.10
+npm install @reactivex/rxjs@5.0.0-beta.1
 ```
 
 ### CDN
@@ -107,7 +110,7 @@ npm install @reactivex/rxjs@5.0.0-alpha.10
 For CDN, you can use [npmcdn](https://npmcdn.com). Just replace `version` with the current
 version on the link below:
 
-https://npmcdn.com/@reactivex/rxjs@version/dist/global/Rx.js
+https://npmcdn.com/@reactivex/rxjs@version/dist/global/Rx.umd.js
 
 #### Node.js Usage:
 

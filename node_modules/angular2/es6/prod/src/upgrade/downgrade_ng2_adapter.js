@@ -142,7 +142,7 @@ export class DowngradeNg2ComponentAdapter {
         }
     }
     registerCleanup() {
-        this.element.bind('$remove', () => this.viewManager.destroyRootHostView(this.hostViewRef));
+        this.element.bind('$destroy', () => this.viewManager.destroyRootHostView(this.hostViewRef));
     }
 }
 class Ng1Change {

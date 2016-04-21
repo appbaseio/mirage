@@ -1,3 +1,1 @@
-export declare var errorObject: {
-    e: {};
-};
+export declare var errorObject: any;

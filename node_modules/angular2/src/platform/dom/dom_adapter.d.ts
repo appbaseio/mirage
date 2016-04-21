@@ -84,10 +84,13 @@ export declare abstract class DomAdapter {
     abstract tagName(element: any): string;
     abstract attributeMap(element: any): Map<string, string>;
     abstract hasAttribute(element: any, attribute: string): boolean;
+    abstract hasAttributeNS(element: any, ns: string, attribute: string): boolean;
     abstract getAttribute(element: any, attribute: string): string;
+    abstract getAttributeNS(element: any, ns: string, attribute: string): string;
     abstract setAttribute(element: any, name: string, value: string): any;
     abstract setAttributeNS(element: any, ns: string, name: string, value: string): any;
     abstract removeAttribute(element: any, attribute: string): any;
+    abstract removeAttributeNS(element: any, ns: string, attribute: string): any;
     abstract templateAwareRoot(el: any): any;
     abstract createHtmlDocument(): HTMLDocument;
     abstract defaultDoc(): HTMLDocument;

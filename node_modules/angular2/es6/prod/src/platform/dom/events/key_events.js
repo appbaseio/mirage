@@ -19,16 +19,17 @@ var modifierKeyGetters = {
     'meta': (event) => event.metaKey,
     'shift': (event) => event.shiftKey
 };
-export let KeyEventsPlugin = class extends EventManagerPlugin {
+let KeyEventsPlugin_1;
+export let KeyEventsPlugin = KeyEventsPlugin_1 = class KeyEventsPlugin extends EventManagerPlugin {
     constructor() {
         super();
     }
     supports(eventName) {
-        return isPresent(KeyEventsPlugin.parseEventName(eventName));
+        return isPresent(KeyEventsPlugin_1.parseEventName(eventName));
     }
     addEventListener(element, eventName, handler) {
-        var parsedEvent = KeyEventsPlugin.parseEventName(eventName);
-        var outsideHandler = KeyEventsPlugin.eventCallback(element, StringMapWrapper.get(parsedEvent, 'fullKey'), handler, this.manager.getZone());
+        var parsedEvent = KeyEventsPlugin_1.parseEventName(eventName);
+        var outsideHandler = KeyEventsPlugin_1.eventCallback(element, StringMapWrapper.get(parsedEvent, 'fullKey'), handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(() => {
             return DOM.onAndCancel(element, StringMapWrapper.get(parsedEvent, 'domEventName'), outsideHandler);
         });
@@ -41,7 +42,7 @@ export let KeyEventsPlugin = class extends EventManagerPlugin {
                 StringWrapper.equals(domEventName, 'keyup'))) {
             return null;
         }
-        var key = KeyEventsPlugin._normalizeKey(parts.pop());
+        var key = KeyEventsPlugin_1._normalizeKey(parts.pop());
         var fullKey = '';
         modifierKeys.forEach(modifierName => {
             if (ListWrapper.contains(parts, modifierName)) {
@@ -82,7 +83,7 @@ export let KeyEventsPlugin = class extends EventManagerPlugin {
     }
     static eventCallback(element, fullKey, handler, zone) {
         return (event) => {
-            if (StringWrapper.equals(KeyEventsPlugin.getEventFullKey(event), fullKey)) {
+            if (StringWrapper.equals(KeyEventsPlugin_1.getEventFullKey(event), fullKey)) {
                 zone.run(() => handler(event));
             }
         };
@@ -98,7 +99,7 @@ export let KeyEventsPlugin = class extends EventManagerPlugin {
         }
     }
 };
-KeyEventsPlugin = __decorate([
+KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
     Injectable(), 
     __metadata('design:paramtypes', [])
 ], KeyEventsPlugin);

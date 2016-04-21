@@ -3,7 +3,7 @@ SystemJS
 
 [![Build Status][travis-image]][travis-url]
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/systemjs/systemjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
-[![Tips](https://tips.60devs.com/images/button-black.svg)](https://tips.60devs.com/tip/33df4abbec4d39260f49015d2457eafe)
+[![Support](https://supporter.60devs.com/api/b/33df4abbec4d39260f49015d2457eafe/SystemJS)](https://supporter.60devs.com/support/33df4abbec4d39260f49015d2457eafe/SystemJS)
 
 _For upgrading to SystemJS 0.17-0.19, see the [SystemJS 0.17 release upgrade notes for more information](https://github.com/systemjs/systemjs/releases/tag/0.17.0), or read the updated [SystemJS Overview](docs/overview.md) guide._
 
@@ -11,7 +11,7 @@ Universal dynamic module loader - loads ES6 modules, AMD, CommonJS and global sc
 
 * [Loads any module format](docs/module-formats.md) with [exact circular reference and binding support](https://github.com/ModuleLoader/es6-module-loader/blob/v0.17.0/docs/circular-references-bindings.md).
 * Loads [ES6 modules compiled into the `System.register` bundle format for production](docs/production-workflows.md), maintaining circular references support.
-* Supports RequireJS-style [map](docs/overview.md#map-config), [paths](docs/overview.md#paths-config), [bundles](docs/production-workflows.md#bundle-extension) and [global shims](docs/module-formats.md#shim-dependencies).
+* Supports RequireJS-style [map](docs/overview.md#map-config), [paths](https://github.com/ModuleLoader/es6-module-loader/blob/master/docs/loader-config.md#paths-implementation), [bundles](docs/production-workflows.md#bundle-extension) and [global shims](docs/module-formats.md#shim-dependencies).
 * [Loader plugins](docs/overview.md#plugin-loaders) allow loading assets through the module naming system such as CSS, JSON or images.
 
 Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader).
@@ -77,13 +77,13 @@ System.config({
 });
 ```
 
-### Polyfills
+### Promise Polyfill
 
-SystemJS relies on `Promise` and `URL` being present in the environment. When these are not available it will send a request out to the `system-polyfills.js` file located in the dist folder which will polyfill `window.Promise` and `window.URLPolyfill`.
+SystemJS relies on `Promise` being present in the environment.
 
-This is typically necessary in IE, so ensure to keep this file in the same folder as SystemJS.
+For the best performance in IE and older browsers, it is advisable to load [Bluebird](https://github.com/petkaantonov/bluebird) or [es6-promise](https://github.com/stefanpenner/es6-promise) before SystemJS.
 
-Alternatively these polyfills can be loaded with a script tag before SystemJS or via other polyfill implementations as well.
+Otherwise, when Promise is not available, SystemJS will attempt to load the `system-polyfills.js` file located in the dist folder which contains the when.js Promise polyfill.
 
 ### NodeJS
 
@@ -114,7 +114,7 @@ System.import('./app.js').then(function(m) {
 
 If using TypeScript, set `global.ts = require('typescript')` before importing to ensure it is loaded correctly.
 
-If you are using jspm as a package manager you will also need to load the generated `config.js`. The best way to do this in node is to get your `System` instance through jspm, which wil automatically load your config correctly for you:
+If you are using jspm as a package manager you will also need to load the generated `config.js`. The best way to do this in node is to get your `System` instance through jspm, which will automatically load your config correctly for you:
 
 ```js
 var System = require('jspm').Loader();
@@ -128,28 +128,37 @@ System.import('lodash').then(function (_) {
 
 Supported loader plugins:
 
-* [CSS](https://github.com/systemjs/plugin-css) `System.import('my/file.css')`
-* [Image](https://github.com/systemjs/plugin-image) `System.import('some/image.png!image')`
-* [JSON](https://github.com/systemjs/plugin-json) `System.import('some/data.json')`
-* [Text](https://github.com/systemjs/plugin-text) `System.import('some/text.txt!text')`
+* [CSS](https://github.com/systemjs/plugin-css)
+* [Image](https://github.com/systemjs/plugin-image)
+* [JSON](https://github.com/systemjs/plugin-json)
+* [Text](https://github.com/systemjs/plugin-text)
+* [Node Binary](https://github.com/systemjs/plugin-node-binary)
 
 Additional Plugins:
 
-* [Audio](https://github.com/ozsay/plugin-audio) `System.import('./beep.mp3!audio')`
-* [CoffeeScript](https://github.com/forresto/plugin-coffee) `System.import('./test.coffee')`
+* [Audio](https://github.com/ozsay/plugin-audio)
+* [CoffeeScript](https://github.com/forresto/plugin-coffee)
+* [Ember Handlebars](https://github.com/n-fuse/plugin-ember-hbs)
+* [Handlebars](https://github.com/davis/plugin-hbs)
+* [HTML](https://github.com/Hypercubed/systemjs-plugin-html/)
+* [Image (lazy)](https://github.com/laurentgoudet/plugin-lazyimage)
 * [Jade](https://github.com/johnsoftek/plugin-jade)
 * [Jade VirtualDOM](https://github.com/WorldMaker/system-jade-virtualdom)
-* [JSX](https://github.com/floatdrop/plugin-jsx) `System.import('template.jsx')`
-* [Markdown](https://github.com/guybedford/plugin-md) `System.import('app/some/project/README.md').then(function(html) {})`
-* [WebFont](https://github.com/guybedford/plugin-font) `System.import('google Port Lligat Slab, Droid Sans !font')`
-* [Handlebars](https://github.com/davis/plugin-hbs) `System.import('template.hbs!')`
-* [Ember Handlebars](https://github.com/n-fuse/plugin-ember-hbs) `System.import('template.hbs!')`
-* [raw](https://github.com/matthewbauer/plugin-raw) `System.import('file.bin!raw').then(function(data) {})`
-* [jst](https://github.com/podio/plugin-jst) Underscore templates
-* [SASS](https://github.com/screendriver/plugin-sass) `System.import('style.scss!')`
+* [jst](https://github.com/podio/plugin-jst)
+* [JSX](https://github.com/floatdrop/plugin-jsx)
+* [Markdown](https://github.com/guybedford/plugin-md)
+* [raw](https://github.com/matthewbauer/plugin-raw)
+* [SASS](https://github.com/screendriver/plugin-sass)
+* [SCSS](https://github.com/kevcjones/plugin-scss)
+* [sofe](https://github.com/CanopyTax/sofe)
+* [SVG](https://github.com/vuzonp/systemjs-plugin-svg)
+* [WebFont](https://github.com/guybedford/plugin-font)
+* [YAML](https://github.com/tb/plugin-yaml)
 
-[Read about using plugins here](docs/overview.md#plugin-loaders)
-[Read the guide here on creating plugins](docs/creating-plugins.md).
+Guides:
+
+* [Using plugins](docs/overview.md#plugin-loaders)
+* [Creating plugins](docs/creating-plugins.md)
 
 #### Running the tests
 

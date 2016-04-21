@@ -1,12 +1,28 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = require('../Subscriber');
 var Subject_1 = require('../Subject');
 var tryCatch_1 = require('../util/tryCatch');
 var errorObject_1 = require('../util/errorObject');
+var OuterSubscriber_1 = require('../OuterSubscriber');
+var subscribeToResult_1 = require('../util/subscribeToResult');
+/**
+ * Returns an Observable that emits the same values as the source observable with the exception of an `error`.
+ * An `error` will cause the emission of the Throwable that cause the error to the Observable returned from
+ * notificationHandler. If that Observable calls onComplete or `error` then retry will call `complete` or `error`
+ * on the child subscription. Otherwise, this Observable will resubscribe to the source observable, on a particular
+ * Scheduler.
+ *
+ * <img src="./img/retryWhen.png" width="100%">
+ *
+ * @param {notificationHandler} receives an Observable of notifications with which a user can `complete` or `error`,
+ * aborting the retry.
+ * @param {scheduler} the Scheduler on which to subscribe to the source Observable.
+ * @returns {Observable} the source Observable modified with retry logic.
+ */
 function retryWhen(notifier) {
     return this.lift(new RetryWhenOperator(notifier, this));
 }
@@ -17,113 +33,67 @@ var RetryWhenOperator = (function () {
         this.source = source;
     }
     RetryWhenOperator.prototype.call = function (subscriber) {
-        return new FirstRetryWhenSubscriber(subscriber, this.notifier, this.source);
+        return new RetryWhenSubscriber(subscriber, this.notifier, this.source);
     };
     return RetryWhenOperator;
-})();
-var FirstRetryWhenSubscriber = (function (_super) {
-    __extends(FirstRetryWhenSubscriber, _super);
-    function FirstRetryWhenSubscriber(destination, notifier, source) {
-        _super.call(this);
-        this.destination = destination;
+}());
+var RetryWhenSubscriber = (function (_super) {
+    __extends(RetryWhenSubscriber, _super);
+    function RetryWhenSubscriber(destination, notifier, source) {
+        _super.call(this, destination);
         this.notifier = notifier;
         this.source = source;
-        destination.add(this);
-        this.lastSubscription = this;
     }
-    FirstRetryWhenSubscriber.prototype._next = function (value) {
-        this.destination.next(value);
-    };
-    FirstRetryWhenSubscriber.prototype.error = function (err) {
-        var destination = this.destination;
-        if (!this.isUnsubscribed) {
-            _super.prototype.unsubscribe.call(this);
-            if (!this.retryNotifications) {
-                this.errors = new Subject_1.Subject();
-                var notifications = tryCatch_1.tryCatch(this.notifier).call(this, this.errors);
-                if (notifications === errorObject_1.errorObject) {
-                    destination.error(errorObject_1.errorObject.e);
+    RetryWhenSubscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            var errors = this.errors;
+            var retries = this.retries;
+            var retriesSubscription = this.retriesSubscription;
+            if (!retries) {
+                errors = new Subject_1.Subject();
+                retries = tryCatch_1.tryCatch(this.notifier)(errors);
+                if (retries === errorObject_1.errorObject) {
+                    return _super.prototype.error.call(this, errorObject_1.errorObject.e);
                 }
-                else {
-                    this.retryNotifications = notifications;
-                    var notificationSubscriber = new RetryNotificationSubscriber(this);
-                    this.notificationSubscription = notifications.subscribe(notificationSubscriber);
-                    destination.add(this.notificationSubscription);
-                }
+                retriesSubscription = subscribeToResult_1.subscribeToResult(this, retries);
             }
-            this.errors.next(err);
+            else {
+                this.errors = null;
+                this.retriesSubscription = null;
+            }
+            this.unsubscribe();
+            this.isUnsubscribed = false;
+            this.errors = errors;
+            this.retries = retries;
+            this.retriesSubscription = retriesSubscription;
+            errors.next(err);
         }
     };
-    FirstRetryWhenSubscriber.prototype.destinationError = function (err) {
-        this.tearDown();
-        this.destination.error(err);
-    };
-    FirstRetryWhenSubscriber.prototype._complete = function () {
-        this.destinationComplete();
-    };
-    FirstRetryWhenSubscriber.prototype.destinationComplete = function () {
-        this.tearDown();
-        this.destination.complete();
-    };
-    FirstRetryWhenSubscriber.prototype.unsubscribe = function () {
-        var lastSubscription = this.lastSubscription;
-        if (lastSubscription === this) {
-            _super.prototype.unsubscribe.call(this);
+    RetryWhenSubscriber.prototype._unsubscribe = function () {
+        var _a = this, errors = _a.errors, retriesSubscription = _a.retriesSubscription;
+        if (errors) {
+            errors.unsubscribe();
+            this.errors = null;
         }
-        else {
-            this.tearDown();
+        if (retriesSubscription) {
+            retriesSubscription.unsubscribe();
+            this.retriesSubscription = null;
         }
+        this.retries = null;
     };
-    FirstRetryWhenSubscriber.prototype.tearDown = function () {
-        _super.prototype.unsubscribe.call(this);
-        this.lastSubscription.unsubscribe();
-        var notificationSubscription = this.notificationSubscription;
-        if (notificationSubscription) {
-            notificationSubscription.unsubscribe();
-        }
+    RetryWhenSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        var _a = this, errors = _a.errors, retries = _a.retries, retriesSubscription = _a.retriesSubscription;
+        this.errors = null;
+        this.retries = null;
+        this.retriesSubscription = null;
+        this.unsubscribe();
+        this.isStopped = false;
+        this.isUnsubscribed = false;
+        this.errors = errors;
+        this.retries = retries;
+        this.retriesSubscription = retriesSubscription;
+        this.source.subscribe(this);
     };
-    FirstRetryWhenSubscriber.prototype.resubscribe = function () {
-        var _a = this, destination = _a.destination, lastSubscription = _a.lastSubscription;
-        destination.remove(lastSubscription);
-        lastSubscription.unsubscribe();
-        var nextSubscriber = new MoreRetryWhenSubscriber(this);
-        this.lastSubscription = this.source.subscribe(nextSubscriber);
-        destination.add(this.lastSubscription);
-    };
-    return FirstRetryWhenSubscriber;
-})(Subscriber_1.Subscriber);
-var MoreRetryWhenSubscriber = (function (_super) {
-    __extends(MoreRetryWhenSubscriber, _super);
-    function MoreRetryWhenSubscriber(parent) {
-        _super.call(this, null);
-        this.parent = parent;
-    }
-    MoreRetryWhenSubscriber.prototype._next = function (value) {
-        this.parent.destination.next(value);
-    };
-    MoreRetryWhenSubscriber.prototype._error = function (err) {
-        this.parent.errors.next(err);
-    };
-    MoreRetryWhenSubscriber.prototype._complete = function () {
-        this.parent.destinationComplete();
-    };
-    return MoreRetryWhenSubscriber;
-})(Subscriber_1.Subscriber);
-var RetryNotificationSubscriber = (function (_super) {
-    __extends(RetryNotificationSubscriber, _super);
-    function RetryNotificationSubscriber(parent) {
-        _super.call(this, null);
-        this.parent = parent;
-    }
-    RetryNotificationSubscriber.prototype._next = function (value) {
-        this.parent.resubscribe();
-    };
-    RetryNotificationSubscriber.prototype._error = function (err) {
-        this.parent.destinationError(err);
-    };
-    RetryNotificationSubscriber.prototype._complete = function () {
-        this.parent.destinationComplete();
-    };
-    return RetryNotificationSubscriber;
-})(Subscriber_1.Subscriber);
+    return RetryWhenSubscriber;
+}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=retryWhen.js.map

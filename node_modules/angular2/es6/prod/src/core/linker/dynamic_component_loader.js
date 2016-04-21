@@ -61,7 +61,7 @@ export class ComponentRef_ extends ComponentRef {
  */
 export class DynamicComponentLoader {
 }
-export let DynamicComponentLoader_ = class extends DynamicComponentLoader {
+export let DynamicComponentLoader_ = class DynamicComponentLoader_ extends DynamicComponentLoader {
     constructor(_compiler, _viewManager) {
         super();
         this._compiler = _compiler;

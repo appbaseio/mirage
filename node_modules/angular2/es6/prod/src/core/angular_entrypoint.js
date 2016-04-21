@@ -25,7 +25,7 @@ import { CONST } from 'angular2/src/facade/lang';
  * }
  * ```
  */
-export let AngularEntrypoint = class {
+export let AngularEntrypoint = class AngularEntrypoint {
     constructor(name) {
         this.name = name;
     }

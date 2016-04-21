@@ -24,7 +24,7 @@ export class Animation {
         this.startTime = DateWrapper.toMillis(DateWrapper.now());
         this._stringPrefix = DOM.getAnimationPrefix();
         this.setup();
-        this.wait(timestamp => this.start());
+        this.wait((timestamp) => this.start());
     }
     /** total amount of time that the animation should take including delay */
     get totalTime() {

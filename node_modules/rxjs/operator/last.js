@@ -1,12 +1,24 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
 var EmptyError_1 = require('../util/EmptyError');
+/**
+ * Returns an Observable that emits only the last item emitted by the source Observable.
+ * It optionally takes a predicate function as a parameter, in which case, rather than emitting
+ * the last item from the source Observable, the resulting Observable will emit the last item
+ * from the source Observable that satisfies the predicate.
+ *
+ * <img src="./img/last.png" width="100%">
+ *
+ * @param {function} predicate - the condition any source emitted item has to satisfy.
+ * @returns {Observable} an Observable that emits only the last item satisfying the given condition
+ * from the source, or an NoSuchElementException if no such items are emitted.
+ * @throws - Throws if no items that match the predicate are emitted by the source Observable.
+ */
 function last(predicate, resultSelector, defaultValue) {
     return this.lift(new LastOperator(predicate, resultSelector, defaultValue, this));
 }
@@ -22,7 +34,7 @@ var LastOperator = (function () {
         return new LastSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source);
     };
     return LastOperator;
-})();
+}());
 var LastSubscriber = (function (_super) {
     __extends(LastSubscriber, _super);
     function LastSubscriber(destination, predicate, resultSelector, defaultValue, source) {
@@ -39,33 +51,48 @@ var LastSubscriber = (function (_super) {
         }
     }
     LastSubscriber.prototype._next = function (value) {
-        var _a = this, predicate = _a.predicate, resultSelector = _a.resultSelector, destination = _a.destination;
         var index = this.index++;
-        if (predicate) {
-            var found = tryCatch_1.tryCatch(predicate)(value, index, this.source);
-            if (found === errorObject_1.errorObject) {
-                destination.error(errorObject_1.errorObject.e);
-                return;
-            }
-            if (found) {
-                if (resultSelector) {
-                    var result = tryCatch_1.tryCatch(resultSelector)(value, index);
-                    if (result === errorObject_1.errorObject) {
-                        destination.error(errorObject_1.errorObject.e);
-                        return;
-                    }
-                    this.lastValue = result;
-                }
-                else {
-                    this.lastValue = value;
-                }
-                this.hasValue = true;
-            }
+        if (this.predicate) {
+            this._tryPredicate(value, index);
         }
         else {
+            if (this.resultSelector) {
+                this._tryResultSelector(value, index);
+                return;
+            }
             this.lastValue = value;
             this.hasValue = true;
         }
+    };
+    LastSubscriber.prototype._tryPredicate = function (value, index) {
+        var result;
+        try {
+            result = this.predicate(value, index, this.source);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        if (result) {
+            if (this.resultSelector) {
+                this._tryResultSelector(value, index);
+                return;
+            }
+            this.lastValue = value;
+            this.hasValue = true;
+        }
+    };
+    LastSubscriber.prototype._tryResultSelector = function (value, index) {
+        var result;
+        try {
+            result = this.resultSelector(value, index);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        this.lastValue = result;
+        this.hasValue = true;
     };
     LastSubscriber.prototype._complete = function () {
         var destination = this.destination;
@@ -78,5 +105,5 @@ var LastSubscriber = (function (_super) {
         }
     };
     return LastSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=last.js.map

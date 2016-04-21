@@ -55,6 +55,13 @@ export declare function resetBaseTestProviders(): void;
  * @return {FunctionWithParamTokens}
  */
 export declare function inject(tokens: any[], fn: Function): FunctionWithParamTokens;
+export declare class InjectSetupWrapper {
+    private _providers;
+    constructor(_providers: () => any);
+    inject(tokens: any[], fn: Function): FunctionWithParamTokens;
+    injectAsync(tokens: any[], fn: Function): FunctionWithParamTokens;
+}
+export declare function withProviders(providers: () => any): InjectSetupWrapper;
 /**
  * Allows injecting dependencies in `beforeEach()` and `it()`. The test must return
  * a promise which will resolve when all asynchronous activity is complete.
@@ -78,7 +85,8 @@ export declare class FunctionWithParamTokens {
     private _tokens;
     private _fn;
     isAsync: boolean;
-    constructor(_tokens: any[], _fn: Function, isAsync: boolean);
+    additionalProviders: () => any;
+    constructor(_tokens: any[], _fn: Function, isAsync: boolean, additionalProviders?: () => any);
     /**
      * Returns the value of the executed function.
      */

@@ -6,3 +6,11 @@ export function normalizeValidator(validator) {
         return validator;
     }
 }
+export function normalizeAsyncValidator(validator) {
+    if (validator.validate !== undefined) {
+        return (c) => Promise.resolve(validator.validate(c));
+    }
+    else {
+        return validator;
+    }
+}

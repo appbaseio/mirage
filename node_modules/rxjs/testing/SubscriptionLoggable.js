@@ -1,3 +1,4 @@
+"use strict";
 var SubscriptionLog_1 = require('./SubscriptionLog');
 var SubscriptionLoggable = (function () {
     function SubscriptionLoggable() {
@@ -13,6 +14,6 @@ var SubscriptionLoggable = (function () {
         subscriptionLogs[index] = new SubscriptionLog_1.SubscriptionLog(oldSubscriptionLog.subscribedFrame, this.scheduler.now());
     };
     return SubscriptionLoggable;
-})();
+}());
 exports.SubscriptionLoggable = SubscriptionLoggable;
 //# sourceMappingURL=SubscriptionLoggable.js.map

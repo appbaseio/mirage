@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from 'angular2/src/core/di';
 import { print } from 'angular2/src/facade/lang';
-export let Console = class {
+export let Console = class Console {
     log(message) { print(message); }
 };
 Console = __decorate([

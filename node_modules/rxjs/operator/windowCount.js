@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -19,7 +20,7 @@ var WindowCountOperator = (function () {
         return new WindowCountSubscriber(subscriber, this.windowSize, this.startWindowEvery);
     };
     return WindowCountOperator;
-})();
+}());
 var WindowCountSubscriber = (function (_super) {
     __extends(WindowCountSubscriber, _super);
     function WindowCountSubscriber(destination, windowSize, startWindowEvery) {
@@ -68,5 +69,5 @@ var WindowCountSubscriber = (function (_super) {
         this.destination.complete();
     };
     return WindowCountSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=windowCount.js.map

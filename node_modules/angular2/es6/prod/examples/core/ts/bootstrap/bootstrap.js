@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from 'angular2/core';
 import { bootstrap } from 'angular2/platform/browser';
 // #docregion bootstrap
-let MyApp = class {
+let MyApp = class MyApp {
     constructor() {
         this.name = 'World';
     }

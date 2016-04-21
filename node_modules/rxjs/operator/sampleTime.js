@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -19,7 +20,7 @@ var SampleTimeOperator = (function () {
         return new SampleTimeSubscriber(subscriber, this.delay, this.scheduler);
     };
     return SampleTimeOperator;
-})();
+}());
 var SampleTimeSubscriber = (function (_super) {
     __extends(SampleTimeSubscriber, _super);
     function SampleTimeSubscriber(destination, delay, scheduler) {
@@ -40,7 +41,7 @@ var SampleTimeSubscriber = (function (_super) {
         }
     };
     return SampleTimeSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 function dispatchNotification(state) {
     var subscriber = state.subscriber, delay = state.delay;
     subscriber.notifyNext();

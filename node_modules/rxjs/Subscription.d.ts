@@ -1,10 +1,12 @@
-export declare class Subscription<T> {
-    static EMPTY: Subscription<void>;
+export declare class Subscription {
+    static EMPTY: Subscription;
     isUnsubscribed: boolean;
-    _subscriptions: Subscription<any>[];
-    _unsubscribe(): void;
     constructor(_unsubscribe?: () => void);
     unsubscribe(): void;
-    add(subscription: Subscription<any> | Function | void): void;
-    remove(subscription: Subscription<any>): void;
+    add(subscription: Subscription | Function | void): void;
+    remove(subscription: Subscription): void;
+}
+export declare class UnsubscriptionError extends Error {
+    errors: any[];
+    constructor(errors: any[]);
 }

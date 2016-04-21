@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Component, Attribute, Directive, Pipe } from 'angular2/core';
 var CustomDirective;
 // #docregion component
-let Greet = class {
+let Greet = class Greet {
     constructor() {
         this.name = 'World';
     }
@@ -24,7 +24,7 @@ Greet = __decorate([
 ], Greet);
 // #enddocregion
 // #docregion attributeFactory
-let Page = class {
+let Page = class Page {
     constructor(title) {
         this.title = title;
     }
@@ -36,7 +36,7 @@ Page = __decorate([
 ], Page);
 // #enddocregion
 // #docregion attributeMetadata
-let InputAttrDirective = class {
+let InputAttrDirective = class InputAttrDirective {
     constructor(type) {
         // type would be 'text' in this example
     }
@@ -44,11 +44,11 @@ let InputAttrDirective = class {
 InputAttrDirective = __decorate([
     Directive({ selector: 'input' }),
     __param(0, Attribute('type')), 
-    __metadata('design:paramtypes', [Object])
+    __metadata('design:paramtypes', [String])
 ], InputAttrDirective);
 // #enddocregion
 // #docregion directive
-let InputDirective = class {
+let InputDirective = class InputDirective {
     constructor() {
         // Add some logic.
     }
@@ -59,7 +59,7 @@ InputDirective = __decorate([
 ], InputDirective);
 // #enddocregion
 // #docregion pipe
-let Lowercase = class {
+let Lowercase = class Lowercase {
     transform(v, args) { return v.toLowerCase(); }
 };
 Lowercase = __decorate([

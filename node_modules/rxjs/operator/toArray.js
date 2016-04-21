@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -15,7 +16,7 @@ var ToArrayOperator = (function () {
         return new ToArraySubscriber(subscriber);
     };
     return ToArrayOperator;
-})();
+}());
 var ToArraySubscriber = (function (_super) {
     __extends(ToArraySubscriber, _super);
     function ToArraySubscriber(destination) {
@@ -30,5 +31,5 @@ var ToArraySubscriber = (function (_super) {
         this.destination.complete();
     };
     return ToArraySubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=toArray.js.map

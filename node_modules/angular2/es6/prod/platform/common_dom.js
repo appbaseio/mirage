@@ -8,4 +8,4 @@ export { SharedStylesHost, DomSharedStylesHost } from 'angular2/src/platform/dom
 export { DomEventsPlugin } from 'angular2/src/platform/dom/events/dom_events';
 export { EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin } from 'angular2/src/platform/dom/events/event_manager';
 export * from 'angular2/src/platform/dom/debug/by';
-export * from 'angular2/src/platform/dom/debug/debug_element_view_listener';
+export * from 'angular2/src/platform/dom/debug/ng_probe';

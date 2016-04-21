@@ -69,7 +69,7 @@ import { StringMapWrapper, isListLikeIterable } from 'angular2/src/facade/collec
  * }
  * ```
  */
-export let NgClass = class {
+export let NgClass = class NgClass {
     constructor(_iterableDiffers, _keyValueDiffers, _ngEl, _renderer) {
         this._iterableDiffers = _iterableDiffers;
         this._keyValueDiffers = _keyValueDiffers;
@@ -89,30 +89,28 @@ export let NgClass = class {
             v = v.split(' ');
         }
         this._rawClass = v;
+        this._iterableDiffer = null;
+        this._keyValueDiffer = null;
         if (isPresent(v)) {
             if (isListLikeIterable(v)) {
-                this._differ = this._iterableDiffers.find(v).create(null);
-                this._mode = 'iterable';
+                this._iterableDiffer = this._iterableDiffers.find(v).create(null);
             }
             else {
-                this._differ = this._keyValueDiffers.find(v).create(null);
-                this._mode = 'keyValue';
+                this._keyValueDiffer = this._keyValueDiffers.find(v).create(null);
             }
-        }
-        else {
-            this._differ = null;
         }
     }
     ngDoCheck() {
-        if (isPresent(this._differ)) {
-            var changes = this._differ.diff(this._rawClass);
+        if (isPresent(this._iterableDiffer)) {
+            var changes = this._iterableDiffer.diff(this._rawClass);
             if (isPresent(changes)) {
-                if (this._mode == 'iterable') {
-                    this._applyIterableChanges(changes);
-                }
-                else {
-                    this._applyKeyValueChanges(changes);
-                }
+                this._applyIterableChanges(changes);
+            }
+        }
+        if (isPresent(this._keyValueDiffer)) {
+            var changes = this._keyValueDiffer.diff(this._rawClass);
+            if (isPresent(changes)) {
+                this._applyKeyValueChanges(changes);
             }
         }
     }
@@ -147,7 +145,7 @@ export let NgClass = class {
             }
             else {
                 StringMapWrapper.forEach(rawClassVal, (expVal, className) => {
-                    if (expVal)
+                    if (isPresent(expVal))
                         this._toggleClass(className, !isCleanup);
                 });
             }

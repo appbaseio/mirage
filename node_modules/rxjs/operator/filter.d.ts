@@ -1,3 +1,4 @@
+import { Observable } from '../Observable';
 /**
  * Similar to the well-known `Array.prototype.filter` method, this operator filters values down to a set
  * allowed by a `select` function
@@ -7,4 +8,4 @@
  * @param {any} [thisArg] an optional argument to determine the value of `this` in the `select` function
  * @returns {Observable} an observable of values allowed by the select function
  */
-export declare function filter<T>(select: (x: T, ix?: number) => boolean, thisArg?: any): any;
+export declare function filter<T>(select: (value: T, index: number) => boolean, thisArg?: any): Observable<T>;

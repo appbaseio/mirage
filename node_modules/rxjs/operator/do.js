@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -5,8 +6,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 var noop_1 = require('../util/noop');
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
+/**
+ * Returns a mirrored Observable of the source Observable, but modified so that the provided Observer is called
+ * for every item emitted by the source.
+ * This operator is useful for debugging your observables for the correct values or performing other side effects.
+ * @param {Observer|function} [nextOrObserver] a normal observer callback or callback for onNext.
+ * @param {function} [error] callback for errors in the source.
+ * @param {function} [complete] callback for the completion of the source.
+ * @reurns {Observable} a mirrored Observable with the specified Observer or callback attached for each item.
+ */
 function _do(nextOrObserver, error, complete) {
     var next;
     if (nextOrObserver && typeof nextOrObserver === 'object') {
@@ -30,7 +38,7 @@ var DoOperator = (function () {
         return new DoSubscriber(subscriber, this.next, this.error, this.complete);
     };
     return DoOperator;
-})();
+}());
 var DoSubscriber = (function (_super) {
     __extends(DoSubscriber, _super);
     function DoSubscriber(destination, next, error, complete) {
@@ -39,33 +47,38 @@ var DoSubscriber = (function (_super) {
         this.__error = error;
         this.__complete = complete;
     }
-    DoSubscriber.prototype._next = function (x) {
-        var result = tryCatch_1.tryCatch(this.__next)(x);
-        if (result === errorObject_1.errorObject) {
-            this.destination.error(errorObject_1.errorObject.e);
+    // NOTE: important, all try catch blocks below are there for performance
+    // reasons. tryCatcher approach does not benefit this operator.
+    DoSubscriber.prototype._next = function (value) {
+        try {
+            this.__next(value);
         }
-        else {
-            this.destination.next(x);
+        catch (err) {
+            this.destination.error(err);
+            return;
         }
+        this.destination.next(value);
     };
-    DoSubscriber.prototype._error = function (e) {
-        var result = tryCatch_1.tryCatch(this.__error)(e);
-        if (result === errorObject_1.errorObject) {
-            this.destination.error(errorObject_1.errorObject.e);
+    DoSubscriber.prototype._error = function (err) {
+        try {
+            this.__error(err);
         }
-        else {
-            this.destination.error(e);
+        catch (err) {
+            this.destination.error(err);
+            return;
         }
+        this.destination.error(err);
     };
     DoSubscriber.prototype._complete = function () {
-        var result = tryCatch_1.tryCatch(this.__complete)();
-        if (result === errorObject_1.errorObject) {
-            this.destination.error(errorObject_1.errorObject.e);
+        try {
+            this.__complete();
         }
-        else {
-            this.destination.complete();
+        catch (err) {
+            this.destination.error(err);
+            return;
         }
+        this.destination.complete();
     };
     return DoSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=do.js.map

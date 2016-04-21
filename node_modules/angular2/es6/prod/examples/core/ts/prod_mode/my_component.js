@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from 'angular2/core';
-export let MyComponent = class {
+export let MyComponent = class MyComponent {
 };
 MyComponent = __decorate([
     Component({ selector: 'my-component', template: '<h1>My Component</h1>' }), 

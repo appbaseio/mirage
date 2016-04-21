@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -5,6 +6,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 var Subscription_1 = require('../Subscription');
+/**
+ * Returns an Observable that mirrors the source Observable, but will call a specified function when
+ * the source terminates on complete or error.
+ * @param {function} finallySelector function to be called when source terminates.
+ * @returns {Observable} an Observable that mirrors the source, but will call the specified function on termination.
+ */
 function _finally(finallySelector) {
     return this.lift(new FinallyOperator(finallySelector));
 }
@@ -17,7 +24,7 @@ var FinallyOperator = (function () {
         return new FinallySubscriber(subscriber, this.finallySelector);
     };
     return FinallyOperator;
-})();
+}());
 var FinallySubscriber = (function (_super) {
     __extends(FinallySubscriber, _super);
     function FinallySubscriber(destination, finallySelector) {
@@ -25,5 +32,5 @@ var FinallySubscriber = (function (_super) {
         this.add(new Subscription_1.Subscription(finallySelector));
     }
     return FinallySubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=finally.js.map

@@ -1,7 +1,7 @@
 var minimatch = require("minimatch");
 var utils     = exports;
 
-utils.applyRules = function overwriteBody (rules, body) {
+utils.applyRules = function overwriteBody (rules, body, req, res) {
     return rules.reduce(function (body, rule) {
         /**
          * Try to use the replace string/fn first
@@ -9,7 +9,16 @@ utils.applyRules = function overwriteBody (rules, body) {
         if (rule.replace || typeof rule.replace === "string") {
             rule.fn = rule.replace;
         }
-        return body.replace(rule.match, rule.fn);
+        if (typeof rule.fn === 'string') {
+            return body.replace(rule.match, rule.fn);
+        }
+        return body.replace(rule.match, function () {
+            var args = Array.prototype.slice.call(arguments);
+            if (typeof rule.fn === 'function') {
+        	    return rule.fn.apply(this, [req, res].concat(args))
+            }
+            return rule.fn;
+        });
     }, body);
 };
 

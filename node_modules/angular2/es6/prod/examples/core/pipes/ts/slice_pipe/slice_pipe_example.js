@@ -8,9 +8,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from 'angular2/core';
-import { bootstrap } from 'angular2/bootstrap';
+import { bootstrap } from 'angular2/platform/browser';
 // #docregion SlicePipe_string
-export let SlicePipeStringExample = class {
+export let SlicePipeStringExample = class SlicePipeStringExample {
     constructor() {
         this.str = 'abcdefghij';
     }
@@ -31,7 +31,7 @@ SlicePipeStringExample = __decorate([
 ], SlicePipeStringExample);
 // #enddocregion
 // #docregion SlicePipe_list
-export let SlicePipeListExample = class {
+export let SlicePipeListExample = class SlicePipeListExample {
     constructor() {
         this.collection = ['a', 'b', 'c', 'd'];
     }
@@ -46,7 +46,7 @@ SlicePipeListExample = __decorate([
     __metadata('design:paramtypes', [])
 ], SlicePipeListExample);
 // #enddocregion
-export let AppCmp = class {
+export let AppCmp = class AppCmp {
 };
 AppCmp = __decorate([
     Component({

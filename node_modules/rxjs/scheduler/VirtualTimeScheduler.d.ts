@@ -4,7 +4,7 @@ import { Action } from './Action';
 export declare class VirtualTimeScheduler implements Scheduler {
     actions: Action[];
     active: boolean;
-    scheduled: boolean;
+    scheduledId: number;
     index: number;
     sorted: boolean;
     frame: number;
@@ -13,5 +13,5 @@ export declare class VirtualTimeScheduler implements Scheduler {
     now(): number;
     flush(): void;
     addAction<T>(action: Action): void;
-    schedule<T>(work: (x?: any) => Subscription<T> | void, delay?: number, state?: any): Subscription<T>;
+    schedule<T>(work: (x?: any) => Subscription | void, delay?: number, state?: any): Subscription;
 }

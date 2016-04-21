@@ -1,4 +1,5 @@
-var mergeAll_support_1 = require('./mergeAll-support');
+"use strict";
+var mergeAll_1 = require('./mergeAll');
 /**
  * Joins every Observable emitted by the source (an Observable of Observables), in a serial
  * fashion. Subscribing to each one only when the previous one has completed, and merging
@@ -11,7 +12,7 @@ var mergeAll_support_1 = require('./mergeAll-support');
  * @returns {Observable} an observable of values merged from the incoming observables.
  */
 function concatAll() {
-    return this.lift(new mergeAll_support_1.MergeAllOperator(1));
+    return this.lift(new mergeAll_1.MergeAllOperator(1));
 }
 exports.concatAll = concatAll;
 //# sourceMappingURL=concatAll.js.map

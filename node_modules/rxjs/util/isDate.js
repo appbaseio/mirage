@@ -1,3 +1,4 @@
+"use strict";
 function isDate(value) {
     return value instanceof Date && !isNaN(+value);
 }

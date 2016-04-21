@@ -1,3 +1,4 @@
+"use strict";
 var root_1 = require('../util/root');
 function toPromise(PromiseCtor) {
     var _this = this;

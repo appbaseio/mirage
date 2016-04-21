@@ -14,11 +14,10 @@ export { APP_ID, APP_COMPONENT, APP_INITIALIZER, PACKAGE_ROOT_URL, PLATFORM_INIT
 export * from './src/core/zone';
 export * from './src/core/render';
 export * from './src/core/linker';
-export { DebugElement, Scope, inspectElement, asNativeElements } from './src/core/debug/debug_element';
+export { DebugElement, DebugNode, asNativeElements } from './src/core/debug/debug_node';
 export * from './src/core/testability/testability';
 export * from './src/core/change_detection';
 export * from './src/core/platform_directives_and_pipes';
 export * from './src/core/platform_common_providers';
 export * from './src/core/application_common_providers';
 export * from './src/core/reflection/reflection';
-import "./manual_typings/globals-es6.d.ts";

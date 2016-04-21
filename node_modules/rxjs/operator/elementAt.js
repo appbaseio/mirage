@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -5,6 +6,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 var ArgumentOutOfRangeError_1 = require('../util/ArgumentOutOfRangeError');
+/**
+ * Returns an Observable that emits the item at the specified index in the source Observable.
+ * If default is given, missing indices will output this value on next; otherwise, outputs error.
+ * @param {number} index the index of the value to be retrieved.
+ * @param {any} [defaultValue] the default value returned for missing indices.
+ * @returns {Observable} an Observable that emits a single item, if it is found. Otherwise, will emit the default value if given.
+ */
 function elementAt(index, defaultValue) {
     return this.lift(new ElementAtOperator(index, defaultValue));
 }
@@ -21,7 +29,7 @@ var ElementAtOperator = (function () {
         return new ElementAtSubscriber(subscriber, this.index, this.defaultValue);
     };
     return ElementAtOperator;
-})();
+}());
 var ElementAtSubscriber = (function (_super) {
     __extends(ElementAtSubscriber, _super);
     function ElementAtSubscriber(destination, index, defaultValue) {
@@ -48,5 +56,5 @@ var ElementAtSubscriber = (function (_super) {
         destination.complete();
     };
     return ElementAtSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=elementAt.js.map

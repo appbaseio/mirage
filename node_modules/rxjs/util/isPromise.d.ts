@@ -1,1 +1,1 @@
-export declare function isPromise(value: any): boolean;
+export declare function isPromise<T>(value: any | Promise<T>): value is Promise<T>;

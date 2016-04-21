@@ -1,2 +1,2 @@
 import { Observable } from '../Observable';
-export declare function inspect<T>(notifier: Observable<any>): Observable<T>;
+export declare function inspect<T>(durationSelector: (value: T) => Observable<any> | Promise<any>): Observable<T>;

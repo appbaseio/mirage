@@ -1,10 +1,9 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var tryCatch_1 = require('../util/tryCatch');
-var errorObject_1 = require('../util/errorObject');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
 /**
@@ -38,6 +37,7 @@ function withLatestFrom() {
     return this.lift(new WithLatestFromOperator(observables, project));
 }
 exports.withLatestFrom = withLatestFrom;
+/* tslint:enable:max-line-length */
 var WithLatestFromOperator = (function () {
     function WithLatestFromOperator(observables, project) {
         this.observables = observables;
@@ -47,7 +47,7 @@ var WithLatestFromOperator = (function () {
         return new WithLatestFromSubscriber(subscriber, this.observables, this.project);
     };
     return WithLatestFromOperator;
-})();
+}());
 var WithLatestFromSubscriber = (function (_super) {
     __extends(WithLatestFromSubscriber, _super);
     function WithLatestFromSubscriber(destination, observables, project) {
@@ -65,11 +65,11 @@ var WithLatestFromSubscriber = (function (_super) {
             this.add(subscribeToResult_1.subscribeToResult(this, observable, observable, i));
         }
     }
-    WithLatestFromSubscriber.prototype.notifyNext = function (observable, value, observableIndex, index) {
-        this.values[observableIndex] = value;
+    WithLatestFromSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.values[outerIndex] = innerValue;
         var toRespond = this.toRespond;
         if (toRespond.length > 0) {
-            var found = toRespond.indexOf(observableIndex);
+            var found = toRespond.indexOf(outerIndex);
             if (found !== -1) {
                 toRespond.splice(found, 1);
             }
@@ -80,24 +80,26 @@ var WithLatestFromSubscriber = (function (_super) {
     };
     WithLatestFromSubscriber.prototype._next = function (value) {
         if (this.toRespond.length === 0) {
-            var values = this.values;
-            var destination = this.destination;
-            var project = this.project;
-            var args = [value].concat(values);
-            if (project) {
-                var result = tryCatch_1.tryCatch(this.project).apply(this, args);
-                if (result === errorObject_1.errorObject) {
-                    destination.error(result.e);
-                }
-                else {
-                    destination.next(result);
-                }
+            var args = [value].concat(this.values);
+            if (this.project) {
+                this._tryProject(args);
             }
             else {
-                destination.next(args);
+                this.destination.next(args);
             }
         }
     };
+    WithLatestFromSubscriber.prototype._tryProject = function (args) {
+        var result;
+        try {
+            result = this.project.apply(this, args);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        this.destination.next(result);
+    };
     return WithLatestFromSubscriber;
-})(OuterSubscriber_1.OuterSubscriber);
+}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=withLatestFrom.js.map

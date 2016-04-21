@@ -1,17 +1,33 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var empty_1 = require('../observable/empty');
+var EmptyObservable_1 = require('../observable/EmptyObservable');
+/**
+ * Returns an Observable that repeats the stream of items emitted by the source Observable at most count times,
+ * on a particular Scheduler.
+ *
+ * <img src="./img/repeat.png" width="100%">
+ *
+ * @param {Scheduler} [scheduler] the Scheduler to emit the items on.
+ * @param {number} [count] the number of times the source Observable items are repeated, a count of 0 will yield
+ * an empty Observable.
+ * @returns {Observable} an Observable that repeats the stream of items emitted by the source Observable at most
+ * count times.
+ */
 function repeat(count) {
     if (count === void 0) { count = -1; }
     if (count === 0) {
-        return new empty_1.EmptyObservable();
+        return new EmptyObservable_1.EmptyObservable();
+    }
+    else if (count < 0) {
+        return this.lift(new RepeatOperator(-1, this));
     }
     else {
-        return this.lift(new RepeatOperator(count, this));
+        return this.lift(new RepeatOperator(count - 1, this));
     }
 }
 exports.repeat = repeat;
@@ -21,72 +37,32 @@ var RepeatOperator = (function () {
         this.source = source;
     }
     RepeatOperator.prototype.call = function (subscriber) {
-        return new FirstRepeatSubscriber(subscriber, this.count, this.source);
+        return new RepeatSubscriber(subscriber, this.count, this.source);
     };
     return RepeatOperator;
-})();
-var FirstRepeatSubscriber = (function (_super) {
-    __extends(FirstRepeatSubscriber, _super);
-    function FirstRepeatSubscriber(destination, count, source) {
-        _super.call(this);
-        this.destination = destination;
+}());
+var RepeatSubscriber = (function (_super) {
+    __extends(RepeatSubscriber, _super);
+    function RepeatSubscriber(destination, count, source) {
+        _super.call(this, destination);
         this.count = count;
         this.source = source;
-        destination.add(this);
-        this.lastSubscription = this;
     }
-    FirstRepeatSubscriber.prototype._next = function (value) {
-        this.destination.next(value);
-    };
-    FirstRepeatSubscriber.prototype._error = function (err) {
-        this.destination.error(err);
-    };
-    FirstRepeatSubscriber.prototype.complete = function () {
-        if (!this.isUnsubscribed) {
-            this.resubscribe(this.count);
+    RepeatSubscriber.prototype.complete = function () {
+        if (!this.isStopped) {
+            var _a = this, source = _a.source, count = _a.count;
+            if (count === 0) {
+                return _super.prototype.complete.call(this);
+            }
+            else if (count > -1) {
+                this.count = count - 1;
+            }
+            this.unsubscribe();
+            this.isStopped = false;
+            this.isUnsubscribed = false;
+            source.subscribe(this);
         }
     };
-    FirstRepeatSubscriber.prototype.unsubscribe = function () {
-        var lastSubscription = this.lastSubscription;
-        if (lastSubscription === this) {
-            _super.prototype.unsubscribe.call(this);
-        }
-        else {
-            lastSubscription.unsubscribe();
-        }
-    };
-    FirstRepeatSubscriber.prototype.resubscribe = function (count) {
-        var _a = this, destination = _a.destination, lastSubscription = _a.lastSubscription;
-        destination.remove(lastSubscription);
-        lastSubscription.unsubscribe();
-        if (count - 1 === 0) {
-            destination.complete();
-        }
-        else {
-            var nextSubscriber = new MoreRepeatSubscriber(this, count - 1);
-            this.lastSubscription = this.source.subscribe(nextSubscriber);
-            destination.add(this.lastSubscription);
-        }
-    };
-    return FirstRepeatSubscriber;
-})(Subscriber_1.Subscriber);
-var MoreRepeatSubscriber = (function (_super) {
-    __extends(MoreRepeatSubscriber, _super);
-    function MoreRepeatSubscriber(parent, count) {
-        _super.call(this);
-        this.parent = parent;
-        this.count = count;
-    }
-    MoreRepeatSubscriber.prototype._next = function (value) {
-        this.parent.destination.next(value);
-    };
-    MoreRepeatSubscriber.prototype._error = function (err) {
-        this.parent.destination.error(err);
-    };
-    MoreRepeatSubscriber.prototype._complete = function () {
-        var count = this.count;
-        this.parent.resubscribe(count < 0 ? -1 : count);
-    };
-    return MoreRepeatSubscriber;
-})(Subscriber_1.Subscriber);
+    return RepeatSubscriber;
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=repeat.js.map

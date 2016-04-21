@@ -1,9 +1,14 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
+/**
+ * Returns an Observable that transforms Notification objects into the items or notifications they represent.
+ * @returns {Observable} an Observable that emits items and notifications embedded in Notification objects emitted by the source Observable.
+ */
 function dematerialize() {
     return this.lift(new DeMaterializeOperator());
 }
@@ -15,7 +20,7 @@ var DeMaterializeOperator = (function () {
         return new DeMaterializeSubscriber(subscriber);
     };
     return DeMaterializeOperator;
-})();
+}());
 var DeMaterializeSubscriber = (function (_super) {
     __extends(DeMaterializeSubscriber, _super);
     function DeMaterializeSubscriber(destination) {
@@ -25,5 +30,5 @@ var DeMaterializeSubscriber = (function (_super) {
         value.observe(this.destination);
     };
     return DeMaterializeSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=dematerialize.js.map

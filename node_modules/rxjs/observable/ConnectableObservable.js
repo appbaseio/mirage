@@ -1,11 +1,12 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = require('../Observable');
-var Subscription_1 = require('../Subscription');
 var Subscriber_1 = require('../Subscriber');
+var Subscription_1 = require('../Subscription');
 var ConnectableObservable = (function (_super) {
     __extends(ConnectableObservable, _super);
     function ConnectableObservable(source, subjectFactory) {
@@ -14,9 +15,9 @@ var ConnectableObservable = (function (_super) {
         this.subjectFactory = subjectFactory;
     }
     ConnectableObservable.prototype._subscribe = function (subscriber) {
-        return this._getSubject().subscribe(subscriber);
+        return this.getSubject().subscribe(subscriber);
     };
-    ConnectableObservable.prototype._getSubject = function () {
+    ConnectableObservable.prototype.getSubject = function () {
         var subject = this.subject;
         if (subject && !subject.isUnsubscribed) {
             return subject;
@@ -29,15 +30,23 @@ var ConnectableObservable = (function (_super) {
         if (subscription && !subscription.isUnsubscribed) {
             return subscription;
         }
-        subscription = source.subscribe(this._getSubject());
+        subscription = source.subscribe(this.getSubject());
         subscription.add(new ConnectableSubscription(this));
         return (this.subscription = subscription);
     };
     ConnectableObservable.prototype.refCount = function () {
         return new RefCountObservable(this);
     };
+    /**
+     * This method is opened for `ConnectableSubscription`.
+     * Not to call from others.
+     */
+    ConnectableObservable.prototype._closeSubscription = function () {
+        this.subject = null;
+        this.subscription = null;
+    };
     return ConnectableObservable;
-})(Observable_1.Observable);
+}(Observable_1.Observable));
 exports.ConnectableObservable = ConnectableObservable;
 var ConnectableSubscription = (function (_super) {
     __extends(ConnectableSubscription, _super);
@@ -47,12 +56,11 @@ var ConnectableSubscription = (function (_super) {
     }
     ConnectableSubscription.prototype._unsubscribe = function () {
         var connectable = this.connectable;
-        connectable.subject = void 0;
-        connectable.subscription = void 0;
-        this.connectable = void 0;
+        connectable._closeSubscription();
+        this.connectable = null;
     };
     return ConnectableSubscription;
-})(Subscription_1.Subscription);
+}(Subscription_1.Subscription));
 var RefCountObservable = (function (_super) {
     __extends(RefCountObservable, _super);
     function RefCountObservable(connectable, refCount) {
@@ -71,7 +79,7 @@ var RefCountObservable = (function (_super) {
         return subscription;
     };
     return RefCountObservable;
-})(Observable_1.Observable);
+}(Observable_1.Observable));
 var RefCountSubscriber = (function (_super) {
     __extends(RefCountSubscriber, _super);
     function RefCountSubscriber(destination, refCountObservable) {
@@ -99,7 +107,7 @@ var RefCountSubscriber = (function (_super) {
         if (subConnection && subConnection === obsConnection) {
             observable.refCount = 0;
             obsConnection.unsubscribe();
-            observable.connection = void 0;
+            observable.connection = null;
             this.unsubscribe();
         }
     };
@@ -113,10 +121,10 @@ var RefCountSubscriber = (function (_super) {
             var subConnection = this.connection;
             if (subConnection && subConnection === obsConnection) {
                 obsConnection.unsubscribe();
-                observable.connection = void 0;
+                observable.connection = null;
             }
         }
     };
     return RefCountSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=ConnectableObservable.js.map

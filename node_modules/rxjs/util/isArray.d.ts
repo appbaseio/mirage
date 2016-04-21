@@ -1,1 +1,1 @@
-export declare const isArray: (x: any) => boolean;
+export declare const isArray: (arg: any) => arg is any[];

@@ -12,7 +12,7 @@ export declare class ImmediateDefinition {
     canUseReadyStateChange(): boolean;
     canUsePostMessage(): boolean;
     partiallyApplied(handler: any, ...args: any[]): () => void;
-    addFromSetImmediateArguments(args: any): number;
+    addFromSetImmediateArguments(args: any[]): number;
     createProcessNextTickSetImmediate(): () => any;
     createPostMessageSetImmediate(): () => any;
     runIfPresent(handle: any): void;

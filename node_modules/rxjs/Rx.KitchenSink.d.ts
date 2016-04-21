@@ -5,19 +5,21 @@ import { Scheduler as IScheduler } from './Scheduler';
 export interface KitchenSinkOperators<T> extends CoreOperators<T> {
     isEmpty?: () => Observable<boolean>;
     elementAt?: (index: number, defaultValue?: any) => Observable<T>;
+    distinct?: (compare?: (x: T, y: T) => boolean, flushes?: Observable<any>) => Observable<T>;
+    distinctKey?: (key: string, compare?: (x: T, y: T) => boolean, flushes?: Observable<any>) => Observable<T>;
     distinctUntilKeyChanged?: (key: string, compare?: (x: any, y: any) => boolean) => Observable<T>;
     find?: (predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any) => Observable<T>;
     findIndex?: (predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any) => Observable<number>;
-    inspect?: (notifier: Observable<any>) => Observable<T>;
-    inspectTime?: (delay: number, scheduler?: IScheduler) => Observable<T>;
     max?: <T, R>(comparer?: (x: R, y: T) => R) => Observable<R>;
     min?: <T, R>(comparer?: (x: R, y: T) => R) => Observable<R>;
+    pairwise?: <R>() => Observable<R>;
     timeInterval?: <T>(scheduler?: IScheduler) => Observable<T>;
     mergeScan?: <T, R>(project: (acc: R, x: T) => Observable<R>, seed: R, concurrent?: number) => Observable<R>;
     exhaust?: () => Observable<T>;
     exhaustMap?: <R>(project: ((x: T, ix: number) => Observable<any>), projectResult?: (x: T, y: any, ix: number, iy: number) => R) => Observable<R>;
 }
-import { Subscription } from './Subscription';
+import { Observer } from './Observer';
+import { Subscription, UnsubscriptionError } from './Subscription';
 import { Subscriber } from './Subscriber';
 import { AsyncSubject } from './subject/AsyncSubject';
 import { ReplaySubject } from './subject/ReplaySubject';
@@ -39,4 +41,4 @@ declare var Scheduler: {
 declare var Symbol: {
     rxSubscriber: any;
 };
-export { Subject, Scheduler, Observable, Subscriber, Subscription, AsyncSubject, ReplaySubject, BehaviorSubject, ConnectableObservable, Notification, EmptyError, ArgumentOutOfRangeError, ObjectUnsubscribedError, TestScheduler, VirtualTimeScheduler, TimeInterval, Symbol };
+export { Subject, Scheduler, Observable, Observer, Subscriber, Subscription, AsyncSubject, ReplaySubject, BehaviorSubject, ConnectableObservable, Notification, EmptyError, ArgumentOutOfRangeError, ObjectUnsubscribedError, UnsubscriptionError, TestScheduler, VirtualTimeScheduler, TimeInterval, Symbol };

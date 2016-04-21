@@ -11,30 +11,6 @@ import { BaseException } from 'angular2/src/facade/exceptions';
 import { EventEmitter, ObservableWrapper } from 'angular2/src/facade/async';
 import { StringMapWrapper } from 'angular2/src/facade/collection';
 import { Injectable } from "angular2/src/core/di";
-/**
- * A TypeScript implementation of {@link MessageBus} for communicating via JavaScript's
- * postMessage API.
- */
-export let PostMessageBus = class {
-    constructor(sink, source) {
-        this.sink = sink;
-        this.source = source;
-    }
-    attachToZone(zone) {
-        this.source.attachToZone(zone);
-        this.sink.attachToZone(zone);
-    }
-    initChannel(channel, runInZone = true) {
-        this.source.initChannel(channel, runInZone);
-        this.sink.initChannel(channel, runInZone);
-    }
-    from(channel) { return this.source.from(channel); }
-    to(channel) { return this.sink.to(channel); }
-};
-PostMessageBus = __decorate([
-    Injectable(), 
-    __metadata('design:paramtypes', [PostMessageBusSink, PostMessageBusSource])
-], PostMessageBus);
 export class PostMessageBusSink {
     constructor(_postMessageTarget) {
         this._postMessageTarget = _postMessageTarget;
@@ -44,14 +20,14 @@ export class PostMessageBusSink {
     attachToZone(zone) {
         this._zone = zone;
         this._zone.runOutsideAngular(() => {
-            ObservableWrapper.subscribe(this._zone.onEventDone, (_) => { this._handleOnEventDone(); });
+            ObservableWrapper.subscribe(this._zone.onStable, (_) => { this._handleOnEventDone(); });
         });
     }
     initChannel(channel, runInZone = true) {
         if (StringMapWrapper.contains(this._channels, channel)) {
             throw new BaseException(`${channel} has already been initialized`);
         }
-        var emitter = new EventEmitter();
+        var emitter = new EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
         this._channels[channel] = channelInfo;
         emitter.subscribe((data) => {
@@ -96,7 +72,7 @@ export class PostMessageBusSource {
         if (StringMapWrapper.contains(this._channels, channel)) {
             throw new BaseException(`${channel} has already been initialized`);
         }
-        var emitter = new EventEmitter();
+        var emitter = new EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
         this._channels[channel] = channelInfo;
     }
@@ -127,6 +103,30 @@ export class PostMessageBusSource {
         }
     }
 }
+/**
+ * A TypeScript implementation of {@link MessageBus} for communicating via JavaScript's
+ * postMessage API.
+ */
+export let PostMessageBus = class PostMessageBus {
+    constructor(sink, source) {
+        this.sink = sink;
+        this.source = source;
+    }
+    attachToZone(zone) {
+        this.source.attachToZone(zone);
+        this.sink.attachToZone(zone);
+    }
+    initChannel(channel, runInZone = true) {
+        this.source.initChannel(channel, runInZone);
+        this.sink.initChannel(channel, runInZone);
+    }
+    from(channel) { return this.source.from(channel); }
+    to(channel) { return this.sink.to(channel); }
+};
+PostMessageBus = __decorate([
+    Injectable(), 
+    __metadata('design:paramtypes', [PostMessageBusSink, PostMessageBusSource])
+], PostMessageBus);
 /**
  * Helper class that wraps a channel's {@link EventEmitter} and
  * keeps track of if it should run in the zone.

@@ -54,7 +54,7 @@ export class ReflectionCapabilities {
         throw new Error(`Cannot create a factory for '${stringify(t)}' because its constructor has more than 20 arguments`);
     }
     /** @internal */
-    _zipTypesAndAnnotaions(paramTypes, paramAnnotations) {
+    _zipTypesAndAnnotations(paramTypes, paramAnnotations) {
         var result;
         if (typeof paramTypes === 'undefined') {
             result = new Array(paramAnnotations.length);
@@ -90,7 +90,7 @@ export class ReflectionCapabilities {
             var paramAnnotations = this._reflect.getMetadata('parameters', typeOrFunc);
             var paramTypes = this._reflect.getMetadata('design:paramtypes', typeOrFunc);
             if (isPresent(paramTypes) || isPresent(paramAnnotations)) {
-                return this._zipTypesAndAnnotaions(paramTypes, paramAnnotations);
+                return this._zipTypesAndAnnotations(paramTypes, paramAnnotations);
             }
         }
         // The array has to be filled with `undefined` because holes would be skipped by `some`

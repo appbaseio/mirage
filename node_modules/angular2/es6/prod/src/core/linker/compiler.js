@@ -26,7 +26,7 @@ export class Compiler {
 function isHostViewFactory(type) {
     return type instanceof HostViewFactory;
 }
-export let Compiler_ = class extends Compiler {
+export let Compiler_ = class Compiler_ extends Compiler {
     compileInHost(componentType) {
         var metadatas = reflector.annotations(componentType);
         var hostViewFactory = metadatas.find(isHostViewFactory);

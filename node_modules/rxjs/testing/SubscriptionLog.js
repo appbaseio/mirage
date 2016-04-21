@@ -1,3 +1,4 @@
+"use strict";
 var SubscriptionLog = (function () {
     function SubscriptionLog(subscribedFrame, unsubscribedFrame) {
         if (unsubscribedFrame === void 0) { unsubscribedFrame = Number.POSITIVE_INFINITY; }
@@ -5,6 +6,6 @@ var SubscriptionLog = (function () {
         this.unsubscribedFrame = unsubscribedFrame;
     }
     return SubscriptionLog;
-})();
+}());
 exports.SubscriptionLog = SubscriptionLog;
 //# sourceMappingURL=SubscriptionLog.js.map

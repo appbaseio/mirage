@@ -9,12 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from 'angular2/src/core/di';
 import { EventEmitter, ObservableWrapper } from 'angular2/src/facade/async';
-import { LocationStrategy } from 'angular2/src/router/location_strategy';
+import { LocationStrategy } from 'angular2/src/router/location/location_strategy';
 /**
  * A mock implementation of {@link LocationStrategy} that allows tests to fire simulated
  * location events.
  */
-export let MockLocationStrategy = class extends LocationStrategy {
+export let MockLocationStrategy = class MockLocationStrategy extends LocationStrategy {
     constructor() {
         super();
         this.internalBaseHref = '/';

@@ -1,3 +1,4 @@
+"use strict";
 var root_1 = require('./root');
 function polyfillSymbol(root) {
     var Symbol = ensureSymbol(root);

@@ -1,6 +1,6 @@
 import { AnimationBuilder } from 'angular2/src/animate/animation_builder';
 import { DomSharedStylesHost } from './shared_styles_host';
-import { Renderer, RootRenderer, RenderComponentType } from 'angular2/core';
+import { Renderer, RootRenderer, RenderComponentType, RenderDebugInfo } from 'angular2/src/core/render/api';
 import { EventManager } from './events/event_manager';
 export declare abstract class DomRootRenderer implements RootRenderer {
     document: any;
@@ -36,6 +36,7 @@ export declare class DomRenderer implements Renderer {
     setElementProperty(renderElement: any, propertyName: string, propertyValue: any): void;
     setElementAttribute(renderElement: any, attributeName: string, attributeValue: string): void;
     setBindingDebugInfo(renderElement: any, propertyName: string, propertyValue: string): void;
+    setElementDebugInfo(renderElement: any, info: RenderDebugInfo): void;
     setElementClass(renderElement: any, className: string, isAdd: boolean): void;
     setElementStyle(renderElement: any, styleName: string, styleValue: string): void;
     invokeElementMethod(renderElement: any, methodName: string, args: any[]): void;

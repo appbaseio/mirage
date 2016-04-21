@@ -8,9 +8,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from 'angular2/core';
-import { bootstrap } from 'angular2/bootstrap';
+import { bootstrap } from 'angular2/platform/browser';
 // #docregion DatePipe
-export let DatePipeExample = class {
+export let DatePipeExample = class DatePipeExample {
     constructor() {
         this.today = Date.now();
     }
@@ -27,7 +27,7 @@ DatePipeExample = __decorate([
     __metadata('design:paramtypes', [])
 ], DatePipeExample);
 // #enddocregion
-export let AppCmp = class {
+export let AppCmp = class AppCmp {
 };
 AppCmp = __decorate([
     Component({

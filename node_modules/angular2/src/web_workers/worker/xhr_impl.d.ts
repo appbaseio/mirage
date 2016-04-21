@@ -1,4 +1,3 @@
-import { Promise } from 'angular2/src/facade/async';
 import { XHR } from 'angular2/src/compiler/xhr';
 import { ClientMessageBrokerFactory } from 'angular2/src/web_workers/shared/client_message_broker';
 /**

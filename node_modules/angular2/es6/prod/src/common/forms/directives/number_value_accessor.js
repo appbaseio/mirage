@@ -20,7 +20,7 @@ const NUMBER_VALUE_ACCESSOR = CONST_EXPR(new Provider(NG_VALUE_ACCESSOR, { useEx
  *  <input type="number" [(ngModel)]="age">
  *  ```
  */
-export let NumberValueAccessor = class {
+export let NumberValueAccessor = class NumberValueAccessor {
     constructor(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;

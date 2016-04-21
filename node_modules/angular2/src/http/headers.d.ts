@@ -64,7 +64,9 @@ export declare class Headers {
     /**
      * Returns string of all headers.
      */
-    toJSON(): string;
+    toJSON(): {
+        [key: string]: any;
+    };
     /**
      * Returns list of header values for a given name.
      */

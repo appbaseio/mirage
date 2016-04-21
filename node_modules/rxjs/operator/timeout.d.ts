@@ -1,2 +1,3 @@
 import { Scheduler } from '../Scheduler';
-export declare function timeout(due: number | Date, errorToSend?: any, scheduler?: Scheduler): any;
+import { Observable } from '../Observable';
+export declare function timeout<T>(due: number | Date, errorToSend?: any, scheduler?: Scheduler): Observable<T>;

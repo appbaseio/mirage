@@ -1,10 +1,10 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscription_1 = require('../Subscription');
-var Subscriber_1 = require('../Subscriber');
 var SubjectSubscription = (function (_super) {
     __extends(SubjectSubscription, _super);
     function SubjectSubscription(subject, observer) {
@@ -20,12 +20,9 @@ var SubjectSubscription = (function (_super) {
         this.isUnsubscribed = true;
         var subject = this.subject;
         var observers = subject.observers;
-        this.subject = void 0;
+        this.subject = null;
         if (!observers || observers.length === 0 || subject.isUnsubscribed) {
             return;
-        }
-        if (this.observer instanceof Subscriber_1.Subscriber) {
-            this.observer.unsubscribe();
         }
         var subscriberIndex = observers.indexOf(this.observer);
         if (subscriberIndex !== -1) {
@@ -33,6 +30,6 @@ var SubjectSubscription = (function (_super) {
         }
     };
     return SubjectSubscription;
-})(Subscription_1.Subscription);
+}(Subscription_1.Subscription));
 exports.SubjectSubscription = SubjectSubscription;
 //# sourceMappingURL=SubjectSubscription.js.map

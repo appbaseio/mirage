@@ -66,7 +66,7 @@ const formControlBinding = CONST_EXPR(new Provider(NgControl, { useExisting: for
  * }
  *  ```
  */
-export let NgFormControl = class extends NgControl {
+export let NgFormControl = class NgFormControl extends NgControl {
     constructor(_validators, _asyncValidators, valueAccessors) {
         super();
         this._validators = _validators;

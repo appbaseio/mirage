@@ -12,6 +12,8 @@ describe('my suite', function(){
       , ipv6short = parseuri('2001:db8:85a3:42:1000:8a2e:370:7334')
       , ipv6port = parseuri('2001:db8:85a3:42:1000:8a2e:370:7334:80')
       , ipv6abbrev = parseuri('2001::7334:a:80')
+      , ipv6http = parseuri('http://[2001::7334:a]:80')
+      , ipv6query = parseuri('http://[2001::7334:a]:80/foo/bar?foo=bar')
 
     expect(http.protocol).to.be('http');
     expect(http.port).to.be('');
@@ -38,5 +40,12 @@ describe('my suite', function(){
     expect(ipv6abbrev.protocol).to.be('');
     expect(ipv6abbrev.host).to.be('2001::7334:a:80');
     expect(ipv6abbrev.port).to.be('');
+    expect(ipv6http.protocol).to.be('http');
+    expect(ipv6http.port).to.be('80');
+    expect(ipv6http.host).to.be('2001::7334:a');
+    expect(ipv6query.protocol).to.be('http');
+    expect(ipv6query.port).to.be('80');
+    expect(ipv6query.host).to.be('2001::7334:a');
+    expect(ipv6query.relative).to.be('/foo/bar?foo=bar');
   });
 });

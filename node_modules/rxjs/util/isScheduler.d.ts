@@ -1,1 +1,2 @@
-export declare function isScheduler(value: any): boolean;
+import { Scheduler } from '../Scheduler';
+export declare function isScheduler<T>(value: any): value is Scheduler;

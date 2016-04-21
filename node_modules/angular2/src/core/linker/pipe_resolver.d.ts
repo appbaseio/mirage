@@ -1,5 +1,6 @@
 import { Type } from 'angular2/src/facade/lang';
 import { PipeMetadata } from 'angular2/src/core/metadata';
+import { ReflectorReader } from 'angular2/src/core/reflection/reflector_reader';
 /**
  * Resolve a `Type` for {@link PipeMetadata}.
  *
@@ -8,6 +9,8 @@ import { PipeMetadata } from 'angular2/src/core/metadata';
  * See {@link Compiler}
  */
 export declare class PipeResolver {
+    private _reflector;
+    constructor(_reflector?: ReflectorReader);
     /**
      * Return {@link PipeMetadata} for a given `Type`.
      */

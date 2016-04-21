@@ -1,9 +1,15 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
+/**
+ * Returns an Observable that emits the elements of the source or a specified default value if empty.
+ * @param {any} defaultValue the default value used if source is empty; defaults to null.
+ * @returns {Observable} an Observable of the items emitted by the where empty values are replaced by the specified default value or null.
+ */
 function defaultIfEmpty(defaultValue) {
     if (defaultValue === void 0) { defaultValue = null; }
     return this.lift(new DefaultIfEmptyOperator(defaultValue));
@@ -17,7 +23,7 @@ var DefaultIfEmptyOperator = (function () {
         return new DefaultIfEmptySubscriber(subscriber, this.defaultValue);
     };
     return DefaultIfEmptyOperator;
-})();
+}());
 var DefaultIfEmptySubscriber = (function (_super) {
     __extends(DefaultIfEmptySubscriber, _super);
     function DefaultIfEmptySubscriber(destination, defaultValue) {
@@ -36,5 +42,5 @@ var DefaultIfEmptySubscriber = (function (_super) {
         this.destination.complete();
     };
     return DefaultIfEmptySubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=defaultIfEmpty.js.map

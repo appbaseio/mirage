@@ -5,7 +5,7 @@ import { EventEmitter } from 'angular2/src/facade/async';
  */
 export declare class MockNgZone extends NgZone {
     constructor();
-    onEventDone: EventEmitter<any>;
+    onStable: EventEmitter<any>;
     run(fn: Function): any;
     runOutsideAngular(fn: Function): any;
     simulateZoneExit(): void;

@@ -11,16 +11,18 @@ import { Injectable } from 'angular2/core';
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { DOM } from 'angular2/src/platform/dom/dom_adapter';
 import { isPresent, isString, RegExpWrapper, StringWrapper } from 'angular2/src/facade/lang';
-export let Log = class {
+export let Log = class Log {
     constructor() {
-        this._result = [];
+        this.logItems = [];
     }
-    add(value) { this._result.push(value); }
+    add(value) { this.logItems.push(value); }
     fn(value) {
-        return (a1 = null, a2 = null, a3 = null, a4 = null, a5 = null) => { this._result.push(value); };
+        return (a1 = null, a2 = null, a3 = null, a4 = null, a5 = null) => {
+            this.logItems.push(value);
+        };
     }
-    clear() { this._result = []; }
-    result() { return this._result.join("; "); }
+    clear() { this.logItems = []; }
+    result() { return this.logItems.join("; "); }
 };
 Log = __decorate([
     Injectable(), 

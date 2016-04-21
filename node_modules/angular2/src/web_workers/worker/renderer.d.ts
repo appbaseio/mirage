@@ -1,4 +1,4 @@
-import { Renderer, RootRenderer, RenderComponentType } from 'angular2/src/core/render/api';
+import { Renderer, RootRenderer, RenderComponentType, RenderDebugInfo } from 'angular2/src/core/render/api';
 import { ClientMessageBrokerFactory, FnArg } from "angular2/src/web_workers/shared/client_message_broker";
 import { RenderStore } from 'angular2/src/web_workers/shared/render_store';
 import { Serializer, RenderStoreObject } from 'angular2/src/web_workers/shared/serializer';
@@ -35,6 +35,7 @@ export declare class WebWorkerRenderer implements Renderer, RenderStoreObject {
     setElementProperty(renderElement: any, propertyName: string, propertyValue: any): void;
     setElementAttribute(renderElement: any, attributeName: string, attributeValue: string): void;
     setBindingDebugInfo(renderElement: any, propertyName: string, propertyValue: string): void;
+    setElementDebugInfo(renderElement: any, info: RenderDebugInfo): void;
     setElementClass(renderElement: any, className: string, isAdd: boolean): void;
     setElementStyle(renderElement: any, styleName: string, styleValue: string): void;
     invokeElementMethod(renderElement: any, methodName: string, args: any[]): void;

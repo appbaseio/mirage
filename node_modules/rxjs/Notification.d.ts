@@ -1,4 +1,4 @@
-import { Observer } from './Observer';
+import { PartialObserver } from './Observer';
 import { Observable } from './Observable';
 export declare class Notification<T> {
     kind: string;
@@ -6,9 +6,9 @@ export declare class Notification<T> {
     exception: any;
     hasValue: boolean;
     constructor(kind: string, value?: T, exception?: any);
-    observe(observer: Observer<T>): any;
+    observe(observer: PartialObserver<T>): any;
     do(next: (value: T) => void, error?: (err: any) => void, complete?: () => void): any;
-    accept(nextOrObserver: Observer<T> | ((value: T) => void), error?: (err: any) => void, complete?: () => void): any;
+    accept(nextOrObserver: PartialObserver<T> | ((value: T) => void), error?: (err: any) => void, complete?: () => void): any;
     toObservable(): Observable<T>;
     private static completeNotification;
     private static undefinedValueNotification;

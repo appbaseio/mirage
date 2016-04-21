@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -8,102 +9,114 @@ var Subscriber_1 = require('./Subscriber');
 var Subscription_1 = require('./Subscription');
 var SubjectSubscription_1 = require('./subject/SubjectSubscription');
 var rxSubscriber_1 = require('./symbol/rxSubscriber');
-var subscriptionAdd = Subscription_1.Subscription.prototype.add;
-var subscriptionRemove = Subscription_1.Subscription.prototype.remove;
-var subscriptionUnsubscribe = Subscription_1.Subscription.prototype.unsubscribe;
-var subscriberNext = Subscriber_1.Subscriber.prototype.next;
-var subscriberError = Subscriber_1.Subscriber.prototype.error;
-var subscriberComplete = Subscriber_1.Subscriber.prototype.complete;
-var _subscriberNext = Subscriber_1.Subscriber.prototype._next;
-var _subscriberError = Subscriber_1.Subscriber.prototype._error;
-var _subscriberComplete = Subscriber_1.Subscriber.prototype._complete;
+var throwError_1 = require('./util/throwError');
+var ObjectUnsubscribedError_1 = require('./util/ObjectUnsubscribedError');
 var Subject = (function (_super) {
     __extends(Subject, _super);
-    function Subject() {
-        _super.apply(this, arguments);
+    function Subject(destination, source) {
+        _super.call(this);
+        this.destination = destination;
+        this.source = source;
         this.observers = [];
         this.isUnsubscribed = false;
+        this.isStopped = false;
+        this.hasErrored = false;
         this.dispatching = false;
-        this.errorSignal = false;
-        this.completeSignal = false;
+        this.hasCompleted = false;
     }
-    Subject.prototype[rxSubscriber_1.rxSubscriber] = function () {
-        return this;
-    };
-    Subject.create = function (source, destination) {
-        return new BidirectionalSubject(source, destination);
-    };
     Subject.prototype.lift = function (operator) {
-        var subject = new BidirectionalSubject(this, this.destination || this);
+        var subject = new Subject(this.destination || this, this);
         subject.operator = operator;
         return subject;
     };
-    Subject.prototype._subscribe = function (subscriber) {
-        if (subscriber.isUnsubscribed) {
-            return;
-        }
-        else if (this.errorSignal) {
-            subscriber.error(this.errorInstance);
-            return;
-        }
-        else if (this.completeSignal) {
-            subscriber.complete();
-            return;
-        }
-        else if (this.isUnsubscribed) {
-            throw new Error('Cannot subscribe to a disposed Subject.');
-        }
-        this.observers.push(subscriber);
-        return new SubjectSubscription_1.SubjectSubscription(this, subscriber);
-    };
     Subject.prototype.add = function (subscription) {
-        subscriptionAdd.call(this, subscription);
+        Subscription_1.Subscription.prototype.add.call(this, subscription);
     };
     Subject.prototype.remove = function (subscription) {
-        subscriptionRemove.call(this, subscription);
+        Subscription_1.Subscription.prototype.remove.call(this, subscription);
     };
     Subject.prototype.unsubscribe = function () {
-        this.observers = void 0;
-        subscriptionUnsubscribe.call(this);
+        Subscription_1.Subscription.prototype.unsubscribe.call(this);
+    };
+    Subject.prototype._subscribe = function (subscriber) {
+        if (this.source) {
+            return this.source.subscribe(subscriber);
+        }
+        else {
+            if (subscriber.isUnsubscribed) {
+                return;
+            }
+            else if (this.hasErrored) {
+                return subscriber.error(this.errorValue);
+            }
+            else if (this.hasCompleted) {
+                return subscriber.complete();
+            }
+            this.throwIfUnsubscribed();
+            var subscription = new SubjectSubscription_1.SubjectSubscription(this, subscriber);
+            this.observers.push(subscriber);
+            return subscription;
+        }
+    };
+    Subject.prototype._unsubscribe = function () {
+        this.source = null;
+        this.isStopped = true;
+        this.observers = null;
+        this.destination = null;
     };
     Subject.prototype.next = function (value) {
-        if (this.isUnsubscribed) {
+        this.throwIfUnsubscribed();
+        if (this.isStopped) {
             return;
         }
         this.dispatching = true;
         this._next(value);
         this.dispatching = false;
-        if (this.errorSignal) {
-            this.error(this.errorInstance);
+        if (this.hasErrored) {
+            this._error(this.errorValue);
         }
-        else if (this.completeSignal) {
-            this.complete();
+        else if (this.hasCompleted) {
+            this._complete();
         }
     };
     Subject.prototype.error = function (err) {
-        if (this.isUnsubscribed || this.completeSignal) {
+        this.throwIfUnsubscribed();
+        if (this.isStopped) {
             return;
         }
-        this.errorSignal = true;
-        this.errorInstance = err;
+        this.isStopped = true;
+        this.hasErrored = true;
+        this.errorValue = err;
         if (this.dispatching) {
             return;
         }
         this._error(err);
-        this.unsubscribe();
     };
     Subject.prototype.complete = function () {
-        if (this.isUnsubscribed || this.errorSignal) {
+        this.throwIfUnsubscribed();
+        if (this.isStopped) {
             return;
         }
-        this.completeSignal = true;
+        this.isStopped = true;
+        this.hasCompleted = true;
         if (this.dispatching) {
             return;
         }
         this._complete();
-        this.unsubscribe();
+    };
+    Subject.prototype.asObservable = function () {
+        var observable = new SubjectObservable(this);
+        return observable;
     };
     Subject.prototype._next = function (value) {
+        if (this.destination) {
+            this.destination.next(value);
+        }
+        else {
+            this._finalNext(value);
+        }
+    };
+    Subject.prototype._finalNext = function (value) {
         var index = -1;
         var observers = this.observers.slice(0);
         var len = observers.length;
@@ -112,61 +125,73 @@ var Subject = (function (_super) {
         }
     };
     Subject.prototype._error = function (err) {
+        if (this.destination) {
+            this.destination.error(err);
+        }
+        else {
+            this._finalError(err);
+        }
+    };
+    Subject.prototype._finalError = function (err) {
         var index = -1;
         var observers = this.observers;
-        var len = observers.length;
-        // optimization -- block next, complete, and unsubscribe while dispatching
-        this.observers = void 0;
+        // optimization to block our SubjectSubscriptions from
+        // splicing themselves out of the observers list one by one.
+        this.observers = null;
         this.isUnsubscribed = true;
-        while (++index < len) {
-            observers[index].error(err);
+        if (observers) {
+            var len = observers.length;
+            while (++index < len) {
+                observers[index].error(err);
+            }
         }
         this.isUnsubscribed = false;
+        this.unsubscribe();
     };
     Subject.prototype._complete = function () {
+        if (this.destination) {
+            this.destination.complete();
+        }
+        else {
+            this._finalComplete();
+        }
+    };
+    Subject.prototype._finalComplete = function () {
         var index = -1;
         var observers = this.observers;
-        var len = observers.length;
-        // optimization -- block next, complete, and unsubscribe while dispatching
-        this.observers = void 0; // optimization
+        // optimization to block our SubjectSubscriptions from
+        // splicing themselves out of the observers list one by one.
+        this.observers = null;
         this.isUnsubscribed = true;
-        while (++index < len) {
-            observers[index].complete();
+        if (observers) {
+            var len = observers.length;
+            while (++index < len) {
+                observers[index].complete();
+            }
         }
         this.isUnsubscribed = false;
+        this.unsubscribe();
+    };
+    Subject.prototype.throwIfUnsubscribed = function () {
+        if (this.isUnsubscribed) {
+            throwError_1.throwError(new ObjectUnsubscribedError_1.ObjectUnsubscribedError());
+        }
+    };
+    Subject.prototype[rxSubscriber_1.rxSubscriber] = function () {
+        return new Subscriber_1.Subscriber(this);
+    };
+    Subject.create = function (destination, source) {
+        return new Subject(destination, source);
     };
     return Subject;
-})(Observable_1.Observable);
+}(Observable_1.Observable));
 exports.Subject = Subject;
-var BidirectionalSubject = (function (_super) {
-    __extends(BidirectionalSubject, _super);
-    function BidirectionalSubject(source, destination) {
+var SubjectObservable = (function (_super) {
+    __extends(SubjectObservable, _super);
+    function SubjectObservable(source) {
         _super.call(this);
         this.source = source;
-        this.destination = destination;
     }
-    BidirectionalSubject.prototype._subscribe = function (subscriber) {
-        var operator = this.operator;
-        return this.source._subscribe.call(this.source, operator ? operator.call(subscriber) : subscriber);
-    };
-    BidirectionalSubject.prototype.next = function (value) {
-        subscriberNext.call(this, value);
-    };
-    BidirectionalSubject.prototype.error = function (err) {
-        subscriberError.call(this, err);
-    };
-    BidirectionalSubject.prototype.complete = function () {
-        subscriberComplete.call(this);
-    };
-    BidirectionalSubject.prototype._next = function (value) {
-        _subscriberNext.call(this, value);
-    };
-    BidirectionalSubject.prototype._error = function (err) {
-        _subscriberError.call(this, err);
-    };
-    BidirectionalSubject.prototype._complete = function () {
-        _subscriberComplete.call(this);
-    };
-    return BidirectionalSubject;
-})(Subject);
+    return SubjectObservable;
+}(Observable_1.Observable));
 //# sourceMappingURL=Subject.js.map

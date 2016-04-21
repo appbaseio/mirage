@@ -1,13 +1,21 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var fromPromise_1 = require('../observable/fromPromise');
-var Subscriber_1 = require('../Subscriber');
-var tryCatch_1 = require('../util/tryCatch');
-var isPromise_1 = require('../util/isPromise');
-var errorObject_1 = require('../util/errorObject');
+var OuterSubscriber_1 = require('../OuterSubscriber');
+var subscribeToResult_1 = require('../util/subscribeToResult');
+/**
+ * Returns the source Observable delayed by the computed debounce duration,
+ * with the duration lengthened if a new source item arrives before the delay
+ * duration ends.
+ * In practice, for each item emitted on the source, this operator holds the
+ * latest item, waits for a silence as long as the `durationSelector` specifies,
+ * and only then emits the latest source item on the result Observable.
+ * @param {function} durationSelector function for computing the timeout duration for each item.
+ * @returns {Observable} an Observable the same as source Observable, but drops items.
+ */
 function debounce(durationSelector) {
     return this.lift(new DebounceOperator(durationSelector));
 }
@@ -16,89 +24,67 @@ var DebounceOperator = (function () {
     function DebounceOperator(durationSelector) {
         this.durationSelector = durationSelector;
     }
-    DebounceOperator.prototype.call = function (observer) {
-        return new DebounceSubscriber(observer, this.durationSelector);
+    DebounceOperator.prototype.call = function (subscriber) {
+        return new DebounceSubscriber(subscriber, this.durationSelector);
     };
     return DebounceOperator;
-})();
+}());
 var DebounceSubscriber = (function (_super) {
     __extends(DebounceSubscriber, _super);
     function DebounceSubscriber(destination, durationSelector) {
         _super.call(this, destination);
         this.durationSelector = durationSelector;
-        this.debouncedSubscription = null;
-        this.lastValue = null;
-        this._index = 0;
+        this.hasValue = false;
+        this.durationSubscription = null;
     }
-    Object.defineProperty(DebounceSubscriber.prototype, "index", {
-        get: function () {
-            return this._index;
-        },
-        enumerable: true,
-        configurable: true
-    });
     DebounceSubscriber.prototype._next = function (value) {
-        var destination = this.destination;
-        var currentIndex = ++this._index;
-        var debounce = tryCatch_1.tryCatch(this.durationSelector)(value);
-        if (debounce === errorObject_1.errorObject) {
-            destination.error(errorObject_1.errorObject.e);
-        }
-        else {
-            if (isPromise_1.isPromise(debounce)) {
-                debounce = fromPromise_1.PromiseObservable.create(debounce);
+        try {
+            var result = this.durationSelector.call(this, value);
+            if (result) {
+                this._tryNext(value, result);
             }
-            this.lastValue = value;
-            this.clearDebounce();
-            this.add(this.debouncedSubscription = debounce._subscribe(new DurationSelectorSubscriber(this, currentIndex)));
+        }
+        catch (err) {
+            this.destination.error(err);
         }
     };
     DebounceSubscriber.prototype._complete = function () {
-        this.debouncedNext();
+        this.emitValue();
         this.destination.complete();
     };
-    DebounceSubscriber.prototype.debouncedNext = function () {
-        this.clearDebounce();
-        if (this.lastValue != null) {
-            this.destination.next(this.lastValue);
-            this.lastValue = null;
+    DebounceSubscriber.prototype._tryNext = function (value, duration) {
+        var subscription = this.durationSubscription;
+        this.value = value;
+        this.hasValue = true;
+        if (subscription) {
+            subscription.unsubscribe();
+            this.remove(subscription);
+        }
+        subscription = subscribeToResult_1.subscribeToResult(this, duration);
+        if (!subscription.isUnsubscribed) {
+            this.add(this.durationSubscription = subscription);
         }
     };
-    DebounceSubscriber.prototype.clearDebounce = function () {
-        var debouncedSubscription = this.debouncedSubscription;
-        if (debouncedSubscription) {
-            debouncedSubscription.unsubscribe();
-            this.remove(debouncedSubscription);
-            this.debouncedSubscription = null;
+    DebounceSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.emitValue();
+    };
+    DebounceSubscriber.prototype.notifyComplete = function () {
+        this.emitValue();
+    };
+    DebounceSubscriber.prototype.emitValue = function () {
+        if (this.hasValue) {
+            var value = this.value;
+            var subscription = this.durationSubscription;
+            if (subscription) {
+                this.durationSubscription = null;
+                subscription.unsubscribe();
+                this.remove(subscription);
+            }
+            this.value = null;
+            this.hasValue = false;
+            _super.prototype._next.call(this, value);
         }
     };
     return DebounceSubscriber;
-})(Subscriber_1.Subscriber);
-var DurationSelectorSubscriber = (function (_super) {
-    __extends(DurationSelectorSubscriber, _super);
-    function DurationSelectorSubscriber(parent, currentIndex) {
-        _super.call(this, null);
-        this.parent = parent;
-        this.currentIndex = currentIndex;
-    }
-    DurationSelectorSubscriber.prototype.debounceNext = function () {
-        var parent = this.parent;
-        if (this.currentIndex === parent.index) {
-            parent.debouncedNext();
-            if (!this.isUnsubscribed) {
-                this.unsubscribe();
-            }
-        }
-    };
-    DurationSelectorSubscriber.prototype._next = function (unused) {
-        this.debounceNext();
-    };
-    DurationSelectorSubscriber.prototype._error = function (err) {
-        this.parent.error(err);
-    };
-    DurationSelectorSubscriber.prototype._complete = function () {
-        this.debounceNext();
-    };
-    return DurationSelectorSubscriber;
-})(Subscriber_1.Subscriber);
+}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=debounce.js.map

@@ -27,8 +27,6 @@ const controlGroupProvider = CONST_EXPR(new Provider(ControlContainer, { useExis
  * @Component({
  *   selector: 'my-app',
  *   directives: [FORM_DIRECTIVES],
- * })
- * @View({
  *   template: `
  *     <div>
  *       <h2>Angular2 Control &amp; ControlGroup Example</h2>
@@ -48,8 +46,7 @@ const controlGroupProvider = CONST_EXPR(new Provider(ControlContainer, { useExis
  *         <pre>{{valueOf(f)}}</pre>
  *       </form>
  *     </div>
- *   `,
- *   directives: [FORM_DIRECTIVES]
+ *   `
  * })
  * export class App {
  *   valueOf(cg: NgControlGroup): string {
@@ -64,7 +61,7 @@ const controlGroupProvider = CONST_EXPR(new Provider(ControlContainer, { useExis
  * This example declares a control group for a user's name. The value and validation state of
  * this group can be accessed separately from the overall form.
  */
-export let NgControlGroup = class extends ControlContainer {
+export let NgControlGroup = class NgControlGroup extends ControlContainer {
     constructor(parent, _validators, _asyncValidators) {
         super();
         this._validators = _validators;

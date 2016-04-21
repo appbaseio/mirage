@@ -10,11 +10,68 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Query, Directive, Renderer, forwardRef, Provider, ElementRef, QueryList } from 'angular2/core';
-import { ObservableWrapper } from 'angular2/src/facade/async';
+import { Directive, Renderer, forwardRef, Provider, ElementRef, Input, Host, Optional } from 'angular2/core';
 import { NG_VALUE_ACCESSOR } from './control_value_accessor';
-import { CONST_EXPR } from 'angular2/src/facade/lang';
+import { CONST_EXPR, StringWrapper, isPrimitive, isPresent, isBlank, looseIdentical } from 'angular2/src/facade/lang';
+import { MapWrapper } from 'angular2/src/facade/collection';
 const SELECT_VALUE_ACCESSOR = CONST_EXPR(new Provider(NG_VALUE_ACCESSOR, { useExisting: forwardRef(() => SelectControlValueAccessor), multi: true }));
+function _buildValueString(id, value) {
+    if (isBlank(id))
+        return `${value}`;
+    if (!isPrimitive(value))
+        value = "Object";
+    return StringWrapper.slice(`${id}: ${value}`, 0, 50);
+}
+function _extractId(valueString) {
+    return valueString.split(":")[0];
+}
+/**
+ * The accessor for writing a value and listening to changes on a select element.
+ */
+export let SelectControlValueAccessor = class SelectControlValueAccessor {
+    constructor(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        /** @internal */
+        this._optionMap = new Map();
+        /** @internal */
+        this._idCounter = 0;
+        this.onChange = (_) => { };
+        this.onTouched = () => { };
+    }
+    writeValue(value) {
+        this.value = value;
+        var valueString = _buildValueString(this._getOptionId(value), value);
+        this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', valueString);
+    }
+    registerOnChange(fn) {
+        this.onChange = (valueString) => { fn(this._getOptionValue(valueString)); };
+    }
+    registerOnTouched(fn) { this.onTouched = fn; }
+    /** @internal */
+    _registerOption() { return (this._idCounter++).toString(); }
+    /** @internal */
+    _getOptionId(value) {
+        for (let id of MapWrapper.keys(this._optionMap)) {
+            if (looseIdentical(this._optionMap.get(id), value))
+                return id;
+        }
+        return null;
+    }
+    /** @internal */
+    _getOptionValue(valueString) {
+        let value = this._optionMap.get(_extractId(valueString));
+        return isPresent(value) ? value : valueString;
+    }
+};
+SelectControlValueAccessor = __decorate([
+    Directive({
+        selector: 'select[ngControl],select[ngFormControl],select[ngModel]',
+        host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
+        providers: [SELECT_VALUE_ACCESSOR]
+    }), 
+    __metadata('design:paramtypes', [Renderer, ElementRef])
+], SelectControlValueAccessor);
 /**
  * Marks `<option>` as dynamic, so Angular can be notified when options change.
  *
@@ -26,39 +83,50 @@ const SELECT_VALUE_ACCESSOR = CONST_EXPR(new Provider(NG_VALUE_ACCESSOR, { useEx
  * </select>
  * ```
  */
-export let NgSelectOption = class {
-};
-NgSelectOption = __decorate([
-    Directive({ selector: 'option' }), 
-    __metadata('design:paramtypes', [])
-], NgSelectOption);
-/**
- * The accessor for writing a value and listening to changes on a select element.
- */
-export let SelectControlValueAccessor = class {
-    constructor(_renderer, _elementRef, query) {
+export let NgSelectOption = class NgSelectOption {
+    constructor(_element, _renderer, _select) {
+        this._element = _element;
         this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        this.onChange = (_) => { };
-        this.onTouched = () => { };
-        this._updateValueWhenListOfOptionsChanges(query);
+        this._select = _select;
+        if (isPresent(this._select))
+            this.id = this._select._registerOption();
     }
-    writeValue(value) {
-        this.value = value;
-        this._renderer.setElementProperty(this._elementRef.nativeElement, 'value', value);
+    set ngValue(value) {
+        if (this._select == null)
+            return;
+        this._select._optionMap.set(this.id, value);
+        this._setElementValue(_buildValueString(this.id, value));
+        this._select.writeValue(this._select.value);
     }
-    registerOnChange(fn) { this.onChange = fn; }
-    registerOnTouched(fn) { this.onTouched = fn; }
-    _updateValueWhenListOfOptionsChanges(query) {
-        ObservableWrapper.subscribe(query.changes, (_) => this.writeValue(this.value));
+    set value(value) {
+        this._setElementValue(value);
+        if (isPresent(this._select))
+            this._select.writeValue(this._select.value);
+    }
+    /** @internal */
+    _setElementValue(value) {
+        this._renderer.setElementProperty(this._element.nativeElement, 'value', value);
+    }
+    ngOnDestroy() {
+        if (isPresent(this._select)) {
+            this._select._optionMap.delete(this.id);
+            this._select.writeValue(this._select.value);
+        }
     }
 };
-SelectControlValueAccessor = __decorate([
-    Directive({
-        selector: 'select[ngControl],select[ngFormControl],select[ngModel]',
-        host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
-        bindings: [SELECT_VALUE_ACCESSOR]
-    }),
-    __param(2, Query(NgSelectOption, { descendants: true })), 
-    __metadata('design:paramtypes', [Renderer, ElementRef, QueryList])
-], SelectControlValueAccessor);
+__decorate([
+    Input('ngValue'), 
+    __metadata('design:type', Object), 
+    __metadata('design:paramtypes', [Object])
+], NgSelectOption.prototype, "ngValue", null);
+__decorate([
+    Input('value'), 
+    __metadata('design:type', Object), 
+    __metadata('design:paramtypes', [Object])
+], NgSelectOption.prototype, "value", null);
+NgSelectOption = __decorate([
+    Directive({ selector: 'option' }),
+    __param(2, Optional()),
+    __param(2, Host()), 
+    __metadata('design:paramtypes', [ElementRef, Renderer, SelectControlValueAccessor])
+], NgSelectOption);

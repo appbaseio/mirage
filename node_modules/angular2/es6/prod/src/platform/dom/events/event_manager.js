@@ -16,7 +16,7 @@ import { Injectable, Inject, OpaqueToken } from 'angular2/src/core/di';
 import { NgZone } from 'angular2/src/core/zone/ng_zone';
 import { ListWrapper } from 'angular2/src/facade/collection';
 export const EVENT_MANAGER_PLUGINS = CONST_EXPR(new OpaqueToken("EventManagerPlugins"));
-export let EventManager = class {
+export let EventManager = class EventManager {
     constructor(plugins, _zone) {
         this._zone = _zone;
         plugins.forEach(p => p.manager = this);

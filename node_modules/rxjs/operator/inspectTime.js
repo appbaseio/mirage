@@ -1,10 +1,11 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscriber_1 = require('../Subscriber');
 var asap_1 = require('../scheduler/asap');
+var Subscriber_1 = require('../Subscriber');
 function inspectTime(delay, scheduler) {
     if (scheduler === void 0) { scheduler = asap_1.asap; }
     return this.lift(new InspectTimeOperator(delay, scheduler));
@@ -19,7 +20,7 @@ var InspectTimeOperator = (function () {
         return new InspectTimeSubscriber(subscriber, this.delay, this.scheduler);
     };
     return InspectTimeOperator;
-})();
+}());
 var InspectTimeSubscriber = (function (_super) {
     __extends(InspectTimeSubscriber, _super);
     function InspectTimeSubscriber(destination, delay, scheduler) {
@@ -27,22 +28,30 @@ var InspectTimeSubscriber = (function (_super) {
         this.delay = delay;
         this.scheduler = scheduler;
         this.hasValue = false;
-        this.add(scheduler.schedule(dispatchNotification, delay, { subscriber: this, delay: delay }));
     }
     InspectTimeSubscriber.prototype._next = function (value) {
-        this.lastValue = value;
+        this.value = value;
         this.hasValue = true;
+        if (!this.throttled) {
+            this.add(this.throttled = this.scheduler.schedule(dispatchNext, this.delay, this));
+        }
     };
-    InspectTimeSubscriber.prototype.notifyNext = function () {
-        if (this.hasValue) {
-            this.destination.next(this.lastValue);
+    InspectTimeSubscriber.prototype.clearThrottle = function () {
+        var _a = this, value = _a.value, hasValue = _a.hasValue, throttled = _a.throttled;
+        if (throttled) {
+            this.remove(throttled);
+            this.throttled = null;
+            throttled.unsubscribe();
+        }
+        if (hasValue) {
+            this.value = null;
+            this.hasValue = false;
+            this.destination.next(value);
         }
     };
     return InspectTimeSubscriber;
-})(Subscriber_1.Subscriber);
-function dispatchNotification(state) {
-    var subscriber = state.subscriber, delay = state.delay;
-    subscriber.notifyNext();
-    this.schedule(state, delay);
+}(Subscriber_1.Subscriber));
+function dispatchNext(subscriber) {
+    subscriber.clearThrottle();
 }
 //# sourceMappingURL=inspectTime.js.map

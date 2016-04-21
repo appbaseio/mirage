@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -19,7 +20,7 @@ var ThrottleTimeOperator = (function () {
         return new ThrottleTimeSubscriber(subscriber, this.delay, this.scheduler);
     };
     return ThrottleTimeOperator;
-})();
+}());
 var ThrottleTimeSubscriber = (function (_super) {
     __extends(ThrottleTimeSubscriber, _super);
     function ThrottleTimeSubscriber(destination, delay, scheduler) {
@@ -42,7 +43,7 @@ var ThrottleTimeSubscriber = (function (_super) {
         }
     };
     return ThrottleTimeSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 function dispatchNext(_a) {
     var subscriber = _a.subscriber;
     subscriber.clearThrottle();

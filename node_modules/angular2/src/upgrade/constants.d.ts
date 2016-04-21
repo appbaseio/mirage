@@ -11,4 +11,5 @@ export declare const NG1_HTTP_BACKEND: string;
 export declare const NG1_INJECTOR: string;
 export declare const NG1_PARSE: string;
 export declare const NG1_TEMPLATE_CACHE: string;
+export declare const NG1_TESTABILITY: string;
 export declare const REQUIRE_INJECTOR: string;

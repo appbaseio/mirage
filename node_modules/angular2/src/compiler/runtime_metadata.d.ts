@@ -11,7 +11,13 @@ export declare class RuntimeMetadataResolver {
     private _platformPipes;
     private _directiveCache;
     private _pipeCache;
+    private _anonymousTypes;
+    private _anonymousTypeIndex;
     constructor(_directiveResolver: DirectiveResolver, _pipeResolver: PipeResolver, _viewResolver: ViewResolver, _platformDirectives: Type[], _platformPipes: Type[]);
+    /**
+     * Wrap the stringify method to avoid naming things `function (arg1...) {`
+     */
+    private sanitizeName(obj);
     getDirectiveMetadata(directiveType: Type): cpl.CompileDirectiveMetadata;
     getPipeMetadata(pipeType: Type): cpl.CompilePipeMetadata;
     getViewDirectivesMetadata(component: Type): cpl.CompileDirectiveMetadata[];

@@ -1,3 +1,4 @@
+"use strict";
 var Observable_1 = require('../../Observable');
 var min_1 = require('../../operator/min');
 var observableProto = Observable_1.Observable.prototype;

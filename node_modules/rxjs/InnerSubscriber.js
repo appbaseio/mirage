@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -14,16 +15,17 @@ var InnerSubscriber = (function (_super) {
         this.index = 0;
     }
     InnerSubscriber.prototype._next = function (value) {
-        var index = this.index++;
-        this.parent.notifyNext(this.outerValue, value, this.outerIndex, index);
+        this.parent.notifyNext(this.outerValue, value, this.outerIndex, this.index++, this);
     };
     InnerSubscriber.prototype._error = function (error) {
         this.parent.notifyError(error, this);
+        this.unsubscribe();
     };
     InnerSubscriber.prototype._complete = function () {
         this.parent.notifyComplete(this);
+        this.unsubscribe();
     };
     return InnerSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 exports.InnerSubscriber = InnerSubscriber;
 //# sourceMappingURL=InnerSubscriber.js.map

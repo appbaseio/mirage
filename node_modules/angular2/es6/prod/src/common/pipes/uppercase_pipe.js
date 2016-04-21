@@ -17,17 +17,18 @@ import { InvalidPipeArgumentException } from './invalid_pipe_argument_exception'
  *
  * {@example core/pipes/ts/lowerupper_pipe/lowerupper_pipe_example.ts region='LowerUpperPipe'}
  */
-export let UpperCasePipe = class {
+let UpperCasePipe_1;
+export let UpperCasePipe = UpperCasePipe_1 = class UpperCasePipe {
     transform(value, args = null) {
         if (isBlank(value))
             return value;
         if (!isString(value)) {
-            throw new InvalidPipeArgumentException(UpperCasePipe, value);
+            throw new InvalidPipeArgumentException(UpperCasePipe_1, value);
         }
         return value.toUpperCase();
     }
 };
-UpperCasePipe = __decorate([
+UpperCasePipe = UpperCasePipe_1 = __decorate([
     CONST(),
     Pipe({ name: 'uppercase' }),
     Injectable(), 

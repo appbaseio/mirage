@@ -1,7 +1,9 @@
-var Subscriber_1 = require('./Subscriber');
+"use strict";
 var root_1 = require('./util/root');
 var SymbolShim_1 = require('./util/SymbolShim');
-var rxSubscriber_1 = require('./symbol/rxSubscriber');
+var toSubscriber_1 = require('./util/toSubscriber');
+var tryCatch_1 = require('./util/tryCatch');
+var errorObject_1 = require('./util/errorObject');
 /**
  * A representation of any set of values over any amount of time. This the most basic building block
  * of RxJS.
@@ -36,16 +38,8 @@ var Observable = (function () {
         return observable;
     };
     /**
-     * @method Symbol.observable
-     * @returns {Observable} this instance of the observable
-     * @description an interop point defined by the es7-observable spec https://github.com/zenparsing/es-observable
-     */
-    Observable.prototype[SymbolShim_1.SymbolShim.observable] = function () {
-        return this;
-    };
-    /**
      * @method subscribe
-     * @param {Observer|Function} observerOrNext (optional) either an observer defining all functions to be called,
+     * @param {PartialObserver|Function} observerOrNext (optional) either an observer defining all functions to be called,
      *  or the first of three possible handlers, which is the handler for each value emitted from the observable.
      * @param {Function} error (optional) a handler for a terminal event resulting from an error. If no error handler is provided,
      *  the error will be thrown as unhandled
@@ -55,23 +49,20 @@ var Observable = (function () {
      *  executes the observable's subscriber function, which will take action to set up the underlying data stream
      */
     Observable.prototype.subscribe = function (observerOrNext, error, complete) {
-        var subscriber;
-        if (observerOrNext && typeof observerOrNext === 'object') {
-            if (observerOrNext instanceof Subscriber_1.Subscriber) {
-                subscriber = observerOrNext;
-            }
-            else if (observerOrNext[rxSubscriber_1.rxSubscriber]) {
-                subscriber = observerOrNext[rxSubscriber_1.rxSubscriber]();
-            }
-            else {
-                subscriber = new Subscriber_1.Subscriber(observerOrNext);
-            }
+        var operator = this.operator;
+        var subscriber = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
+        if (operator) {
+            subscriber.add(this._subscribe(operator.call(subscriber)));
         }
         else {
-            var next = observerOrNext;
-            subscriber = Subscriber_1.Subscriber.create(next, error, complete);
+            subscriber.add(this._subscribe(subscriber));
         }
-        subscriber.add(this._subscribe(subscriber));
+        if (subscriber.syncErrorThrowable) {
+            subscriber.syncErrorThrowable = false;
+            if (subscriber.syncErrorThrown) {
+                throw subscriber.syncErrorValue;
+            }
+        }
         return subscriber;
     };
     /**
@@ -94,28 +85,26 @@ var Observable = (function () {
         if (!PromiseCtor) {
             throw new Error('no Promise impl found');
         }
-        var nextHandler;
-        if (thisArg) {
-            nextHandler = function nextHandlerFn(value) {
-                var _a = nextHandlerFn, thisArg = _a.thisArg, next = _a.next;
-                return next.call(thisArg, value);
-            };
-            nextHandler.thisArg = thisArg;
-            nextHandler.next = next;
-        }
-        else {
-            nextHandler = next;
-        }
-        var promiseCallback = function promiseCallbackFn(resolve, reject) {
-            var _a = promiseCallbackFn, source = _a.source, nextHandler = _a.nextHandler;
-            source.subscribe(nextHandler, reject, resolve);
-        };
-        promiseCallback.source = this;
-        promiseCallback.nextHandler = nextHandler;
-        return new PromiseCtor(promiseCallback);
+        var source = this;
+        return new PromiseCtor(function (resolve, reject) {
+            source.subscribe(function (value) {
+                var result = tryCatch_1.tryCatch(next).call(thisArg, value);
+                if (result === errorObject_1.errorObject) {
+                    reject(errorObject_1.errorObject.e);
+                }
+            }, reject, resolve);
+        });
     };
     Observable.prototype._subscribe = function (subscriber) {
-        return this.source._subscribe(this.operator.call(subscriber));
+        return this.source.subscribe(subscriber);
+    };
+    /**
+     * @method Symbol.observable
+     * @returns {Observable} this instance of the observable
+     * @description an interop point defined by the es7-observable spec https://github.com/zenparsing/es-observable
+     */
+    Observable.prototype[SymbolShim_1.SymbolShim.observable] = function () {
+        return this;
     };
     // HACK: Since TypeScript inherits static properties too, we have to
     // fight against TypeScript here so Subject can have a different static create signature
@@ -130,6 +119,6 @@ var Observable = (function () {
         return new Observable(subscribe);
     };
     return Observable;
-})();
+}());
 exports.Observable = Observable;
 //# sourceMappingURL=Observable.js.map

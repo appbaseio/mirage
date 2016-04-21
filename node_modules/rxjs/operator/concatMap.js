@@ -1,4 +1,5 @@
-var mergeMap_support_1 = require('./mergeMap-support');
+"use strict";
+var mergeMap_1 = require('./mergeMap');
 /**
  * Maps values from the source observable into new Observables, then merges them in a serialized fashion,
  * waiting for each one to complete before merging the next.
@@ -9,7 +10,7 @@ var mergeMap_support_1 = require('./mergeMap-support');
  *
  * @param {function} project a function to map incoming values into Observables to be concatenated. accepts
  * the `value` and the `index` as arguments.
- * @param {function} [projectResult] an optional result selector that is applied to values before they're
+ * @param {function} [resultSelector] an optional result selector that is applied to values before they're
  * merged into the returned observable. The arguments passed to this function are:
  * - `outerValue`: the value that came from the source
  * - `innerValue`: the value that came from the projected Observable
@@ -18,8 +19,8 @@ var mergeMap_support_1 = require('./mergeMap-support');
  * @returns {Observable} an observable of values merged from the projected Observables as they were subscribed to,
  * one at a time. Optionally, these values may have been projected from a passed `projectResult` argument.
  */
-function concatMap(project, projectResult) {
-    return this.lift(new mergeMap_support_1.MergeMapOperator(project, projectResult, 1));
+function concatMap(project, resultSelector) {
+    return this.lift(new mergeMap_1.MergeMapOperator(project, resultSelector, 1));
 }
 exports.concatMap = concatMap;
 //# sourceMappingURL=concatMap.js.map

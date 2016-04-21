@@ -1,3 +1,4 @@
+"use strict";
 var Observable_1 = require('./Observable');
 var Notification = (function () {
     function Notification(kind, value, exception) {
@@ -9,22 +10,22 @@ var Notification = (function () {
     Notification.prototype.observe = function (observer) {
         switch (this.kind) {
             case 'N':
-                return observer.next(this.value);
+                return observer.next && observer.next(this.value);
             case 'E':
-                return observer.error(this.exception);
+                return observer.error && observer.error(this.exception);
             case 'C':
-                return observer.complete();
+                return observer.complete && observer.complete();
         }
     };
     Notification.prototype.do = function (next, error, complete) {
         var kind = this.kind;
         switch (kind) {
             case 'N':
-                return next(this.value);
+                return next && next(this.value);
             case 'E':
-                return error(this.exception);
+                return error && error(this.exception);
             case 'C':
-                return complete();
+                return complete && complete();
         }
     };
     Notification.prototype.accept = function (nextOrObserver, error, complete) {
@@ -61,6 +62,6 @@ var Notification = (function () {
     Notification.completeNotification = new Notification('C');
     Notification.undefinedValueNotification = new Notification('N', undefined);
     return Notification;
-})();
+}());
 exports.Notification = Notification;
 //# sourceMappingURL=Notification.js.map

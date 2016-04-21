@@ -19,7 +19,7 @@ import { ViewEncapsulation } from 'angular2/src/core/metadata/view';
 import { HtmlTextAst, htmlVisitAll } from './html_ast';
 import { HtmlParser } from './html_parser';
 import { preparseElement, PreparsedElementType } from './template_preparser';
-export let TemplateNormalizer = class {
+export let TemplateNormalizer = class TemplateNormalizer {
     constructor(_xhr, _urlResolver, _htmlParser) {
         this._xhr = _xhr;
         this._urlResolver = _urlResolver;
@@ -116,6 +116,7 @@ class TemplatePreparseVisitor {
         }
         return null;
     }
+    visitComment(ast, context) { return null; }
     visitAttr(ast, context) { return null; }
     visitText(ast, context) { return null; }
 }

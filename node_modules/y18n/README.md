@@ -81,10 +81,10 @@ Update the current locale with the key value pairs in `obj`.
 
 ISC
 
-[travis-url]: https://travis-ci.org/bcoe/y18n
-[travis-image]: https://img.shields.io/travis/bcoe/y18n.svg
-[coveralls-url]: https://coveralls.io/github/bcoe/y18n
-[coveralls-image]: https://img.shields.io/coveralls/bcoe/y18n.svg
+[travis-url]: https://travis-ci.org/yargs/y18n
+[travis-image]: https://img.shields.io/travis/yargs/y18n.svg
+[coveralls-url]: https://coveralls.io/github/yargs/y18n
+[coveralls-image]: https://img.shields.io/coveralls/yargs/y18n.svg
 [npm-url]: https://npmjs.org/package/y18n
 [npm-image]: https://img.shields.io/npm/v/y18n.svg
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg

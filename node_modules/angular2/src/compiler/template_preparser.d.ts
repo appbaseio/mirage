@@ -12,5 +12,6 @@ export declare class PreparsedElement {
     selectAttr: string;
     hrefAttr: string;
     nonBindable: boolean;
-    constructor(type: PreparsedElementType, selectAttr: string, hrefAttr: string, nonBindable: boolean);
+    projectAs: string;
+    constructor(type: PreparsedElementType, selectAttr: string, hrefAttr: string, nonBindable: boolean, projectAs: string);
 }

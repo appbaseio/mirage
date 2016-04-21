@@ -45,7 +45,7 @@ const _EMPTY_LIST = CONST_EXPR([]);
  * expect(injector.get("message")).toEqual('Hello');
  * ```
  */
-export let Provider = class {
+export let Provider = class Provider {
     constructor(token, { useClass, useValue, useExisting, useFactory, deps, multi }) {
         this.token = token;
         this.useClass = useClass;
@@ -96,7 +96,7 @@ Provider = __decorate([
  *
  * @deprecated
  */
-export let Binding = class extends Provider {
+export let Binding = class Binding extends Provider {
     constructor(token, { toClass, toValue, toAlias, toFactory, deps, multi }) {
         super(token, {
             useClass: toClass,

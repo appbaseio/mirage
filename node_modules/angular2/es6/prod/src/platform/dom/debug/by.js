@@ -34,6 +34,6 @@ export class By {
      * {@example platform/dom/debug/ts/by/by.ts region='by_directive'}
      */
     static directive(type) {
-        return (debugElement) => { return debugElement.hasDirective(type); };
+        return (debugElement) => { return debugElement.providerTokens.indexOf(type) !== -1; };
     }
 }

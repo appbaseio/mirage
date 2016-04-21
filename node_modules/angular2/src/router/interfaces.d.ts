@@ -18,7 +18,7 @@ import { ComponentInstruction } from './instruction';
  * {@example router/ts/on_activate/on_activate_example.ts region='routerOnActivate'}
  */
 export interface OnActivate {
-    routerOnActivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    routerOnActivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any | Promise<any>;
 }
 /**
  * Defines route lifecycle method `routerOnReuse`, which is called by the router at the end of a
@@ -36,7 +36,7 @@ export interface OnActivate {
  * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
  */
 export interface OnReuse {
-    routerOnReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    routerOnReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any | Promise<any>;
 }
 /**
  * Defines route lifecycle method `routerOnDeactivate`, which is called by the router before
@@ -54,7 +54,7 @@ export interface OnReuse {
  * {@example router/ts/on_deactivate/on_deactivate_example.ts region='routerOnDeactivate'}
  */
 export interface OnDeactivate {
-    routerOnDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    routerOnDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any | Promise<any>;
 }
 /**
  * Defines route lifecycle method `routerCanReuse`, which is called by the router to determine
@@ -77,7 +77,7 @@ export interface OnDeactivate {
  * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
  */
 export interface CanReuse {
-    routerCanReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    routerCanReuse(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): boolean | Promise<boolean>;
 }
 /**
  * Defines route lifecycle method `routerCanDeactivate`, which is called by the router to determine
@@ -99,5 +99,5 @@ export interface CanReuse {
  * {@example router/ts/can_deactivate/can_deactivate_example.ts region='routerCanDeactivate'}
  */
 export interface CanDeactivate {
-    routerCanDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): any;
+    routerCanDeactivate(nextInstruction: ComponentInstruction, prevInstruction: ComponentInstruction): boolean | Promise<boolean>;
 }

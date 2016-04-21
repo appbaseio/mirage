@@ -17,7 +17,7 @@ import { StringWrapper } from "angular2/src/facade/lang";
 export { Type } from "angular2/src/facade/lang";
 export class ClientMessageBrokerFactory {
 }
-export let ClientMessageBrokerFactory_ = class extends ClientMessageBrokerFactory {
+export let ClientMessageBrokerFactory_ = class ClientMessageBrokerFactory_ extends ClientMessageBrokerFactory {
     constructor(_messageBus, _serializer) {
         super();
         this._messageBus = _messageBus;

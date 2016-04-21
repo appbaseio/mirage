@@ -1,3 +1,4 @@
+"use strict";
 var MapPolyfill = (function () {
     function MapPolyfill() {
         this.size = 0;
@@ -30,12 +31,17 @@ var MapPolyfill = (function () {
         this.size--;
         return true;
     };
+    MapPolyfill.prototype.clear = function () {
+        this._keys.length = 0;
+        this._values.length = 0;
+        this.size = 0;
+    };
     MapPolyfill.prototype.forEach = function (cb, thisArg) {
         for (var i = 0; i < this.size; i++) {
             cb.call(thisArg, this._values[i], this._keys[i]);
         }
     };
     return MapPolyfill;
-})();
+}());
 exports.MapPolyfill = MapPolyfill;
 //# sourceMappingURL=MapPolyfill.js.map

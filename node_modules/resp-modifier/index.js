@@ -159,7 +159,7 @@ function RespModifier (opts) {
                 // Check if our body is HTML, and if it does not already have the snippet.
                 if (force || utils.isHtml(res.data) && !utils.snip(res.data)) {
                     // Include, if necessary, replacing the entire res.data with the included snippet.
-                    res.data = utils.applyRules(rules, res.data);
+                    res.data = utils.applyRules(rules, res.data, req, res);
                     runPatches = false;
                 }
                 if (res.data !== undefined && !res._header) {

@@ -12,7 +12,7 @@ import { AnimationBuilder } from 'angular2/src/animate/animation_builder';
 import { CssAnimationBuilder } from 'angular2/src/animate/css_animation_builder';
 import { Animation } from 'angular2/src/animate/animation';
 import { BrowserDetails } from 'angular2/src/animate/browser_details';
-export let MockAnimationBuilder = class extends AnimationBuilder {
+export let MockAnimationBuilder = class MockAnimationBuilder extends AnimationBuilder {
     constructor() {
         super(null);
     }

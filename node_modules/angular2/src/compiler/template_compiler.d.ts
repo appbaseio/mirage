@@ -1,5 +1,4 @@
 import { Type } from 'angular2/src/facade/lang';
-import { Promise } from 'angular2/src/facade/async';
 import { CompileDirectiveMetadata, CompilePipeMetadata } from './directive_metadata';
 import { SourceModule } from './source_module';
 import { ChangeDetectionCompiler } from './change_detector_compiler';

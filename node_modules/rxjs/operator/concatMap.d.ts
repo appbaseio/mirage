@@ -9,7 +9,7 @@ import { Observable } from '../Observable';
  *
  * @param {function} project a function to map incoming values into Observables to be concatenated. accepts
  * the `value` and the `index` as arguments.
- * @param {function} [projectResult] an optional result selector that is applied to values before they're
+ * @param {function} [resultSelector] an optional result selector that is applied to values before they're
  * merged into the returned observable. The arguments passed to this function are:
  * - `outerValue`: the value that came from the source
  * - `innerValue`: the value that came from the projected Observable
@@ -18,4 +18,4 @@ import { Observable } from '../Observable';
  * @returns {Observable} an observable of values merged from the projected Observables as they were subscribed to,
  * one at a time. Optionally, these values may have been projected from a passed `projectResult` argument.
  */
-export declare function concatMap<T, R>(project: (value: T, index: number) => Observable<any>, projectResult?: (outerValue: T, innerValue: any, outerIndex: number, innerIndex: number) => R): any;
+export declare function concatMap<T, R, R2>(project: (value: T, index: number) => Observable<R>, resultSelector?: (outerValue: T, innerValue: R, outerIndex: number, innerIndex: number) => R2): any;

@@ -13,7 +13,7 @@ import { XHR_CHANNEL } from 'angular2/src/web_workers/shared/messaging_api';
 import { XHR } from 'angular2/src/compiler/xhr';
 import { ServiceMessageBrokerFactory } from 'angular2/src/web_workers/shared/service_message_broker';
 import { bind } from './bind';
-export let MessageBasedXHRImpl = class {
+export let MessageBasedXHRImpl = class MessageBasedXHRImpl {
     constructor(_brokerFactory, _xhr) {
         this._brokerFactory = _brokerFactory;
         this._xhr = _xhr;

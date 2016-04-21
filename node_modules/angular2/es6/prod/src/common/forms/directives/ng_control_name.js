@@ -74,7 +74,7 @@ const controlNameBinding = CONST_EXPR(new Provider(NgControl, { useExisting: for
  * }
  *  ```
  */
-export let NgControlName = class extends NgControl {
+export let NgControlName = class NgControlName extends NgControl {
     constructor(_parent, _validators, _asyncValidators, valueAccessors) {
         super();
         this._parent = _parent;

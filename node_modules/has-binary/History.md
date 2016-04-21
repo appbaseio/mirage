@@ -1,4 +1,12 @@
 
+0.1.7 / 2015-11-18
+==================
+
+  * fix toJSON [@jderuere]
+  * fix `global.isBuffer` usage [@tonetheman]
+  * fix tests on modern versions of node
+  * bump mocha
+
 0.1.6 / 2015-01-24
 ==================
 

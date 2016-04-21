@@ -1,6 +1,7 @@
 import { isPresent } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { Map, MapWrapper, Set, SetWrapper, StringMapWrapper } from 'angular2/src/facade/collection';
+import { ReflectorReader } from './reflector_reader';
 /**
  * Reflective information about a symbol, including annotations, interfaces, and other metadata.
  */
@@ -17,8 +18,9 @@ export class ReflectionInfo {
  * Provides access to reflection data about symbols. Used internally by Angular
  * to power dependency injection and compilation.
  */
-export class Reflector {
+export class Reflector extends ReflectorReader {
     constructor(reflectionCapabilities) {
+        super();
         /** @internal */
         this._injectableInfo = new Map();
         /** @internal */

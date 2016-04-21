@@ -6,7 +6,7 @@ function preserveCamelCase(str) {
 	for (var i = 0; i < str.length; i++) {
 		var c = str.charAt(i);
 
-		if (isLastCharLower && c.toUpperCase() === c) {
+		if (isLastCharLower && (/[a-zA-Z]/).test(c) && c.toUpperCase() === c) {
 			str = str.substr(0, i) + '-' + str.substr(i);
 			isLastCharLower = false;
 			i++;

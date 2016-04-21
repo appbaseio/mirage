@@ -1,16 +1,17 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var queue_1 = require('../scheduler/queue');
+var asap_1 = require('../scheduler/asap');
 var isDate_1 = require('../util/isDate');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
 function timeoutWith(due, withObservable, scheduler) {
-    if (scheduler === void 0) { scheduler = queue_1.queue; }
+    if (scheduler === void 0) { scheduler = asap_1.asap; }
     var absoluteTimeout = isDate_1.isDate(due);
-    var waitFor = absoluteTimeout ? (+due - scheduler.now()) : due;
+    var waitFor = absoluteTimeout ? (+due - scheduler.now()) : Math.abs(due);
     return this.lift(new TimeoutWithOperator(waitFor, absoluteTimeout, withObservable, scheduler));
 }
 exports.timeoutWith = timeoutWith;
@@ -25,11 +26,11 @@ var TimeoutWithOperator = (function () {
         return new TimeoutWithSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.withObservable, this.scheduler);
     };
     return TimeoutWithOperator;
-})();
+}());
 var TimeoutWithSubscriber = (function (_super) {
     __extends(TimeoutWithSubscriber, _super);
     function TimeoutWithSubscriber(destination, absoluteTimeout, waitFor, withObservable, scheduler) {
-        _super.call(this, null);
+        _super.call(this);
         this.destination = destination;
         this.absoluteTimeout = absoluteTimeout;
         this.waitFor = waitFor;
@@ -92,5 +93,5 @@ var TimeoutWithSubscriber = (function (_super) {
         }
     };
     return TimeoutWithSubscriber;
-})(OuterSubscriber_1.OuterSubscriber);
+}(OuterSubscriber_1.OuterSubscriber));
 //# sourceMappingURL=timeoutWith.js.map

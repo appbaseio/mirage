@@ -19,7 +19,7 @@ var tokens = require('preserve');
  * Expose `braces`
  */
 
-module.exports = function (str, options) {
+module.exports = function(str, options) {
   if (typeof str !== 'string') {
     throw new Error('braces expects a string');
   }
@@ -270,7 +270,7 @@ function escapeBraces(str, arr, opts) {
   } else {
     str = str.split('\\{').join('__LT_BRACE__');
     str = str.split('\\}').join('__RT_BRACE__');
-    return map(braces(str, arr, opts), function (ele) {
+    return map(braces(str, arr, opts), function(ele) {
       ele = ele.split('__LT_BRACE__').join('{');
       return ele.split('__RT_BRACE__').join('}');
     });
@@ -286,7 +286,7 @@ function escapeDots(str, arr, opts) {
     return arr.concat(str.split('\\').join(''));
   } else {
     str = str.split('\\.').join('__ESC_DOT__');
-    return map(braces(str, arr, opts), function (ele) {
+    return map(braces(str, arr, opts), function(ele) {
       return ele.split('__ESC_DOT__').join('.');
     });
   }
@@ -298,7 +298,7 @@ function escapeDots(str, arr, opts) {
 
 function escapePaths(str, arr, opts) {
   str = str.split('\/.').join('__ESC_PATH__');
-  return map(braces(str, arr, opts), function (ele) {
+  return map(braces(str, arr, opts), function(ele) {
     return ele.split('__ESC_PATH__').join('\/.');
   });
 }
@@ -312,7 +312,7 @@ function escapeCommas(str, arr, opts) {
     return arr.concat(str.split('\\').join(''));
   } else {
     str = str.split('\\,').join('__ESC_COMMA__');
-    return map(braces(str, arr, opts), function (ele) {
+    return map(braces(str, arr, opts), function(ele) {
       return ele.split('__ESC_COMMA__').join(',');
     });
   }

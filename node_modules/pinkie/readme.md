@@ -7,7 +7,7 @@
 
 > Itty bitty little widdle twinkie pinkie [ES2015 Promise](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-promise-objects) implementation
 
-[![Build Status](https://travis-ci.org/floatdrop/pinkie.svg?branch=master)](https://travis-ci.org/floatdrop/pinkie) [![Build status](https://ci.appveyor.com/api/projects/status/chm686d8cg68mamh/branch/master?svg=true)](https://ci.appveyor.com/project/floatdrop/pinkie/branch/master) [![Coverage Status](https://coveralls.io/repos/floatdrop/pinkie/badge.svg?branch=master&service=github)](https://coveralls.io/github/floatdrop/pinkie?branch=master)
+[![Build Status](https://travis-ci.org/floatdrop/pinkie.svg?branch=master)](https://travis-ci.org/floatdrop/pinkie)  [![Coverage Status](https://coveralls.io/repos/floatdrop/pinkie/badge.svg?branch=master&service=github)](https://coveralls.io/github/floatdrop/pinkie?branch=master)
 
 There are [tons of Promise implementations](https://github.com/promises-aplus/promises-spec/blob/master/implementations.md#standalone) out there, but all of them focus on browser compatibility and are often bloated with functionality.
 

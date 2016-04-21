@@ -18,3 +18,11 @@ var regexWithString = /asdfasdf " /;
 exports.d6 = require('./commonjs-d2.js');
 
 var regexClose = /asdf " */;
+
+// This comment triggered SystemJS to do a require because of this -> require('')
+exports.d7 = 'export';
+
+var p = false && require('" + "test" + "');
+
+// this line shouldn't be detected
+" = require(", "),\n        ";

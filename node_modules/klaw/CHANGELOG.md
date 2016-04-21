@@ -1,3 +1,7 @@
+1.2.0 / 2016-04-16
+------------------
+- added support for custom `fs` implementation. Useful for https://github.com/tschaub/mock-fs
+
 1.1.3 / 2015-12-23
 ------------------
 - bugfix: if `readdir` error, got hung up. See: https://github.com/jprichardson/node-klaw/issues/1

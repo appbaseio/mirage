@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6,11 +7,18 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subscriber_1 = require('../Subscriber');
 var asap_1 = require('../scheduler/asap');
 /**
- * buffers values from the source for a specific time period. Optionally allows new buffers to be set up at an interval.
- * @param {number} the amount of time to fill each buffer for before emitting them and clearing them.
- * @param {number} [bufferCreationInterval] the interval at which to start new buffers.
- * @param {Scheduler} [scheduler] (optional, defaults to `asap` scheduler) The scheduler on which to schedule the
- *  intervals that determine buffer boundaries.
+ * Buffers values from the source for a specific time period. Optionally allows
+ * new buffers to be set up at an interval.
+ *
+ * <img src="./img/bufferTime.png" width="100%">
+ *
+ * @param {number} bufferTimeSpan the amount of time to fill each buffer for
+ * before emitting them and clearing them.
+ * @param {number} [bufferCreationInterval] the interval at which to start new
+ * buffers.
+ * @param {Scheduler} [scheduler] (optional, defaults to `asap` scheduler) The
+ * scheduler on which to schedule the intervals that determine buffer
+ * boundaries.
  * @returns {Observable<T[]>} an observable of arrays of buffered values.
  */
 function bufferTime(bufferTimeSpan, bufferCreationInterval, scheduler) {
@@ -29,7 +37,7 @@ var BufferTimeOperator = (function () {
         return new BufferTimeSubscriber(subscriber, this.bufferTimeSpan, this.bufferCreationInterval, this.scheduler);
     };
     return BufferTimeOperator;
-})();
+}());
 var BufferTimeSubscriber = (function (_super) {
     __extends(BufferTimeSubscriber, _super);
     function BufferTimeSubscriber(destination, bufferTimeSpan, bufferCreationInterval, scheduler) {
@@ -59,14 +67,17 @@ var BufferTimeSubscriber = (function (_super) {
     };
     BufferTimeSubscriber.prototype._error = function (err) {
         this.buffers.length = 0;
-        this.destination.error(err);
+        _super.prototype._error.call(this, err);
     };
     BufferTimeSubscriber.prototype._complete = function () {
-        var buffers = this.buffers;
+        var _a = this, buffers = _a.buffers, destination = _a.destination;
         while (buffers.length > 0) {
-            this.destination.next(buffers.shift());
+            destination.next(buffers.shift());
         }
-        this.destination.complete();
+        _super.prototype._complete.call(this);
+    };
+    BufferTimeSubscriber.prototype._unsubscribe = function () {
+        this.buffers = null;
     };
     BufferTimeSubscriber.prototype.openBuffer = function () {
         var buffer = [];
@@ -79,7 +90,7 @@ var BufferTimeSubscriber = (function (_super) {
         buffers.splice(buffers.indexOf(buffer), 1);
     };
     return BufferTimeSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 function dispatchBufferTimeSpanOnly(state) {
     var subscriber = state.subscriber;
     var prevBuffer = state.buffer;

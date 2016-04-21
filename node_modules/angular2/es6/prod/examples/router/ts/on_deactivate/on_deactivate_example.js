@@ -8,9 +8,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Injectable, provide } from 'angular2/core';
-import { bootstrap } from 'angular2/bootstrap';
+import { bootstrap } from 'angular2/platform/browser';
 import { RouteConfig, ROUTER_DIRECTIVES, APP_BASE_HREF } from 'angular2/router';
-let LogService = class {
+let LogService = class LogService {
     constructor() {
         this.logs = [];
     }
@@ -21,7 +21,7 @@ LogService = __decorate([
     __metadata('design:paramtypes', [])
 ], LogService);
 // #docregion routerOnDeactivate
-let MyCmp = class {
+let MyCmp = class MyCmp {
     constructor(logService) {
         this.logService = logService;
     }
@@ -34,7 +34,7 @@ MyCmp = __decorate([
     __metadata('design:paramtypes', [LogService])
 ], MyCmp);
 // #enddocregion
-let AppCmp = class {
+let AppCmp = class AppCmp {
     constructor(logService) {
         this.logService = logService;
     }

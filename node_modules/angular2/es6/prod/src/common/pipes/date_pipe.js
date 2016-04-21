@@ -80,19 +80,20 @@ var defaultLocale = 'en-US';
  *
  * {@example core/pipes/ts/date_pipe/date_pipe_example.ts region='DatePipe'}
  */
-export let DatePipe = class {
+let DatePipe_1;
+export let DatePipe = DatePipe_1 = class DatePipe {
     transform(value, args) {
         if (isBlank(value))
             return null;
         if (!this.supports(value)) {
-            throw new InvalidPipeArgumentException(DatePipe, value);
+            throw new InvalidPipeArgumentException(DatePipe_1, value);
         }
         var pattern = isPresent(args) && args.length > 0 ? args[0] : 'mediumDate';
         if (isNumber(value)) {
             value = DateWrapper.fromMillis(value);
         }
-        if (StringMapWrapper.contains(DatePipe._ALIASES, pattern)) {
-            pattern = StringMapWrapper.get(DatePipe._ALIASES, pattern);
+        if (StringMapWrapper.contains(DatePipe_1._ALIASES, pattern)) {
+            pattern = StringMapWrapper.get(DatePipe_1._ALIASES, pattern);
         }
         return DateFormatter.format(value, defaultLocale, pattern);
     }
@@ -109,7 +110,7 @@ DatePipe._ALIASES = {
     'mediumTime': 'jms',
     'shortTime': 'jm'
 };
-DatePipe = __decorate([
+DatePipe = DatePipe_1 = __decorate([
     CONST(),
     Pipe({ name: 'date', pure: true }),
     Injectable(), 

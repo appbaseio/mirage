@@ -11,7 +11,7 @@ import { Component, platform } from 'angular2/core';
 import { BROWSER_PROVIDERS, BROWSER_APP_PROVIDERS } from 'angular2/platform/browser';
 var appProviders = [];
 // #docregion longform
-let MyApp = class {
+let MyApp = class MyApp {
 };
 MyApp = __decorate([
     Component({ selector: 'my-app', template: 'Hello World' }), 

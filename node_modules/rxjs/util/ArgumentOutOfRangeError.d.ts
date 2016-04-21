@@ -1,4 +1,3 @@
-export declare class ArgumentOutOfRangeError implements Error {
-    name: string;
-    message: string;
+export declare class ArgumentOutOfRangeError extends Error {
+    constructor();
 }

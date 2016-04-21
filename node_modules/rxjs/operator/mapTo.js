@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6,6 +7,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subscriber_1 = require('../Subscriber');
 /**
  * Maps every value to the same value every time.
+ *
+ * <img src="./img/mapTo.png" width="100%">
+ *
  * @param {any} value the value to map each incoming value to
  * @returns {Observable} an observable of the passed value that emits everytime the source does
  */
@@ -21,7 +25,7 @@ var MapToOperator = (function () {
         return new MapToSubscriber(subscriber, this.value);
     };
     return MapToOperator;
-})();
+}());
 var MapToSubscriber = (function (_super) {
     __extends(MapToSubscriber, _super);
     function MapToSubscriber(destination, value) {
@@ -32,5 +36,5 @@ var MapToSubscriber = (function (_super) {
         this.destination.next(this.value);
     };
     return MapToSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=mapTo.js.map

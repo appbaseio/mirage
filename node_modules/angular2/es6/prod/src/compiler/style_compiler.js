@@ -20,7 +20,7 @@ import { Injectable } from 'angular2/src/core/di';
 const COMPONENT_VARIABLE = '%COMP%';
 const HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
 const CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
-export let StyleCompiler = class {
+export let StyleCompiler = class StyleCompiler {
     constructor(_xhr, _urlResolver) {
         this._xhr = _xhr;
         this._urlResolver = _urlResolver;

@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -22,7 +23,7 @@ var WindowTimeOperator = (function () {
         return new WindowTimeSubscriber(subscriber, this.windowTimeSpan, this.windowCreationInterval, this.scheduler);
     };
     return WindowTimeOperator;
-})();
+}());
 var WindowTimeSubscriber = (function (_super) {
     __extends(WindowTimeSubscriber, _super);
     function WindowTimeSubscriber(destination, windowTimeSpan, windowCreationInterval, scheduler) {
@@ -49,7 +50,10 @@ var WindowTimeSubscriber = (function (_super) {
         var windows = this.windows;
         var len = windows.length;
         for (var i = 0; i < len; i++) {
-            windows[i].next(value);
+            var window_3 = windows[i];
+            if (!window_3.isUnsubscribed) {
+                window_3.next(value);
+            }
         }
     };
     WindowTimeSubscriber.prototype._error = function (err) {
@@ -62,7 +66,10 @@ var WindowTimeSubscriber = (function (_super) {
     WindowTimeSubscriber.prototype._complete = function () {
         var windows = this.windows;
         while (windows.length > 0) {
-            windows.shift().complete();
+            var window_4 = windows.shift();
+            if (!window_4.isUnsubscribed) {
+                window_4.complete();
+            }
         }
         this.destination.complete();
     };
@@ -80,7 +87,7 @@ var WindowTimeSubscriber = (function (_super) {
         windows.splice(windows.indexOf(window), 1);
     };
     return WindowTimeSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 function dispatchWindowTimeSpanOnly(state) {
     var subscriber = state.subscriber, windowTimeSpan = state.windowTimeSpan, window = state.window;
     if (window) {

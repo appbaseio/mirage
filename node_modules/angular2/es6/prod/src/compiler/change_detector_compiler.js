@@ -30,7 +30,7 @@ var ABSTRACT_CHANGE_DETECTOR_MODULE = moduleRef(`package:angular2/src/core/chang
 var UTIL_MODULE = moduleRef(`package:angular2/src/core/change_detection/change_detection_util${MODULE_SUFFIX}`);
 var PREGEN_PROTO_CHANGE_DETECTOR_MODULE = moduleRef(`package:angular2/src/core/change_detection/pregen_proto_change_detector${MODULE_SUFFIX}`);
 var CONSTANTS_MODULE = moduleRef(`package:angular2/src/core/change_detection/constants${MODULE_SUFFIX}`);
-export let ChangeDetectionCompiler = class {
+export let ChangeDetectionCompiler = class ChangeDetectionCompiler {
     constructor(_genConfig) {
         this._genConfig = _genConfig;
     }

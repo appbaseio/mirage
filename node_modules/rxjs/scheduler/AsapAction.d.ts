@@ -1,7 +1,6 @@
-import { QueueAction } from './QueueAction';
 import { Action } from './Action';
-export declare class AsapAction<T> extends QueueAction<T> {
-    private id;
-    schedule(state?: any): Action;
-    unsubscribe(): void;
+import { FutureAction } from './FutureAction';
+export declare class AsapAction<T> extends FutureAction<T> {
+    protected _schedule(state?: any, delay?: number): Action;
+    protected _unsubscribe(): void;
 }

@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -5,10 +6,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 var ArgumentOutOfRangeError_1 = require('../util/ArgumentOutOfRangeError');
-var empty_1 = require('../observable/empty');
+var EmptyObservable_1 = require('../observable/EmptyObservable');
 function take(total) {
     if (total === 0) {
-        return new empty_1.EmptyObservable();
+        return new EmptyObservable_1.EmptyObservable();
     }
     else {
         return this.lift(new TakeOperator(total));
@@ -26,7 +27,7 @@ var TakeOperator = (function () {
         return new TakeSubscriber(subscriber, this.total);
     };
     return TakeOperator;
-})();
+}());
 var TakeSubscriber = (function (_super) {
     __extends(TakeSubscriber, _super);
     function TakeSubscriber(destination, total) {
@@ -44,5 +45,5 @@ var TakeSubscriber = (function (_super) {
         }
     };
     return TakeSubscriber;
-})(Subscriber_1.Subscriber);
+}(Subscriber_1.Subscriber));
 //# sourceMappingURL=take.js.map

@@ -3,7 +3,7 @@
  *
  * Allows a module to be a plain copy of another module by module name
  *
- * System.meta['mybootstrapalias'] = { alias: 'bootstrap' };
+ * SystemJS.meta['mybootstrapalias'] = { alias: 'bootstrap' };
  *
  */
 (function() {
@@ -14,18 +14,20 @@
       var aliasDeps = load.metadata.deps || [];
       if (alias) {
         load.metadata.format = 'defined';
-        this.defined[load.name] = {
-          declarative: true,
-          deps: aliasDeps.concat([alias]),
-          declare: function(_export) {
-            return {
-              setters: [function(module) {
-                for (var p in module)
-                  _export(p, module[p]);
-              }],
-              execute: function() {}
-            };
-          }
+        var entry = createEntry();
+        this.defined[load.name] = entry;
+        entry.declarative = true;
+        entry.deps = aliasDeps.concat([alias]);
+        entry.declare = function(_export) {
+          return {
+            setters: [function(module) {
+              for (var p in module)
+                _export(p, module[p]);
+              if (module.__useDefault)
+                entry.module.exports.__useDefault = true;
+            }],
+            execute: function() {}
+          };
         };
         return '';
       }

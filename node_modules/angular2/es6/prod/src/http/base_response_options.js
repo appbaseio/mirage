@@ -127,7 +127,7 @@ export class ResponseOptions {
  * console.log('res.text():', res.text()); // Angular2;
  * ```
  */
-export let BaseResponseOptions = class extends ResponseOptions {
+export let BaseResponseOptions = class BaseResponseOptions extends ResponseOptions {
     constructor() {
         super({ status: 200, statusText: 'Ok', type: ResponseType.Default, headers: new Headers() });
     }

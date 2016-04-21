@@ -92,7 +92,7 @@ function wrapWord(rows, word, cols) {
 // than cols characters.
 //
 // 'soft' allows long words to expand past the column length.
-module.exports = function (str, cols, opts) {
+function exec(str, cols, opts) {
 	var options = opts || {};
 
 	var pre = '';
@@ -152,4 +152,11 @@ module.exports = function (str, cols, opts) {
 	}
 
 	return ret;
+}
+
+// for each line break, invoke the method separately.
+module.exports = function (str, cols, opts) {
+	return String(str).split('\n').map(function (substr) {
+		return exec(substr, cols, opts);
+	}).join('\n');
 };

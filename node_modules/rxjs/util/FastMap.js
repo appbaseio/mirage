@@ -1,3 +1,4 @@
+"use strict";
 var FastMap = (function () {
     function FastMap() {
         this.values = {};
@@ -25,6 +26,6 @@ var FastMap = (function () {
         this.values = {};
     };
     return FastMap;
-})();
+}());
 exports.FastMap = FastMap;
 //# sourceMappingURL=FastMap.js.map

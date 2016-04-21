@@ -8,10 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from 'angular2/core';
-import { bootstrap } from 'angular2/bootstrap';
-import { Observable } from 'rxjs/Observable';
+import { bootstrap } from 'angular2/platform/browser';
+import { Observable } from 'rxjs/Rx';
 // #docregion AsyncPipe
-export let AsyncPipeExample = class {
+export let AsyncPipeExample = class AsyncPipeExample {
     constructor() {
         this.greeting = null;
         this.arrived = false;
@@ -44,9 +44,11 @@ AsyncPipeExample = __decorate([
 ], AsyncPipeExample);
 // #enddocregion
 // #docregion AsyncPipeObservable
-let Task = class {
+let Task = class Task {
     constructor() {
-        this.time = new Observable(observer => { setInterval(_ => observer.next(new Date().getTime()), 500); });
+        this.time = new Observable((observer) => {
+            setInterval(() => observer.next(new Date().getTime()), 500);
+        });
     }
 };
 Task = __decorate([
@@ -54,7 +56,7 @@ Task = __decorate([
     __metadata('design:paramtypes', [])
 ], Task);
 // #enddocregion
-export let AppCmp = class {
+export let AppCmp = class AppCmp {
 };
 AppCmp = __decorate([
     Component({

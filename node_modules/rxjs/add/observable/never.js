@@ -1,4 +1,5 @@
+"use strict";
 var Observable_1 = require('../../Observable');
-var never_1 = require('../../observable/never');
-Observable_1.Observable.never = never_1.InfiniteObservable.create;
+var NeverObservable_1 = require('../../observable/NeverObservable');
+Observable_1.Observable.never = NeverObservable_1.NeverObservable.create;
 //# sourceMappingURL=never.js.map

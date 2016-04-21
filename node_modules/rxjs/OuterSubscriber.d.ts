@@ -1,7 +1,7 @@
-import { InnerSubscriber } from './InnerSubscriber';
 import { Subscriber } from './Subscriber';
+import { InnerSubscriber } from './InnerSubscriber';
 export declare class OuterSubscriber<T, R> extends Subscriber<T> {
-    notifyComplete(inner?: InnerSubscriber<T, R>): void;
-    notifyNext(outerValue: T, innerValue: R, outerIndex: number, innerIndex: number): void;
-    notifyError(error?: any, inner?: InnerSubscriber<T, R>): void;
+    notifyNext(outerValue: T, innerValue: R, outerIndex: number, innerIndex: number, innerSub: InnerSubscriber<T, R>): void;
+    notifyError(error: any, innerSub: InnerSubscriber<T, R>): void;
+    notifyComplete(innerSub: InnerSubscriber<T, R>): void;
 }
