@@ -1,9 +1,10 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit, OnChanges} from "angular2/core";
 import {BuildComponent} from "./build/build.component";
 import {ResultComponent} from "./result/result.component";
 import {RunComponent} from "./run/run.component";
 import {Config} from "./shared/config";
 import {$http} from './shared/httpwrap'
+import {editorHook} from "./shared/editorHook";
 
 @Component({
 	selector: 'my-app',
@@ -11,7 +12,7 @@ import {$http} from './shared/httpwrap'
 	directives: [BuildComponent, ResultComponent, RunComponent]
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
 	public mapping: any = { 
 							types: [], 
 							mapping: null,
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
 		username: "",
 		password: "" 
 	};
+	public editorHookHelp = new editorHook({editorId: 'editor'});
 
 	// For default config
 	// public config: Config = {
@@ -41,6 +43,16 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.getLocalConfig();
+  	}
+
+  	ngOnChanges(changes) {
+		console.log(changes);
+  	}
+
+  	changeMapResult() {
+  		console.log('Hello there');
+  		console.log(this);
+  		this.mapResult = "Hello World1";
   	}
 
   	//Get config from localstorage 

@@ -1,12 +1,13 @@
 import {Component, OnInit} from "angular2/core";
 import {BoolqueryComponent} from "./boolquery/boolquery.component";
 import {queryList} from "../shared/queryList";
+// import {helpHook} from "../shared/helpHook";
 
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
 	styleUrls: ['./app/build/build.component.css'],
-	inputs: ['mapping', 'config'],
+	inputs: ['mapping', 'config', 'editorHookHelp'],
 	directives: [BoolqueryComponent]
 })
 
@@ -14,7 +15,7 @@ export class BuildComponent  implements OnInit {
 	public mapping;
 	public config;
 	public queryList = queryList;
-	
+
 	ngOnInit() {
 		// this.mapping.resultQuery.result = [ 
 		// 	{ "boolparam": 0, "parent_id": 0, "id": 1, "internal": []}, 
@@ -58,6 +59,7 @@ export class BuildComponent  implements OnInit {
 		else {
 			alert('Select type first.');
 		}
+
 	}
 
 	buildQuery() {
@@ -93,6 +95,7 @@ export class BuildComponent  implements OnInit {
 			}
 		});
 		this.mapping.resultQuery.final = JSON.stringify(es_final, null, 4);
+		this.editorHookHelp.setValue(self.mapping.resultQuery.final);
 	}
 
 	buildInsideQuery(result) {
