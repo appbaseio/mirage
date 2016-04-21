@@ -31,6 +31,7 @@ export class AppComponent implements OnInit, OnChanges {
 		password: "" 
 	};
 	public editorHookHelp = new editorHook({editorId: 'editor'});
+	public responseHookHelp = new editorHook({editorId: 'responseBlock'});
 
 	// For default config
 	// public config: Config = {

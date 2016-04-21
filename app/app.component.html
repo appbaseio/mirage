@@ -31,14 +31,16 @@
 				<query-build [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp"></query-build>
 			</div>
 			<div class="col-xs-6">
-				<query-result [detectChange]="detectChange" [mapping]="mapping" [config]="config"    [editorHookHelp]="editorHookHelp"></query-result>
+				<query-result [detectChange]="detectChange" [mapping]="mapping" [config]="config"    [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp"></query-result>
 			</div>
 		</div>
 		<div class="row">
-			<h3>Query Result</h3>
-			<p>
-				<query-run [mapping]="mapping" [config]="config"></query-run>
-			</p>
+			<div class="col-xs-12">
+				<h3>Query Result</h3>
+				<div class="row">
+					<query-run [mapping]="mapping" [config]="config" [responseHookHelp]="responseHookHelp"></query-run>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

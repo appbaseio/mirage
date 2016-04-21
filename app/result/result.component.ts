@@ -9,7 +9,7 @@ import {TypesComponent} from "./types/types.component";
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
 	styleUrls: ['./app/result/result.component.css'],
-	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp'],
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'responseHookHelp'],
 	pipes: [prettyJson],
 	providers: [MappingService],
 	directives: [TypesComponent]
@@ -42,7 +42,8 @@ export class ResultComponent implements OnInit, OnChanges {
 		var payload = JSON.parse(getQuery);
 		// console.log(this.mapping.resultQuery);
 		$http.post(createUrl, payload, autho).then(function(res) {
-			self.mapping.output = JSON.stringify(res);
+			self.mapping.output = JSON.stringify(res, null, 2);
+			self.responseHookHelp.setValue(self.mapping.output);
 		});
 	}
 }

@@ -3,9 +3,10 @@ export var editorHook = function (config) {
     this.$editor = '#'+config.editorId;
 }
 
-editorHook.prototype.applyEditor = function() {
+editorHook.prototype.applyEditor = function(settings) {
     var self = this;
-    var options = {
+   
+    var defaultOptions = {
         lineNumbers: true,
         mode: "javascript",
         autoCloseBrackets: true,
@@ -17,6 +18,7 @@ editorHook.prototype.applyEditor = function() {
         foldGutter: true,
         gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     };
+    var options = settings ? jQuery.extend(settings, defaultOptions) : defaultOptions;
 
     self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 }

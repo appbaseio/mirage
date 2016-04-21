@@ -15,51 +15,41 @@ export class BuildComponent  implements OnInit {
 	public mapping;
 	public config;
 	public queryList = queryList;
+	public queryFormat: any = {
+		internal: {
+			field: '',
+			query: '',
+			input: '',
+			analyzeTest: '',
+			type: ''
+		},
+		bool: {
+			boolparam: 0,
+			parent_id: 0,
+			id: 0,
+			internal: []
+		}
+	};
 
-	ngOnInit() {
-		// this.mapping.resultQuery.result = [ 
-		// 	{ "boolparam": 0, "parent_id": 0, "id": 1, "internal": []}, 
-		// 	{ "boolparam": 0, "parent_id": 1, "id": 2, "internal": [] } 
-		// ];
-	}
+	ngOnInit() {}
 
 	addBoolQuery(parent_id: number) {
-		// Only if type is selected
-		if(this.mapping.types) {
-			var queryObj = {
-					boolparam: 0,
-					parent_id: 0,
-					id: 0,
-					internal: []
-			};
+		if(this.mapping.selectedTypes) {
+			var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
+			queryObj.internal.push(this.queryFormat.internal);
 			queryObj.id =  this.mapping.queryId;
 			queryObj.parent_id = parent_id;
 			this.mapping.queryId += 1;
 			this.mapping.resultQuery.result.push(queryObj);
 		}
-
 		else {
 			alert('Select type first.');
 		}
 	}
 
 	addQuery(boolQuery) {
-		// Only if type is selected
-		if(this.mapping.types) {
-			var queryObj = {
-					field: '',
-					query: '',
-					input: '',
-					analyzeTest: '',
-					type: ''
-			};
-			boolQuery.internal.push(queryObj);
-		}
-
-		else {
-			alert('Select type first.');
-		}
-
+		var queryObj = JSON.parse(JSON.stringify(queryFormat.internal));
+		boolQuery.internal.push(queryObj);
 	}
 
 	buildQuery() {
@@ -94,7 +84,7 @@ export class BuildComponent  implements OnInit {
 				finalresult[currentBool] = result.availableQuery;
 			}
 		});
-		this.mapping.resultQuery.final = JSON.stringify(es_final, null, 4);
+		this.mapping.resultQuery.final = JSON.stringify(es_final, null, 2);
 		this.editorHookHelp.setValue(self.mapping.resultQuery.final);
 	}
 
