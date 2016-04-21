@@ -25,7 +25,8 @@ export class ResultComponent implements OnInit, OnChanges {
 	ngOnInit() {
 		var self = this;
 		this.editorHookHelp.applyEditor();
-	//	this.editorHookHelp.setValue(self.mapping.resultQuery.final);
+		var resultHeight = $(window).height() - 170;
+    	$('.queryRight .codemirror').css({  height:resultHeight });
 	}
 
 	ngOnChanges(changes) {

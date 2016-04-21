@@ -5,13 +5,20 @@ export var editorHook = function (config) {
 
 editorHook.prototype.applyEditor = function() {
     var self = this;
-    self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), {
-      lineNumbers: true,
-      lineWrapping: true
-    });
-    var resultHeight = $(window).height() - 170;
-    $('.codemirror').css({  height:resultHeight });
+    var options = {
+        lineNumbers: true,
+        mode: "javascript",
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        showCursorWhenSelecting: true,
+        theme: "monokai",
+        tabSize: 2,
+        extraKeys: {"Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }},
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+    };
 
+    self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 }
 
 editorHook.prototype.setValue = function(value) {
