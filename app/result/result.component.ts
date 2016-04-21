@@ -1,56 +1,49 @@
-import {Component} from "angular2/core";
+import {Component, OnInit, OnChanges} from "angular2/core";
 import {prettyJson} from "../shared/pipes/prettyJson";
 import {MappingService} from "../shared/mapping.service";
-import {$http} from '../shared/httpwrap'
+import {$http} from '../shared/httpwrap';
+import {TypesComponent} from "./types/types.component";
+
 
 @Component({
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
 	styleUrls: ['./app/result/result.component.css'],
-	inputs: ['mapping', 'config'],
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'responseHookHelp'],
 	pipes: [prettyJson],
-	providers: [MappingService]
+	providers: [MappingService],
+	directives: [TypesComponent]
 })
 
-export class ResultComponent {
+export class ResultComponent implements OnInit, OnChanges {
 	public mapping;
 	public config;
+	public editorHookHelp;
+
 	constructor(private mappingService: MappingService) { }
-	changeType(){
-		setTimeout(function(){
-			this.mapping.resultQuery.result = [];
-			var mapObj = this.mapping.mapping[this.config.appname].mappings[this.mapping.resultQuery.type].properties;
-			var availableFields = [];
-			for (var field in mapObj){
-				var obj = {
-					name: field,
-					type: mapObj[field]['type'],
-					index: mapObj[field]['index']
-				}
-				switch (obj.type) {
-					case 'long':
-			        case 'integer':
-		          	case 'short':
-	           		case 'byte':
-            		case 'double':
-            		case 'float':
-                		obj.type = 'numeric';
-                	break;
-		        }
-				availableFields.push(obj);
-			}
-			this.mapping.resultQuery.availableFields = availableFields;
-		}.bind(this),300);
+	
+	ngOnInit() {
+		var self = this;
+		this.editorHookHelp.applyEditor();
+		var resultHeight = $(window).height() - 170;
+    	$('.queryRight .codemirror').css({  height:resultHeight });
 	}
+
+	ngOnChanges(changes) {
+		console.log('result change', changes);
+	}
+
 
 	runQuery() {
 		var self = this;
-		var createUrl = this.config.url + '/' + this.config.appname + '/'+ this.mapping.resultQuery.type + '/_search';
+		var createUrl = this.config.url + '/' + this.config.appname + '/'+ this.mapping.selectedTypes + '/_search';
 		var autho = "Basic " + btoa(self.config.username + ':' + self.config.password);
-		var payload = JSON.parse(this.mapping.resultQuery.final);
-
+		var getQuery = this.editorHookHelp.getValue();
+		var payload = JSON.parse(getQuery);
+		// console.log(this.mapping.resultQuery);
 		$http.post(createUrl, payload, autho).then(function(res) {
-			self.mapping.output = JSON.stringify(res);
+			self.mapping.output = JSON.stringify(res, null, 2);
+			self.responseHookHelp.setValue(self.mapping.output);
 		});
 	}
 }

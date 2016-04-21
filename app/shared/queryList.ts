@@ -1,5 +1,7 @@
 export var queryList = {
-	'analyzed':[{
+	'analyzed':{
+		'string': [
+		{
 			name: 'matches',
 			apply: 'match'
 		}, {
@@ -9,26 +11,65 @@ export var queryList = {
 			name: 'match-phase-prefix',
 			apply: 'match_phrase_prefix'
 		}],
-	'not_analyzed': [{
+		'numeric': [
+			{
+				name: 'matches',
+				apply: 'match'
+			}, {
+				name: 'range',
+				apply: 'range'
+			}, {
+				name: 'greater than',
+				apply: 'gt'
+			}, {
+				name: 'less than',
+				apply: 'lt'
+			}
+		]
+	},
+	'not_analyzed': {
+		'string': [{
 			name: 'equals',
 			apply: 'term'
 		}, {
-			name: 'range',
-			apply: 'range'
-		}, {
 			name: 'exists',
 			apply: 'exists'
-		}, {
-			name: 'greater than',
-			apply: 'gt'
-		}, {
-			name: 'less than',
-			apply: 'lt'
 		}, {
 			name: 'contains',
 			apply: 'terms'
 		}, {
 			name: 'start with',
 			apply: 'prefix'
-		}]	
+		}],
+		'numeric': [
+			{
+				name: 'matches',
+				apply: 'match'
+			}, {
+				name: 'range',
+				apply: 'range'
+			}, {
+				name: 'greater than',
+				apply: 'gt'
+			}, {
+				name: 'less than',
+				apply: 'lt'
+			}
+		]	
+	},
+	'boolQuery': [
+		{
+			name: 'must',
+			apply: 'must'
+		}, {
+			name: 'must_not',
+			apply: 'must_not'
+		}, {
+			name: 'should',
+			apply: 'should'
+		}, {
+			name: 'filter',
+			apply: 'filter'
+		}
+	]
 };

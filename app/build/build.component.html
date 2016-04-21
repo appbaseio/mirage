@@ -1,15 +1,25 @@
-<div class="col-xs-12">
-	<section>
-		<form class="form-inline" *ngFor="#query of mapping.resultQuery.result">
-		  <single-query 
-		  [mapping]="mapping" 
-		  [config]="config" 
-		  [query]="query"
-		  [queryList]="queryList"></single-query>
+<div class="row queryLeft">
+	<div class="col-xs-12 pd-0">
+		<form class="form-inline"
+		 *ngFor="#queryIn of mapping.resultQuery.result"
+		 >
+		 	<div *ngIf="queryIn.parent_id == 0">
+				<bool-query 
+					[mapping]="mapping"
+					[config]="config" 
+					[query]="queryIn" 
+					[queryList]="queryList"
+					[addQuery]="addQuery"
+					[addBoolQuery]="addBoolQuery"
+					[removeQuery]="removeQuery">
+				</bool-query>
+			</div>	
 		</form>
-		<a href="javascript:void(0);"
-		 class="btn btn-info"
-		 (click)="addQuery();">Add new query</a>
-	</section>
-	<button  class="btn btn-info mt-10" (click) = "buildQuery()">Build Query</button>
+		<div class="col-xs-12 pd-0">
+			<button class="btn btn-info pull-left" (click)="addBoolQuery(0);">Add new query</button>
+			<button class="btn btn-info pull-right" (click) = "buildQuery()">Build Query</button>
+		</div>
+		<p>{{mapResult}}</p>
+		<p>{{mapping.resultQuery.result | json}}</p>
+	</div>
 </div>
