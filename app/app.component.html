@@ -28,10 +28,10 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-6">
-				<query-build [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp"></query-build>
+				<query-build [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp"></query-build>
 			</div>
 			<div class="col-xs-6">
-				<query-result [detectChange]="detectChange" [mapping]="mapping" [config]="config"    [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp"></query-result>
+				<query-result [mapping]="mapping" [config]="config"    [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp"></query-result>
 			</div>
 		</div>
 		<div class="row">

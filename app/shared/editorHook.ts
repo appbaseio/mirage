@@ -30,3 +30,7 @@ editorHook.prototype.setValue = function(value) {
 editorHook.prototype.getValue = function() {
     return this.editor.getValue();   
 }
+
+editorHook.prototype.getInstance = function() {
+    return this.editor;
+}

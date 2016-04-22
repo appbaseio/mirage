@@ -22,7 +22,6 @@
 				[internalIndex]="internalIndex"
 				[internal]="query.internal">
 			</single-query>
-
 		</form>
 		<div class="col-xs-12 pd-0">
 			<button class="btn btn-info pull-left" (click)="addQuery(query);">Add internal query</button>
@@ -38,7 +37,8 @@
 					[queryList]="queryList"
 					[addQuery]="addQuery"
 					[addBoolQuery]="addBoolQuery"
-					[removeQuery]="removeQuery">
+					[removeQuery]="removeQuery"
+					[queryFormat]="queryFormat">
 				</bool-query>
 			</div>
 		</form>

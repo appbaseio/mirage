@@ -1,5 +1,9 @@
 <div class="row queryLeft">
 	<div class="col-xs-12 pd-0">
+		<div class="form-group m-b15">
+			<types  [detectChange]="detectChange" [mapping] = "mapping" [config] = "config">
+			</types>
+		</div>
 		<form class="form-inline"
 		 *ngFor="#queryIn of mapping.resultQuery.result"
 		 >
@@ -11,7 +15,8 @@
 					[queryList]="queryList"
 					[addQuery]="addQuery"
 					[addBoolQuery]="addBoolQuery"
-					[removeQuery]="removeQuery">
+					[removeQuery]="removeQuery"
+					[queryFormat]="queryFormat">
 				</bool-query>
 			</div>	
 		</form>
