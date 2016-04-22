@@ -38,6 +38,5 @@
   },
   "_source": "https://github.com/josdejong/jsoneditor.git",
   "_target": "^5.5.2",
-  "_originalSource": "jsoneditor",
-  "_direct": true
+  "_originalSource": "jsoneditor"
 }
