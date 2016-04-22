@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mapping.service", '../shared/httpwrap', "./types/types.component"], function(exports_1, context_1) {
+System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mapping.service", '../shared/httpwrap'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mappi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, prettyJson_1, mapping_service_1, httpwrap_1, types_component_1;
+    var core_1, prettyJson_1, mapping_service_1, httpwrap_1;
     var ResultComponent;
     return {
         setters:[
@@ -25,9 +25,6 @@ System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mappi
             },
             function (httpwrap_1_1) {
                 httpwrap_1 = httpwrap_1_1;
-            },
-            function (types_component_1_1) {
-                types_component_1 = types_component_1_1;
             }],
         execute: function() {
             ResultComponent = (function () {
@@ -40,30 +37,37 @@ System.register(["angular2/core", "../shared/pipes/prettyJson", "../shared/mappi
                     var resultHeight = $(window).height() - 170;
                     $('.queryRight .codemirror').css({ height: resultHeight });
                 };
-                ResultComponent.prototype.ngOnChanges = function (changes) {
-                    console.log('result change', changes);
-                };
                 ResultComponent.prototype.runQuery = function () {
                     var self = this;
                     var createUrl = this.config.url + '/' + this.config.appname + '/' + this.mapping.selectedTypes + '/_search';
                     var autho = "Basic " + btoa(self.config.username + ':' + self.config.password);
                     var getQuery = this.editorHookHelp.getValue();
-                    var payload = JSON.parse(getQuery);
-                    // console.log(this.mapping.resultQuery);
-                    httpwrap_1.$http.post(createUrl, payload, autho).then(function (res) {
-                        self.mapping.output = JSON.stringify(res, null, 2);
-                        self.responseHookHelp.setValue(self.mapping.output);
-                    });
+                    var payload = null;
+                    try {
+                        payload = JSON.parse(getQuery);
+                    }
+                    catch (e) {
+                        alert('Json is not valid');
+                    }
+                    if (payload) {
+                        // self.mapping.isWatching = true;
+                        self.responseHookHelp.setValue('{"Loading": "please wait......"}');
+                        $('#resultModal').modal('show');
+                        httpwrap_1.$http.post(createUrl, payload, autho).then(function (res) {
+                            // self.mapping.isWatching = false;
+                            self.mapping.output = JSON.stringify(res, null, 2);
+                            self.responseHookHelp.setValue(self.mapping.output);
+                        });
+                    }
                 };
                 ResultComponent = __decorate([
                     core_1.Component({
                         selector: 'query-result',
                         templateUrl: './app/result/result.component.html',
                         styleUrls: ['./app/result/result.component.css'],
-                        inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'responseHookHelp'],
+                        inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp'],
                         pipes: [prettyJson_1.prettyJson],
-                        providers: [mapping_service_1.MappingService],
-                        directives: [types_component_1.TypesComponent]
+                        providers: [mapping_service_1.MappingService]
                     }), 
                     __metadata('design:paramtypes', [mapping_service_1.MappingService])
                 ], ResultComponent);

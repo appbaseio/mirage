@@ -63,7 +63,7 @@ System.register(["angular2/core", "../singlequery/singlequery.component"], funct
                         selector: 'bool-query',
                         templateUrl: './app/build/boolquery/boolquery.component.html',
                         styleUrls: ['./app/build/boolquery/boolquery.component.css'],
-                        inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery'],
+                        inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat'],
                         directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent]
                     }), 
                     __metadata('design:paramtypes', [])

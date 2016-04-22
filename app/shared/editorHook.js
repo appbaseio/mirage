@@ -32,6 +32,9 @@ System.register([], function(exports_1, context_1) {
             editorHook.prototype.getValue = function () {
                 return this.editor.getValue();
             };
+            editorHook.prototype.getInstance = function () {
+                return this.editor;
+            };
         }
     }
 });

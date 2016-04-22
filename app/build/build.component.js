@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./boolquery/boolquery.component", "../shared/queryList"], function(exports_1, context_1) {
+System.register(["angular2/core", "./boolquery/boolquery.component", "../shared/queryList", "./types/types.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "./boolquery/boolquery.component", "../shared/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, boolquery_component_1, queryList_1;
+    var core_1, boolquery_component_1, queryList_1, types_component_1;
     var BuildComponent;
     return {
         setters:[
@@ -22,9 +22,11 @@ System.register(["angular2/core", "./boolquery/boolquery.component", "../shared/
             },
             function (queryList_1_1) {
                 queryList_1 = queryList_1_1;
+            },
+            function (types_component_1_1) {
+                types_component_1 = types_component_1_1;
             }],
         execute: function() {
-            // import {helpHook} from "../shared/helpHook";
             BuildComponent = (function () {
                 function BuildComponent() {
                     this.queryList = queryList_1.queryList;
@@ -48,7 +50,8 @@ System.register(["angular2/core", "./boolquery/boolquery.component", "../shared/
                 BuildComponent.prototype.addBoolQuery = function (parent_id) {
                     if (this.mapping.selectedTypes) {
                         var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
-                        queryObj.internal.push(this.queryFormat.internal);
+                        var internalObj = JSON.parse(JSON.stringify(this.queryFormat.internal));
+                        queryObj.internal.push(internalObj);
                         queryObj.id = this.mapping.queryId;
                         queryObj.parent_id = parent_id;
                         this.mapping.queryId += 1;
@@ -59,7 +62,8 @@ System.register(["angular2/core", "./boolquery/boolquery.component", "../shared/
                     }
                 };
                 BuildComponent.prototype.addQuery = function (boolQuery) {
-                    var queryObj = JSON.parse(JSON.stringify(queryFormat.internal));
+                    var self = this;
+                    var queryObj = JSON.parse(JSON.stringify(self.queryFormat.internal));
                     boolQuery.internal.push(queryObj);
                 };
                 BuildComponent.prototype.buildQuery = function () {
@@ -157,8 +161,8 @@ System.register(["angular2/core", "./boolquery/boolquery.component", "../shared/
                         selector: 'query-build',
                         templateUrl: './app/build/build.component.html',
                         styleUrls: ['./app/build/build.component.css'],
-                        inputs: ['mapping', 'config', 'editorHookHelp'],
-                        directives: [boolquery_component_1.BoolqueryComponent]
+                        inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp'],
+                        directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], BuildComponent);
