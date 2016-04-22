@@ -1,14 +1,14 @@
 import {Component, OnInit} from "angular2/core";
 import {BoolqueryComponent} from "./boolquery/boolquery.component";
 import {queryList} from "../shared/queryList";
-// import {helpHook} from "../shared/helpHook";
+import {TypesComponent} from "./types/types.component";
 
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
 	styleUrls: ['./app/build/build.component.css'],
-	inputs: ['mapping', 'config', 'editorHookHelp'],
-	directives: [BoolqueryComponent]
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp'],
+	directives: [TypesComponent, BoolqueryComponent]
 })
 
 export class BuildComponent  implements OnInit {
@@ -36,7 +36,8 @@ export class BuildComponent  implements OnInit {
 	addBoolQuery(parent_id: number) {
 		if(this.mapping.selectedTypes) {
 			var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
-			queryObj.internal.push(this.queryFormat.internal);
+			var internalObj = JSON.parse(JSON.stringify(this.queryFormat.internal));
+			queryObj.internal.push(internalObj);
 			queryObj.id =  this.mapping.queryId;
 			queryObj.parent_id = parent_id;
 			this.mapping.queryId += 1;
@@ -48,7 +49,8 @@ export class BuildComponent  implements OnInit {
 	}
 
 	addQuery(boolQuery) {
-		var queryObj = JSON.parse(JSON.stringify(queryFormat.internal));
+		var self = this;
+		var queryObj = JSON.parse(JSON.stringify(self.queryFormat.internal));
 		boolQuery.internal.push(queryObj);
 	}
 
