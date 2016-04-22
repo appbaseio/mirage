@@ -20,6 +20,6 @@
     "bootstrap": "~3.3.6",
     "select2": "~4.0.1",
     "font-awesome": "~4.5.0",
-    "jsoneditor": "^5.5.2"
+    "codemirror": "^5.14.2"
   }
 }
