@@ -5,7 +5,7 @@
 			</types>
 		</div>
 		<form class="form-inline"
-		 *ngFor="#queryIn of mapping.resultQuery.result"
+		 *ngFor="let queryIn of mapping.resultQuery.result"
 		 >
 		 	<div *ngIf="queryIn.parent_id == 0">
 				<bool-query 

@@ -8,11 +8,11 @@
 		</a>
 	</div>
 	<select class="form-control form-element" [(ngModel)]="query.boolparam">
-		<option *ngFor="#oo of queryList.boolQuery, #i=index" [value]="i">{{oo.name}}</option>
+		<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo.name}}</option>
 	</select>
 	<div class="internvalQuery">
 		<form class="form-inline"
-		 *ngFor="#queryIn of query.internal, #internalIndex=index"
+		 *ngFor="let queryIn of query.internal, let internalIndex=index"
 		 >
 			<single-query 
 				[mapping]="mapping"
@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	<div class="subQuery">
-		<form class="form-inline" *ngFor="#queryIn of mapping.resultQuery.result">
+		<form class="form-inline" *ngFor="let queryIn of mapping.resultQuery.result">
 			<div *ngIf="queryIn.parent_id != 0 && queryIn.parent_id == query.id">
 				<bool-query 
 					[mapping]="mapping"

@@ -6,11 +6,11 @@
 	</div>
 	<select class="form-control form-element" (change)="analyzeTest()" [(ngModel)]="query.field">
 		<option value="">--select any field--</option>
-		<option *ngFor="#oo of mapping.resultQuery.availableFields, #i=index" [value]="i">{{oo.name}}</option>
+		<option *ngFor="let oo of mapping.resultQuery.availableFields, let i=index" [value]="i">{{oo.name}}</option>
 	</select>
 	<select class="form-control form-element" *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')" [(ngModel)]="query.query">
 		<option value="">-- select any query --</option>
-		<option *ngFor="#oo of queryList[query.analyzeTest][query.type], #i=index" [value]="i">{{oo.name}}</option>
+		<option *ngFor="let oo of queryList[query.analyzeTest][query.type], let i=index" [value]="i">{{oo.name}}</option>
 	</select>
 	<div *ngIf="query.field != '' && query.query != ''">
 		<div [ngSwitch]="queryList[query.analyzeTest][query.type][query.query].apply">
