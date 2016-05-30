@@ -20,7 +20,13 @@
 				[query]="queryIn" 
 				[queryList]="queryList"
 				[internalIndex]="internalIndex"
-				[internal]="query.internal">
+				[internal]="query.internal"
+				[buildQuery]="buildQuery"
+				[buildInsideQuery]="buildInsideQuery"
+				[buildSubQuery]="buildSubQuery"
+				[createQuery]="createQuery"
+				[setQueryFormat]="setQueryFormat"
+				[editorHookHelp]="editorHookHelp">
 			</single-query>
 		</form>
 		<div class="col-xs-12 pd-0">
@@ -38,7 +44,13 @@
 					[addQuery]="addQuery"
 					[addBoolQuery]="addBoolQuery"
 					[removeQuery]="removeQuery"
-					[queryFormat]="queryFormat">
+					[queryFormat]="queryFormat"
+					[buildQuery]="buildQuery"
+					[buildInsideQuery]="buildInsideQuery"
+					[buildSubQuery]="buildSubQuery"
+					[createQuery]="createQuery"
+					[setQueryFormat]="setQueryFormat"
+					[editorHookHelp]="editorHookHelp">
 				</bool-query>
 			</div>
 		</form>

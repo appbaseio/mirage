@@ -8,7 +8,7 @@
 		<option value="">--select any field--</option>
 		<option *ngFor="let oo of mapping.resultQuery.availableFields, let i=index" [value]="i">{{oo.name}}</option>
 	</select>
-	<select class="form-control form-element" *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')" [(ngModel)]="query.query">
+	<select class="form-control form-element" *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')" [(ngModel)]="query.query" (change)="exeBuild();">
 		<option value="">-- select any query --</option>
 		<option *ngFor="let oo of queryList[query.analyzeTest][query.type], let i=index" [value]="i">{{oo.name}}</option>
 	</select>
@@ -34,7 +34,7 @@
 			</div>
 			<div *ngSwitchDefault>
 				<div class="form-group form-element">
-					<input type="text" class="form-control" placeholder="Value" [(ngModel)] = "query.input" />
+					<input type="text" class="form-control" placeholder="Value" [(ngModel)] = "query.input" (keyup)="exeBuild();" />
 				</div>
 			</div>
 		</div>
