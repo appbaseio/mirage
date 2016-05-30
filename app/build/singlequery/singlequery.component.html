@@ -1,4 +1,4 @@
-<div class="form-group single_query col-xs-12">
+<div class="form-group single_query col-xs-12" [ngClass]="{query_complete: query.field !== '' && query.query !== ''}">
 	<div class="action-btn-group">
 		<a href="javascript:void(0)" (click)="removeQuery()" class="btn btn-danger">
 			<i class="fa fa-trash"></i>

@@ -1,9 +1,12 @@
 .single_query {
 	padding: 10px;
-    background: #f2f2f2;
+    background: rgba(226, 91, 25, 0.2);
     border: 1px solid #ddd;
     margin-bottom: 10px;
     position: relative;
+}
+.single_query.query_complete {
+	background: rgba(82, 199, 130, 0.2);
 }
 .action-btn-group {
 	position: absolute;
