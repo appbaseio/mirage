@@ -1,7 +1,7 @@
-import {Component, OnInit} from "@angular/core";
-import {BoolqueryComponent} from "./boolquery/boolquery.component";
-import {queryList} from "../shared/queryList";
-import {TypesComponent} from "./types/types.component";
+import { Component, OnInit } from "@angular/core";
+import { BoolqueryComponent } from "./boolquery/boolquery.component";
+import { queryList } from "../shared/queryList";
+import { TypesComponent } from "./types/types.component";
 
 @Component({
 	selector: 'query-build',
@@ -11,7 +11,7 @@ import {TypesComponent} from "./types/types.component";
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
-export class BuildComponent  implements OnInit {
+export class BuildComponent implements OnInit {
 	public mapping;
 	public config;
 	public queryList = queryList;
@@ -30,20 +30,20 @@ export class BuildComponent  implements OnInit {
 			internal: []
 		}
 	};
+	public editorHookHelp: any;
 
 	ngOnInit() {}
 
 	addBoolQuery(parent_id: number) {
-		if(this.mapping.selectedTypes) {
+		if (this.mapping.selectedTypes) {
 			var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
 			var internalObj = JSON.parse(JSON.stringify(this.queryFormat.internal));
 			queryObj.internal.push(internalObj);
-			queryObj.id =  this.mapping.queryId;
+			queryObj.id = this.mapping.queryId;
 			queryObj.parent_id = parent_id;
 			this.mapping.queryId += 1;
 			this.mapping.resultQuery.result.push(queryObj);
-		}
-		else {
+		} else {
 			alert('Select type first.');
 		}
 	}
@@ -60,7 +60,7 @@ export class BuildComponent  implements OnInit {
 		var finalresult = {};
 		var es_final = {
 			'query': {
-				'bool' : finalresult
+				'bool': finalresult
 			}
 		};
 		results.forEach(function(result) {
@@ -69,19 +69,19 @@ export class BuildComponent  implements OnInit {
 
 		results.forEach(function(result0) {
 			results.forEach(function(result1) {
-				if(result1.parent_id == result0.id) {
+				if (result1.parent_id == result0.id) {
 					var current_query = {
-						'bool':{}
+						'bool': {}
 					};
 					var currentBool = self.queryList['boolQuery'][result1['boolparam']].apply;
 					current_query['bool'][currentBool] = result1.availableQuery;
-					result0.availableQuery.push(current_query);	
+					result0.availableQuery.push(current_query);
 				}
 			});
 		});
 		console.log(results);
 		results.forEach(function(result) {
-			if(result.parent_id === 0) {
+			if (result.parent_id === 0) {
 				var currentBool = self.queryList['boolQuery'][result['boolparam']].apply;
 				finalresult[currentBool] = result.availableQuery;
 			}
@@ -94,11 +94,11 @@ export class BuildComponent  implements OnInit {
 		var objChain = [];
 		result.internal.forEach(function(val0) {
 			var childExists = false;
-			val0.appliedQuery = this.createQuery(val0, childExists);	
+			val0.appliedQuery = this.createQuery(val0, childExists);
 			console.log(val0.appliedQuery);
 		}.bind(this));
 
-		
+
 		// this.buildSubQuery()
 		result.internal.forEach(function(val) {
 			objChain.push(val.appliedQuery)
@@ -108,13 +108,13 @@ export class BuildComponent  implements OnInit {
 
 	buildSubQuery() {
 		var result = this.mapping.resultQuery.result[0];
-		result.forEach(function(val0){
+		result.forEach(function(val0) {
 			if (val0.parent_id != 0) {
-				result.forEach(function(val1){
-					if(val0.parent_id == val1.id) {
+				result.forEach(function(val1) {
+					if (val0.parent_id == val1.id) {
 						val1.appliedQuery['bool']['must'].push(val0.appliedQuery);
 					}
-				}.bind(this));	
+				}.bind(this));
 			}
 		}.bind(this));
 	}
@@ -132,25 +132,24 @@ export class BuildComponent  implements OnInit {
 		switch (query) {
 			case "gt":
 			case "lt":
-				 	sampleobj['range'] = {};
-				 	sampleobj['range'][field] = {};
-				 	sampleobj['range'][field][query] = val.input;
+				sampleobj['range'] = {};
+				sampleobj['range'][field] = {};
+				sampleobj['range'][field][query] = val.input;
 				break;
 			case "range":
-			 	sampleobj['range'] = {};
-			 	sampleobj['range'][field] = {};
-			 	sampleobj['range'][field] = {
-			 		'from': val.from,
-			 		'to': val.to
-			 	};
-			break;
+				sampleobj['range'] = {};
+				sampleobj['range'][field] = {};
+				sampleobj['range'][field] = {
+					'from': val.from,
+					'to': val.to
+				};
+				break;
 			default:
-					sampleobj[query] = {};
-					sampleobj[query][field] = val.input;
+				sampleobj[query] = {};
+				sampleobj[query][field] = val.input;
 				break;
 		}
 		return sampleobj;
 	}
 
 }
-

@@ -1,10 +1,10 @@
-import {Component, OnInit, OnChanges} from "@angular/core";
-import {BuildComponent} from "./build/build.component";
-import {ResultComponent} from "./result/result.component";
-import {RunComponent} from "./run/run.component";
-import {Config} from "./shared/config";
-import {editorHook} from "./shared/editorHook";
-import {AppbaseService} from "./shared/appbase.service";
+import { Component, OnInit, OnChanges } from "@angular/core";
+import { BuildComponent } from "./build/build.component";
+import { ResultComponent } from "./result/result.component";
+import { RunComponent } from "./run/run.component";
+import { Config } from "./shared/config";
+import { editorHook } from "./shared/editorHook";
+import { AppbaseService } from "./shared/appbase.service";
 
 @Component({
 	selector: 'my-app',
@@ -17,54 +17,40 @@ export class AppComponent implements OnInit, OnChanges {
 
 	constructor(public appbaseService: AppbaseService) {}
 
-	public mapping: any = { 
-							types: [], 
-							mapping: null,
-							resultQuery:{'type':'',
-								'result': [],
-								'final': "{}"
-							},
-							output: {},
-							queryId: 1
+	public mapping: any = {
+		types: [],
+		mapping: null,
+		resultQuery: {
+			'type': '',
+			'result': [],
+			'final': "{}"
+		},
+		output: {},
+		queryId: 1
 	};
 	public detectChange: string = null;
 	public config: Config = {
 		url: "",
 		appname: "",
 		username: "",
-		password: "" 
+		password: ""
 	};
-	public editorHookHelp = new editorHook({editorId: 'editor'});
-	public responseHookHelp = new editorHook({editorId: 'responseBlock'});
-
-	// For default config
-	// public config: Config = {
-	// 	url: "https://uHg3p7p70:155898a9-e597-430e-8e2b-61fd1914c0d0@scalr.api.appbase.io",
-	// 	appname: "moviedb",
-	// 	username: "",
- 	// 		password: "" 
-	// };
-
+	public editorHookHelp = new editorHook({ editorId: 'editor' });
+	public responseHookHelp = new editorHook({ editorId: 'responseBlock' });
 
 	ngOnInit() {
 		this.getLocalConfig();
-  	}
+	}
 
-  	ngOnChanges(changes) {
+	ngOnChanges(changes) {
 		console.log(changes);
-  	}
+	}
 
-  	changeMapResult() {
-  		console.log('Hello there');
-  		console.log(this);
-  		this.mapResult = "Hello World1";
-  	}
-
-  	//Get config from localstorage 
+	//Get config from localstorage 
 	getLocalConfig() {
 		var url = window.localStorage.getItem('url');
 		var appname = window.localStorage.getItem('appname');
-		if(url != null) {
+		if (url != null) {
 			this.config.url = url;
 			this.config.appname = appname;
 			this.connect();
@@ -96,12 +82,12 @@ export class AppComponent implements OnInit, OnChanges {
 			self.detectChange = "done";
 		}).catch(self.appbaseService.handleError);
 	}
-	
+
 	// Seprate the types from mapping	
 	seprateType(mappingObj) {
 		var mapObj = mappingObj[this.config.appname].mappings;
 		var types = [];
-		for(var type in mapObj){
+		for (var type in mapObj) {
 			types.push(type);
 		}
 		return types;

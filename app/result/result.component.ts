@@ -1,8 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {prettyJson} from "../shared/pipes/prettyJson";
-import {MappingService} from "../shared/mapping.service";
-import {AppbaseService} from "../shared/appbase.service";
-declare var $;
+import { Component, OnInit } from "@angular/core";
+import { prettyJson } from "../shared/pipes/prettyJson";
+import { AppbaseService } from "../shared/appbase.service";
 
 @Component({
 	selector: 'query-result',
@@ -10,7 +8,7 @@ declare var $;
 	styleUrls: ['./app/result/result.component.css'],
 	inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp'],
 	pipes: [prettyJson],
-	providers: [MappingService, AppbaseService]
+	providers: [AppbaseService]
 })
 
 export class ResultComponent implements OnInit {
@@ -19,14 +17,14 @@ export class ResultComponent implements OnInit {
 	public editorHookHelp;
 	public responseHookHelp;
 
-	constructor(private mappingService: MappingService, public appbaseService: AppbaseService) { }
-	
+	constructor(public appbaseService: AppbaseService) {}
+
 	ngOnInit() {
 		var self = this;
 		this.editorHookHelp.applyEditor();
 		var resultHeight = $(window).height() - 170;
-    	$('.queryRight .codemirror').css({  height:resultHeight });
-    }
+		$('.queryRight .codemirror').css({ height: resultHeight });
+	}
 
 	runQuery() {
 		var self = this;
@@ -35,10 +33,10 @@ export class ResultComponent implements OnInit {
 		var payload = null;
 		try {
 			payload = JSON.parse(getQuery);
-		} catch(e) {
+		} catch (e) {
 			alert('Json is not valid');
 		}
-		if(payload) {
+		if (payload) {
 			// self.mapping.isWatching = true;
 			self.responseHookHelp.setValue('{"Loading": "please wait......"}');
 			$('#resultModal').modal('show');

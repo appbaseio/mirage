@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
 	selector: 'single-query',
@@ -27,8 +27,8 @@ export class SinglequeryComponent {
 		var self = this;
 		setTimeout(function() {
 			var field = self.mapping.resultQuery.availableFields[self.query.field];
-			self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed'; 
+			self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
 			self.query.type = field.type;
-		},300);
+		}, 300);
 	}
 }
