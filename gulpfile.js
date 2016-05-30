@@ -9,7 +9,6 @@ var files = {
     css: {
         vandor: [
             'bower_components/bootstrap/dist/css/bootstrap.min.css',
-            'bower_components/font-awesome/css/font-awesome.min.css',
             'bower_components/select2/dist/css/select2.min.css',
             'bower_components/codemirror/lib/codemirror.css',
             'bower_components/codemirror/addon/fold/foldgutter.css',

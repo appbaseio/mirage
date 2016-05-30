@@ -5,14 +5,19 @@ import {RunComponent} from "./run/run.component";
 import {Config} from "./shared/config";
 import {$http} from './shared/httpwrap'
 import {editorHook} from "./shared/editorHook";
+import {AppbaseService} from "./shared/appbase.service";
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent]
+	directives: [BuildComponent, ResultComponent, RunComponent],
+	providers: [AppbaseService]
 })
 
 export class AppComponent implements OnInit, OnChanges {
+
+	constructor(private appbaseService: AppbaseService) {}
+
 	public mapping: any = { 
 							types: [], 
 							mapping: null,
@@ -83,14 +88,14 @@ export class AppComponent implements OnInit, OnChanges {
 		this.config.username = urlsplit[1].replace('//', '');
 		this.config.password = pwsplit[0];
 		var self = this;
-		var createUrl = this.config.url + '/' + this.config.appname + '/_mapping';
-		var autho = "Basic " + btoa(self.config.username + ':' + self.config.password);
-		$http.get(createUrl, autho).then(function(res) {
-			self.mapping.mapping = res;
-			self.mapping.types = self.seprateType(res);
+		this.appbaseService.setAppbase(this.config);
+		this.appbaseService.get('/_mapping').then(function(res) {
+			let data = res.json();
+			self.mapping.mapping = data;
+			self.mapping.types = self.seprateType(data);
 			self.setLocalConfig(self.config.url, self.config.appname);
 			self.detectChange = "done";
-	   	});
+		}).catch(self.appbaseService.handleError);
 	}
 	
 	// Seprate the types from mapping	
