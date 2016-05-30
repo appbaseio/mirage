@@ -3,7 +3,6 @@ import {BuildComponent} from "./build/build.component";
 import {ResultComponent} from "./result/result.component";
 import {RunComponent} from "./run/run.component";
 import {Config} from "./shared/config";
-import {$http} from './shared/httpwrap'
 import {editorHook} from "./shared/editorHook";
 import {AppbaseService} from "./shared/appbase.service";
 

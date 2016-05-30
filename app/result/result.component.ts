@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {prettyJson} from "../shared/pipes/prettyJson";
 import {MappingService} from "../shared/mapping.service";
-import {$http} from '../shared/httpwrap';
 import {AppbaseService} from "../shared/appbase.service";
 declare var $;
 
@@ -28,7 +27,6 @@ export class ResultComponent implements OnInit {
 		var resultHeight = $(window).height() - 170;
     	$('.queryRight .codemirror').css({  height:resultHeight });
     }
-
 
 	runQuery() {
 		var self = this;
