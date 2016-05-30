@@ -1,4 +1,4 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit} from "@angular/core";
 import {prettyJson} from "../shared/pipes/prettyJson";
 import {MappingService} from "../shared/mapping.service";
 import {$http} from '../shared/httpwrap';

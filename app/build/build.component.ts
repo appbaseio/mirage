@@ -1,4 +1,4 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit} from "@angular/core";
 import {BoolqueryComponent} from "./boolquery/boolquery.component";
 import {queryList} from "../shared/queryList";
 import {TypesComponent} from "./types/types.component";

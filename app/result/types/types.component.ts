@@ -1,4 +1,4 @@
-import {Component, OnChanges, SimpleChange} from "angular2/core";
+import {Component, OnChanges, SimpleChange} from "@angular/core";
 
 @Component({
 	selector: 'types',

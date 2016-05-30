@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges} from "angular2/core";
+import {Component, OnInit, OnChanges} from "@angular/core";
 import {BuildComponent} from "./build/build.component";
 import {ResultComponent} from "./result/result.component";
 import {RunComponent} from "./run/run.component";
