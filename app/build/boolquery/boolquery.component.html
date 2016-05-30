@@ -11,7 +11,7 @@
 		<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo.name}}</option>
 	</select>
 	<div class="internvalQuery">
-		<form class="form-inline"
+		<form class="row m-0"
 		 *ngFor="let queryIn of query.internal, let internalIndex=index"
 		 >
 			<single-query 
@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div class="subQuery">
-		<form class="form-inline" *ngFor="let queryIn of mapping.resultQuery.result">
+		<form class="row m-0" *ngFor="let queryIn of mapping.resultQuery.result">
 			<div *ngIf="queryIn.parent_id != 0 && queryIn.parent_id == query.id">
 				<bool-query 
 					[mapping]="mapping"

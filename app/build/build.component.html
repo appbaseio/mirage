@@ -4,7 +4,7 @@
 			<types  [detectChange]="detectChange" [mapping] = "mapping" [config] = "config">
 			</types>
 		</div>
-		<form class="form-inline"
+		<form class="row m-0"
 		 *ngFor="let queryIn of mapping.resultQuery.result"
 		 >
 		 	<div *ngIf="queryIn.parent_id == 0">
