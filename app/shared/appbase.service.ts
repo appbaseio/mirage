@@ -7,11 +7,11 @@ import 'rxjs/add/operator/toPromise';
 
 export class AppbaseService {
 	constructor(private http: Http,  private jsonp: Jsonp) { }
-	private requestParam: any = {
+	public requestParam: any = {
         url: null,
         auth: null
     };
-    private appbaseRef: any;
+    public appbaseRef: any;
     
     setAppbase(config: any) {
         this.requestParam.url = config.url + '/' + config.appname;
@@ -25,11 +25,12 @@ export class AppbaseService {
     	return this.http.get(this.requestParam.url+path, {headers: headers}).toPromise()
     }
     post(path: string, data: any) {
+        let requestData = JSON.stringify(data);
         let headers = new Headers({
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': this.requestParam.auth
         });
-        return this.http.post(this.requestParam.url+path, data, {headers: headers}).toPromise()
+        return this.http.post(this.requestParam.url+path, requestData, {headers: headers}).toPromise()
     }
     put(path: string, data: any) {
         let headers = new Headers({

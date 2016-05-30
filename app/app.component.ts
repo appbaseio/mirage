@@ -16,7 +16,7 @@ import {AppbaseService} from "./shared/appbase.service";
 
 export class AppComponent implements OnInit, OnChanges {
 
-	constructor(private appbaseService: AppbaseService) {}
+	constructor(public appbaseService: AppbaseService) {}
 
 	public mapping: any = { 
 							types: [], 
