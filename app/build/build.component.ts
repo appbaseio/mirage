@@ -97,9 +97,6 @@ export class BuildComponent implements OnInit {
 			val0.appliedQuery = this.createQuery(val0, childExists);
 			console.log(val0.appliedQuery);
 		}.bind(this));
-
-
-		// this.buildSubQuery()
 		result.internal.forEach(function(val) {
 			objChain.push(val.appliedQuery)
 		});
@@ -120,10 +117,26 @@ export class BuildComponent implements OnInit {
 	}
 
 	createQuery(val, childExists) {
-		var query = this.queryList[val.analyzeTest][val.type][val.query].apply;
-		var field = this.mapping.resultQuery.availableFields[val.field].name;
-		var input = val.input;
-		var sampleobj = this.setQueryFormat(query, field, val);
+		var queryParam = {
+			query: '*',
+			field: '*',
+			queryFlag: true,
+			fieldFlag: true
+		};
+
+		if(val.analyzeTest === '' || val.type === '' || val.query === '') {
+			queryParam.queryFlag =  false;
+		}
+		if(val.field === '') {
+			queryParam.fieldFlag =  false;
+		}
+		if(queryParam.queryFlag) {
+			queryParam.query = this.queryList[val.analyzeTest][val.type][val.query].apply;
+		}
+		if(queryParam.fieldFlag) {
+			queryParam.field = this.mapping.resultQuery.availableFields[val.field].name;
+		}
+		var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
 		return sampleobj;
 	}
 
