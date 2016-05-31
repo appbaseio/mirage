@@ -4,8 +4,8 @@
 			<types  [detectChange]="detectChange" [mapping] = "mapping" [config] = "config">
 			</types>
 		</div>
-		<form class="form-inline"
-		 *ngFor="#queryIn of mapping.resultQuery.result"
+		<form class="row m-0"
+		 *ngFor="let queryIn of mapping.resultQuery.result"
 		 >
 		 	<div *ngIf="queryIn.parent_id == 0">
 				<bool-query 
@@ -16,7 +16,13 @@
 					[addQuery]="addQuery"
 					[addBoolQuery]="addBoolQuery"
 					[removeQuery]="removeQuery"
-					[queryFormat]="queryFormat">
+					[queryFormat]="queryFormat"
+					[buildQuery]="buildQuery"
+					[buildInsideQuery]="buildInsideQuery"
+					[buildSubQuery]="buildSubQuery"
+					[createQuery]="createQuery"
+					[setQueryFormat]="setQueryFormat"
+					[editorHookHelp]="editorHookHelp">
 				</bool-query>
 			</div>	
 		</form>

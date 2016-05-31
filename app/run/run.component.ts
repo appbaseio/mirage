@@ -1,5 +1,5 @@
-import {Component, OnInit} from "angular2/core";
-import {prettyJson} from "../shared/pipes/prettyJson";
+import { Component, OnInit } from "@angular/core";
+import { prettyJson } from "../shared/pipes/prettyJson";
 
 
 @Component({
@@ -10,12 +10,12 @@ import {prettyJson} from "../shared/pipes/prettyJson";
 	pipes: [prettyJson]
 })
 
-export class RunComponent implements OnInit{
+export class RunComponent implements OnInit {
 	public mapping;
 	public config;
 	public responseHookHelp;
 
 	ngOnInit() {
-		this.responseHookHelp.applyEditor({readOnly: true});
+		this.responseHookHelp.applyEditor({ readOnly: true });
 	}
 }
