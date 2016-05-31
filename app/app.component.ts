@@ -42,10 +42,6 @@ export class AppComponent implements OnInit, OnChanges {
 		this.getLocalConfig();
 	}
 
-	ngOnChanges(changes) {
-		console.log(changes);
-	}
-
 	//Get config from localstorage 
 	getLocalConfig() {
 		var url = window.localStorage.getItem('url');

@@ -37,7 +37,12 @@ var files = {
             'bower_components/codemirror/addon/fold/markdown-fold.js',
             'bower_components/codemirror/addon/fold/comment-fold.js',
             'bower_components/codemirror/mode/javascript/javascript.js',
-            'bower_components/codemirror/keymap/sublime.js'
+            'bower_components/codemirror/keymap/sublime.js',
+            'node_modules/core-js/client/shim.min.js',
+            'node_modules/zone.js/dist/zone.js',
+            'node_modules/reflect-metadata/Reflect.js',
+            'node_modules/systemjs/dist/system.src.js',
+            'systemjs.config.js'
         ],
         custom: [
         ]
@@ -60,6 +65,9 @@ gulp.task('customcss', function() {
 
 gulp.task('vendorjs', function() {
     return gulp.src(files.js.vendor)
+        .pipe(concat('vendor.js'))
+        .pipe(gulp.dest('dist/js'))
+        .pipe(uglify())
         .pipe(concat('vendor.min.js'))
         .pipe(gulp.dest('dist/js'));
 });
