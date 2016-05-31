@@ -1,39 +1,61 @@
-<div class="form-group single_query col-xs-12" [ngClass]="{query_complete: query.field !== '' && query.query !== ''}">
+<div class="form-group single_query col-xs-12 query-{{queryIndex}}-{{internalIndex}}" [ngClass]="{query_complete: query.field !== '' && query.query !== ''}">
 	<div class="action-btn-group">
 		<a href="javascript:void(0)" (click)="removeQuery()" class="btn btn-danger">
 			<i class="fa fa-trash"></i>
 		</a>
 	</div>
-	<span class="col-xs-3 pd-0">
-		<select class="form-control form-element" (change)="analyzeTest()" [(ngModel)]="query.field">
-			<option value="">--select any field--</option>
-			<option *ngFor="let oo of mapping.resultQuery.availableFields, let i=index" [value]="i">{{oo.name}}</option>
-		</select>
-	</span>
-	<span class="col-xs-3">
-		<select class="form-control form-element" *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')" [(ngModel)]="query.query" (change)="exeBuild();">
-			<option value="">-- select any query --</option>
-			<option *ngFor="let oo of queryList[query.analyzeTest][query.type], let i=index" [value]="i">{{oo.name}}</option>
-		</select>
-	</span>
+	<div class="col-xs-3 pd-l0 editable-pack">
+		<div class="editable-front col-xs-12 pd-0" (click)="editable_on($event)">
+			<div *ngIf = "query.field != ''">
+				{{mapping.resultQuery.availableFields[query.field].name}}
+			</div>
+			<div *ngIf = "query.field == ''">
+				field
+			</div>
+		</div>
+		<div class="editable-back col-xs-12 pd-0">
+			<select class="form-control form-element field-select" (change)="analyzeTest($event)" [(ngModel)]="query.field">
+				<option value="">--select any field--</option>
+				<option *ngFor="let oo of mapping.resultQuery.availableFields, let i=index" [value]="i">{{oo.name}}</option>
+			</select>
+		</div>	
+	</div>
+	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')">
+		<div class="col-xs-12 pd-0 editable-pack">
+			<div class="editable-front col-xs-12 pd-0"  (click)="editable_on($event)">
+				<div *ngIf = "query.query != ''">
+					{{queryList[query.analyzeTest][query.type][query.query].name}}
+				</div>
+				<div *ngIf = "query.query == ''">
+					query
+				</div>
+			</div>
+			<div class="editable-back col-xs-12 pd-0">
+				<select class="form-control form-element query-select" [(ngModel)]="query.query" (change)="exeBuild();">
+					<option value="">-- select any query --</option>
+					<option *ngFor="let oo of queryList[query.analyzeTest][query.type], let i=index" [value]="i">{{oo.name}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
 	<div *ngIf="query.field != '' && query.query != ''" class="col-xs-6 pd-l0">
 		<div [ngSwitch]="queryList[query.analyzeTest][query.type][query.query].apply" class="col-xs-12 pd-0">
 			<div *ngSwitchWhen="'range'" class="row">
 				<div class="form-group form-element col-xs-6">
-					<input type="number" class="form-control" placeholder="from" [(ngModel)] = "query.from" />
+					<input type="number" class="form-control" placeholder="from" [(ngModel)] = "query.from"  (keyup)="exeBuild();" />
 				</div>
 				<div class="form-group form-element pd-l0 col-xs-6">
-					<input type="number" class="form-control" placeholder="to" [(ngModel)] = "query.to" />
+					<input type="number" class="form-control" placeholder="to" [(ngModel)] = "query.to"  (keyup)="exeBuild();" />
 				</div>
 			</div>
 			<div *ngSwitchWhen="'gt'" class="row">
 				<div class="form-group form-element col-xs-12">
-					<input type="number" class="form-control col-xs-12 pd-0" placeholder="Greater than" [(ngModel)] = "query.input" />
+					<input type="number" class="form-control col-xs-12 pd-0" placeholder="Greater than" [(ngModel)] = "query.input"  (keyup)="exeBuild();" />
 				</div>
 			</div>
 			<div *ngSwitchWhen="'lt'" class="row">
 				<div class="form-group form-element col-xs-12">
-					<input type="number" class="form-control col-xs-12 pd-0" placeholder="Less than" [(ngModel)] = "query.input" />
+					<input type="number" class="form-control col-xs-12 pd-0" placeholder="Less than" [(ngModel)] = "query.input"  (keyup)="exeBuild();" />
 				</div>
 			</div>
 			<div *ngSwitchDefault class="row">

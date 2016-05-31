@@ -32,8 +32,13 @@ export class BuildComponent implements OnInit {
 	};
 	public editorHookHelp: any;
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.handleEditable();
+	}
 
+	// Add the boolean query
+	// get the default format for query and internal query
+	// set the format and push into result array
 	addBoolQuery(parent_id: number) {
 		if (this.mapping.selectedTypes) {
 			var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
@@ -48,6 +53,7 @@ export class BuildComponent implements OnInit {
 		}
 	}
 
+	// add internal query
 	addQuery(boolQuery) {
 		var self = this;
 		var queryObj = JSON.parse(JSON.stringify(self.queryFormat.internal));
@@ -165,4 +171,16 @@ export class BuildComponent implements OnInit {
 		return sampleobj;
 	}
 
+	// handle the body click event for editable
+	// close all the select2 whene clicking outside of editable-element
+	handleEditable() {
+		$('body').on('click', function(e) {
+			var target = $(e.target);
+			if(target.hasClass('.editable-pack') || target.parents('.editable-pack').length) {
+			}
+			else {
+				$('.editable-pack').removeClass('on');
+			}
+		});
+	}
 }
