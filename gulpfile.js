@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
+var sass = require('gulp-sass');
 var rename = require("gulp-rename");
 var watch = require('gulp-watch');
 
@@ -16,7 +17,8 @@ var files = {
             'bower_components/codemirror/addon/dialog/dialog.css',
             'bower_components/codemirror/theme/monokai.css'
         ],
-        custom: ['assets/css/*.css']
+        custom: ['assets/css/*.css'],
+        sassFile: ['assets/styles/*.scss']
     },
     js: {
         vendor: [
@@ -57,7 +59,7 @@ gulp.task('vendorcss', function() {
         .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('customcss', function() {
+gulp.task('customcss',['sass'], function() {
     return gulp.src(files.css.custom)
         .pipe(minifyCSS())
         .pipe(concat('style.min.css'))
@@ -78,6 +80,12 @@ gulp.task('movefonts', function() {
         .pipe(gulp.dest('dist/fonts'));
 });
 
+
+gulp.task('sass', function () {
+  return gulp.src(files.css.sassFile)
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(gulp.dest('assets/css'));
+});
 
 gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'movefonts']);
 
