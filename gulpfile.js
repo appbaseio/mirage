@@ -8,6 +8,7 @@ var watch = require('gulp-watch');
 var files = {
     css: {
         vandor: [
+            'bower_components/font-awesome/css/font-awesome.min.css',
             'bower_components/bootstrap/dist/css/bootstrap.min.css',
             'bower_components/select2/dist/css/select2.min.css',
             'bower_components/codemirror/lib/codemirror.css',
@@ -72,8 +73,13 @@ gulp.task('vendorjs', function() {
         .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('movefonts', function() {
+    return gulp.src(['bower_components/font-awesome/fonts/*'])
+        .pipe(gulp.dest('dist/fonts'));
+});
 
-gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs']);
+
+gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'movefonts']);
 
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.custom, ['customcss']);
