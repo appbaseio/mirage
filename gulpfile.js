@@ -90,7 +90,7 @@ gulp.task('sass', function () {
 gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'movefonts']);
 
 gulp.task('watchfiles', function() {
-    gulp.watch(files.css.custom, ['customcss']);
+    gulp.watch(files.css.sassFile, ['customcss']);
 });
 
 gulp.task('default', ['compact']);

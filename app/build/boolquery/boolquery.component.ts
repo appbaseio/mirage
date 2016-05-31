@@ -4,7 +4,6 @@ import { SinglequeryComponent } from "../singlequery/singlequery.component";
 @Component({
 	selector: 'bool-query',
 	templateUrl: './app/build/boolquery/boolquery.component.html',
-	styleUrls: ['./app/build/boolquery/boolquery.component.css'],
 	inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
 	directives: [BoolqueryComponent, SinglequeryComponent]
 })

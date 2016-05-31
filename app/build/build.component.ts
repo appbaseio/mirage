@@ -6,7 +6,6 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	styleUrls: ['./app/build/build.component.css'],
 	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp'],
 	directives: [TypesComponent, BoolqueryComponent]
 })

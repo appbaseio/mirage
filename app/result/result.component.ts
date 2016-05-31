@@ -5,7 +5,6 @@ import { AppbaseService } from "../shared/appbase.service";
 @Component({
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
-	styleUrls: ['./app/result/result.component.css'],
 	inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp'],
 	pipes: [prettyJson],
 	providers: [AppbaseService]
