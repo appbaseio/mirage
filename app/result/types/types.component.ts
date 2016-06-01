@@ -3,7 +3,6 @@ import { Component, OnChanges, SimpleChange } from "@angular/core";
 @Component({
 	selector: 'types',
 	templateUrl: './app/result/types/types.component.html',
-	styleUrls: ['./app/result/types/types.component.css'],
 	inputs: ['mapping', 'config', 'detectChange']
 })
 

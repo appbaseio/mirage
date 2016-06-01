@@ -1,0 +1,77 @@
+.pd-0 {
+  padding: 0 !important; }
+
+.pd-r0 {
+  padding-right: 0; }
+
+.pd-l0 {
+  padding-left: 0; }
+
+.pd-r10 {
+  padding-right: 10px; }
+
+.pr-5 {
+  padding-right: 5px !important; }
+
+.m-r5 {
+  margin-right: 5px; }
+
+.m-r10 {
+  margin-right: 10px; }
+
+.m-0 {
+  margin: 0; }
+
+.m-b0 {
+  margin-bottom: 0; }
+
+.m-b15 {
+  margin-bottom: 15px; }
+
+.mt-10 {
+  margin-top: 10px; }
+
+.mt-5 {
+  margin-top: 5px; }
+
+.m-tb-15 {
+  margin-top: 15px;
+  margin-bottom: 15px; }
+
+.clearfix {
+  clear: both; }
+
+.app-container {
+  position: relative;
+  padding-top: 40px; }
+
+.init-ES, footer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 6;
+  background: #eee;
+  padding: 5px;
+  padding-right: 130px;
+  border-bottom: 1px solid #ddd; }
+
+.init-ES .submit-btn {
+  position: absolute;
+  right: 5px;
+  width: 125px; }
+
+.queryRight {
+  padding: 15px 15px 15px 0;
+  background: #f2f2f2;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd; }
+
+.queryLeft {
+  padding: 15px; }
+
+.codemirror {
+  margin-bottom: 15px; }
+
+.single_query .select2-container {
+  width: 100%; }

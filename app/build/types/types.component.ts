@@ -3,7 +3,6 @@ import { Component, OnChanges, SimpleChange } from "@angular/core";
 @Component({
 	selector: 'types',
 	templateUrl: './app/build/types/types.component.html',
-	styleUrls: ['./app/build/types/types.component.css'],
 	inputs: ['mapping', 'config', 'detectChange']
 })
 
@@ -18,7 +17,6 @@ export class TypesComponent implements OnChanges {
 	}) {
 		if (changes['detectChange'] && this.mapping.types.length) {
 			var data = this.createTokenData(this.mapping.types);
-			console.log(data);
 			var setType = $('#setType');
 			setType.select2({
 				placeholder: "Select types to apply query",

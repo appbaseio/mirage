@@ -6,7 +6,6 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	styleUrls: ['./app/build/build.component.css'],
 	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
@@ -27,7 +26,8 @@ export class BuildComponent implements OnInit {
 			boolparam: 0,
 			parent_id: 0,
 			id: 0,
-			internal: []
+			internal: [],
+			minimum_should_match: ''
 		}
 	};
 	public editorHookHelp: any;
@@ -81,6 +81,9 @@ export class BuildComponent implements OnInit {
 					};
 					var currentBool = self.queryList['boolQuery'][result1['boolparam']].apply;
 					current_query['bool'][currentBool] = result1.availableQuery;
+					if(currentBool === 'should') {
+						current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
+					}
 					result0.availableQuery.push(current_query);
 				}
 			});
@@ -90,6 +93,9 @@ export class BuildComponent implements OnInit {
 			if (result.parent_id === 0) {
 				var currentBool = self.queryList['boolQuery'][result['boolparam']].apply;
 				finalresult[currentBool] = result.availableQuery;
+				if(currentBool === 'should') {
+					finalresult['minimum_should_match'] = result.minimum_should_match;
+				}
 			}
 		});
 		this.mapping.resultQuery.final = JSON.stringify(es_final, null, 2);
@@ -98,6 +104,12 @@ export class BuildComponent implements OnInit {
 
 	buildInsideQuery(result) {
 		var objChain = [];
+		// var currentBool = this.queryList['boolQuery'][result['boolparam']].apply;
+		// if(currentBool === 'should') {
+		// 	current_query['bool'][currentBool].push({
+		// 		minimum_should_match: result1.minimum_should_match
+		// 	});
+		// }
 		result.internal.forEach(function(val0) {
 			var childExists = false;
 			val0.appliedQuery = this.createQuery(val0, childExists);

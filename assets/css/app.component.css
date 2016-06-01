@@ -1,0 +1,28 @@
+.feature-query-container {
+  position: relative; }
+  .feature-query-container .features-section {
+    position: absolute;
+    width: 250px;
+    height: 100%;
+    overflow: auto;
+    left: 0;
+    top: 0;
+    background: #f1f1f1;
+    border-right: 1px solid #eee;
+    padding: 15px 0;
+    z-index: 2; }
+    .feature-query-container .features-section .feature-btns {
+      padding: 0 15px; }
+    .feature-query-container .features-section .theme-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px; }
+      .feature-query-container .features-section .theme-list li.list-item {
+        display: block;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 15px;
+        cursor: pointer; }
+        .feature-query-container .features-section .theme-list li.list-item:hover {
+          background: #ddd; }
+  .feature-query-container .query-main-container {
+    padding-left: 250px; }

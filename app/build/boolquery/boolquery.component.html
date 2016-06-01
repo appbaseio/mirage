@@ -1,4 +1,4 @@
-<div class="form-group single_query col-xs-12">
+<div class="form-group single_query col-xs-12 bool_query">
 	<div class="action-btn-group">
 		<a href="javascript:void(0)" (click)="addSubQuery(query.id)" class="btn btn-info">
 			<i class="fa fa-plus"></i> Nested query
@@ -7,9 +7,18 @@
 			<i class="fa fa-trash"></i>
 		</a>
 	</div>
-	<select class="form-control form-element" [(ngModel)]="query.boolparam">
-		<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo.name}}</option>
-	</select>
+	<div class="row m-tb-15">
+		<div class="col-xs-6">
+			<select class="form-control form-element" [(ngModel)]="query.boolparam" (change)="exeBuild();">
+				<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo.name}}</option>
+			</select>
+		</div>
+		<div class="col-xs-6" *ngIf="queryList.boolQuery[query.boolparam].name == 'should'">
+			<div class="form-group form-element">
+				<input type="text" class="form-control" placeholder="Minimum should match" [(ngModel)] = "query.minimum_should_match"  (keyup)="exeBuild();" />
+			</div>
+		</div>	
+	</div>
 	<div class="internvalQuery">
 		<form class="row m-0"
 		 *ngFor="let queryIn of query.internal, let internalIndex=index"
@@ -31,7 +40,7 @@
 			</single-query>
 		</form>
 		<div class="col-xs-12 pd-0">
-			<button class="btn btn-info pull-left" (click)="addQuery(query);">Add internal query</button>
+			<button class="btn btn-info pull-left" (click)="addQuery(query);">Add conditions</button>
 		</div>
 	</div>
 	<div class="subQuery">

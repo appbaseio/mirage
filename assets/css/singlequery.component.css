@@ -1,0 +1,45 @@
+.single_query {
+  padding: 20px 15px;
+  background: rgba(226, 91, 25, 0.2);
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  position: relative; }
+  .single_query .action-btn-group {
+    position: absolute;
+    top: -10px;
+    right: 10px; }
+  .single_query .form-control,
+  .single_query .form-element {
+    max-width: 100%; }
+  .single_query .form-element input {
+    color: #828282;
+    background: 0 0;
+    border: 0;
+    box-shadow: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    padding: 0;
+    line-height: 32px;
+    height: 32px; }
+  .single_query .editable-pack {
+    line-height: 32px;
+    height: 32px; }
+    .single_query .editable-pack .editable-front {
+      display: inline-block;
+      color: #828282;
+      border-bottom: 1px dashed;
+      cursor: pointer; }
+      .single_query .editable-pack .editable-front:hover {
+        color: #444; }
+    .single_query .editable-pack .editable-back {
+      display: none; }
+      .single_query .editable-pack .editable-back .select2-container {
+        width: 100% !important; }
+    .single_query .editable-pack.on .editable-front {
+      display: none; }
+    .single_query .editable-pack.on .editable-back {
+      display: inline-block; }
+  .single_query.bool_query {
+    background: #f7f7f7; }
+  .single_query.query_complete {
+    background: rgba(82, 199, 130, 0.2); }
