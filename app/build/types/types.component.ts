@@ -17,7 +17,6 @@ export class TypesComponent implements OnChanges {
 	}) {
 		if (changes['detectChange'] && this.mapping.types.length) {
 			var data = this.createTokenData(this.mapping.types);
-			console.log(data);
 			var setType = $('#setType');
 			setType.select2({
 				placeholder: "Select types to apply query",

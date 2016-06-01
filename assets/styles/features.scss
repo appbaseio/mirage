@@ -1,0 +1,9 @@
+.theme-list {
+	list-style: none;
+	padding: 0;
+	li.list-item {
+		display: block;
+		background: #eee;
+		border-bottom: 1px solid #aaa;
+	}
+}

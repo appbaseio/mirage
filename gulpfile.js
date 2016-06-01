@@ -41,6 +41,7 @@ var files = {
             'bower_components/codemirror/addon/fold/comment-fold.js',
             'bower_components/codemirror/mode/javascript/javascript.js',
             'bower_components/codemirror/keymap/sublime.js',
+            'bower_components/crypto-js/crypto-js.js',
             'node_modules/core-js/client/shim.min.js',
             'node_modules/zone.js/dist/zone.js',
             'node_modules/reflect-metadata/Reflect.js',

@@ -4,10 +4,10 @@
 		<div class="esContainer">
 			<div class="form-group m-0 col-xs-8 pd-0 pr-5">
 				<input type="text"
-			[(ngModel)]="config.url"
-			class="form-control" 
-			name="url" 
-			placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
+					[(ngModel)]="config.url"
+					class="form-control" 
+					name="url" 
+					placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
 			</div>
 			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
 				<input type="text" 
@@ -27,20 +27,61 @@
 	<!-- Header part END -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-6">
-				<query-build [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp"></query-build>
+			<div class="col-sm-12 col-md-3">
+				<!-- <save-query [mapping]="mapping" [config]="config" [queryList]="queryList"></save-query>
+				     <list-query [mapping]="mapping" [config]="config" [queryList]="queryList" [newQuery]="newQuery" [createTokenData]="createTokenData" [selectedQuery]="selectedQuery"></list-query>
+				     {{mapping.selectedTypes | json}} -->
+				<a class="btn btn-primary btn-block" (click)="openModal();">Save Query</a>
+				<ul class="theme-list col-xs-12">
+					<li class="list-item col-xs-12" *ngFor="let query of queryList, let i=index" (click)="newQuery(query);">{{query.name}}
+						<span class="badge">{{query.tag}}</span>
+					</li>
+				</ul>
 			</div>
-			<div class="col-xs-6">
-				<query-result [mapping]="mapping" [config]="config"    [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp"></query-result>
+			<div class="col-sm-12 col-md-9 pd-0">
+				<div class="col-sm-12 col-md-6">
+					<query-build [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp"></query-build>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<query-result [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp"></query-result>
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<h3>Query Result</h3>
 				<div class="row">
 					<query-run [mapping]="mapping" [config]="config" [responseHookHelp]="responseHookHelp"></query-run>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="saveQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form (ngSubmit)="save()" #heroForm="ngForm">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Save Query</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" class="form-control" required [(ngModel)]="query_info.name" ngControl="name" #name="ngForm" />
+						<div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
+					</div>
+					<div class="form-group">
+						<label for="tag">Tag</label>
+						<input type="text" class="form-control" [(ngModel)]="query_info.tag" ngControl="tag" #tag="ngForm" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default btn-primary" [disabled]="!heroForm.form.valid">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
