@@ -13,17 +13,17 @@
     max-width: 100%; }
   .single_query .form-element input {
     color: #828282;
-    background: transparent;
+    background: 0 0;
     border: 0;
     box-shadow: none;
     border-bottom: 1px solid;
     border-radius: 0;
     padding: 0;
-    line-height: 21px;
-    height: 21px; }
+    line-height: 32px;
+    height: 32px; }
   .single_query .editable-pack {
-    line-height: 21px;
-    height: 21px; }
+    line-height: 32px;
+    height: 32px; }
     .single_query .editable-pack .editable-front {
       display: inline-block;
       color: #828282;

@@ -16,19 +16,19 @@
 	.form-element {
 		input {
 			color: #828282;
-			background: transparent;
-			border: 0;
-			box-shadow: none;
-			border-bottom: 1px solid;
-			border-radius: 0;
-			padding: 0;
-			line-height: 21px;
-			height: 21px;
+		    background: 0 0;
+		    border: 0;
+		    box-shadow: none;
+		    border-bottom: 1px solid;
+		    border-radius: 0;
+		    padding: 0;
+		    line-height: 32px;
+		    height: 32px;
 		}
 	}
 	.editable-pack {
-		line-height: 21px;
-		height: 21px;
+		line-height: 32px;
+		height: 32px;
 		.editable-front {
 			display: inline-block;
 			color: #828282;
