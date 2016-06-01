@@ -7,7 +7,7 @@
 			<i class="fa fa-trash"></i>
 		</a>
 	</div>
-	<select class="form-control form-element m-tb-15" [(ngModel)]="query.boolparam">
+	<select class="form-control form-element m-tb-15" [(ngModel)]="query.boolparam" (change)="exeBuild();">
 		<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo.name}}</option>
 	</select>
 	<div class="internvalQuery">

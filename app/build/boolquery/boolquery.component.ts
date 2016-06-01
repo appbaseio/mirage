@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SinglequeryComponent } from "../singlequery/singlequery.component";
 
 @Component({
@@ -8,7 +8,7 @@ import { SinglequeryComponent } from "../singlequery/singlequery.component";
 	directives: [BoolqueryComponent, SinglequeryComponent]
 })
 
-export class BoolqueryComponent {
+export class BoolqueryComponent implements OnInit {
 	public mapping;
 	public config;
 	public queryList = this.queryList;
@@ -17,6 +17,11 @@ export class BoolqueryComponent {
 	public removeQuery;
 	public removeArray = [];
 	public query = this.query;
+	public buildQuery;
+
+	ngOnInit() {
+		this.exeBuild();
+	}
 
 	addSubQuery(id) {
 		this.addBoolQuery(id);
@@ -49,5 +54,8 @@ export class BoolqueryComponent {
 			self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
 			self.query.type = field.type;
 		}, 300);
+	}
+	exeBuild() {
+		setTimeout(() => this.buildQuery(), 300);
 	}
 }
