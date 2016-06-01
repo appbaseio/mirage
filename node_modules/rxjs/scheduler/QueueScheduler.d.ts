@@ -8,7 +8,7 @@ export declare class QueueScheduler implements Scheduler {
     scheduledId: number;
     now(): number;
     flush(): void;
-    schedule<T>(work: (x?: any) => Subscription | void, delay?: number, state?: any): Subscription;
-    scheduleNow<T>(work: (x?: any) => Subscription | void, state?: any): Action;
-    scheduleLater<T>(work: (x?: any) => Subscription | void, delay: number, state?: any): Action;
+    schedule<T>(work: (x?: T) => Subscription | void, delay?: number, state?: T): Subscription;
+    scheduleNow<T>(work: (x?: T) => Subscription | void, state?: T): Action<T>;
+    scheduleLater<T>(work: (x?: T) => Subscription | void, delay: number, state?: T): Action<T>;
 }

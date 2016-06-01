@@ -14,16 +14,26 @@ import { Subscriber } from '../Subscriber';
  * @param {initialValue} the initial (seed) accumulator value
  * @param {accumulator} an accumulator function to be invoked on each item emitted by the source Observable, the
  * result of which will be used in the next accumulator call.
- * @returns {Observable} an Observable that emits a single item that is the result of accumulating the output from the
+ * @return {Observable} an Observable that emits a single item that is the result of accumulating the output from the
  * items emitted by the source Observable.
+ * @method reduce
+ * @owner Observable
  */
 export declare function reduce<T, R>(project: (acc: R, value: T) => R, seed?: R): Observable<R>;
+export interface ReduceSignature<T> {
+    <R>(project: (acc: R, value: T) => R, seed?: R): Observable<R>;
+}
 export declare class ReduceOperator<T, R> implements Operator<T, R> {
     private project;
     private seed;
     constructor(project: (acc: R, value: T) => R, seed?: R);
-    call(subscriber: Subscriber<R>): Subscriber<T>;
+    call(subscriber: Subscriber<R>, source: any): any;
 }
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 export declare class ReduceSubscriber<T, R> extends Subscriber<T> {
     acc: T | R;
     hasSeed: boolean;

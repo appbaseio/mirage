@@ -21,7 +21,9 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  * @param {notificationHandler} receives an Observable of notifications with which a user can `complete` or `error`,
  * aborting the retry.
  * @param {scheduler} the Scheduler on which to subscribe to the source Observable.
- * @returns {Observable} the source Observable modified with retry logic.
+ * @return {Observable} the source Observable modified with retry logic.
+ * @method retryWhen
+ * @owner Observable
  */
 function retryWhen(notifier) {
     return this.lift(new RetryWhenOperator(notifier, this));
@@ -32,11 +34,16 @@ var RetryWhenOperator = (function () {
         this.notifier = notifier;
         this.source = source;
     }
-    RetryWhenOperator.prototype.call = function (subscriber) {
-        return new RetryWhenSubscriber(subscriber, this.notifier, this.source);
+    RetryWhenOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new RetryWhenSubscriber(subscriber, this.notifier, this.source));
     };
     return RetryWhenOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var RetryWhenSubscriber = (function (_super) {
     __extends(RetryWhenSubscriber, _super);
     function RetryWhenSubscriber(destination, notifier, source) {

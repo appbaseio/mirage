@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { EverySignature } from '../../operator/every';
+declare module '../../Observable' {
+    interface Observable<T> {
+        every: EverySignature<T>;
+    }
+}

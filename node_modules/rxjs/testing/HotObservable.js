@@ -8,6 +8,11 @@ var Subject_1 = require('../Subject');
 var Subscription_1 = require('../Subscription');
 var SubscriptionLoggable_1 = require('./SubscriptionLoggable');
 var applyMixins_1 = require('../util/applyMixins');
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var HotObservable = (function (_super) {
     __extends(HotObservable, _super);
     function HotObservable(messages, scheduler) {

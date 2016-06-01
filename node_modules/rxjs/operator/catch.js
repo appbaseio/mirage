@@ -12,6 +12,8 @@ var Subscriber_1 = require('../Subscriber');
  *  is returned by the `selector` will be used to continue the observable chain.
  * @return {Observable} an observable that originates from either the source or the observable returned by the
  *  catch `selector` function.
+ * @method catch
+ * @owner Observable
  */
 function _catch(selector) {
     var operator = new CatchOperator(selector);
@@ -23,11 +25,16 @@ var CatchOperator = (function () {
     function CatchOperator(selector) {
         this.selector = selector;
     }
-    CatchOperator.prototype.call = function (subscriber) {
-        return new CatchSubscriber(subscriber, this.selector, this.caught);
+    CatchOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new CatchSubscriber(subscriber, this.selector, this.caught));
     };
     return CatchOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var CatchSubscriber = (function (_super) {
     __extends(CatchSubscriber, _super);
     function CatchSubscriber(destination, selector, caught) {

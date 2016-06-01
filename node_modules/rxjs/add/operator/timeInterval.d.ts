@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { TimeIntervalSignature } from '../../operator/timeInterval';
+declare module '../../Observable' {
+    interface Observable<T> {
+        timeInterval: TimeIntervalSignature<T>;
+    }
+}

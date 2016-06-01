@@ -12,7 +12,9 @@ function shareSubjectFactory() {
  *
  * <img src="./img/share.png" width="100%">
  *
- * @returns {Observable<T>} an Observable that upon connection causes the source Observable to emit items to its Observers
+ * @return {Observable<T>} an Observable that upon connection causes the source Observable to emit items to its Observers
+ * @method share
+ * @owner Observable
  */
 function share() {
     return multicast_1.multicast.call(this, shareSubjectFactory).refCount();

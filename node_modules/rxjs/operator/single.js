@@ -13,10 +13,14 @@ var EmptyError_1 = require('../util/EmptyError');
  *
  * <img src="./img/single.png" width="100%">
  *
+ * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
+ * callback if the Observable completes before any `next` notification was sent.
  * @param {Function} a predicate function to evaluate items emitted by the source Observable.
- * @returns {Observable<T>} an Observable that emits the single item emitted by the source Observable that matches
+ * @return {Observable<T>} an Observable that emits the single item emitted by the source Observable that matches
  * the predicate.
  .
+ * @method single
+ * @owner Observable
  */
 function single(predicate) {
     return this.lift(new SingleOperator(predicate, this));
@@ -27,11 +31,16 @@ var SingleOperator = (function () {
         this.predicate = predicate;
         this.source = source;
     }
-    SingleOperator.prototype.call = function (subscriber) {
-        return new SingleSubscriber(subscriber, this.predicate, this.source);
+    SingleOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new SingleSubscriber(subscriber, this.predicate, this.source));
     };
     return SingleOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var SingleSubscriber = (function (_super) {
     __extends(SingleSubscriber, _super);
     function SingleSubscriber(destination, predicate, source) {

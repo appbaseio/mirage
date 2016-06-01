@@ -5,9 +5,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var asap_1 = require('../scheduler/asap');
+var async_1 = require('../scheduler/async');
+/**
+ * @param delay
+ * @param scheduler
+ * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
+ * @method sampleTime
+ * @owner Observable
+ */
 function sampleTime(delay, scheduler) {
-    if (scheduler === void 0) { scheduler = asap_1.asap; }
+    if (scheduler === void 0) { scheduler = async_1.async; }
     return this.lift(new SampleTimeOperator(delay, scheduler));
 }
 exports.sampleTime = sampleTime;
@@ -16,11 +23,16 @@ var SampleTimeOperator = (function () {
         this.delay = delay;
         this.scheduler = scheduler;
     }
-    SampleTimeOperator.prototype.call = function (subscriber) {
-        return new SampleTimeSubscriber(subscriber, this.delay, this.scheduler);
+    SampleTimeOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new SampleTimeSubscriber(subscriber, this.delay, this.scheduler));
     };
     return SampleTimeOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var SampleTimeSubscriber = (function (_super) {
     __extends(SampleTimeSubscriber, _super);
     function SampleTimeSubscriber(destination, delay, scheduler) {

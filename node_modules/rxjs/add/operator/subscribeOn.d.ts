@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { SubscribeOnSignature } from '../../operator/subscribeOn';
+declare module '../../Observable' {
+    interface Observable<T> {
+        subscribeOn: SubscribeOnSignature<T>;
+    }
+}

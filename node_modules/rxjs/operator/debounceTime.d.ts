@@ -10,6 +10,11 @@ import { Scheduler } from '../Scheduler';
  * Optionally takes a scheduler for manging timers.
  * @param {number} dueTime the timeout value for the window of time required to not drop the item.
  * @param {Scheduler} [scheduler] the Scheduler to use for managing the timers that handle the timeout for each item.
- * @returns {Observable} an Observable the same as source Observable, but drops items.
+ * @return {Observable} an Observable the same as source Observable, but drops items.
+ * @method debounceTime
+ * @owner Observable
  */
 export declare function debounceTime<T>(dueTime: number, scheduler?: Scheduler): Observable<T>;
+export interface DebounceTimeSignature<T> {
+    (dueTime: number, scheduler?: Scheduler): Observable<T>;
+}

@@ -15,8 +15,10 @@ var EmptyObservable_1 = require('../observable/EmptyObservable');
  * @param {Scheduler} [scheduler] the Scheduler to emit the items on.
  * @param {number} [count] the number of times the source Observable items are repeated, a count of 0 will yield
  * an empty Observable.
- * @returns {Observable} an Observable that repeats the stream of items emitted by the source Observable at most
+ * @return {Observable} an Observable that repeats the stream of items emitted by the source Observable at most
  * count times.
+ * @method repeat
+ * @owner Observable
  */
 function repeat(count) {
     if (count === void 0) { count = -1; }
@@ -36,11 +38,16 @@ var RepeatOperator = (function () {
         this.count = count;
         this.source = source;
     }
-    RepeatOperator.prototype.call = function (subscriber) {
-        return new RepeatSubscriber(subscriber, this.count, this.source);
+    RepeatOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new RepeatSubscriber(subscriber, this.count, this.source));
     };
     return RepeatOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var RepeatSubscriber = (function (_super) {
     __extends(RepeatSubscriber, _super);
     function RepeatSubscriber(destination, count, source) {

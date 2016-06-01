@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { ConcatSignature } from '../../operator/concat';
+declare module '../../Observable' {
+    interface Observable<T> {
+        concat: ConcatSignature<T>;
+    }
+}

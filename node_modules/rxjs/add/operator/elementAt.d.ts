@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { ElementAtSignature } from '../../operator/elementAt';
+declare module '../../Observable' {
+    interface Observable<T> {
+        elementAt: ElementAtSignature<T>;
+    }
+}

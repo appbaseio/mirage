@@ -1,15 +1,22 @@
 import { Action } from './Action';
 import { Scheduler } from '../Scheduler';
 import { Subscription } from '../Subscription';
-export declare class FutureAction<T> extends Subscription implements Action {
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+export declare class FutureAction<T> extends Subscription implements Action<T> {
     scheduler: Scheduler;
-    work: (x?: any) => Subscription | void;
-    id: any;
-    state: any;
+    work: (x?: T) => Subscription | void;
+    id: number;
+    state: T;
     delay: number;
-    constructor(scheduler: Scheduler, work: (x?: any) => Subscription | void);
+    error: any;
+    private pending;
+    constructor(scheduler: Scheduler, work: (x?: T) => Subscription | void);
     execute(): void;
-    schedule(state?: any, delay?: number): Action;
-    protected _schedule(state?: any, delay?: number): Action;
+    schedule(state?: T, delay?: number): Action<T>;
+    protected _schedule(state?: T, delay?: number): Action<T>;
     protected _unsubscribe(): void;
 }

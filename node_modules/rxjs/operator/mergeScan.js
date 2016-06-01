@@ -8,6 +8,14 @@ var tryCatch_1 = require('../util/tryCatch');
 var errorObject_1 = require('../util/errorObject');
 var subscribeToResult_1 = require('../util/subscribeToResult');
 var OuterSubscriber_1 = require('../OuterSubscriber');
+/**
+ * @param project
+ * @param seed
+ * @param concurrent
+ * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
+ * @method mergeScan
+ * @owner Observable
+ */
 function mergeScan(project, seed, concurrent) {
     if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
     return this.lift(new MergeScanOperator(project, seed, concurrent));
@@ -19,12 +27,17 @@ var MergeScanOperator = (function () {
         this.seed = seed;
         this.concurrent = concurrent;
     }
-    MergeScanOperator.prototype.call = function (subscriber) {
-        return new MergeScanSubscriber(subscriber, this.project, this.seed, this.concurrent);
+    MergeScanOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new MergeScanSubscriber(subscriber, this.project, this.seed, this.concurrent));
     };
     return MergeScanOperator;
 }());
 exports.MergeScanOperator = MergeScanOperator;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var MergeScanSubscriber = (function (_super) {
     __extends(MergeScanSubscriber, _super);
     function MergeScanSubscriber(destination, project, acc, concurrent) {

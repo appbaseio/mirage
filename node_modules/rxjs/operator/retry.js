@@ -18,7 +18,9 @@ var Subscriber_1 = require('../Subscriber');
  * time and emits: [1, 2, 3, 4, 5] then the complete stream of emissions and notifications
  * would be: [1, 2, 1, 2, 3, 4, 5, `complete`].
  * @param {number} number of retry attempts before failing.
- * @returns {Observable} the source Observable modified with the retry logic.
+ * @return {Observable} the source Observable modified with the retry logic.
+ * @method retry
+ * @owner Observable
  */
 function retry(count) {
     if (count === void 0) { count = -1; }
@@ -30,11 +32,16 @@ var RetryOperator = (function () {
         this.count = count;
         this.source = source;
     }
-    RetryOperator.prototype.call = function (subscriber) {
-        return new RetrySubscriber(subscriber, this.count, this.source);
+    RetryOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new RetrySubscriber(subscriber, this.count, this.source));
     };
     return RetryOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var RetrySubscriber = (function (_super) {
     __extends(RetrySubscriber, _super);
     function RetrySubscriber(destination, count, source) {

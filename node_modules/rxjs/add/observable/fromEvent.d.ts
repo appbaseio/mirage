@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { fromEvent as staticFromEvent } from '../../observable/fromEvent';
+declare module '../../Observable' {
+    namespace Observable {
+        let fromEvent: typeof staticFromEvent;
+    }
+}

@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { MapSignature } from '../../operator/map';
+declare module '../../Observable' {
+    interface Observable<T> {
+        map: MapSignature<T>;
+    }
+}

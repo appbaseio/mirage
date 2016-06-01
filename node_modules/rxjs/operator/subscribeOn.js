@@ -6,8 +6,10 @@ var SubscribeOnObservable_1 = require('../observable/SubscribeOnObservable');
  * <img src="./img/subscribeOn.png" width="100%">
  *
  * @param {Scheduler} the Scheduler to perform subscription actions on.
- * @returns {Observable<T>} the source Observable modified so that its subscriptions happen on the specified Scheduler
+ * @return {Observable<T>} the source Observable modified so that its subscriptions happen on the specified Scheduler
  .
+ * @method subscribeOn
+ * @owner Observable
  */
 function subscribeOn(scheduler, delay) {
     if (delay === void 0) { delay = 0; }

@@ -7,26 +7,67 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subject_1 = require('../Subject');
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
-function window(closingNotifier) {
-    return this.lift(new WindowOperator(closingNotifier));
+/**
+ * Branch out the source Observable values as a nested Observable whenever
+ * `windowBoundaries` emits.
+ *
+ * <span class="informal">It's like {@link buffer}, but emits a nested Observable
+ * instead of an array.</span>
+ *
+ * <img src="./img/window.png" width="100%">
+ *
+ * Returns an Observable that emits windows of items it collects from the source
+ * Observable. The output Observable emits connected, non-overlapping
+ * windows. It emits the current window and opens a new one whenever the
+ * Observable `windowBoundaries` emits an item. Because each window is an
+ * Observable, the output is a higher-order Observable.
+ *
+ * @example <caption>In every window of 1 second each, emit at most 2 click events</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var interval = Rx.Observable.interval(1000);
+ * var result = clicks.window(interval)
+ *   .map(win => win.take(2)) // each window has at most 2 emissions
+ *   .mergeAll(); // flatten the Observable-of-Observables
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link windowCount}
+ * @see {@link windowTime}
+ * @see {@link windowToggle}
+ * @see {@link windowWhen}
+ * @see {@link buffer}
+ *
+ * @param {Observable<any>} windowBoundaries An Observable that completes the
+ * previous window and starts a new window.
+ * @return {Observable<Observable<T>>} An Observable of windows, which are
+ * Observables emitting values of the source Observable.
+ * @method window
+ * @owner Observable
+ */
+function window(windowBoundaries) {
+    return this.lift(new WindowOperator(windowBoundaries));
 }
 exports.window = window;
 var WindowOperator = (function () {
-    function WindowOperator(closingNotifier) {
-        this.closingNotifier = closingNotifier;
+    function WindowOperator(windowBoundaries) {
+        this.windowBoundaries = windowBoundaries;
     }
-    WindowOperator.prototype.call = function (subscriber) {
-        return new WindowSubscriber(subscriber, this.closingNotifier);
+    WindowOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new WindowSubscriber(subscriber, this.windowBoundaries));
     };
     return WindowOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var WindowSubscriber = (function (_super) {
     __extends(WindowSubscriber, _super);
-    function WindowSubscriber(destination, closingNotifier) {
+    function WindowSubscriber(destination, windowBoundaries) {
         _super.call(this, destination);
         this.destination = destination;
-        this.closingNotifier = closingNotifier;
-        this.add(subscribeToResult_1.subscribeToResult(this, closingNotifier));
+        this.windowBoundaries = windowBoundaries;
+        this.add(subscribeToResult_1.subscribeToResult(this, windowBoundaries));
         this.openWindow();
     }
     WindowSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {

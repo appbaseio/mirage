@@ -188,7 +188,7 @@
     same "printed page" as the copyright notice for easier
     identification within third-party archives.
 
- Copyright 2015-2016 Netflix, Inc.
+ Copyright 2015-2016 Netflix, Inc., Microsoft Corp. and contributors
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -228,72 +228,27 @@ System.register("rxjs/util/root", [], true, function(require, exports, module) {
   return module.exports;
 });
 
-System.register("rxjs/util/SymbolShim", ["rxjs/util/root"], true, function(require, exports, module) {
+System.register("rxjs/symbol/observable", ["rxjs/util/root"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var root_1 = require("rxjs/util/root");
-  function polyfillSymbol(root) {
-    var Symbol = ensureSymbol(root);
-    ensureIterator(Symbol, root);
-    ensureObservable(Symbol);
-    ensureFor(Symbol);
-    return Symbol;
-  }
-  exports.polyfillSymbol = polyfillSymbol;
-  function ensureFor(Symbol) {
-    if (!Symbol.for) {
-      Symbol.for = symbolForPolyfill;
-    }
-  }
-  exports.ensureFor = ensureFor;
-  var id = 0;
-  function ensureSymbol(root) {
-    if (!root.Symbol) {
-      root.Symbol = function symbolFuncPolyfill(description) {
-        return "@@Symbol(" + description + "):" + id++;
-      };
-    }
-    return root.Symbol;
-  }
-  exports.ensureSymbol = ensureSymbol;
-  function symbolForPolyfill(key) {
-    return '@@' + key;
-  }
-  exports.symbolForPolyfill = symbolForPolyfill;
-  function ensureIterator(Symbol, root) {
-    if (!Symbol.iterator) {
+  var Symbol = root_1.root.Symbol;
+  if (typeof Symbol === 'function') {
+    if (Symbol.observable) {
+      exports.$$observable = Symbol.observable;
+    } else {
       if (typeof Symbol.for === 'function') {
-        Symbol.iterator = Symbol.for('iterator');
-      } else if (root.Set && typeof new root.Set()['@@iterator'] === 'function') {
-        Symbol.iterator = '@@iterator';
-      } else if (root.Map) {
-        var keys = Object.getOwnPropertyNames(root.Map.prototype);
-        for (var i = 0; i < keys.length; ++i) {
-          var key = keys[i];
-          if (key !== 'entries' && key !== 'size' && root.Map.prototype[key] === root.Map.prototype['entries']) {
-            Symbol.iterator = key;
-            break;
-          }
-        }
+        exports.$$observable = Symbol.for('observable');
       } else {
-        Symbol.iterator = '@@iterator';
+        exports.$$observable = Symbol('observable');
       }
+      Symbol.observable = exports.$$observable;
     }
+  } else {
+    exports.$$observable = '@@observable';
   }
-  exports.ensureIterator = ensureIterator;
-  function ensureObservable(Symbol) {
-    if (!Symbol.observable) {
-      if (typeof Symbol.for === 'function') {
-        Symbol.observable = Symbol.for('observable');
-      } else {
-        Symbol.observable = '@@observable';
-      }
-    }
-  }
-  exports.ensureObservable = ensureObservable;
-  exports.SymbolShim = polyfillSymbol(root_1.root);
   global.define = __define;
   return module.exports;
 });
@@ -346,13 +301,45 @@ System.register("rxjs/util/errorObject", [], true, function(require, exports, mo
   return module.exports;
 });
 
-System.register("rxjs/symbol/rxSubscriber", ["rxjs/util/SymbolShim"], true, function(require, exports, module) {
+System.register("rxjs/util/UnsubscriptionError", [], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var SymbolShim_1 = require("rxjs/util/SymbolShim");
-  exports.rxSubscriber = SymbolShim_1.SymbolShim.for('rxSubscriber');
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var UnsubscriptionError = (function(_super) {
+    __extends(UnsubscriptionError, _super);
+    function UnsubscriptionError(errors) {
+      _super.call(this);
+      this.errors = errors;
+      this.name = 'UnsubscriptionError';
+      this.message = errors ? errors.length + " errors occurred during unsubscription:\n" + errors.map(function(err, i) {
+        return ((i + 1) + ") " + err.toString());
+      }).join('\n') : '';
+    }
+    return UnsubscriptionError;
+  }(Error));
+  exports.UnsubscriptionError = UnsubscriptionError;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/symbol/rxSubscriber", ["rxjs/util/root"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var root_1 = require("rxjs/util/root");
+  var Symbol = root_1.root.Symbol;
+  exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ? Symbol.for('rxSubscriber') : '@@rxSubscriber';
   global.define = __define;
   return module.exports;
 });
@@ -374,7 +361,7 @@ System.register("rxjs/Observer", [], true, function(require, exports, module) {
   return module.exports;
 });
 
-System.register("rxjs/subject/SubjectSubscription", ["rxjs/Subscription"], true, function(require, exports, module) {
+System.register("rxjs/SubjectSubscription", ["rxjs/Subscription"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -460,434 +447,7 @@ System.register("rxjs/util/ObjectUnsubscribedError", [], true, function(require,
   return module.exports;
 });
 
-System.register("rxjs/observable/ScalarObservable", ["rxjs/Observable"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Observable_1 = require("rxjs/Observable");
-  var ScalarObservable = (function(_super) {
-    __extends(ScalarObservable, _super);
-    function ScalarObservable(value, scheduler) {
-      _super.call(this);
-      this.value = value;
-      this.scheduler = scheduler;
-      this._isScalar = true;
-    }
-    ScalarObservable.create = function(value, scheduler) {
-      return new ScalarObservable(value, scheduler);
-    };
-    ScalarObservable.dispatch = function(state) {
-      var done = state.done,
-          value = state.value,
-          subscriber = state.subscriber;
-      if (done) {
-        subscriber.complete();
-        return ;
-      }
-      subscriber.next(value);
-      if (subscriber.isUnsubscribed) {
-        return ;
-      }
-      state.done = true;
-      this.schedule(state);
-    };
-    ScalarObservable.prototype._subscribe = function(subscriber) {
-      var value = this.value;
-      var scheduler = this.scheduler;
-      if (scheduler) {
-        return scheduler.schedule(ScalarObservable.dispatch, 0, {
-          done: false,
-          value: value,
-          subscriber: subscriber
-        });
-      } else {
-        subscriber.next(value);
-        if (!subscriber.isUnsubscribed) {
-          subscriber.complete();
-        }
-      }
-    };
-    return ScalarObservable;
-  }(Observable_1.Observable));
-  exports.ScalarObservable = ScalarObservable;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/observable/EmptyObservable", ["rxjs/Observable"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Observable_1 = require("rxjs/Observable");
-  var EmptyObservable = (function(_super) {
-    __extends(EmptyObservable, _super);
-    function EmptyObservable(scheduler) {
-      _super.call(this);
-      this.scheduler = scheduler;
-    }
-    EmptyObservable.create = function(scheduler) {
-      return new EmptyObservable(scheduler);
-    };
-    EmptyObservable.dispatch = function(_a) {
-      var subscriber = _a.subscriber;
-      subscriber.complete();
-    };
-    EmptyObservable.prototype._subscribe = function(subscriber) {
-      var scheduler = this.scheduler;
-      if (scheduler) {
-        return scheduler.schedule(EmptyObservable.dispatch, 0, {subscriber: subscriber});
-      } else {
-        subscriber.complete();
-      }
-    };
-    return EmptyObservable;
-  }(Observable_1.Observable));
-  exports.EmptyObservable = EmptyObservable;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/util/isScheduler", [], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  function isScheduler(value) {
-    return value && typeof value.schedule === 'function';
-  }
-  exports.isScheduler = isScheduler;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/OuterSubscriber", ["rxjs/Subscriber"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Subscriber_1 = require("rxjs/Subscriber");
-  var OuterSubscriber = (function(_super) {
-    __extends(OuterSubscriber, _super);
-    function OuterSubscriber() {
-      _super.apply(this, arguments);
-    }
-    OuterSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-      this.destination.next(innerValue);
-    };
-    OuterSubscriber.prototype.notifyError = function(error, innerSub) {
-      this.destination.error(error);
-    };
-    OuterSubscriber.prototype.notifyComplete = function(innerSub) {
-      this.destination.complete();
-    };
-    return OuterSubscriber;
-  }(Subscriber_1.Subscriber));
-  exports.OuterSubscriber = OuterSubscriber;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/util/isPromise", [], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  function isPromise(value) {
-    return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
-  }
-  exports.isPromise = isPromise;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/InnerSubscriber", ["rxjs/Subscriber"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Subscriber_1 = require("rxjs/Subscriber");
-  var InnerSubscriber = (function(_super) {
-    __extends(InnerSubscriber, _super);
-    function InnerSubscriber(parent, outerValue, outerIndex) {
-      _super.call(this);
-      this.parent = parent;
-      this.outerValue = outerValue;
-      this.outerIndex = outerIndex;
-      this.index = 0;
-    }
-    InnerSubscriber.prototype._next = function(value) {
-      this.parent.notifyNext(this.outerValue, value, this.outerIndex, this.index++, this);
-    };
-    InnerSubscriber.prototype._error = function(error) {
-      this.parent.notifyError(error, this);
-      this.unsubscribe();
-    };
-    InnerSubscriber.prototype._complete = function() {
-      this.parent.notifyComplete(this);
-      this.unsubscribe();
-    };
-    return InnerSubscriber;
-  }(Subscriber_1.Subscriber));
-  exports.InnerSubscriber = InnerSubscriber;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/operator/mergeAll", ["rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
-  var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
-  function mergeAll(concurrent) {
-    if (concurrent === void 0) {
-      concurrent = Number.POSITIVE_INFINITY;
-    }
-    return this.lift(new MergeAllOperator(concurrent));
-  }
-  exports.mergeAll = mergeAll;
-  var MergeAllOperator = (function() {
-    function MergeAllOperator(concurrent) {
-      this.concurrent = concurrent;
-    }
-    MergeAllOperator.prototype.call = function(observer) {
-      return new MergeAllSubscriber(observer, this.concurrent);
-    };
-    return MergeAllOperator;
-  }());
-  exports.MergeAllOperator = MergeAllOperator;
-  var MergeAllSubscriber = (function(_super) {
-    __extends(MergeAllSubscriber, _super);
-    function MergeAllSubscriber(destination, concurrent) {
-      _super.call(this, destination);
-      this.concurrent = concurrent;
-      this.hasCompleted = false;
-      this.buffer = [];
-      this.active = 0;
-    }
-    MergeAllSubscriber.prototype._next = function(observable) {
-      if (this.active < this.concurrent) {
-        this.active++;
-        this.add(subscribeToResult_1.subscribeToResult(this, observable));
-      } else {
-        this.buffer.push(observable);
-      }
-    };
-    MergeAllSubscriber.prototype._complete = function() {
-      this.hasCompleted = true;
-      if (this.active === 0 && this.buffer.length === 0) {
-        this.destination.complete();
-      }
-    };
-    MergeAllSubscriber.prototype.notifyComplete = function(innerSub) {
-      var buffer = this.buffer;
-      this.remove(innerSub);
-      this.active--;
-      if (buffer.length > 0) {
-        this._next(buffer.shift());
-      } else if (this.active === 0 && this.hasCompleted) {
-        this.destination.complete();
-      }
-    };
-    return MergeAllSubscriber;
-  }(OuterSubscriber_1.OuterSubscriber));
-  exports.MergeAllSubscriber = MergeAllSubscriber;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/operator/merge", ["rxjs/observable/ArrayObservable", "rxjs/operator/mergeAll", "rxjs/util/isScheduler"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
-  var mergeAll_1 = require("rxjs/operator/mergeAll");
-  var isScheduler_1 = require("rxjs/util/isScheduler");
-  function merge() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      observables[_i - 0] = arguments[_i];
-    }
-    observables.unshift(this);
-    return mergeStatic.apply(this, observables);
-  }
-  exports.merge = merge;
-  function mergeStatic() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      observables[_i - 0] = arguments[_i];
-    }
-    var concurrent = Number.POSITIVE_INFINITY;
-    var scheduler = null;
-    var last = observables[observables.length - 1];
-    if (isScheduler_1.isScheduler(last)) {
-      scheduler = observables.pop();
-      if (observables.length > 1 && typeof observables[observables.length - 1] === 'number') {
-        concurrent = observables.pop();
-      }
-    } else if (typeof last === 'number') {
-      concurrent = observables.pop();
-    }
-    if (observables.length === 1) {
-      return observables[0];
-    }
-    return new ArrayObservable_1.ArrayObservable(observables, scheduler).lift(new mergeAll_1.MergeAllOperator(concurrent));
-  }
-  exports.mergeStatic = mergeStatic;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/operator/race", ["rxjs/util/isArray", "rxjs/observable/ArrayObservable", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var isArray_1 = require("rxjs/util/isArray");
-  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
-  var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
-  var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
-  function race() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      observables[_i - 0] = arguments[_i];
-    }
-    if (observables.length === 1 && isArray_1.isArray(observables[0])) {
-      observables = observables[0];
-    }
-    observables.unshift(this);
-    return raceStatic.apply(this, observables);
-  }
-  exports.race = race;
-  function raceStatic() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      observables[_i - 0] = arguments[_i];
-    }
-    if (observables.length === 1) {
-      if (isArray_1.isArray(observables[0])) {
-        observables = observables[0];
-      } else {
-        return observables[0];
-      }
-    }
-    return new ArrayObservable_1.ArrayObservable(observables).lift(new RaceOperator());
-  }
-  exports.raceStatic = raceStatic;
-  var RaceOperator = (function() {
-    function RaceOperator() {}
-    RaceOperator.prototype.call = function(subscriber) {
-      return new RaceSubscriber(subscriber);
-    };
-    return RaceOperator;
-  }());
-  exports.RaceOperator = RaceOperator;
-  var RaceSubscriber = (function(_super) {
-    __extends(RaceSubscriber, _super);
-    function RaceSubscriber(destination) {
-      _super.call(this, destination);
-      this.hasFirst = false;
-      this.observables = [];
-      this.subscriptions = [];
-    }
-    RaceSubscriber.prototype._next = function(observable) {
-      this.observables.push(observable);
-    };
-    RaceSubscriber.prototype._complete = function() {
-      var observables = this.observables;
-      var len = observables.length;
-      if (len === 0) {
-        this.destination.complete();
-      } else {
-        for (var i = 0; i < len; i++) {
-          var observable = observables[i];
-          var subscription = subscribeToResult_1.subscribeToResult(this, observable, observable, i);
-          this.subscriptions.push(subscription);
-          this.add(subscription);
-        }
-        this.observables = null;
-      }
-    };
-    RaceSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex, innerSub) {
-      if (!this.hasFirst) {
-        this.hasFirst = true;
-        for (var i = 0; i < this.subscriptions.length; i++) {
-          if (i !== outerIndex) {
-            var subscription = this.subscriptions[i];
-            subscription.unsubscribe();
-            this.remove(subscription);
-          }
-        }
-        this.subscriptions = null;
-      }
-      this.destination.next(innerValue);
-    };
-    return RaceSubscriber;
-  }(OuterSubscriber_1.OuterSubscriber));
-  exports.RaceSubscriber = RaceSubscriber;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/subject/AsyncSubject", ["rxjs/Subject"], true, function(require, exports, module) {
+System.register("rxjs/AsyncSubject", ["rxjs/Subject"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -945,7 +505,7 @@ System.register("rxjs/subject/AsyncSubject", ["rxjs/Subject"], true, function(re
   return module.exports;
 });
 
-System.register("rxjs/observable/BoundNodeCallbackObservable", ["rxjs/Observable", "rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/subject/AsyncSubject"], true, function(require, exports, module) {
+System.register("rxjs/observable/BoundNodeCallbackObservable", ["rxjs/Observable", "rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/AsyncSubject"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -962,7 +522,7 @@ System.register("rxjs/observable/BoundNodeCallbackObservable", ["rxjs/Observable
   var Observable_1 = require("rxjs/Observable");
   var tryCatch_1 = require("rxjs/util/tryCatch");
   var errorObject_1 = require("rxjs/util/errorObject");
-  var AsyncSubject_1 = require("rxjs/subject/AsyncSubject");
+  var AsyncSubject_1 = require("rxjs/AsyncSubject");
   var BoundNodeCallbackObservable = (function(_super) {
     __extends(BoundNodeCallbackObservable, _super);
     function BoundNodeCallbackObservable(callbackFunc, selector, args, scheduler) {
@@ -1083,22 +643,22 @@ System.register("rxjs/observable/BoundNodeCallbackObservable", ["rxjs/Observable
     }
     self.add(subject.subscribe(subscriber));
   }
-  function dispatchNext(_a) {
-    var value = _a.value,
-        subject = _a.subject;
+  function dispatchNext(arg) {
+    var value = arg.value,
+        subject = arg.subject;
     subject.next(value);
     subject.complete();
   }
-  function dispatchError(_a) {
-    var err = _a.err,
-        subject = _a.subject;
+  function dispatchError(arg) {
+    var err = arg.err,
+        subject = arg.subject;
     subject.error(err);
   }
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/observable/DeferObservable", ["rxjs/Observable", "rxjs/util/tryCatch", "rxjs/util/errorObject"], true, function(require, exports, module) {
+System.register("rxjs/observable/ScalarObservable", ["rxjs/Observable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -1113,8 +673,325 @@ System.register("rxjs/observable/DeferObservable", ["rxjs/Observable", "rxjs/uti
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Observable_1 = require("rxjs/Observable");
-  var tryCatch_1 = require("rxjs/util/tryCatch");
-  var errorObject_1 = require("rxjs/util/errorObject");
+  var ScalarObservable = (function(_super) {
+    __extends(ScalarObservable, _super);
+    function ScalarObservable(value, scheduler) {
+      _super.call(this);
+      this.value = value;
+      this.scheduler = scheduler;
+      this._isScalar = true;
+    }
+    ScalarObservable.create = function(value, scheduler) {
+      return new ScalarObservable(value, scheduler);
+    };
+    ScalarObservable.dispatch = function(state) {
+      var done = state.done,
+          value = state.value,
+          subscriber = state.subscriber;
+      if (done) {
+        subscriber.complete();
+        return ;
+      }
+      subscriber.next(value);
+      if (subscriber.isUnsubscribed) {
+        return ;
+      }
+      state.done = true;
+      this.schedule(state);
+    };
+    ScalarObservable.prototype._subscribe = function(subscriber) {
+      var value = this.value;
+      var scheduler = this.scheduler;
+      if (scheduler) {
+        return scheduler.schedule(ScalarObservable.dispatch, 0, {
+          done: false,
+          value: value,
+          subscriber: subscriber
+        });
+      } else {
+        subscriber.next(value);
+        if (!subscriber.isUnsubscribed) {
+          subscriber.complete();
+        }
+      }
+    };
+    return ScalarObservable;
+  }(Observable_1.Observable));
+  exports.ScalarObservable = ScalarObservable;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/EmptyObservable", ["rxjs/Observable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var Observable_1 = require("rxjs/Observable");
+  var EmptyObservable = (function(_super) {
+    __extends(EmptyObservable, _super);
+    function EmptyObservable(scheduler) {
+      _super.call(this);
+      this.scheduler = scheduler;
+    }
+    EmptyObservable.create = function(scheduler) {
+      return new EmptyObservable(scheduler);
+    };
+    EmptyObservable.dispatch = function(arg) {
+      var subscriber = arg.subscriber;
+      subscriber.complete();
+    };
+    EmptyObservable.prototype._subscribe = function(subscriber) {
+      var scheduler = this.scheduler;
+      if (scheduler) {
+        return scheduler.schedule(EmptyObservable.dispatch, 0, {subscriber: subscriber});
+      } else {
+        subscriber.complete();
+      }
+    };
+    return EmptyObservable;
+  }(Observable_1.Observable));
+  exports.EmptyObservable = EmptyObservable;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/util/isScheduler", [], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  function isScheduler(value) {
+    return value && typeof value.schedule === 'function';
+  }
+  exports.isScheduler = isScheduler;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/OuterSubscriber", ["rxjs/Subscriber"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var Subscriber_1 = require("rxjs/Subscriber");
+  var OuterSubscriber = (function(_super) {
+    __extends(OuterSubscriber, _super);
+    function OuterSubscriber() {
+      _super.apply(this, arguments);
+    }
+    OuterSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+      this.destination.next(innerValue);
+    };
+    OuterSubscriber.prototype.notifyError = function(error, innerSub) {
+      this.destination.error(error);
+    };
+    OuterSubscriber.prototype.notifyComplete = function(innerSub) {
+      this.destination.complete();
+    };
+    return OuterSubscriber;
+  }(Subscriber_1.Subscriber));
+  exports.OuterSubscriber = OuterSubscriber;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/util/isPromise", [], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  function isPromise(value) {
+    return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
+  }
+  exports.isPromise = isPromise;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/symbol/iterator", ["rxjs/util/root"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var root_1 = require("rxjs/util/root");
+  var Symbol = root_1.root.Symbol;
+  if (typeof Symbol === 'function') {
+    if (Symbol.iterator) {
+      exports.$$iterator = Symbol.iterator;
+    } else if (typeof Symbol.for === 'function') {
+      exports.$$iterator = Symbol.for('iterator');
+    }
+  } else {
+    if (root_1.root.Set && typeof new root_1.root.Set()['@@iterator'] === 'function') {
+      exports.$$iterator = '@@iterator';
+    } else if (root_1.root.Map) {
+      var keys = Object.getOwnPropertyNames(root_1.root.Map.prototype);
+      for (var i = 0; i < keys.length; ++i) {
+        var key = keys[i];
+        if (key !== 'entries' && key !== 'size' && root_1.root.Map.prototype[key] === root_1.root.Map.prototype['entries']) {
+          exports.$$iterator = key;
+          break;
+        }
+      }
+    } else {
+      exports.$$iterator = '@@iterator';
+    }
+  }
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/InnerSubscriber", ["rxjs/Subscriber"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var Subscriber_1 = require("rxjs/Subscriber");
+  var InnerSubscriber = (function(_super) {
+    __extends(InnerSubscriber, _super);
+    function InnerSubscriber(parent, outerValue, outerIndex) {
+      _super.call(this);
+      this.parent = parent;
+      this.outerValue = outerValue;
+      this.outerIndex = outerIndex;
+      this.index = 0;
+    }
+    InnerSubscriber.prototype._next = function(value) {
+      this.parent.notifyNext(this.outerValue, value, this.outerIndex, this.index++, this);
+    };
+    InnerSubscriber.prototype._error = function(error) {
+      this.parent.notifyError(error, this);
+      this.unsubscribe();
+    };
+    InnerSubscriber.prototype._complete = function() {
+      this.parent.notifyComplete(this);
+      this.unsubscribe();
+    };
+    return InnerSubscriber;
+  }(Subscriber_1.Subscriber));
+  exports.InnerSubscriber = InnerSubscriber;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/operator/mergeAll", ["rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
+  var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
+  function mergeAll(concurrent) {
+    if (concurrent === void 0) {
+      concurrent = Number.POSITIVE_INFINITY;
+    }
+    return this.lift(new MergeAllOperator(concurrent));
+  }
+  exports.mergeAll = mergeAll;
+  var MergeAllOperator = (function() {
+    function MergeAllOperator(concurrent) {
+      this.concurrent = concurrent;
+    }
+    MergeAllOperator.prototype.call = function(observer, source) {
+      return source._subscribe(new MergeAllSubscriber(observer, this.concurrent));
+    };
+    return MergeAllOperator;
+  }());
+  exports.MergeAllOperator = MergeAllOperator;
+  var MergeAllSubscriber = (function(_super) {
+    __extends(MergeAllSubscriber, _super);
+    function MergeAllSubscriber(destination, concurrent) {
+      _super.call(this, destination);
+      this.concurrent = concurrent;
+      this.hasCompleted = false;
+      this.buffer = [];
+      this.active = 0;
+    }
+    MergeAllSubscriber.prototype._next = function(observable) {
+      if (this.active < this.concurrent) {
+        this.active++;
+        this.add(subscribeToResult_1.subscribeToResult(this, observable));
+      } else {
+        this.buffer.push(observable);
+      }
+    };
+    MergeAllSubscriber.prototype._complete = function() {
+      this.hasCompleted = true;
+      if (this.active === 0 && this.buffer.length === 0) {
+        this.destination.complete();
+      }
+    };
+    MergeAllSubscriber.prototype.notifyComplete = function(innerSub) {
+      var buffer = this.buffer;
+      this.remove(innerSub);
+      this.active--;
+      if (buffer.length > 0) {
+        this._next(buffer.shift());
+      } else if (this.active === 0 && this.hasCompleted) {
+        this.destination.complete();
+      }
+    };
+    return MergeAllSubscriber;
+  }(OuterSubscriber_1.OuterSubscriber));
+  exports.MergeAllSubscriber = MergeAllSubscriber;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/DeferObservable", ["rxjs/Observable", "rxjs/util/subscribeToResult", "rxjs/OuterSubscriber"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var Observable_1 = require("rxjs/Observable");
+  var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
+  var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   var DeferObservable = (function(_super) {
     __extends(DeferObservable, _super);
     function DeferObservable(observableFactory) {
@@ -1125,28 +1002,150 @@ System.register("rxjs/observable/DeferObservable", ["rxjs/Observable", "rxjs/uti
       return new DeferObservable(observableFactory);
     };
     DeferObservable.prototype._subscribe = function(subscriber) {
-      var result = tryCatch_1.tryCatch(this.observableFactory)();
-      if (result === errorObject_1.errorObject) {
-        subscriber.error(errorObject_1.errorObject.e);
-      } else {
-        result.subscribe(subscriber);
-      }
+      return new DeferSubscriber(subscriber, this.observableFactory);
     };
     return DeferObservable;
   }(Observable_1.Observable));
   exports.DeferObservable = DeferObservable;
+  var DeferSubscriber = (function(_super) {
+    __extends(DeferSubscriber, _super);
+    function DeferSubscriber(destination, factory) {
+      _super.call(this, destination);
+      this.factory = factory;
+      this.tryDefer();
+    }
+    DeferSubscriber.prototype.tryDefer = function() {
+      try {
+        this._callFactory();
+      } catch (err) {
+        this._error(err);
+      }
+    };
+    DeferSubscriber.prototype._callFactory = function() {
+      var result = this.factory();
+      if (result) {
+        this.add(subscribeToResult_1.subscribeToResult(this, result));
+      }
+    };
+    return DeferSubscriber;
+  }(OuterSubscriber_1.OuterSubscriber));
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/empty", ["rxjs/Observable", "rxjs/observable/EmptyObservable"], true, function(require, exports, module) {
+System.register("rxjs/observable/empty", ["rxjs/observable/EmptyObservable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
+  var EmptyObservable_1 = require("rxjs/observable/EmptyObservable");
+  exports.empty = EmptyObservable_1.EmptyObservable.create;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/ForkJoinObservable", ["rxjs/Observable", "rxjs/observable/EmptyObservable", "rxjs/util/isArray", "rxjs/util/subscribeToResult", "rxjs/OuterSubscriber"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
   var Observable_1 = require("rxjs/Observable");
   var EmptyObservable_1 = require("rxjs/observable/EmptyObservable");
-  Observable_1.Observable.empty = EmptyObservable_1.EmptyObservable.create;
+  var isArray_1 = require("rxjs/util/isArray");
+  var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
+  var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
+  var ForkJoinObservable = (function(_super) {
+    __extends(ForkJoinObservable, _super);
+    function ForkJoinObservable(sources, resultSelector) {
+      _super.call(this);
+      this.sources = sources;
+      this.resultSelector = resultSelector;
+    }
+    ForkJoinObservable.create = function() {
+      var sources = [];
+      for (var _i = 0; _i < arguments.length; _i++) {
+        sources[_i - 0] = arguments[_i];
+      }
+      if (sources === null || arguments.length === 0) {
+        return new EmptyObservable_1.EmptyObservable();
+      }
+      var resultSelector = null;
+      if (typeof sources[sources.length - 1] === 'function') {
+        resultSelector = sources.pop();
+      }
+      if (sources.length === 1 && isArray_1.isArray(sources[0])) {
+        sources = sources[0];
+      }
+      if (sources.length === 0) {
+        return new EmptyObservable_1.EmptyObservable();
+      }
+      return new ForkJoinObservable(sources, resultSelector);
+    };
+    ForkJoinObservable.prototype._subscribe = function(subscriber) {
+      return new ForkJoinSubscriber(subscriber, this.sources, this.resultSelector);
+    };
+    return ForkJoinObservable;
+  }(Observable_1.Observable));
+  exports.ForkJoinObservable = ForkJoinObservable;
+  var ForkJoinSubscriber = (function(_super) {
+    __extends(ForkJoinSubscriber, _super);
+    function ForkJoinSubscriber(destination, sources, resultSelector) {
+      _super.call(this, destination);
+      this.sources = sources;
+      this.resultSelector = resultSelector;
+      this.completed = 0;
+      this.haveValues = 0;
+      var len = sources.length;
+      this.total = len;
+      this.values = new Array(len);
+      for (var i = 0; i < len; i++) {
+        var source = sources[i];
+        var innerSubscription = subscribeToResult_1.subscribeToResult(this, source, null, i);
+        if (innerSubscription) {
+          innerSubscription.outerIndex = i;
+          this.add(innerSubscription);
+        }
+      }
+    }
+    ForkJoinSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+      this.values[outerIndex] = innerValue;
+      if (!innerSub._hasValue) {
+        innerSub._hasValue = true;
+        this.haveValues++;
+      }
+    };
+    ForkJoinSubscriber.prototype.notifyComplete = function(innerSub) {
+      var destination = this.destination;
+      var _a = this,
+          haveValues = _a.haveValues,
+          resultSelector = _a.resultSelector,
+          values = _a.values;
+      var len = values.length;
+      if (!innerSub._hasValue) {
+        destination.complete();
+        return ;
+      }
+      this.completed++;
+      if (this.completed !== len) {
+        return ;
+      }
+      if (haveValues === len) {
+        var value = resultSelector ? resultSelector.apply(this, values) : values;
+        destination.next(value);
+      }
+      destination.complete();
+    };
+    return ForkJoinSubscriber;
+  }(OuterSubscriber_1.OuterSubscriber));
   global.define = __define;
   return module.exports;
 });
@@ -1247,17 +1246,17 @@ System.register("rxjs/observable/PromiseObservable", ["rxjs/util/root", "rxjs/Ob
     return PromiseObservable;
   }(Observable_1.Observable));
   exports.PromiseObservable = PromiseObservable;
-  function dispatchNext(_a) {
-    var value = _a.value,
-        subscriber = _a.subscriber;
+  function dispatchNext(arg) {
+    var value = arg.value,
+        subscriber = arg.subscriber;
     if (!subscriber.isUnsubscribed) {
       subscriber.next(value);
       subscriber.complete();
     }
   }
-  function dispatchError(_a) {
-    var err = _a.err,
-        subscriber = _a.subscriber;
+  function dispatchError(arg) {
+    var err = arg.err,
+        subscriber = arg.subscriber;
     if (!subscriber.isUnsubscribed) {
       subscriber.error(err);
     }
@@ -1266,7 +1265,7 @@ System.register("rxjs/observable/PromiseObservable", ["rxjs/util/root", "rxjs/Ob
   return module.exports;
 });
 
-System.register("rxjs/observable/IteratorObservable", ["rxjs/util/root", "rxjs/util/isObject", "rxjs/util/tryCatch", "rxjs/Observable", "rxjs/util/isFunction", "rxjs/util/SymbolShim", "rxjs/util/errorObject"], true, function(require, exports, module) {
+System.register("rxjs/observable/IteratorObservable", ["rxjs/util/root", "rxjs/util/isObject", "rxjs/util/tryCatch", "rxjs/Observable", "rxjs/util/isFunction", "rxjs/symbol/iterator", "rxjs/util/errorObject"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -1285,7 +1284,7 @@ System.register("rxjs/observable/IteratorObservable", ["rxjs/util/root", "rxjs/u
   var tryCatch_1 = require("rxjs/util/tryCatch");
   var Observable_1 = require("rxjs/Observable");
   var isFunction_1 = require("rxjs/util/isFunction");
-  var SymbolShim_1 = require("rxjs/util/SymbolShim");
+  var iterator_1 = require("rxjs/symbol/iterator");
   var errorObject_1 = require("rxjs/util/errorObject");
   var IteratorObservable = (function(_super) {
     __extends(IteratorObservable, _super);
@@ -1395,7 +1394,7 @@ System.register("rxjs/observable/IteratorObservable", ["rxjs/util/root", "rxjs/u
       this.idx = idx;
       this.len = len;
     }
-    StringIterator.prototype[SymbolShim_1.SymbolShim.iterator] = function() {
+    StringIterator.prototype[iterator_1.$$iterator] = function() {
       return (this);
     };
     StringIterator.prototype.next = function() {
@@ -1421,7 +1420,7 @@ System.register("rxjs/observable/IteratorObservable", ["rxjs/util/root", "rxjs/u
       this.idx = idx;
       this.len = len;
     }
-    ArrayIterator.prototype[SymbolShim_1.SymbolShim.iterator] = function() {
+    ArrayIterator.prototype[iterator_1.$$iterator] = function() {
       return this;
     };
     ArrayIterator.prototype.next = function() {
@@ -1436,7 +1435,7 @@ System.register("rxjs/observable/IteratorObservable", ["rxjs/util/root", "rxjs/u
     return ArrayIterator;
   }());
   function getIterator(obj) {
-    var i = obj[SymbolShim_1.SymbolShim.iterator];
+    var i = obj[iterator_1.$$iterator];
     if (!i && typeof obj === 'string') {
       return new StringIterator(obj);
     }
@@ -1446,7 +1445,7 @@ System.register("rxjs/observable/IteratorObservable", ["rxjs/util/root", "rxjs/u
     if (!i) {
       throw new TypeError('Object is not iterable');
     }
-    return obj[SymbolShim_1.SymbolShim.iterator]();
+    return obj[iterator_1.$$iterator]();
   }
   var maxSafeInteger = Math.pow(2, 53) - 1;
   function toLength(o) {
@@ -1645,19 +1644,6 @@ System.register("rxjs/Notification", ["rxjs/Observable"], true, function(require
   return module.exports;
 });
 
-System.register("rxjs/add/observable/fromArray", ["rxjs/Observable", "rxjs/observable/ArrayObservable"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var Observable_1 = require("rxjs/Observable");
-  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
-  Observable_1.Observable.fromArray = ArrayObservable_1.ArrayObservable.create;
-  Observable_1.Observable.of = ArrayObservable_1.ArrayObservable.of;
-  global.define = __define;
-  return module.exports;
-});
-
 System.register("rxjs/observable/FromEventObservable", ["rxjs/Observable", "rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/Subscription"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
@@ -1812,14 +1798,13 @@ System.register("rxjs/observable/FromEventPatternObservable", ["rxjs/Observable"
   return module.exports;
 });
 
-System.register("rxjs/add/observable/fromPromise", ["rxjs/Observable", "rxjs/observable/PromiseObservable"], true, function(require, exports, module) {
+System.register("rxjs/observable/fromPromise", ["rxjs/observable/PromiseObservable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
   var PromiseObservable_1 = require("rxjs/observable/PromiseObservable");
-  Observable_1.Observable.fromPromise = PromiseObservable_1.PromiseObservable.create;
+  exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
   global.define = __define;
   return module.exports;
 });
@@ -1835,196 +1820,6 @@ System.register("rxjs/util/isNumeric", ["rxjs/util/isArray"], true, function(req
   }
   exports.isNumeric = isNumeric;
   ;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/util/Immediate", ["rxjs/util/root"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var root_1 = require("rxjs/util/root");
-  var ImmediateDefinition = (function() {
-    function ImmediateDefinition(root) {
-      this.root = root;
-      if (root.setImmediate && typeof root.setImmediate === 'function') {
-        this.setImmediate = root.setImmediate.bind(root);
-        this.clearImmediate = root.clearImmediate.bind(root);
-      } else {
-        this.nextHandle = 1;
-        this.tasksByHandle = {};
-        this.currentlyRunningATask = false;
-        if (this.canUseProcessNextTick()) {
-          this.setImmediate = this.createProcessNextTickSetImmediate();
-        } else if (this.canUsePostMessage()) {
-          this.setImmediate = this.createPostMessageSetImmediate();
-        } else if (this.canUseMessageChannel()) {
-          this.setImmediate = this.createMessageChannelSetImmediate();
-        } else if (this.canUseReadyStateChange()) {
-          this.setImmediate = this.createReadyStateChangeSetImmediate();
-        } else {
-          this.setImmediate = this.createSetTimeoutSetImmediate();
-        }
-        var ci = function clearImmediate(handle) {
-          delete clearImmediate.instance.tasksByHandle[handle];
-        };
-        ci.instance = this;
-        this.clearImmediate = ci;
-      }
-    }
-    ImmediateDefinition.prototype.identify = function(o) {
-      return this.root.Object.prototype.toString.call(o);
-    };
-    ImmediateDefinition.prototype.canUseProcessNextTick = function() {
-      return this.identify(this.root.process) === '[object process]';
-    };
-    ImmediateDefinition.prototype.canUseMessageChannel = function() {
-      return Boolean(this.root.MessageChannel);
-    };
-    ImmediateDefinition.prototype.canUseReadyStateChange = function() {
-      var document = this.root.document;
-      return Boolean(document && 'onreadystatechange' in document.createElement('script'));
-    };
-    ImmediateDefinition.prototype.canUsePostMessage = function() {
-      var root = this.root;
-      if (root.postMessage && !root.importScripts) {
-        var postMessageIsAsynchronous_1 = true;
-        var oldOnMessage = root.onmessage;
-        root.onmessage = function() {
-          postMessageIsAsynchronous_1 = false;
-        };
-        root.postMessage('', '*');
-        root.onmessage = oldOnMessage;
-        return postMessageIsAsynchronous_1;
-      }
-      return false;
-    };
-    ImmediateDefinition.prototype.partiallyApplied = function(handler) {
-      var args = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
-        args[_i - 1] = arguments[_i];
-      }
-      var fn = function result() {
-        var _a = result,
-            handler = _a.handler,
-            args = _a.args;
-        if (typeof handler === 'function') {
-          handler.apply(undefined, args);
-        } else {
-          (new Function('' + handler))();
-        }
-      };
-      fn.handler = handler;
-      fn.args = args;
-      return fn;
-    };
-    ImmediateDefinition.prototype.addFromSetImmediateArguments = function(args) {
-      this.tasksByHandle[this.nextHandle] = this.partiallyApplied.apply(undefined, args);
-      return this.nextHandle++;
-    };
-    ImmediateDefinition.prototype.createProcessNextTickSetImmediate = function() {
-      var fn = function setImmediate() {
-        var instance = setImmediate.instance;
-        var handle = instance.addFromSetImmediateArguments(arguments);
-        instance.root.process.nextTick(instance.partiallyApplied(instance.runIfPresent, handle));
-        return handle;
-      };
-      fn.instance = this;
-      return fn;
-    };
-    ImmediateDefinition.prototype.createPostMessageSetImmediate = function() {
-      var root = this.root;
-      var messagePrefix = 'setImmediate$' + root.Math.random() + '$';
-      var onGlobalMessage = function globalMessageHandler(event) {
-        var instance = globalMessageHandler.instance;
-        if (event.source === root && typeof event.data === 'string' && event.data.indexOf(messagePrefix) === 0) {
-          instance.runIfPresent(+event.data.slice(messagePrefix.length));
-        }
-      };
-      onGlobalMessage.instance = this;
-      root.addEventListener('message', onGlobalMessage, false);
-      var fn = function setImmediate() {
-        var _a = setImmediate,
-            messagePrefix = _a.messagePrefix,
-            instance = _a.instance;
-        var handle = instance.addFromSetImmediateArguments(arguments);
-        instance.root.postMessage(messagePrefix + handle, '*');
-        return handle;
-      };
-      fn.instance = this;
-      fn.messagePrefix = messagePrefix;
-      return fn;
-    };
-    ImmediateDefinition.prototype.runIfPresent = function(handle) {
-      if (this.currentlyRunningATask) {
-        this.root.setTimeout(this.partiallyApplied(this.runIfPresent, handle), 0);
-      } else {
-        var task = this.tasksByHandle[handle];
-        if (task) {
-          this.currentlyRunningATask = true;
-          try {
-            task();
-          } finally {
-            this.clearImmediate(handle);
-            this.currentlyRunningATask = false;
-          }
-        }
-      }
-    };
-    ImmediateDefinition.prototype.createMessageChannelSetImmediate = function() {
-      var _this = this;
-      var channel = new this.root.MessageChannel();
-      channel.port1.onmessage = function(event) {
-        var handle = event.data;
-        _this.runIfPresent(handle);
-      };
-      var fn = function setImmediate() {
-        var _a = setImmediate,
-            channel = _a.channel,
-            instance = _a.instance;
-        var handle = instance.addFromSetImmediateArguments(arguments);
-        channel.port2.postMessage(handle);
-        return handle;
-      };
-      fn.channel = channel;
-      fn.instance = this;
-      return fn;
-    };
-    ImmediateDefinition.prototype.createReadyStateChangeSetImmediate = function() {
-      var fn = function setImmediate() {
-        var instance = setImmediate.instance;
-        var root = instance.root;
-        var doc = root.document;
-        var html = doc.documentElement;
-        var handle = instance.addFromSetImmediateArguments(arguments);
-        var script = doc.createElement('script');
-        script.onreadystatechange = function() {
-          instance.runIfPresent(handle);
-          script.onreadystatechange = null;
-          html.removeChild(script);
-          script = null;
-        };
-        html.appendChild(script);
-        return handle;
-      };
-      fn.instance = this;
-      return fn;
-    };
-    ImmediateDefinition.prototype.createSetTimeoutSetImmediate = function() {
-      var fn = function setImmediate() {
-        var instance = setImmediate.instance;
-        var handle = instance.addFromSetImmediateArguments(arguments);
-        instance.root.setTimeout(instance.partiallyApplied(instance.runIfPresent, handle), 0);
-        return handle;
-      };
-      fn.instance = this;
-      return fn;
-    };
-    return ImmediateDefinition;
-  }());
-  exports.ImmediateDefinition = ImmediateDefinition;
-  exports.Immediate = new ImmediateDefinition(root_1.root);
   global.define = __define;
   return module.exports;
 });
@@ -2051,12 +1846,19 @@ System.register("rxjs/scheduler/FutureAction", ["rxjs/util/root", "rxjs/Subscrip
       _super.call(this);
       this.scheduler = scheduler;
       this.work = work;
+      this.pending = false;
     }
     FutureAction.prototype.execute = function() {
       if (this.isUnsubscribed) {
-        throw new Error('How did did we execute a canceled Action?');
+        this.error = new Error('executing a cancelled action');
+      } else {
+        try {
+          this.work(this.state);
+        } catch (e) {
+          this.unsubscribe();
+          this.error = e;
+        }
       }
-      this.work(this.state);
     };
     FutureAction.prototype.schedule = function(state, delay) {
       if (delay === void 0) {
@@ -2072,22 +1874,33 @@ System.register("rxjs/scheduler/FutureAction", ["rxjs/util/root", "rxjs/Subscrip
       if (delay === void 0) {
         delay = 0;
       }
-      this.delay = delay;
       this.state = state;
+      this.pending = true;
       var id = this.id;
-      if (id != null) {
-        this.id = undefined;
-        root_1.root.clearTimeout(id);
+      if (id != null && this.delay === delay) {
+        return this;
       }
-      this.id = root_1.root.setTimeout(function() {
-        _this.id = null;
-        var scheduler = _this.scheduler;
+      this.delay = delay;
+      if (id != null) {
+        this.id = null;
+        root_1.root.clearInterval(id);
+      }
+      this.id = root_1.root.setInterval(function() {
+        _this.pending = false;
+        var _a = _this,
+            id = _a.id,
+            scheduler = _a.scheduler;
         scheduler.actions.push(_this);
         scheduler.flush();
+        if (_this.pending === false && id != null) {
+          _this.id = null;
+          root_1.root.clearInterval(id);
+        }
       }, delay);
       return this;
     };
     FutureAction.prototype._unsubscribe = function() {
+      this.pending = false;
       var _a = this,
           id = _a.id,
           scheduler = _a.scheduler;
@@ -2095,7 +1908,7 @@ System.register("rxjs/scheduler/FutureAction", ["rxjs/util/root", "rxjs/Subscrip
       var index = actions.indexOf(this);
       if (id != null) {
         this.id = null;
-        root_1.root.clearTimeout(id);
+        root_1.root.clearInterval(id);
       }
       if (index !== -1) {
         actions.splice(index, 1);
@@ -2152,6 +1965,149 @@ System.register("rxjs/scheduler/QueueAction", ["rxjs/scheduler/FutureAction"], t
   return module.exports;
 });
 
+System.register("rxjs/operator/merge", ["rxjs/observable/ArrayObservable", "rxjs/operator/mergeAll", "rxjs/util/isScheduler"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
+  var mergeAll_1 = require("rxjs/operator/mergeAll");
+  var isScheduler_1 = require("rxjs/util/isScheduler");
+  function merge() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      observables[_i - 0] = arguments[_i];
+    }
+    observables.unshift(this);
+    return mergeStatic.apply(this, observables);
+  }
+  exports.merge = merge;
+  function mergeStatic() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      observables[_i - 0] = arguments[_i];
+    }
+    var concurrent = Number.POSITIVE_INFINITY;
+    var scheduler = null;
+    var last = observables[observables.length - 1];
+    if (isScheduler_1.isScheduler(last)) {
+      scheduler = observables.pop();
+      if (observables.length > 1 && typeof observables[observables.length - 1] === 'number') {
+        concurrent = observables.pop();
+      }
+    } else if (typeof last === 'number') {
+      concurrent = observables.pop();
+    }
+    if (observables.length === 1) {
+      return observables[0];
+    }
+    return new ArrayObservable_1.ArrayObservable(observables, scheduler).lift(new mergeAll_1.MergeAllOperator(concurrent));
+  }
+  exports.mergeStatic = mergeStatic;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/operator/race", ["rxjs/util/isArray", "rxjs/observable/ArrayObservable", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var isArray_1 = require("rxjs/util/isArray");
+  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
+  var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
+  var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
+  function race() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      observables[_i - 0] = arguments[_i];
+    }
+    if (observables.length === 1 && isArray_1.isArray(observables[0])) {
+      observables = observables[0];
+    }
+    observables.unshift(this);
+    return raceStatic.apply(this, observables);
+  }
+  exports.race = race;
+  function raceStatic() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      observables[_i - 0] = arguments[_i];
+    }
+    if (observables.length === 1) {
+      if (isArray_1.isArray(observables[0])) {
+        observables = observables[0];
+      } else {
+        return observables[0];
+      }
+    }
+    return new ArrayObservable_1.ArrayObservable(observables).lift(new RaceOperator());
+  }
+  exports.raceStatic = raceStatic;
+  var RaceOperator = (function() {
+    function RaceOperator() {}
+    RaceOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new RaceSubscriber(subscriber));
+    };
+    return RaceOperator;
+  }());
+  exports.RaceOperator = RaceOperator;
+  var RaceSubscriber = (function(_super) {
+    __extends(RaceSubscriber, _super);
+    function RaceSubscriber(destination) {
+      _super.call(this, destination);
+      this.hasFirst = false;
+      this.observables = [];
+      this.subscriptions = [];
+    }
+    RaceSubscriber.prototype._next = function(observable) {
+      this.observables.push(observable);
+    };
+    RaceSubscriber.prototype._complete = function() {
+      var observables = this.observables;
+      var len = observables.length;
+      if (len === 0) {
+        this.destination.complete();
+      } else {
+        for (var i = 0; i < len; i++) {
+          var observable = observables[i];
+          var subscription = subscribeToResult_1.subscribeToResult(this, observable, observable, i);
+          this.subscriptions.push(subscription);
+          this.add(subscription);
+        }
+        this.observables = null;
+      }
+    };
+    RaceSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+      if (!this.hasFirst) {
+        this.hasFirst = true;
+        for (var i = 0; i < this.subscriptions.length; i++) {
+          if (i !== outerIndex) {
+            var subscription = this.subscriptions[i];
+            subscription.unsubscribe();
+            this.remove(subscription);
+          }
+        }
+        this.subscriptions = null;
+      }
+      this.destination.next(innerValue);
+    };
+    return RaceSubscriber;
+  }(OuterSubscriber_1.OuterSubscriber));
+  exports.RaceSubscriber = RaceSubscriber;
+  global.define = __define;
+  return module.exports;
+});
+
 System.register("rxjs/util/noop", [], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
@@ -2159,6 +2115,17 @@ System.register("rxjs/util/noop", [], true, function(require, exports, module) {
   "use strict";
   function noop() {}
   exports.noop = noop;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/of", ["rxjs/observable/ArrayObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
+  exports.of = ArrayObservable_1.ArrayObservable.of;
   global.define = __define;
   return module.exports;
 });
@@ -2180,27 +2147,27 @@ System.register("rxjs/observable/RangeObservable", ["rxjs/Observable"], true, fu
   var Observable_1 = require("rxjs/Observable");
   var RangeObservable = (function(_super) {
     __extends(RangeObservable, _super);
-    function RangeObservable(start, end, scheduler) {
+    function RangeObservable(start, count, scheduler) {
       _super.call(this);
       this.start = start;
-      this.end = end;
+      this._count = count;
       this.scheduler = scheduler;
     }
-    RangeObservable.create = function(start, end, scheduler) {
+    RangeObservable.create = function(start, count, scheduler) {
       if (start === void 0) {
         start = 0;
       }
-      if (end === void 0) {
-        end = 0;
+      if (count === void 0) {
+        count = 0;
       }
-      return new RangeObservable(start, end, scheduler);
+      return new RangeObservable(start, count, scheduler);
     };
     RangeObservable.dispatch = function(state) {
       var start = state.start,
           index = state.index,
-          end = state.end,
+          count = state.count,
           subscriber = state.subscriber;
-      if (index >= end) {
+      if (index >= count) {
         subscriber.complete();
         return ;
       }
@@ -2215,18 +2182,18 @@ System.register("rxjs/observable/RangeObservable", ["rxjs/Observable"], true, fu
     RangeObservable.prototype._subscribe = function(subscriber) {
       var index = 0;
       var start = this.start;
-      var end = this.end;
+      var count = this._count;
       var scheduler = this.scheduler;
       if (scheduler) {
         return scheduler.schedule(RangeObservable.dispatch, 0, {
           index: index,
-          end: end,
+          count: count,
           start: start,
           subscriber: subscriber
         });
       } else {
         do {
-          if (index++ >= end) {
+          if (index++ >= count) {
             subscriber.complete();
             break;
           }
@@ -2269,9 +2236,9 @@ System.register("rxjs/observable/ErrorObservable", ["rxjs/Observable"], true, fu
     ErrorObservable.create = function(error, scheduler) {
       return new ErrorObservable(error, scheduler);
     };
-    ErrorObservable.dispatch = function(_a) {
-      var error = _a.error,
-          subscriber = _a.subscriber;
+    ErrorObservable.dispatch = function(arg) {
+      var error = arg.error,
+          subscriber = arg.subscriber;
       subscriber.error(error);
     };
     ErrorObservable.prototype._subscribe = function(subscriber) {
@@ -2306,7 +2273,7 @@ System.register("rxjs/util/isDate", [], true, function(require, exports, module)
   return module.exports;
 });
 
-System.register("rxjs/operator/zip", ["rxjs/observable/ArrayObservable", "rxjs/util/isArray", "rxjs/Subscriber", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult", "rxjs/util/SymbolShim"], true, function(require, exports, module) {
+System.register("rxjs/operator/zip", ["rxjs/observable/ArrayObservable", "rxjs/util/isArray", "rxjs/Subscriber", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult", "rxjs/symbol/iterator"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -2325,7 +2292,7 @@ System.register("rxjs/operator/zip", ["rxjs/observable/ArrayObservable", "rxjs/u
   var Subscriber_1 = require("rxjs/Subscriber");
   var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
-  var SymbolShim_1 = require("rxjs/util/SymbolShim");
+  var iterator_1 = require("rxjs/symbol/iterator");
   function zipProto() {
     var observables = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -2351,8 +2318,8 @@ System.register("rxjs/operator/zip", ["rxjs/observable/ArrayObservable", "rxjs/u
     function ZipOperator(project) {
       this.project = project;
     }
-    ZipOperator.prototype.call = function(subscriber) {
-      return new ZipSubscriber(subscriber, this.project);
+    ZipOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ZipSubscriber(subscriber, this.project));
     };
     return ZipOperator;
   }());
@@ -2375,8 +2342,8 @@ System.register("rxjs/operator/zip", ["rxjs/observable/ArrayObservable", "rxjs/u
       var index = this.index++;
       if (isArray_1.isArray(value)) {
         iterators.push(new StaticArrayIterator(value));
-      } else if (typeof value[SymbolShim_1.SymbolShim.iterator] === 'function') {
-        iterators.push(new StaticIterator(value[SymbolShim_1.SymbolShim.iterator]()));
+      } else if (typeof value[iterator_1.$$iterator] === 'function') {
+        iterators.push(new StaticIterator(value[iterator_1.$$iterator]()));
       } else {
         iterators.push(new ZipBufferIterator(this.destination, this, value, index));
       }
@@ -2472,7 +2439,7 @@ System.register("rxjs/operator/zip", ["rxjs/observable/ArrayObservable", "rxjs/u
       this.length = 0;
       this.length = array.length;
     }
-    StaticArrayIterator.prototype[SymbolShim_1.SymbolShim.iterator] = function() {
+    StaticArrayIterator.prototype[iterator_1.$$iterator] = function() {
       return this;
     };
     StaticArrayIterator.prototype.next = function(value) {
@@ -2502,7 +2469,7 @@ System.register("rxjs/operator/zip", ["rxjs/observable/ArrayObservable", "rxjs/u
       this.buffer = [];
       this.isComplete = false;
     }
-    ZipBufferIterator.prototype[SymbolShim_1.SymbolShim.iterator] = function() {
+    ZipBufferIterator.prototype[iterator_1.$$iterator] = function() {
       return this;
     };
     ZipBufferIterator.prototype.next = function() {
@@ -2567,8 +2534,8 @@ System.register("rxjs/operator/buffer", ["rxjs/OuterSubscriber", "rxjs/util/subs
     function BufferOperator(closingNotifier) {
       this.closingNotifier = closingNotifier;
     }
-    BufferOperator.prototype.call = function(subscriber) {
-      return new BufferSubscriber(subscriber, this.closingNotifier);
+    BufferOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new BufferSubscriber(subscriber, this.closingNotifier));
     };
     return BufferOperator;
   }());
@@ -2620,8 +2587,8 @@ System.register("rxjs/operator/bufferCount", ["rxjs/Subscriber"], true, function
       this.bufferSize = bufferSize;
       this.startBufferEvery = startBufferEvery;
     }
-    BufferCountOperator.prototype.call = function(subscriber) {
-      return new BufferCountSubscriber(subscriber, this.bufferSize, this.startBufferEvery);
+    BufferCountOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new BufferCountSubscriber(subscriber, this.bufferSize, this.startBufferEvery));
     };
     return BufferCountOperator;
   }());
@@ -2674,7 +2641,7 @@ System.register("rxjs/operator/bufferCount", ["rxjs/Subscriber"], true, function
   return module.exports;
 });
 
-System.register("rxjs/operator/bufferTime", ["rxjs/Subscriber", "rxjs/scheduler/asap"], true, function(require, exports, module) {
+System.register("rxjs/operator/bufferTime", ["rxjs/Subscriber", "rxjs/scheduler/async"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -2689,13 +2656,13 @@ System.register("rxjs/operator/bufferTime", ["rxjs/Subscriber", "rxjs/scheduler/
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Subscriber_1 = require("rxjs/Subscriber");
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   function bufferTime(bufferTimeSpan, bufferCreationInterval, scheduler) {
     if (bufferCreationInterval === void 0) {
       bufferCreationInterval = null;
     }
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     return this.lift(new BufferTimeOperator(bufferTimeSpan, bufferCreationInterval, scheduler));
   }
@@ -2706,8 +2673,8 @@ System.register("rxjs/operator/bufferTime", ["rxjs/Subscriber", "rxjs/scheduler/
       this.bufferCreationInterval = bufferCreationInterval;
       this.scheduler = scheduler;
     }
-    BufferTimeOperator.prototype.call = function(subscriber) {
-      return new BufferTimeSubscriber(subscriber, this.bufferTimeSpan, this.bufferCreationInterval, this.scheduler);
+    BufferTimeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new BufferTimeSubscriber(subscriber, this.bufferTimeSpan, this.bufferCreationInterval, this.scheduler));
     };
     return BufferTimeOperator;
   }());
@@ -2803,16 +2770,16 @@ System.register("rxjs/operator/bufferTime", ["rxjs/Subscriber", "rxjs/scheduler/
       action.schedule(state, bufferCreationInterval);
     }
   }
-  function dispatchBufferClose(_a) {
-    var subscriber = _a.subscriber,
-        buffer = _a.buffer;
+  function dispatchBufferClose(arg) {
+    var subscriber = arg.subscriber,
+        buffer = arg.buffer;
     subscriber.closeBuffer(buffer);
   }
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/operator/bufferToggle", ["rxjs/Subscriber", "rxjs/Subscription", "rxjs/util/tryCatch", "rxjs/util/errorObject"], true, function(require, exports, module) {
+System.register("rxjs/operator/bufferToggle", ["rxjs/Subscription", "rxjs/util/subscribeToResult", "rxjs/OuterSubscriber"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -2826,10 +2793,9 @@ System.register("rxjs/operator/bufferToggle", ["rxjs/Subscriber", "rxjs/Subscrip
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var Subscriber_1 = require("rxjs/Subscriber");
   var Subscription_1 = require("rxjs/Subscription");
-  var tryCatch_1 = require("rxjs/util/tryCatch");
-  var errorObject_1 = require("rxjs/util/errorObject");
+  var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
+  var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   function bufferToggle(openings, closingSelector) {
     return this.lift(new BufferToggleOperator(openings, closingSelector));
   }
@@ -2839,8 +2805,8 @@ System.register("rxjs/operator/bufferToggle", ["rxjs/Subscriber", "rxjs/Subscrip
       this.openings = openings;
       this.closingSelector = closingSelector;
     }
-    BufferToggleOperator.prototype.call = function(subscriber) {
-      return new BufferToggleSubscriber(subscriber, this.openings, this.closingSelector);
+    BufferToggleOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new BufferToggleSubscriber(subscriber, this.openings, this.closingSelector));
     };
     return BufferToggleOperator;
   }());
@@ -2851,7 +2817,7 @@ System.register("rxjs/operator/bufferToggle", ["rxjs/Subscriber", "rxjs/Subscrip
       this.openings = openings;
       this.closingSelector = closingSelector;
       this.contexts = [];
-      this.add(this.openings.subscribe(new BufferToggleOpeningsSubscriber(this)));
+      this.add(subscribeToResult_1.subscribeToResult(this, openings));
     }
     BufferToggleSubscriber.prototype._next = function(value) {
       var contexts = this.contexts;
@@ -2883,71 +2849,54 @@ System.register("rxjs/operator/bufferToggle", ["rxjs/Subscriber", "rxjs/Subscrip
       this.contexts = null;
       _super.prototype._complete.call(this);
     };
+    BufferToggleSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+      outerValue ? this.closeBuffer(outerValue) : this.openBuffer(innerValue);
+    };
+    BufferToggleSubscriber.prototype.notifyComplete = function(innerSub) {
+      this.closeBuffer(innerSub.context);
+    };
     BufferToggleSubscriber.prototype.openBuffer = function(value) {
-      var closingSelector = this.closingSelector;
-      var contexts = this.contexts;
-      var closingNotifier = tryCatch_1.tryCatch(closingSelector)(value);
-      if (closingNotifier === errorObject_1.errorObject) {
-        this._error(errorObject_1.errorObject.e);
-      } else {
-        var context = {
-          buffer: [],
-          subscription: new Subscription_1.Subscription()
-        };
-        contexts.push(context);
-        var subscriber = new BufferToggleClosingsSubscriber(this, context);
-        var subscription = closingNotifier.subscribe(subscriber);
-        context.subscription.add(subscription);
-        this.add(subscription);
+      try {
+        var closingSelector = this.closingSelector;
+        var closingNotifier = closingSelector.call(this, value);
+        if (closingNotifier) {
+          this.trySubscribe(closingNotifier);
+        }
+      } catch (err) {
+        this._error(err);
       }
     };
     BufferToggleSubscriber.prototype.closeBuffer = function(context) {
       var contexts = this.contexts;
-      if (contexts === null) {
-        return ;
+      if (contexts && context) {
+        var buffer = context.buffer,
+            subscription = context.subscription;
+        this.destination.next(buffer);
+        contexts.splice(contexts.indexOf(context), 1);
+        this.remove(subscription);
+        subscription.unsubscribe();
       }
-      var buffer = context.buffer,
-          subscription = context.subscription;
-      this.destination.next(buffer);
-      contexts.splice(contexts.indexOf(context), 1);
-      this.remove(subscription);
-      subscription.unsubscribe();
+    };
+    BufferToggleSubscriber.prototype.trySubscribe = function(closingNotifier) {
+      var contexts = this.contexts;
+      var buffer = [];
+      var subscription = new Subscription_1.Subscription();
+      var context = {
+        buffer: buffer,
+        subscription: subscription
+      };
+      contexts.push(context);
+      var innerSubscription = subscribeToResult_1.subscribeToResult(this, closingNotifier, context);
+      if (!innerSubscription || innerSubscription.isUnsubscribed) {
+        this.closeBuffer(context);
+      } else {
+        innerSubscription.context = context;
+        this.add(innerSubscription);
+        subscription.add(innerSubscription);
+      }
     };
     return BufferToggleSubscriber;
-  }(Subscriber_1.Subscriber));
-  var BufferToggleOpeningsSubscriber = (function(_super) {
-    __extends(BufferToggleOpeningsSubscriber, _super);
-    function BufferToggleOpeningsSubscriber(parent) {
-      _super.call(this, null);
-      this.parent = parent;
-    }
-    BufferToggleOpeningsSubscriber.prototype._next = function(value) {
-      this.parent.openBuffer(value);
-    };
-    BufferToggleOpeningsSubscriber.prototype._error = function(err) {
-      this.parent.error(err);
-    };
-    BufferToggleOpeningsSubscriber.prototype._complete = function() {};
-    return BufferToggleOpeningsSubscriber;
-  }(Subscriber_1.Subscriber));
-  var BufferToggleClosingsSubscriber = (function(_super) {
-    __extends(BufferToggleClosingsSubscriber, _super);
-    function BufferToggleClosingsSubscriber(parent, context) {
-      _super.call(this, null);
-      this.parent = parent;
-      this.context = context;
-    }
-    BufferToggleClosingsSubscriber.prototype._next = function() {
-      this.parent.closeBuffer(this.context);
-    };
-    BufferToggleClosingsSubscriber.prototype._error = function(err) {
-      this.parent.error(err);
-    };
-    BufferToggleClosingsSubscriber.prototype._complete = function() {
-      this.parent.closeBuffer(this.context);
-    };
-    return BufferToggleClosingsSubscriber;
-  }(Subscriber_1.Subscriber));
+  }(OuterSubscriber_1.OuterSubscriber));
   global.define = __define;
   return module.exports;
 });
@@ -2979,8 +2928,8 @@ System.register("rxjs/operator/bufferWhen", ["rxjs/Subscription", "rxjs/util/try
     function BufferWhenOperator(closingSelector) {
       this.closingSelector = closingSelector;
     }
-    BufferWhenOperator.prototype.call = function(subscriber) {
-      return new BufferWhenSubscriber(subscriber, this.closingSelector);
+    BufferWhenOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new BufferWhenSubscriber(subscriber, this.closingSelector));
     };
     return BufferWhenOperator;
   }());
@@ -3220,8 +3169,8 @@ System.register("rxjs/operator/catch", ["rxjs/Subscriber"], true, function(requi
     function CatchOperator(selector) {
       this.selector = selector;
     }
-    CatchOperator.prototype.call = function(subscriber) {
-      return new CatchSubscriber(subscriber, this.selector, this.caught);
+    CatchOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new CatchSubscriber(subscriber, this.selector, this.caught));
     };
     return CatchOperator;
   }());
@@ -3327,6 +3276,10 @@ System.register("rxjs/operator/mergeMap", ["rxjs/util/subscribeToResult", "rxjs/
     if (concurrent === void 0) {
       concurrent = Number.POSITIVE_INFINITY;
     }
+    if (typeof resultSelector === 'number') {
+      concurrent = resultSelector;
+      resultSelector = null;
+    }
     return this.lift(new MergeMapOperator(project, resultSelector, concurrent));
   }
   exports.mergeMap = mergeMap;
@@ -3339,8 +3292,8 @@ System.register("rxjs/operator/mergeMap", ["rxjs/util/subscribeToResult", "rxjs/
       this.resultSelector = resultSelector;
       this.concurrent = concurrent;
     }
-    MergeMapOperator.prototype.call = function(observer) {
-      return new MergeMapSubscriber(observer, this.project, this.resultSelector, this.concurrent);
+    MergeMapOperator.prototype.call = function(observer, source) {
+      return source._subscribe(new MergeMapSubscriber(observer, this.project, this.resultSelector, this.concurrent));
     };
     return MergeMapOperator;
   }());
@@ -3438,11 +3391,15 @@ System.register("rxjs/operator/mergeMapTo", ["rxjs/OuterSubscriber", "rxjs/util/
   };
   var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
-  function mergeMapTo(observable, resultSelector, concurrent) {
+  function mergeMapTo(innerObservable, resultSelector, concurrent) {
     if (concurrent === void 0) {
       concurrent = Number.POSITIVE_INFINITY;
     }
-    return this.lift(new MergeMapToOperator(observable, resultSelector, concurrent));
+    if (typeof resultSelector === 'number') {
+      concurrent = resultSelector;
+      resultSelector = null;
+    }
+    return this.lift(new MergeMapToOperator(innerObservable, resultSelector, concurrent));
   }
   exports.mergeMapTo = mergeMapTo;
   var MergeMapToOperator = (function() {
@@ -3454,8 +3411,8 @@ System.register("rxjs/operator/mergeMapTo", ["rxjs/OuterSubscriber", "rxjs/util/
       this.resultSelector = resultSelector;
       this.concurrent = concurrent;
     }
-    MergeMapToOperator.prototype.call = function(observer) {
-      return new MergeMapToSubscriber(observer, this.ish, this.resultSelector, this.concurrent);
+    MergeMapToOperator.prototype.call = function(observer, source) {
+      return source._subscribe(new MergeMapToSubscriber(observer, this.ish, this.resultSelector, this.concurrent));
     };
     return MergeMapToOperator;
   }());
@@ -3563,8 +3520,8 @@ System.register("rxjs/operator/count", ["rxjs/Subscriber"], true, function(requi
       this.predicate = predicate;
       this.source = source;
     }
-    CountOperator.prototype.call = function(subscriber) {
-      return new CountSubscriber(subscriber, this.predicate, this.source);
+    CountOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new CountSubscriber(subscriber, this.predicate, this.source));
     };
     return CountOperator;
   }());
@@ -3627,8 +3584,8 @@ System.register("rxjs/operator/dematerialize", ["rxjs/Subscriber"], true, functi
   exports.dematerialize = dematerialize;
   var DeMaterializeOperator = (function() {
     function DeMaterializeOperator() {}
-    DeMaterializeOperator.prototype.call = function(subscriber) {
-      return new DeMaterializeSubscriber(subscriber);
+    DeMaterializeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DeMaterializeSubscriber(subscriber));
     };
     return DeMaterializeOperator;
   }());
@@ -3670,8 +3627,8 @@ System.register("rxjs/operator/debounce", ["rxjs/OuterSubscriber", "rxjs/util/su
     function DebounceOperator(durationSelector) {
       this.durationSelector = durationSelector;
     }
-    DebounceOperator.prototype.call = function(subscriber) {
-      return new DebounceSubscriber(subscriber, this.durationSelector);
+    DebounceOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DebounceSubscriber(subscriber, this.durationSelector));
     };
     return DebounceOperator;
   }());
@@ -3736,7 +3693,7 @@ System.register("rxjs/operator/debounce", ["rxjs/OuterSubscriber", "rxjs/util/su
   return module.exports;
 });
 
-System.register("rxjs/operator/debounceTime", ["rxjs/Subscriber", "rxjs/scheduler/asap"], true, function(require, exports, module) {
+System.register("rxjs/operator/debounceTime", ["rxjs/Subscriber", "rxjs/scheduler/async"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -3751,10 +3708,10 @@ System.register("rxjs/operator/debounceTime", ["rxjs/Subscriber", "rxjs/schedule
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Subscriber_1 = require("rxjs/Subscriber");
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   function debounceTime(dueTime, scheduler) {
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     return this.lift(new DebounceTimeOperator(dueTime, scheduler));
   }
@@ -3764,8 +3721,8 @@ System.register("rxjs/operator/debounceTime", ["rxjs/Subscriber", "rxjs/schedule
       this.dueTime = dueTime;
       this.scheduler = scheduler;
     }
-    DebounceTimeOperator.prototype.call = function(subscriber) {
-      return new DebounceTimeSubscriber(subscriber, this.dueTime, this.scheduler);
+    DebounceTimeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DebounceTimeSubscriber(subscriber, this.dueTime, this.scheduler));
     };
     return DebounceTimeOperator;
   }());
@@ -3840,8 +3797,8 @@ System.register("rxjs/operator/defaultIfEmpty", ["rxjs/Subscriber"], true, funct
     function DefaultIfEmptyOperator(defaultValue) {
       this.defaultValue = defaultValue;
     }
-    DefaultIfEmptyOperator.prototype.call = function(subscriber) {
-      return new DefaultIfEmptySubscriber(subscriber, this.defaultValue);
+    DefaultIfEmptyOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DefaultIfEmptySubscriber(subscriber, this.defaultValue));
     };
     return DefaultIfEmptyOperator;
   }());
@@ -3868,7 +3825,7 @@ System.register("rxjs/operator/defaultIfEmpty", ["rxjs/Subscriber"], true, funct
   return module.exports;
 });
 
-System.register("rxjs/operator/delay", ["rxjs/scheduler/asap", "rxjs/util/isDate", "rxjs/Subscriber", "rxjs/Notification"], true, function(require, exports, module) {
+System.register("rxjs/operator/delay", ["rxjs/scheduler/async", "rxjs/util/isDate", "rxjs/Subscriber", "rxjs/Notification"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -3882,13 +3839,13 @@ System.register("rxjs/operator/delay", ["rxjs/scheduler/asap", "rxjs/util/isDate
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   var isDate_1 = require("rxjs/util/isDate");
   var Subscriber_1 = require("rxjs/Subscriber");
   var Notification_1 = require("rxjs/Notification");
   function delay(delay, scheduler) {
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     var absoluteDelay = isDate_1.isDate(delay);
     var delayFor = absoluteDelay ? (+delay - scheduler.now()) : Math.abs(delay);
@@ -3900,8 +3857,8 @@ System.register("rxjs/operator/delay", ["rxjs/scheduler/asap", "rxjs/util/isDate
       this.delay = delay;
       this.scheduler = scheduler;
     }
-    DelayOperator.prototype.call = function(subscriber) {
-      return new DelaySubscriber(subscriber, this.delay, this.scheduler);
+    DelayOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DelaySubscriber(subscriber, this.delay, this.scheduler));
     };
     return DelayOperator;
   }());
@@ -4002,8 +3959,8 @@ System.register("rxjs/operator/delayWhen", ["rxjs/Subscriber", "rxjs/Observable"
     function DelayWhenOperator(delayDurationSelector) {
       this.delayDurationSelector = delayDurationSelector;
     }
-    DelayWhenOperator.prototype.call = function(subscriber) {
-      return new DelayWhenSubscriber(subscriber, this.delayDurationSelector);
+    DelayWhenOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DelayWhenSubscriber(subscriber, this.delayDurationSelector));
     };
     return DelayWhenOperator;
   }());
@@ -4138,8 +4095,8 @@ System.register("rxjs/operator/distinctUntilChanged", ["rxjs/Subscriber", "rxjs/
       this.compare = compare;
       this.keySelector = keySelector;
     }
-    DistinctUntilChangedOperator.prototype.call = function(subscriber) {
-      return new DistinctUntilChangedSubscriber(subscriber, this.compare, this.keySelector);
+    DistinctUntilChangedOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DistinctUntilChangedSubscriber(subscriber, this.compare, this.keySelector));
     };
     return DistinctUntilChangedOperator;
   }());
@@ -4185,7 +4142,7 @@ System.register("rxjs/operator/distinctUntilChanged", ["rxjs/Subscriber", "rxjs/
   return module.exports;
 });
 
-System.register("rxjs/operator/do", ["rxjs/Subscriber", "rxjs/util/noop"], true, function(require, exports, module) {
+System.register("rxjs/operator/do", ["rxjs/Subscriber"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -4200,64 +4157,56 @@ System.register("rxjs/operator/do", ["rxjs/Subscriber", "rxjs/util/noop"], true,
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Subscriber_1 = require("rxjs/Subscriber");
-  var noop_1 = require("rxjs/util/noop");
   function _do(nextOrObserver, error, complete) {
-    var next;
-    if (nextOrObserver && typeof nextOrObserver === 'object') {
-      next = nextOrObserver.next;
-      error = nextOrObserver.error;
-      complete = nextOrObserver.complete;
-    } else {
-      next = nextOrObserver;
-    }
-    return this.lift(new DoOperator(next || noop_1.noop, error || noop_1.noop, complete || noop_1.noop));
+    return this.lift(new DoOperator(nextOrObserver, error, complete));
   }
   exports._do = _do;
   var DoOperator = (function() {
-    function DoOperator(next, error, complete) {
-      this.next = next;
+    function DoOperator(nextOrObserver, error, complete) {
+      this.nextOrObserver = nextOrObserver;
       this.error = error;
       this.complete = complete;
     }
-    DoOperator.prototype.call = function(subscriber) {
-      return new DoSubscriber(subscriber, this.next, this.error, this.complete);
+    DoOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new DoSubscriber(subscriber, this.nextOrObserver, this.error, this.complete));
     };
     return DoOperator;
   }());
   var DoSubscriber = (function(_super) {
     __extends(DoSubscriber, _super);
-    function DoSubscriber(destination, next, error, complete) {
+    function DoSubscriber(destination, nextOrObserver, error, complete) {
       _super.call(this, destination);
-      this.__next = next;
-      this.__error = error;
-      this.__complete = complete;
+      var safeSubscriber = new Subscriber_1.Subscriber(nextOrObserver, error, complete);
+      safeSubscriber.syncErrorThrowable = true;
+      this.add(safeSubscriber);
+      this.safeSubscriber = safeSubscriber;
     }
     DoSubscriber.prototype._next = function(value) {
-      try {
-        this.__next(value);
-      } catch (err) {
-        this.destination.error(err);
-        return ;
+      var safeSubscriber = this.safeSubscriber;
+      safeSubscriber.next(value);
+      if (safeSubscriber.syncErrorThrown) {
+        this.destination.error(safeSubscriber.syncErrorValue);
+      } else {
+        this.destination.next(value);
       }
-      this.destination.next(value);
     };
     DoSubscriber.prototype._error = function(err) {
-      try {
-        this.__error(err);
-      } catch (err) {
+      var safeSubscriber = this.safeSubscriber;
+      safeSubscriber.error(err);
+      if (safeSubscriber.syncErrorThrown) {
+        this.destination.error(safeSubscriber.syncErrorValue);
+      } else {
         this.destination.error(err);
-        return ;
       }
-      this.destination.error(err);
     };
     DoSubscriber.prototype._complete = function() {
-      try {
-        this.__complete();
-      } catch (err) {
-        this.destination.error(err);
-        return ;
+      var safeSubscriber = this.safeSubscriber;
+      safeSubscriber.complete();
+      if (safeSubscriber.syncErrorThrown) {
+        this.destination.error(safeSubscriber.syncErrorValue);
+      } else {
+        this.destination.complete();
       }
-      this.destination.complete();
     };
     return DoSubscriber;
   }(Subscriber_1.Subscriber));
@@ -4300,8 +4249,8 @@ System.register("rxjs/operator/expand", ["rxjs/util/tryCatch", "rxjs/util/errorO
       this.concurrent = concurrent;
       this.scheduler = scheduler;
     }
-    ExpandOperator.prototype.call = function(subscriber) {
-      return new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler);
+    ExpandOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler));
     };
     return ExpandOperator;
   }());
@@ -4320,11 +4269,11 @@ System.register("rxjs/operator/expand", ["rxjs/util/tryCatch", "rxjs/util/errorO
         this.buffer = [];
       }
     }
-    ExpandSubscriber.dispatch = function(_a) {
-      var subscriber = _a.subscriber,
-          result = _a.result,
-          value = _a.value,
-          index = _a.index;
+    ExpandSubscriber.dispatch = function(arg) {
+      var subscriber = arg.subscriber,
+          result = arg.result,
+          value = arg.value,
+          index = arg.index;
       subscriber.subscribeToProjection(result, value, index);
     };
     ExpandSubscriber.prototype._next = function(value) {
@@ -4400,33 +4349,33 @@ System.register("rxjs/operator/filter", ["rxjs/Subscriber"], true, function(requ
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Subscriber_1 = require("rxjs/Subscriber");
-  function filter(select, thisArg) {
-    return this.lift(new FilterOperator(select, thisArg));
+  function filter(predicate, thisArg) {
+    return this.lift(new FilterOperator(predicate, thisArg));
   }
   exports.filter = filter;
   var FilterOperator = (function() {
-    function FilterOperator(select, thisArg) {
-      this.select = select;
+    function FilterOperator(predicate, thisArg) {
+      this.predicate = predicate;
       this.thisArg = thisArg;
     }
-    FilterOperator.prototype.call = function(subscriber) {
-      return new FilterSubscriber(subscriber, this.select, this.thisArg);
+    FilterOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
     };
     return FilterOperator;
   }());
   var FilterSubscriber = (function(_super) {
     __extends(FilterSubscriber, _super);
-    function FilterSubscriber(destination, select, thisArg) {
+    function FilterSubscriber(destination, predicate, thisArg) {
       _super.call(this, destination);
-      this.select = select;
+      this.predicate = predicate;
       this.thisArg = thisArg;
       this.count = 0;
-      this.select = select;
+      this.predicate = predicate;
     }
     FilterSubscriber.prototype._next = function(value) {
       var result;
       try {
-        result = this.select.call(this.thisArg, value, this.count++);
+        result = this.predicate.call(this.thisArg, value, this.count++);
       } catch (err) {
         this.destination.error(err);
         return ;
@@ -4465,8 +4414,8 @@ System.register("rxjs/operator/finally", ["rxjs/Subscriber", "rxjs/Subscription"
     function FinallyOperator(finallySelector) {
       this.finallySelector = finallySelector;
     }
-    FinallyOperator.prototype.call = function(subscriber) {
-      return new FinallySubscriber(subscriber, this.finallySelector);
+    FinallyOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new FinallySubscriber(subscriber, this.finallySelector));
     };
     return FinallyOperator;
   }());
@@ -4505,24 +4454,6 @@ System.register("rxjs/util/EmptyError", [], true, function(require, exports, mod
     return EmptyError;
   }(Error));
   exports.EmptyError = EmptyError;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/Operator", ["rxjs/Subscriber"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var Subscriber_1 = require("rxjs/Subscriber");
-  var Operator = (function() {
-    function Operator() {}
-    Operator.prototype.call = function(subscriber) {
-      return new Subscriber_1.Subscriber(subscriber);
-    };
-    return Operator;
-  }());
-  exports.Operator = Operator;
   global.define = __define;
   return module.exports;
 });
@@ -4641,8 +4572,8 @@ System.register("rxjs/operator/ignoreElements", ["rxjs/Subscriber", "rxjs/util/n
   ;
   var IgnoreElementsOperator = (function() {
     function IgnoreElementsOperator() {}
-    IgnoreElementsOperator.prototype.call = function(subscriber) {
-      return new IgnoreElementsSubscriber(subscriber);
+    IgnoreElementsOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new IgnoreElementsSubscriber(subscriber));
     };
     return IgnoreElementsOperator;
   }());
@@ -4660,7 +4591,7 @@ System.register("rxjs/operator/ignoreElements", ["rxjs/Subscriber", "rxjs/util/n
   return module.exports;
 });
 
-System.register("rxjs/operator/inspect", ["rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
+System.register("rxjs/operator/audit", ["rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -4678,27 +4609,27 @@ System.register("rxjs/operator/inspect", ["rxjs/util/tryCatch", "rxjs/util/error
   var errorObject_1 = require("rxjs/util/errorObject");
   var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
-  function inspect(durationSelector) {
-    return this.lift(new InspectOperator(durationSelector));
+  function audit(durationSelector) {
+    return this.lift(new AuditOperator(durationSelector));
   }
-  exports.inspect = inspect;
-  var InspectOperator = (function() {
-    function InspectOperator(durationSelector) {
+  exports.audit = audit;
+  var AuditOperator = (function() {
+    function AuditOperator(durationSelector) {
       this.durationSelector = durationSelector;
     }
-    InspectOperator.prototype.call = function(subscriber) {
-      return new InspectSubscriber(subscriber, this.durationSelector);
+    AuditOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new AuditSubscriber(subscriber, this.durationSelector));
     };
-    return InspectOperator;
+    return AuditOperator;
   }());
-  var InspectSubscriber = (function(_super) {
-    __extends(InspectSubscriber, _super);
-    function InspectSubscriber(destination, durationSelector) {
+  var AuditSubscriber = (function(_super) {
+    __extends(AuditSubscriber, _super);
+    function AuditSubscriber(destination, durationSelector) {
       _super.call(this, destination);
       this.durationSelector = durationSelector;
       this.hasValue = false;
     }
-    InspectSubscriber.prototype._next = function(value) {
+    AuditSubscriber.prototype._next = function(value) {
       this.value = value;
       this.hasValue = true;
       if (!this.throttled) {
@@ -4710,7 +4641,7 @@ System.register("rxjs/operator/inspect", ["rxjs/util/tryCatch", "rxjs/util/error
         }
       }
     };
-    InspectSubscriber.prototype.clearThrottle = function() {
+    AuditSubscriber.prototype.clearThrottle = function() {
       var _a = this,
           value = _a.value,
           hasValue = _a.hasValue,
@@ -4726,19 +4657,19 @@ System.register("rxjs/operator/inspect", ["rxjs/util/tryCatch", "rxjs/util/error
         this.destination.next(value);
       }
     };
-    InspectSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex) {
+    AuditSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex) {
       this.clearThrottle();
     };
-    InspectSubscriber.prototype.notifyComplete = function() {
+    AuditSubscriber.prototype.notifyComplete = function() {
       this.clearThrottle();
     };
-    return InspectSubscriber;
+    return AuditSubscriber;
   }(OuterSubscriber_1.OuterSubscriber));
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/operator/inspectTime", ["rxjs/scheduler/asap", "rxjs/Subscriber"], true, function(require, exports, module) {
+System.register("rxjs/operator/auditTime", ["rxjs/scheduler/async", "rxjs/Subscriber"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -4752,41 +4683,41 @@ System.register("rxjs/operator/inspectTime", ["rxjs/scheduler/asap", "rxjs/Subsc
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   var Subscriber_1 = require("rxjs/Subscriber");
-  function inspectTime(delay, scheduler) {
+  function auditTime(delay, scheduler) {
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
-    return this.lift(new InspectTimeOperator(delay, scheduler));
+    return this.lift(new AuditTimeOperator(delay, scheduler));
   }
-  exports.inspectTime = inspectTime;
-  var InspectTimeOperator = (function() {
-    function InspectTimeOperator(delay, scheduler) {
+  exports.auditTime = auditTime;
+  var AuditTimeOperator = (function() {
+    function AuditTimeOperator(delay, scheduler) {
       this.delay = delay;
       this.scheduler = scheduler;
     }
-    InspectTimeOperator.prototype.call = function(subscriber) {
-      return new InspectTimeSubscriber(subscriber, this.delay, this.scheduler);
+    AuditTimeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new AuditTimeSubscriber(subscriber, this.delay, this.scheduler));
     };
-    return InspectTimeOperator;
+    return AuditTimeOperator;
   }());
-  var InspectTimeSubscriber = (function(_super) {
-    __extends(InspectTimeSubscriber, _super);
-    function InspectTimeSubscriber(destination, delay, scheduler) {
+  var AuditTimeSubscriber = (function(_super) {
+    __extends(AuditTimeSubscriber, _super);
+    function AuditTimeSubscriber(destination, delay, scheduler) {
       _super.call(this, destination);
       this.delay = delay;
       this.scheduler = scheduler;
       this.hasValue = false;
     }
-    InspectTimeSubscriber.prototype._next = function(value) {
+    AuditTimeSubscriber.prototype._next = function(value) {
       this.value = value;
       this.hasValue = true;
       if (!this.throttled) {
         this.add(this.throttled = this.scheduler.schedule(dispatchNext, this.delay, this));
       }
     };
-    InspectTimeSubscriber.prototype.clearThrottle = function() {
+    AuditTimeSubscriber.prototype.clearThrottle = function() {
       var _a = this,
           value = _a.value,
           hasValue = _a.hasValue,
@@ -4802,77 +4733,11 @@ System.register("rxjs/operator/inspectTime", ["rxjs/scheduler/asap", "rxjs/Subsc
         this.destination.next(value);
       }
     };
-    return InspectTimeSubscriber;
+    return AuditTimeSubscriber;
   }(Subscriber_1.Subscriber));
   function dispatchNext(subscriber) {
     subscriber.clearThrottle();
   }
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/operator/every", ["rxjs/Subscriber"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Subscriber_1 = require("rxjs/Subscriber");
-  function every(predicate, thisArg) {
-    var source = this;
-    return source.lift(new EveryOperator(predicate, thisArg, source));
-  }
-  exports.every = every;
-  var EveryOperator = (function() {
-    function EveryOperator(predicate, thisArg, source) {
-      this.predicate = predicate;
-      this.thisArg = thisArg;
-      this.source = source;
-    }
-    EveryOperator.prototype.call = function(observer) {
-      return new EverySubscriber(observer, this.predicate, this.thisArg, this.source);
-    };
-    return EveryOperator;
-  }());
-  var EverySubscriber = (function(_super) {
-    __extends(EverySubscriber, _super);
-    function EverySubscriber(destination, predicate, thisArg, source) {
-      _super.call(this, destination);
-      this.predicate = predicate;
-      this.thisArg = thisArg;
-      this.source = source;
-      this.index = 0;
-      this.thisArg = thisArg || this;
-    }
-    EverySubscriber.prototype.notifyComplete = function(everyValueMatch) {
-      this.destination.next(everyValueMatch);
-      this.destination.complete();
-    };
-    EverySubscriber.prototype._next = function(value) {
-      var result = false;
-      try {
-        result = this.predicate.call(this.thisArg, value, this.index++, this.source);
-      } catch (err) {
-        this.destination.error(err);
-        return ;
-      }
-      if (!result) {
-        this.notifyComplete(false);
-      }
-    };
-    EverySubscriber.prototype._complete = function() {
-      this.notifyComplete(true);
-    };
-    return EverySubscriber;
-  }(Subscriber_1.Subscriber));
   global.define = __define;
   return module.exports;
 });
@@ -4904,8 +4769,8 @@ System.register("rxjs/operator/last", ["rxjs/Subscriber", "rxjs/util/EmptyError"
       this.defaultValue = defaultValue;
       this.source = source;
     }
-    LastOperator.prototype.call = function(observer) {
-      return new LastSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source);
+    LastOperator.prototype.call = function(observer, source) {
+      return source._subscribe(new LastSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
     };
     return LastOperator;
   }());
@@ -4993,6 +4858,72 @@ System.register("rxjs/operator/let", [], true, function(require, exports, module
   return module.exports;
 });
 
+System.register("rxjs/operator/every", ["rxjs/Subscriber"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var Subscriber_1 = require("rxjs/Subscriber");
+  function every(predicate, thisArg) {
+    var source = this;
+    return source.lift(new EveryOperator(predicate, thisArg, source));
+  }
+  exports.every = every;
+  var EveryOperator = (function() {
+    function EveryOperator(predicate, thisArg, source) {
+      this.predicate = predicate;
+      this.thisArg = thisArg;
+      this.source = source;
+    }
+    EveryOperator.prototype.call = function(observer, source) {
+      return source._subscribe(new EverySubscriber(observer, this.predicate, this.thisArg, this.source));
+    };
+    return EveryOperator;
+  }());
+  var EverySubscriber = (function(_super) {
+    __extends(EverySubscriber, _super);
+    function EverySubscriber(destination, predicate, thisArg, source) {
+      _super.call(this, destination);
+      this.predicate = predicate;
+      this.thisArg = thisArg;
+      this.source = source;
+      this.index = 0;
+      this.thisArg = thisArg || this;
+    }
+    EverySubscriber.prototype.notifyComplete = function(everyValueMatch) {
+      this.destination.next(everyValueMatch);
+      this.destination.complete();
+    };
+    EverySubscriber.prototype._next = function(value) {
+      var result = false;
+      try {
+        result = this.predicate.call(this.thisArg, value, this.index++, this.source);
+      } catch (err) {
+        this.destination.error(err);
+        return ;
+      }
+      if (!result) {
+        this.notifyComplete(false);
+      }
+    };
+    EverySubscriber.prototype._complete = function() {
+      this.notifyComplete(true);
+    };
+    return EverySubscriber;
+  }(Subscriber_1.Subscriber));
+  global.define = __define;
+  return module.exports;
+});
+
 System.register("rxjs/operator/map", ["rxjs/Subscriber"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
@@ -5020,8 +4951,8 @@ System.register("rxjs/operator/map", ["rxjs/Subscriber"], true, function(require
       this.project = project;
       this.thisArg = thisArg;
     }
-    MapOperator.prototype.call = function(subscriber) {
-      return new MapSubscriber(subscriber, this.project, this.thisArg);
+    MapOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
     };
     return MapOperator;
   }());
@@ -5072,8 +5003,8 @@ System.register("rxjs/operator/mapTo", ["rxjs/Subscriber"], true, function(requi
     function MapToOperator(value) {
       this.value = value;
     }
-    MapToOperator.prototype.call = function(subscriber) {
-      return new MapToSubscriber(subscriber, this.value);
+    MapToOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new MapToSubscriber(subscriber, this.value));
     };
     return MapToOperator;
   }());
@@ -5114,8 +5045,8 @@ System.register("rxjs/operator/materialize", ["rxjs/Subscriber", "rxjs/Notificat
   exports.materialize = materialize;
   var MaterializeOperator = (function() {
     function MaterializeOperator() {}
-    MaterializeOperator.prototype.call = function(subscriber) {
-      return new MaterializeSubscriber(subscriber);
+    MaterializeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new MaterializeSubscriber(subscriber));
     };
     return MaterializeOperator;
   }());
@@ -5187,6 +5118,7 @@ System.register("rxjs/add/operator/mergeMapTo", ["rxjs/Observable", "rxjs/operat
   "use strict";
   var Observable_1 = require("rxjs/Observable");
   var mergeMapTo_1 = require("rxjs/operator/mergeMapTo");
+  Observable_1.Observable.prototype.flatMapTo = mergeMapTo_1.mergeMapTo;
   Observable_1.Observable.prototype.mergeMapTo = mergeMapTo_1.mergeMapTo;
   global.define = __define;
   return module.exports;
@@ -5286,7 +5218,7 @@ System.register("rxjs/operator/publish", ["rxjs/Subject", "rxjs/operator/multica
   return module.exports;
 });
 
-System.register("rxjs/subject/BehaviorSubject", ["rxjs/Subject", "rxjs/util/throwError", "rxjs/util/ObjectUnsubscribedError"], true, function(require, exports, module) {
+System.register("rxjs/BehaviorSubject", ["rxjs/Subject", "rxjs/util/throwError", "rxjs/util/ObjectUnsubscribedError"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -5358,12 +5290,12 @@ System.register("rxjs/add/operator/publishReplay", ["rxjs/Observable", "rxjs/ope
   return module.exports;
 });
 
-System.register("rxjs/operator/publishLast", ["rxjs/subject/AsyncSubject", "rxjs/operator/multicast"], true, function(require, exports, module) {
+System.register("rxjs/operator/publishLast", ["rxjs/AsyncSubject", "rxjs/operator/multicast"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var AsyncSubject_1 = require("rxjs/subject/AsyncSubject");
+  var AsyncSubject_1 = require("rxjs/AsyncSubject");
   var multicast_1 = require("rxjs/operator/multicast");
   function publishLast() {
     return multicast_1.multicast.call(this, new AsyncSubject_1.AsyncSubject());
@@ -5409,8 +5341,8 @@ System.register("rxjs/operator/reduce", ["rxjs/Subscriber"], true, function(requ
       this.project = project;
       this.seed = seed;
     }
-    ReduceOperator.prototype.call = function(subscriber) {
-      return new ReduceSubscriber(subscriber, this.project, this.seed);
+    ReduceOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ReduceSubscriber(subscriber, this.project, this.seed));
     };
     return ReduceOperator;
   }());
@@ -5489,8 +5421,8 @@ System.register("rxjs/operator/repeat", ["rxjs/Subscriber", "rxjs/observable/Emp
       this.count = count;
       this.source = source;
     }
-    RepeatOperator.prototype.call = function(subscriber) {
-      return new RepeatSubscriber(subscriber, this.count, this.source);
+    RepeatOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new RepeatSubscriber(subscriber, this.count, this.source));
     };
     return RepeatOperator;
   }());
@@ -5550,8 +5482,8 @@ System.register("rxjs/operator/retry", ["rxjs/Subscriber"], true, function(requi
       this.count = count;
       this.source = source;
     }
-    RetryOperator.prototype.call = function(subscriber) {
-      return new RetrySubscriber(subscriber, this.count, this.source);
+    RetryOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new RetrySubscriber(subscriber, this.count, this.source));
     };
     return RetryOperator;
   }());
@@ -5612,8 +5544,8 @@ System.register("rxjs/operator/retryWhen", ["rxjs/Subject", "rxjs/util/tryCatch"
       this.notifier = notifier;
       this.source = source;
     }
-    RetryWhenOperator.prototype.call = function(subscriber) {
-      return new RetryWhenSubscriber(subscriber, this.notifier, this.source);
+    RetryWhenOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new RetryWhenSubscriber(subscriber, this.notifier, this.source));
     };
     return RetryWhenOperator;
   }());
@@ -5708,8 +5640,8 @@ System.register("rxjs/operator/sample", ["rxjs/OuterSubscriber", "rxjs/util/subs
     function SampleOperator(notifier) {
       this.notifier = notifier;
     }
-    SampleOperator.prototype.call = function(subscriber) {
-      return new SampleSubscriber(subscriber, this.notifier);
+    SampleOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SampleSubscriber(subscriber, this.notifier));
     };
     return SampleOperator;
   }());
@@ -5742,7 +5674,7 @@ System.register("rxjs/operator/sample", ["rxjs/OuterSubscriber", "rxjs/util/subs
   return module.exports;
 });
 
-System.register("rxjs/operator/sampleTime", ["rxjs/Subscriber", "rxjs/scheduler/asap"], true, function(require, exports, module) {
+System.register("rxjs/operator/sampleTime", ["rxjs/Subscriber", "rxjs/scheduler/async"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -5757,10 +5689,10 @@ System.register("rxjs/operator/sampleTime", ["rxjs/Subscriber", "rxjs/scheduler/
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Subscriber_1 = require("rxjs/Subscriber");
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   function sampleTime(delay, scheduler) {
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     return this.lift(new SampleTimeOperator(delay, scheduler));
   }
@@ -5770,8 +5702,8 @@ System.register("rxjs/operator/sampleTime", ["rxjs/Subscriber", "rxjs/scheduler/
       this.delay = delay;
       this.scheduler = scheduler;
     }
-    SampleTimeOperator.prototype.call = function(subscriber) {
-      return new SampleTimeSubscriber(subscriber, this.delay, this.scheduler);
+    SampleTimeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SampleTimeSubscriber(subscriber, this.delay, this.scheduler));
     };
     return SampleTimeOperator;
   }());
@@ -5833,8 +5765,8 @@ System.register("rxjs/operator/scan", ["rxjs/Subscriber"], true, function(requir
       this.accumulator = accumulator;
       this.seed = seed;
     }
-    ScanOperator.prototype.call = function(subscriber) {
-      return new ScanSubscriber(subscriber, this.accumulator, this.seed);
+    ScanOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ScanSubscriber(subscriber, this.accumulator, this.seed));
     };
     return ScanOperator;
   }());
@@ -5927,8 +5859,8 @@ System.register("rxjs/operator/single", ["rxjs/Subscriber", "rxjs/util/EmptyErro
       this.predicate = predicate;
       this.source = source;
     }
-    SingleOperator.prototype.call = function(subscriber) {
-      return new SingleSubscriber(subscriber, this.predicate, this.source);
+    SingleOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SingleSubscriber(subscriber, this.predicate, this.source));
     };
     return SingleOperator;
   }());
@@ -6006,8 +5938,8 @@ System.register("rxjs/operator/skip", ["rxjs/Subscriber"], true, function(requir
     function SkipOperator(total) {
       this.total = total;
     }
-    SkipOperator.prototype.call = function(subscriber) {
-      return new SkipSubscriber(subscriber, this.total);
+    SkipOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SkipSubscriber(subscriber, this.total));
     };
     return SkipOperator;
   }());
@@ -6053,8 +5985,8 @@ System.register("rxjs/operator/skipUntil", ["rxjs/OuterSubscriber", "rxjs/util/s
     function SkipUntilOperator(notifier) {
       this.notifier = notifier;
     }
-    SkipUntilOperator.prototype.call = function(subscriber) {
-      return new SkipUntilSubscriber(subscriber, this.notifier);
+    SkipUntilOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SkipUntilSubscriber(subscriber, this.notifier));
     };
     return SkipUntilOperator;
   }());
@@ -6116,8 +6048,8 @@ System.register("rxjs/operator/skipWhile", ["rxjs/Subscriber"], true, function(r
     function SkipWhileOperator(predicate) {
       this.predicate = predicate;
     }
-    SkipWhileOperator.prototype.call = function(subscriber) {
-      return new SkipWhileSubscriber(subscriber, this.predicate);
+    SkipWhileOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SkipWhileSubscriber(subscriber, this.predicate));
     };
     return SkipWhileOperator;
   }());
@@ -6187,69 +6119,192 @@ System.register("rxjs/operator/startWith", ["rxjs/observable/ArrayObservable", "
   return module.exports;
 });
 
-System.register("rxjs/observable/SubscribeOnObservable", ["rxjs/Observable", "rxjs/scheduler/asap", "rxjs/util/isNumeric"], true, function(require, exports, module) {
+System.register("rxjs/util/Immediate", ["rxjs/util/root"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Observable_1 = require("rxjs/Observable");
-  var asap_1 = require("rxjs/scheduler/asap");
-  var isNumeric_1 = require("rxjs/util/isNumeric");
-  var SubscribeOnObservable = (function(_super) {
-    __extends(SubscribeOnObservable, _super);
-    function SubscribeOnObservable(source, delayTime, scheduler) {
-      if (delayTime === void 0) {
-        delayTime = 0;
-      }
-      if (scheduler === void 0) {
-        scheduler = asap_1.asap;
-      }
-      _super.call(this);
-      this.source = source;
-      this.delayTime = delayTime;
-      this.scheduler = scheduler;
-      if (!isNumeric_1.isNumeric(delayTime) || delayTime < 0) {
-        this.delayTime = 0;
-      }
-      if (!scheduler || typeof scheduler.schedule !== 'function') {
-        this.scheduler = asap_1.asap;
+  var root_1 = require("rxjs/util/root");
+  var ImmediateDefinition = (function() {
+    function ImmediateDefinition(root) {
+      this.root = root;
+      if (root.setImmediate && typeof root.setImmediate === 'function') {
+        this.setImmediate = root.setImmediate.bind(root);
+        this.clearImmediate = root.clearImmediate.bind(root);
+      } else {
+        this.nextHandle = 1;
+        this.tasksByHandle = {};
+        this.currentlyRunningATask = false;
+        if (this.canUseProcessNextTick()) {
+          this.setImmediate = this.createProcessNextTickSetImmediate();
+        } else if (this.canUsePostMessage()) {
+          this.setImmediate = this.createPostMessageSetImmediate();
+        } else if (this.canUseMessageChannel()) {
+          this.setImmediate = this.createMessageChannelSetImmediate();
+        } else if (this.canUseReadyStateChange()) {
+          this.setImmediate = this.createReadyStateChangeSetImmediate();
+        } else {
+          this.setImmediate = this.createSetTimeoutSetImmediate();
+        }
+        var ci = function clearImmediate(handle) {
+          delete clearImmediate.instance.tasksByHandle[handle];
+        };
+        ci.instance = this;
+        this.clearImmediate = ci;
       }
     }
-    SubscribeOnObservable.create = function(source, delay, scheduler) {
-      if (delay === void 0) {
-        delay = 0;
+    ImmediateDefinition.prototype.identify = function(o) {
+      return this.root.Object.prototype.toString.call(o);
+    };
+    ImmediateDefinition.prototype.canUseProcessNextTick = function() {
+      return this.identify(this.root.process) === '[object process]';
+    };
+    ImmediateDefinition.prototype.canUseMessageChannel = function() {
+      return Boolean(this.root.MessageChannel);
+    };
+    ImmediateDefinition.prototype.canUseReadyStateChange = function() {
+      var document = this.root.document;
+      return Boolean(document && 'onreadystatechange' in document.createElement('script'));
+    };
+    ImmediateDefinition.prototype.canUsePostMessage = function() {
+      var root = this.root;
+      if (root.postMessage && !root.importScripts) {
+        var postMessageIsAsynchronous_1 = true;
+        var oldOnMessage = root.onmessage;
+        root.onmessage = function() {
+          postMessageIsAsynchronous_1 = false;
+        };
+        root.postMessage('', '*');
+        root.onmessage = oldOnMessage;
+        return postMessageIsAsynchronous_1;
       }
-      if (scheduler === void 0) {
-        scheduler = asap_1.asap;
+      return false;
+    };
+    ImmediateDefinition.prototype.partiallyApplied = function(handler) {
+      var args = [];
+      for (var _i = 1; _i < arguments.length; _i++) {
+        args[_i - 1] = arguments[_i];
       }
-      return new SubscribeOnObservable(source, delay, scheduler);
+      var fn = function result() {
+        var _a = result,
+            handler = _a.handler,
+            args = _a.args;
+        if (typeof handler === 'function') {
+          handler.apply(undefined, args);
+        } else {
+          (new Function('' + handler))();
+        }
+      };
+      fn.handler = handler;
+      fn.args = args;
+      return fn;
     };
-    SubscribeOnObservable.dispatch = function(_a) {
-      var source = _a.source,
-          subscriber = _a.subscriber;
-      return source.subscribe(subscriber);
+    ImmediateDefinition.prototype.addFromSetImmediateArguments = function(args) {
+      this.tasksByHandle[this.nextHandle] = this.partiallyApplied.apply(undefined, args);
+      return this.nextHandle++;
     };
-    SubscribeOnObservable.prototype._subscribe = function(subscriber) {
-      var delay = this.delayTime;
-      var source = this.source;
-      var scheduler = this.scheduler;
-      return scheduler.schedule(SubscribeOnObservable.dispatch, delay, {
-        source: source,
-        subscriber: subscriber
-      });
+    ImmediateDefinition.prototype.createProcessNextTickSetImmediate = function() {
+      var fn = function setImmediate() {
+        var instance = setImmediate.instance;
+        var handle = instance.addFromSetImmediateArguments(arguments);
+        instance.root.process.nextTick(instance.partiallyApplied(instance.runIfPresent, handle));
+        return handle;
+      };
+      fn.instance = this;
+      return fn;
     };
-    return SubscribeOnObservable;
-  }(Observable_1.Observable));
-  exports.SubscribeOnObservable = SubscribeOnObservable;
+    ImmediateDefinition.prototype.createPostMessageSetImmediate = function() {
+      var root = this.root;
+      var messagePrefix = 'setImmediate$' + root.Math.random() + '$';
+      var onGlobalMessage = function globalMessageHandler(event) {
+        var instance = globalMessageHandler.instance;
+        if (event.source === root && typeof event.data === 'string' && event.data.indexOf(messagePrefix) === 0) {
+          instance.runIfPresent(+event.data.slice(messagePrefix.length));
+        }
+      };
+      onGlobalMessage.instance = this;
+      root.addEventListener('message', onGlobalMessage, false);
+      var fn = function setImmediate() {
+        var _a = setImmediate,
+            messagePrefix = _a.messagePrefix,
+            instance = _a.instance;
+        var handle = instance.addFromSetImmediateArguments(arguments);
+        instance.root.postMessage(messagePrefix + handle, '*');
+        return handle;
+      };
+      fn.instance = this;
+      fn.messagePrefix = messagePrefix;
+      return fn;
+    };
+    ImmediateDefinition.prototype.runIfPresent = function(handle) {
+      if (this.currentlyRunningATask) {
+        this.root.setTimeout(this.partiallyApplied(this.runIfPresent, handle), 0);
+      } else {
+        var task = this.tasksByHandle[handle];
+        if (task) {
+          this.currentlyRunningATask = true;
+          try {
+            task();
+          } finally {
+            this.clearImmediate(handle);
+            this.currentlyRunningATask = false;
+          }
+        }
+      }
+    };
+    ImmediateDefinition.prototype.createMessageChannelSetImmediate = function() {
+      var _this = this;
+      var channel = new this.root.MessageChannel();
+      channel.port1.onmessage = function(event) {
+        var handle = event.data;
+        _this.runIfPresent(handle);
+      };
+      var fn = function setImmediate() {
+        var _a = setImmediate,
+            channel = _a.channel,
+            instance = _a.instance;
+        var handle = instance.addFromSetImmediateArguments(arguments);
+        channel.port2.postMessage(handle);
+        return handle;
+      };
+      fn.channel = channel;
+      fn.instance = this;
+      return fn;
+    };
+    ImmediateDefinition.prototype.createReadyStateChangeSetImmediate = function() {
+      var fn = function setImmediate() {
+        var instance = setImmediate.instance;
+        var root = instance.root;
+        var doc = root.document;
+        var html = doc.documentElement;
+        var handle = instance.addFromSetImmediateArguments(arguments);
+        var script = doc.createElement('script');
+        script.onreadystatechange = function() {
+          instance.runIfPresent(handle);
+          script.onreadystatechange = null;
+          html.removeChild(script);
+          script = null;
+        };
+        html.appendChild(script);
+        return handle;
+      };
+      fn.instance = this;
+      return fn;
+    };
+    ImmediateDefinition.prototype.createSetTimeoutSetImmediate = function() {
+      var fn = function setImmediate() {
+        var instance = setImmediate.instance;
+        var handle = instance.addFromSetImmediateArguments(arguments);
+        instance.root.setTimeout(instance.partiallyApplied(instance.runIfPresent, handle), 0);
+        return handle;
+      };
+      fn.instance = this;
+      return fn;
+    };
+    return ImmediateDefinition;
+  }());
+  exports.ImmediateDefinition = ImmediateDefinition;
+  exports.Immediate = new ImmediateDefinition(root_1.root);
   global.define = __define;
   return module.exports;
 });
@@ -6276,8 +6331,8 @@ System.register("rxjs/operator/switch", ["rxjs/OuterSubscriber", "rxjs/util/subs
   exports._switch = _switch;
   var SwitchOperator = (function() {
     function SwitchOperator() {}
-    SwitchOperator.prototype.call = function(subscriber) {
-      return new SwitchSubscriber(subscriber);
+    SwitchOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SwitchSubscriber(subscriber));
     };
     return SwitchOperator;
   }());
@@ -6350,8 +6405,8 @@ System.register("rxjs/operator/switchMap", ["rxjs/OuterSubscriber", "rxjs/util/s
       this.project = project;
       this.resultSelector = resultSelector;
     }
-    SwitchMapOperator.prototype.call = function(subscriber) {
-      return new SwitchMapSubscriber(subscriber, this.project, this.resultSelector);
+    SwitchMapOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SwitchMapSubscriber(subscriber, this.project, this.resultSelector));
     };
     return SwitchMapOperator;
   }());
@@ -6436,8 +6491,8 @@ System.register("rxjs/operator/switchMapTo", ["rxjs/OuterSubscriber", "rxjs/util
   };
   var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
-  function switchMapTo(observable, resultSelector) {
-    return this.lift(new SwitchMapToOperator(observable, resultSelector));
+  function switchMapTo(innerObservable, resultSelector) {
+    return this.lift(new SwitchMapToOperator(innerObservable, resultSelector));
   }
   exports.switchMapTo = switchMapTo;
   var SwitchMapToOperator = (function() {
@@ -6445,8 +6500,8 @@ System.register("rxjs/operator/switchMapTo", ["rxjs/OuterSubscriber", "rxjs/util
       this.observable = observable;
       this.resultSelector = resultSelector;
     }
-    SwitchMapToOperator.prototype.call = function(subscriber) {
-      return new SwitchMapToSubscriber(subscriber, this.observable, this.resultSelector);
+    SwitchMapToOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new SwitchMapToSubscriber(subscriber, this.observable, this.resultSelector));
     };
     return SwitchMapToOperator;
   }());
@@ -6569,8 +6624,8 @@ System.register("rxjs/operator/takeLast", ["rxjs/Subscriber", "rxjs/util/Argumen
         throw new ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
       }
     }
-    TakeLastOperator.prototype.call = function(subscriber) {
-      return new TakeLastSubscriber(subscriber, this.total);
+    TakeLastOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new TakeLastSubscriber(subscriber, this.total));
     };
     return TakeLastOperator;
   }());
@@ -6579,44 +6634,30 @@ System.register("rxjs/operator/takeLast", ["rxjs/Subscriber", "rxjs/util/Argumen
     function TakeLastSubscriber(destination, total) {
       _super.call(this, destination);
       this.total = total;
+      this.ring = new Array();
       this.count = 0;
-      this.index = 0;
-      this.ring = new Array(total);
     }
     TakeLastSubscriber.prototype._next = function(value) {
-      var index = this.index;
       var ring = this.ring;
       var total = this.total;
-      var count = this.count;
-      if (total > 1) {
-        if (count < total) {
-          this.count = count + 1;
-          this.index = index + 1;
-        } else if (index === 0) {
-          this.index = ++index;
-        } else if (index < total) {
-          this.index = index + 1;
-        } else {
-          this.index = index = 0;
-        }
-      } else if (count < total) {
-        this.count = total;
+      var count = this.count++;
+      if (ring.length < total) {
+        ring.push(value);
+      } else {
+        var index = count % total;
+        ring[index] = value;
       }
-      ring[index] = value;
     };
     TakeLastSubscriber.prototype._complete = function() {
-      var iter = -1;
-      var _a = this,
-          ring = _a.ring,
-          count = _a.count,
-          total = _a.total,
-          destination = _a.destination;
-      var index = (total === 1 || count < total) ? 0 : this.index - 1;
-      while (++iter < count) {
-        if (iter + index === total) {
-          index = total - iter;
+      var destination = this.destination;
+      var count = this.count;
+      if (count > 0) {
+        var total = this.count >= this.total ? this.total : this.count;
+        var ring = this.ring;
+        for (var i = 0; i < total; i++) {
+          var idx = (count++) % total;
+          destination.next(ring[idx]);
         }
-        destination.next(ring[iter + index]);
       }
       destination.complete();
     };
@@ -6650,8 +6691,8 @@ System.register("rxjs/operator/takeUntil", ["rxjs/OuterSubscriber", "rxjs/util/s
     function TakeUntilOperator(notifier) {
       this.notifier = notifier;
     }
-    TakeUntilOperator.prototype.call = function(subscriber) {
-      return new TakeUntilSubscriber(subscriber, this.notifier);
+    TakeUntilOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new TakeUntilSubscriber(subscriber, this.notifier));
     };
     return TakeUntilOperator;
   }());
@@ -6695,8 +6736,8 @@ System.register("rxjs/operator/takeWhile", ["rxjs/Subscriber"], true, function(r
     function TakeWhileOperator(predicate) {
       this.predicate = predicate;
     }
-    TakeWhileOperator.prototype.call = function(subscriber) {
-      return new TakeWhileSubscriber(subscriber, this.predicate);
+    TakeWhileOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new TakeWhileSubscriber(subscriber, this.predicate));
     };
     return TakeWhileOperator;
   }());
@@ -6756,8 +6797,8 @@ System.register("rxjs/operator/throttle", ["rxjs/OuterSubscriber", "rxjs/util/su
     function ThrottleOperator(durationSelector) {
       this.durationSelector = durationSelector;
     }
-    ThrottleOperator.prototype.call = function(subscriber) {
-      return new ThrottleSubscriber(subscriber, this.durationSelector);
+    ThrottleOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ThrottleSubscriber(subscriber, this.durationSelector));
     };
     return ThrottleOperator;
   }());
@@ -6807,7 +6848,7 @@ System.register("rxjs/operator/throttle", ["rxjs/OuterSubscriber", "rxjs/util/su
   return module.exports;
 });
 
-System.register("rxjs/operator/throttleTime", ["rxjs/Subscriber", "rxjs/scheduler/asap"], true, function(require, exports, module) {
+System.register("rxjs/operator/throttleTime", ["rxjs/Subscriber", "rxjs/scheduler/async"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -6822,10 +6863,10 @@ System.register("rxjs/operator/throttleTime", ["rxjs/Subscriber", "rxjs/schedule
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Subscriber_1 = require("rxjs/Subscriber");
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   function throttleTime(delay, scheduler) {
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     return this.lift(new ThrottleTimeOperator(delay, scheduler));
   }
@@ -6835,8 +6876,8 @@ System.register("rxjs/operator/throttleTime", ["rxjs/Subscriber", "rxjs/schedule
       this.delay = delay;
       this.scheduler = scheduler;
     }
-    ThrottleTimeOperator.prototype.call = function(subscriber) {
-      return new ThrottleTimeSubscriber(subscriber, this.delay, this.scheduler);
+    ThrottleTimeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ThrottleTimeSubscriber(subscriber, this.delay, this.scheduler));
     };
     return ThrottleTimeOperator;
   }());
@@ -6863,15 +6904,15 @@ System.register("rxjs/operator/throttleTime", ["rxjs/Subscriber", "rxjs/schedule
     };
     return ThrottleTimeSubscriber;
   }(Subscriber_1.Subscriber));
-  function dispatchNext(_a) {
-    var subscriber = _a.subscriber;
+  function dispatchNext(arg) {
+    var subscriber = arg.subscriber;
     subscriber.clearThrottle();
   }
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/operator/timeout", ["rxjs/scheduler/asap", "rxjs/util/isDate", "rxjs/Subscriber"], true, function(require, exports, module) {
+System.register("rxjs/operator/timeout", ["rxjs/scheduler/async", "rxjs/util/isDate", "rxjs/Subscriber"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -6885,7 +6926,7 @@ System.register("rxjs/operator/timeout", ["rxjs/scheduler/asap", "rxjs/util/isDa
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   var isDate_1 = require("rxjs/util/isDate");
   var Subscriber_1 = require("rxjs/Subscriber");
   function timeout(due, errorToSend, scheduler) {
@@ -6893,7 +6934,7 @@ System.register("rxjs/operator/timeout", ["rxjs/scheduler/asap", "rxjs/util/isDa
       errorToSend = null;
     }
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     var absoluteTimeout = isDate_1.isDate(due);
     var waitFor = absoluteTimeout ? (+due - scheduler.now()) : Math.abs(due);
@@ -6907,8 +6948,8 @@ System.register("rxjs/operator/timeout", ["rxjs/scheduler/asap", "rxjs/util/isDa
       this.errorToSend = errorToSend;
       this.scheduler = scheduler;
     }
-    TimeoutOperator.prototype.call = function(subscriber) {
-      return new TimeoutSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.errorToSend, this.scheduler);
+    TimeoutOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new TimeoutSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.errorToSend, this.scheduler));
     };
     return TimeoutOperator;
   }());
@@ -6978,7 +7019,7 @@ System.register("rxjs/operator/timeout", ["rxjs/scheduler/asap", "rxjs/util/isDa
   return module.exports;
 });
 
-System.register("rxjs/operator/timeoutWith", ["rxjs/scheduler/asap", "rxjs/util/isDate", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
+System.register("rxjs/operator/timeoutWith", ["rxjs/scheduler/async", "rxjs/util/isDate", "rxjs/OuterSubscriber", "rxjs/util/subscribeToResult"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -6992,13 +7033,13 @@ System.register("rxjs/operator/timeoutWith", ["rxjs/scheduler/asap", "rxjs/util/
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   var isDate_1 = require("rxjs/util/isDate");
   var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
   function timeoutWith(due, withObservable, scheduler) {
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     var absoluteTimeout = isDate_1.isDate(due);
     var waitFor = absoluteTimeout ? (+due - scheduler.now()) : Math.abs(due);
@@ -7012,8 +7053,8 @@ System.register("rxjs/operator/timeoutWith", ["rxjs/scheduler/asap", "rxjs/util/
       this.withObservable = withObservable;
       this.scheduler = scheduler;
     }
-    TimeoutWithOperator.prototype.call = function(subscriber) {
-      return new TimeoutWithSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.withObservable, this.scheduler);
+    TimeoutWithOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new TimeoutWithSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.withObservable, this.scheduler));
     };
     return TimeoutWithOperator;
   }());
@@ -7112,8 +7153,8 @@ System.register("rxjs/operator/toArray", ["rxjs/Subscriber"], true, function(req
   exports.toArray = toArray;
   var ToArrayOperator = (function() {
     function ToArrayOperator() {}
-    ToArrayOperator.prototype.call = function(subscriber) {
-      return new ToArraySubscriber(subscriber);
+    ToArrayOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ToArraySubscriber(subscriber));
     };
     return ToArrayOperator;
   }());
@@ -7187,26 +7228,26 @@ System.register("rxjs/operator/window", ["rxjs/Subject", "rxjs/OuterSubscriber",
   var Subject_1 = require("rxjs/Subject");
   var OuterSubscriber_1 = require("rxjs/OuterSubscriber");
   var subscribeToResult_1 = require("rxjs/util/subscribeToResult");
-  function window(closingNotifier) {
-    return this.lift(new WindowOperator(closingNotifier));
+  function window(windowBoundaries) {
+    return this.lift(new WindowOperator(windowBoundaries));
   }
   exports.window = window;
   var WindowOperator = (function() {
-    function WindowOperator(closingNotifier) {
-      this.closingNotifier = closingNotifier;
+    function WindowOperator(windowBoundaries) {
+      this.windowBoundaries = windowBoundaries;
     }
-    WindowOperator.prototype.call = function(subscriber) {
-      return new WindowSubscriber(subscriber, this.closingNotifier);
+    WindowOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new WindowSubscriber(subscriber, this.windowBoundaries));
     };
     return WindowOperator;
   }());
   var WindowSubscriber = (function(_super) {
     __extends(WindowSubscriber, _super);
-    function WindowSubscriber(destination, closingNotifier) {
+    function WindowSubscriber(destination, windowBoundaries) {
       _super.call(this, destination);
       this.destination = destination;
-      this.closingNotifier = closingNotifier;
-      this.add(subscribeToResult_1.subscribeToResult(this, closingNotifier));
+      this.windowBoundaries = windowBoundaries;
+      this.add(subscribeToResult_1.subscribeToResult(this, windowBoundaries));
       this.openWindow();
     }
     WindowSubscriber.prototype.notifyNext = function(outerValue, innerValue, outerIndex, innerIndex, innerSub) {
@@ -7273,8 +7314,8 @@ System.register("rxjs/operator/windowCount", ["rxjs/Subscriber", "rxjs/Subject"]
       this.windowSize = windowSize;
       this.startWindowEvery = startWindowEvery;
     }
-    WindowCountOperator.prototype.call = function(subscriber) {
-      return new WindowCountSubscriber(subscriber, this.windowSize, this.startWindowEvery);
+    WindowCountOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new WindowCountSubscriber(subscriber, this.windowSize, this.startWindowEvery));
     };
     return WindowCountOperator;
   }());
@@ -7331,7 +7372,7 @@ System.register("rxjs/operator/windowCount", ["rxjs/Subscriber", "rxjs/Subject"]
   return module.exports;
 });
 
-System.register("rxjs/operator/windowTime", ["rxjs/Subscriber", "rxjs/Subject", "rxjs/scheduler/asap"], true, function(require, exports, module) {
+System.register("rxjs/operator/windowTime", ["rxjs/Subscriber", "rxjs/Subject", "rxjs/scheduler/async"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -7347,13 +7388,13 @@ System.register("rxjs/operator/windowTime", ["rxjs/Subscriber", "rxjs/Subject", 
   };
   var Subscriber_1 = require("rxjs/Subscriber");
   var Subject_1 = require("rxjs/Subject");
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   function windowTime(windowTimeSpan, windowCreationInterval, scheduler) {
     if (windowCreationInterval === void 0) {
       windowCreationInterval = null;
     }
     if (scheduler === void 0) {
-      scheduler = asap_1.asap;
+      scheduler = async_1.async;
     }
     return this.lift(new WindowTimeOperator(windowTimeSpan, windowCreationInterval, scheduler));
   }
@@ -7364,8 +7405,8 @@ System.register("rxjs/operator/windowTime", ["rxjs/Subscriber", "rxjs/Subject", 
       this.windowCreationInterval = windowCreationInterval;
       this.scheduler = scheduler;
     }
-    WindowTimeOperator.prototype.call = function(subscriber) {
-      return new WindowTimeSubscriber(subscriber, this.windowTimeSpan, this.windowCreationInterval, this.scheduler);
+    WindowTimeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new WindowTimeSubscriber(subscriber, this.windowTimeSpan, this.windowCreationInterval, this.scheduler));
     };
     return WindowTimeOperator;
   }());
@@ -7475,10 +7516,10 @@ System.register("rxjs/operator/windowTime", ["rxjs/Subscriber", "rxjs/Subject", 
     action.add(context.subscription);
     action.schedule(state, windowCreationInterval);
   }
-  function dispatchWindowClose(_a) {
-    var subscriber = _a.subscriber,
-        window = _a.window,
-        context = _a.context;
+  function dispatchWindowClose(arg) {
+    var subscriber = arg.subscriber,
+        window = arg.window,
+        context = arg.context;
     if (context && context.action && context.subscription) {
       context.action.remove(context.subscription);
     }
@@ -7517,8 +7558,8 @@ System.register("rxjs/operator/windowToggle", ["rxjs/Subject", "rxjs/Subscriptio
       this.openings = openings;
       this.closingSelector = closingSelector;
     }
-    WindowToggleOperator.prototype.call = function(subscriber) {
-      return new WindowToggleSubscriber(subscriber, this.openings, this.closingSelector);
+    WindowToggleOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new WindowToggleSubscriber(subscriber, this.openings, this.closingSelector));
     };
     return WindowToggleOperator;
   }());
@@ -7596,8 +7637,12 @@ System.register("rxjs/operator/windowToggle", ["rxjs/Subject", "rxjs/Subscriptio
           };
           this.contexts.push(context);
           var innerSubscription = subscribeToResult_1.subscribeToResult(this, closingNotifier, context);
-          innerSubscription.context = context;
-          subscription.add(innerSubscription);
+          if (innerSubscription.isUnsubscribed) {
+            this.closeWindow(this.contexts.length - 1);
+          } else {
+            innerSubscription.context = context;
+            subscription.add(innerSubscription);
+          }
           this.destination.next(window_1);
         }
       } else {
@@ -7613,6 +7658,9 @@ System.register("rxjs/operator/windowToggle", ["rxjs/Subject", "rxjs/Subscriptio
       }
     };
     WindowToggleSubscriber.prototype.closeWindow = function(index) {
+      if (index === -1) {
+        return ;
+      }
       var contexts = this.contexts;
       var context = contexts[index];
       var window = context.window,
@@ -7654,8 +7702,8 @@ System.register("rxjs/operator/windowWhen", ["rxjs/Subject", "rxjs/util/tryCatch
     function WindowOperator(closingSelector) {
       this.closingSelector = closingSelector;
     }
-    WindowOperator.prototype.call = function(subscriber) {
-      return new WindowSubscriber(subscriber, this.closingSelector);
+    WindowOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new WindowSubscriber(subscriber, this.closingSelector));
     };
     return WindowOperator;
   }());
@@ -7758,8 +7806,8 @@ System.register("rxjs/operator/withLatestFrom", ["rxjs/OuterSubscriber", "rxjs/u
       this.observables = observables;
       this.project = project;
     }
-    WithLatestFromOperator.prototype.call = function(subscriber) {
-      return new WithLatestFromSubscriber(subscriber, this.observables, this.project);
+    WithLatestFromOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new WithLatestFromSubscriber(subscriber, this.observables, this.project));
     };
     return WithLatestFromOperator;
   }());
@@ -7843,6 +7891,24 @@ System.register("rxjs/operator/zipAll", ["rxjs/operator/zip"], true, function(re
   return module.exports;
 });
 
+System.register("rxjs/Operator", ["rxjs/Subscriber"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Subscriber_1 = require("rxjs/Subscriber");
+  var Operator = (function() {
+    function Operator() {}
+    Operator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new Subscriber_1.Subscriber(subscriber));
+    };
+    return Operator;
+  }());
+  exports.Operator = Operator;
+  global.define = __define;
+  return module.exports;
+});
+
 System.register("rxjs/util/tryCatch", ["rxjs/util/errorObject"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
@@ -7868,233 +7934,7 @@ System.register("rxjs/util/tryCatch", ["rxjs/util/errorObject"], true, function(
   return module.exports;
 });
 
-System.register("rxjs/observable/ArrayObservable", ["rxjs/Observable", "rxjs/observable/ScalarObservable", "rxjs/observable/EmptyObservable", "rxjs/util/isScheduler"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Observable_1 = require("rxjs/Observable");
-  var ScalarObservable_1 = require("rxjs/observable/ScalarObservable");
-  var EmptyObservable_1 = require("rxjs/observable/EmptyObservable");
-  var isScheduler_1 = require("rxjs/util/isScheduler");
-  var ArrayObservable = (function(_super) {
-    __extends(ArrayObservable, _super);
-    function ArrayObservable(array, scheduler) {
-      _super.call(this);
-      this.array = array;
-      this.scheduler = scheduler;
-      if (!scheduler && array.length === 1) {
-        this._isScalar = true;
-        this.value = array[0];
-      }
-    }
-    ArrayObservable.create = function(array, scheduler) {
-      return new ArrayObservable(array, scheduler);
-    };
-    ArrayObservable.of = function() {
-      var array = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
-        array[_i - 0] = arguments[_i];
-      }
-      var scheduler = array[array.length - 1];
-      if (isScheduler_1.isScheduler(scheduler)) {
-        array.pop();
-      } else {
-        scheduler = null;
-      }
-      var len = array.length;
-      if (len > 1) {
-        return new ArrayObservable(array, scheduler);
-      } else if (len === 1) {
-        return new ScalarObservable_1.ScalarObservable(array[0], scheduler);
-      } else {
-        return new EmptyObservable_1.EmptyObservable(scheduler);
-      }
-    };
-    ArrayObservable.dispatch = function(state) {
-      var array = state.array,
-          index = state.index,
-          count = state.count,
-          subscriber = state.subscriber;
-      if (index >= count) {
-        subscriber.complete();
-        return ;
-      }
-      subscriber.next(array[index]);
-      if (subscriber.isUnsubscribed) {
-        return ;
-      }
-      state.index = index + 1;
-      this.schedule(state);
-    };
-    ArrayObservable.prototype._subscribe = function(subscriber) {
-      var index = 0;
-      var array = this.array;
-      var count = array.length;
-      var scheduler = this.scheduler;
-      if (scheduler) {
-        return scheduler.schedule(ArrayObservable.dispatch, 0, {
-          array: array,
-          index: index,
-          count: count,
-          subscriber: subscriber
-        });
-      } else {
-        for (var i = 0; i < count && !subscriber.isUnsubscribed; i++) {
-          subscriber.next(array[i]);
-        }
-        subscriber.complete();
-      }
-    };
-    return ArrayObservable;
-  }(Observable_1.Observable));
-  exports.ArrayObservable = ArrayObservable;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/util/subscribeToResult", ["rxjs/util/root", "rxjs/util/isArray", "rxjs/util/isPromise", "rxjs/Observable", "rxjs/util/SymbolShim", "rxjs/InnerSubscriber"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var root_1 = require("rxjs/util/root");
-  var isArray_1 = require("rxjs/util/isArray");
-  var isPromise_1 = require("rxjs/util/isPromise");
-  var Observable_1 = require("rxjs/Observable");
-  var SymbolShim_1 = require("rxjs/util/SymbolShim");
-  var InnerSubscriber_1 = require("rxjs/InnerSubscriber");
-  function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
-    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
-    if (destination.isUnsubscribed) {
-      return ;
-    }
-    if (result instanceof Observable_1.Observable) {
-      if (result._isScalar) {
-        destination.next(result.value);
-        destination.complete();
-        return ;
-      } else {
-        return result.subscribe(destination);
-      }
-    }
-    if (isArray_1.isArray(result)) {
-      for (var i = 0,
-          len = result.length; i < len && !destination.isUnsubscribed; i++) {
-        destination.next(result[i]);
-      }
-      if (!destination.isUnsubscribed) {
-        destination.complete();
-      }
-    } else if (isPromise_1.isPromise(result)) {
-      result.then(function(value) {
-        if (!destination.isUnsubscribed) {
-          destination.next(value);
-          destination.complete();
-        }
-      }, function(err) {
-        return destination.error(err);
-      }).then(null, function(err) {
-        root_1.root.setTimeout(function() {
-          throw err;
-        });
-      });
-      return destination;
-    } else if (typeof result[SymbolShim_1.SymbolShim.iterator] === 'function') {
-      for (var _i = 0,
-          result_1 = result; _i < result_1.length; _i++) {
-        var item = result_1[_i];
-        destination.next(item);
-        if (destination.isUnsubscribed) {
-          break;
-        }
-      }
-      if (!destination.isUnsubscribed) {
-        destination.complete();
-      }
-    } else if (typeof result[SymbolShim_1.SymbolShim.observable] === 'function') {
-      var obs = result[SymbolShim_1.SymbolShim.observable]();
-      if (typeof obs.subscribe !== 'function') {
-        destination.error('invalid observable');
-      } else {
-        return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
-      }
-    } else {
-      destination.error(new TypeError('unknown type returned'));
-    }
-  }
-  exports.subscribeToResult = subscribeToResult;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/operator/concat", ["rxjs/util/isScheduler", "rxjs/observable/ArrayObservable", "rxjs/operator/mergeAll"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var isScheduler_1 = require("rxjs/util/isScheduler");
-  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
-  var mergeAll_1 = require("rxjs/operator/mergeAll");
-  function concat() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      observables[_i - 0] = arguments[_i];
-    }
-    return concatStatic.apply(void 0, [this].concat(observables));
-  }
-  exports.concat = concat;
-  function concatStatic() {
-    var observables = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-      observables[_i - 0] = arguments[_i];
-    }
-    var scheduler = null;
-    var args = observables;
-    if (isScheduler_1.isScheduler(args[observables.length - 1])) {
-      scheduler = args.pop();
-    }
-    return new ArrayObservable_1.ArrayObservable(observables, scheduler).lift(new mergeAll_1.MergeAllOperator(1));
-  }
-  exports.concatStatic = concatStatic;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/add/observable/merge", ["rxjs/Observable", "rxjs/operator/merge"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var Observable_1 = require("rxjs/Observable");
-  var merge_1 = require("rxjs/operator/merge");
-  Observable_1.Observable.merge = merge_1.mergeStatic;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/add/observable/race", ["rxjs/Observable", "rxjs/operator/race"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var Observable_1 = require("rxjs/Observable");
-  var race_1 = require("rxjs/operator/race");
-  Observable_1.Observable.race = race_1.raceStatic;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/observable/BoundCallbackObservable", ["rxjs/Observable", "rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/subject/AsyncSubject"], true, function(require, exports, module) {
+System.register("rxjs/observable/BoundCallbackObservable", ["rxjs/Observable", "rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/AsyncSubject"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -8111,7 +7951,7 @@ System.register("rxjs/observable/BoundCallbackObservable", ["rxjs/Observable", "
   var Observable_1 = require("rxjs/Observable");
   var tryCatch_1 = require("rxjs/util/tryCatch");
   var errorObject_1 = require("rxjs/util/errorObject");
-  var AsyncSubject_1 = require("rxjs/subject/AsyncSubject");
+  var AsyncSubject_1 = require("rxjs/AsyncSubject");
   var BoundCallbackObservable = (function(_super) {
     __extends(BoundCallbackObservable, _super);
     function BoundCallbackObservable(callbackFunc, selector, args, scheduler) {
@@ -8226,46 +8066,33 @@ System.register("rxjs/observable/BoundCallbackObservable", ["rxjs/Observable", "
     }
     self.add(subject.subscribe(subscriber));
   }
-  function dispatchNext(_a) {
-    var value = _a.value,
-        subject = _a.subject;
+  function dispatchNext(arg) {
+    var value = arg.value,
+        subject = arg.subject;
     subject.next(value);
     subject.complete();
   }
-  function dispatchError(_a) {
-    var err = _a.err,
-        subject = _a.subject;
+  function dispatchError(arg) {
+    var err = arg.err,
+        subject = arg.subject;
     subject.error(err);
   }
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/bindNodeCallback", ["rxjs/Observable", "rxjs/observable/BoundNodeCallbackObservable"], true, function(require, exports, module) {
+System.register("rxjs/observable/bindNodeCallback", ["rxjs/observable/BoundNodeCallbackObservable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
   var BoundNodeCallbackObservable_1 = require("rxjs/observable/BoundNodeCallbackObservable");
-  Observable_1.Observable.bindNodeCallback = BoundNodeCallbackObservable_1.BoundNodeCallbackObservable.create;
+  exports.bindNodeCallback = BoundNodeCallbackObservable_1.BoundNodeCallbackObservable.create;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/defer", ["rxjs/Observable", "rxjs/observable/DeferObservable"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var Observable_1 = require("rxjs/Observable");
-  var DeferObservable_1 = require("rxjs/observable/DeferObservable");
-  Observable_1.Observable.defer = DeferObservable_1.DeferObservable.create;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/observable/ForkJoinObservable", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/observable/PromiseObservable", "rxjs/observable/EmptyObservable", "rxjs/util/isPromise", "rxjs/util/isArray"], true, function(require, exports, module) {
+System.register("rxjs/observable/ArrayObservable", ["rxjs/Observable", "rxjs/observable/ScalarObservable", "rxjs/observable/EmptyObservable", "rxjs/util/isScheduler"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -8280,99 +8107,224 @@ System.register("rxjs/observable/ForkJoinObservable", ["rxjs/Observable", "rxjs/
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
   var Observable_1 = require("rxjs/Observable");
-  var Subscriber_1 = require("rxjs/Subscriber");
-  var PromiseObservable_1 = require("rxjs/observable/PromiseObservable");
+  var ScalarObservable_1 = require("rxjs/observable/ScalarObservable");
   var EmptyObservable_1 = require("rxjs/observable/EmptyObservable");
-  var isPromise_1 = require("rxjs/util/isPromise");
-  var isArray_1 = require("rxjs/util/isArray");
-  var ForkJoinObservable = (function(_super) {
-    __extends(ForkJoinObservable, _super);
-    function ForkJoinObservable(sources, resultSelector) {
+  var isScheduler_1 = require("rxjs/util/isScheduler");
+  var ArrayObservable = (function(_super) {
+    __extends(ArrayObservable, _super);
+    function ArrayObservable(array, scheduler) {
       _super.call(this);
-      this.sources = sources;
-      this.resultSelector = resultSelector;
+      this.array = array;
+      this.scheduler = scheduler;
+      if (!scheduler && array.length === 1) {
+        this._isScalar = true;
+        this.value = array[0];
+      }
     }
-    ForkJoinObservable.create = function() {
-      var sources = [];
+    ArrayObservable.create = function(array, scheduler) {
+      return new ArrayObservable(array, scheduler);
+    };
+    ArrayObservable.of = function() {
+      var array = [];
       for (var _i = 0; _i < arguments.length; _i++) {
-        sources[_i - 0] = arguments[_i];
+        array[_i - 0] = arguments[_i];
       }
-      if (sources === null || arguments.length === 0) {
-        return new EmptyObservable_1.EmptyObservable();
+      var scheduler = array[array.length - 1];
+      if (isScheduler_1.isScheduler(scheduler)) {
+        array.pop();
+      } else {
+        scheduler = null;
       }
-      var resultSelector = null;
-      if (typeof sources[sources.length - 1] === 'function') {
-        resultSelector = sources.pop();
-      }
-      if (sources.length === 1 && isArray_1.isArray(sources[0])) {
-        sources = sources[0];
-      }
-      if (sources.length === 0) {
-        return new EmptyObservable_1.EmptyObservable();
-      }
-      return new ForkJoinObservable(sources, resultSelector);
-    };
-    ForkJoinObservable.prototype._subscribe = function(subscriber) {
-      var sources = this.sources;
-      var len = sources.length;
-      var context = {
-        completed: 0,
-        total: len,
-        values: emptyArray(len),
-        selector: this.resultSelector
-      };
-      for (var i = 0; i < len; i++) {
-        var source = sources[i];
-        if (isPromise_1.isPromise(source)) {
-          source = new PromiseObservable_1.PromiseObservable(source);
-        }
-        source.subscribe(new AllSubscriber(subscriber, i, context));
+      var len = array.length;
+      if (len > 1) {
+        return new ArrayObservable(array, scheduler);
+      } else if (len === 1) {
+        return new ScalarObservable_1.ScalarObservable(array[0], scheduler);
+      } else {
+        return new EmptyObservable_1.EmptyObservable(scheduler);
       }
     };
-    return ForkJoinObservable;
-  }(Observable_1.Observable));
-  exports.ForkJoinObservable = ForkJoinObservable;
-  var AllSubscriber = (function(_super) {
-    __extends(AllSubscriber, _super);
-    function AllSubscriber(destination, index, context) {
-      _super.call(this, destination);
-      this.index = index;
-      this.context = context;
-      this._value = null;
-    }
-    AllSubscriber.prototype._next = function(value) {
-      this._value = value;
-    };
-    AllSubscriber.prototype._complete = function() {
-      var destination = this.destination;
-      if (this._value == null) {
-        destination.complete();
-      }
-      var context = this.context;
-      context.completed++;
-      context.values[this.index] = this._value;
-      var values = context.values;
-      if (context.completed !== values.length) {
+    ArrayObservable.dispatch = function(state) {
+      var array = state.array,
+          index = state.index,
+          count = state.count,
+          subscriber = state.subscriber;
+      if (index >= count) {
+        subscriber.complete();
         return ;
       }
-      if (values.every(hasValue)) {
-        var value = context.selector ? context.selector.apply(this, values) : values;
-        destination.next(value);
+      subscriber.next(array[index]);
+      if (subscriber.isUnsubscribed) {
+        return ;
       }
-      destination.complete();
+      state.index = index + 1;
+      this.schedule(state);
     };
-    return AllSubscriber;
-  }(Subscriber_1.Subscriber));
-  function hasValue(x) {
-    return x !== null;
-  }
-  function emptyArray(len) {
-    var arr = [];
-    for (var i = 0; i < len; i++) {
-      arr.push(null);
+    ArrayObservable.prototype._subscribe = function(subscriber) {
+      var index = 0;
+      var array = this.array;
+      var count = array.length;
+      var scheduler = this.scheduler;
+      if (scheduler) {
+        return scheduler.schedule(ArrayObservable.dispatch, 0, {
+          array: array,
+          index: index,
+          count: count,
+          subscriber: subscriber
+        });
+      } else {
+        for (var i = 0; i < count && !subscriber.isUnsubscribed; i++) {
+          subscriber.next(array[i]);
+        }
+        subscriber.complete();
+      }
+    };
+    return ArrayObservable;
+  }(Observable_1.Observable));
+  exports.ArrayObservable = ArrayObservable;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/util/subscribeToResult", ["rxjs/util/root", "rxjs/util/isArray", "rxjs/util/isPromise", "rxjs/Observable", "rxjs/symbol/iterator", "rxjs/symbol/observable", "rxjs/InnerSubscriber"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var root_1 = require("rxjs/util/root");
+  var isArray_1 = require("rxjs/util/isArray");
+  var isPromise_1 = require("rxjs/util/isPromise");
+  var Observable_1 = require("rxjs/Observable");
+  var iterator_1 = require("rxjs/symbol/iterator");
+  var observable_1 = require("rxjs/symbol/observable");
+  var InnerSubscriber_1 = require("rxjs/InnerSubscriber");
+  function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
+    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
+    if (destination.isUnsubscribed) {
+      return ;
     }
-    return arr;
+    if (result instanceof Observable_1.Observable) {
+      if (result._isScalar) {
+        destination.next(result.value);
+        destination.complete();
+        return ;
+      } else {
+        return result.subscribe(destination);
+      }
+    }
+    if (isArray_1.isArray(result)) {
+      for (var i = 0,
+          len = result.length; i < len && !destination.isUnsubscribed; i++) {
+        destination.next(result[i]);
+      }
+      if (!destination.isUnsubscribed) {
+        destination.complete();
+      }
+    } else if (isPromise_1.isPromise(result)) {
+      result.then(function(value) {
+        if (!destination.isUnsubscribed) {
+          destination.next(value);
+          destination.complete();
+        }
+      }, function(err) {
+        return destination.error(err);
+      }).then(null, function(err) {
+        root_1.root.setTimeout(function() {
+          throw err;
+        });
+      });
+      return destination;
+    } else if (typeof result[iterator_1.$$iterator] === 'function') {
+      for (var _i = 0,
+          _a = result; _i < _a.length; _i++) {
+        var item = _a[_i];
+        destination.next(item);
+        if (destination.isUnsubscribed) {
+          break;
+        }
+      }
+      if (!destination.isUnsubscribed) {
+        destination.complete();
+      }
+    } else if (typeof result[observable_1.$$observable] === 'function') {
+      var obs = result[observable_1.$$observable]();
+      if (typeof obs.subscribe !== 'function') {
+        destination.error('invalid observable');
+      } else {
+        return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
+      }
+    } else {
+      destination.error(new TypeError('unknown type returned'));
+    }
   }
+  exports.subscribeToResult = subscribeToResult;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/operator/concat", ["rxjs/util/isScheduler", "rxjs/observable/ArrayObservable", "rxjs/operator/mergeAll"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var isScheduler_1 = require("rxjs/util/isScheduler");
+  var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
+  var mergeAll_1 = require("rxjs/operator/mergeAll");
+  function concat() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      observables[_i - 0] = arguments[_i];
+    }
+    return concatStatic.apply(void 0, [this].concat(observables));
+  }
+  exports.concat = concat;
+  function concatStatic() {
+    var observables = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+      observables[_i - 0] = arguments[_i];
+    }
+    var scheduler = null;
+    var args = observables;
+    if (isScheduler_1.isScheduler(args[observables.length - 1])) {
+      scheduler = args.pop();
+    }
+    return new ArrayObservable_1.ArrayObservable(observables, scheduler).lift(new mergeAll_1.MergeAllOperator(1));
+  }
+  exports.concatStatic = concatStatic;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/defer", ["rxjs/observable/DeferObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var DeferObservable_1 = require("rxjs/observable/DeferObservable");
+  exports.defer = DeferObservable_1.DeferObservable.create;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/empty", ["rxjs/Observable", "rxjs/observable/empty"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var empty_1 = require("rxjs/observable/empty");
+  Observable_1.Observable.empty = empty_1.empty;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/forkJoin", ["rxjs/observable/ForkJoinObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var ForkJoinObservable_1 = require("rxjs/observable/ForkJoinObservable");
+  exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
   global.define = __define;
   return module.exports;
 });
@@ -8408,8 +8360,8 @@ System.register("rxjs/operator/observeOn", ["rxjs/Subscriber", "rxjs/Notificatio
       this.scheduler = scheduler;
       this.delay = delay;
     }
-    ObserveOnOperator.prototype.call = function(subscriber) {
-      return new ObserveOnSubscriber(subscriber, this.scheduler, this.delay);
+    ObserveOnOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new ObserveOnSubscriber(subscriber, this.scheduler, this.delay));
     };
     return ObserveOnOperator;
   }());
@@ -8424,9 +8376,9 @@ System.register("rxjs/operator/observeOn", ["rxjs/Subscriber", "rxjs/Notificatio
       this.scheduler = scheduler;
       this.delay = delay;
     }
-    ObserveOnSubscriber.dispatch = function(_a) {
-      var notification = _a.notification,
-          destination = _a.destination;
+    ObserveOnSubscriber.dispatch = function(arg) {
+      var notification = arg.notification,
+          destination = arg.destination;
       notification.observe(destination);
     };
     ObserveOnSubscriber.prototype.scheduleMessage = function(notification) {
@@ -8451,90 +8403,41 @@ System.register("rxjs/operator/observeOn", ["rxjs/Subscriber", "rxjs/Notificatio
     }
     return ObserveOnMessage;
   }());
+  exports.ObserveOnMessage = ObserveOnMessage;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/fromEvent", ["rxjs/Observable", "rxjs/observable/FromEventObservable"], true, function(require, exports, module) {
+System.register("rxjs/observable/fromEvent", ["rxjs/observable/FromEventObservable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
   var FromEventObservable_1 = require("rxjs/observable/FromEventObservable");
-  Observable_1.Observable.fromEvent = FromEventObservable_1.FromEventObservable.create;
+  exports.fromEvent = FromEventObservable_1.FromEventObservable.create;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/fromEventPattern", ["rxjs/Observable", "rxjs/observable/FromEventPatternObservable"], true, function(require, exports, module) {
+System.register("rxjs/observable/fromEventPattern", ["rxjs/observable/FromEventPatternObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var FromEventPatternObservable_1 = require("rxjs/observable/FromEventPatternObservable");
+  exports.fromEventPattern = FromEventPatternObservable_1.FromEventPatternObservable.create;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/fromPromise", ["rxjs/Observable", "rxjs/observable/fromPromise"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
-  var FromEventPatternObservable_1 = require("rxjs/observable/FromEventPatternObservable");
-  Observable_1.Observable.fromEventPattern = FromEventPatternObservable_1.FromEventPatternObservable.create;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/scheduler/AsapAction", ["rxjs/util/Immediate", "rxjs/scheduler/FutureAction"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-  var Immediate_1 = require("rxjs/util/Immediate");
-  var FutureAction_1 = require("rxjs/scheduler/FutureAction");
-  var AsapAction = (function(_super) {
-    __extends(AsapAction, _super);
-    function AsapAction() {
-      _super.apply(this, arguments);
-    }
-    AsapAction.prototype._schedule = function(state, delay) {
-      if (delay === void 0) {
-        delay = 0;
-      }
-      if (delay > 0) {
-        return _super.prototype._schedule.call(this, state, delay);
-      }
-      this.delay = delay;
-      this.state = state;
-      var scheduler = this.scheduler;
-      scheduler.actions.push(this);
-      if (!scheduler.scheduledId) {
-        scheduler.scheduledId = Immediate_1.Immediate.setImmediate(function() {
-          scheduler.scheduledId = null;
-          scheduler.flush();
-        });
-      }
-      return this;
-    };
-    AsapAction.prototype._unsubscribe = function() {
-      var scheduler = this.scheduler;
-      var scheduledId = scheduler.scheduledId,
-          actions = scheduler.actions;
-      _super.prototype._unsubscribe.call(this);
-      if (actions.length === 0) {
-        scheduler.active = false;
-        if (scheduledId != null) {
-          scheduler.scheduledId = null;
-          Immediate_1.Immediate.clearImmediate(scheduledId);
-        }
-      }
-    };
-    return AsapAction;
-  }(FutureAction_1.FutureAction));
-  exports.AsapAction = AsapAction;
+  var fromPromise_1 = require("rxjs/observable/fromPromise");
+  Observable_1.Observable.fromPromise = fromPromise_1.fromPromise;
   global.define = __define;
   return module.exports;
 });
@@ -8561,8 +8464,12 @@ System.register("rxjs/scheduler/QueueScheduler", ["rxjs/scheduler/QueueAction", 
       }
       this.active = true;
       var actions = this.actions;
-      for (var action = void 0; action = actions.shift(); ) {
+      for (var action = null; action = actions.shift(); ) {
         action.execute();
+        if (action.error) {
+          this.active = false;
+          throw action.error;
+        }
       }
       this.active = false;
     };
@@ -8581,6 +8488,29 @@ System.register("rxjs/scheduler/QueueScheduler", ["rxjs/scheduler/QueueAction", 
     return QueueScheduler;
   }());
   exports.QueueScheduler = QueueScheduler;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/merge", ["rxjs/operator/merge"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var merge_1 = require("rxjs/operator/merge");
+  exports.merge = merge_1.mergeStatic;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/race", ["rxjs/Observable", "rxjs/operator/race"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var race_1 = require("rxjs/operator/race");
+  Observable_1.Observable.race = race_1.raceStatic;
   global.define = __define;
   return module.exports;
 });
@@ -8619,31 +8549,41 @@ System.register("rxjs/observable/NeverObservable", ["rxjs/Observable", "rxjs/uti
   return module.exports;
 });
 
-System.register("rxjs/add/observable/range", ["rxjs/Observable", "rxjs/observable/RangeObservable"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/of", ["rxjs/Observable", "rxjs/observable/of"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
+  var of_1 = require("rxjs/observable/of");
+  Observable_1.Observable.of = of_1.of;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/range", ["rxjs/observable/RangeObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
   var RangeObservable_1 = require("rxjs/observable/RangeObservable");
-  Observable_1.Observable.range = RangeObservable_1.RangeObservable.create;
+  exports.range = RangeObservable_1.RangeObservable.create;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/throw", ["rxjs/Observable", "rxjs/observable/ErrorObservable"], true, function(require, exports, module) {
+System.register("rxjs/observable/throw", ["rxjs/observable/ErrorObservable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
   var ErrorObservable_1 = require("rxjs/observable/ErrorObservable");
-  Observable_1.Observable.throw = ErrorObservable_1.ErrorObservable.create;
+  exports._throw = ErrorObservable_1.ErrorObservable.create;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/observable/TimerObservable", ["rxjs/util/isNumeric", "rxjs/Observable", "rxjs/scheduler/asap", "rxjs/util/isScheduler", "rxjs/util/isDate"], true, function(require, exports, module) {
+System.register("rxjs/observable/TimerObservable", ["rxjs/util/isNumeric", "rxjs/Observable", "rxjs/scheduler/async", "rxjs/util/isScheduler", "rxjs/util/isDate"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -8659,7 +8599,7 @@ System.register("rxjs/observable/TimerObservable", ["rxjs/util/isNumeric", "rxjs
   };
   var isNumeric_1 = require("rxjs/util/isNumeric");
   var Observable_1 = require("rxjs/Observable");
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   var isScheduler_1 = require("rxjs/util/isScheduler");
   var isDate_1 = require("rxjs/util/isDate");
   var TimerObservable = (function(_super) {
@@ -8677,16 +8617,16 @@ System.register("rxjs/observable/TimerObservable", ["rxjs/util/isNumeric", "rxjs
         scheduler = period;
       }
       if (!isScheduler_1.isScheduler(scheduler)) {
-        scheduler = asap_1.asap;
+        scheduler = async_1.async;
       }
       this.scheduler = scheduler;
       this.dueTime = isDate_1.isDate(dueTime) ? (+dueTime - this.scheduler.now()) : dueTime;
     }
-    TimerObservable.create = function(dueTime, period, scheduler) {
-      if (dueTime === void 0) {
-        dueTime = 0;
+    TimerObservable.create = function(initialDelay, period, scheduler) {
+      if (initialDelay === void 0) {
+        initialDelay = 0;
       }
-      return new TimerObservable(dueTime, period, scheduler);
+      return new TimerObservable(initialDelay, period, scheduler);
     };
     TimerObservable.dispatch = function(state) {
       var index = state.index,
@@ -8721,14 +8661,13 @@ System.register("rxjs/observable/TimerObservable", ["rxjs/util/isNumeric", "rxjs
   return module.exports;
 });
 
-System.register("rxjs/add/observable/zip", ["rxjs/Observable", "rxjs/operator/zip"], true, function(require, exports, module) {
+System.register("rxjs/observable/zip", ["rxjs/operator/zip"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
   var zip_1 = require("rxjs/operator/zip");
-  Observable_1.Observable.zip = zip_1.zipStatic;
+  exports.zip = zip_1.zipStatic;
   global.define = __define;
   return module.exports;
 });
@@ -8793,7 +8732,7 @@ System.register("rxjs/add/operator/bufferWhen", ["rxjs/Observable", "rxjs/operat
   return module.exports;
 });
 
-System.register("rxjs/subject/ReplaySubject", ["rxjs/Subject", "rxjs/scheduler/queue", "rxjs/operator/observeOn"], true, function(require, exports, module) {
+System.register("rxjs/ReplaySubject", ["rxjs/Subject", "rxjs/scheduler/queue", "rxjs/operator/observeOn"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -8959,8 +8898,8 @@ System.register("rxjs/operator/concatMapTo", ["rxjs/operator/mergeMapTo"], true,
   global.define = undefined;
   "use strict";
   var mergeMapTo_1 = require("rxjs/operator/mergeMapTo");
-  function concatMapTo(observable, resultSelector) {
-    return this.lift(new mergeMapTo_1.MergeMapToOperator(observable, resultSelector, 1));
+  function concatMapTo(innerObservable, resultSelector) {
+    return this.lift(new mergeMapTo_1.MergeMapToOperator(innerObservable, resultSelector, 1));
   }
   exports.concatMapTo = concatMapTo;
   global.define = __define;
@@ -9138,8 +9077,8 @@ System.register("rxjs/operator/first", ["rxjs/Subscriber", "rxjs/util/EmptyError
       this.defaultValue = defaultValue;
       this.source = source;
     }
-    FirstOperator.prototype.call = function(observer) {
-      return new FirstSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source);
+    FirstOperator.prototype.call = function(observer, source) {
+      return source._subscribe(new FirstSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
     };
     return FirstOperator;
   }());
@@ -9238,38 +9177,26 @@ System.register("rxjs/add/operator/ignoreElements", ["rxjs/Observable", "rxjs/op
   return module.exports;
 });
 
-System.register("rxjs/add/operator/inspect", ["rxjs/Observable", "rxjs/operator/inspect"], true, function(require, exports, module) {
+System.register("rxjs/add/operator/audit", ["rxjs/Observable", "rxjs/operator/audit"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
-  var inspect_1 = require("rxjs/operator/inspect");
-  Observable_1.Observable.prototype.inspect = inspect_1.inspect;
+  var audit_1 = require("rxjs/operator/audit");
+  Observable_1.Observable.prototype.audit = audit_1.audit;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/operator/inspectTime", ["rxjs/Observable", "rxjs/operator/inspectTime"], true, function(require, exports, module) {
+System.register("rxjs/add/operator/auditTime", ["rxjs/Observable", "rxjs/operator/auditTime"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
-  var inspectTime_1 = require("rxjs/operator/inspectTime");
-  Observable_1.Observable.prototype.inspectTime = inspectTime_1.inspectTime;
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("rxjs/add/operator/every", ["rxjs/Observable", "rxjs/operator/every"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  "use strict";
-  var Observable_1 = require("rxjs/Observable");
-  var every_1 = require("rxjs/operator/every");
-  Observable_1.Observable.prototype.every = every_1.every;
+  var auditTime_1 = require("rxjs/operator/auditTime");
+  Observable_1.Observable.prototype.auditTime = auditTime_1.auditTime;
   global.define = __define;
   return module.exports;
 });
@@ -9295,6 +9222,18 @@ System.register("rxjs/add/operator/let", ["rxjs/Observable", "rxjs/operator/let"
   var let_1 = require("rxjs/operator/let");
   Observable_1.Observable.prototype.let = let_1.letProto;
   Observable_1.Observable.prototype.letBind = let_1.letProto;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/operator/every", ["rxjs/Observable", "rxjs/operator/every"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var every_1 = require("rxjs/operator/every");
+  Observable_1.Observable.prototype.every = every_1.every;
   global.define = __define;
   return module.exports;
 });
@@ -9374,12 +9313,12 @@ System.register("rxjs/add/operator/publish", ["rxjs/Observable", "rxjs/operator/
   return module.exports;
 });
 
-System.register("rxjs/operator/publishBehavior", ["rxjs/subject/BehaviorSubject", "rxjs/operator/multicast"], true, function(require, exports, module) {
+System.register("rxjs/operator/publishBehavior", ["rxjs/BehaviorSubject", "rxjs/operator/multicast"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var BehaviorSubject_1 = require("rxjs/subject/BehaviorSubject");
+  var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
   var multicast_1 = require("rxjs/operator/multicast");
   function publishBehavior(value) {
     return multicast_1.multicast.call(this, new BehaviorSubject_1.BehaviorSubject(value));
@@ -9557,19 +9496,62 @@ System.register("rxjs/add/operator/startWith", ["rxjs/Observable", "rxjs/operato
   return module.exports;
 });
 
-System.register("rxjs/operator/subscribeOn", ["rxjs/observable/SubscribeOnObservable"], true, function(require, exports, module) {
+System.register("rxjs/scheduler/AsapAction", ["rxjs/util/Immediate", "rxjs/scheduler/FutureAction"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var SubscribeOnObservable_1 = require("rxjs/observable/SubscribeOnObservable");
-  function subscribeOn(scheduler, delay) {
-    if (delay === void 0) {
-      delay = 0;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
     }
-    return new SubscribeOnObservable_1.SubscribeOnObservable(this, delay, scheduler);
-  }
-  exports.subscribeOn = subscribeOn;
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var Immediate_1 = require("rxjs/util/Immediate");
+  var FutureAction_1 = require("rxjs/scheduler/FutureAction");
+  var AsapAction = (function(_super) {
+    __extends(AsapAction, _super);
+    function AsapAction() {
+      _super.apply(this, arguments);
+    }
+    AsapAction.prototype._schedule = function(state, delay) {
+      if (delay === void 0) {
+        delay = 0;
+      }
+      if (delay > 0) {
+        return _super.prototype._schedule.call(this, state, delay);
+      }
+      this.delay = delay;
+      this.state = state;
+      var scheduler = this.scheduler;
+      scheduler.actions.push(this);
+      if (!scheduler.scheduledId) {
+        scheduler.scheduledId = Immediate_1.Immediate.setImmediate(function() {
+          scheduler.scheduledId = null;
+          scheduler.flush();
+        });
+      }
+      return this;
+    };
+    AsapAction.prototype._unsubscribe = function() {
+      var scheduler = this.scheduler;
+      var scheduledId = scheduler.scheduledId,
+          actions = scheduler.actions;
+      _super.prototype._unsubscribe.call(this);
+      if (actions.length === 0) {
+        scheduler.active = false;
+        if (scheduledId != null) {
+          scheduler.scheduledId = null;
+          Immediate_1.Immediate.clearImmediate(scheduledId);
+        }
+      }
+    };
+    return AsapAction;
+  }(FutureAction_1.FutureAction));
+  exports.AsapAction = AsapAction;
   global.define = __define;
   return module.exports;
 });
@@ -9642,8 +9624,8 @@ System.register("rxjs/operator/take", ["rxjs/Subscriber", "rxjs/util/ArgumentOut
         throw new ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
       }
     }
-    TakeOperator.prototype.call = function(subscriber) {
-      return new TakeSubscriber(subscriber, this.total);
+    TakeOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new TakeSubscriber(subscriber, this.total));
     };
     return TakeOperator;
   }());
@@ -9660,6 +9642,7 @@ System.register("rxjs/operator/take", ["rxjs/Subscriber", "rxjs/util/ArgumentOut
         this.destination.next(value);
         if (this.count === total) {
           this.destination.complete();
+          this.unsubscribe();
         }
       }
     };
@@ -9861,30 +9844,22 @@ System.register("rxjs/add/operator/zipAll", ["rxjs/Observable", "rxjs/operator/z
   return module.exports;
 });
 
-System.register("rxjs/Subscription", ["rxjs/util/isArray", "rxjs/util/isObject", "rxjs/util/isFunction", "rxjs/util/tryCatch", "rxjs/util/errorObject"], true, function(require, exports, module) {
+System.register("rxjs/Subscription", ["rxjs/util/isArray", "rxjs/util/isObject", "rxjs/util/isFunction", "rxjs/util/tryCatch", "rxjs/util/errorObject", "rxjs/util/UnsubscriptionError"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var __extends = (this && this.__extends) || function(d, b) {
-    for (var p in b)
-      if (b.hasOwnProperty(p))
-        d[p] = b[p];
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
   var isArray_1 = require("rxjs/util/isArray");
   var isObject_1 = require("rxjs/util/isObject");
   var isFunction_1 = require("rxjs/util/isFunction");
   var tryCatch_1 = require("rxjs/util/tryCatch");
   var errorObject_1 = require("rxjs/util/errorObject");
+  var UnsubscriptionError_1 = require("rxjs/util/UnsubscriptionError");
   var Subscription = (function() {
-    function Subscription(_unsubscribe) {
+    function Subscription(unsubscribe) {
       this.isUnsubscribed = false;
-      if (_unsubscribe) {
-        this._unsubscribe = _unsubscribe;
+      if (unsubscribe) {
+        this._unsubscribe = unsubscribe;
       }
     }
     Subscription.prototype.unsubscribe = function() {
@@ -9916,7 +9891,7 @@ System.register("rxjs/Subscription", ["rxjs/util/isArray", "rxjs/util/isObject",
               hasErrors = true;
               errors = errors || [];
               var err = errorObject_1.errorObject.e;
-              if (err instanceof UnsubscriptionError) {
+              if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
                 errors = errors.concat(err.errors);
               } else {
                 errors.push(err);
@@ -9926,17 +9901,17 @@ System.register("rxjs/Subscription", ["rxjs/util/isArray", "rxjs/util/isObject",
         }
       }
       if (hasErrors) {
-        throw new UnsubscriptionError(errors);
+        throw new UnsubscriptionError_1.UnsubscriptionError(errors);
       }
     };
-    Subscription.prototype.add = function(subscription) {
-      if (!subscription || (subscription === this) || (subscription === Subscription.EMPTY)) {
+    Subscription.prototype.add = function(teardown) {
+      if (!teardown || (teardown === this) || (teardown === Subscription.EMPTY)) {
         return ;
       }
-      var sub = subscription;
-      switch (typeof subscription) {
+      var sub = teardown;
+      switch (typeof teardown) {
         case 'function':
-          sub = new Subscription(subscription);
+          sub = new Subscription(teardown);
         case 'object':
           if (sub.isUnsubscribed || typeof sub.unsubscribe !== 'function') {
             break;
@@ -9947,8 +9922,9 @@ System.register("rxjs/Subscription", ["rxjs/util/isArray", "rxjs/util/isObject",
           }
           break;
         default:
-          throw new Error('Unrecognized subscription ' + subscription + ' added to Subscription.');
+          throw new Error('Unrecognized teardown ' + teardown + ' added to Subscription.');
       }
+      return sub;
     };
     Subscription.prototype.remove = function(subscription) {
       if (subscription == null || (subscription === this) || (subscription === Subscription.EMPTY)) {
@@ -9969,16 +9945,29 @@ System.register("rxjs/Subscription", ["rxjs/util/isArray", "rxjs/util/isObject",
     return Subscription;
   }());
   exports.Subscription = Subscription;
-  var UnsubscriptionError = (function(_super) {
-    __extends(UnsubscriptionError, _super);
-    function UnsubscriptionError(errors) {
-      _super.call(this, 'unsubscriptoin error(s)');
-      this.errors = errors;
-      this.name = 'UnsubscriptionError';
-    }
-    return UnsubscriptionError;
-  }(Error));
-  exports.UnsubscriptionError = UnsubscriptionError;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/bindCallback", ["rxjs/observable/BoundCallbackObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var BoundCallbackObservable_1 = require("rxjs/observable/BoundCallbackObservable");
+  exports.bindCallback = BoundCallbackObservable_1.BoundCallbackObservable.create;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/bindNodeCallback", ["rxjs/Observable", "rxjs/observable/bindNodeCallback"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var bindNodeCallback_1 = require("rxjs/observable/bindNodeCallback");
+  Observable_1.Observable.bindNodeCallback = bindNodeCallback_1.bindNodeCallback;
   global.define = __define;
   return module.exports;
 });
@@ -10041,8 +10030,8 @@ System.register("rxjs/operator/combineLatest", ["rxjs/observable/ArrayObservable
     function CombineLatestOperator(project) {
       this.project = project;
     }
-    CombineLatestOperator.prototype.call = function(subscriber) {
-      return new CombineLatestSubscriber(subscriber, this.project);
+    CombineLatestOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new CombineLatestSubscriber(subscriber, this.project));
     };
     return CombineLatestOperator;
   }());
@@ -10115,43 +10104,42 @@ System.register("rxjs/operator/combineLatest", ["rxjs/observable/ArrayObservable
   return module.exports;
 });
 
-System.register("rxjs/add/observable/concat", ["rxjs/Observable", "rxjs/operator/concat"], true, function(require, exports, module) {
+System.register("rxjs/observable/concat", ["rxjs/operator/concat"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
   var concat_1 = require("rxjs/operator/concat");
-  Observable_1.Observable.concat = concat_1.concatStatic;
+  exports.concat = concat_1.concatStatic;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/bindCallback", ["rxjs/Observable", "rxjs/observable/BoundCallbackObservable"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/defer", ["rxjs/Observable", "rxjs/observable/defer"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
-  var BoundCallbackObservable_1 = require("rxjs/observable/BoundCallbackObservable");
-  Observable_1.Observable.bindCallback = BoundCallbackObservable_1.BoundCallbackObservable.create;
+  var defer_1 = require("rxjs/observable/defer");
+  Observable_1.Observable.defer = defer_1.defer;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/forkJoin", ["rxjs/Observable", "rxjs/observable/ForkJoinObservable"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/forkJoin", ["rxjs/Observable", "rxjs/observable/forkJoin"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
-  var ForkJoinObservable_1 = require("rxjs/observable/ForkJoinObservable");
-  Observable_1.Observable.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
+  var forkJoin_1 = require("rxjs/observable/forkJoin");
+  Observable_1.Observable.forkJoin = forkJoin_1.forkJoin;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/observable/FromObservable", ["rxjs/util/isArray", "rxjs/util/isFunction", "rxjs/util/isPromise", "rxjs/util/isScheduler", "rxjs/observable/PromiseObservable", "rxjs/observable/IteratorObservable", "rxjs/observable/ArrayObservable", "rxjs/observable/ArrayLikeObservable", "rxjs/util/SymbolShim", "rxjs/Observable", "rxjs/operator/observeOn"], true, function(require, exports, module) {
+System.register("rxjs/observable/FromObservable", ["rxjs/util/isArray", "rxjs/util/isFunction", "rxjs/util/isPromise", "rxjs/util/isScheduler", "rxjs/observable/PromiseObservable", "rxjs/observable/IteratorObservable", "rxjs/observable/ArrayObservable", "rxjs/observable/ArrayLikeObservable", "rxjs/symbol/observable", "rxjs/symbol/iterator", "rxjs/Observable", "rxjs/operator/observeOn"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -10173,7 +10161,8 @@ System.register("rxjs/observable/FromObservable", ["rxjs/util/isArray", "rxjs/ut
   var IteratorObservable_1 = require("rxjs/observable/IteratorObservable");
   var ArrayObservable_1 = require("rxjs/observable/ArrayObservable");
   var ArrayLikeObservable_1 = require("rxjs/observable/ArrayLikeObservable");
-  var SymbolShim_1 = require("rxjs/util/SymbolShim");
+  var observable_1 = require("rxjs/symbol/observable");
+  var iterator_1 = require("rxjs/symbol/iterator");
   var Observable_1 = require("rxjs/Observable");
   var observeOn_1 = require("rxjs/operator/observeOn");
   var isArrayLike = (function(x) {
@@ -10196,7 +10185,7 @@ System.register("rxjs/observable/FromObservable", ["rxjs/util/isArray", "rxjs/ut
         scheduler = mapFnOrScheduler;
       }
       if (ish != null) {
-        if (typeof ish[SymbolShim_1.SymbolShim.observable] === 'function') {
+        if (typeof ish[observable_1.$$observable] === 'function') {
           if (ish instanceof Observable_1.Observable && !scheduler) {
             return ish;
           }
@@ -10205,7 +10194,7 @@ System.register("rxjs/observable/FromObservable", ["rxjs/util/isArray", "rxjs/ut
           return new ArrayObservable_1.ArrayObservable(ish, scheduler);
         } else if (isPromise_1.isPromise(ish)) {
           return new PromiseObservable_1.PromiseObservable(ish, scheduler);
-        } else if (typeof ish[SymbolShim_1.SymbolShim.iterator] === 'function' || typeof ish === 'string') {
+        } else if (typeof ish[iterator_1.$$iterator] === 'function' || typeof ish === 'string') {
           return new IteratorObservable_1.IteratorObservable(ish, null, null, scheduler);
         } else if (isArrayLike(ish)) {
           return new ArrayLikeObservable_1.ArrayLikeObservable(ish, mapFn, thisArg, scheduler);
@@ -10217,9 +10206,9 @@ System.register("rxjs/observable/FromObservable", ["rxjs/util/isArray", "rxjs/ut
       var ish = this.ish;
       var scheduler = this.scheduler;
       if (scheduler == null) {
-        return ish[SymbolShim_1.SymbolShim.observable]().subscribe(subscriber);
+        return ish[observable_1.$$observable]().subscribe(subscriber);
       } else {
-        return ish[SymbolShim_1.SymbolShim.observable]().subscribe(new observeOn_1.ObserveOnSubscriber(subscriber, scheduler, 0));
+        return ish[observable_1.$$observable]().subscribe(new observeOn_1.ObserveOnSubscriber(subscriber, scheduler, 0));
       }
     };
     return FromObservable;
@@ -10229,7 +10218,31 @@ System.register("rxjs/observable/FromObservable", ["rxjs/util/isArray", "rxjs/ut
   return module.exports;
 });
 
-System.register("rxjs/scheduler/AsapScheduler", ["rxjs/scheduler/AsapAction", "rxjs/scheduler/QueueScheduler"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/fromEvent", ["rxjs/Observable", "rxjs/observable/fromEvent"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var fromEvent_1 = require("rxjs/observable/fromEvent");
+  Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/fromEventPattern", ["rxjs/Observable", "rxjs/observable/fromEventPattern"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var fromEventPattern_1 = require("rxjs/observable/fromEventPattern");
+  Observable_1.Observable.fromEventPattern = fromEventPattern_1.fromEventPattern;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/scheduler/AsyncScheduler", ["rxjs/scheduler/FutureAction", "rxjs/scheduler/QueueScheduler"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -10243,53 +10256,99 @@ System.register("rxjs/scheduler/AsapScheduler", ["rxjs/scheduler/AsapAction", "r
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var AsapAction_1 = require("rxjs/scheduler/AsapAction");
+  var FutureAction_1 = require("rxjs/scheduler/FutureAction");
   var QueueScheduler_1 = require("rxjs/scheduler/QueueScheduler");
-  var AsapScheduler = (function(_super) {
-    __extends(AsapScheduler, _super);
-    function AsapScheduler() {
+  var AsyncScheduler = (function(_super) {
+    __extends(AsyncScheduler, _super);
+    function AsyncScheduler() {
       _super.apply(this, arguments);
     }
-    AsapScheduler.prototype.scheduleNow = function(work, state) {
-      return new AsapAction_1.AsapAction(this, work).schedule(state);
+    AsyncScheduler.prototype.scheduleNow = function(work, state) {
+      return new FutureAction_1.FutureAction(this, work).schedule(state, 0);
     };
-    return AsapScheduler;
+    return AsyncScheduler;
   }(QueueScheduler_1.QueueScheduler));
-  exports.AsapScheduler = AsapScheduler;
+  exports.AsyncScheduler = AsyncScheduler;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/never", ["rxjs/Observable", "rxjs/observable/NeverObservable"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/merge", ["rxjs/Observable", "rxjs/observable/merge"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
+  var merge_1 = require("rxjs/observable/merge");
+  Observable_1.Observable.merge = merge_1.merge;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/never", ["rxjs/observable/NeverObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
   var NeverObservable_1 = require("rxjs/observable/NeverObservable");
-  Observable_1.Observable.never = NeverObservable_1.NeverObservable.create;
+  exports.never = NeverObservable_1.NeverObservable.create;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/add/observable/timer", ["rxjs/Observable", "rxjs/observable/TimerObservable"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/range", ["rxjs/Observable", "rxjs/observable/range"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
-  var TimerObservable_1 = require("rxjs/observable/TimerObservable");
-  Observable_1.Observable.timer = TimerObservable_1.TimerObservable.create;
+  var range_1 = require("rxjs/observable/range");
+  Observable_1.Observable.range = range_1.range;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/operator/publishReplay", ["rxjs/subject/ReplaySubject", "rxjs/operator/multicast"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/throw", ["rxjs/Observable", "rxjs/observable/throw"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var ReplaySubject_1 = require("rxjs/subject/ReplaySubject");
+  var Observable_1 = require("rxjs/Observable");
+  var throw_1 = require("rxjs/observable/throw");
+  Observable_1.Observable.throw = throw_1._throw;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/timer", ["rxjs/observable/TimerObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var TimerObservable_1 = require("rxjs/observable/TimerObservable");
+  exports.timer = TimerObservable_1.TimerObservable.create;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/zip", ["rxjs/Observable", "rxjs/observable/zip"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var zip_1 = require("rxjs/observable/zip");
+  Observable_1.Observable.zip = zip_1.zip;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/operator/publishReplay", ["rxjs/ReplaySubject", "rxjs/operator/multicast"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var ReplaySubject_1 = require("rxjs/ReplaySubject");
   var multicast_1 = require("rxjs/operator/multicast");
   function publishReplay(bufferSize, windowTime, scheduler) {
     if (bufferSize === void 0) {
@@ -10341,7 +10400,7 @@ System.register("rxjs/add/operator/first", ["rxjs/Observable", "rxjs/operator/fi
   return module.exports;
 });
 
-System.register("rxjs/operator/groupBy", ["rxjs/Subscriber", "rxjs/Subscription", "rxjs/Observable", "rxjs/Operator", "rxjs/Subject", "rxjs/util/Map", "rxjs/util/FastMap"], true, function(require, exports, module) {
+System.register("rxjs/operator/groupBy", ["rxjs/Subscriber", "rxjs/Subscription", "rxjs/Observable", "rxjs/Subject", "rxjs/util/Map", "rxjs/util/FastMap"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -10358,7 +10417,6 @@ System.register("rxjs/operator/groupBy", ["rxjs/Subscriber", "rxjs/Subscription"
   var Subscriber_1 = require("rxjs/Subscriber");
   var Subscription_1 = require("rxjs/Subscription");
   var Observable_1 = require("rxjs/Observable");
-  var Operator_1 = require("rxjs/Operator");
   var Subject_1 = require("rxjs/Subject");
   var Map_1 = require("rxjs/util/Map");
   var FastMap_1 = require("rxjs/util/FastMap");
@@ -10366,20 +10424,18 @@ System.register("rxjs/operator/groupBy", ["rxjs/Subscriber", "rxjs/Subscription"
     return this.lift(new GroupByOperator(this, keySelector, elementSelector, durationSelector));
   }
   exports.groupBy = groupBy;
-  var GroupByOperator = (function(_super) {
-    __extends(GroupByOperator, _super);
+  var GroupByOperator = (function() {
     function GroupByOperator(source, keySelector, elementSelector, durationSelector) {
-      _super.call(this);
       this.source = source;
       this.keySelector = keySelector;
       this.elementSelector = elementSelector;
       this.durationSelector = durationSelector;
     }
-    GroupByOperator.prototype.call = function(subscriber) {
-      return new GroupBySubscriber(subscriber, this.keySelector, this.elementSelector, this.durationSelector);
+    GroupByOperator.prototype.call = function(subscriber, source) {
+      return source._subscribe(new GroupBySubscriber(subscriber, this.keySelector, this.elementSelector, this.durationSelector));
     };
     return GroupByOperator;
-  }(Operator_1.Operator));
+  }());
   var GroupBySubscriber = (function(_super) {
     __extends(GroupBySubscriber, _super);
     function GroupBySubscriber(destination, keySelector, elementSelector, durationSelector) {
@@ -10583,14 +10639,33 @@ System.register("rxjs/add/operator/publishBehavior", ["rxjs/Observable", "rxjs/o
   return module.exports;
 });
 
-System.register("rxjs/add/operator/subscribeOn", ["rxjs/Observable", "rxjs/operator/subscribeOn"], true, function(require, exports, module) {
+System.register("rxjs/scheduler/AsapScheduler", ["rxjs/scheduler/AsapAction", "rxjs/scheduler/QueueScheduler"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
-  var subscribeOn_1 = require("rxjs/operator/subscribeOn");
-  Observable_1.Observable.prototype.subscribeOn = subscribeOn_1.subscribeOn;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var AsapAction_1 = require("rxjs/scheduler/AsapAction");
+  var QueueScheduler_1 = require("rxjs/scheduler/QueueScheduler");
+  var AsapScheduler = (function(_super) {
+    __extends(AsapScheduler, _super);
+    function AsapScheduler() {
+      _super.apply(this, arguments);
+    }
+    AsapScheduler.prototype.scheduleNow = function(work, state) {
+      return new AsapAction_1.AsapAction(this, work).schedule(state);
+    };
+    return AsapScheduler;
+  }(QueueScheduler_1.QueueScheduler));
+  exports.AsapScheduler = AsapScheduler;
   global.define = __define;
   return module.exports;
 });
@@ -10645,6 +10720,7 @@ System.register("rxjs/Subscriber", ["rxjs/util/isFunction", "rxjs/Subscription",
           if (typeof destinationOrNext === 'object') {
             if (destinationOrNext instanceof Subscriber) {
               this.destination = destinationOrNext;
+              this.destination.add(this);
             } else {
               this.syncErrorThrowable = true;
               this.destination = new SafeSubscriber(this, destinationOrNext);
@@ -10697,7 +10773,7 @@ System.register("rxjs/Subscriber", ["rxjs/util/isFunction", "rxjs/Subscription",
       this.destination.complete();
       this.unsubscribe();
     };
-    Subscriber.prototype[rxSubscriber_1.rxSubscriber] = function() {
+    Subscriber.prototype[rxSubscriber_1.$$rxSubscriber] = function() {
       return this;
     };
     return Subscriber;
@@ -10717,6 +10793,10 @@ System.register("rxjs/Subscriber", ["rxjs/util/isFunction", "rxjs/Subscription",
         next = observerOrNext.next;
         error = observerOrNext.error;
         complete = observerOrNext.complete;
+        if (isFunction_1.isFunction(context.unsubscribe)) {
+          this.add(context.unsubscribe.bind(context));
+        }
+        context.unsubscribe = this.unsubscribe.bind(this);
       }
       this._context = context;
       this._next = next;
@@ -10800,6 +10880,18 @@ System.register("rxjs/Subscriber", ["rxjs/util/isFunction", "rxjs/Subscription",
   return module.exports;
 });
 
+System.register("rxjs/add/observable/bindCallback", ["rxjs/Observable", "rxjs/observable/bindCallback"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var bindCallback_1 = require("rxjs/observable/bindCallback");
+  Observable_1.Observable.bindCallback = bindCallback_1.bindCallback;
+  global.define = __define;
+  return module.exports;
+});
+
 System.register("rxjs/add/observable/combineLatest", ["rxjs/Observable", "rxjs/operator/combineLatest"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
@@ -10812,25 +10904,60 @@ System.register("rxjs/add/observable/combineLatest", ["rxjs/Observable", "rxjs/o
   return module.exports;
 });
 
-System.register("rxjs/add/observable/from", ["rxjs/Observable", "rxjs/observable/FromObservable"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/concat", ["rxjs/Observable", "rxjs/observable/concat"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var Observable_1 = require("rxjs/Observable");
-  var FromObservable_1 = require("rxjs/observable/FromObservable");
-  Observable_1.Observable.from = FromObservable_1.FromObservable.create;
+  var concat_1 = require("rxjs/observable/concat");
+  Observable_1.Observable.concat = concat_1.concat;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/scheduler/asap", ["rxjs/scheduler/AsapScheduler"], true, function(require, exports, module) {
+System.register("rxjs/observable/from", ["rxjs/observable/FromObservable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var AsapScheduler_1 = require("rxjs/scheduler/AsapScheduler");
-  exports.asap = new AsapScheduler_1.AsapScheduler();
+  var FromObservable_1 = require("rxjs/observable/FromObservable");
+  exports.from = FromObservable_1.FromObservable.create;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/scheduler/async", ["rxjs/scheduler/AsyncScheduler"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var AsyncScheduler_1 = require("rxjs/scheduler/AsyncScheduler");
+  exports.async = new AsyncScheduler_1.AsyncScheduler();
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/never", ["rxjs/Observable", "rxjs/observable/never"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var never_1 = require("rxjs/observable/never");
+  Observable_1.Observable.never = never_1.never;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/observable/timer", ["rxjs/Observable", "rxjs/observable/timer"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var timer_1 = require("rxjs/observable/timer");
+  Observable_1.Observable.timer = timer_1.timer;
   global.define = __define;
   return module.exports;
 });
@@ -10867,6 +10994,17 @@ System.register("rxjs/add/operator/groupBy", ["rxjs/Observable", "rxjs/operator/
   return module.exports;
 });
 
+System.register("rxjs/scheduler/asap", ["rxjs/scheduler/AsapScheduler"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var AsapScheduler_1 = require("rxjs/scheduler/AsapScheduler");
+  exports.asap = new AsapScheduler_1.AsapScheduler();
+  global.define = __define;
+  return module.exports;
+});
+
 System.register("rxjs/util/toSubscriber", ["rxjs/Subscriber", "rxjs/symbol/rxSubscriber"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
@@ -10878,8 +11016,8 @@ System.register("rxjs/util/toSubscriber", ["rxjs/Subscriber", "rxjs/symbol/rxSub
     if (nextOrObserver && typeof nextOrObserver === 'object') {
       if (nextOrObserver instanceof Subscriber_1.Subscriber) {
         return nextOrObserver;
-      } else if (typeof nextOrObserver[rxSubscriber_1.rxSubscriber] === 'function') {
-        return nextOrObserver[rxSubscriber_1.rxSubscriber]();
+      } else if (typeof nextOrObserver[rxSubscriber_1.$$rxSubscriber] === 'function') {
+        return nextOrObserver[rxSubscriber_1.$$rxSubscriber]();
       }
     }
     return new Subscriber_1.Subscriber(nextOrObserver, error, complete);
@@ -10889,7 +11027,19 @@ System.register("rxjs/util/toSubscriber", ["rxjs/Subscriber", "rxjs/symbol/rxSub
   return module.exports;
 });
 
-System.register("rxjs/observable/IntervalObservable", ["rxjs/util/isNumeric", "rxjs/Observable", "rxjs/scheduler/asap"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/from", ["rxjs/Observable", "rxjs/observable/from"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var from_1 = require("rxjs/observable/from");
+  Observable_1.Observable.from = from_1.from;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/observable/IntervalObservable", ["rxjs/util/isNumeric", "rxjs/Observable", "rxjs/scheduler/async"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -10905,7 +11055,7 @@ System.register("rxjs/observable/IntervalObservable", ["rxjs/util/isNumeric", "r
   };
   var isNumeric_1 = require("rxjs/util/isNumeric");
   var Observable_1 = require("rxjs/Observable");
-  var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   var IntervalObservable = (function(_super) {
     __extends(IntervalObservable, _super);
     function IntervalObservable(period, scheduler) {
@@ -10913,7 +11063,7 @@ System.register("rxjs/observable/IntervalObservable", ["rxjs/util/isNumeric", "r
         period = 0;
       }
       if (scheduler === void 0) {
-        scheduler = asap_1.asap;
+        scheduler = async_1.async;
       }
       _super.call(this);
       this.period = period;
@@ -10922,7 +11072,7 @@ System.register("rxjs/observable/IntervalObservable", ["rxjs/util/isNumeric", "r
         this.period = 0;
       }
       if (!scheduler || typeof scheduler.schedule !== 'function') {
-        this.scheduler = asap_1.asap;
+        this.scheduler = async_1.async;
       }
     }
     IntervalObservable.create = function(period, scheduler) {
@@ -10930,7 +11080,7 @@ System.register("rxjs/observable/IntervalObservable", ["rxjs/util/isNumeric", "r
         period = 0;
       }
       if (scheduler === void 0) {
-        scheduler = asap_1.asap;
+        scheduler = async_1.async;
       }
       return new IntervalObservable(period, scheduler);
     };
@@ -10974,16 +11124,81 @@ System.register("rxjs/add/operator/cache", ["rxjs/Observable", "rxjs/operator/ca
   return module.exports;
 });
 
-System.register("rxjs/Observable", ["rxjs/util/root", "rxjs/util/SymbolShim", "rxjs/util/toSubscriber", "rxjs/util/tryCatch", "rxjs/util/errorObject"], true, function(require, exports, module) {
+System.register("rxjs/observable/SubscribeOnObservable", ["rxjs/Observable", "rxjs/scheduler/asap", "rxjs/util/isNumeric"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var Observable_1 = require("rxjs/Observable");
+  var asap_1 = require("rxjs/scheduler/asap");
+  var isNumeric_1 = require("rxjs/util/isNumeric");
+  var SubscribeOnObservable = (function(_super) {
+    __extends(SubscribeOnObservable, _super);
+    function SubscribeOnObservable(source, delayTime, scheduler) {
+      if (delayTime === void 0) {
+        delayTime = 0;
+      }
+      if (scheduler === void 0) {
+        scheduler = asap_1.asap;
+      }
+      _super.call(this);
+      this.source = source;
+      this.delayTime = delayTime;
+      this.scheduler = scheduler;
+      if (!isNumeric_1.isNumeric(delayTime) || delayTime < 0) {
+        this.delayTime = 0;
+      }
+      if (!scheduler || typeof scheduler.schedule !== 'function') {
+        this.scheduler = asap_1.asap;
+      }
+    }
+    SubscribeOnObservable.create = function(source, delay, scheduler) {
+      if (delay === void 0) {
+        delay = 0;
+      }
+      if (scheduler === void 0) {
+        scheduler = asap_1.asap;
+      }
+      return new SubscribeOnObservable(source, delay, scheduler);
+    };
+    SubscribeOnObservable.dispatch = function(arg) {
+      var source = arg.source,
+          subscriber = arg.subscriber;
+      return source.subscribe(subscriber);
+    };
+    SubscribeOnObservable.prototype._subscribe = function(subscriber) {
+      var delay = this.delayTime;
+      var source = this.source;
+      var scheduler = this.scheduler;
+      return scheduler.schedule(SubscribeOnObservable.dispatch, delay, {
+        source: source,
+        subscriber: subscriber
+      });
+    };
+    return SubscribeOnObservable;
+  }(Observable_1.Observable));
+  exports.SubscribeOnObservable = SubscribeOnObservable;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/Observable", ["rxjs/util/root", "rxjs/symbol/observable", "rxjs/util/toSubscriber"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
   var root_1 = require("rxjs/util/root");
-  var SymbolShim_1 = require("rxjs/util/SymbolShim");
+  var observable_1 = require("rxjs/symbol/observable");
   var toSubscriber_1 = require("rxjs/util/toSubscriber");
-  var tryCatch_1 = require("rxjs/util/tryCatch");
-  var errorObject_1 = require("rxjs/util/errorObject");
   var Observable = (function() {
     function Observable(subscribe) {
       this._isScalar = false;
@@ -10999,21 +11214,18 @@ System.register("rxjs/Observable", ["rxjs/util/root", "rxjs/util/SymbolShim", "r
     };
     Observable.prototype.subscribe = function(observerOrNext, error, complete) {
       var operator = this.operator;
-      var subscriber = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
-      if (operator) {
-        subscriber.add(this._subscribe(operator.call(subscriber)));
-      } else {
-        subscriber.add(this._subscribe(subscriber));
-      }
-      if (subscriber.syncErrorThrowable) {
-        subscriber.syncErrorThrowable = false;
-        if (subscriber.syncErrorThrown) {
-          throw subscriber.syncErrorValue;
+      var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
+      sink.add(operator ? operator.call(sink, this) : this._subscribe(sink));
+      if (sink.syncErrorThrowable) {
+        sink.syncErrorThrowable = false;
+        if (sink.syncErrorThrown) {
+          throw sink.syncErrorValue;
         }
       }
-      return subscriber;
+      return sink;
     };
-    Observable.prototype.forEach = function(next, thisArg, PromiseCtor) {
+    Observable.prototype.forEach = function(next, PromiseCtor) {
+      var _this = this;
       if (!PromiseCtor) {
         if (root_1.root.Rx && root_1.root.Rx.config && root_1.root.Rx.config.Promise) {
           PromiseCtor = root_1.root.Rx.config.Promise;
@@ -11024,12 +11236,17 @@ System.register("rxjs/Observable", ["rxjs/util/root", "rxjs/util/SymbolShim", "r
       if (!PromiseCtor) {
         throw new Error('no Promise impl found');
       }
-      var source = this;
       return new PromiseCtor(function(resolve, reject) {
-        source.subscribe(function(value) {
-          var result = tryCatch_1.tryCatch(next).call(thisArg, value);
-          if (result === errorObject_1.errorObject) {
-            reject(errorObject_1.errorObject.e);
+        var subscription = _this.subscribe(function(value) {
+          if (subscription) {
+            try {
+              next(value);
+            } catch (err) {
+              reject(err);
+              subscription.unsubscribe();
+            }
+          } else {
+            next(value);
           }
         }, reject, resolve);
       });
@@ -11037,7 +11254,7 @@ System.register("rxjs/Observable", ["rxjs/util/root", "rxjs/util/SymbolShim", "r
     Observable.prototype._subscribe = function(subscriber) {
       return this.source.subscribe(subscriber);
     };
-    Observable.prototype[SymbolShim_1.SymbolShim.observable] = function() {
+    Observable.prototype[observable_1.$$observable] = function() {
       return this;
     };
     Observable.create = function(subscribe) {
@@ -11050,19 +11267,35 @@ System.register("rxjs/Observable", ["rxjs/util/root", "rxjs/util/SymbolShim", "r
   return module.exports;
 });
 
-System.register("rxjs/add/observable/interval", ["rxjs/Observable", "rxjs/observable/IntervalObservable"], true, function(require, exports, module) {
+System.register("rxjs/observable/interval", ["rxjs/observable/IntervalObservable"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   "use strict";
-  var Observable_1 = require("rxjs/Observable");
   var IntervalObservable_1 = require("rxjs/observable/IntervalObservable");
-  Observable_1.Observable.interval = IntervalObservable_1.IntervalObservable.create;
+  exports.interval = IntervalObservable_1.IntervalObservable.create;
   global.define = __define;
   return module.exports;
 });
 
-System.register("rxjs/Subject", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/Subscription", "rxjs/subject/SubjectSubscription", "rxjs/symbol/rxSubscriber", "rxjs/util/throwError", "rxjs/util/ObjectUnsubscribedError"], true, function(require, exports, module) {
+System.register("rxjs/operator/subscribeOn", ["rxjs/observable/SubscribeOnObservable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var SubscribeOnObservable_1 = require("rxjs/observable/SubscribeOnObservable");
+  function subscribeOn(scheduler, delay) {
+    if (delay === void 0) {
+      delay = 0;
+    }
+    return new SubscribeOnObservable_1.SubscribeOnObservable(this, delay, scheduler);
+  }
+  exports.subscribeOn = subscribeOn;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/Subject", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/Subscription", "rxjs/SubjectSubscription", "rxjs/symbol/rxSubscriber", "rxjs/util/throwError", "rxjs/util/ObjectUnsubscribedError"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -11079,7 +11312,7 @@ System.register("rxjs/Subject", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/Sub
   var Observable_1 = require("rxjs/Observable");
   var Subscriber_1 = require("rxjs/Subscriber");
   var Subscription_1 = require("rxjs/Subscription");
-  var SubjectSubscription_1 = require("rxjs/subject/SubjectSubscription");
+  var SubjectSubscription_1 = require("rxjs/SubjectSubscription");
   var rxSubscriber_1 = require("rxjs/symbol/rxSubscriber");
   var throwError_1 = require("rxjs/util/throwError");
   var ObjectUnsubscribedError_1 = require("rxjs/util/ObjectUnsubscribedError");
@@ -11095,6 +11328,7 @@ System.register("rxjs/Subject", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/Sub
       this.hasErrored = false;
       this.dispatching = false;
       this.hasCompleted = false;
+      this.source = source;
     }
     Subject.prototype.lift = function(operator) {
       var subject = new Subject(this.destination || this, this);
@@ -11102,7 +11336,7 @@ System.register("rxjs/Subject", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/Sub
       return subject;
     };
     Subject.prototype.add = function(subscription) {
-      Subscription_1.Subscription.prototype.add.call(this, subscription);
+      return Subscription_1.Subscription.prototype.add.call(this, subscription);
     };
     Subject.prototype.remove = function(subscription) {
       Subscription_1.Subscription.prototype.remove.call(this, subscription);
@@ -11238,7 +11472,7 @@ System.register("rxjs/Subject", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/Sub
         throwError_1.throwError(new ObjectUnsubscribedError_1.ObjectUnsubscribedError());
       }
     };
-    Subject.prototype[rxSubscriber_1.rxSubscriber] = function() {
+    Subject.prototype[rxSubscriber_1.$$rxSubscriber] = function() {
       return new Subscriber_1.Subscriber(this);
     };
     Subject.create = function(destination, source) {
@@ -11259,7 +11493,31 @@ System.register("rxjs/Subject", ["rxjs/Observable", "rxjs/Subscriber", "rxjs/Sub
   return module.exports;
 });
 
-System.register("rxjs/Rx", ["rxjs/Subject", "rxjs/Observable", "rxjs/add/observable/combineLatest", "rxjs/add/observable/concat", "rxjs/add/observable/merge", "rxjs/add/observable/race", "rxjs/add/observable/bindCallback", "rxjs/add/observable/bindNodeCallback", "rxjs/add/observable/defer", "rxjs/add/observable/empty", "rxjs/add/observable/forkJoin", "rxjs/add/observable/from", "rxjs/add/observable/fromArray", "rxjs/add/observable/fromEvent", "rxjs/add/observable/fromEventPattern", "rxjs/add/observable/fromPromise", "rxjs/add/observable/interval", "rxjs/add/observable/never", "rxjs/add/observable/range", "rxjs/add/observable/throw", "rxjs/add/observable/timer", "rxjs/add/observable/zip", "rxjs/add/operator/buffer", "rxjs/add/operator/bufferCount", "rxjs/add/operator/bufferTime", "rxjs/add/operator/bufferToggle", "rxjs/add/operator/bufferWhen", "rxjs/add/operator/cache", "rxjs/add/operator/catch", "rxjs/add/operator/combineAll", "rxjs/add/operator/combineLatest", "rxjs/add/operator/concat", "rxjs/add/operator/concatAll", "rxjs/add/operator/concatMap", "rxjs/add/operator/concatMapTo", "rxjs/add/operator/count", "rxjs/add/operator/dematerialize", "rxjs/add/operator/debounce", "rxjs/add/operator/debounceTime", "rxjs/add/operator/defaultIfEmpty", "rxjs/add/operator/delay", "rxjs/add/operator/delayWhen", "rxjs/add/operator/distinctUntilChanged", "rxjs/add/operator/do", "rxjs/add/operator/expand", "rxjs/add/operator/filter", "rxjs/add/operator/finally", "rxjs/add/operator/first", "rxjs/add/operator/groupBy", "rxjs/add/operator/ignoreElements", "rxjs/add/operator/inspect", "rxjs/add/operator/inspectTime", "rxjs/add/operator/every", "rxjs/add/operator/last", "rxjs/add/operator/let", "rxjs/add/operator/map", "rxjs/add/operator/mapTo", "rxjs/add/operator/materialize", "rxjs/add/operator/merge", "rxjs/add/operator/mergeAll", "rxjs/add/operator/mergeMap", "rxjs/add/operator/mergeMapTo", "rxjs/add/operator/multicast", "rxjs/add/operator/observeOn", "rxjs/add/operator/partition", "rxjs/add/operator/pluck", "rxjs/add/operator/publish", "rxjs/add/operator/publishBehavior", "rxjs/add/operator/publishReplay", "rxjs/add/operator/publishLast", "rxjs/add/operator/race", "rxjs/add/operator/reduce", "rxjs/add/operator/repeat", "rxjs/add/operator/retry", "rxjs/add/operator/retryWhen", "rxjs/add/operator/sample", "rxjs/add/operator/sampleTime", "rxjs/add/operator/scan", "rxjs/add/operator/share", "rxjs/add/operator/single", "rxjs/add/operator/skip", "rxjs/add/operator/skipUntil", "rxjs/add/operator/skipWhile", "rxjs/add/operator/startWith", "rxjs/add/operator/subscribeOn", "rxjs/add/operator/switch", "rxjs/add/operator/switchMap", "rxjs/add/operator/switchMapTo", "rxjs/add/operator/take", "rxjs/add/operator/takeLast", "rxjs/add/operator/takeUntil", "rxjs/add/operator/takeWhile", "rxjs/add/operator/throttle", "rxjs/add/operator/throttleTime", "rxjs/add/operator/timeout", "rxjs/add/operator/timeoutWith", "rxjs/add/operator/toArray", "rxjs/add/operator/toPromise", "rxjs/add/operator/window", "rxjs/add/operator/windowCount", "rxjs/add/operator/windowTime", "rxjs/add/operator/windowToggle", "rxjs/add/operator/windowWhen", "rxjs/add/operator/withLatestFrom", "rxjs/add/operator/zip", "rxjs/add/operator/zipAll", "rxjs/Operator", "rxjs/Subscription", "rxjs/Subscriber", "rxjs/subject/AsyncSubject", "rxjs/subject/ReplaySubject", "rxjs/subject/BehaviorSubject", "rxjs/observable/ConnectableObservable", "rxjs/Notification", "rxjs/util/EmptyError", "rxjs/util/ArgumentOutOfRangeError", "rxjs/util/ObjectUnsubscribedError", "rxjs/scheduler/asap", "rxjs/scheduler/queue", "rxjs/symbol/rxSubscriber"], true, function(require, exports, module) {
+System.register("rxjs/add/observable/interval", ["rxjs/Observable", "rxjs/observable/interval"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var interval_1 = require("rxjs/observable/interval");
+  Observable_1.Observable.interval = interval_1.interval;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/add/operator/subscribeOn", ["rxjs/Observable", "rxjs/operator/subscribeOn"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  "use strict";
+  var Observable_1 = require("rxjs/Observable");
+  var subscribeOn_1 = require("rxjs/operator/subscribeOn");
+  Observable_1.Observable.prototype.subscribeOn = subscribeOn_1.subscribeOn;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("rxjs/Rx", ["rxjs/Subject", "rxjs/Observable", "rxjs/add/observable/bindCallback", "rxjs/add/observable/bindNodeCallback", "rxjs/add/observable/combineLatest", "rxjs/add/observable/concat", "rxjs/add/observable/defer", "rxjs/add/observable/empty", "rxjs/add/observable/forkJoin", "rxjs/add/observable/from", "rxjs/add/observable/fromEvent", "rxjs/add/observable/fromEventPattern", "rxjs/add/observable/fromPromise", "rxjs/add/observable/interval", "rxjs/add/observable/merge", "rxjs/add/observable/race", "rxjs/add/observable/never", "rxjs/add/observable/of", "rxjs/add/observable/range", "rxjs/add/observable/throw", "rxjs/add/observable/timer", "rxjs/add/observable/zip", "rxjs/add/operator/buffer", "rxjs/add/operator/bufferCount", "rxjs/add/operator/bufferTime", "rxjs/add/operator/bufferToggle", "rxjs/add/operator/bufferWhen", "rxjs/add/operator/cache", "rxjs/add/operator/catch", "rxjs/add/operator/combineAll", "rxjs/add/operator/combineLatest", "rxjs/add/operator/concat", "rxjs/add/operator/concatAll", "rxjs/add/operator/concatMap", "rxjs/add/operator/concatMapTo", "rxjs/add/operator/count", "rxjs/add/operator/dematerialize", "rxjs/add/operator/debounce", "rxjs/add/operator/debounceTime", "rxjs/add/operator/defaultIfEmpty", "rxjs/add/operator/delay", "rxjs/add/operator/delayWhen", "rxjs/add/operator/distinctUntilChanged", "rxjs/add/operator/do", "rxjs/add/operator/expand", "rxjs/add/operator/filter", "rxjs/add/operator/finally", "rxjs/add/operator/first", "rxjs/add/operator/groupBy", "rxjs/add/operator/ignoreElements", "rxjs/add/operator/audit", "rxjs/add/operator/auditTime", "rxjs/add/operator/last", "rxjs/add/operator/let", "rxjs/add/operator/every", "rxjs/add/operator/map", "rxjs/add/operator/mapTo", "rxjs/add/operator/materialize", "rxjs/add/operator/merge", "rxjs/add/operator/mergeAll", "rxjs/add/operator/mergeMap", "rxjs/add/operator/mergeMapTo", "rxjs/add/operator/multicast", "rxjs/add/operator/observeOn", "rxjs/add/operator/partition", "rxjs/add/operator/pluck", "rxjs/add/operator/publish", "rxjs/add/operator/publishBehavior", "rxjs/add/operator/publishReplay", "rxjs/add/operator/publishLast", "rxjs/add/operator/race", "rxjs/add/operator/reduce", "rxjs/add/operator/repeat", "rxjs/add/operator/retry", "rxjs/add/operator/retryWhen", "rxjs/add/operator/sample", "rxjs/add/operator/sampleTime", "rxjs/add/operator/scan", "rxjs/add/operator/share", "rxjs/add/operator/single", "rxjs/add/operator/skip", "rxjs/add/operator/skipUntil", "rxjs/add/operator/skipWhile", "rxjs/add/operator/startWith", "rxjs/add/operator/subscribeOn", "rxjs/add/operator/switch", "rxjs/add/operator/switchMap", "rxjs/add/operator/switchMapTo", "rxjs/add/operator/take", "rxjs/add/operator/takeLast", "rxjs/add/operator/takeUntil", "rxjs/add/operator/takeWhile", "rxjs/add/operator/throttle", "rxjs/add/operator/throttleTime", "rxjs/add/operator/timeout", "rxjs/add/operator/timeoutWith", "rxjs/add/operator/toArray", "rxjs/add/operator/toPromise", "rxjs/add/operator/window", "rxjs/add/operator/windowCount", "rxjs/add/operator/windowTime", "rxjs/add/operator/windowToggle", "rxjs/add/operator/windowWhen", "rxjs/add/operator/withLatestFrom", "rxjs/add/operator/zip", "rxjs/add/operator/zipAll", "rxjs/Operator", "rxjs/Subscription", "rxjs/Subscriber", "rxjs/AsyncSubject", "rxjs/ReplaySubject", "rxjs/BehaviorSubject", "rxjs/observable/ConnectableObservable", "rxjs/Notification", "rxjs/util/EmptyError", "rxjs/util/ArgumentOutOfRangeError", "rxjs/util/ObjectUnsubscribedError", "rxjs/util/UnsubscriptionError", "rxjs/scheduler/asap", "rxjs/scheduler/async", "rxjs/scheduler/queue", "rxjs/symbol/rxSubscriber", "rxjs/symbol/observable", "rxjs/symbol/iterator"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -11268,22 +11526,22 @@ System.register("rxjs/Rx", ["rxjs/Subject", "rxjs/Observable", "rxjs/add/observa
   exports.Subject = Subject_1.Subject;
   var Observable_1 = require("rxjs/Observable");
   exports.Observable = Observable_1.Observable;
-  require("rxjs/add/observable/combineLatest");
-  require("rxjs/add/observable/concat");
-  require("rxjs/add/observable/merge");
-  require("rxjs/add/observable/race");
   require("rxjs/add/observable/bindCallback");
   require("rxjs/add/observable/bindNodeCallback");
+  require("rxjs/add/observable/combineLatest");
+  require("rxjs/add/observable/concat");
   require("rxjs/add/observable/defer");
   require("rxjs/add/observable/empty");
   require("rxjs/add/observable/forkJoin");
   require("rxjs/add/observable/from");
-  require("rxjs/add/observable/fromArray");
   require("rxjs/add/observable/fromEvent");
   require("rxjs/add/observable/fromEventPattern");
   require("rxjs/add/observable/fromPromise");
   require("rxjs/add/observable/interval");
+  require("rxjs/add/observable/merge");
+  require("rxjs/add/observable/race");
   require("rxjs/add/observable/never");
+  require("rxjs/add/observable/of");
   require("rxjs/add/observable/range");
   require("rxjs/add/observable/throw");
   require("rxjs/add/observable/timer");
@@ -11316,11 +11574,11 @@ System.register("rxjs/Rx", ["rxjs/Subject", "rxjs/Observable", "rxjs/add/observa
   require("rxjs/add/operator/first");
   require("rxjs/add/operator/groupBy");
   require("rxjs/add/operator/ignoreElements");
-  require("rxjs/add/operator/inspect");
-  require("rxjs/add/operator/inspectTime");
-  require("rxjs/add/operator/every");
+  require("rxjs/add/operator/audit");
+  require("rxjs/add/operator/auditTime");
   require("rxjs/add/operator/last");
   require("rxjs/add/operator/let");
+  require("rxjs/add/operator/every");
   require("rxjs/add/operator/map");
   require("rxjs/add/operator/mapTo");
   require("rxjs/add/operator/materialize");
@@ -11376,14 +11634,13 @@ System.register("rxjs/Rx", ["rxjs/Subject", "rxjs/Observable", "rxjs/add/observa
   exports.Operator = Operator_1.Operator;
   var Subscription_1 = require("rxjs/Subscription");
   exports.Subscription = Subscription_1.Subscription;
-  exports.UnsubscriptionError = Subscription_1.UnsubscriptionError;
   var Subscriber_1 = require("rxjs/Subscriber");
   exports.Subscriber = Subscriber_1.Subscriber;
-  var AsyncSubject_1 = require("rxjs/subject/AsyncSubject");
+  var AsyncSubject_1 = require("rxjs/AsyncSubject");
   exports.AsyncSubject = AsyncSubject_1.AsyncSubject;
-  var ReplaySubject_1 = require("rxjs/subject/ReplaySubject");
+  var ReplaySubject_1 = require("rxjs/ReplaySubject");
   exports.ReplaySubject = ReplaySubject_1.ReplaySubject;
-  var BehaviorSubject_1 = require("rxjs/subject/BehaviorSubject");
+  var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
   exports.BehaviorSubject = BehaviorSubject_1.BehaviorSubject;
   var ConnectableObservable_1 = require("rxjs/observable/ConnectableObservable");
   exports.ConnectableObservable = ConnectableObservable_1.ConnectableObservable;
@@ -11395,15 +11652,25 @@ System.register("rxjs/Rx", ["rxjs/Subject", "rxjs/Observable", "rxjs/add/observa
   exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
   var ObjectUnsubscribedError_1 = require("rxjs/util/ObjectUnsubscribedError");
   exports.ObjectUnsubscribedError = ObjectUnsubscribedError_1.ObjectUnsubscribedError;
+  var UnsubscriptionError_1 = require("rxjs/util/UnsubscriptionError");
+  exports.UnsubscriptionError = UnsubscriptionError_1.UnsubscriptionError;
   var asap_1 = require("rxjs/scheduler/asap");
+  var async_1 = require("rxjs/scheduler/async");
   var queue_1 = require("rxjs/scheduler/queue");
   var rxSubscriber_1 = require("rxjs/symbol/rxSubscriber");
+  var observable_1 = require("rxjs/symbol/observable");
+  var iterator_1 = require("rxjs/symbol/iterator");
   var Scheduler = {
     asap: asap_1.asap,
+    async: async_1.async,
     queue: queue_1.queue
   };
   exports.Scheduler = Scheduler;
-  var Symbol = {rxSubscriber: rxSubscriber_1.rxSubscriber};
+  var Symbol = {
+    rxSubscriber: rxSubscriber_1.$$rxSubscriber,
+    observable: observable_1.$$observable,
+    iterator: iterator_1.$$iterator
+  };
   exports.Symbol = Symbol;
   global.define = __define;
   return module.exports;

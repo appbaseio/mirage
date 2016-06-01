@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { SwitchFirstMapSignature } from '../../operator/exhaustMap';
+declare module '../../Observable' {
+    interface Observable<T> {
+        exhaustMap: SwitchFirstMapSignature<T>;
+    }
+}

@@ -4,19 +4,51 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var asap_1 = require('../scheduler/asap');
+var async_1 = require('../scheduler/async');
 var isDate_1 = require('../util/isDate');
 var Subscriber_1 = require('../Subscriber');
 var Notification_1 = require('../Notification');
 /**
- * Returns an Observable that delays the emission of items from the source Observable
- * by a given timeout or until a given Date.
- * @param {number|Date} delay the timeout value or date until which the emission of the source items is delayed.
- * @param {Scheduler} [scheduler] the Scheduler to use for managing the timers that handle the timeout for each item.
- * @returns {Observable} an Observable that delays the emissions of the source Observable by the specified timeout or Date.
+ * Delays the emission of items from the source Observable by a given timeout or
+ * until a given Date.
+ *
+ * <span class="informal">Time shifts each item by some specified amount of
+ * milliseconds.</span>
+ *
+ * <img src="./img/delay.png" width="100%">
+ *
+ * If the delay argument is a Number, this operator time shifts the source
+ * Observable by that amount of time expressed in milliseconds. The relative
+ * time intervals between the values are preserved.
+ *
+ * If the delay argument is a Date, this operator time shifts the start of the
+ * Observable execution until the given date occurs.
+ *
+ * @example <caption>Delay each click by one second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var delayedClicks = clicks.delay(1000); // each click emitted after 1 second
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @example <caption>Delay all clicks until a future date happens</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var date = new Date('March 15, 2050 12:00:00'); // in the future
+ * var delayedClicks = clicks.delay(date); // click emitted only after that date
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @see {@link debounceTime}
+ * @see {@link delayWhen}
+ *
+ * @param {number|Date} delay The delay duration in milliseconds (a `number`) or
+ * a `Date` until which the emission of the source items is delayed.
+ * @param {Scheduler} [scheduler=async] The Scheduler to use for
+ * managing the timers that handle the time-shift for each item.
+ * @return {Observable} An Observable that delays the emissions of the source
+ * Observable by the specified timeout or Date.
+ * @method delay
+ * @owner Observable
  */
 function delay(delay, scheduler) {
-    if (scheduler === void 0) { scheduler = asap_1.asap; }
+    if (scheduler === void 0) { scheduler = async_1.async; }
     var absoluteDelay = isDate_1.isDate(delay);
     var delayFor = absoluteDelay ? (+delay - scheduler.now()) : Math.abs(delay);
     return this.lift(new DelayOperator(delayFor, scheduler));
@@ -27,11 +59,16 @@ var DelayOperator = (function () {
         this.delay = delay;
         this.scheduler = scheduler;
     }
-    DelayOperator.prototype.call = function (subscriber) {
-        return new DelaySubscriber(subscriber, this.delay, this.scheduler);
+    DelayOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new DelaySubscriber(subscriber, this.delay, this.scheduler));
     };
     return DelayOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var DelaySubscriber = (function (_super) {
     __extends(DelaySubscriber, _super);
     function DelaySubscriber(destination, delay, scheduler) {

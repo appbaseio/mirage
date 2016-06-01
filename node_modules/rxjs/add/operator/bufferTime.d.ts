@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { BufferTimeSignature } from '../../operator/bufferTime';
+declare module '../../Observable' {
+    interface Observable<T> {
+        bufferTime: BufferTimeSignature<T>;
+    }
+}

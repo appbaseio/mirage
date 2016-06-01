@@ -6,6 +6,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 var Notification_1 = require('../Notification');
+/**
+ * @see {@link Notification}
+ *
+ * @param scheduler
+ * @param delay
+ * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
+ * @method observeOn
+ * @owner Observable
+ */
 function observeOn(scheduler, delay) {
     if (delay === void 0) { delay = 0; }
     return this.lift(new ObserveOnOperator(scheduler, delay));
@@ -17,12 +26,17 @@ var ObserveOnOperator = (function () {
         this.scheduler = scheduler;
         this.delay = delay;
     }
-    ObserveOnOperator.prototype.call = function (subscriber) {
-        return new ObserveOnSubscriber(subscriber, this.scheduler, this.delay);
+    ObserveOnOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new ObserveOnSubscriber(subscriber, this.scheduler, this.delay));
     };
     return ObserveOnOperator;
 }());
 exports.ObserveOnOperator = ObserveOnOperator;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ObserveOnSubscriber = (function (_super) {
     __extends(ObserveOnSubscriber, _super);
     function ObserveOnSubscriber(destination, scheduler, delay) {
@@ -31,8 +45,8 @@ var ObserveOnSubscriber = (function (_super) {
         this.scheduler = scheduler;
         this.delay = delay;
     }
-    ObserveOnSubscriber.dispatch = function (_a) {
-        var notification = _a.notification, destination = _a.destination;
+    ObserveOnSubscriber.dispatch = function (arg) {
+        var notification = arg.notification, destination = arg.destination;
         notification.observe(destination);
     };
     ObserveOnSubscriber.prototype.scheduleMessage = function (notification) {
@@ -57,4 +71,5 @@ var ObserveOnMessage = (function () {
     }
     return ObserveOnMessage;
 }());
+exports.ObserveOnMessage = ObserveOnMessage;
 //# sourceMappingURL=observeOn.js.map

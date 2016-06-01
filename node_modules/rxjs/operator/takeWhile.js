@@ -5,6 +5,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
+/**
+ * @param predicate
+ * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
+ * @method takeWhile
+ * @owner Observable
+ */
 function takeWhile(predicate) {
     return this.lift(new TakeWhileOperator(predicate));
 }
@@ -13,11 +19,16 @@ var TakeWhileOperator = (function () {
     function TakeWhileOperator(predicate) {
         this.predicate = predicate;
     }
-    TakeWhileOperator.prototype.call = function (subscriber) {
-        return new TakeWhileSubscriber(subscriber, this.predicate);
+    TakeWhileOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new TakeWhileSubscriber(subscriber, this.predicate));
     };
     return TakeWhileOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var TakeWhileSubscriber = (function (_super) {
     __extends(TakeWhileSubscriber, _super);
     function TakeWhileSubscriber(destination, predicate) {

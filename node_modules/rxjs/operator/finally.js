@@ -10,7 +10,9 @@ var Subscription_1 = require('../Subscription');
  * Returns an Observable that mirrors the source Observable, but will call a specified function when
  * the source terminates on complete or error.
  * @param {function} finallySelector function to be called when source terminates.
- * @returns {Observable} an Observable that mirrors the source, but will call the specified function on termination.
+ * @return {Observable} an Observable that mirrors the source, but will call the specified function on termination.
+ * @method finally
+ * @owner Observable
  */
 function _finally(finallySelector) {
     return this.lift(new FinallyOperator(finallySelector));
@@ -20,11 +22,16 @@ var FinallyOperator = (function () {
     function FinallyOperator(finallySelector) {
         this.finallySelector = finallySelector;
     }
-    FinallyOperator.prototype.call = function (subscriber) {
-        return new FinallySubscriber(subscriber, this.finallySelector);
+    FinallyOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new FinallySubscriber(subscriber, this.finallySelector));
     };
     return FinallyOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var FinallySubscriber = (function (_super) {
     __extends(FinallySubscriber, _super);
     function FinallySubscriber(destination, finallySelector) {

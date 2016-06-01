@@ -10,22 +10,22 @@ var Observable_1 = require('./Observable');
 exports.Observable = Observable_1.Observable;
 // statics
 /* tslint:disable:no-use-before-declare */
-require('./add/observable/combineLatest');
-require('./add/observable/concat');
-require('./add/observable/merge');
-require('./add/observable/race');
 require('./add/observable/bindCallback');
 require('./add/observable/bindNodeCallback');
+require('./add/observable/combineLatest');
+require('./add/observable/concat');
 require('./add/observable/defer');
 require('./add/observable/empty');
 require('./add/observable/forkJoin');
 require('./add/observable/from');
-require('./add/observable/fromArray');
 require('./add/observable/fromEvent');
 require('./add/observable/fromEventPattern');
 require('./add/observable/fromPromise');
 require('./add/observable/interval');
+require('./add/observable/merge');
+require('./add/observable/race');
 require('./add/observable/never');
+require('./add/observable/of');
 require('./add/observable/range');
 require('./add/observable/throw');
 require('./add/observable/timer');
@@ -59,11 +59,11 @@ require('./add/operator/finally');
 require('./add/operator/first');
 require('./add/operator/groupBy');
 require('./add/operator/ignoreElements');
-require('./add/operator/inspect');
-require('./add/operator/inspectTime');
-require('./add/operator/every');
+require('./add/operator/audit');
+require('./add/operator/auditTime');
 require('./add/operator/last');
 require('./add/operator/let');
+require('./add/operator/every');
 require('./add/operator/map');
 require('./add/operator/mapTo');
 require('./add/operator/materialize');
@@ -120,14 +120,13 @@ var Operator_1 = require('./Operator');
 exports.Operator = Operator_1.Operator;
 var Subscription_1 = require('./Subscription');
 exports.Subscription = Subscription_1.Subscription;
-exports.UnsubscriptionError = Subscription_1.UnsubscriptionError;
 var Subscriber_1 = require('./Subscriber');
 exports.Subscriber = Subscriber_1.Subscriber;
-var AsyncSubject_1 = require('./subject/AsyncSubject');
+var AsyncSubject_1 = require('./AsyncSubject');
 exports.AsyncSubject = AsyncSubject_1.AsyncSubject;
-var ReplaySubject_1 = require('./subject/ReplaySubject');
+var ReplaySubject_1 = require('./ReplaySubject');
 exports.ReplaySubject = ReplaySubject_1.ReplaySubject;
-var BehaviorSubject_1 = require('./subject/BehaviorSubject');
+var BehaviorSubject_1 = require('./BehaviorSubject');
 exports.BehaviorSubject = BehaviorSubject_1.BehaviorSubject;
 var ConnectableObservable_1 = require('./observable/ConnectableObservable');
 exports.ConnectableObservable = ConnectableObservable_1.ConnectableObservable;
@@ -139,19 +138,49 @@ var ArgumentOutOfRangeError_1 = require('./util/ArgumentOutOfRangeError');
 exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
 var ObjectUnsubscribedError_1 = require('./util/ObjectUnsubscribedError');
 exports.ObjectUnsubscribedError = ObjectUnsubscribedError_1.ObjectUnsubscribedError;
+var UnsubscriptionError_1 = require('./util/UnsubscriptionError');
+exports.UnsubscriptionError = UnsubscriptionError_1.UnsubscriptionError;
 var asap_1 = require('./scheduler/asap');
+var async_1 = require('./scheduler/async');
 var queue_1 = require('./scheduler/queue');
 var rxSubscriber_1 = require('./symbol/rxSubscriber');
+var observable_1 = require('./symbol/observable');
+var iterator_1 = require('./symbol/iterator');
 /* tslint:enable:no-unused-variable */
-/* tslint:disable:no-var-keyword */
+/**
+ * @typedef {Object} Rx.Scheduler
+ * @property {Scheduler} queue Schedules on a queue in the current event frame
+ * (trampoline scheduler). Use this for iteration operations.
+ * @property {Scheduler} asap Schedules on the micro task queue, which uses the
+ * fastest transport mechanism available, either Node.js' `process.nextTick()`
+ * or Web Worker MessageChannel or setTimeout or others. Use this for
+ * asynchronous conversions.
+ * @property {Scheduler} async Schedules work with `setInterval`. Use this for
+ * time-based operations.
+ */
 var Scheduler = {
     asap: asap_1.asap,
+    async: async_1.async,
     queue: queue_1.queue
 };
 exports.Scheduler = Scheduler;
+/**
+ * @typedef {Object} Rx.Symbol
+ * @property {Symbol|string} rxSubscriber A symbol to use as a property name to
+ * retrieve an "Rx safe" Observer from an object. "Rx safety" can be defined as
+ * an object that has all of the traits of an Rx Subscriber, including the
+ * ability to add and remove subscriptions to the subscription chain and
+ * guarantees involving event triggering (can't "next" after unsubscription,
+ * etc).
+ * @property {Symbol|string} observable A symbol to use as a property name to
+ * retrieve an Observable as defined by the [ECMAScript "Observable" spec](https://github.com/zenparsing/es-observable).
+ * @property {Symbol|string} iterator The ES6 symbol to use as a property name
+ * to retrieve an iterator from an object.
+ */
 var Symbol = {
-    rxSubscriber: rxSubscriber_1.rxSubscriber
+    rxSubscriber: rxSubscriber_1.$$rxSubscriber,
+    observable: observable_1.$$observable,
+    iterator: iterator_1.$$iterator
 };
 exports.Symbol = Symbol;
-/* tslint:enable:no-var-keyword */
 //# sourceMappingURL=Rx.js.map

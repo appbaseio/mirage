@@ -7,10 +7,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Observable_1 = require('./Observable');
 var Subscriber_1 = require('./Subscriber');
 var Subscription_1 = require('./Subscription');
-var SubjectSubscription_1 = require('./subject/SubjectSubscription');
+var SubjectSubscription_1 = require('./SubjectSubscription');
 var rxSubscriber_1 = require('./symbol/rxSubscriber');
 var throwError_1 = require('./util/throwError');
 var ObjectUnsubscribedError_1 = require('./util/ObjectUnsubscribedError');
+/**
+ * @class Subject<T>
+ */
 var Subject = (function (_super) {
     __extends(Subject, _super);
     function Subject(destination, source) {
@@ -23,6 +26,7 @@ var Subject = (function (_super) {
         this.hasErrored = false;
         this.dispatching = false;
         this.hasCompleted = false;
+        this.source = source;
     }
     Subject.prototype.lift = function (operator) {
         var subject = new Subject(this.destination || this, this);
@@ -30,7 +34,7 @@ var Subject = (function (_super) {
         return subject;
     };
     Subject.prototype.add = function (subscription) {
-        Subscription_1.Subscription.prototype.add.call(this, subscription);
+        return Subscription_1.Subscription.prototype.add.call(this, subscription);
     };
     Subject.prototype.remove = function (subscription) {
         Subscription_1.Subscription.prototype.remove.call(this, subscription);
@@ -177,7 +181,7 @@ var Subject = (function (_super) {
             throwError_1.throwError(new ObjectUnsubscribedError_1.ObjectUnsubscribedError());
         }
     };
-    Subject.prototype[rxSubscriber_1.rxSubscriber] = function () {
+    Subject.prototype[rxSubscriber_1.$$rxSubscriber] = function () {
         return new Subscriber_1.Subscriber(this);
     };
     Subject.create = function (destination, source) {
@@ -186,6 +190,11 @@ var Subject = (function (_super) {
     return Subject;
 }(Observable_1.Observable));
 exports.Subject = Subject;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var SubjectObservable = (function (_super) {
     __extends(SubjectObservable, _super);
     function SubjectObservable(source) {

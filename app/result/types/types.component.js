@@ -71,7 +71,6 @@ var TypesComponent = (function () {
         core_1.Component({
             selector: 'types',
             templateUrl: './app/result/types/types.component.html',
-            styleUrls: ['./app/result/types/types.component.css'],
             inputs: ['mapping', 'config', 'detectChange']
         }), 
         __metadata('design:paramtypes', [])

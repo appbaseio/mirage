@@ -78,7 +78,6 @@ var SinglequeryComponent = (function () {
         core_1.Component({
             selector: 'single-query',
             templateUrl: './app/build/singlequery/singlequery.component.html',
-            styleUrls: ['./app/build/singlequery/singlequery.component.css'],
             inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
             directives: [SinglequeryComponent]
         }), 

@@ -5,9 +5,15 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var asap_1 = require('../scheduler/asap');
+var async_1 = require('../scheduler/async');
+/**
+ * @param scheduler
+ * @return {Observable<TimeInterval<any>>|WebSocketSubject<T>|Observable<T>}
+ * @method timeInterval
+ * @owner Observable
+ */
 function timeInterval(scheduler) {
-    if (scheduler === void 0) { scheduler = asap_1.asap; }
+    if (scheduler === void 0) { scheduler = async_1.async; }
     return this.lift(new TimeIntervalOperator(scheduler));
 }
 exports.timeInterval = timeInterval;
@@ -24,11 +30,16 @@ var TimeIntervalOperator = (function () {
     function TimeIntervalOperator(scheduler) {
         this.scheduler = scheduler;
     }
-    TimeIntervalOperator.prototype.call = function (observer) {
-        return new TimeIntervalSubscriber(observer, this.scheduler);
+    TimeIntervalOperator.prototype.call = function (observer, source) {
+        return source._subscribe(new TimeIntervalSubscriber(observer, this.scheduler));
     };
     return TimeIntervalOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var TimeIntervalSubscriber = (function (_super) {
     __extends(TimeIntervalSubscriber, _super);
     function TimeIntervalSubscriber(destination, scheduler) {

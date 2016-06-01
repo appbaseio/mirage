@@ -10,7 +10,9 @@ var Subscriber_1 = require('../Subscriber');
  *
  * <img src="./img/isEmpty.png" width="100%">
  *
- * @returns {Observable} an Observable that emits a Boolean.
+ * @return {Observable} an Observable that emits a Boolean.
+ * @method isEmpty
+ * @owner Observable
  */
 function isEmpty() {
     return this.lift(new IsEmptyOperator());
@@ -19,11 +21,16 @@ exports.isEmpty = isEmpty;
 var IsEmptyOperator = (function () {
     function IsEmptyOperator() {
     }
-    IsEmptyOperator.prototype.call = function (observer) {
-        return new IsEmptySubscriber(observer);
+    IsEmptyOperator.prototype.call = function (observer, source) {
+        return source._subscribe(new IsEmptySubscriber(observer));
     };
     return IsEmptyOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var IsEmptySubscriber = (function (_super) {
     __extends(IsEmptySubscriber, _super);
     function IsEmptySubscriber(destination) {

@@ -6,10 +6,59 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Subscriber_1 = require('../Subscriber');
 var Subject_1 = require('../Subject');
-var asap_1 = require('../scheduler/asap');
+var async_1 = require('../scheduler/async');
+/**
+ * Branch out the source Observable values as a nested Observable periodically
+ * in time.
+ *
+ * <span class="informal">It's like {@link bufferTime}, but emits a nested
+ * Observable instead of an array.</span>
+ *
+ * <img src="./img/windowTime.png" width="100%">
+ *
+ * Returns an Observable that emits windows of items it collects from the source
+ * Observable. The output Observable starts a new window periodically, as
+ * determined by the `windowCreationInterval` argument. It emits each window
+ * after a fixed timespan, specified by the `windowTimeSpan` argument. When the
+ * source Observable completes or encounters an error, the output Observable
+ * emits the current window and propagates the notification from the source
+ * Observable. If `windowCreationInterval` is not provided, the output
+ * Observable starts a new window when the previous window of duration
+ * `windowTimeSpan` completes.
+ *
+ * @example <caption>In every window of 1 second each, emit at most 2 click events</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.windowTime(1000)
+ *   .map(win => win.take(2)) // each window has at most 2 emissions
+ *   .mergeAll(); // flatten the Observable-of-Observables
+ * result.subscribe(x => console.log(x));
+ *
+ * @example <caption>Every 5 seconds start a window 1 second long, and emit at most 2 click events per window</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.windowTime(1000, 5000)
+ *   .map(win => win.take(2)) // each window has at most 2 emissions
+ *   .mergeAll(); // flatten the Observable-of-Observables
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link window}
+ * @see {@link windowCount}
+ * @see {@link windowToggle}
+ * @see {@link windowWhen}
+ * @see {@link bufferTime}
+ *
+ * @param {number} windowTimeSpan The amount of time to fill each window.
+ * @param {number} [windowCreationInterval] The interval at which to start new
+ * windows.
+ * @param {Scheduler} [scheduler=async] The scheduler on which to schedule the
+ * intervals that determine window boundaries.
+ * @return {Observable<Observable<T>>} An observable of windows, which in turn
+ * are Observables.
+ * @method windowTime
+ * @owner Observable
+ */
 function windowTime(windowTimeSpan, windowCreationInterval, scheduler) {
     if (windowCreationInterval === void 0) { windowCreationInterval = null; }
-    if (scheduler === void 0) { scheduler = asap_1.asap; }
+    if (scheduler === void 0) { scheduler = async_1.async; }
     return this.lift(new WindowTimeOperator(windowTimeSpan, windowCreationInterval, scheduler));
 }
 exports.windowTime = windowTime;
@@ -19,11 +68,16 @@ var WindowTimeOperator = (function () {
         this.windowCreationInterval = windowCreationInterval;
         this.scheduler = scheduler;
     }
-    WindowTimeOperator.prototype.call = function (subscriber) {
-        return new WindowTimeSubscriber(subscriber, this.windowTimeSpan, this.windowCreationInterval, this.scheduler);
+    WindowTimeOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new WindowTimeSubscriber(subscriber, this.windowTimeSpan, this.windowCreationInterval, this.scheduler));
     };
     return WindowTimeOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var WindowTimeSubscriber = (function (_super) {
     __extends(WindowTimeSubscriber, _super);
     function WindowTimeSubscriber(destination, windowTimeSpan, windowCreationInterval, scheduler) {
@@ -106,8 +160,8 @@ function dispatchWindowCreation(state) {
     action.add(context.subscription);
     action.schedule(state, windowCreationInterval);
 }
-function dispatchWindowClose(_a) {
-    var subscriber = _a.subscriber, window = _a.window, context = _a.context;
+function dispatchWindowClose(arg) {
+    var subscriber = arg.subscriber, window = arg.window, context = arg.context;
     if (context && context.action && context.subscription) {
         context.action.remove(context.subscription);
     }

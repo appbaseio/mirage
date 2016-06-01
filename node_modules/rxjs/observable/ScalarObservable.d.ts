@@ -1,7 +1,12 @@
 import { Scheduler } from '../Scheduler';
 import { Observable } from '../Observable';
 import { Subscriber } from '../Subscriber';
-import { Subscription } from '../Subscription';
+import { TeardownLogic } from '../Subscription';
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @extends {Ignored}
+ * @hide true
+ */
 export declare class ScalarObservable<T> extends Observable<T> {
     value: T;
     private scheduler;
@@ -9,5 +14,5 @@ export declare class ScalarObservable<T> extends Observable<T> {
     static dispatch(state: any): void;
     _isScalar: boolean;
     constructor(value: T, scheduler?: Scheduler);
-    protected _subscribe(subscriber: Subscriber<T>): Subscription | Function | void;
+    protected _subscribe(subscriber: Subscriber<T>): TeardownLogic;
 }

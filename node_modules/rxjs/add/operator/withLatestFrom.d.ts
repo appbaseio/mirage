@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { WithLatestFromSignature } from '../../operator/withLatestFrom';
+declare module '../../Observable' {
+    interface Observable<T> {
+        withLatestFrom: WithLatestFromSignature<T>;
+    }
+}

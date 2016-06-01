@@ -5,79 +5,107 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var noop_1 = require('../util/noop');
 /**
- * Returns a mirrored Observable of the source Observable, but modified so that the provided Observer is called
- * for every item emitted by the source.
- * This operator is useful for debugging your observables for the correct values or performing other side effects.
- * @param {Observer|function} [nextOrObserver] a normal observer callback or callback for onNext.
- * @param {function} [error] callback for errors in the source.
- * @param {function} [complete] callback for the completion of the source.
- * @reurns {Observable} a mirrored Observable with the specified Observer or callback attached for each item.
+ * Perform a side effect for every emission on the source Observable, but return
+ * an Observable that is identical to the source.
+ *
+ * <span class="informal">Intercepts each emission on the source and runs a
+ * function, but returns an output which is identical to the source.</span>
+ *
+ * <img src="./img/do.png" width="100%">
+ *
+ * Returns a mirrored Observable of the source Observable, but modified so that
+ * the provided Observer is called to perform a side effect for every value,
+ * error, and completion emitted by the source. Any errors that are thrown in
+ * the aforementioned Observer or handlers are safely sent down the error path
+ * of the output Observable.
+ *
+ * This operator is useful for debugging your Observables for the correct values
+ * or performing other side effects.
+ *
+ * Note: this is different to a `subscribe` on the Observable. If the Observable
+ * returned by `do` is not subscribed, the side effects specified by the
+ * Observer will never happen. `do` therefore simply spies on existing
+ * execution, it does not trigger an execution to happen like `subscribe` does.
+ *
+ * @example <caption>Map every every click to the clientX position of that click, while also logging the click event</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var positions = clicks
+ *   .do(ev => console.log(ev))
+ *   .map(ev => ev.clientX);
+ * positions.subscribe(x => console.log(x));
+ *
+ * @see {@link map}
+ * @see {@link subscribe}
+ *
+ * @param {Observer|function} [nextOrObserver] A normal Observer object or a
+ * callback for `next`.
+ * @param {function} [error] Callback for errors in the source.
+ * @param {function} [complete] Callback for the completion of the source.
+ * @return {Observable} An Observable identical to the source, but runs the
+ * specified Observer or callback(s) for each item.
+ * @method do
+ * @name do
+ * @owner Observable
  */
 function _do(nextOrObserver, error, complete) {
-    var next;
-    if (nextOrObserver && typeof nextOrObserver === 'object') {
-        next = nextOrObserver.next;
-        error = nextOrObserver.error;
-        complete = nextOrObserver.complete;
-    }
-    else {
-        next = nextOrObserver;
-    }
-    return this.lift(new DoOperator(next || noop_1.noop, error || noop_1.noop, complete || noop_1.noop));
+    return this.lift(new DoOperator(nextOrObserver, error, complete));
 }
 exports._do = _do;
 var DoOperator = (function () {
-    function DoOperator(next, error, complete) {
-        this.next = next;
+    function DoOperator(nextOrObserver, error, complete) {
+        this.nextOrObserver = nextOrObserver;
         this.error = error;
         this.complete = complete;
     }
-    DoOperator.prototype.call = function (subscriber) {
-        return new DoSubscriber(subscriber, this.next, this.error, this.complete);
+    DoOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new DoSubscriber(subscriber, this.nextOrObserver, this.error, this.complete));
     };
     return DoOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var DoSubscriber = (function (_super) {
     __extends(DoSubscriber, _super);
-    function DoSubscriber(destination, next, error, complete) {
+    function DoSubscriber(destination, nextOrObserver, error, complete) {
         _super.call(this, destination);
-        this.__next = next;
-        this.__error = error;
-        this.__complete = complete;
+        var safeSubscriber = new Subscriber_1.Subscriber(nextOrObserver, error, complete);
+        safeSubscriber.syncErrorThrowable = true;
+        this.add(safeSubscriber);
+        this.safeSubscriber = safeSubscriber;
     }
-    // NOTE: important, all try catch blocks below are there for performance
-    // reasons. tryCatcher approach does not benefit this operator.
     DoSubscriber.prototype._next = function (value) {
-        try {
-            this.__next(value);
+        var safeSubscriber = this.safeSubscriber;
+        safeSubscriber.next(value);
+        if (safeSubscriber.syncErrorThrown) {
+            this.destination.error(safeSubscriber.syncErrorValue);
         }
-        catch (err) {
-            this.destination.error(err);
-            return;
+        else {
+            this.destination.next(value);
         }
-        this.destination.next(value);
     };
     DoSubscriber.prototype._error = function (err) {
-        try {
-            this.__error(err);
+        var safeSubscriber = this.safeSubscriber;
+        safeSubscriber.error(err);
+        if (safeSubscriber.syncErrorThrown) {
+            this.destination.error(safeSubscriber.syncErrorValue);
         }
-        catch (err) {
+        else {
             this.destination.error(err);
-            return;
         }
-        this.destination.error(err);
     };
     DoSubscriber.prototype._complete = function () {
-        try {
-            this.__complete();
+        var safeSubscriber = this.safeSubscriber;
+        safeSubscriber.complete();
+        if (safeSubscriber.syncErrorThrown) {
+            this.destination.error(safeSubscriber.syncErrorValue);
         }
-        catch (err) {
-            this.destination.error(err);
-            return;
+        else {
+            this.destination.complete();
         }
-        this.destination.complete();
     };
     return DoSubscriber;
 }(Subscriber_1.Subscriber));

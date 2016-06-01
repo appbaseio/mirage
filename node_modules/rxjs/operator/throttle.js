@@ -6,6 +6,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
+/**
+ * @param durationSelector
+ * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
+ * @method throttle
+ * @owner Observable
+ */
 function throttle(durationSelector) {
     return this.lift(new ThrottleOperator(durationSelector));
 }
@@ -14,11 +20,16 @@ var ThrottleOperator = (function () {
     function ThrottleOperator(durationSelector) {
         this.durationSelector = durationSelector;
     }
-    ThrottleOperator.prototype.call = function (subscriber) {
-        return new ThrottleSubscriber(subscriber, this.durationSelector);
+    ThrottleOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new ThrottleSubscriber(subscriber, this.durationSelector));
     };
     return ThrottleOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ThrottleSubscriber = (function (_super) {
     __extends(ThrottleSubscriber, _super);
     function ThrottleSubscriber(destination, durationSelector) {

@@ -3,7 +3,8 @@ var root_1 = require('./root');
 var isArray_1 = require('./isArray');
 var isPromise_1 = require('./isPromise');
 var Observable_1 = require('../Observable');
-var SymbolShim_1 = require('../util/SymbolShim');
+var iterator_1 = require('../symbol/iterator');
+var observable_1 = require('../symbol/observable');
 var InnerSubscriber_1 = require('../InnerSubscriber');
 function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
     var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
@@ -41,9 +42,9 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
         });
         return destination;
     }
-    else if (typeof result[SymbolShim_1.SymbolShim.iterator] === 'function') {
-        for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
-            var item = result_1[_i];
+    else if (typeof result[iterator_1.$$iterator] === 'function') {
+        for (var _i = 0, _a = result; _i < _a.length; _i++) {
+            var item = _a[_i];
             destination.next(item);
             if (destination.isUnsubscribed) {
                 break;
@@ -53,8 +54,8 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             destination.complete();
         }
     }
-    else if (typeof result[SymbolShim_1.SymbolShim.observable] === 'function') {
-        var obs = result[SymbolShim_1.SymbolShim.observable]();
+    else if (typeof result[observable_1.$$observable] === 'function') {
+        var obs = result[observable_1.$$observable]();
         if (typeof obs.subscribe !== 'function') {
             destination.error('invalid observable');
         }

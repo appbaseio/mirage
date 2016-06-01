@@ -2,6 +2,9 @@ import { Subject } from '../Subject';
 import { Observable } from '../Observable';
 import { Subscriber } from '../Subscriber';
 import { Subscription } from '../Subscription';
+/**
+ * @class ConnectableObservable<T>
+ */
 export declare class ConnectableObservable<T> extends Observable<T> {
     protected source: Observable<T>;
     protected subjectFactory: () => Subject<T>;

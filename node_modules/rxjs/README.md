@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ReactiveX/RxJS.svg?branch=master)](https://travis-ci.org/ReactiveX/RxJS)
+[![Build Status](https://travis-ci.org/ReactiveX/rxjs.svg?branch=master)](https://travis-ci.org/ReactiveX/rxjs)
 [![Coverage Status](https://coveralls.io/repos/ReactiveX/RxJS/badge.svg?branch=master&service=github)](https://coveralls.io/github/ReactiveX/RxJS?branch=master)
 [![npm version](https://badge.fury.io/js/%40reactivex%2Frxjs.svg)](http://badge.fury.io/js/%40reactivex%2Frxjs)
 [![Join the chat at https://gitter.im/Reactive-Extensions/RxJS](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Reactive-Extensions/RxJS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -16,6 +16,7 @@ Reactive Extensions Library for JavaScript. This is a rewrite of [Reactive-Exten
 - [Maintainer Guidelines](doc/maintainer-guidelines.md)
 - [Creating Operators](doc/operator-creation.md)
 - [Migrating From RxJS 4 to RxJS 5](MIGRATION.md)
+- [API Documentation (WIP)](http://reactivex.io/rxjs)
 
 ## Important
 
@@ -124,7 +125,7 @@ Rx.Observable.of('hello world')
 ## Goals
 
 - Provide better performance than preceding versions of RxJS
-- To model/follow the [ES7 Observable Spec](https://github.com/zenparsing/es-observable) to the observable.
+- To model/follow the [Observable Spec Proposal](https://github.com/zenparsing/es-observable) to the observable.
 - Provide more modular file structure in a variety of formats
 - Provide more debuggable call stacks than preceding versions of RxJS
 
@@ -143,6 +144,8 @@ The build and test structure is fairly primitive at the moment. There are variou
 - build_cover: runs `istanbul` code coverage against test cases
 - test: runs tests with `jasmine`, must have built prior to running.
 - tests2png: generates PNG marble diagrams from test cases.
+
+`npm run info` will list available script.
 
 ### Example
 

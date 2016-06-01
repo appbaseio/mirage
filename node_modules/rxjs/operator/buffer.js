@@ -7,17 +7,36 @@ var __extends = (this && this.__extends) || function (d, b) {
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
 /**
- * Buffers the incoming observable values until the passed `closingNotifier`
- * emits a value, at which point it emits the buffer on the returned observable
- * and starts a new buffer internally, awaiting the next time `closingNotifier`
- * emits.
+ * Buffers the source Observable values until `closingNotifier` emits.
+ *
+ * <span class="informal">Collects values from the past as an array, and emits
+ * that array only when another Observable emits.</span>
  *
  * <img src="./img/buffer.png" width="100%">
  *
- * @param {Observable<any>} closingNotifier an Observable that signals the
- * buffer to be emitted} from the returned observable.
- * @returns {Observable<T[]>} an Observable of buffers, which are arrays of
+ * Buffers the incoming Observable values until the given `closingNotifier`
+ * Observable emits a value, at which point it emits the buffer on the output
+ * Observable and starts a new buffer internally, awaiting the next time
+ * `closingNotifier` emits.
+ *
+ * @example <caption>On every click, emit array of most recent interval events</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var interval = Rx.Observable.interval(1000);
+ * var buffered = interval.buffer(clicks);
+ * buffered.subscribe(x => console.log(x));
+ *
+ * @see {@link bufferCount}
+ * @see {@link bufferTime}
+ * @see {@link bufferToggle}
+ * @see {@link bufferWhen}
+ * @see {@link window}
+ *
+ * @param {Observable<any>} closingNotifier An Observable that signals the
+ * buffer to be emitted on the output Observable.
+ * @return {Observable<T[]>} An Observable of buffers, which are arrays of
  * values.
+ * @method buffer
+ * @owner Observable
  */
 function buffer(closingNotifier) {
     return this.lift(new BufferOperator(closingNotifier));
@@ -27,11 +46,16 @@ var BufferOperator = (function () {
     function BufferOperator(closingNotifier) {
         this.closingNotifier = closingNotifier;
     }
-    BufferOperator.prototype.call = function (subscriber) {
-        return new BufferSubscriber(subscriber, this.closingNotifier);
+    BufferOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new BufferSubscriber(subscriber, this.closingNotifier));
     };
     return BufferOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var BufferSubscriber = (function (_super) {
     __extends(BufferSubscriber, _super);
     function BufferSubscriber(destination, closingNotifier) {

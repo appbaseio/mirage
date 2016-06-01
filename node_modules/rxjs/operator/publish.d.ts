@@ -5,6 +5,11 @@ import { ConnectableObservable } from '../observable/ConnectableObservable';
  *
  * <img src="./img/publish.png" width="100%">
  *
- * @returns a ConnectableObservable that upon connection causes the source Observable to emit items to its Observers.
+ * @return a ConnectableObservable that upon connection causes the source Observable to emit items to its Observers.
+ * @method publish
+ * @owner Observable
  */
 export declare function publish<T>(): ConnectableObservable<T>;
+export interface PublishSignature<T> {
+    (): ConnectableObservable<T>;
+}

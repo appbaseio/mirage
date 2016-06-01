@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subscription_1 = require('../Subscription');
 var VirtualTimeScheduler = (function () {
     function VirtualTimeScheduler() {
-        this.actions = [];
+        this.actions = []; // XXX: use `any` to remove type param `T` from `VirtualTimeScheduler`.
         this.active = false;
         this.scheduledId = null;
         this.index = 0;
@@ -26,6 +26,11 @@ var VirtualTimeScheduler = (function () {
             this.frame = action.delay;
             if (this.frame <= maxFrames) {
                 action.execute();
+                if (action.error) {
+                    actions.length = 0;
+                    this.frame = 0;
+                    throw action.error;
+                }
             }
             else {
                 break;
@@ -66,6 +71,11 @@ var VirtualTimeScheduler = (function () {
     return VirtualTimeScheduler;
 }());
 exports.VirtualTimeScheduler = VirtualTimeScheduler;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var VirtualAction = (function (_super) {
     __extends(VirtualAction, _super);
     function VirtualAction(scheduler, work, index) {
@@ -81,7 +91,7 @@ var VirtualAction = (function (_super) {
             return this;
         }
         var scheduler = this.scheduler;
-        var action;
+        var action = null;
         if (this.calls++ === 0) {
             // the action is not being rescheduled.
             action = this;

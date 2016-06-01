@@ -11,16 +11,27 @@ import { InnerSubscriber } from '../InnerSubscriber';
  * @param {function} project the function for projecting the next emitted item of the Observable.
  * @param {number} [concurrent] the max number of observables that can be created concurrently. defaults to infinity.
  * @param {Scheduler} [scheduler] The Scheduler to use for managing the expansions.
- * @returns {Observable} an Observable containing the expansions of the source Observable.
+ * @return {Observable} an Observable containing the expansions of the source Observable.
+ * @method expand
+ * @owner Observable
  */
 export declare function expand<T, R>(project: (value: T, index: number) => Observable<R>, concurrent?: number, scheduler?: Scheduler): Observable<R>;
+export interface ExpandSignature<T> {
+    (project: (value: T, index: number) => Observable<T>, concurrent?: number, scheduler?: Scheduler): Observable<T>;
+    <R>(project: (value: T, index: number) => Observable<R>, concurrent?: number, scheduler?: Scheduler): Observable<R>;
+}
 export declare class ExpandOperator<T, R> implements Operator<T, R> {
     private project;
     private concurrent;
     private scheduler;
     constructor(project: (value: T, index: number) => Observable<R>, concurrent: number, scheduler: Scheduler);
-    call(subscriber: Subscriber<R>): Subscriber<T>;
+    call(subscriber: Subscriber<R>, source: any): any;
 }
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 export declare class ExpandSubscriber<T, R> extends OuterSubscriber<T, R> {
     private project;
     private concurrent;
@@ -30,7 +41,7 @@ export declare class ExpandSubscriber<T, R> extends OuterSubscriber<T, R> {
     private hasCompleted;
     private buffer;
     constructor(destination: Subscriber<R>, project: (value: T, index: number) => Observable<R>, concurrent: number, scheduler: Scheduler);
-    private static dispatch({subscriber, result, value, index});
+    private static dispatch<T, R>(arg);
     protected _next(value: any): void;
     private subscribeToProjection(result, value, index);
     protected _complete(): void;

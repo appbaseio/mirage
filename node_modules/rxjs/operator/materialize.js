@@ -13,9 +13,13 @@ var Notification_1 = require('../Notification');
  *
  * <img src="./img/materialize.png" width="100%">
  *
+ * @see {@link Notification}
+ *
  * @scheduler materialize does not operate by default on a particular Scheduler.
- * @returns {Observable} an Observable that emits items that are the result of
+ * @return {Observable<Notification<T>>} an Observable that emits items that are the result of
  * materializing the items and notifications of the source Observable.
+ * @method materialize
+ * @owner Observable
  */
 function materialize() {
     return this.lift(new MaterializeOperator());
@@ -24,11 +28,16 @@ exports.materialize = materialize;
 var MaterializeOperator = (function () {
     function MaterializeOperator() {
     }
-    MaterializeOperator.prototype.call = function (subscriber) {
-        return new MaterializeSubscriber(subscriber);
+    MaterializeOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new MaterializeSubscriber(subscriber));
     };
     return MaterializeOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var MaterializeSubscriber = (function (_super) {
     __extends(MaterializeSubscriber, _super);
     function MaterializeSubscriber(destination) {

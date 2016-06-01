@@ -5,6 +5,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('./Subscriber');
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var OuterSubscriber = (function (_super) {
     __extends(OuterSubscriber, _super);
     function OuterSubscriber() {

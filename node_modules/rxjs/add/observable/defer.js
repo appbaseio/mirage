@@ -1,5 +1,5 @@
 "use strict";
 var Observable_1 = require('../../Observable');
-var DeferObservable_1 = require('../../observable/DeferObservable');
-Observable_1.Observable.defer = DeferObservable_1.DeferObservable.create;
+var defer_1 = require('../../observable/defer');
+Observable_1.Observable.defer = defer_1.defer;
 //# sourceMappingURL=defer.js.map

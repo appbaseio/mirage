@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { DistinctUntilKeyChangedSignature } from '../../operator/distinctUntilKeyChanged';
+declare module '../../Observable' {
+    interface Observable<T> {
+        distinctUntilKeyChanged: DistinctUntilKeyChangedSignature<T>;
+    }
+}

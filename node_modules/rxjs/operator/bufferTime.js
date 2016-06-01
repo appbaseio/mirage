@@ -5,25 +5,50 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var asap_1 = require('../scheduler/asap');
+var async_1 = require('../scheduler/async');
 /**
- * Buffers values from the source for a specific time period. Optionally allows
- * new buffers to be set up at an interval.
+ * Buffers the source Observable values for a specific time period.
+ *
+ * <span class="informal">Collects values from the past as an array, and emits
+ * those arrays periodically in time.</span>
  *
  * <img src="./img/bufferTime.png" width="100%">
  *
- * @param {number} bufferTimeSpan the amount of time to fill each buffer for
- * before emitting them and clearing them.
- * @param {number} [bufferCreationInterval] the interval at which to start new
+ * Buffers values from the source for a specific time duration `bufferTimeSpan`.
+ * Unless the optional argument `bufferCreationInterval` is given, it emits and
+ * resets the buffer every `bufferTimeSpan` milliseconds. If
+ * `bufferCreationInterval` is given, this operator opens the buffer every
+ * `bufferCreationInterval` milliseconds and closes (emits and resets) the
+ * buffer every `bufferTimeSpan` milliseconds.
+ *
+ * @example <caption>Every second, emit an array of the recent click events</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var buffered = clicks.bufferTime(1000);
+ * buffered.subscribe(x => console.log(x));
+ *
+ * @example <caption>Every 5 seconds, emit the click events from the next 2 seconds</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var buffered = clicks.bufferTime(2000, 5000);
+ * buffered.subscribe(x => console.log(x));
+ *
+ * @see {@link buffer}
+ * @see {@link bufferCount}
+ * @see {@link bufferToggle}
+ * @see {@link bufferWhen}
+ * @see {@link windowTime}
+ *
+ * @param {number} bufferTimeSpan The amount of time to fill each buffer array.
+ * @param {number} [bufferCreationInterval] The interval at which to start new
  * buffers.
- * @param {Scheduler} [scheduler] (optional, defaults to `asap` scheduler) The
- * scheduler on which to schedule the intervals that determine buffer
- * boundaries.
- * @returns {Observable<T[]>} an observable of arrays of buffered values.
+ * @param {Scheduler} [scheduler=async] The scheduler on which to schedule the
+ * intervals that determine buffer boundaries.
+ * @return {Observable<T[]>} An observable of arrays of buffered values.
+ * @method bufferTime
+ * @owner Observable
  */
 function bufferTime(bufferTimeSpan, bufferCreationInterval, scheduler) {
     if (bufferCreationInterval === void 0) { bufferCreationInterval = null; }
-    if (scheduler === void 0) { scheduler = asap_1.asap; }
+    if (scheduler === void 0) { scheduler = async_1.async; }
     return this.lift(new BufferTimeOperator(bufferTimeSpan, bufferCreationInterval, scheduler));
 }
 exports.bufferTime = bufferTime;
@@ -33,11 +58,16 @@ var BufferTimeOperator = (function () {
         this.bufferCreationInterval = bufferCreationInterval;
         this.scheduler = scheduler;
     }
-    BufferTimeOperator.prototype.call = function (subscriber) {
-        return new BufferTimeSubscriber(subscriber, this.bufferTimeSpan, this.bufferCreationInterval, this.scheduler);
+    BufferTimeOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new BufferTimeSubscriber(subscriber, this.bufferTimeSpan, this.bufferCreationInterval, this.scheduler));
     };
     return BufferTimeOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var BufferTimeSubscriber = (function (_super) {
     __extends(BufferTimeSubscriber, _super);
     function BufferTimeSubscriber(destination, bufferTimeSpan, bufferCreationInterval, scheduler) {
@@ -111,8 +141,8 @@ function dispatchBufferCreation(state) {
         action.schedule(state, bufferCreationInterval);
     }
 }
-function dispatchBufferClose(_a) {
-    var subscriber = _a.subscriber, buffer = _a.buffer;
+function dispatchBufferClose(arg) {
+    var subscriber = arg.subscriber, buffer = arg.buffer;
     subscriber.closeBuffer(buffer);
 }
 //# sourceMappingURL=bufferTime.js.map

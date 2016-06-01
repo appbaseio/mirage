@@ -8,7 +8,9 @@ var reduce_1 = require('./reduce');
  *
  * @param {Function} optional comparer function that it will use instead of its default to compare the value of two
  * items.
- * @returns {Observable} an Observable that emits item with the largest number.
+ * @return {Observable} an Observable that emits item with the largest number.
+ * @method max
+ * @owner Observable
  */
 function max(comparer) {
     var max = (typeof comparer === 'function')

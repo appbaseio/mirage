@@ -7,6 +7,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Observable_1 = require('../Observable');
 var Subscriber_1 = require('../Subscriber');
 var Subscription_1 = require('../Subscription');
+/**
+ * @class ConnectableObservable<T>
+ */
 var ConnectableObservable = (function (_super) {
     __extends(ConnectableObservable, _super);
     function ConnectableObservable(source, subjectFactory) {
@@ -48,6 +51,11 @@ var ConnectableObservable = (function (_super) {
     return ConnectableObservable;
 }(Observable_1.Observable));
 exports.ConnectableObservable = ConnectableObservable;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ConnectableSubscription = (function (_super) {
     __extends(ConnectableSubscription, _super);
     function ConnectableSubscription(connectable) {
@@ -61,6 +69,11 @@ var ConnectableSubscription = (function (_super) {
     };
     return ConnectableSubscription;
 }(Subscription_1.Subscription));
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var RefCountObservable = (function (_super) {
     __extends(RefCountObservable, _super);
     function RefCountObservable(connectable, refCount) {
@@ -80,6 +93,11 @@ var RefCountObservable = (function (_super) {
     };
     return RefCountObservable;
 }(Observable_1.Observable));
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var RefCountSubscriber = (function (_super) {
     __extends(RefCountSubscriber, _super);
     function RefCountSubscriber(destination, refCountObservable) {

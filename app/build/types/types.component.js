@@ -15,7 +15,6 @@ var TypesComponent = (function () {
     TypesComponent.prototype.ngOnChanges = function (changes) {
         if (changes['detectChange'] && this.mapping.types.length) {
             var data = this.createTokenData(this.mapping.types);
-            console.log(data);
             var setType = $('#setType');
             setType.select2({
                 placeholder: "Select types to apply query",
@@ -71,7 +70,6 @@ var TypesComponent = (function () {
         core_1.Component({
             selector: 'types',
             templateUrl: './app/build/types/types.component.html',
-            styleUrls: ['./app/build/types/types.component.css'],
             inputs: ['mapping', 'config', 'detectChange']
         }), 
         __metadata('design:paramtypes', [])

@@ -14,10 +14,14 @@ var EmptyError_1 = require('../util/EmptyError');
  *
  * <img src="./img/last.png" width="100%">
  *
+ * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
+ * callback if the Observable completes before any `next` notification was sent.
  * @param {function} predicate - the condition any source emitted item has to satisfy.
- * @returns {Observable} an Observable that emits only the last item satisfying the given condition
+ * @return {Observable} an Observable that emits only the last item satisfying the given condition
  * from the source, or an NoSuchElementException if no such items are emitted.
  * @throws - Throws if no items that match the predicate are emitted by the source Observable.
+ * @method last
+ * @owner Observable
  */
 function last(predicate, resultSelector, defaultValue) {
     return this.lift(new LastOperator(predicate, resultSelector, defaultValue, this));
@@ -30,11 +34,16 @@ var LastOperator = (function () {
         this.defaultValue = defaultValue;
         this.source = source;
     }
-    LastOperator.prototype.call = function (observer) {
-        return new LastSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source);
+    LastOperator.prototype.call = function (observer, source) {
+        return source._subscribe(new LastSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
     };
     return LastOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var LastSubscriber = (function (_super) {
     __extends(LastSubscriber, _super);
     function LastSubscriber(destination, predicate, resultSelector, defaultValue, source) {

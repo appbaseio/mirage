@@ -12,8 +12,10 @@ var Subscriber_1 = require('../Subscriber');
  * <img src="./img/skipWhile.png" width="100%">
  *
  * @param {Function} predicate - a function to test each item emitted from the source Observable.
- * @returns {Observable<T>} an Observable that begins emitting items emitted by the source Observable when the
+ * @return {Observable<T>} an Observable that begins emitting items emitted by the source Observable when the
  * specified predicate becomes false.
+ * @method skipWhile
+ * @owner Observable
  */
 function skipWhile(predicate) {
     return this.lift(new SkipWhileOperator(predicate));
@@ -23,11 +25,16 @@ var SkipWhileOperator = (function () {
     function SkipWhileOperator(predicate) {
         this.predicate = predicate;
     }
-    SkipWhileOperator.prototype.call = function (subscriber) {
-        return new SkipWhileSubscriber(subscriber, this.predicate);
+    SkipWhileOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new SkipWhileSubscriber(subscriber, this.predicate));
     };
     return SkipWhileOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var SkipWhileSubscriber = (function (_super) {
     __extends(SkipWhileSubscriber, _super);
     function SkipWhileSubscriber(destination, predicate) {

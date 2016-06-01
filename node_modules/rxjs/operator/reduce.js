@@ -18,8 +18,10 @@ var Subscriber_1 = require('../Subscriber');
  * @param {initialValue} the initial (seed) accumulator value
  * @param {accumulator} an accumulator function to be invoked on each item emitted by the source Observable, the
  * result of which will be used in the next accumulator call.
- * @returns {Observable} an Observable that emits a single item that is the result of accumulating the output from the
+ * @return {Observable} an Observable that emits a single item that is the result of accumulating the output from the
  * items emitted by the source Observable.
+ * @method reduce
+ * @owner Observable
  */
 function reduce(project, seed) {
     return this.lift(new ReduceOperator(project, seed));
@@ -30,12 +32,17 @@ var ReduceOperator = (function () {
         this.project = project;
         this.seed = seed;
     }
-    ReduceOperator.prototype.call = function (subscriber) {
-        return new ReduceSubscriber(subscriber, this.project, this.seed);
+    ReduceOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new ReduceSubscriber(subscriber, this.project, this.seed));
     };
     return ReduceOperator;
 }());
 exports.ReduceOperator = ReduceOperator;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ReduceSubscriber = (function (_super) {
     __extends(ReduceSubscriber, _super);
     function ReduceSubscriber(destination, project, seed) {

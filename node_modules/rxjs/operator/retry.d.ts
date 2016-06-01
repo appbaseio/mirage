@@ -12,6 +12,11 @@ import { Observable } from '../Observable';
  * time and emits: [1, 2, 3, 4, 5] then the complete stream of emissions and notifications
  * would be: [1, 2, 1, 2, 3, 4, 5, `complete`].
  * @param {number} number of retry attempts before failing.
- * @returns {Observable} the source Observable modified with the retry logic.
+ * @return {Observable} the source Observable modified with the retry logic.
+ * @method retry
+ * @owner Observable
  */
 export declare function retry<T>(count?: number): Observable<T>;
+export interface RetrySignature<T> {
+    (count?: number): Observable<T>;
+}

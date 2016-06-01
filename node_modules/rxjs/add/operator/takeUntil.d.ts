@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { TakeUntilSignature } from '../../operator/takeUntil';
+declare module '../../Observable' {
+    interface Observable<T> {
+        takeUntil: TakeUntilSignature<T>;
+    }
+}

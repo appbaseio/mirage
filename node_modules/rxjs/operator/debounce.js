@@ -14,7 +14,9 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  * latest item, waits for a silence as long as the `durationSelector` specifies,
  * and only then emits the latest source item on the result Observable.
  * @param {function} durationSelector function for computing the timeout duration for each item.
- * @returns {Observable} an Observable the same as source Observable, but drops items.
+ * @return {Observable} an Observable the same as source Observable, but drops items.
+ * @method debounce
+ * @owner Observable
  */
 function debounce(durationSelector) {
     return this.lift(new DebounceOperator(durationSelector));
@@ -24,11 +26,16 @@ var DebounceOperator = (function () {
     function DebounceOperator(durationSelector) {
         this.durationSelector = durationSelector;
     }
-    DebounceOperator.prototype.call = function (subscriber) {
-        return new DebounceSubscriber(subscriber, this.durationSelector);
+    DebounceOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new DebounceSubscriber(subscriber, this.durationSelector));
     };
     return DebounceOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var DebounceSubscriber = (function (_super) {
     __extends(DebounceSubscriber, _super);
     function DebounceSubscriber(destination, durationSelector) {

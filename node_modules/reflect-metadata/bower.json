@@ -1,6 +1,6 @@
 {
   "name": "reflect-metadata",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Polyfill for Metadata Reflection API",
   "homepage": "https://github.com/rbuckton/ReflectDecorators",
   "authors": [
@@ -26,7 +26,7 @@
     "tests"
   ],
   "devDependencies": {
-    "typescript": ">=1.5.0-alpha"
+    "typescript": "^1.7.5"
   },
   "repository": {
     "type": "git",

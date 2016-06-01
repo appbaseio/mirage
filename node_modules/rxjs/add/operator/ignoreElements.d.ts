@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { IgnoreElementsSignature } from '../../operator/ignoreElements';
+declare module '../../Observable' {
+    interface Observable<T> {
+        ignoreElements: IgnoreElementsSignature<T>;
+    }
+}

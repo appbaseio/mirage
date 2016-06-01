@@ -4,12 +4,20 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var asap_1 = require('../scheduler/asap');
+var async_1 = require('../scheduler/async');
 var isDate_1 = require('../util/isDate');
 var Subscriber_1 = require('../Subscriber');
+/**
+ * @param due
+ * @param errorToSend
+ * @param scheduler
+ * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
+ * @method timeout
+ * @owner Observable
+ */
 function timeout(due, errorToSend, scheduler) {
     if (errorToSend === void 0) { errorToSend = null; }
-    if (scheduler === void 0) { scheduler = asap_1.asap; }
+    if (scheduler === void 0) { scheduler = async_1.async; }
     var absoluteTimeout = isDate_1.isDate(due);
     var waitFor = absoluteTimeout ? (+due - scheduler.now()) : Math.abs(due);
     return this.lift(new TimeoutOperator(waitFor, absoluteTimeout, errorToSend, scheduler));
@@ -22,11 +30,16 @@ var TimeoutOperator = (function () {
         this.errorToSend = errorToSend;
         this.scheduler = scheduler;
     }
-    TimeoutOperator.prototype.call = function (subscriber) {
-        return new TimeoutSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.errorToSend, this.scheduler);
+    TimeoutOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new TimeoutSubscriber(subscriber, this.absoluteTimeout, this.waitFor, this.errorToSend, this.scheduler));
     };
     return TimeoutOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var TimeoutSubscriber = (function (_super) {
     __extends(TimeoutSubscriber, _super);
     function TimeoutSubscriber(destination, absoluteTimeout, waitFor, errorToSend, scheduler) {

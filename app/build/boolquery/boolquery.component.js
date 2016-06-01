@@ -16,6 +16,9 @@ var BoolqueryComponent = (function () {
         this.removeArray = [];
         this.query = this.query;
     }
+    BoolqueryComponent.prototype.ngOnInit = function () {
+        this.exeBuild();
+    };
     BoolqueryComponent.prototype.addSubQuery = function (id) {
         this.addBoolQuery(id);
     };
@@ -47,11 +50,14 @@ var BoolqueryComponent = (function () {
             self.query.type = field.type;
         }, 300);
     };
+    BoolqueryComponent.prototype.exeBuild = function () {
+        var _this = this;
+        setTimeout(function () { return _this.buildQuery(); }, 300);
+    };
     BoolqueryComponent = __decorate([
         core_1.Component({
             selector: 'bool-query',
             templateUrl: './app/build/boolquery/boolquery.component.html',
-            styleUrls: ['./app/build/boolquery/boolquery.component.css'],
             inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
             directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent]
         }), 

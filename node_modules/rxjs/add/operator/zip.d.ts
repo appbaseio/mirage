@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { ZipSignature } from '../../operator/zip';
+declare module '../../Observable' {
+    interface Observable<T> {
+        zip: ZipSignature<T>;
+    }
+}

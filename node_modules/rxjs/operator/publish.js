@@ -7,7 +7,9 @@ var multicast_1 = require('./multicast');
  *
  * <img src="./img/publish.png" width="100%">
  *
- * @returns a ConnectableObservable that upon connection causes the source Observable to emit items to its Observers.
+ * @return a ConnectableObservable that upon connection causes the source Observable to emit items to its Observers.
+ * @method publish
+ * @owner Observable
  */
 function publish() {
     return multicast_1.multicast.call(this, new Subject_1.Subject());

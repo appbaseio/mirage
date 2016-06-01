@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { CountSignature } from '../../operator/count';
+declare module '../../Observable' {
+    interface Observable<T> {
+        count: CountSignature<T>;
+    }
+}

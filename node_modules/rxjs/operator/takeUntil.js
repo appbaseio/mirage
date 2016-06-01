@@ -6,6 +6,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var OuterSubscriber_1 = require('../OuterSubscriber');
 var subscribeToResult_1 = require('../util/subscribeToResult');
+/**
+ * @param notifier
+ * @return {Observable<R>|WebSocketSubject<T>|Observable<T>}
+ * @method takeUntil
+ * @owner Observable
+ */
 function takeUntil(notifier) {
     return this.lift(new TakeUntilOperator(notifier));
 }
@@ -14,11 +20,16 @@ var TakeUntilOperator = (function () {
     function TakeUntilOperator(notifier) {
         this.notifier = notifier;
     }
-    TakeUntilOperator.prototype.call = function (subscriber) {
-        return new TakeUntilSubscriber(subscriber, this.notifier);
+    TakeUntilOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new TakeUntilSubscriber(subscriber, this.notifier));
     };
     return TakeUntilOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var TakeUntilSubscriber = (function (_super) {
     __extends(TakeUntilSubscriber, _super);
     function TakeUntilSubscriber(destination, notifier) {

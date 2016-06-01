@@ -14,7 +14,9 @@ var subscribeToResult_1 = require('../util/subscribeToResult');
  * @param {function} project the function for projecting the next emitted item of the Observable.
  * @param {number} [concurrent] the max number of observables that can be created concurrently. defaults to infinity.
  * @param {Scheduler} [scheduler] The Scheduler to use for managing the expansions.
- * @returns {Observable} an Observable containing the expansions of the source Observable.
+ * @return {Observable} an Observable containing the expansions of the source Observable.
+ * @method expand
+ * @owner Observable
  */
 function expand(project, concurrent, scheduler) {
     if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
@@ -29,12 +31,17 @@ var ExpandOperator = (function () {
         this.concurrent = concurrent;
         this.scheduler = scheduler;
     }
-    ExpandOperator.prototype.call = function (subscriber) {
-        return new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler);
+    ExpandOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new ExpandSubscriber(subscriber, this.project, this.concurrent, this.scheduler));
     };
     return ExpandOperator;
 }());
 exports.ExpandOperator = ExpandOperator;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ExpandSubscriber = (function (_super) {
     __extends(ExpandSubscriber, _super);
     function ExpandSubscriber(destination, project, concurrent, scheduler) {
@@ -49,8 +56,8 @@ var ExpandSubscriber = (function (_super) {
             this.buffer = [];
         }
     }
-    ExpandSubscriber.dispatch = function (_a) {
-        var subscriber = _a.subscriber, result = _a.result, value = _a.value, index = _a.index;
+    ExpandSubscriber.dispatch = function (arg) {
+        var subscriber = arg.subscriber, result = arg.result, value = arg.value, index = arg.index;
         subscriber.subscribeToProjection(result, value, index);
     };
     ExpandSubscriber.prototype._next = function (value) {

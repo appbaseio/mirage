@@ -9,8 +9,13 @@ var isObject_1 = require('../util/isObject');
 var tryCatch_1 = require('../util/tryCatch');
 var Observable_1 = require('../Observable');
 var isFunction_1 = require('../util/isFunction');
-var SymbolShim_1 = require('../util/SymbolShim');
+var iterator_1 = require('../symbol/iterator');
 var errorObject_1 = require('../util/errorObject');
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @extends {Ignored}
+ * @hide true
+ */
 var IteratorObservable = (function (_super) {
     __extends(IteratorObservable, _super);
     function IteratorObservable(iterator, project, thisArg, scheduler) {
@@ -109,7 +114,7 @@ var StringIterator = (function () {
         this.idx = idx;
         this.len = len;
     }
-    StringIterator.prototype[SymbolShim_1.SymbolShim.iterator] = function () { return (this); };
+    StringIterator.prototype[iterator_1.$$iterator] = function () { return (this); };
     StringIterator.prototype.next = function () {
         return this.idx < this.len ? {
             done: false,
@@ -129,7 +134,7 @@ var ArrayIterator = (function () {
         this.idx = idx;
         this.len = len;
     }
-    ArrayIterator.prototype[SymbolShim_1.SymbolShim.iterator] = function () { return this; };
+    ArrayIterator.prototype[iterator_1.$$iterator] = function () { return this; };
     ArrayIterator.prototype.next = function () {
         return this.idx < this.len ? {
             done: false,
@@ -142,7 +147,7 @@ var ArrayIterator = (function () {
     return ArrayIterator;
 }());
 function getIterator(obj) {
-    var i = obj[SymbolShim_1.SymbolShim.iterator];
+    var i = obj[iterator_1.$$iterator];
     if (!i && typeof obj === 'string') {
         return new StringIterator(obj);
     }
@@ -152,7 +157,7 @@ function getIterator(obj) {
     if (!i) {
         throw new TypeError('Object is not iterable');
     }
-    return obj[SymbolShim_1.SymbolShim.iterator]();
+    return obj[iterator_1.$$iterator]();
 }
 var maxSafeInteger = Math.pow(2, 53) - 1;
 function toLength(o) {

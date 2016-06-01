@@ -20,7 +20,7 @@ var ResultComponent = (function () {
     ResultComponent.prototype.ngOnInit = function () {
         var self = this;
         this.editorHookHelp.applyEditor();
-        var resultHeight = $(window).height() - 170;
+        var resultHeight = $(window).height() - 138;
         $('.queryRight .codemirror').css({ height: resultHeight });
     };
     // Validate using checkValidaQuery method
@@ -78,7 +78,6 @@ var ResultComponent = (function () {
         core_1.Component({
             selector: 'query-result',
             templateUrl: './app/result/result.component.html',
-            styleUrls: ['./app/result/result.component.css'],
             inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp'],
             pipes: [prettyJson_1.prettyJson],
             providers: [appbase_service_1.AppbaseService]

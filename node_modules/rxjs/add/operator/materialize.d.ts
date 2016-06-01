@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { MaterializeSignature } from '../../operator/materialize';
+declare module '../../Observable' {
+    interface Observable<T> {
+        materialize: MaterializeSignature<T>;
+    }
+}

@@ -8,7 +8,9 @@ var Subscriber_1 = require('../Subscriber');
 /**
  * Returns an Observable that emits the elements of the source or a specified default value if empty.
  * @param {any} defaultValue the default value used if source is empty; defaults to null.
- * @returns {Observable} an Observable of the items emitted by the where empty values are replaced by the specified default value or null.
+ * @return {Observable} an Observable of the items emitted by the where empty values are replaced by the specified default value or null.
+ * @method defaultIfEmpty
+ * @owner Observable
  */
 function defaultIfEmpty(defaultValue) {
     if (defaultValue === void 0) { defaultValue = null; }
@@ -19,11 +21,16 @@ var DefaultIfEmptyOperator = (function () {
     function DefaultIfEmptyOperator(defaultValue) {
         this.defaultValue = defaultValue;
     }
-    DefaultIfEmptyOperator.prototype.call = function (subscriber) {
-        return new DefaultIfEmptySubscriber(subscriber, this.defaultValue);
+    DefaultIfEmptyOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new DefaultIfEmptySubscriber(subscriber, this.defaultValue));
     };
     return DefaultIfEmptyOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var DefaultIfEmptySubscriber = (function (_super) {
     __extends(DefaultIfEmptySubscriber, _super);
     function DefaultIfEmptySubscriber(destination, defaultValue) {

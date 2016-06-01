@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { TimeoutWithSignature } from '../../operator/timeoutWith';
+declare module '../../Observable' {
+    interface Observable<T> {
+        timeoutWith: TimeoutWithSignature<T>;
+    }
+}

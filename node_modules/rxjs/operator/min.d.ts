@@ -6,6 +6,11 @@ import { Observable } from '../Observable';
  * <img src="./img/min.png" width="100%">
  *
  * @param {Function} optional comparer function that it will use instead of its default to compare the value of two items.
- * @returns {Observable<R>} an Observable that emits item with the smallest number.
+ * @return {Observable<R>} an Observable that emits item with the smallest number.
+ * @method min
+ * @owner Observable
  */
-export declare function min<T>(comparer?: (value1: T, value2: T) => T): Observable<T>;
+export declare function min<T>(comparer?: (x: T, y: T) => T): Observable<T>;
+export interface MinSignature<T> {
+    (comparer?: (x: T, y: T) => T): Observable<T>;
+}

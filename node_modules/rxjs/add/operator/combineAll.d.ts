@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { CombineAllSignature } from '../../operator/combineAll';
+declare module '../../Observable' {
+    interface Observable<T> {
+        combineAll: CombineAllSignature<T>;
+    }
+}

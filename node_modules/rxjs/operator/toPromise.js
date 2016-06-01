@@ -1,5 +1,11 @@
 "use strict";
 var root_1 = require('../util/root');
+/**
+ * @param PromiseCtor
+ * @return {Promise<T>}
+ * @method toPromise
+ * @owner Observable
+ */
 function toPromise(PromiseCtor) {
     var _this = this;
     if (!PromiseCtor) {

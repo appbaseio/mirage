@@ -7,7 +7,12 @@ import { Observable } from '../Observable';
  * <img src="./img/sample.png" width="100%">
  *
  * @param {Observable} sampler - the Observable to use for sampling the source Observable.
- * @returns {Observable<T>} an Observable that emits the results of sampling the items emitted by this Observable
+ * @return {Observable<T>} an Observable that emits the results of sampling the items emitted by this Observable
  * whenever the sampler Observable emits an item or completes.
+ * @method sample
+ * @owner Observable
  */
 export declare function sample<T>(notifier: Observable<any>): Observable<T>;
+export interface SampleSignature<T> {
+    (notifier: Observable<any>): Observable<T>;
+}

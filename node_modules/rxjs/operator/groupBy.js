@@ -7,40 +7,51 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subscriber_1 = require('../Subscriber');
 var Subscription_1 = require('../Subscription');
 var Observable_1 = require('../Observable');
-var Operator_1 = require('../Operator');
 var Subject_1 = require('../Subject');
 var Map_1 = require('../util/Map');
 var FastMap_1 = require('../util/FastMap');
 /**
  * Groups the items emitted by an Observable according to a specified criterion,
- * and emits these grouped items as `GroupedObservables`, one `GroupedObservable` per group.
+ * and emits these grouped items as `GroupedObservables`, one
+ * {@link GroupedObservable} per group.
  *
  * <img src="./img/groupBy.png" width="100%">
  *
- * @param {Function} keySelector - a function that extracts the key for each item
- * @param {Function} elementSelector - a function that extracts the return element for each item
- * @returns {Observable} an Observable that emits GroupedObservables, each of which corresponds
- * to a unique key value and each of which emits those items from the source Observable that share
- * that key value.
+ * @param {function(value: T): K} keySelector a function that extracts the key
+ * for each item.
+ * @param {function(value: T): R} [elementSelector] a function that extracts the
+ * return element for each item.
+ * @param {function(grouped: GroupedObservable<K,R>): Observable<any>} [durationSelector]
+ * a function that returns an Observable to determine how long each group should
+ * exist.
+ * @return {Observable<GroupedObservable<K,R>>} an Observable that emits
+ * GroupedObservables, each of which corresponds to a unique key value and each
+ * of which emits those items from the source Observable that share that key
+ * value.
+ * @method groupBy
+ * @owner Observable
  */
 function groupBy(keySelector, elementSelector, durationSelector) {
     return this.lift(new GroupByOperator(this, keySelector, elementSelector, durationSelector));
 }
 exports.groupBy = groupBy;
-var GroupByOperator = (function (_super) {
-    __extends(GroupByOperator, _super);
+var GroupByOperator = (function () {
     function GroupByOperator(source, keySelector, elementSelector, durationSelector) {
-        _super.call(this);
         this.source = source;
         this.keySelector = keySelector;
         this.elementSelector = elementSelector;
         this.durationSelector = durationSelector;
     }
-    GroupByOperator.prototype.call = function (subscriber) {
-        return new GroupBySubscriber(subscriber, this.keySelector, this.elementSelector, this.durationSelector);
+    GroupByOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new GroupBySubscriber(subscriber, this.keySelector, this.elementSelector, this.durationSelector));
     };
     return GroupByOperator;
-}(Operator_1.Operator));
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var GroupBySubscriber = (function (_super) {
     __extends(GroupBySubscriber, _super);
     function GroupBySubscriber(destination, keySelector, elementSelector, durationSelector) {
@@ -146,6 +157,11 @@ var GroupBySubscriber = (function (_super) {
     };
     return GroupBySubscriber;
 }(Subscriber_1.Subscriber));
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var GroupDurationSubscriber = (function (_super) {
     __extends(GroupDurationSubscriber, _super);
     function GroupDurationSubscriber(key, group, parent) {
@@ -179,6 +195,14 @@ var GroupDurationSubscriber = (function (_super) {
     };
     return GroupDurationSubscriber;
 }(Subscriber_1.Subscriber));
+/**
+ * An Observable representing values belonging to the same group represented by
+ * a common key. The values emitted by a GroupedObservable come from the source
+ * Observable. The common key is available as the field `key` on a
+ * GroupedObservable instance.
+ *
+ * @class GroupedObservable<K, T>
+ */
 var GroupedObservable = (function (_super) {
     __extends(GroupedObservable, _super);
     function GroupedObservable(key, groupSubject, refCountSubscription) {
@@ -199,6 +223,11 @@ var GroupedObservable = (function (_super) {
     return GroupedObservable;
 }(Observable_1.Observable));
 exports.GroupedObservable = GroupedObservable;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var InnerRefCountSubscription = (function (_super) {
     __extends(InnerRefCountSubscription, _super);
     function InnerRefCountSubscription(parent) {

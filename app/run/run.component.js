@@ -20,7 +20,6 @@ var RunComponent = (function () {
         core_1.Component({
             selector: 'query-run',
             templateUrl: './app/run/run.component.html',
-            styleUrls: ['./app/run/run.component.css'],
             inputs: ['mapping', 'config', 'responseHookHelp'],
             pipes: [prettyJson_1.prettyJson]
         }), 

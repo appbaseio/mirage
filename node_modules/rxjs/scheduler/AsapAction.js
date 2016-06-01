@@ -6,6 +6,11 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Immediate_1 = require('../util/Immediate');
 var FutureAction_1 = require('./FutureAction');
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var AsapAction = (function (_super) {
     __extends(AsapAction, _super);
     function AsapAction() {

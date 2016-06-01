@@ -9,9 +9,14 @@ var ArgumentOutOfRangeError_1 = require('../util/ArgumentOutOfRangeError');
 /**
  * Returns an Observable that emits the item at the specified index in the source Observable.
  * If default is given, missing indices will output this value on next; otherwise, outputs error.
+ * @throws {ArgumentOutOfRangeError} When using `elementAt(i)`, it delivers an
+ * ArgumentOutOrRangeError to the Observer's `error` callback if `i < 0` or the
+ * Observable has completed before emitting the i-th `next` notification.
  * @param {number} index the index of the value to be retrieved.
  * @param {any} [defaultValue] the default value returned for missing indices.
- * @returns {Observable} an Observable that emits a single item, if it is found. Otherwise, will emit the default value if given.
+ * @return {Observable} an Observable that emits a single item, if it is found. Otherwise, will emit the default value if given.
+ * @method elementAt
+ * @owner Observable
  */
 function elementAt(index, defaultValue) {
     return this.lift(new ElementAtOperator(index, defaultValue));
@@ -25,11 +30,16 @@ var ElementAtOperator = (function () {
             throw new ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
         }
     }
-    ElementAtOperator.prototype.call = function (subscriber) {
-        return new ElementAtSubscriber(subscriber, this.index, this.defaultValue);
+    ElementAtOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new ElementAtSubscriber(subscriber, this.index, this.defaultValue));
     };
     return ElementAtOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var ElementAtSubscriber = (function (_super) {
     __extends(ElementAtSubscriber, _super);
     function ElementAtSubscriber(destination, index, defaultValue) {

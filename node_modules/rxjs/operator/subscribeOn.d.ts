@@ -6,7 +6,12 @@ import { Observable } from '../Observable';
  * <img src="./img/subscribeOn.png" width="100%">
  *
  * @param {Scheduler} the Scheduler to perform subscription actions on.
- * @returns {Observable<T>} the source Observable modified so that its subscriptions happen on the specified Scheduler
+ * @return {Observable<T>} the source Observable modified so that its subscriptions happen on the specified Scheduler
  .
+ * @method subscribeOn
+ * @owner Observable
  */
 export declare function subscribeOn<T>(scheduler: Scheduler, delay?: number): Observable<T>;
+export interface SubscribeOnSignature<T> {
+    (scheduler: Scheduler, delay?: number): Observable<T>;
+}

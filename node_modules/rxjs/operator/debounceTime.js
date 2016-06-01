@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = require('../Subscriber');
-var asap_1 = require('../scheduler/asap');
+var async_1 = require('../scheduler/async');
 /**
  * Returns the source Observable delayed by the computed debounce duration,
  * with the duration lengthened if a new source item arrives before the delay
@@ -16,10 +16,12 @@ var asap_1 = require('../scheduler/asap');
  * Optionally takes a scheduler for manging timers.
  * @param {number} dueTime the timeout value for the window of time required to not drop the item.
  * @param {Scheduler} [scheduler] the Scheduler to use for managing the timers that handle the timeout for each item.
- * @returns {Observable} an Observable the same as source Observable, but drops items.
+ * @return {Observable} an Observable the same as source Observable, but drops items.
+ * @method debounceTime
+ * @owner Observable
  */
 function debounceTime(dueTime, scheduler) {
-    if (scheduler === void 0) { scheduler = asap_1.asap; }
+    if (scheduler === void 0) { scheduler = async_1.async; }
     return this.lift(new DebounceTimeOperator(dueTime, scheduler));
 }
 exports.debounceTime = debounceTime;
@@ -28,11 +30,16 @@ var DebounceTimeOperator = (function () {
         this.dueTime = dueTime;
         this.scheduler = scheduler;
     }
-    DebounceTimeOperator.prototype.call = function (subscriber) {
-        return new DebounceTimeSubscriber(subscriber, this.dueTime, this.scheduler);
+    DebounceTimeOperator.prototype.call = function (subscriber, source) {
+        return source._subscribe(new DebounceTimeSubscriber(subscriber, this.dueTime, this.scheduler));
     };
     return DebounceTimeOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var DebounceTimeSubscriber = (function (_super) {
     __extends(DebounceTimeSubscriber, _super);
     function DebounceTimeSubscriber(destination, dueTime, scheduler) {

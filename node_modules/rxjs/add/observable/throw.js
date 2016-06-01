@@ -1,5 +1,5 @@
 "use strict";
 var Observable_1 = require('../../Observable');
-var ErrorObservable_1 = require('../../observable/ErrorObservable');
-Observable_1.Observable.throw = ErrorObservable_1.ErrorObservable.create;
+var throw_1 = require('../../observable/throw');
+Observable_1.Observable.throw = throw_1._throw;
 //# sourceMappingURL=throw.js.map

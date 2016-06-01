@@ -1,1 +1,6 @@
-export declare var _void: void;
+import { FindIndexSignature } from '../../operator/findIndex';
+declare module '../../Observable' {
+    interface Observable<T> {
+        findIndex: FindIndexSignature<T>;
+    }
+}

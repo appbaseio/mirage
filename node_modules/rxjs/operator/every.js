@@ -9,7 +9,9 @@ var Subscriber_1 = require('../Subscriber');
  * Returns an Observable that emits whether or not every item of the source satisfies the condition specified.
  * @param {function} predicate a function for determining if an item meets a specified condition.
  * @param {any} [thisArg] optional object to use for `this` in the callback
- * @returns {Observable} an Observable of booleans that determines if all items of the source Observable meet the condition specified.
+ * @return {Observable} an Observable of booleans that determines if all items of the source Observable meet the condition specified.
+ * @method every
+ * @owner Observable
  */
 function every(predicate, thisArg) {
     var source = this;
@@ -22,11 +24,16 @@ var EveryOperator = (function () {
         this.thisArg = thisArg;
         this.source = source;
     }
-    EveryOperator.prototype.call = function (observer) {
-        return new EverySubscriber(observer, this.predicate, this.thisArg, this.source);
+    EveryOperator.prototype.call = function (observer, source) {
+        return source._subscribe(new EverySubscriber(observer, this.predicate, this.thisArg, this.source));
     };
     return EveryOperator;
 }());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
 var EverySubscriber = (function (_super) {
     __extends(EverySubscriber, _super);
     function EverySubscriber(destination, predicate, thisArg, source) {
