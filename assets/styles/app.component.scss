@@ -1,0 +1,35 @@
+.feature-query-container {
+	position: relative;
+	.features-section {
+		position: absolute;
+		width: 250px;
+		height: 100%;
+		overflow: auto;
+		left: 0;
+		top: 0;
+		background: #f1f1f1;
+		border-right: 1px solid #eee;
+		padding: 15px 0;
+		z-index: 2;
+		.feature-btns {
+			padding: 0 15px;
+		}
+		.theme-list {
+			list-style: none;
+			padding: 0;
+			margin-top: 15px;
+			li.list-item {
+				display: block;
+				border-bottom: 1px solid #ddd;
+				padding: 10px 15px;
+				cursor: pointer;
+				&:hover {
+					background: #ddd;
+				}
+			}
+		}
+	}
+	.query-main-container {
+		padding-left: 250px;
+	}
+}

@@ -23,7 +23,7 @@ export class ResultComponent implements OnInit {
 	ngOnInit() {
 		var self = this;
 		this.editorHookHelp.applyEditor();
-		var resultHeight = $(window).height() - 170;
+		var resultHeight = $(window).height() - 138;
 		$('.queryRight .codemirror').css({ height: resultHeight });
 	}
 

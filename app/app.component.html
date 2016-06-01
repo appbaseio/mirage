@@ -26,19 +26,21 @@
 	</form>
 	<!-- Header part END -->
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-12 col-md-3">
+		<div class="row feature-query-container">
+			<div class="features-section">
 				<!-- <save-query [mapping]="mapping" [config]="config" [queryList]="queryList"></save-query>
 				     <list-query [mapping]="mapping" [config]="config" [queryList]="queryList" [newQuery]="newQuery" [createTokenData]="createTokenData" [selectedQuery]="selectedQuery"></list-query>
 				     {{mapping.selectedTypes | json}} -->
-				<a class="btn btn-primary btn-block" (click)="openModal();">Save Query</a>
+				<div class="feature-btns">
+					<a class="btn btn-primary btn-block" (click)="openModal();">Save Query</a>
+				</div>
 				<ul class="theme-list col-xs-12">
 					<li class="list-item col-xs-12" *ngFor="let query of queryList, let i=index" (click)="newQuery(query);">{{query.name}}
 						<span class="badge">{{query.tag}}</span>
 					</li>
 				</ul>
 			</div>
-			<div class="col-sm-12 col-md-9 pd-0">
+			<div class="col-xs-12 query-main-container">
 				<div class="col-sm-12 col-md-6">
 					<query-build [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp"></query-build>
 				</div>
