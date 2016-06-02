@@ -136,4 +136,13 @@ export class AppComponent implements OnInit, OnChanges {
 		$('#saveQueryModal').modal('hide');
 	}
 
+	sidebarToggle() {
+		if($('.feature-query-container').hasClass('off')) {
+			$('.feature-query-container').removeClass('off');
+		}
+		else {
+			$('.feature-query-container').addClass('off');
+		}
+	}
+
 }
