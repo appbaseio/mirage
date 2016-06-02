@@ -47,6 +47,7 @@ var BuildComponent = (function () {
             queryObj.parent_id = parent_id;
             this.mapping.queryId += 1;
             this.mapping.resultQuery.result.push(queryObj);
+            this.buildQuery();
         }
         else {
             alert('Select type first.');
@@ -57,6 +58,7 @@ var BuildComponent = (function () {
         var self = this;
         var queryObj = JSON.parse(JSON.stringify(self.queryFormat.internal));
         boolQuery.internal.push(queryObj);
+        this.buildQuery();
     };
     BuildComponent.prototype.buildQuery = function () {
         var self = this;
