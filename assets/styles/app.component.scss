@@ -1,4 +1,18 @@
 @import "variables.scss";
+.loading {
+	height: 100%;
+	width: 100%;
+	display: table;
+	background: rgba($grey-bg, 0.9);
+	position: fixed;
+	z-index: 4;
+	.vertical-cell {
+		height: 100%;
+		width: 100%;
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
 .feature-query-container {
 	position: relative;
 	.features-section {
