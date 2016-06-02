@@ -1,3 +1,16 @@
+.loading {
+  height: 100%;
+  width: 100%;
+  display: table;
+  background: rgba(247, 247, 247, 0.9);
+  position: fixed;
+  z-index: 4; }
+  .loading .vertical-cell {
+    height: 100%;
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle; }
+
 .feature-query-container {
   position: relative; }
   .feature-query-container .features-section {

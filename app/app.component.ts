@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, OnChanges {
 
 	constructor(public appbaseService: AppbaseService) {}
 
+	public connected: boolean = false;
 	public mapping: any = {
 		types: [],
 		mapping: null,
@@ -84,7 +85,9 @@ export class AppComponent implements OnInit, OnChanges {
 
 	// Connect with config url and appname
 	// do mapping request  
+	// and set response in mapping property 
 	connect() {
+		this.connected = false;
 		var APPNAME = this.config.appname;
 		var URL = this.config.url;
 		var urlsplit = URL.split(':');
@@ -94,11 +97,24 @@ export class AppComponent implements OnInit, OnChanges {
 		var self = this;
 		this.appbaseService.setAppbase(this.config);
 		this.appbaseService.get('/_mapping').then(function(res) {
+			self.connected = true;
 			let data = res.json();
+			self.mapping = {
+				types: [],
+				mapping: null,
+				resultQuery: {
+					'type': '',
+					'result': [],
+					'final': "{}"
+				},
+				output: {},
+				queryId: 1
+			};
 			self.mapping.mapping = data;
 			self.mapping.types = self.seprateType(data);
 			self.setLocalConfig(self.config.url, self.config.appname);
-			self.detectChange = "done";
+			self.detectChange += "done";
+			self.editorHookHelp.setValue('');
 		}).catch(self.appbaseService.handleError);
 	}
 

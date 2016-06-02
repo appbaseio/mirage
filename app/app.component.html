@@ -1,3 +1,10 @@
+<section class="loading" *ngIf="!connected">
+	<div class="vertical-cell text-center">
+		<h1>
+			<i class="fa fa-spinner fa-spin fa-1x"></i> Please wait!
+		</h1>
+	</div>
+</section>
 <div class="app-container">
 	<!-- Header part START -->
 	<form class="col-xs-12 init-ES" id="init-ES">
@@ -18,8 +25,8 @@
 			</div>
 			<div class="submit-btn-container">
 				<a (click)="connect()" [class.btn-info] ="mapping.mapping != null" class="btn btn-default submit-btn">
-					<span *ngIf = "mapping.mapping == null">Connect</span>
-					<span *ngIf = "mapping.mapping != null">Connected</span>
+					<span *ngIf = "!connected">Connect</span>
+					<span *ngIf = "connected">Connected</span>
 				</a>
 			</div>
 		</div>
