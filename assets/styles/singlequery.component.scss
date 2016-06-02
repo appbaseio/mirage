@@ -16,7 +16,7 @@
 	}
 	.form-element {
 		input {
-			color: $grey-color;
+			color: $grey-font;
 		    background: 0 0;
 		    border: 0;
 		    box-shadow: none;
@@ -32,7 +32,7 @@
 		height: 32px;
 		.editable-front {
 			display: inline-block;
-			color: $grey-color;
+			color: $grey-font;
 			border-bottom: 1px dashed;
 			cursor: pointer;
 			&:hover {
