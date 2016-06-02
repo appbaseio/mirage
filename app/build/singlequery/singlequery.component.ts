@@ -33,6 +33,7 @@ export class SinglequeryComponent implements OnInit {
 	// delete query
 	removeQuery() {
 		this.internal.splice(this.internalIndex, 1);
+		this.buildQuery();
 	}
 
 	// On selecting the field, we are checking if field is analyzed or not

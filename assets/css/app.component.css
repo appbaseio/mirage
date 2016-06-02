@@ -45,7 +45,7 @@
       .feature-query-container .features-section .sidebar-toggle .sidebar-open {
         display: none; }
   .feature-query-container .query-main-container {
-    padding-left: 250px;
+    padding: 0 0 0 250px;
     transition: all 0.2s; }
     .feature-query-container .query-main-container .query-build {
       padding-left: 35px; }
