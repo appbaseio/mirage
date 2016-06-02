@@ -48,6 +48,7 @@ export class BuildComponent implements OnInit {
 			queryObj.parent_id = parent_id;
 			this.mapping.queryId += 1;
 			this.mapping.resultQuery.result.push(queryObj);
+			this.buildQuery();
 		} else {
 			alert('Select type first.');
 		}
@@ -58,6 +59,7 @@ export class BuildComponent implements OnInit {
 		var self = this;
 		var queryObj = JSON.parse(JSON.stringify(self.queryFormat.internal));
 		boolQuery.internal.push(queryObj);
+		this.buildQuery();
 	}
 
 	buildQuery() {
