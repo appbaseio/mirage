@@ -37,6 +37,9 @@
 				</a>
 				<div class="feature-section-container col-xs-12 pd-0">
 					<ul class="theme-list col-xs-12">
+						<li class="list-item col-xs-12 list-title">
+							Saved Queries
+						</li>
 						<li class="list-item col-xs-12" *ngFor="let query of queryList, let i=index" (click)="newQuery(query);">{{query.name}}
 							<span class="badge">{{query.tag}}</span>
 						</li>

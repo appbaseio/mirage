@@ -115,7 +115,8 @@ export class AppComponent implements OnInit, OnChanges {
 	newQuery(query) {
 		this.config = query.config;
 		this.mapping = query.mapping;
-		$('#setType').val(this.mapping.selectedTypes).trigger("change");
+		this.detectChange = "check";
+		setTimeout(() => {$('#setType').val(this.mapping.selectedTypes).trigger("change");},300)
 	}
 
 	save() {

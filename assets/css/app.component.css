@@ -27,6 +27,9 @@
           cursor: pointer; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item:hover {
             background: #ddd; }
+          .feature-query-container .features-section .feature-section-container .theme-list li.list-item.list-title {
+            background: #337ab7;
+            color: #fff; }
     .feature-query-container .features-section .sidebar-toggle {
       position: absolute;
       right: -26px;
