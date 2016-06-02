@@ -41,19 +41,19 @@ export class AppComponent implements OnInit, OnChanges {
 	};
 	public editorHookHelp = new editorHook({ editorId: 'editor' });
 	public responseHookHelp = new editorHook({ editorId: 'responseBlock' });
-	public queryList = [];
-	public query_info = {
-		name: '',
-		tag: ''
-	};
+	public savedQueryList = [];
+	// public query_info = {
+	// 	name: '',
+	// 	tag: ''
+	// };
 
 	ngOnInit() {
 		this.getLocalConfig();
 		try {
 			let list = window.localStorage.getItem('queryList');
 			if(list) {
-				this.queryList = JSON.parse(list);
-				console.log(this.queryList);
+				this.savedQueryList = JSON.parse(list);
+				console.log(this.savedQueryList);
 			}
 		} catch(e) {}
 	}
@@ -133,20 +133,6 @@ export class AppComponent implements OnInit, OnChanges {
 		this.mapping = query.mapping;
 		this.detectChange = "check";
 		setTimeout(() => {$('#setType').val(this.mapping.selectedTypes).trigger("change");},300)
-	}
-
-	save() {
-		var queryData = {
-			mapping: this.mapping,
-			config: this.config,
-			name: this.query_info.name,
-			tag: this.query_info.tag
-		};
-		this.queryList.push(queryData);
-		try {
-			window.localStorage.setItem('queryList', JSON.stringify(this.queryList));
-		} catch(e) {}
-		$('#saveQueryModal').modal('hide');
 	}
 
 	sidebarToggle() {

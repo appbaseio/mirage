@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { NgForm } from "@angular/common";
 import { BoolqueryComponent } from "./boolquery/boolquery.component";
 import { queryList } from "../shared/queryList";
 import { TypesComponent } from "./types/types.component";
@@ -6,7 +7,7 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp'],
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
@@ -31,6 +32,12 @@ export class BuildComponent implements OnInit {
 		}
 	};
 	public editorHookHelp: any;
+	public query_info = {
+		name: '',
+		tag: ''
+	};
+	@Input() savedQueryList;
+
 
 	ngOnInit() {
 		this.handleEditable();
@@ -201,5 +208,20 @@ export class BuildComponent implements OnInit {
 	// open save query modal
 	openModal() {
 		$('#saveQueryModal').modal('show');
+	}
+
+	// save query
+	save() {
+		var queryData = {
+			mapping: this.mapping,
+			config: this.config,
+			name: this.query_info.name,
+			tag: this.query_info.tag
+		};
+		this.savedQueryList.push(queryData);
+		try {
+			// window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
+		} catch(e) {}
+		$('#saveQueryModal').modal('hide');
 	}
 }
