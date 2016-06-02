@@ -19,7 +19,7 @@
       .feature-query-container .features-section .feature-section-container .theme-list {
         list-style: none;
         padding: 0;
-        margin-top: 15px; }
+        margin-top: 0; }
         .feature-query-container .features-section .feature-section-container .theme-list li.list-item {
           display: block;
           border-bottom: 1px solid #ddd;

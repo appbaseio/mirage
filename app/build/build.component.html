@@ -28,7 +28,10 @@
 		</form>
 		<div class="col-xs-12 pd-0">
 			<button class="btn btn-info pull-left" (click)="addBoolQuery(0);">Add new query</button>
-			<button class="btn btn-info pull-right" (click) = "buildQuery()">Build Query</button>
+			<span class=" pull-right">
+				<button class="btn btn-info" (click) = "buildQuery()">Build Query</button>
+				<button class="btn btn-primary" (click)="openModal();">Save Query</button>
+			</span>
 		</div>
 	</div>
 </div>

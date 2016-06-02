@@ -118,10 +118,6 @@ export class AppComponent implements OnInit, OnChanges {
 		$('#setType').val(this.mapping.selectedTypes).trigger("change");
 	}
 
-	openModal() {
-		$('#saveQueryModal').modal('show');
-	}
-
 	save() {
 		var queryData = {
 			mapping: this.mapping,

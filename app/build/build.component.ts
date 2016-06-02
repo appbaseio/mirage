@@ -195,4 +195,9 @@ export class BuildComponent implements OnInit {
 			}
 		});
 	}
+
+	// open save query modal
+	openModal() {
+		$('#saveQueryModal').modal('show');
+	}
 }
