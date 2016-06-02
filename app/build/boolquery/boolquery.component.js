@@ -41,6 +41,7 @@ var BoolqueryComponent = (function () {
                 }.bind(this));
             }.bind(this));
         }
+        this.buildQuery();
     };
     BoolqueryComponent.prototype.analyzeTest = function () {
         var self = this;

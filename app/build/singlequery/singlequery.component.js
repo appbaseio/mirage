@@ -29,6 +29,7 @@ var SinglequeryComponent = (function () {
     // delete query
     SinglequeryComponent.prototype.removeQuery = function () {
         this.internal.splice(this.internalIndex, 1);
+        this.buildQuery();
     };
     // On selecting the field, we are checking if field is analyzed or not
     // and according to that show the available query

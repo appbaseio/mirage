@@ -186,6 +186,10 @@ var BuildComponent = (function () {
             }
         });
     };
+    // open save query modal
+    BuildComponent.prototype.openModal = function () {
+        $('#saveQueryModal').modal('show');
+    };
     BuildComponent = __decorate([
         core_1.Component({
             selector: 'query-build',

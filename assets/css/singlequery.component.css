@@ -30,7 +30,7 @@
       border-bottom: 1px dashed;
       cursor: pointer; }
       .single_query .editable-pack .editable-front:hover {
-        color: #444; }
+        color: #555; }
     .single_query .editable-pack .editable-back {
       display: none; }
       .single_query .editable-pack .editable-back .select2-container {

@@ -107,12 +107,11 @@ var AppComponent = (function () {
         return types;
     };
     AppComponent.prototype.newQuery = function (query) {
+        var _this = this;
         this.config = query.config;
         this.mapping = query.mapping;
-        $('#setType').val(this.mapping.selectedTypes).trigger("change");
-    };
-    AppComponent.prototype.openModal = function () {
-        $('#saveQueryModal').modal('show');
+        this.detectChange = "check";
+        setTimeout(function () { $('#setType').val(_this.mapping.selectedTypes).trigger("change"); }, 300);
     };
     AppComponent.prototype.save = function () {
         var queryData = {
@@ -127,6 +126,14 @@ var AppComponent = (function () {
         }
         catch (e) { }
         $('#saveQueryModal').modal('hide');
+    };
+    AppComponent.prototype.sidebarToggle = function () {
+        if ($('.feature-query-container').hasClass('off')) {
+            $('.feature-query-container').removeClass('off');
+        }
+        else {
+            $('.feature-query-container').addClass('off');
+        }
     };
     AppComponent = __decorate([
         core_1.Component({
