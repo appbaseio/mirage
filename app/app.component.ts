@@ -115,11 +115,8 @@ export class AppComponent implements OnInit, OnChanges {
 	newQuery(query) {
 		this.config = query.config;
 		this.mapping = query.mapping;
-		$('#setType').val(this.mapping.selectedTypes).trigger("change");
-	}
-
-	openModal() {
-		$('#saveQueryModal').modal('show');
+		this.detectChange = "check";
+		setTimeout(() => {$('#setType').val(this.mapping.selectedTypes).trigger("change");},300)
 	}
 
 	save() {
@@ -134,6 +131,15 @@ export class AppComponent implements OnInit, OnChanges {
 			window.localStorage.setItem('queryList', JSON.stringify(this.queryList));
 		} catch(e) {}
 		$('#saveQueryModal').modal('hide');
+	}
+
+	sidebarToggle() {
+		if($('.feature-query-container').hasClass('off')) {
+			$('.feature-query-container').removeClass('off');
+		}
+		else {
+			$('.feature-query-container').addClass('off');
+		}
 	}
 
 }

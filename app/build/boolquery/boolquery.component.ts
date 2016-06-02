@@ -46,6 +46,7 @@ export class BoolqueryComponent implements OnInit {
 				}.bind(this));
 			}.bind(this));
 		}
+		this.buildQuery();
 	}
 	analyzeTest() {
 		var self = this;

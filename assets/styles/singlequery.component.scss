@@ -1,7 +1,8 @@
+@import "variables.scss";
 .single_query {
 	padding: 20px 15px;
 	background: rgba(226, 91, 25, 0.2);
-	border: 1px solid #ddd;
+	border: 1px solid darken($grey-bg, 10%);
 	margin-bottom: 10px;
 	position: relative;
 	.action-btn-group {
@@ -15,7 +16,7 @@
 	}
 	.form-element {
 		input {
-			color: #828282;
+			color: $grey-color;
 		    background: 0 0;
 		    border: 0;
 		    box-shadow: none;
@@ -31,11 +32,11 @@
 		height: 32px;
 		.editable-front {
 			display: inline-block;
-			color: #828282;
+			color: $grey-color;
 			border-bottom: 1px dashed;
 			cursor: pointer;
 			&:hover {
-				color: #444;
+				color: $primary-font-color;
 			}
 		}
 		.editable-back {
@@ -54,7 +55,7 @@
 		}
 	}
 	&.bool_query {
-		background: #f7f7f7;
+		background: $grey-bg;
 	}
 	&.query_complete {
 		background: rgba(82, 199, 130, 0.2);

@@ -16,12 +16,15 @@ export class TypesComponent implements OnChanges {
 		[propertyName: string]: SimpleChange
 	}) {
 		if (changes['detectChange'] && this.mapping.types.length) {
-			var data = this.createTokenData(this.mapping.types);
 			var setType = $('#setType');
+			try {
+				setType.select2('destroy').html('');
+			} catch (e) {
+			}
 			setType.select2({
 				placeholder: "Select types to apply query",
 				tags: false,
-				data: data
+				data: this.createTokenData(this.mapping.types)
 			});
 			setType.on("change", function(e) {
 				this.changeType(setType.val());
