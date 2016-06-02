@@ -51,10 +51,10 @@
   left: 0;
   width: 100%;
   z-index: 6;
-  background: #eee;
+  background: #f7f7f7;
   padding: 5px;
   padding-right: 130px;
-  border-bottom: 1px solid #ddd; }
+  border-bottom: 1px solid #dedede; }
 
 .init-ES .submit-btn {
   position: absolute;
@@ -63,9 +63,9 @@
 
 .queryRight {
   padding: 15px 15px 15px 0;
-  background: #f2f2f2;
-  border-left: 1px solid #ddd;
-  border-bottom: 1px solid #ddd; }
+  background: #f7f7f7;
+  border-left: 1px solid #dedede;
+  border-bottom: 1px solid #dedede; }
 
 .queryLeft {
   padding: 15px; }
@@ -75,3 +75,10 @@
 
 .single_query .select2-container {
   width: 100%; }
+
+.btn-primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2d6da3; }
+  .btn-primary:hover, .btn-primary:focus, .btn-primary.active {
+    background-color: #2d6da3; }

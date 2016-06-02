@@ -1,3 +1,4 @@
+@import "variables.scss";
 .feature-query-container {
 	position: relative;
 	.features-section {
@@ -6,8 +7,8 @@
 		height: 100%;
 		left: 0;
 		top: 0;
-		background: #f1f1f1;
-		border-right: 1px solid #eee;
+		background: $grey-bg;
+		border-right: 1px solid darken($grey-bg, 10%);
 		padding: 15px 0;
 		z-index: 2;
 		transition: all 0.2s;
@@ -23,25 +24,31 @@
 				margin-top: 0;
 				li.list-item {
 					display: block;
-					border-bottom: 1px solid #ddd;
+					border-bottom: 1px solid darken($grey-bg, 10%);
 					padding: 10px 15px;
 					cursor: pointer;
 					&:hover {
-						background: #ddd;
+						background: darken($grey-bg, 10%);
 					}
 					&.list-title {
-						background: #337ab7;
-						color: #fff;
+						background: $primary-color;
+						color: $contrast-color;
 					}
 				}
 			}
 		}
 		.sidebar-toggle {
 			position: absolute;
-			right: -26px;
+			right: -27px;
 			top: 15px;
 			z-index: 3;
-			padding: 8px 7px;
+			padding: 13px 8px;
+			background: $primary-color;
+			color: $contrast-color;
+			border: 0;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+			border-left: 1px solid darken($primary-color, 10%);
 			.sidebar-open {
 				display: none;
 			}

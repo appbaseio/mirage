@@ -1,3 +1,4 @@
+@import "variables.scss";
 .pd-0{
   padding: 0 !important;
 }
@@ -51,10 +52,10 @@
     left: 0;
     width: 100%;
     z-index: 6;
-    background: #eee;
+    background: $grey-bg;
     padding: 5px;
     padding-right: 130px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid darken($grey-bg, 10%);
 }
 .init-ES .submit-btn {
     position: absolute;
@@ -63,9 +64,9 @@
 }
 .queryRight {
   padding: 15px 15px 15px 0;
-  background: #f2f2f2;
-  border-left: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  background: $grey-bg;
+  border-left: 1px solid  darken($grey-bg, 10%);
+  border-bottom: 1px solid  darken($grey-bg, 10%);
 }
 .queryLeft {
   padding: 15px;
@@ -75,4 +76,12 @@
 }
 .single_query .select2-container {
   width: 100%;
+}
+.btn-primary {
+  color: $contrast-color;
+  background-color: $primary-color;
+  border-color: darken($primary-color, 5%);
+  &:hover, &:focus, &.active {
+    background-color: darken($primary-color, 5%);  
+  }
 }
