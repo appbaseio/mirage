@@ -1,7 +1,7 @@
-<section class="loading" *ngIf="!connected">
+<section class="loading" *ngIf="!connected && !initial_connect">
 	<div class="vertical-cell text-center">
 		<h1>
-			<i class="fa fa-spinner fa-spin fa-1x"></i> Please wait!
+			<i class="fa fa-spinner fa-spin fa-1x"></i>Please wait!
 		</h1>
 	</div>
 </section>
@@ -40,7 +40,7 @@
 					<i class="fa fa-chevron-right sidebar-open"></i>
 				</a>
 				<div class="feature-section-container col-xs-12 pd-0">
-					<list-query  [savedQueryList]="savedQueryList" (newQuery)="newQuery($event);"></list-query>
+					<list-query [savedQueryList]="savedQueryList" (newQuery)="newQuery($event);"></list-query>
 				</div>
 			</div>
 			<div class="col-xs-12 query-main-container">

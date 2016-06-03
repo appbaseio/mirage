@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnChanges {
 	constructor(public appbaseService: AppbaseService) {}
 
 	public connected: boolean = false;
+	public initial_connect: boolean = false;
 	public mapping: any = {
 		types: [],
 		mapping: null,
@@ -75,6 +76,9 @@ export class AppComponent implements OnInit, OnChanges {
 			this.config.appname = appname;
 			this.connect();
 		}
+		else {
+			this.initial_connect = true;
+		}
 	}
 
 	//Set config from localstorage
@@ -88,6 +92,7 @@ export class AppComponent implements OnInit, OnChanges {
 	// and set response in mapping property 
 	connect() {
 		this.connected = false;
+		this.initial_connect = false;
 		var APPNAME = this.config.appname;
 		var URL = this.config.url;
 		var urlsplit = URL.split(':');
@@ -115,7 +120,10 @@ export class AppComponent implements OnInit, OnChanges {
 			self.setLocalConfig(self.config.url, self.config.appname);
 			self.detectChange += "done";
 			self.editorHookHelp.setValue('');
-		}).catch(self.appbaseService.handleError);
+		}).catch(function(e) {
+			self.initial_connect = true;
+			alert(e.json().message);
+		});
 	}
 
 	// Seprate the types from mapping	
