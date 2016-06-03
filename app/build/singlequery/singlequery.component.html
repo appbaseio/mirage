@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div class="editable-back col-xs-12 pd-0">
-				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" (callback)="queryCallback($event);"></select2>
+				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" (callback)="queryCallback($event);" [showInfoFlag]="true"></select2>
 				<!-- <select class="form-control form-element query-select" [(ngModel)]="query.query" (change)="exeBuild();">
 					<option value="">-- select any query --</option>
 					<option *ngFor="let oo of queryList[query.analyzeTest][query.type], let i=index" [value]="i">{{oo.name}}</option>
