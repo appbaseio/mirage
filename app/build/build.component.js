@@ -31,10 +31,6 @@ var BuildComponent = (function () {
                 minimum_should_match: ''
             }
         };
-        this.query_info = {
-            name: '',
-            tag: ''
-        };
     }
     BuildComponent.prototype.ngOnInit = function () {
         this.handleEditable();
@@ -198,6 +194,11 @@ var BuildComponent = (function () {
     };
     // save query
     BuildComponent.prototype.save = function () {
+        this.savedQueryList.forEach(function (query, index) {
+            if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
+                this.savedQueryList.splice(index, 1);
+            }
+        }.bind(this));
         var queryData = {
             mapping: this.mapping,
             config: this.config,
@@ -206,10 +207,15 @@ var BuildComponent = (function () {
         };
         this.savedQueryList.push(queryData);
         try {
+            window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
         }
         catch (e) { }
         $('#saveQueryModal').modal('hide');
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BuildComponent.prototype, "query_info", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -218,7 +224,7 @@ var BuildComponent = (function () {
         core_1.Component({
             selector: 'query-build',
             templateUrl: './app/build/build.component.html',
-            inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList'],
+            inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info"],
             directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
         }), 
         __metadata('design:paramtypes', [])

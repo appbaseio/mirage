@@ -42,11 +42,11 @@ var AppComponent = (function () {
         this.editorHookHelp = new editorHook_1.editorHook({ editorId: 'editor' });
         this.responseHookHelp = new editorHook_1.editorHook({ editorId: 'responseBlock' });
         this.savedQueryList = [];
+        this.query_info = {
+            name: '',
+            tag: ''
+        };
     }
-    // public query_info = {
-    // 	name: '',
-    // 	tag: ''
-    // };
     AppComponent.prototype.ngOnInit = function () {
         this.getLocalConfig();
         try {
@@ -134,8 +134,39 @@ var AppComponent = (function () {
         var _this = this;
         this.config = query.config;
         this.mapping = query.mapping;
+        this.query_info.name = query.name;
+        this.query_info.tag = query.tag;
         this.detectChange = "check";
         setTimeout(function () { $('#setType').val(_this.mapping.selectedTypes).trigger("change"); }, 300);
+    };
+    AppComponent.prototype.deleteQuery = function (index) {
+        var confirmFlag = confirm("Do you want to delete this query?");
+        if (confirmFlag) {
+            this.savedQueryList.splice(index, 1);
+            try {
+                window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
+            }
+            catch (e) { }
+        }
+    };
+    AppComponent.prototype.clearAll = function () {
+        this.mapping = {
+            types: this.mapping.types,
+            resultQuery: {
+                'type': '',
+                'result': [],
+                'final': "{}"
+            },
+            output: {},
+            queryId: 1,
+            selectedTypes: []
+        };
+        this.query_info = {
+            name: '',
+            tag: ''
+        };
+        this.detectChange += "check";
+        this.editorHookHelp.setValue('');
     };
     AppComponent.prototype.sidebarToggle = function () {
         if ($('.feature-query-container').hasClass('off')) {

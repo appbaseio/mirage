@@ -45,31 +45,41 @@ var TypesComponent = (function () {
         //this.mapping.resultQuery.result = [];
         this.mapping.selectedTypes = val;
         var availableFields = [];
-        val.forEach(function (type) {
-            var mapObj = this.mapping.mapping[this.config.appname].mappings[type].properties;
-            for (var field in mapObj) {
-                var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
-                var obj = {
-                    name: field,
-                    type: mapObj[field]['type'],
-                    index: index
-                };
-                switch (obj.type) {
-                    case 'long':
-                    case 'integer':
-                    case 'short':
-                    case 'byte':
-                    case 'double':
-                    case 'float':
-                        obj.type = 'numeric';
-                        break;
+        if (val && val.length) {
+            val.forEach(function (type) {
+                var mapObj = this.mapping.mapping[this.config.appname].mappings[type].properties;
+                for (var field in mapObj) {
+                    var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
+                    var obj = {
+                        name: field,
+                        type: mapObj[field]['type'],
+                        index: index
+                    };
+                    switch (obj.type) {
+                        case 'long':
+                        case 'integer':
+                        case 'short':
+                        case 'byte':
+                        case 'double':
+                        case 'float':
+                            obj.type = 'numeric';
+                            break;
+                    }
+                    availableFields.push(obj);
                 }
-                availableFields.push(obj);
-            }
-        }.bind(this));
+            }.bind(this));
+        }
         console.log(availableFields);
         this.mapping.resultQuery.availableFields = availableFields;
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], TypesComponent.prototype, "mapping", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], TypesComponent.prototype, "config", void 0);
     TypesComponent = __decorate([
         core_1.Component({
             selector: 'types',

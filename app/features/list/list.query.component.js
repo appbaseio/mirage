@@ -12,9 +12,17 @@ var core_1 = require("@angular/core");
 var ListQueryComponent = (function () {
     function ListQueryComponent() {
         this.newQuery = new core_1.EventEmitter();
+        this.deleteQuery = new core_1.EventEmitter();
+        this.clearAll = new core_1.EventEmitter();
     }
     ListQueryComponent.prototype.applyQuery = function (queryData) {
         this.newQuery.emit(queryData);
+    };
+    ListQueryComponent.prototype.applyDeleteQuery = function (index) {
+        this.deleteQuery.emit(index);
+    };
+    ListQueryComponent.prototype.applyClearAll = function () {
+        this.clearAll.emit(null);
     };
     __decorate([
         core_1.Input(), 
@@ -24,11 +32,19 @@ var ListQueryComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], ListQueryComponent.prototype, "newQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "deleteQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "clearAll", void 0);
     ListQueryComponent = __decorate([
         core_1.Component({
             selector: 'list-query',
             templateUrl: './app/features/list/list.query.component.html',
-            inputs: ['savedQueryList', 'newQuery']
+            inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll']
         }), 
         __metadata('design:paramtypes', [])
     ], ListQueryComponent);
