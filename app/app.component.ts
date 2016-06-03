@@ -43,10 +43,10 @@ export class AppComponent implements OnInit, OnChanges {
 	public editorHookHelp = new editorHook({ editorId: 'editor' });
 	public responseHookHelp = new editorHook({ editorId: 'responseBlock' });
 	public savedQueryList = [];
-	// public query_info = {
-	// 	name: '',
-	// 	tag: ''
-	// };
+	public query_info = {
+		name: '',
+		tag: ''
+	};
 
 	ngOnInit() {
 		this.getLocalConfig();
@@ -139,6 +139,8 @@ export class AppComponent implements OnInit, OnChanges {
 	newQuery(query) {
 		this.config = query.config;
 		this.mapping = query.mapping;
+		this.query_info.name = query.name;
+		this.query_info.tag = query.tag;
 		this.detectChange = "check";
 		setTimeout(() => {$('#setType').val(this.mapping.selectedTypes).trigger("change");},300)
 	}

@@ -7,7 +7,7 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList'],
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info"],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
@@ -32,10 +32,7 @@ export class BuildComponent implements OnInit {
 		}
 	};
 	public editorHookHelp: any;
-	public query_info = {
-		name: '',
-		tag: ''
-	};
+	@Input() query_info;
 	@Input() savedQueryList;
 
 
@@ -212,6 +209,11 @@ export class BuildComponent implements OnInit {
 
 	// save query
 	save() {
+		this.savedQueryList.forEach(function(query, index) {
+			if(query.name === this.query_info.name && query.tag === this.query_info.tag) {
+				this.savedQueryList.splice(index, 1);
+			}
+		}.bind(this));
 		var queryData = {
 			mapping: this.mapping,
 			config: this.config,
