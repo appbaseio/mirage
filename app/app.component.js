@@ -20,6 +20,7 @@ var AppComponent = (function () {
     function AppComponent(appbaseService) {
         this.appbaseService = appbaseService;
         this.connected = false;
+        this.initial_connect = false;
         this.mapping = {
             types: [],
             mapping: null,
@@ -40,19 +41,19 @@ var AppComponent = (function () {
         };
         this.editorHookHelp = new editorHook_1.editorHook({ editorId: 'editor' });
         this.responseHookHelp = new editorHook_1.editorHook({ editorId: 'responseBlock' });
-        this.queryList = [];
-        this.query_info = {
-            name: '',
-            tag: ''
-        };
+        this.savedQueryList = [];
     }
+    // public query_info = {
+    // 	name: '',
+    // 	tag: ''
+    // };
     AppComponent.prototype.ngOnInit = function () {
         this.getLocalConfig();
         try {
             var list = window.localStorage.getItem('queryList');
             if (list) {
-                this.queryList = JSON.parse(list);
-                console.log(this.queryList);
+                this.savedQueryList = JSON.parse(list);
+                console.log(this.savedQueryList);
             }
         }
         catch (e) { }
@@ -73,6 +74,9 @@ var AppComponent = (function () {
             this.config.appname = appname;
             this.connect();
         }
+        else {
+            this.initial_connect = true;
+        }
     };
     //Set config from localstorage
     AppComponent.prototype.setLocalConfig = function (url, appname) {
@@ -84,6 +88,7 @@ var AppComponent = (function () {
     // and set response in mapping property 
     AppComponent.prototype.connect = function () {
         this.connected = false;
+        this.initial_connect = false;
         var APPNAME = this.config.appname;
         var URL = this.config.url;
         var urlsplit = URL.split(':');
@@ -111,7 +116,10 @@ var AppComponent = (function () {
             self.setLocalConfig(self.config.url, self.config.appname);
             self.detectChange += "done";
             self.editorHookHelp.setValue('');
-        }).catch(self.appbaseService.handleError);
+        }).catch(function (e) {
+            self.initial_connect = true;
+            alert(e.json().message);
+        });
     };
     // Seprate the types from mapping	
     AppComponent.prototype.seprateType = function (mappingObj) {
@@ -128,20 +136,6 @@ var AppComponent = (function () {
         this.mapping = query.mapping;
         this.detectChange = "check";
         setTimeout(function () { $('#setType').val(_this.mapping.selectedTypes).trigger("change"); }, 300);
-    };
-    AppComponent.prototype.save = function () {
-        var queryData = {
-            mapping: this.mapping,
-            config: this.config,
-            name: this.query_info.name,
-            tag: this.query_info.tag
-        };
-        this.queryList.push(queryData);
-        try {
-            window.localStorage.setItem('queryList', JSON.stringify(this.queryList));
-        }
-        catch (e) { }
-        $('#saveQueryModal').modal('hide');
     };
     AppComponent.prototype.sidebarToggle = function () {
         if ($('.feature-query-container').hasClass('off')) {

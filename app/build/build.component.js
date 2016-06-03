@@ -31,6 +31,10 @@ var BuildComponent = (function () {
                 minimum_should_match: ''
             }
         };
+        this.query_info = {
+            name: '',
+            tag: ''
+        };
     }
     BuildComponent.prototype.ngOnInit = function () {
         this.handleEditable();
@@ -192,11 +196,29 @@ var BuildComponent = (function () {
     BuildComponent.prototype.openModal = function () {
         $('#saveQueryModal').modal('show');
     };
+    // save query
+    BuildComponent.prototype.save = function () {
+        var queryData = {
+            mapping: this.mapping,
+            config: this.config,
+            name: this.query_info.name,
+            tag: this.query_info.tag
+        };
+        this.savedQueryList.push(queryData);
+        try {
+        }
+        catch (e) { }
+        $('#saveQueryModal').modal('hide');
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BuildComponent.prototype, "savedQueryList", void 0);
     BuildComponent = __decorate([
         core_1.Component({
             selector: 'query-build',
             templateUrl: './app/build/build.component.html',
-            inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp'],
+            inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList'],
             directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -11,17 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ListQueryComponent = (function () {
     function ListQueryComponent() {
+        this.newQuery = new core_1.EventEmitter();
     }
-    ListQueryComponent.prototype.applyQuery = function (i) {
-        this.selectedQuery.push(i);
-        // var queryData = this.queryList[i];
-        // this.newQuery(queryData);
+    ListQueryComponent.prototype.applyQuery = function (queryData) {
+        this.newQuery.emit(queryData);
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "savedQueryList", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "newQuery", void 0);
     ListQueryComponent = __decorate([
         core_1.Component({
             selector: 'list-query',
             templateUrl: './app/features/list/list.query.component.html',
-            inputs: ['config', 'mapping', 'queryList', 'newQuery', 'createTokenData', 'selectedQuery']
+            inputs: ['savedQueryList', 'newQuery']
         }), 
         __metadata('design:paramtypes', [])
     ], ListQueryComponent);
