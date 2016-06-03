@@ -1,5 +1,5 @@
 <ul class="theme-list col-xs-12">
-	<li class="list-item col-xs-12 list-title" (click)="applyClearAll();">Saved Queries</li>
+	<li class="list-item col-xs-12 list-title" (click)="applyClearAll();">Saved Queries (clear all)</li>
 	<li class="list-item col-xs-12" *ngFor="let query of savedQueryList, let i=index">
 		<a class="col-xs-12 pd-0"  (click)="applyQuery(query);">
 			{{query.name}}	<span class="badge">{{query.tag}}</span>
