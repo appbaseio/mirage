@@ -26,7 +26,7 @@ export class SinglequeryComponent implements OnInit {
 		query: 'query-select'
 	};
 
-	// on initialize set the select2 on field select element
+	// on initialize set the query selector
 	ngOnInit() {
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
 	}
@@ -70,15 +70,5 @@ export class SinglequeryComponent implements OnInit {
 		$('.editable-pack').removeClass('on');
 		$($event.currentTarget).parents('.editable-pack').addClass('on');
 		$($event.currentTarget).parents('.editable-pack').find('select').select2('open');
-	}
-
-	// set the select2 - autocomplete.
-	setSelect2(field_select, callback) {
-		field_select.select2({
-			placeholder: "Select from the option"
-		});
-		field_select.on("change", function(e) {
-			callback(field_select.val())
-		}.bind(this));
 	}
 }
