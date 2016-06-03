@@ -143,6 +143,16 @@ export class AppComponent implements OnInit, OnChanges {
 		setTimeout(() => {$('#setType').val(this.mapping.selectedTypes).trigger("change");},300)
 	}
 
+	deleteQuery(index) {
+		var confirmFlag = confirm("Do you want to delete this query?");
+		if(confirmFlag) {
+			this.savedQueryList.splice(index, 1);
+			try {
+				window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
+			} catch(e) {}
+		}
+	}
+
 	sidebarToggle() {
 		if($('.feature-query-container').hasClass('off')) {
 			$('.feature-query-container').removeClass('off');

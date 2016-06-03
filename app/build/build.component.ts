@@ -220,7 +220,7 @@ export class BuildComponent implements OnInit {
 		};
 		this.savedQueryList.push(queryData);
 		try {
-			// window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
+			window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
 		} catch(e) {}
 		$('#saveQueryModal').modal('hide');
 	}
