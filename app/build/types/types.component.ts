@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChange } from "@angular/core";
+import { Component, OnChanges, SimpleChange, Input } from "@angular/core";
 
 @Component({
 	selector: 'types',
@@ -7,8 +7,8 @@ import { Component, OnChanges, SimpleChange } from "@angular/core";
 })
 
 export class TypesComponent implements OnChanges {
-	public mapping;
-	public config;
+	@Input() mapping;
+	@Input() config;
 
 	constructor() {}
 
@@ -48,28 +48,30 @@ export class TypesComponent implements OnChanges {
 		//this.mapping.resultQuery.result = [];
 		this.mapping.selectedTypes = val;
 		var availableFields = [];
-		val.forEach(function(type) {
-			var mapObj = this.mapping.mapping[this.config.appname].mappings[type].properties;
-			for (var field in mapObj) {
-				var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
-				var obj = {
-					name: field,
-					type: mapObj[field]['type'],
-					index: index
+		if(val && val.length) {
+			val.forEach(function(type) {
+				var mapObj = this.mapping.mapping[this.config.appname].mappings[type].properties;
+				for (var field in mapObj) {
+					var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
+					var obj = {
+						name: field,
+						type: mapObj[field]['type'],
+						index: index
+					}
+					switch (obj.type) {
+						case 'long':
+						case 'integer':
+						case 'short':
+						case 'byte':
+						case 'double':
+						case 'float':
+							obj.type = 'numeric';
+							break;
+					}
+					availableFields.push(obj);
 				}
-				switch (obj.type) {
-					case 'long':
-					case 'integer':
-					case 'short':
-					case 'byte':
-					case 'double':
-					case 'float':
-						obj.type = 'numeric';
-						break;
-				}
-				availableFields.push(obj);
-			}
-		}.bind(this));
+			}.bind(this));
+		}
 		console.log(availableFields);
 		this.mapping.resultQuery.availableFields = availableFields;
 	}

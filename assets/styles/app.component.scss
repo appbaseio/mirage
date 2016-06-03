@@ -39,14 +39,23 @@
 				li.list-item {
 					display: block;
 					border-bottom: 1px solid darken($grey-bg, 10%);
-					padding: 10px 15px;
+					padding: 10px 40px 10px 15px;
 					cursor: pointer;
 					&:hover {
 						background: darken($grey-bg, 10%);
+						.delete-query {
+							display: inline-block;
+						}
 					}
 					&.list-title {
 						background: $primary-color;
 						color: $contrast-color;
+					}
+					.delete-query {
+						position: absolute;
+						right: 5px;
+						top: 5px;
+						display: none;
 					}
 				}
 			}

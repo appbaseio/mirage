@@ -36,13 +36,20 @@
         .feature-query-container .features-section .feature-section-container .theme-list li.list-item {
           display: block;
           border-bottom: 1px solid #dedede;
-          padding: 10px 15px;
+          padding: 10px 40px 10px 15px;
           cursor: pointer; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item:hover {
             background: #dedede; }
+            .feature-query-container .features-section .feature-section-container .theme-list li.list-item:hover .delete-query {
+              display: inline-block; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item.list-title {
             background: #337ab7;
             color: #fff; }
+          .feature-query-container .features-section .feature-section-container .theme-list li.list-item .delete-query {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            display: none; }
     .feature-query-container .features-section .sidebar-toggle {
       position: absolute;
       right: -27px;
