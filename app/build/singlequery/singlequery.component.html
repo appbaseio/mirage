@@ -14,10 +14,7 @@
 			</div>
 		</div>
 		<div class="editable-back col-xs-12 pd-0">
-			<select class="form-control form-element field-select" (change)="analyzeTest($event)" [(ngModel)]="query.field">
-				<option value="">--select any field--</option>
-				<option *ngFor="let oo of mapping.resultQuery.availableFields, let i=index" [value]="i">{{oo.name}}</option>
-			</select>
+			<select2 class="field-select" [selectOptions]="mapping.resultQuery.availableFields" [querySelector]="querySelector" [selector]="selector.field" (callback)="analyzeTest($event);"></select2>
 		</div>	
 	</div>
 	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')">
@@ -31,10 +28,11 @@
 				</div>
 			</div>
 			<div class="editable-back col-xs-12 pd-0">
-				<select class="form-control form-element query-select" [(ngModel)]="query.query" (change)="exeBuild();">
+				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" (callback)="queryCallback($event);" [showInfoFlag]="true"></select2>
+				<!-- <select class="form-control form-element query-select" [(ngModel)]="query.query" (change)="exeBuild();">
 					<option value="">-- select any query --</option>
 					<option *ngFor="let oo of queryList[query.analyzeTest][query.type], let i=index" [value]="i">{{oo.name}}</option>
-				</select>
+				</select> -->
 			</div>
 		</div>
 	</div>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
+import { select2Component } from '../select2/select2.component';
+
 
 @Component({
 	selector: 'single-query',
 	templateUrl: './app/build/singlequery/singlequery.component.html',
 	inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
-	directives: [SinglequeryComponent]
+	directives: [SinglequeryComponent, select2Component]
 })
 
 export class SinglequeryComponent implements OnInit {
@@ -18,16 +20,15 @@ export class SinglequeryComponent implements OnInit {
 	public internalIndex;
 	public queryIndex;
 	public buildQuery;
+	public querySelector;
+	public selector = {
+		field: 'field-select',
+		query: 'query-select'
+	};
 
-	// on initialize set the select2 on field select element
+	// on initialize set the query selector
 	ngOnInit() {
-		setTimeout(() => {
-			var field_select = $('.query-' + this.queryIndex + '-' + this.internalIndex).find('.field-select');
-			this.setSelect2(field_select, function(val) {
-				this.query.field = val;
-				this.analyzeTest(field_select);
-			}.bind(this));
-		}, 300)
+		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
 	}
 
 	// delete query
@@ -36,26 +37,24 @@ export class SinglequeryComponent implements OnInit {
 		this.buildQuery();
 	}
 
+	// field select - change event
 	// On selecting the field, we are checking if field is analyzed or not
 	// and according to that show the available query
-	// and then apply select2 for query select element
-	analyzeTest($event) {
+	analyzeTest(res) {
+		this.query.field = res.val;
 		var self = this;
-		$($event).parents('.editable-pack').removeClass('on');
-		setTimeout(function() {
-			var field = self.mapping.resultQuery.availableFields[self.query.field];
-			self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
-			self.query.type = field.type;
-			self.buildQuery();
-			setTimeout(() => {
-				var field_select = $('.query-' + self.queryIndex + '-' + self.internalIndex).find('.query-select');
-				self.setSelect2(field_select, function(val) {
-					field_select.parents('.editable-pack').removeClass('on');
-					self.query.query = val;
-					self.exeBuild();
-				});
-			}, 300)
-		}, 300);
+		$(res.selector).parents('.editable-pack').removeClass('on');
+		var field = self.mapping.resultQuery.availableFields[self.query.field];
+		self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
+		self.query.type = field.type;
+		self.buildQuery();
+	}
+
+	// Query select - change event
+	queryCallback(res) {
+		res.selector.parents('.editable-pack').removeClass('on');
+		this.query.query = res.val;
+		this.buildQuery();
 	}
 
 	// build the query
@@ -71,15 +70,5 @@ export class SinglequeryComponent implements OnInit {
 		$('.editable-pack').removeClass('on');
 		$($event.currentTarget).parents('.editable-pack').addClass('on');
 		$($event.currentTarget).parents('.editable-pack').find('select').select2('open');
-	}
-
-	// set the select2 - autocomplete.
-	setSelect2(field_select, callback) {
-		field_select.select2({
-			placeholder: "Select from the option"
-		});
-		field_select.on("change", function(e) {
-			callback(field_select.val())
-		}.bind(this));
 	}
 }

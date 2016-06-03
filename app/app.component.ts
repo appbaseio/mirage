@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnChanges {
 	constructor(public appbaseService: AppbaseService) {}
 
 	public connected: boolean = false;
+	public initial_connect: boolean = false;
 	public mapping: any = {
 		types: [],
 		mapping: null,
@@ -41,19 +42,19 @@ export class AppComponent implements OnInit, OnChanges {
 	};
 	public editorHookHelp = new editorHook({ editorId: 'editor' });
 	public responseHookHelp = new editorHook({ editorId: 'responseBlock' });
-	public queryList = [];
-	public query_info = {
-		name: '',
-		tag: ''
-	};
+	public savedQueryList = [];
+	// public query_info = {
+	// 	name: '',
+	// 	tag: ''
+	// };
 
 	ngOnInit() {
 		this.getLocalConfig();
 		try {
 			let list = window.localStorage.getItem('queryList');
 			if(list) {
-				this.queryList = JSON.parse(list);
-				console.log(this.queryList);
+				this.savedQueryList = JSON.parse(list);
+				console.log(this.savedQueryList);
 			}
 		} catch(e) {}
 	}
@@ -75,6 +76,9 @@ export class AppComponent implements OnInit, OnChanges {
 			this.config.appname = appname;
 			this.connect();
 		}
+		else {
+			this.initial_connect = true;
+		}
 	}
 
 	//Set config from localstorage
@@ -88,6 +92,7 @@ export class AppComponent implements OnInit, OnChanges {
 	// and set response in mapping property 
 	connect() {
 		this.connected = false;
+		this.initial_connect = false;
 		var APPNAME = this.config.appname;
 		var URL = this.config.url;
 		var urlsplit = URL.split(':');
@@ -115,7 +120,10 @@ export class AppComponent implements OnInit, OnChanges {
 			self.setLocalConfig(self.config.url, self.config.appname);
 			self.detectChange += "done";
 			self.editorHookHelp.setValue('');
-		}).catch(self.appbaseService.handleError);
+		}).catch(function(e) {
+			self.initial_connect = true;
+			alert(e.json().message);
+		});
 	}
 
 	// Seprate the types from mapping	
@@ -133,20 +141,6 @@ export class AppComponent implements OnInit, OnChanges {
 		this.mapping = query.mapping;
 		this.detectChange = "check";
 		setTimeout(() => {$('#setType').val(this.mapping.selectedTypes).trigger("change");},300)
-	}
-
-	save() {
-		var queryData = {
-			mapping: this.mapping,
-			config: this.config,
-			name: this.query_info.name,
-			tag: this.query_info.tag
-		};
-		this.queryList.push(queryData);
-		try {
-			window.localStorage.setItem('queryList', JSON.stringify(this.queryList));
-		} catch(e) {}
-		$('#saveQueryModal').modal('hide');
 	}
 
 	sidebarToggle() {

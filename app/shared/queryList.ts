@@ -71,5 +71,31 @@ export var queryList = {
 			name: 'filter',
 			apply: 'filter'
 		}
-	]
+	],
+	'information': {
+		"matches": {
+			"title": "match",
+			"content": "match query content"
+		},
+		"match_phrase": {
+			"title": "match_phrase",
+			"content": "match query content"
+		},
+		"match-phase-prefix": {
+			"title": "match-phase-prefix",
+			"content": "match query content"
+		},
+		"range": {
+			"title": "range",
+			"content": "match query content"
+		},
+		"greater than": {
+			"title": "gt",
+			"content": "match query content"
+		},
+		"less than": {
+			"title": "lt",
+			"content": "match query content"
+		}
+	}
 };
