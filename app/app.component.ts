@@ -155,6 +155,26 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 	}
 
+	clearAll() {
+		this.mapping = {
+			types: this.mapping.types
+			resultQuery: {
+				'type': '',
+				'result': [],
+				'final': "{}"
+			},
+			output: {},
+			queryId: 1,
+			selectedTypes: []
+		};
+		this.query_info = {
+			name: '',
+			tag: ''
+		};	
+		this.detectChange += "check";
+		this.editorHookHelp.setValue('');
+	}
+
 	sidebarToggle() {
 		if($('.feature-query-container').hasClass('off')) {
 			$('.feature-query-container').removeClass('off');

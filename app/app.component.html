@@ -40,7 +40,7 @@
 					<i class="fa fa-chevron-right sidebar-open"></i>
 				</a>
 				<div class="feature-section-container col-xs-12 pd-0">
-					<list-query [savedQueryList]="savedQueryList" (newQuery)="newQuery($event);" (deleteQuery)="deleteQuery($event)"></list-query>
+					<list-query [savedQueryList]="savedQueryList" (newQuery)="newQuery($event);" (deleteQuery)="deleteQuery($event)" (clearAll)="clearAll($event);"></list-query>
 				</div>
 			</div>
 			<div class="col-xs-12 query-main-container">
