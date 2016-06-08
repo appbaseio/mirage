@@ -1,6 +1,15 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { select2Component } from '../select2/select2.component';
-import { MatchQuery } from './queries/match/query';
+import { MatchQuery } from './queries/match.query';
+import { Match_phraseQuery } from './queries/match_phrase.query';
+import { Match_phase_prefixQuery } from './queries/match_phase_prefix.query';
+import { RangeQuery } from './queries/range.query';
+import { GtQuery } from './queries/gt.query';
+import { LtQuery } from './queries/lt.query';
+import { TermQuery } from './queries/term.query';
+import { ExistsQuery } from './queries/exists.query';
+import { TermsQuery } from './queries/terms.query';
+import { PrefixQuery } from './queries/prefix.query';
 
 @Component({
 	selector: 'single-query',
@@ -9,7 +18,12 @@ import { MatchQuery } from './queries/match/query';
 	directives: [
 		SinglequeryComponent, 
 		select2Component, 
-		MatchQuery
+		MatchQuery,
+		Match_phraseQuery,
+		Match_phase_prefixQuery,
+		RangeQuery,
+		GtQuery,
+		LtQuery
 	]
 })
 

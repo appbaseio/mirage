@@ -60,6 +60,7 @@ var BuildComponent = (function () {
         boolQuery.internal.push(queryObj);
         this.buildQuery();
     };
+    // builquery - this function handles everything to build the query
     BuildComponent.prototype.buildQuery = function () {
         var self = this;
         var results = this.mapping.resultQuery.result;
@@ -101,12 +102,6 @@ var BuildComponent = (function () {
     };
     BuildComponent.prototype.buildInsideQuery = function (result) {
         var objChain = [];
-        // var currentBool = this.queryList['boolQuery'][result['boolparam']].apply;
-        // if(currentBool === 'should') {
-        // 	current_query['bool'][currentBool].push({
-        // 		minimum_should_match: result1.minimum_should_match
-        // 	});
-        // }
         result.internal.forEach(function (val0) {
             var childExists = false;
             val0.appliedQuery = this.createQuery(val0, childExists);
@@ -128,6 +123,7 @@ var BuildComponent = (function () {
             }
         }.bind(this));
     };
+    // Createquery until query is selected
     BuildComponent.prototype.createQuery = function (val, childExists) {
         var queryParam = {
             query: '*',
@@ -154,26 +150,8 @@ var BuildComponent = (function () {
     };
     BuildComponent.prototype.setQueryFormat = function (query, field, val) {
         var sampleobj = {};
-        switch (query) {
-            case "gt":
-            case "lt":
-                sampleobj['range'] = {};
-                sampleobj['range'][field] = {};
-                sampleobj['range'][field][query] = val.input;
-                break;
-            case "range":
-                sampleobj['range'] = {};
-                sampleobj['range'][field] = {};
-                sampleobj['range'][field] = {
-                    'from': val.from,
-                    'to': val.to
-                };
-                break;
-            default:
-                sampleobj[query] = {};
-                sampleobj[query][field] = val.input;
-                break;
-        }
+        sampleobj[query] = {};
+        sampleobj[query][field] = val.input;
         return sampleobj;
     };
     // handle the body click event for editable

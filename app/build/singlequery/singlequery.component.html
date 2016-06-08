@@ -4,6 +4,7 @@
 			<i class="fa fa-trash"></i>
 		</a>
 	</div>
+	<!-- field part start -->
 	<div class="col-xs-3 pd-l0 editable-pack">
 		<div class="editable-front col-xs-12 pd-0" (click)="editable_on($event)">
 			<div *ngIf = "query.field != ''">
@@ -17,6 +18,8 @@
 			<select2 class="field-select" [selectOptions]="mapping.resultQuery.availableFields" [querySelector]="querySelector" [selector]="selector.field" (callback)="analyzeTest($event);"></select2>
 		</div>	
 	</div>
+	<!-- field part end -->
+	<!-- query part start -->
 	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')">
 		<div class="col-xs-12 pd-0 editable-pack">
 			<div class="editable-front col-xs-12 pd-0"  (click)="editable_on($event)">
@@ -29,15 +32,15 @@
 			</div>
 			<div class="editable-back col-xs-12 pd-0">
 				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" (callback)="queryCallback($event);" [showInfoFlag]="true"></select2>
-				<!-- <select class="form-control form-element query-select" [(ngModel)]="query.query" (change)="exeBuild();">
-					<option value="">-- select any query --</option>
-					<option *ngFor="let oo of queryList[query.analyzeTest][query.type], let i=index" [value]="i">{{oo.name}}</option>
-				</select> -->
 			</div>
 		</div>
 	</div>
+	<!-- query part end -->
+	<!-- load the slector for selected query -->
 	<div *ngIf="query.field != '' && query.query != ''" class="col-xs-6 pd-l0">
 		<div [ngSwitch]="queryList[query.analyzeTest][query.type][query.query]" class="col-xs-12 pd-0">
+			
+			<!-- match query start -->
 			<div *ngSwitchWhen="'match'" class="row">
 				<match-query 
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
@@ -46,30 +49,108 @@
 					>
 				</match-query>
 			</div>
-			<!-- <div *ngSwitchWhen="'range'" class="row">
-				<div class="form-group form-element col-xs-6">
-					<input type="number" class="form-control" placeholder="from" [(ngModel)] = "query.from"  (keyup)="exeBuild();" />
-				</div>
-				<div class="form-group form-element pd-l0 col-xs-6">
-					<input type="number" class="form-control" placeholder="to" [(ngModel)] = "query.to"  (keyup)="exeBuild();" />
-				</div>
+			<!-- match query end -->
+
+			<!-- match_phrase query start -->
+			<div *ngSwitchWhen="'match_phrase'" class="row">
+				<match_phrase-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</match_phrase-query>
 			</div>
+			<!-- match_phrase query end -->
+
+			<!-- match-phase-prefix query start -->
+			<div *ngSwitchWhen="'match-phase-prefix'" class="row">
+				<match-phase-prefix-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</match-phase-prefix-query>
+			</div>
+			<!-- match-phase-prefix query end -->
+
+			<!-- range query start -->
+			<div *ngSwitchWhen="'range'" class="row">
+				<range-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</range-query>
+			</div>
+			<!-- range query end -->
+
+			<!-- gt query start -->
 			<div *ngSwitchWhen="'gt'" class="row">
-				<div class="form-group form-element col-xs-12">
-					<input type="number" class="form-control col-xs-12 pd-0" placeholder="Greater than" [(ngModel)] = "query.input"  (keyup)="exeBuild();" />
-				</div>
+				<gt-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</gt-query>
 			</div>
+			<!-- gt query end -->
+
+			<!-- Lt query start -->
 			<div *ngSwitchWhen="'lt'" class="row">
-				<div class="form-group form-element col-xs-12">
-					<input type="number" class="form-control col-xs-12 pd-0" placeholder="Less than" [(ngModel)] = "query.input"  (keyup)="exeBuild();" />
-				</div>
+				<lt-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</lt-query>
 			</div>
-			<div *ngSwitchDefault class="row">
-				<div class="form-group form-element col-xs-12">
-					<input type="text" class="form-control col-xs-12" placeholder="Value" [(ngModel)] = "query.input" (keyup)="exeBuild();" />
-				</div>
-			</div> -->
+			<!-- Lt query end -->
+
+				<!-- term query start -->
+			<div *ngSwitchWhen="'term'" class="row">
+				<term-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</term-query>
+			</div>
+			<!-- term query end -->
+
+			<!-- exists query start -->
+			<div *ngSwitchWhen="'lt'" class="row">
+				<exists-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</exists-query>
+			</div>
+			<!-- exists query end -->
+
+				<!-- terms query start -->
+			<div *ngSwitchWhen="'terms'" class="row">
+				<terms-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</terms-query>
+			</div>
+			<!-- terms query end -->
+
+				<!-- prefix query start -->
+			<div *ngSwitchWhen="'prefix'" class="row">
+				<prefix-query 
+					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
+					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					(getQueryFormat)="getQueryFormat($event);"
+					>
+				</prefix-query>
+			</div>
+			<!-- prefix query end -->
+			
 		</div>
 	</div>
+	<!-- load the slector for selected query -->
 </div>
-{{query | json}}

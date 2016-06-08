@@ -66,6 +66,7 @@ export class BuildComponent implements OnInit {
 		this.buildQuery();
 	}
 
+	// builquery - this function handles everything to build the query
 	buildQuery() {
 		var self = this;
 		var results = this.mapping.resultQuery.result;
@@ -109,12 +110,6 @@ export class BuildComponent implements OnInit {
 
 	buildInsideQuery(result) {
 		var objChain = [];
-		// var currentBool = this.queryList['boolQuery'][result['boolparam']].apply;
-		// if(currentBool === 'should') {
-		// 	current_query['bool'][currentBool].push({
-		// 		minimum_should_match: result1.minimum_should_match
-		// 	});
-		// }
 		result.internal.forEach(function(val0) {
 			var childExists = false;
 			val0.appliedQuery = this.createQuery(val0, childExists);
@@ -138,6 +133,7 @@ export class BuildComponent implements OnInit {
 		}.bind(this));
 	}
 
+	// Createquery until query is selected
 	createQuery(val, childExists) {
 		var queryParam = {
 			query: '*',
@@ -166,26 +162,8 @@ export class BuildComponent implements OnInit {
 
 	setQueryFormat(query, field, val) {
 		var sampleobj = {};
-		switch (query) {
-			case "gt":
-			case "lt":
-				sampleobj['range'] = {};
-				sampleobj['range'][field] = {};
-				sampleobj['range'][field][query] = val.input;
-				break;
-			case "range":
-				sampleobj['range'] = {};
-				sampleobj['range'][field] = {};
-				sampleobj['range'][field] = {
-					'from': val.from,
-					'to': val.to
-				};
-				break;
-			default:
-				sampleobj[query] = {};
-				sampleobj[query][field] = val.input;
-				break;
-		}
+		sampleobj[query] = {};
+		sampleobj[query][field] = val.input;
 		return sampleobj;
 	}
 

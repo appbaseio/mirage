@@ -1,12 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-	selector: 'match-query',
-	templateUrl: './app/build/singlequery/queries/match/query.html',
-	inputs: ['queryName', 'fieldName', 'getQueryFormat'],
+	selector: 'match_phrase-query',
+	template: 	`<div class="form-group form-element col-xs-12">
+					<input type="text" class="form-control col-xs-12"
+						[(ngModel)]="inputs.input.value" 
+					 	placeholder="{{inputs.input.placeholder}}"
+					 	(keyup)="setFormat();" />
+				</div>`,
+	inputs: ['queryName', 'fieldName', 'getQueryFormat']
 })
 
-export class MatchQuery implements OnInit {
+export class Match_phraseQuery implements OnInit {
 	@Input() queryName;
 	@Input() fieldName;
 	@Output() getQueryFormat = new EventEmitter<any>();

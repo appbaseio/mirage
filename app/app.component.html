@@ -6,7 +6,7 @@
 	</div>
 </section>
 <div class="app-container">
-	<!-- Header part START -->
+	<!-- HEADER START -->
 	<form class="col-xs-12 init-ES" id="init-ES">
 		<div class="esContainer">
 			<div class="form-group m-0 col-xs-8 pd-0 pr-5">
@@ -31,9 +31,10 @@
 			</div>
 		</div>
 	</form>
-	<!-- Header part END -->
+	<!-- HEADER END -->
 	<div class="container-fluid">
 		<div class="row feature-query-container">
+			<!-- Sidebar start -->
 			<div class="features-section">
 				<a (click)="sidebarToggle();" class="btn btn-default sidebar-toggle">
 					<i class="fa fa-chevron-left sidebar-close"></i>
@@ -43,6 +44,8 @@
 					<list-query [savedQueryList]="savedQueryList" (newQuery)="newQuery($event);" (deleteQuery)="deleteQuery($event)" (clearAll)="clearAll($event);"></list-query>
 				</div>
 			</div>
+			<!-- Sidebar end -->
+			<!-- Query main container start -->
 			<div class="col-xs-12 query-main-container">
 				<div class="col-sm-12 col-md-6 query-build">
 					<query-build [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info"></query-build>
@@ -51,6 +54,7 @@
 					<query-result [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp"></query-result>
 				</div>
 			</div>
+			<!-- Query main container end -->	
 		</div>
 		<div class="row">
 			<div class="col-xs-12">

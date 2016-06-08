@@ -43,14 +43,6 @@ var BoolqueryComponent = (function () {
         }
         this.buildQuery();
     };
-    BoolqueryComponent.prototype.analyzeTest = function () {
-        var self = this;
-        setTimeout(function () {
-            var field = self.mapping.resultQuery.availableFields[self.query.field];
-            self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
-            self.query.type = field.type;
-        }, 300);
-    };
     BoolqueryComponent.prototype.exeBuild = function () {
         var _this = this;
         setTimeout(function () { return _this.buildQuery(); }, 300);

@@ -10,7 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var select2_component_1 = require('../select2/select2.component');
-var query_1 = require('./queries/match/query');
+var match_query_1 = require('./queries/match.query');
+var match_phrase_query_1 = require('./queries/match_phrase.query');
+var match_phase_prefix_query_1 = require('./queries/match_phase_prefix.query');
+var range_query_1 = require('./queries/range.query');
+var gt_query_1 = require('./queries/gt.query');
+var lt_query_1 = require('./queries/lt.query');
 var SinglequeryComponent = (function () {
     function SinglequeryComponent() {
         this.queryList = this.queryList;
@@ -77,7 +82,12 @@ var SinglequeryComponent = (function () {
             directives: [
                 SinglequeryComponent,
                 select2_component_1.select2Component,
-                query_1.MatchQuery
+                match_query_1.MatchQuery,
+                match_phrase_query_1.Match_phraseQuery,
+                match_phase_prefix_query_1.Match_phase_prefixQuery,
+                range_query_1.RangeQuery,
+                gt_query_1.GtQuery,
+                lt_query_1.LtQuery
             ]
         }), 
         __metadata('design:paramtypes', [])
