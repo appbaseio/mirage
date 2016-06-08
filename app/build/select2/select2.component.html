@@ -1,5 +1,8 @@
-<select class="form-control form-element">
+<select class="form-control form-element" *ngIf="selector == 'field-select'">
 	<option value="">--select any field--</option>
-	<option *ngFor="let oo of selectOptions, let i=index" [value]="i">{{oo.name}}</option>
+	<option  *ngFor="let oo of selectOptions, let i=index" [value]="i">{{oo.name}}</option>
 </select>
-                              
+<select class="form-control form-element"  *ngIf="selector == 'query-select'">
+	<option value="">--select any field--</option>
+	<option *ngFor="let oo of selectOptions, let i=index" [value]="i">{{oo}}</option>
+</select>

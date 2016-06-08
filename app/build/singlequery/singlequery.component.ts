@@ -1,12 +1,16 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { select2Component } from '../select2/select2.component';
-
+import { MatchQuery } from './queries/match/query';
 
 @Component({
 	selector: 'single-query',
 	templateUrl: './app/build/singlequery/singlequery.component.html',
 	inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
-	directives: [SinglequeryComponent, select2Component]
+	directives: [
+		SinglequeryComponent, 
+		select2Component, 
+		MatchQuery
+	]
 })
 
 export class SinglequeryComponent implements OnInit {
@@ -15,7 +19,6 @@ export class SinglequeryComponent implements OnInit {
 	public queryList = this.queryList;
 	public addQuery;
 	public removeArray = [];
-	public query = this.query;
 	public internal;
 	public internalIndex;
 	public queryIndex;
@@ -25,11 +28,17 @@ export class SinglequeryComponent implements OnInit {
 		field: 'field-select',
 		query: 'query-select'
 	};
-
+	@Input() query;
+	
 	// on initialize set the query selector
 	ngOnInit() {
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
 	}
+
+	getQueryFormat(outputQuery) {
+		this.query.appliedQuery = outputQuery;
+		this.buildQuery();
+	} 
 
 	// delete query
 	removeQuery() {

@@ -18,18 +18,18 @@ var select2Component = (function () {
     select2Component.prototype.ngOnChanges = function () {
     };
     select2Component.prototype.ngAfterContentInit = function () {
-        var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
-        this.setSelect2(select2Selector, function (val) {
-            console.log(select2Selector);
-            var obj = {
-                val: val,
-                selector: select2Selector
-            };
-            this.callback.emit(obj);
-        }.bind(this));
+        setTimeout(function () {
+            var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            this.setSelect2(select2Selector, function (val) {
+                var obj = {
+                    val: val,
+                    selector: select2Selector
+                };
+                this.callback.emit(obj);
+            }.bind(this));
+        }.bind(this), 300);
     };
     select2Component.prototype.setSelect2 = function (field_select, callback) {
-        console.log(field_select);
         field_select.select2({
             placeholder: "Select from the option"
         });
@@ -50,7 +50,6 @@ var select2Component = (function () {
         }
     };
     select2Component.prototype.getInformation = function (query) {
-        console.log(this.queryList);
         var query = this.queryList['information'][query];
         query['trigger'] = 'hover';
         return query;

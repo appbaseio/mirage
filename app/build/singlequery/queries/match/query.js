@@ -1,0 +1,61 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var MatchQuery = (function () {
+    function MatchQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.inputs = {
+            input: {
+                placeholder: 'Input',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    MatchQuery.prototype.ngOnInit = function () {
+        this.setFormat();
+    };
+    // QUERY FORMAT
+    /*
+        Query Format for this query is
+        @queryName: {
+            @fieldName: @value
+        }
+    */
+    MatchQuery.prototype.setFormat = function () {
+        this.queryFormat[this.queryName] = {};
+        this.queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        this.getQueryFormat.emit(this.queryFormat);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], MatchQuery.prototype, "queryName", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], MatchQuery.prototype, "fieldName", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], MatchQuery.prototype, "getQueryFormat", void 0);
+    MatchQuery = __decorate([
+        core_1.Component({
+            selector: 'match-query',
+            templateUrl: './app/build/singlequery/queries/match/query.html',
+            inputs: ['queryName', 'fieldName', 'getQueryFormat'],
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MatchQuery);
+    return MatchQuery;
+}());
+exports.MatchQuery = MatchQuery;
+//# sourceMappingURL=query.js.map

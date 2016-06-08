@@ -78,7 +78,7 @@ var BuildComponent = (function () {
                     var current_query = {
                         'bool': {}
                     };
-                    var currentBool = self.queryList['boolQuery'][result1['boolparam']].apply;
+                    var currentBool = self.queryList['boolQuery'][result1['boolparam']];
                     current_query['bool'][currentBool] = result1.availableQuery;
                     if (currentBool === 'should') {
                         current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
@@ -87,10 +87,9 @@ var BuildComponent = (function () {
                 }
             });
         });
-        console.log(results);
         results.forEach(function (result) {
             if (result.parent_id === 0) {
-                var currentBool = self.queryList['boolQuery'][result['boolparam']].apply;
+                var currentBool = self.queryList['boolQuery'][result['boolparam']];
                 finalresult[currentBool] = result.availableQuery;
                 if (currentBool === 'should') {
                     finalresult['minimum_should_match'] = result.minimum_should_match;
@@ -111,7 +110,6 @@ var BuildComponent = (function () {
         result.internal.forEach(function (val0) {
             var childExists = false;
             val0.appliedQuery = this.createQuery(val0, childExists);
-            console.log(val0.appliedQuery);
         }.bind(this));
         result.internal.forEach(function (val) {
             objChain.push(val.appliedQuery);
@@ -144,13 +142,15 @@ var BuildComponent = (function () {
             queryParam.fieldFlag = false;
         }
         if (queryParam.queryFlag) {
-            queryParam.query = this.queryList[val.analyzeTest][val.type][val.query].apply;
+            return val.appliedQuery;
         }
-        if (queryParam.fieldFlag) {
-            queryParam.field = this.mapping.resultQuery.availableFields[val.field].name;
+        else {
+            if (queryParam.fieldFlag) {
+                queryParam.field = this.mapping.resultQuery.availableFields[val.field].name;
+            }
+            var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
+            return sampleobj;
         }
-        var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
-        return sampleobj;
     };
     BuildComponent.prototype.setQueryFormat = function (query, field, val) {
         var sampleobj = {};
