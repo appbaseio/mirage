@@ -1,1 +1,0 @@
-{"version":3,"file":"util.js","sourceRoot":"","sources":["../../../../../modules/@angular/core/src/util.ts"],"names":[],"mappings":"AAIE,sBAAsB;AACxB,SAAQ,KAAK,QAAuC,mBAAmB,CAAC","sourcesContent":["interface DecoratorInvocation {\n    type: Function;\n    args?: any[];\n  }\n  // Public API for util\nexport {Class, ClassDefinition, TypeDecorator} from './util/decorators';\n"]}
