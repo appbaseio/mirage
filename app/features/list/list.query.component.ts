@@ -13,6 +13,8 @@ export class ListQueryComponent implements OnInit {
 	@Output() clearAll = new EventEmitter();
 	public direction: boolean = true;
 	public prop: string = 'createdAt';
+	public searchTerm: string = '';
+	public filteredQuery: any;
 
 	ngOnInit() {
 		this.sortBy(this.prop);
@@ -38,13 +40,29 @@ export class ListQueryComponent implements OnInit {
 			this.prop = prop;
 		}
 		if(this.direction) {
-			this.savedQueryList = this.savedQueryList.sortBy(function(item) {
+			this.filteredQuery = this.savedQueryList.sortBy(function(item) {
 				return item[prop];
 			});
 		} else {
-			this.savedQueryList = this.savedQueryList.sortBy(function(item) {
+			this.filteredQuery = this.savedQueryList.sortBy(function(item) {
 				return -item[prop];
 			});
+		}
+	}
+
+	searchList() {
+		if(this.searchTerm.trim().length > 1) {
+			this.filteredQuery = this.savedQueryList.filter(function(item) {
+				return item.tag.indexOf(this.searchTerm) !== -1 ? true:false;
+			}.bind(this));
+
+			if(!this.filteredQuery.length) {
+				this.filteredQuery = this.savedQueryList.filter(function(item) {
+					return item.name.indexOf(this.searchTerm) !== -1 ? true:false;
+				}.bind(this));				
+			}
+		} else {
+			this.filteredQuery = this.savedQueryList;
 		}
 	}
 }
