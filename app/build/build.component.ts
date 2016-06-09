@@ -196,7 +196,8 @@ export class BuildComponent implements OnInit {
 			mapping: this.mapping,
 			config: this.config,
 			name: this.query_info.name,
-			tag: this.query_info.tag
+			tag: this.query_info.tag,
+			createdAt: new Date()
 		};
 		this.savedQueryList.push(queryData);
 		var queryString = JSON.stringify(this.savedQueryList);

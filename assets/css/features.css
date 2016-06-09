@@ -54,6 +54,11 @@
       border-left: 1px solid #285f8f; }
       .feature-query-container .features-section .sidebar-toggle .sidebar-open {
         display: none; }
+    .feature-query-container .features-section .btn-sort {
+      background: #eee;
+      color: #aaa; }
+      .feature-query-container .features-section .btn-sort.active {
+        color: #555; }
   .feature-query-container .query-main-container {
     padding: 0 0 0 250px;
     transition: all 0.2s; }

@@ -65,6 +65,13 @@
 				display: none;
 			}
 		}
+		.btn-sort {
+			background: #eee;
+			color: #aaa;
+			&.active {
+				color: #555;
+			}
+		}
 	}
 	.query-main-container {
 		padding: 0 0 0 250px;
