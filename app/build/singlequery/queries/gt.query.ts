@@ -8,12 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					 	placeholder="{{inputs.gt.placeholder}}"
 					 	(keyup)="getFormat();" />
 				</div>`,
-	inputs: ['queryName', 'fieldName', 'getQueryFormat']
+	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
 })
 
 export class GtQuery implements OnInit {
 	@Input() queryName;
 	@Input() fieldName;
+	@Input() appliedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
 	
 	public inputs: any = {
@@ -25,6 +26,11 @@ export class GtQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
+		try {
+			if(this.appliedQuery['range'][this.fieldName]['gt']) {
+				this.inputs.gt.value = this.appliedQuery['range'][this.fieldName]['gt']
+			}
+		} catch(e) {}
 		this.getFormat();	
 	}
 

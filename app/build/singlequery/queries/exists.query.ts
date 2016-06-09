@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-	selector: 'match-query',
+	selector: 'exists-query',
 	template: 	`<div class="form-group form-element col-xs-12">
 					<input type="text" class="form-control col-xs-12"
 						[(ngModel)]="inputs.input.value" 
@@ -11,7 +11,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
 })
 
-export class MatchQuery implements OnInit {
+export class ExistsQuery implements OnInit {
 	@Input() queryName;
 	@Input() fieldName;
 	@Input() appliedQuery;
@@ -27,8 +27,8 @@ export class MatchQuery implements OnInit {
 
 	ngOnInit() {
 		try {
-			if(this.appliedQuery['match'][this.fieldName]) {
-				this.inputs.input.value = this.appliedQuery['match'][this.fieldName];
+			if(this.appliedQuery['exists'][this.fieldName]) {
+				this.inputs.input.value = this.appliedQuery['exists'][this.fieldName]
 			}
 		} catch(e) {}
 		this.getFormat();	

@@ -8,12 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					 	placeholder="{{inputs.input.placeholder}}"
 					 	(keyup)="getFormat();" />
 				</div>`,
-	inputs: ['queryName', 'fieldName', 'getQueryFormat']
+	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
 })
 
 export class PrefixQuery implements OnInit {
 	@Input() queryName;
 	@Input() fieldName;
+	@Input() appliedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
 	
 	public inputs: any = {
@@ -25,7 +26,12 @@ export class PrefixQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
-		this.getFormat();	
+		try {
+			if(this.appliedQuery['prefix'][this.fieldName]) {
+				this.inputs.input.value = this.appliedQuery['prefix'][this.fieldName];
+			}
+		} catch(e) {}
+		this.getFormat();
 	}
 
 	// QUERY FORMAT

@@ -8,12 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					 	placeholder="{{inputs.input.placeholder}}"
 					 	(keyup)="getFormat();" />
 				</div>`,
-	inputs: ['queryName', 'fieldName', 'getQueryFormat']
+	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
 })
 
 export class TermQuery implements OnInit {
 	@Input() queryName;
 	@Input() fieldName;
+	@Input() appliedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
 	
 	public inputs: any = {
@@ -25,6 +26,11 @@ export class TermQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
+		try {
+			if(this.appliedQuery['term'][this.fieldName]) {
+				this.inputs.input.value = this.appliedQuery['term'][this.fieldName];
+			}
+		} catch(e) {}
 		this.getFormat();	
 	}
 

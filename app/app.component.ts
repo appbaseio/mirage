@@ -136,6 +136,7 @@ export class AppComponent implements OnInit, OnChanges {
 	newQuery(query) {
 		this.config = query.config;
 		this.mapping = query.mapping;
+		console.log(this.mapping);
 		this.query_info.name = query.name;
 		this.query_info.tag = query.tag;
 		this.detectChange = "check";

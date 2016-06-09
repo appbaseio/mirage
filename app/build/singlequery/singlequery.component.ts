@@ -51,6 +51,7 @@ export class SinglequeryComponent implements OnInit {
 
 	getQueryFormat(outputQuery) {
 		this.query.appliedQuery = outputQuery;
+		console.log(this.query.appliedQuery);
 		this.buildQuery();
 	} 
 

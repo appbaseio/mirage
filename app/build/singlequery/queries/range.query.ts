@@ -12,12 +12,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					 	placeholder="{{inputs.to.placeholder}}"
 					 	(keyup)="getFormat();" />
 				</div>`,
-	inputs: ['queryName', 'fieldName', 'getQueryFormat']
+	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
 })
 
 export class RangeQuery implements OnInit {
 	@Input() queryName;
 	@Input() fieldName;
+	@Input() appliedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
 	
 	public inputs: any = {
@@ -33,6 +34,14 @@ export class RangeQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
+		try {
+			if(this.appliedQuery['range'][this.fieldName]['from']) {
+				this.inputs.from.value = this.appliedQuery['range'][this.fieldName]['from']
+			}
+			if(this.appliedQuery['range'][this.fieldName]['to']) {
+				this.inputs.to.value = this.appliedQuery['range'][this.fieldName]['to']	
+			}
+		} catch(e) {}
 		this.getFormat();	
 	}
 

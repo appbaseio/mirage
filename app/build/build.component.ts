@@ -199,6 +199,7 @@ export class BuildComponent implements OnInit {
 			tag: this.query_info.tag
 		};
 		this.savedQueryList.push(queryData);
+		var queryString = JSON.stringify(this.savedQueryList);
 		try {
 			window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
 		} catch(e) {}

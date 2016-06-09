@@ -8,12 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					 	placeholder="{{inputs.lt.placeholder}}"
 					 	(keyup)="getFormat();" />
 				</div>`,
-	inputs: ['queryName', 'fieldName', 'getQueryFormat']
+	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
 })
 
 export class LtQuery implements OnInit {
 	@Input() queryName;
 	@Input() fieldName;
+	@Input() appliedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
 	
 	public inputs: any = {
@@ -25,6 +26,11 @@ export class LtQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
+		try {
+			if(this.appliedQuery['range'][this.fieldName]['lt']) {
+				this.inputs.lt.value = this.appliedQuery['range'][this.fieldName]['lt']
+			}
+		} catch(e) {}
 		this.getFormat();	
 	}
 

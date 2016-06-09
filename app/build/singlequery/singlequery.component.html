@@ -43,6 +43,7 @@
 			<!-- match query start -->
 			<div *ngSwitchWhen="'match'" class="row">
 				<match-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -54,6 +55,7 @@
 			<!-- match_phrase query start -->
 			<div *ngSwitchWhen="'match_phrase'" class="row">
 				<match_phrase-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -65,6 +67,7 @@
 			<!-- match-phase-prefix query start -->
 			<div *ngSwitchWhen="'match-phase-prefix'" class="row">
 				<match-phase-prefix-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -76,6 +79,7 @@
 			<!-- range query start -->
 			<div *ngSwitchWhen="'range'" class="row">
 				<range-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -87,6 +91,7 @@
 			<!-- gt query start -->
 			<div *ngSwitchWhen="'gt'" class="row">
 				<gt-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -98,6 +103,7 @@
 			<!-- Lt query start -->
 			<div *ngSwitchWhen="'lt'" class="row">
 				<lt-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -109,6 +115,7 @@
 				<!-- term query start -->
 			<div *ngSwitchWhen="'term'" class="row">
 				<term-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -120,6 +127,7 @@
 			<!-- exists query start -->
 			<div *ngSwitchWhen="'lt'" class="row">
 				<exists-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -131,6 +139,7 @@
 				<!-- terms query start -->
 			<div *ngSwitchWhen="'terms'" class="row">
 				<terms-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
@@ -142,6 +151,7 @@
 				<!-- prefix query start -->
 			<div *ngSwitchWhen="'prefix'" class="row">
 				<prefix-query 
+					[appliedQuery]="query.appliedQuery"
 					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
 					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
 					(getQueryFormat)="getQueryFormat($event);"
