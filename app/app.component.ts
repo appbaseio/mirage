@@ -154,7 +154,7 @@ export class AppComponent implements OnInit, OnChanges {
 
 	clearAll() {
 		this.mapping = {
-			types: this.mapping.types
+			types: this.mapping.types,
 			resultQuery: {
 				'type': '',
 				'result': [],

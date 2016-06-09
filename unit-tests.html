@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>Es QueryComposer Unit Tests</title>
+  <link rel="stylesheet" href="./node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
+  <script src="./node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+  <script src="./node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+  <script src="./node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
+</head>
+<body>
+  <!-- #1. add the system.js library -->
+  <script src="./node_modules/zone.js/dist/zone.js"></script>
+  <script src="./node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="./node_modules/systemjs/dist/system.src.js"></script>
+  <script src="./node_modules/angular2/bundles/testing.dev.js"></script>
+  <script>
+    var packages = {
+      'app': { main: 'main.js',  defaultExtension: 'js' },
+      'rxjs': { defaultExtension: 'js' },
+      'angular2-in-memory-web-api': { defaultExtension: 'js' },
+    };
+
+    var packageNames = [
+      '@angular/common',
+      '@angular/compiler',
+      '@angular/core',
+      '@angular/http',
+      '@angular/platform-browser',
+      '@angular/platform-browser-dynamic',
+      '@angular/router',
+      '@angular/router-deprecated',
+      '@angular/testing',
+      '@angular/upgrade',
+    ];
+
+    packageNames.forEach(function(pkgName) {
+      packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+    });
+
+    var config = {
+      map: {
+        '@angular': 'node_modules/@angular',
+        'rxjs': 'node_modules/rxjs',
+        'main': 'main.js'
+      },
+      packages: packages
+    }
+
+    System.config(config);
+
+    Promise.all([
+      System.import('app/build/singlequery/queries/match.query.spec')
+    ])
+    .then(window.onload)
+    .catch(console.error.bind(console));
+  </script>
+</body>
+</html>

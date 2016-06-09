@@ -1,0 +1,8 @@
+{
+  "port": 3030,
+  "files": ["*"],
+  "server": { "baseDir": "./" },
+  "ui": {
+    "port": 3031
+  }
+}

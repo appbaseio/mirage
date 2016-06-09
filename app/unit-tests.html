@@ -10,6 +10,10 @@
 </head>
 <body>
   <!-- #1. add the system.js library -->
+  <script src="../node_modules/zone.js/dist/zone.js"></script>
+  <script src="../node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="../node_modules/systemjs/dist/system.src.js"></script>
+
   <script src="../node_modules/systemjs/dist/system.src.js"></script>
 
   <script>
@@ -22,8 +26,10 @@
     });
 
     // #3. Import the spec file explicitly
-    System.import('features/list/list.query.component.spec.js')
-
+     Promise.all([
+      System.import('build/singlequery/queries/match.query.spec.js')
+    ])
+    
       // #4. wait for all imports to load ...
       //     then re-execute `window.onload` which
       //     triggers the Jasmine test-runner start
