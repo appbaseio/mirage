@@ -6,11 +6,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					<input type="text" class="form-control col-xs-12"
 						[(ngModel)]="inputs.from.value" 
 					 	placeholder="{{inputs.from.placeholder}}"
-					 	(keyup)="setFormat();" />
+					 	(keyup)="getFormat();" />
 					<input type="text" class="form-control col-xs-12"
 						[(ngModel)]="inputs.to.value" 
 					 	placeholder="{{inputs.to.placeholder}}"
-					 	(keyup)="setFormat();" />
+					 	(keyup)="getFormat();" />
 				</div>`,
 	inputs: ['queryName', 'fieldName', 'getQueryFormat']
 })
@@ -33,7 +33,7 @@ export class RangeQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
-		this.setFormat();	
+		this.getFormat();	
 	}
 
 	// QUERY FORMAT
@@ -46,13 +46,18 @@ export class RangeQuery implements OnInit {
 			}
 		}
 	*/
+	getFormat() {
+		this.queryFormat = this.setFormat();
+		this.getQueryFormat.emit(this.queryFormat);
+	}
 	setFormat() {
-		this.queryFormat[this.queryName] = {};
-		this.queryFormat[this.queryName][this.fieldName] = {
+		var queryFormat = {};
+		queryFormat[this.queryName] = {};
+		queryFormat[this.queryName][this.fieldName] = {
 			from: this.inputs.from.value,
 			to: this.inputs.to.value,
 		};
-		this.getQueryFormat.emit(this.queryFormat);
+		return queryFormat;
 	}
 
 }

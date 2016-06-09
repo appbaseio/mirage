@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					<input type="text" class="form-control col-xs-12"
 						[(ngModel)]="inputs.gt.value" 
 					 	placeholder="{{inputs.gt.placeholder}}"
-					 	(keyup)="setFormat();" />
+					 	(keyup)="getFormat();" />
 				</div>`,
 	inputs: ['queryName', 'fieldName', 'getQueryFormat']
 })
@@ -25,7 +25,7 @@ export class GtQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
-		this.setFormat();	
+		this.getFormat();	
 	}
 
 	// QUERY FORMAT
@@ -37,12 +37,18 @@ export class GtQuery implements OnInit {
 			}
 		}
 	*/
+	getFormat() {
+		this.queryFormat = this.setFormat();
+		this.getQueryFormat.emit(this.queryFormat);
+	}
 	setFormat() {
-		this.queryFormat['range'] = {};
-		this.queryFormat['range'][this.fieldName] = {
+		var queryFormat = {
+			'range': {}
+		};
+		queryFormat['range'][this.fieldName] = {
 			gt: this.inputs.gt.value,
 		};
-		this.getQueryFormat.emit(this.queryFormat);
+		return queryFormat;
 	}
 
 }

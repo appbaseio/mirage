@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					<input type="text" class="form-control col-xs-12"
 						[(ngModel)]="inputs.input.value" 
 					 	placeholder="{{inputs.input.placeholder}}"
-					 	(keyup)="setFormat();" />
+					 	(keyup)="getFormat();" />
 				</div>`,
 	inputs: ['queryName', 'fieldName', 'getQueryFormat']
 })
@@ -25,7 +25,7 @@ export class PrefixQuery implements OnInit {
 	public queryFormat: any = {};
 
 	ngOnInit() {
-		this.setFormat();	
+		this.getFormat();	
 	}
 
 	// QUERY FORMAT
@@ -35,10 +35,15 @@ export class PrefixQuery implements OnInit {
 			@fieldName: @value
 		}
 	*/
-	setFormat() {
-		this.queryFormat[this.queryName] = {};
-		this.queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+	getFormat() {
+		this.queryFormat = this.setFormat();
 		this.getQueryFormat.emit(this.queryFormat);
+	}
+	setFormat() {
+		var queryFormat = {};
+		queryFormat[this.queryName] = {};
+		queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+		return queryFormat;
 	}
 
 }
