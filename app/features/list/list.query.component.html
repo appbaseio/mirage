@@ -13,7 +13,17 @@
 	<li class="list-item col-xs-12 list-title" (click)="applyClearAll();">Saved Queries (clear all)</li>
 	<li class="list-item col-xs-12" *ngFor="let query of filteredQuery, let i=index">
 		<a class="col-xs-12 pd-0"  (click)="applyQuery(query);">
-			{{query.name}}	<span class="badge">{{query.tag}}</span>
+			<span class="col-xs-12 query-name">
+				{{query.name}}	
+			</span>
+			<span class="col-xs-12 query-info">
+				<span class="pull-left">
+					<span class="badge">{{query.tag}}</span>
+				</span>
+				<span class="pull-right query-time">
+					{{query.createdAt | prettyTime}}
+				</span>
+			</span>
 		</a>
 		<a class="btn btn-danger delete-query" (click)="applyDeleteQuery();">
 			<i class="fa fa-times"></i>

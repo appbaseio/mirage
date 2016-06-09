@@ -41,15 +41,16 @@ var files = {
             'bower_components/codemirror/addon/fold/comment-fold.js',
             'bower_components/codemirror/mode/javascript/javascript.js',
             'bower_components/codemirror/keymap/sublime.js',
+            'bower_components/moment/min/moment.min.js',
             'bower_components/crypto-js/crypto-js.js',
             'node_modules/core-js/client/shim.min.js',
             'node_modules/zone.js/dist/zone.js',
             'node_modules/reflect-metadata/Reflect.js',
             'node_modules/systemjs/dist/system.src.js',
-            'systemjs.config.js',
-            'assets/js/helper.js'
+            'systemjs.config.js'
         ],
         custom: [
+            'assets/js/helper.js'
         ]
     }
 };
@@ -77,6 +78,15 @@ gulp.task('vendorjs', function() {
         .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('customjs', function() {
+    return gulp.src(files.js.custom)
+        .pipe(concat('custom.js'))
+        .pipe(gulp.dest('dist/js'))
+        .pipe(uglify())
+        .pipe(concat('custom.min.js'))
+        .pipe(gulp.dest('dist/js'));
+});
+
 gulp.task('movefonts', function() {
     return gulp.src(['bower_components/font-awesome/fonts/*'])
         .pipe(gulp.dest('dist/fonts'));
@@ -89,10 +99,11 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('assets/css'));
 });
 
-gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'movefonts']);
+gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts']);
 
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.sassFile, ['customcss']);
+    gulp.watch(files.js.custom, ['customjs']);
 });
 
 gulp.task('default', ['compact']);

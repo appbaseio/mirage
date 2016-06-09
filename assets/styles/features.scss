@@ -27,6 +27,12 @@
 					border-bottom: 1px solid darken($grey-bg, 10%);
 					padding: 10px 40px 10px 15px;
 					cursor: pointer;
+					.query-name {
+						padding-bottom: 10px;
+					}
+					.query-time {
+						font-size: 10px
+					}
 					&:hover {
 						background: darken($grey-bg, 10%);
 						.delete-query {

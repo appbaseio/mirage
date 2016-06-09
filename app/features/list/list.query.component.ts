@@ -1,9 +1,11 @@
 import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter } from "@angular/core";
+import { prettyTime } from "../../shared/pipes/prettyTime";
 
 @Component({
 	selector: 'list-query',
 	templateUrl: './app/features/list/list.query.component.html',
-	inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll']
+	inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll'],
+	pipes: [prettyTime]
 })
 
 export class ListQueryComponent implements OnInit {

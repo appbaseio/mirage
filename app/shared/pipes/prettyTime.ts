@@ -9,15 +9,9 @@ import {Pipe, PipeTransform} from '@angular/core';
  *   formats to: 1024
 */
 declare var moment;
-@Pipe({name: 'prettyJson'})
-export class prettyJson implements PipeTransform {
-  transform(value : Object) : any {
-	return JSON.stringify(value, null, 4);
-  }
-}
 @Pipe({name: 'prettyTime'})
 export class prettyTime implements PipeTransform {
   transform(value : Object) : any {
-	return moment(value, 'DD-MM hh:mm A');
+  	return moment(value).format('DD-MM hh:mm A');
   }
 }

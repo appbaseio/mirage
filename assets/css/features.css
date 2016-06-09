@@ -25,6 +25,10 @@
           border-bottom: 1px solid #dedede;
           padding: 10px 40px 10px 15px;
           cursor: pointer; }
+          .feature-query-container .features-section .feature-section-container .theme-list li.list-item .query-name {
+            padding-bottom: 10px; }
+          .feature-query-container .features-section .feature-section-container .theme-list li.list-item .query-time {
+            font-size: 10px; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item:hover {
             background: #dedede; }
             .feature-query-container .features-section .feature-section-container .theme-list li.list-item:hover .delete-query {

@@ -8,12 +8,14 @@ import { ListQueryComponent } from './features/list/list.query.component';
 import { Config } from "./shared/config";
 import { editorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
+import { prettyTime } from "./shared/pipes/prettyTime";
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
 	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent],
-	providers: [AppbaseService]
+	providers: [AppbaseService],
+	pipes: [prettyTime]
 })
 
 export class AppComponent implements OnInit, OnChanges {
