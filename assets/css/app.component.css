@@ -49,7 +49,10 @@
             position: absolute;
             right: 5px;
             top: 5px;
-            display: none; }
+            display: none;
+            color: #555;
+            border-color: #bbb;
+            background: #ccc; }
     .feature-query-container .features-section .sidebar-toggle {
       position: absolute;
       right: -27px;
