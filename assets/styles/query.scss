@@ -1,0 +1,28 @@
+.bool_query {
+	.action-btn-group {
+		.btn {
+			height: 36px;
+		}
+	}
+	.nested-query {
+		display: none;
+	}
+	&:hover {
+		.nested-query {
+			display: inline-block;
+		}
+	}
+	.internvalQuery {
+		.add_condition_row {
+			min-height: 36px;
+		}
+		.add_condition {
+			display: none;
+		}
+		&:hover {
+			.add_condition {
+				display: inline-block;
+			}
+		}
+	}
+}
