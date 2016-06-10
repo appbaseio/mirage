@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../modules/@angular/platform-browser-dynamic/index.ts"],"names":[],"mappings":";;;;AAIE,iBAAc,4BAA4B,CAAC,EAAA","sourcesContent":["interface DecoratorInvocation {\n    type: Function;\n    args?: any[];\n  }\n  export * from './platform_browser_dynamic';\n"]}
