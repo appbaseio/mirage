@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
 	selector: 'gt-query',
@@ -8,14 +8,22 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					 	placeholder="{{inputs.gt.placeholder}}"
 					 	(keyup)="getFormat();" />
 				</div>`,
-	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
+	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
-export class GtQuery implements OnInit {
-	@Input() queryName;
-	@Input() fieldName;
+export class GtQuery implements OnInit, OnChanges {
+	@Input() queryList;
+	@Input() selectedField;
 	@Input() appliedQuery;
+	@Input() selectedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
+	public queryName = '*';
+	public fieldName = '*';
+	public information: any = {
+		title: 'gt query',
+		content: 'gt query content',
+		link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+	};
 	
 	public inputs: any = {
 		gt: {
@@ -34,6 +42,21 @@ export class GtQuery implements OnInit {
 		this.getFormat();	
 	}
 
+	ngOnChanges() {
+		if(this.selectedField != '') {
+			if(this.selectedField !== this.fieldName) {
+				this.fieldName = this.selectedField;
+			}
+		}
+		if(this.selectedQuery != '') {
+			if(this.selectedQuery !== this.queryName) {
+				this.queryName = this.selectedQuery;
+				if(this.selectedQuery == 'gt') {
+					this.getFormat();
+				}
+			}
+		}
+	}
 	// QUERY FORMAT
 	/*
 		Query Format for this query is
@@ -44,8 +67,10 @@ export class GtQuery implements OnInit {
 		}
 	*/
 	getFormat() {
-		this.queryFormat = this.setFormat();
-		this.getQueryFormat.emit(this.queryFormat);
+		if (this.queryName === 'gt') {
+			this.queryFormat = this.setFormat();
+			this.getQueryFormat.emit(this.queryFormat);
+		}
 	}
 	setFormat() {
 		var queryFormat = {

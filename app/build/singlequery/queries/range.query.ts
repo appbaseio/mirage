@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
 	selector: 'range-query',
@@ -12,14 +12,22 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 					 	placeholder="{{inputs.to.placeholder}}"
 					 	(keyup)="getFormat();" />
 				</div>`,
-	inputs: ['queryName', 'fieldName', 'getQueryFormat', 'appliedQuery']
+	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
-export class RangeQuery implements OnInit {
-	@Input() queryName;
-	@Input() fieldName;
+export class RangeQuery implements OnInit, OnChanges {
+	@Input() queryList;
+	@Input() selectedField;
 	@Input() appliedQuery;
+	@Input() selectedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
+	public queryName = '*';
+	public fieldName = '*';
+	public information: any = {
+		title: 'lt query',
+		content: 'lt query content',
+		link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+	};
 	
 	public inputs: any = {
 		from: {
@@ -45,6 +53,20 @@ export class RangeQuery implements OnInit {
 		this.getFormat();	
 	}
 
+	ngOnChanges() {
+		if(this.selectedField != '') {
+			if(this.selectedField !== this.fieldName) {
+				this.fieldName = this.selectedField;
+			}
+		}
+		if(this.selectedQuery != '') {
+			if(this.selectedQuery !== this.queryName) {
+				this.queryName = this.selectedQuery;
+				this.getFormat();
+			}
+		}
+	}
+
 	// QUERY FORMAT
 	/*
 		Query Format for this query is
@@ -56,8 +78,10 @@ export class RangeQuery implements OnInit {
 		}
 	*/
 	getFormat() {
-		this.queryFormat = this.setFormat();
-		this.getQueryFormat.emit(this.queryFormat);
+		if(this.queryName === 'range') {		
+			this.queryFormat = this.setFormat();
+			this.getQueryFormat.emit(this.queryFormat);
+		}
 	}
 	setFormat() {
 		var queryFormat = {};

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, AfterViewInit, ViewChild } from "@angular/core";
 import { select2Component } from '../select2/select2.component';
 import { MatchQuery } from './queries/match.query';
 import { Match_phraseQuery } from './queries/match_phrase.query';
@@ -16,8 +16,8 @@ import { PrefixQuery } from './queries/prefix.query';
 	templateUrl: './app/build/singlequery/singlequery.component.html',
 	inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
 	directives: [
-		SinglequeryComponent, 
-		select2Component, 
+		SinglequeryComponent,
+		select2Component,
 		MatchQuery,
 		Match_phraseQuery,
 		Match_phase_prefixQuery,
@@ -27,33 +27,68 @@ import { PrefixQuery } from './queries/prefix.query';
 	]
 })
 
-export class SinglequeryComponent implements OnInit {
-	public mapping;
-	public config;
-	public queryList = this.queryList;
-	public addQuery;
-	public removeArray = [];
-	public internal;
-	public internalIndex;
-	public queryIndex;
-	public buildQuery;
-	public querySelector;
+export class SinglequeryComponent implements OnInit, AfterViewInit {
+	public mapping: any;
+	public config: any;
+	public queryList: any = this.queryList;
+	public addQuery: any;
+	public removeArray: any = [];
+	public internal: any;
+	public internalIndex: number;
+	public queryIndex: number;
+	public buildQuery: any;
+	public querySelector: any;
 	public selector = {
 		field: 'field-select',
 		query: 'query-select'
 	};
-	@Input() query;
-	
+	public selectedQuery: string = '';
+	public selectedField: string = '';
+
+	@ViewChild(MatchQuery) private matchQuery: MatchQuery;
+	@ViewChild(Match_phraseQuery) private match_phraseQuery: Match_phraseQuery;
+	@ViewChild(Match_phase_prefixQuery) private match_phase_prefixQuery: Match_phase_prefixQuery;
+	@ViewChild(RangeQuery) private rangeQuery: RangeQuery;
+	@ViewChild(GtQuery) private gtQuery: GtQuery;
+	@ViewChild(LtQuery) private ltQuery: LtQuery;
+	@ViewChild(TermQuery) private termQuery: TermQuery;
+	@ViewChild(ExistsQuery) private existsQuery: ExistsQuery;
+	@ViewChild(TermsQuery) private termsQuery: TermsQuery;
+	@ViewChild(PrefixQuery) private prefixQuery: PrefixQuery;
+
+	public informationList: any = {};
+	@Input() query: any;
+
 	// on initialize set the query selector
 	ngOnInit() {
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
+		if(this.query.field) {
+			this.selectedField = this.mapping.resultQuery.availableFields[this.query.field].name;
+		}
+		if(this.query.query) {
+			this.selectedQuery = this.queryList[this.query.analyzeTest][this.query.type][this.query.query];
+		}
+	}
+
+	ngAfterViewInit() {
+		this.informationList = {
+			'match': this.matchQuery.information,
+			'match_phrase': this.match_phraseQuery.information,
+			'match-phase-prefix': this.match_phase_prefixQuery.information,
+			'range': this.rangeQuery.information,
+			'gt': this.gtQuery.information,
+			'lt': this.ltQuery.information
+			// 'term': this.termQuery.information,
+			// 'terms': this.termsQuery.information,
+			// 'prefix': this.prefixQuery.information
+		};
 	}
 
 	getQueryFormat(outputQuery) {
 		this.query.appliedQuery = outputQuery;
 		console.log(this.query.appliedQuery);
 		this.buildQuery();
-	} 
+	}
 
 	// delete query
 	removeQuery() {
@@ -71,6 +106,7 @@ export class SinglequeryComponent implements OnInit {
 		var field = self.mapping.resultQuery.availableFields[self.query.field];
 		self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
 		self.query.type = field.type;
+		self.selectedField = field.name;
 		self.buildQuery();
 	}
 
@@ -78,6 +114,7 @@ export class SinglequeryComponent implements OnInit {
 	queryCallback(res) {
 		res.selector.parents('.editable-pack').removeClass('on');
 		this.query.query = res.val;
+		this.selectedQuery = this.queryList[this.query.analyzeTest][this.query.type][this.query.query];
 		this.buildQuery();
 	}
 

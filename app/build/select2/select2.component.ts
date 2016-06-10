@@ -1,10 +1,11 @@
 import { Component, OnChanges, SimpleChange, Input, Output, AfterContentInit, EventEmitter } from "@angular/core";
-import { queryList } from "../../shared/queryList";
+import { GlobalShare } from "../../shared/globalshare.service";
 
 @Component({
 	selector: 'select2',
 	templateUrl: './app/build/select2/select2.component.html',
-	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag"]
+	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList"],
+	providers: [GlobalShare]
 })
 
 export class select2Component implements OnChanges, AfterContentInit {
@@ -13,14 +14,14 @@ export class select2Component implements OnChanges, AfterContentInit {
 	@Input() showInfoFlag;
 	@Output() callback = new EventEmitter();
 	public select2Selector;
-	public queryList = queryList;
-
-	constructor() {}
+	@Input() informationList;
+	constructor(private globalShare: GlobalShare) {}
 
 	ngOnChanges() {
 	}
 
 	ngAfterContentInit() {
+		console.log(this.informationList);
 		setTimeout(function() {
 			var select2Selector = $(this.querySelector).find('.'+this.selector).find('select');
 			this.setSelect2(select2Selector, function(val) {
@@ -55,8 +56,9 @@ export class select2Component implements OnChanges, AfterContentInit {
 	}
 
 	getInformation(query) {
-		var query = this.queryList['information'][query];
+		var query = this.informationList[query];
 		query['trigger'] = 'hover';
 		return query;
 	}
+	
 }

@@ -31,134 +31,131 @@
 				</div>
 			</div>
 			<div class="editable-back col-xs-12 pd-0">
-				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" (callback)="queryCallback($event);" [showInfoFlag]="true"></select2>
+				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" [informationList]="informationList" (callback)="queryCallback($event);" [showInfoFlag]="true"></select2>
 			</div>
 		</div>
 	</div>
 	<!-- query part end -->
 	<!-- load the slector for selected query -->
-	<div *ngIf="query.field != '' && query.query != ''" class="col-xs-6 pd-l0">
-		<div [ngSwitch]="queryList[query.analyzeTest][query.type][query.query]" class="col-xs-12 pd-0">
+	<div class="col-xs-6 pd-l0">
+		<div class="col-xs-12 pd-0">
 			
 			<!-- match query start -->
-			<div *ngSwitchWhen="'match'" class="row">
+			<div [hidden]="selectedQuery != 'match'" class="row">
 				<match-query 
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</match-query>
 			</div>
 			<!-- match query end -->
 
-			<!-- match_phrase query start -->
-			<div *ngSwitchWhen="'match_phrase'" class="row">
-				<match_phrase-query 
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'match_phrase'" class="row">
+				<match_phrase-query
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</match_phrase-query>
 			</div>
-			<!-- match_phrase query end -->
+			<!-- match query end -->
 
-			<!-- match-phase-prefix query start -->
-			<div *ngSwitchWhen="'match-phase-prefix'" class="row">
-				<match-phase-prefix-query 
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'match-phase-prefix'" class="row">
+				<match-phase-prefix-query
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</match-phase-prefix-query>
 			</div>
-			<!-- match-phase-prefix query end -->
-
-			<!-- range query start -->
-			<div *ngSwitchWhen="'range'" class="row">
+			<!-- match query end -->
+			
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'range'" class="row">
 				<range-query 
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</range-query>
 			</div>
-			<!-- range query end -->
-
-			<!-- gt query start -->
-			<div *ngSwitchWhen="'gt'" class="row">
+			<!-- match query end -->
+			
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'gt'" class="row">
 				<gt-query 
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</gt-query>
 			</div>
-			<!-- gt query end -->
-
-			<!-- Lt query start -->
-			<div *ngSwitchWhen="'lt'" class="row">
+			<!-- match query end -->
+			
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'lt'" class="row">
 				<lt-query 
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</lt-query>
 			</div>
-			<!-- Lt query end -->
-
-				<!-- term query start -->
-			<div *ngSwitchWhen="'term'" class="row">
+			<!-- match query end -->
+			
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'term'" class="row">
 				<term-query 
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</term-query>
 			</div>
-			<!-- term query end -->
-
-			<!-- exists query start -->
-			<div *ngSwitchWhen="'lt'" class="row">
-				<exists-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</exists-query>
-			</div>
-			<!-- exists query end -->
-
-				<!-- terms query start -->
-			<div *ngSwitchWhen="'terms'" class="row">
+			<!-- match query end -->
+			
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'terms'" class="row">
 				<terms-query 
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</terms-query>
 			</div>
-			<!-- terms query end -->
-
-				<!-- prefix query start -->
-			<div *ngSwitchWhen="'prefix'" class="row">
+			<!-- match query end -->
+			
+			<!-- match query start -->
+			<div [hidden]="selectedQuery != 'prefix'" class="row">
 				<prefix-query 
 					[appliedQuery]="query.appliedQuery"
-					[queryName]="queryList[query.analyzeTest][query.type][query.query]"
-					[fieldName]="mapping.resultQuery.availableFields[query.field].name"
+					[queryList]="queryList"
+					[selectedQuery]="selectedQuery"
+					[selectedField]="selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</prefix-query>
 			</div>
-			<!-- prefix query end -->
+			<!-- match query end -->
 			
 		</div>
 	</div>
