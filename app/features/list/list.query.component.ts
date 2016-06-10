@@ -8,20 +8,22 @@ import { prettyTime } from "../../shared/pipes/prettyTime";
 	pipes: [prettyTime]
 })
 
-export class ListQueryComponent implements OnInit {
+export class ListQueryComponent implements OnInit, OnChanges {
 	@Input() savedQueryList;
+	@Input() sort_by;
+	@Input() sort_direction;
+	@Input() searchTerm;
+	@Input() filteredQuery;
 	@Output() newQuery = new EventEmitter<boolean>();
 	@Output() deleteQuery = new EventEmitter<any>();
-	@Output() clearAll = new EventEmitter();
-	public direction: boolean = true;
-	public prop: string = 'createdAt';
-	public searchTerm: string = '';
-	public filteredQuery: any;
+	@Output() clearAll = new EventEmitter<any>();
+	@Output() sort = new EventEmitter<any>();
+	@Output() searchList = new EventEmitter<any>();
+	public direction: boolean = false;
 
 	ngOnInit() {
-		this.sortBy(this.prop);
 	}
-
+	
 	applyQuery(queryData) {
 		this.newQuery.emit(queryData);
 	}
@@ -34,37 +36,8 @@ export class ListQueryComponent implements OnInit {
 		this.clearAll.emit(null);
 	}
 
-	sortBy(prop) {
-		if(prop == this.prop) {
-			this.direction = this.direction ? false : true; 
-		} else {
-			this.direction = true;
-			this.prop = prop;
-		}
-		if(this.direction) {
-			this.filteredQuery = this.savedQueryList.sortBy(function(item) {
-				return item[prop];
-			});
-		} else {
-			this.filteredQuery = this.savedQueryList.sortBy(function(item) {
-				return -item[prop];
-			});
-		}
+	applySearchList() {
+		this.searchList.emit(null);
 	}
-
-	searchList() {
-		if(this.searchTerm.trim().length > 1) {
-			this.filteredQuery = this.savedQueryList.filter(function(item) {
-				return item.tag.indexOf(this.searchTerm) !== -1 ? true:false;
-			}.bind(this));
-
-			if(!this.filteredQuery.length) {
-				this.filteredQuery = this.savedQueryList.filter(function(item) {
-					return item.name.indexOf(this.searchTerm) !== -1 ? true:false;
-				}.bind(this));				
-			}
-		} else {
-			this.filteredQuery = this.savedQueryList;
-		}
-	}
+	
 }

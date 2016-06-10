@@ -7,7 +7,7 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info"],
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
@@ -34,7 +34,7 @@ export class BuildComponent implements OnInit {
 	public editorHookHelp: any;
 	@Input() query_info;
 	@Input() savedQueryList;
-
+	@Output() saveQuery = new EventEmitter<any>();
 
 	ngOnInit() {
 		this.handleEditable();
@@ -187,7 +187,9 @@ export class BuildComponent implements OnInit {
 
 	// save query
 	save() {
-		this.savedQueryList.forEach(function(query, index) {
+		var savedQueryList = this.savedQueryList;
+		var createdAt = new Date().getTime();
+		savedQueryList.forEach(function(query, index) {
 			if(query.name === this.query_info.name && query.tag === this.query_info.tag) {
 				this.savedQueryList.splice(index, 1);
 			}
@@ -197,13 +199,9 @@ export class BuildComponent implements OnInit {
 			config: this.config,
 			name: this.query_info.name,
 			tag: this.query_info.tag,
-			createdAt: new Date()
+			createdAt: createdAt
 		};
-		this.savedQueryList.push(queryData);
-		var queryString = JSON.stringify(this.savedQueryList);
-		try {
-			window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
-		} catch(e) {}
-		$('#saveQueryModal').modal('hide');
+		savedQueryList.push(queryData);
+		this.saveQuery.emit(savedQueryList);	
 	}
 }

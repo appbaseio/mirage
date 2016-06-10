@@ -8,14 +8,12 @@ import { ListQueryComponent } from './features/list/list.query.component';
 import { Config } from "./shared/config";
 import { editorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
-import { prettyTime } from "./shared/pipes/prettyTime";
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
 	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent],
-	providers: [AppbaseService],
-	pipes: [prettyTime]
+	providers: [AppbaseService]
 })
 
 export class AppComponent implements OnInit, OnChanges {
@@ -49,6 +47,10 @@ export class AppComponent implements OnInit, OnChanges {
 		name: '',
 		tag: ''
 	};
+	public sort_by: string = 'createdAt';
+	public sort_direction: boolean = true;
+	public searchTerm: string = '';
+	public filteredQuery: any;
 
 	ngOnInit() {
 		this.getLocalConfig();
@@ -56,7 +58,7 @@ export class AppComponent implements OnInit, OnChanges {
 			let list = window.localStorage.getItem('queryList');
 			if(list) {
 				this.savedQueryList = JSON.parse(list);
-				console.log(this.savedQueryList);
+				this.sort(this.sort_by, this.savedQueryList);
 			}
 		} catch(e) {}
 	}
@@ -182,6 +184,65 @@ export class AppComponent implements OnInit, OnChanges {
 		else {
 			$('.feature-query-container').addClass('off');
 		}
+	}
+
+	saveQuery(list) {
+		this.savedQueryList = list;
+		var direction = this.sort_direction ? false : true;
+		this.sort(this.sort_by, this.filteredQuery, direction);
+		var queryString = JSON.stringify(this.savedQueryList);
+		try {
+			window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
+		} catch(e) {}
+		$('#saveQueryModal').modal('hide');
+	}
+
+	// Sorting
+	sort(prop: string, list: any, direction: boolean) {
+		if(this.searchTerm.trim().length < 1) {
+			var list = list ? list : this.savedQueryList;
+		} else {
+			var list = list ? list : this.filteredQuery;
+		}
+		if(!direction) {
+			if(prop == this.sort_by) {
+				this.sort_direction = this.sort_direction ? false : true; 
+			} else {
+				this.sort_direction = true;
+			}
+		}
+		this.sort_by = prop;		
+		if(this.sort_direction) {
+			this.filteredQuery = list.sortBy(function(item) {
+				return item[prop];
+			});
+		} else {
+			this.filteredQuery = list.sortBy(function(item) {
+				return -item[prop];
+			});
+		}
+		console.log(this.sort_direction, this.sort_by);
+		console.log('filtered', this.filteredQuery);
+	}
+
+	// Searching
+	searchList($event) {
+		this.searchTerm = $event.target.value;
+		if(this.searchTerm.trim().length > 1) {
+			this.filteredQuery = this.savedQueryList.filter(function(item) {
+				return item.tag.indexOf(this.searchTerm) !== -1 ? true:false;
+			}.bind(this));
+
+			if(!this.filteredQuery.length) {
+				this.filteredQuery = this.savedQueryList.filter(function(item) {
+					return item.name.indexOf(this.searchTerm) !== -1 ? true:false;
+				}.bind(this));				
+			}
+		} else {
+			this.filteredQuery = this.savedQueryList;
+		}
+		var direction = this.sort_direction ? false : true;
+		this.sort(this.sort_by, this.filteredQuery, direction);
 	}
 
 }
