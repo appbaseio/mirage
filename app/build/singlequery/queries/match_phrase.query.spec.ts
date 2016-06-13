@@ -1,22 +1,22 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { MatchQuery } from './match.query';
+import { Match_phraseQuery } from './match_phrase.query';
 
-describe('Match query format', () => {
+describe('Match_phrase query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: MatchQuery;
+  var query: Match_phraseQuery;
   var expectedFormat = {
-    'match': {
+    'match_phrase': {
       'foo': 'bar'
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new MatchQuery();
-    query.queryName = 'match';
+    query = new Match_phraseQuery();
+    query.queryName = 'match_phrase';
     query.fieldName = 'foo';
     query.inputs = {
       input: {

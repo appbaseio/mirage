@@ -12,10 +12,10 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, S
 })
 
 export class MatchQuery implements OnInit, OnChanges {
-	@Input() queryList;
-	@Input() selectedField;
-	@Input() appliedQuery;
-	@Input() selectedQuery;
+	@Input() queryList: any;
+	@Input() selectedField:string;
+	@Input() appliedQuery: any;
+	@Input() selectedQuery: string;
 	@Output() getQueryFormat = new EventEmitter < any > ();
 	public queryName = '*';
 	public fieldName = '*';

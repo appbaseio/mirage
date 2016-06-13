@@ -1,26 +1,31 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { MatchQuery } from './match.query';
+import { RangeQuery } from './range.query';
 
-describe('Match query format', () => {
+describe('Range query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: MatchQuery;
+  var query: RangeQuery;
   var expectedFormat = {
-    'match': {
-      'foo': 'bar'
+    'range': {
+      'foo': {
+        'from': 1,
+        'to': 100
+      }
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new MatchQuery();
-    query.queryName = 'match';
+    query = new RangeQuery();
+    query.queryName = 'range';
     query.fieldName = 'foo';
     query.inputs = {
-      input: {
-        value: 'bar'
+      from: {
+        value: 1
+      }, to: {
+        value: 100
       }
     };
   });
