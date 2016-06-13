@@ -8,19 +8,19 @@
 	<div class="col-xs-3 pd-l0 editable-pack">
 		<div class="editable-front col-xs-12 pd-0" (click)="editable_on($event)">
 			<div *ngIf = "query.field != ''">
-				{{mapping.resultQuery.availableFields[query.field].name}}
+				{{result.resultQuery.availableFields[query.field].name}}
 			</div>
 			<div *ngIf = "query.field == ''">
 				field
 			</div>
 		</div>
 		<div class="editable-back col-xs-12 pd-0">
-			<select2 class="field-select" [selectOptions]="mapping.resultQuery.availableFields" [querySelector]="querySelector" [selector]="selector.field" (callback)="analyzeTest($event);"></select2>
+			<select2 class="field-select" [selectOptions]="result.resultQuery.availableFields" [querySelector]="querySelector" [selector]="selector.field" (callback)="analyzeTest($event);"></select2>
 		</div>	
 	</div>
 	<!-- field part end -->
 	<!-- query part start -->
-	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( mapping.resultQuery.availableFields[query.field].type == 'string' || mapping.resultQuery.availableFields[query.field].type == 'date' || mapping.resultQuery.availableFields[query.field].type == 'numeric')">
+	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( result.resultQuery.availableFields[query.field].type == 'string' || result.resultQuery.availableFields[query.field].type == 'date' || result.resultQuery.availableFields[query.field].type == 'numeric')">
 		<div class="col-xs-12 pd-0 editable-pack">
 			<div class="editable-front col-xs-12 pd-0"  (click)="editable_on($event)">
 				<div *ngIf = "query.query != ''">

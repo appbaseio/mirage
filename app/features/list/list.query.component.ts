@@ -14,23 +14,22 @@ export class ListQueryComponent implements OnInit, OnChanges {
 	@Input() sort_direction;
 	@Input() searchTerm;
 	@Input() filteredQuery;
-	@Output() newQuery = new EventEmitter<boolean>();
-	@Output() deleteQuery = new EventEmitter<any>();
-	@Output() clearAll = new EventEmitter<any>();
-	@Output() sort = new EventEmitter<any>();
-	@Output() searchList = new EventEmitter<any>();
+	@Output() newQuery = new EventEmitter < boolean > ();
+	@Output() deleteQuery = new EventEmitter < any > ();
+	@Output() clearAll = new EventEmitter < any > ();
+	@Output() sort = new EventEmitter < any > ();
+	@Output() searchList = new EventEmitter < any > ();
 	public direction: boolean = false;
 
-	ngOnInit() {
-	}
-	
+	ngOnInit() {}
+
 	applyQuery(queryData) {
 		this.newQuery.emit(queryData);
 	}
 
 	applyDeleteQuery(index) {
 		this.deleteQuery.emit(index);
-	}	
+	}
 
 	applyClearAll() {
 		this.clearAll.emit(null);
@@ -39,5 +38,5 @@ export class ListQueryComponent implements OnInit, OnChanges {
 	applySearchList() {
 		this.searchList.emit(null);
 	}
-	
+
 }

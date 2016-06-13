@@ -14,7 +14,7 @@ import { PrefixQuery } from './queries/prefix.query';
 @Component({
 	selector: 'single-query',
 	templateUrl: './app/build/singlequery/singlequery.component.html',
-	inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result',  'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
 	directives: [
 		SinglequeryComponent,
 		select2Component,
@@ -28,7 +28,6 @@ import { PrefixQuery } from './queries/prefix.query';
 })
 
 export class SinglequeryComponent implements OnInit, AfterViewInit {
-	public mapping: any;
 	public config: any;
 	public queryList: any = this.queryList;
 	public addQuery: any;
@@ -44,7 +43,11 @@ export class SinglequeryComponent implements OnInit, AfterViewInit {
 	};
 	public selectedQuery: string = '';
 	public selectedField: string = '';
-
+	@Input() mapping: any;
+	@Input() types: any;
+	@Input() selectedTypes: any;
+	@Input() result: any;
+	
 	@ViewChild(MatchQuery) private matchQuery: MatchQuery;
 	@ViewChild(Match_phraseQuery) private match_phraseQuery: Match_phraseQuery;
 	@ViewChild(Match_phase_prefixQuery) private match_phase_prefixQuery: Match_phase_prefixQuery;
@@ -62,10 +65,10 @@ export class SinglequeryComponent implements OnInit, AfterViewInit {
 	// on initialize set the query selector
 	ngOnInit() {
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
-		if(this.query.field) {
-			this.selectedField = this.mapping.resultQuery.availableFields[this.query.field].name;
+		if (this.query.field) {
+			this.selectedField = this.result.resultQuery.availableFields[this.query.field].name;
 		}
-		if(this.query.query) {
+		if (this.query.query) {
 			this.selectedQuery = this.queryList[this.query.analyzeTest][this.query.type][this.query.query];
 		}
 	}
@@ -78,9 +81,9 @@ export class SinglequeryComponent implements OnInit, AfterViewInit {
 			'range': this.rangeQuery.information,
 			'gt': this.gtQuery.information,
 			'lt': this.ltQuery.information
-			// 'term': this.termQuery.information,
-			// 'terms': this.termsQuery.information,
-			// 'prefix': this.prefixQuery.information
+				// 'term': this.termQuery.information,
+				// 'terms': this.termsQuery.information,
+				// 'prefix': this.prefixQuery.information
 		};
 	}
 
@@ -103,7 +106,7 @@ export class SinglequeryComponent implements OnInit, AfterViewInit {
 		this.query.field = res.val;
 		var self = this;
 		$(res.selector).parents('.editable-pack').removeClass('on');
-		var field = self.mapping.resultQuery.availableFields[self.query.field];
+		var field = self.result.resultQuery.availableFields[self.query.field];
 		self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
 		self.query.type = field.type;
 		self.selectedField = field.name;

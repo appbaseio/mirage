@@ -1,9 +1,9 @@
-export var editorHook = function (config) {
+export var EditorHook = function (config) {
     this.editorId = config.editorId;
     this.$editor = '#'+config.editorId;
 }
 
-editorHook.prototype.applyEditor = function(settings) {
+EditorHook.prototype.applyEditor = function(settings) {
     var self = this;
    
     var defaultOptions = {
@@ -23,14 +23,14 @@ editorHook.prototype.applyEditor = function(settings) {
     self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 }
 
-editorHook.prototype.setValue = function(value) {
+EditorHook.prototype.setValue = function(value) {
     this.editor.setValue(value);
 }
 
-editorHook.prototype.getValue = function() {
+EditorHook.prototype.getValue = function() {
     return this.editor.getValue();   
 }
 
-editorHook.prototype.getInstance = function() {
+EditorHook.prototype.getInstance = function() {
     return this.editor;
 }

@@ -29,7 +29,7 @@ export class SaveQueryComponent {
 		this.queryList.push(queryData);
 		try {
 			window.localStorage.setItem('queryList', JSON.stringify(this.queryList));
-		} catch(e) {}
+		} catch (e) {}
 		console.log(this.queryList);
 	}
 }
