@@ -7,7 +7,7 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setFinalUrl'],
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setFinalUrl', 'urlShare'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
@@ -32,9 +32,10 @@ export class BuildComponent implements OnInit {
 		}
 	};
 	public editorHookHelp: any;
-	@Input() query_info;
-	@Input() savedQueryList;
-	@Input() finalUrl;
+	@Input() query_info: any;
+	@Input() savedQueryList: any;
+	@Input() finalUrl: string;
+	@Input() urlShare: any;
 	@Output() saveQuery = new EventEmitter<any>();
 	@Output() setFinalUrl = new EventEmitter<any>();
 
@@ -108,6 +109,12 @@ export class BuildComponent implements OnInit {
 		});
 		this.mapping.resultQuery.final = JSON.stringify(es_final, null, 2);
 		this.editorHookHelp.setValue(self.mapping.resultQuery.final);
+
+		//set input state
+		try {
+			this.urlShare.inputs['mapping'] = this.mapping;
+			this.urlShare.createUrl();
+		} catch(e) {}
 	}
 
 	buildInsideQuery(result) {

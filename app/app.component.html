@@ -24,7 +24,7 @@
 			placeholder="Index name to browse data from" value="moviedb" />
 			</div>
 			<div class="submit-btn-container">
-				<a (click)="connect()" [class.btn-info] ="mapping.mapping != null" class="btn btn-default submit-btn">
+				<a (click)="connect(true)" [class.btn-info] ="mapping.mapping != null" class="btn btn-default submit-btn">
 					<span *ngIf = "!connected">Connect</span>
 					<span *ngIf = "connected">Connected</span>
 				</a>
@@ -48,7 +48,7 @@
 			<!-- Query main container start -->
 			<div class="col-xs-12 query-main-container">
 				<div class="col-sm-12 col-md-6 query-build">
-					<query-build [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setFinalUrl)="setFinalUrl($event)"></query-build>
+					<query-build [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setFinalUrl)="setFinalUrl($event)" [urlShare]="urlShare"></query-build>
 				</div>
 				<div class="col-sm-12 col-md-6">
 					<query-result [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl"></query-result>

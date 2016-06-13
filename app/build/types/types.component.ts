@@ -3,13 +3,14 @@ import { Component, OnChanges, SimpleChange, Input, Output, EventEmitter } from 
 @Component({
 	selector: 'types',
 	templateUrl: './app/build/types/types.component.html',
-	inputs: ['mapping', 'config', 'detectChange', 'finalUrl', 'setFinalUrl']
+	inputs: ['mapping', 'config', 'detectChange', 'finalUrl', 'setFinalUrl', 'urlShare']
 })
 
 export class TypesComponent implements OnChanges {
 	@Input() mapping;
 	@Input() config;
 	@Input() finalUrl: string;
+	@Input() urlShare: any;
 	@Output() setFinalUrl = new EventEmitter<any>();
 
 	constructor() {}
@@ -49,9 +50,9 @@ export class TypesComponent implements OnChanges {
 	changeType(val) {
 		//this.mapping.resultQuery.result = [];
 		this.mapping.selectedTypes = val;
-		var availableFields = [];
+		var availableFields: any = [];
 		if(val && val.length) {
-			val.forEach(function(type) {
+			val.forEach(function(type: any) {
 				var mapObj = this.mapping.mapping[this.config.appname].mappings[type].properties;
 				for (var field in mapObj) {
 					var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
@@ -74,6 +75,10 @@ export class TypesComponent implements OnChanges {
 				}
 			}.bind(this));
 			this.setUrl();
+
+			//set input state
+			this.urlShare.inputs['mapping'] = this.mapping;
+			this.urlShare.createUrl();
 		}
 		console.log(availableFields);
 		this.mapping.resultQuery.availableFields = availableFields;

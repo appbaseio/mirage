@@ -8,6 +8,7 @@ import { ListQueryComponent } from './features/list/list.query.component';
 import { Config } from "./shared/config";
 import { editorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
+import { UrlShare } from "./shared/urlShare";
 
 @Component({
 	selector: 'my-app',
@@ -41,8 +42,6 @@ export class AppComponent implements OnInit, OnChanges {
 		password: "",
 		host: ""
 	};
-	public editorHookHelp = new editorHook({ editorId: 'editor' });
-	public responseHookHelp = new editorHook({ editorId: 'responseBlock' });
 	public savedQueryList = [];
 	public query_info = {
 		name: '',
@@ -54,8 +53,18 @@ export class AppComponent implements OnInit, OnChanges {
 	public filteredQuery: any;
 	public finalUrl: string;
 	public sidebar: boolean = false;
+	public editorHookHelp = new editorHook({ editorId: 'editor' });
+	public responseHookHelp = new editorHook({ editorId: 'responseBlock' });
+	public urlShare = new UrlShare();
 
 	ngOnInit() {
+		// get data from url
+		this.urlShare.decryptUrl();
+		if(this.urlShare.decryptedData.config) {
+			var config = this.urlShare.decryptedData.config;
+			this.setLocalConfig(config.url, config.appname);
+		}
+
 		this.getLocalConfig();
 		try {
 			let list = window.localStorage.getItem('queryList');
@@ -78,7 +87,7 @@ export class AppComponent implements OnInit, OnChanges {
 		if (url != null) {
 			this.config.url = url;
 			this.config.appname = appname;
-			this.connect();
+			this.connect(false);
 		}
 		else {
 			this.initial_connect = true;
@@ -94,7 +103,7 @@ export class AppComponent implements OnInit, OnChanges {
 	// Connect with config url and appname
 	// do mapping request  
 	// and set response in mapping property 
-	connect() {
+	connect(clearFlag) {
 		this.connected = false;
 		this.initial_connect = false;
 		var APPNAME = this.config.appname;
@@ -110,22 +119,34 @@ export class AppComponent implements OnInit, OnChanges {
 			self.connected = true;
 			let data = res.json();
 			self.mapping = {
-				types: [],
-				mapping: null,
-				resultQuery: {
-					'type': '',
-					'result': [],
-					'final': "{}"
-				},
-				output: {},
-				queryId: 1
-			};
+					types: [],
+					mapping: null,
+					resultQuery: {
+						'type': '',
+						'result': [],
+						'final': "{}"
+					},
+					output: {},
+					queryId: 1
+			}
 			self.finalUrl = self.config.host + '/' + self.config.appname;
 			self.mapping.mapping = data;
 			self.mapping.types = self.seprateType(data);
 			self.setLocalConfig(self.config.url, self.config.appname);
 			self.detectChange += "done";
 			self.editorHookHelp.setValue('');
+			
+			if(!clearFlag) {
+				if(self.urlShare.decryptedData.mapping) {
+					self.mapping = self.urlShare.decryptedData.mapping;
+					self.detectChange = "check";
+					setTimeout(() => {$('#setType').val(self.mapping.selectedTypes).trigger("change");},300)
+				}
+			}
+
+			//set input state
+			self.urlShare.inputs['config'] = self.config;
+			self.urlShare.createUrl();
 		}).catch(function(e) {
 			self.initial_connect = true;
 			alert(e.json().message);
@@ -145,7 +166,6 @@ export class AppComponent implements OnInit, OnChanges {
 	newQuery(query) {
 		this.config = query.config;
 		this.mapping = query.mapping;
-		console.log(this.mapping);
 		this.query_info.name = query.name;
 		this.query_info.tag = query.tag;
 		this.detectChange = "check";
@@ -247,6 +267,10 @@ export class AppComponent implements OnInit, OnChanges {
 
 	setFinalUrl(url: string) {
 		this.finalUrl = url;
+
+		//set input state
+		this.urlShare.inputs['finalUrl'] = this.finalUrl;
+		this.urlShare.createUrl();
 	}
 
 }
