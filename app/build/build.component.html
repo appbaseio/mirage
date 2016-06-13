@@ -1,8 +1,11 @@
 <div class="row queryLeft">
 	<div class="col-xs-12 pd-0">
 		<div class="form-group m-b15">
-			<types  [detectChange]="detectChange" [mapping] = "mapping" [config] = "config">
+			<types  [detectChange]="detectChange" [mapping] = "mapping" [config] = "config" [finalUrl]="finalUrl"  (setFinalUrl)="setFinalUrlIn($event)">
 			</types>
+		</div>
+		<div class="form-group m-b15">
+			<input type="text" class="form-control" placeholder="final url" [(ngModel)]="finalUrl" (keyup)="setFinalUrlIn(finalUrl)" />
 		</div>
 		<form class="row m-0"
 		 *ngFor="let queryIn of mapping.resultQuery.result"

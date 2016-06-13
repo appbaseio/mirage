@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { prettyJson } from "../shared/pipes/prettyJson";
 import { AppbaseService } from "../shared/appbase.service";
 
 @Component({
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
-	inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp'],
+	inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl'],
 	pipes: [prettyJson],
 	providers: [AppbaseService]
 })
@@ -15,6 +15,7 @@ export class ResultComponent implements OnInit {
 	public config;
 	public editorHookHelp;
 	public responseHookHelp;
+	@Input() finalUrl;
 
 	constructor(public appbaseService: AppbaseService) {}
 
@@ -38,7 +39,7 @@ export class ResultComponent implements OnInit {
 		if (validate.flag) {
 			self.responseHookHelp.setValue('{"Loading": "please wait......"}');
 			$('#resultModal').modal('show');
-			this.appbaseService.post('/_search', validate.payload).then(function(res) {
+			this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function(res) {
 				self.mapping.isWatching = false;
 				self.mapping.output = JSON.stringify(res.json(), null, 2);
 				self.responseHookHelp.setValue(self.mapping.output);

@@ -7,7 +7,7 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery'],
+	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setFinalUrl'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
@@ -34,7 +34,9 @@ export class BuildComponent implements OnInit {
 	public editorHookHelp: any;
 	@Input() query_info;
 	@Input() savedQueryList;
+	@Input() finalUrl;
 	@Output() saveQuery = new EventEmitter<any>();
+	@Output() setFinalUrl = new EventEmitter<any>();
 
 	ngOnInit() {
 		this.handleEditable();
@@ -203,5 +205,9 @@ export class BuildComponent implements OnInit {
 		};
 		savedQueryList.push(queryData);
 		this.saveQuery.emit(savedQueryList);	
+	}
+
+	setFinalUrlIn(url) {
+		this.setFinalUrl.emit(url);
 	}
 }

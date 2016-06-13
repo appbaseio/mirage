@@ -51,6 +51,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public sort_direction: boolean = true;
 	public searchTerm: string = '';
 	public filteredQuery: any;
+	public finalUrl: string;
 
 	ngOnInit() {
 		this.getLocalConfig();
@@ -100,6 +101,7 @@ export class AppComponent implements OnInit, OnChanges {
 		var pwsplit = urlsplit[2].split('@');
 		this.config.username = urlsplit[1].replace('//', '');
 		this.config.password = pwsplit[0];
+		this.config.host = urlsplit[0]+'://'+pwsplit[1];
 		var self = this;
 		this.appbaseService.setAppbase(this.config);
 		this.appbaseService.get('/_mapping').then(function(res) {
@@ -116,6 +118,7 @@ export class AppComponent implements OnInit, OnChanges {
 				output: {},
 				queryId: 1
 			};
+			self.finalUrl = self.config.host + '/' + self.config.appname;
 			self.mapping.mapping = data;
 			self.mapping.types = self.seprateType(data);
 			self.setLocalConfig(self.config.url, self.config.appname);
@@ -243,6 +246,10 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 		var direction = this.sort_direction ? false : true;
 		this.sort(this.sort_by, this.filteredQuery, direction);
+	}
+
+	setFinalUrl(url: string) {
+		this.finalUrl = url;
 	}
 
 }

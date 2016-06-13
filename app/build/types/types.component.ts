@@ -1,14 +1,16 @@
-import { Component, OnChanges, SimpleChange, Input } from "@angular/core";
+import { Component, OnChanges, SimpleChange, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
 	selector: 'types',
 	templateUrl: './app/build/types/types.component.html',
-	inputs: ['mapping', 'config', 'detectChange']
+	inputs: ['mapping', 'config', 'detectChange', 'finalUrl', 'setFinalUrl']
 })
 
 export class TypesComponent implements OnChanges {
 	@Input() mapping;
 	@Input() config;
+	@Input() finalUrl: string;
+	@Output() setFinalUrl = new EventEmitter<any>();
 
 	constructor() {}
 
@@ -71,9 +73,23 @@ export class TypesComponent implements OnChanges {
 					availableFields.push(obj);
 				}
 			}.bind(this));
+			this.setUrl();
 		}
 		console.log(availableFields);
 		this.mapping.resultQuery.availableFields = availableFields;
+	}
+
+	setUrl() {
+		var selectedTypes = this.mapping.selectedTypes;
+		var finalUrl = this.finalUrl.split('/');
+		var lastUrl = '';
+		if(finalUrl.length > 4) {
+			finalUrl[4] = this.mapping.selectedTypes.join(',');
+			lastUrl = finalUrl.join('/');
+		} else {
+			lastUrl = this.finalUrl+'/'+this.mapping.selectedTypes.join(',')+'/_search';
+		}
+		this.setFinalUrl.emit(lastUrl);
 	}
 
 }
