@@ -38,7 +38,8 @@ export class AppComponent implements OnInit, OnChanges {
 		url: "",
 		appname: "",
 		username: "",
-		password: ""
+		password: "",
+		host: ""
 	};
 	public editorHookHelp = new editorHook({ editorId: 'editor' });
 	public responseHookHelp = new editorHook({ editorId: 'responseBlock' });
@@ -52,6 +53,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public searchTerm: string = '';
 	public filteredQuery: any;
 	public finalUrl: string;
+	public sidebar: boolean = false;
 
 	ngOnInit() {
 		this.getLocalConfig();
@@ -181,12 +183,7 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	sidebarToggle() {
-		if($('.feature-query-container').hasClass('off')) {
-			$('.feature-query-container').removeClass('off');
-		}
-		else {
-			$('.feature-query-container').addClass('off');
-		}
+		this.sidebar = this.sidebar ? false : true;
 	}
 
 	saveQuery(list) {

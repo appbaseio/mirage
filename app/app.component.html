@@ -33,7 +33,7 @@
 	</form>
 	<!-- HEADER END -->
 	<div class="container-fluid">
-		<div class="row feature-query-container">
+		<div class="row feature-query-container" [ngClass]="{off: !sidebar}">
 			<!-- Sidebar start -->
 			<div class="features-section">
 				<a (click)="sidebarToggle();" class="btn btn-default sidebar-toggle">
