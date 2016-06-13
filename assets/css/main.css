@@ -82,3 +82,10 @@
   border-color: #2d6da3; }
   .btn-primary:hover, .btn-primary:focus, .btn-primary.active {
     background-color: #2d6da3; }
+
+.btn-grey {
+  background: #eee;
+  color: #a2a2a2;
+  border: 1px solid; }
+  .btn-grey:hover {
+    background: #e1e1e1; }

@@ -4,11 +4,13 @@
 			height: 36px;
 		}
 	}
-	.nested-query {
+	.nested-query,
+	.delete-nested-query {
 		display: none;
 	}
 	&:hover {
-		.nested-query {
+		.nested-query,
+		.delete-nested-query {
 			display: inline-block;
 		}
 	}
@@ -16,11 +18,13 @@
 		.add_condition_row {
 			min-height: 36px;
 		}
-		.add_condition {
+		.add_condition,
+		.add_condition_delete {
 			display: none;
 		}
 		&:hover {
-			.add_condition {
+			.add_condition,
+			.add_condition_delete {
 				display: inline-block;
 			}
 		}
