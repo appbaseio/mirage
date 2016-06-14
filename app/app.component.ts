@@ -279,6 +279,24 @@ export class AppComponent implements OnInit, OnChanges {
 		this.urlShare.createUrl();
 	}
 
+	setProp(propInfo: any) {
+		if(propInfo.name === 'finalUrl') {
+			this.finalUrl = propInfo.value;
+			this.urlShare.inputs['finalUrl'] = this.finalUrl;
+		}
+		if(propInfo.name === 'availableFields') {
+			this.result.resultQuery.availableFields = propInfo.value;
+			this.urlShare.inputs['result'] = this.result;
+		}
+		if(propInfo.name === 'selectedTypes') {
+			this.selectedTypes = propInfo.value;
+			this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+		}
+
+		//set input state
+		this.urlShare.createUrl();
+	}
+
 	setLayoutResizer() {
 		$('body').layout({
 			west__size:	"50%",

@@ -7,7 +7,7 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setFinalUrl', 'urlShare'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
@@ -17,6 +17,8 @@ export class BuildComponent implements OnInit {
 		internal: {
 			field: '',
 			query: '',
+			selectedField: '',
+			selectedQuery: '',
 			input: '',
 			analyzeTest: '',
 			type: ''
@@ -39,7 +41,7 @@ export class BuildComponent implements OnInit {
 	@Input() finalUrl: string;
 	@Input() urlShare: any;
 	@Output() saveQuery = new EventEmitter < any > ();
-	@Output() setFinalUrl = new EventEmitter < any > ();
+	@Output() setProp = new EventEmitter < any > ();
 
 	ngOnInit() {
 		this.handleEditable();
@@ -163,7 +165,7 @@ export class BuildComponent implements OnInit {
 			return val.appliedQuery;
 		} else {
 			if (queryParam.fieldFlag) {
-				queryParam.field = this.result.resultQuery.availableFields[val.field].name;
+				queryParam.field = val.selectedField;
 			}
 			var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
 			return sampleobj;
@@ -193,7 +195,7 @@ export class BuildComponent implements OnInit {
 		$('#saveQueryModal').modal('show');
 	}
 
-	setFinalUrlIn(url) {
-		this.setFinalUrl.emit(url);
+	setPropIn(propObj: any) {
+		this.setProp.emit(propObj);
 	}
 }
