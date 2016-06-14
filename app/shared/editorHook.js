@@ -1,15 +1,15 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var editorHook;
+    var EditorHook;
     return {
         setters:[],
         execute: function() {
-            exports_1("editorHook", editorHook = function (config) {
+            exports_1("EditorHook", EditorHook = function (config) {
                 this.editorId = config.editorId;
                 this.$editor = '#' + config.editorId;
             });
-            editorHook.prototype.applyEditor = function (settings) {
+            EditorHook.prototype.applyEditor = function (settings) {
                 var self = this;
                 var defaultOptions = {
                     lineNumbers: true,
@@ -26,13 +26,13 @@ System.register([], function(exports_1, context_1) {
                 var options = settings ? jQuery.extend(settings, defaultOptions) : defaultOptions;
                 self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
             };
-            editorHook.prototype.setValue = function (value) {
+            EditorHook.prototype.setValue = function (value) {
                 this.editor.setValue(value);
             };
-            editorHook.prototype.getValue = function () {
+            EditorHook.prototype.getValue = function () {
                 return this.editor.getValue();
             };
-            editorHook.prototype.getInstance = function () {
+            EditorHook.prototype.getInstance = function () {
                 return this.editor;
             };
         }

@@ -26,8 +26,7 @@ System.register(["@angular/core", "../../shared/globalshare.service"], function(
                     this.globalShare = globalShare;
                     this.callback = new core_1.EventEmitter();
                 }
-                select2Component.prototype.ngOnChanges = function () {
-                };
+                select2Component.prototype.ngOnChanges = function () { };
                 select2Component.prototype.ngAfterContentInit = function () {
                     console.log(this.informationList);
                     setTimeout(function () {

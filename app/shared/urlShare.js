@@ -1,35 +1,37 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var urlShare;
+    var UrlShare;
     return {
         setters:[],
         execute: function() {
-            exports_1("urlShare", urlShare = function () {
+            exports_1("UrlShare", UrlShare = function () {
                 this.secret = 'es-querycomposer';
                 this.decryptedData = {};
+                this.inputs = {};
             });
-            urlShare.prototype.createUrl = function (inputs) {
-                var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(inputs), this.secret).toString();
+            UrlShare.prototype.getInputs = function () {
+                return this.inputs;
+            };
+            UrlShare.prototype.setInputs = function (inputs) {
+                this.inputs = inputs;
+                this.createUrl();
+            };
+            UrlShare.prototype.createUrl = function () {
+                console.log(this.inputs);
+                var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.inputs), this.secret).toString();
                 window.location.href = '#?input_state=' + ciphertext;
+            };
+            UrlShare.prototype.decryptUrl = function () {
+                var ciphertext = window.location.href.split('#?input_state=');
+                if (ciphertext.length > 1) {
+                    var bytes = CryptoJS.AES.decrypt(ciphertext[1], this.secret);
+                    this.decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+                }
             };
         }
     }
 });
-// urlShare.prototype.getUrl = function() {
-//     var ciphertext = window.location.href.split('#?input_state=');
-//     if (ciphertext.length > 1) {
-//         var bytes = CryptoJS.AES.decrypt(ciphertext[1], this.secret);
-//         this.decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-//         window.localStorage.setItem('esurl', this.decryptedData.url);
-//         window.localStorage.setItem('appname', this.decryptedData.appname);
-//         if (this.decryptedData.selectedType && this.decryptedData.selectedType.length) {
-//             this.decryptedData.selectedType.forEach(function(type) {
-//                 window.localStorage.setItem(type, true);
-//             });
-//         }
-//     }
-// }
 // urlShare.prototype.convertToUrl = function(type) {
 //     var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(input_state), secret).toString();
 //     var final_url = '';

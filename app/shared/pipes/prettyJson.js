@@ -11,7 +11,7 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var prettyJson, prettyTime;
+    var prettyJson;
     return {
         setters:[
             function (core_1_1) {
@@ -31,19 +31,6 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 return prettyJson;
             }());
             exports_1("prettyJson", prettyJson);
-            prettyTime = (function () {
-                function prettyTime() {
-                }
-                prettyTime.prototype.transform = function (value) {
-                    return moment(value, 'DD-MM hh:mm A');
-                };
-                prettyTime = __decorate([
-                    core_1.Pipe({ name: 'prettyTime' }), 
-                    __metadata('design:paramtypes', [])
-                ], prettyTime);
-                return prettyTime;
-            }());
-            exports_1("prettyTime", prettyTime);
         }
     }
 });

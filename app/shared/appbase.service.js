@@ -51,6 +51,14 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxj
                     });
                     return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise();
                 };
+                AppbaseService.prototype.postUrl = function (url, data) {
+                    var requestData = JSON.stringify(data);
+                    var headers = new http_1.Headers({
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Authorization': this.requestParam.auth
+                    });
+                    return this.http.post(url, requestData, { headers: headers }).toPromise();
+                };
                 AppbaseService.prototype.put = function (path, data) {
                     var headers = new http_1.Headers({
                         'Content-Type': 'application/json;charset=UTF-8',

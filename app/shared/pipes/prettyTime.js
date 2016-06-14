@@ -22,7 +22,7 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 function prettyTime() {
                 }
                 prettyTime.prototype.transform = function (value) {
-                    return moment(value).format('DD-MM hh:mm A');
+                    return moment(value).fromNow();
                 };
                 prettyTime = __decorate([
                     core_1.Pipe({ name: 'prettyTime' }), 

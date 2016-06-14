@@ -83,7 +83,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 ], MatchQuery.prototype, "queryList", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', String)
                 ], MatchQuery.prototype, "selectedField", void 0);
                 __decorate([
                     core_1.Input(), 
@@ -91,7 +91,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 ], MatchQuery.prototype, "appliedQuery", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', String)
                 ], MatchQuery.prototype, "selectedQuery", void 0);
                 __decorate([
                     core_1.Output(), 

@@ -46,10 +46,10 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                     if (validate.flag) {
                         self.responseHookHelp.setValue('{"Loading": "please wait......"}');
                         $('#resultModal').modal('show');
-                        this.appbaseService.post('/_search', validate.payload).then(function (res) {
-                            self.mapping.isWatching = false;
-                            self.mapping.output = JSON.stringify(res.json(), null, 2);
-                            self.responseHookHelp.setValue(self.mapping.output);
+                        this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function (res) {
+                            self.result.isWatching = false;
+                            self.result.output = JSON.stringify(res.json(), null, 2);
+                            self.responseHookHelp.setValue(self.result.output);
                         });
                     }
                     else {
@@ -67,7 +67,7 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                         payload: null,
                         message: null
                     };
-                    this.mapping.resultQuery.result.forEach(function (result) {
+                    this.result.resultQuery.result.forEach(function (result) {
                         result.internal.forEach(function (query) {
                             if (query.field === '' || query.query === '') {
                                 returnObj.flag = false;
@@ -87,11 +87,31 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                     }
                     return returnObj;
                 };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ResultComponent.prototype, "finalUrl", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ResultComponent.prototype, "mapping", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ResultComponent.prototype, "types", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ResultComponent.prototype, "selectedTypes", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ResultComponent.prototype, "result", void 0);
                 ResultComponent = __decorate([
                     core_1.Component({
                         selector: 'query-result',
                         templateUrl: './app/result/result.component.html',
-                        inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp'],
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl'],
                         pipes: [prettyJson_1.prettyJson],
                         providers: [appbase_service_1.AppbaseService]
                     }), 

@@ -34,7 +34,7 @@ System.register(["@angular/core", "../singlequery/singlequery.component"], funct
                     this.addBoolQuery(id);
                 };
                 BoolqueryComponent.prototype.removeInQuery = function (id) {
-                    var resulQueries = this.mapping.resultQuery.result;
+                    var resulQueries = this.result.resultQuery.result;
                     this.removeArray.push(id);
                     var removeFlag = true;
                     resulQueries.forEach(function (v, i) {
@@ -58,11 +58,27 @@ System.register(["@angular/core", "../singlequery/singlequery.component"], funct
                     var _this = this;
                     setTimeout(function () { return _this.buildQuery(); }, 300);
                 };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BoolqueryComponent.prototype, "mapping", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BoolqueryComponent.prototype, "types", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BoolqueryComponent.prototype, "selectedTypes", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BoolqueryComponent.prototype, "result", void 0);
                 BoolqueryComponent = __decorate([
                     core_1.Component({
                         selector: 'bool-query',
                         templateUrl: './app/build/boolquery/boolquery.component.html',
-                        inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
                         directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent]
                     }), 
                     __metadata('design:paramtypes', [])

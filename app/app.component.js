@@ -1,4 +1,4 @@
-System.register(["@angular/core", "./build/build.component", "./result/result.component", "./run/run.component", './features/save/save.query.component', './features/list/list.query.component', "./shared/editorHook", "./shared/appbase.service"], function(exports_1, context_1) {
+System.register(["@angular/core", "./build/build.component", "./result/result.component", "./run/run.component", './features/save/save.query.component', './features/list/list.query.component', "./shared/editorHook", "./shared/appbase.service", "./shared/urlShare"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, build_component_1, result_component_1, run_component_1, save_query_component_1, list_query_component_1, editorHook_1, appbase_service_1;
+    var core_1, build_component_1, result_component_1, run_component_1, save_query_component_1, list_query_component_1, editorHook_1, appbase_service_1, urlShare_1;
     var AppComponent;
     return {
         setters:[
@@ -37,6 +37,9 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
             },
             function (appbase_service_1_1) {
                 appbase_service_1 = appbase_service_1_1;
+            },
+            function (urlShare_1_1) {
+                urlShare_1 = urlShare_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -44,26 +47,14 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.appbaseService = appbaseService;
                     this.connected = false;
                     this.initial_connect = false;
-                    this.mapping = {
-                        types: [],
-                        mapping: null,
-                        resultQuery: {
-                            'type': '',
-                            'result': [],
-                            'final': "{}"
-                        },
-                        output: {},
-                        queryId: 1
-                    };
                     this.detectChange = null;
                     this.config = {
                         url: "",
                         appname: "",
                         username: "",
-                        password: ""
+                        password: "",
+                        host: ""
                     };
-                    this.editorHookHelp = new editorHook_1.editorHook({ editorId: 'editor' });
-                    this.responseHookHelp = new editorHook_1.editorHook({ editorId: 'responseBlock' });
                     this.savedQueryList = [];
                     this.query_info = {
                         name: '',
@@ -72,8 +63,20 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.sort_by = 'createdAt';
                     this.sort_direction = true;
                     this.searchTerm = '';
+                    this.sidebar = false;
+                    this.editorHookHelp = new editorHook_1.EditorHook({ editorId: 'editor' });
+                    this.responseHookHelp = new editorHook_1.EditorHook({ editorId: 'responseBlock' });
+                    this.urlShare = new urlShare_1.UrlShare();
                 }
                 AppComponent.prototype.ngOnInit = function () {
+                    this.setInitialValue();
+                    // get data from url
+                    this.urlShare.decryptUrl();
+                    if (this.urlShare.decryptedData.config) {
+                        var config = this.urlShare.decryptedData.config;
+                        this.setLocalConfig(config.url, config.appname);
+                    }
+                    this.setLayoutResizer();
                     this.getLocalConfig();
                     try {
                         var list = window.localStorage.getItem('queryList');
@@ -95,7 +98,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     if (url != null) {
                         this.config.url = url;
                         this.config.appname = appname;
-                        this.connect();
+                        this.connect(false);
                     }
                     else {
                         this.initial_connect = true;
@@ -106,10 +109,24 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     window.localStorage.setItem('url', url);
                     window.localStorage.setItem('appname', appname);
                 };
+                AppComponent.prototype.setInitialValue = function () {
+                    this.mapping = null;
+                    this.types = [];
+                    this.selectedTypes = [];
+                    this.result = {
+                        resultQuery: {
+                            'type': '',
+                            'result': [],
+                            'final': "{}"
+                        },
+                        output: {},
+                        queryId: 1
+                    };
+                };
                 // Connect with config url and appname
                 // do mapping request  
                 // and set response in mapping property 
-                AppComponent.prototype.connect = function () {
+                AppComponent.prototype.connect = function (clearFlag) {
                     this.connected = false;
                     this.initial_connect = false;
                     var APPNAME = this.config.appname;
@@ -118,27 +135,47 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     var pwsplit = urlsplit[2].split('@');
                     this.config.username = urlsplit[1].replace('//', '');
                     this.config.password = pwsplit[0];
+                    this.config.host = urlsplit[0] + '://' + pwsplit[1];
                     var self = this;
                     this.appbaseService.setAppbase(this.config);
                     this.appbaseService.get('/_mapping').then(function (res) {
                         self.connected = true;
                         var data = res.json();
-                        self.mapping = {
-                            types: [],
-                            mapping: null,
-                            resultQuery: {
-                                'type': '',
-                                'result': [],
-                                'final': "{}"
-                            },
-                            output: {},
-                            queryId: 1
-                        };
-                        self.mapping.mapping = data;
-                        self.mapping.types = self.seprateType(data);
+                        self.setInitialValue();
+                        self.finalUrl = self.config.host + '/' + self.config.appname;
+                        self.mapping = data;
+                        self.types = self.seprateType(data);
                         self.setLocalConfig(self.config.url, self.config.appname);
                         self.detectChange += "done";
                         self.editorHookHelp.setValue('');
+                        if (!clearFlag) {
+                            var decryptedData = self.urlShare.decryptedData;
+                            if (decryptedData.mapping) {
+                                self.mapping = decryptedData.mapping;
+                            }
+                            if (decryptedData.types) {
+                                self.types = decryptedData.types;
+                            }
+                            if (decryptedData.selectedTypes) {
+                                self.selectedTypes = decryptedData.selectedTypes;
+                                self.detectChange = "check";
+                                setTimeout(function () { $('#setType').val(self.selectedTypes).trigger("change"); }, 300);
+                            }
+                            if (decryptedData.result) {
+                                self.result = decryptedData.result;
+                            }
+                            if (decryptedData.finalUrl) {
+                                self.finalUrl = decryptedData.finalUrl;
+                            }
+                        }
+                        //set input state
+                        self.urlShare.inputs['config'] = self.config;
+                        self.urlShare.inputs['types'] = self.types;
+                        self.urlShare.inputs['mapping'] = self.mapping;
+                        self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
+                        self.urlShare.inputs['result'] = self.result;
+                        self.urlShare.inputs['finalUrl'] = self.finalUrl;
+                        self.urlShare.createUrl();
                     }).catch(function (e) {
                         self.initial_connect = true;
                         alert(e.json().message);
@@ -157,11 +194,13 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     var _this = this;
                     this.config = query.config;
                     this.mapping = query.mapping;
-                    console.log(this.mapping);
+                    this.selectedTypes = query.selectedTypes;
+                    this.types = query.types;
+                    this.result = query.result;
                     this.query_info.name = query.name;
                     this.query_info.tag = query.tag;
                     this.detectChange = "check";
-                    setTimeout(function () { $('#setType').val(_this.mapping.selectedTypes).trigger("change"); }, 300);
+                    setTimeout(function () { $('#setType').val(_this.selectedTypes).trigger("change"); }, 300);
                 };
                 AppComponent.prototype.deleteQuery = function (index) {
                     var confirmFlag = confirm("Do you want to delete this query?");
@@ -174,17 +213,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     }
                 };
                 AppComponent.prototype.clearAll = function () {
-                    this.mapping = {
-                        types: this.mapping.types,
-                        resultQuery: {
-                            'type': '',
-                            'result': [],
-                            'final': "{}"
-                        },
-                        output: {},
-                        queryId: 1,
-                        selectedTypes: []
-                    };
+                    this.setInitialValue();
                     this.query_info = {
                         name: '',
                         tag: ''
@@ -193,12 +222,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.editorHookHelp.setValue('');
                 };
                 AppComponent.prototype.sidebarToggle = function () {
-                    if ($('.feature-query-container').hasClass('off')) {
-                        $('.feature-query-container').removeClass('off');
-                    }
-                    else {
-                        $('.feature-query-container').addClass('off');
-                    }
+                    this.sidebar = this.sidebar ? false : true;
                 };
                 AppComponent.prototype.saveQuery = function (list) {
                     this.savedQueryList = list;
@@ -259,6 +283,25 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     }
                     var direction = this.sort_direction ? false : true;
                     this.sort(this.sort_by, this.filteredQuery, direction);
+                };
+                AppComponent.prototype.setFinalUrl = function (url) {
+                    this.finalUrl = url;
+                    //set input state
+                    this.urlShare.inputs['finalUrl'] = this.finalUrl;
+                    this.urlShare.createUrl();
+                };
+                AppComponent.prototype.setLayoutResizer = function () {
+                    $('body').layout({
+                        west__size: "50%",
+                        center__paneSelector: "#paneCenter",
+                        west__paneSelector: "#paneWest"
+                    });
+                    function setSidebar() {
+                        var windowHeight = $(window).height();
+                        $('.features-section').css('height', windowHeight);
+                    }
+                    setSidebar();
+                    $(window).on('resize', setSidebar);
                 };
                 AppComponent = __decorate([
                     core_1.Component({

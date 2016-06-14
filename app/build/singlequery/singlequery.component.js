@@ -67,7 +67,7 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                 SinglequeryComponent.prototype.ngOnInit = function () {
                     this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
                     if (this.query.field) {
-                        this.selectedField = this.mapping.resultQuery.availableFields[this.query.field].name;
+                        this.selectedField = this.result.resultQuery.availableFields[this.query.field].name;
                     }
                     if (this.query.query) {
                         this.selectedQuery = this.queryList[this.query.analyzeTest][this.query.type][this.query.query];
@@ -100,7 +100,7 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                     this.query.field = res.val;
                     var self = this;
                     $(res.selector).parents('.editable-pack').removeClass('on');
-                    var field = self.mapping.resultQuery.availableFields[self.query.field];
+                    var field = self.result.resultQuery.availableFields[self.query.field];
                     self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
                     self.query.type = field.type;
                     self.selectedField = field.name;
@@ -127,6 +127,22 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                     $($event.currentTarget).parents('.editable-pack').addClass('on');
                     $($event.currentTarget).parents('.editable-pack').find('select').select2('open');
                 };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SinglequeryComponent.prototype, "mapping", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SinglequeryComponent.prototype, "types", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SinglequeryComponent.prototype, "selectedTypes", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SinglequeryComponent.prototype, "result", void 0);
                 __decorate([
                     core_1.ViewChild(match_query_1.MatchQuery), 
                     __metadata('design:type', match_query_1.MatchQuery)
@@ -175,7 +191,7 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                     core_1.Component({
                         selector: 'single-query',
                         templateUrl: './app/build/singlequery/singlequery.component.html',
-                        inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
                         directives: [
                             SinglequeryComponent,
                             select2_component_1.select2Component,

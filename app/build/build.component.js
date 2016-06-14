@@ -47,6 +47,7 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                         }
                     };
                     this.saveQuery = new core_1.EventEmitter();
+                    this.setFinalUrl = new core_1.EventEmitter();
                 }
                 BuildComponent.prototype.ngOnInit = function () {
                     this.handleEditable();
@@ -55,14 +56,14 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                 // get the default format for query and internal query
                 // set the format and push into result array
                 BuildComponent.prototype.addBoolQuery = function (parent_id) {
-                    if (this.mapping.selectedTypes) {
+                    if (this.selectedTypes) {
                         var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
                         var internalObj = JSON.parse(JSON.stringify(this.queryFormat.internal));
                         queryObj.internal.push(internalObj);
-                        queryObj.id = this.mapping.queryId;
+                        queryObj.id = this.result.queryId;
                         queryObj.parent_id = parent_id;
-                        this.mapping.queryId += 1;
-                        this.mapping.resultQuery.result.push(queryObj);
+                        this.result.queryId += 1;
+                        this.result.resultQuery.result.push(queryObj);
                         this.buildQuery();
                     }
                     else {
@@ -79,7 +80,7 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                 // builquery - this function handles everything to build the query
                 BuildComponent.prototype.buildQuery = function () {
                     var self = this;
-                    var results = this.mapping.resultQuery.result;
+                    var results = this.result.resultQuery.result;
                     var finalresult = {};
                     var es_final = {
                         'query': {
@@ -113,8 +114,14 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                             }
                         }
                     });
-                    this.mapping.resultQuery.final = JSON.stringify(es_final, null, 2);
-                    this.editorHookHelp.setValue(self.mapping.resultQuery.final);
+                    this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+                    this.editorHookHelp.setValue(self.result.resultQuery.final);
+                    //set input state
+                    try {
+                        this.urlShare.inputs['result'] = this.result;
+                        this.urlShare.createUrl();
+                    }
+                    catch (e) { }
                 };
                 BuildComponent.prototype.buildInsideQuery = function (result) {
                     var objChain = [];
@@ -128,7 +135,7 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                     return objChain;
                 };
                 BuildComponent.prototype.buildSubQuery = function () {
-                    var result = this.mapping.resultQuery.result[0];
+                    var result = this.result.resultQuery.result[0];
                     result.forEach(function (val0) {
                         if (val0.parent_id != 0) {
                             result.forEach(function (val1) {
@@ -158,7 +165,7 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                     }
                     else {
                         if (queryParam.fieldFlag) {
-                            queryParam.field = this.mapping.resultQuery.availableFields[val.field].name;
+                            queryParam.field = this.result.resultQuery.availableFields[val.field].name;
                         }
                         var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
                         return sampleobj;
@@ -175,8 +182,7 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                 BuildComponent.prototype.handleEditable = function () {
                     $('body').on('click', function (e) {
                         var target = $(e.target);
-                        if (target.hasClass('.editable-pack') || target.parents('.editable-pack').length) {
-                        }
+                        if (target.hasClass('.editable-pack') || target.parents('.editable-pack').length) { }
                         else {
                             $('.editable-pack').removeClass('on');
                         }
@@ -198,6 +204,9 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                     var queryData = {
                         mapping: this.mapping,
                         config: this.config,
+                        types: this.types,
+                        selectedTypes: this.selectedTypes,
+                        result: this.result,
                         name: this.query_info.name,
                         tag: this.query_info.tag,
                         createdAt: createdAt
@@ -205,6 +214,25 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                     savedQueryList.push(queryData);
                     this.saveQuery.emit(savedQueryList);
                 };
+                BuildComponent.prototype.setFinalUrlIn = function (url) {
+                    this.setFinalUrl.emit(url);
+                };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BuildComponent.prototype, "mapping", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BuildComponent.prototype, "types", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BuildComponent.prototype, "selectedTypes", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BuildComponent.prototype, "result", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
@@ -214,14 +242,26 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                     __metadata('design:type', Object)
                 ], BuildComponent.prototype, "savedQueryList", void 0);
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], BuildComponent.prototype, "finalUrl", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], BuildComponent.prototype, "urlShare", void 0);
+                __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
                 ], BuildComponent.prototype, "saveQuery", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], BuildComponent.prototype, "setFinalUrl", void 0);
                 BuildComponent = __decorate([
                     core_1.Component({
                         selector: 'query-build',
                         templateUrl: './app/build/build.component.html',
-                        inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery'],
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setFinalUrl', 'urlShare'],
                         directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
                     }), 
                     __metadata('design:paramtypes', [])

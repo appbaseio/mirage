@@ -20,19 +20,19 @@ System.register(["@angular/core"], function(exports_1, context_1) {
         execute: function() {
             TypesComponent = (function () {
                 function TypesComponent() {
+                    this.setFinalUrl = new core_1.EventEmitter();
                 }
                 TypesComponent.prototype.ngOnChanges = function (changes) {
-                    if (changes['detectChange'] && this.mapping.types.length) {
+                    if (changes['detectChange'] && this.types.length) {
                         var setType = $('#setType');
                         try {
                             setType.select2('destroy').html('');
                         }
-                        catch (e) {
-                        }
+                        catch (e) { }
                         setType.select2({
                             placeholder: "Select types to apply query",
                             tags: false,
-                            data: this.createTokenData(this.mapping.types)
+                            data: this.createTokenData(this.types)
                         });
                         setType.on("change", function (e) {
                             this.changeType(setType.val());
@@ -52,11 +52,11 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 };
                 TypesComponent.prototype.changeType = function (val) {
                     //this.mapping.resultQuery.result = [];
-                    this.mapping.selectedTypes = val;
+                    this.selectedTypes = val;
                     var availableFields = [];
                     if (val && val.length) {
                         val.forEach(function (type) {
-                            var mapObj = this.mapping.mapping[this.config.appname].mappings[type].properties;
+                            var mapObj = this.mapping[this.config.appname].mappings[type].properties;
                             for (var field in mapObj) {
                                 var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
                                 var obj = {
@@ -77,9 +77,26 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                                 availableFields.push(obj);
                             }
                         }.bind(this));
+                        this.setUrl();
+                        //set input state
+                        this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+                        this.urlShare.createUrl();
                     }
                     console.log(availableFields);
-                    this.mapping.resultQuery.availableFields = availableFields;
+                    this.result.resultQuery.availableFields = availableFields;
+                };
+                TypesComponent.prototype.setUrl = function () {
+                    var selectedTypes = this.selectedTypes;
+                    var finalUrl = this.finalUrl.split('/');
+                    var lastUrl = '';
+                    if (finalUrl.length > 4) {
+                        finalUrl[4] = this.selectedTypes.join(',');
+                        lastUrl = finalUrl.join('/');
+                    }
+                    else {
+                        lastUrl = this.finalUrl + '/' + this.selectedTypes.join(',') + '/_search';
+                    }
+                    this.setFinalUrl.emit(lastUrl);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -89,11 +106,35 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], TypesComponent.prototype, "config", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], TypesComponent.prototype, "types", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], TypesComponent.prototype, "selectedTypes", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], TypesComponent.prototype, "result", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], TypesComponent.prototype, "finalUrl", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], TypesComponent.prototype, "urlShare", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], TypesComponent.prototype, "setFinalUrl", void 0);
                 TypesComponent = __decorate([
                     core_1.Component({
                         selector: 'types',
                         templateUrl: './app/build/types/types.component.html',
-                        inputs: ['mapping', 'config', 'detectChange']
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setFinalUrl', 'urlShare']
                     }), 
                     __metadata('design:paramtypes', [])
                 ], TypesComponent);

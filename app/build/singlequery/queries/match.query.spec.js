@@ -11,7 +11,7 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                 match_query_1 = match_query_1_1;
             }],
         execute: function() {
-            testing_1.describe('MatchQuery', function () {
+            testing_1.describe('Match query format', function () {
                 // Set initial things
                 // set expected query format
                 var query;

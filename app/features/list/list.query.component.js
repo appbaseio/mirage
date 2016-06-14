@@ -30,8 +30,7 @@ System.register(["@angular/core", "../../shared/pipes/prettyTime"], function(exp
                     this.searchList = new core_1.EventEmitter();
                     this.direction = false;
                 }
-                ListQueryComponent.prototype.ngOnInit = function () {
-                };
+                ListQueryComponent.prototype.ngOnInit = function () { };
                 ListQueryComponent.prototype.applyQuery = function (queryData) {
                     this.newQuery.emit(queryData);
                 };
