@@ -58,6 +58,7 @@ export class AppComponent implements OnInit, OnChanges {
 			var config = this.urlShare.decryptedData.config;
 			this.setLocalConfig(config.url, config.appname);
 		}
+		this.setLayoutResizer();
 
 		this.getLocalConfig();
 		try {
@@ -280,6 +281,20 @@ export class AppComponent implements OnInit, OnChanges {
 		//set input state
 		this.urlShare.inputs['finalUrl'] = this.finalUrl;
 		this.urlShare.createUrl();
+	}
+
+	setLayoutResizer() {
+		$('body').layout({
+			west__size:	"50%",
+			center__paneSelector: "#paneCenter",
+			west__paneSelector: "#paneWest"
+		});
+		function setSidebar() {
+			var windowHeight = $(window).height();
+			$('.features-section').css('height', windowHeight);
+		}
+		setSidebar();
+		$(window).on('resize', setSidebar);
 	}
 
 }
