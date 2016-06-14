@@ -44,12 +44,12 @@
 			</div>
 			<!-- Sidebar end -->
 			<!-- Query main container start -->
-			<div class="col-xs-12 query-main-container" id="content">
+			<div class="col-xs-12 query-main-container" id="content" >
 				<div class="col-sm-12 col-md-6 query-build ui-layout-west" id="paneWest">
-					<query-build [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setProp)="setProp($event)" [urlShare]="urlShare"></query-build>
+					<query-build  *ngIf="connected" [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setProp)="setProp($event)" [urlShare]="urlShare"></query-build>
 				</div>
 				<div class="col-sm-12 col-md-6 ui-layout-center"  id="paneCenter">
-					<query-result  [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl"></query-result>
+					<query-result  *ngIf="connected" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl"></query-result>
 				</div>
 			</div>
 			<!-- Query main container end -->	

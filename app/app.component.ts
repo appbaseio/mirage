@@ -59,8 +59,7 @@ export class AppComponent implements OnInit, OnChanges {
 			var config = this.urlShare.decryptedData.config;
 			this.setLocalConfig(config.url, config.appname);
 		}
-		this.setLayoutResizer();
-
+		
 		this.getLocalConfig();
 		try {
 			let list = window.localStorage.getItem('queryList');
@@ -134,8 +133,7 @@ export class AppComponent implements OnInit, OnChanges {
 			self.types = self.seprateType(data);
 			self.setLocalConfig(self.config.url, self.config.appname);
 			self.detectChange += "done";
-			self.editorHookHelp.setValue('');
-
+			
 			if (!clearFlag) {
 				var decryptedData = self.urlShare.decryptedData;
 				if (decryptedData.mapping) {
@@ -159,12 +157,15 @@ export class AppComponent implements OnInit, OnChanges {
 
 			//set input state
 			self.urlShare.inputs['config'] = self.config;
-			self.urlShare.inputs['types'] = self.types;
-			self.urlShare.inputs['mapping'] = self.mapping;
 			self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
 			self.urlShare.inputs['result'] = self.result;
 			self.urlShare.inputs['finalUrl'] = self.finalUrl;
 			self.urlShare.createUrl();
+			setTimeout(function() {
+				self.setLayoutResizer();
+				self.editorHookHelp.setValue('');
+			}, 300);
+			
 		}).catch(function(e) {
 			self.initial_connect = true;
 			alert(e.json().message);
@@ -182,15 +183,20 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	newQuery(query) {
+		this.connected = false;
 		this.config = query.config;
-		this.mapping = query.mapping;
-		this.selectedTypes = query.selectedTypes;
-		this.types = query.types;
-		this.result = query.result;
+		this.appbaseService.get('/_mapping').then(function(res) {
+			let data = res.json();
+			this.connected = true;
+			this.result = query.result;
+			this.mapping = data;
+			this.types = this.seprateType(data);
+			this.selectedTypes = query.selectedTypes;
+			setTimeout(() => { $('#setType').val(this.selectedTypes).trigger("change"); }, 300);
+		}.bind(this));	
 		this.query_info.name = query.name;
 		this.query_info.tag = query.tag;
 		this.detectChange = "check";
-		setTimeout(() => { $('#setType').val(this.selectedTypes).trigger("change"); }, 300)
 	}
 
 	deleteQuery(index) {
@@ -226,9 +232,7 @@ export class AppComponent implements OnInit, OnChanges {
 			}
 		}.bind(this));
 		var queryData = {
-			mapping: this.mapping,
 			config: this.config,
-			types: this.types,
 			selectedTypes: this.selectedTypes,
 			result: this.result,
 			name: this.query_info.name,
