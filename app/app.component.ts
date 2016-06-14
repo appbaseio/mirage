@@ -51,6 +51,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public urlShare = new UrlShare();
 
 	ngOnInit() {
+		$('body').removeClass('is-loadingApp');
 		this.setInitialValue();
 		// get data from url
 		this.urlShare.decryptUrl();
