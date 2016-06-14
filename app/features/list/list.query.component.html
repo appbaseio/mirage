@@ -20,8 +20,8 @@
 				<span class="pull-left">
 					<span class="badge">{{query.tag}}</span>
 				</span>
-				<span class="pull-right query-time">
-					{{query.createdAt | prettyTime}}
+				<span class="pull-right">
+					<time-relative [time]="query.createdAt"></time-relative>
 				</span>
 			</span>
 		</a>
