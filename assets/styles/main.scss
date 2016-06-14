@@ -103,6 +103,14 @@ body {
   line-height: 1.42857143;
   color: #333;
 }
+.loading {
+    height: 100%;
+    width: 100%;
+    display: table;
+    background: rgba(247,247,247,.9);
+    position: fixed;
+    z-index: 10;
+}
 .loadingBar {
   position: fixed;
   display: none;

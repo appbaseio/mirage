@@ -13,7 +13,7 @@ import { prettyTime } from "../../../shared/pipes/prettyTime";
 export class TimeComponent implements OnInit, OnChanges {
 	@Input() time: any;
 	ngOnInit() {
-		this.setTimeInterval();	
+		this.setTimeInterval(false);	
 	}
 	ngOnChanges() {}
 
