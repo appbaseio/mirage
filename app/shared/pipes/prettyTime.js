@@ -22,7 +22,8 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 function prettyTime() {
                 }
                 prettyTime.prototype.transform = function (value) {
-                    return moment(value).fromNow();
+                    console.log(moment(value).fromNow(true));
+                    return moment(value).fromNow(true);
                 };
                 prettyTime = __decorate([
                     core_1.Pipe({ name: 'prettyTime' }), 

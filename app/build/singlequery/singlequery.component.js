@@ -59,19 +59,22 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                         field: 'field-select',
                         query: 'query-select'
                     };
-                    this.selectedQuery = '';
-                    this.selectedField = '';
                     this.informationList = {};
                 }
                 // on initialize set the query selector
                 SinglequeryComponent.prototype.ngOnInit = function () {
                     this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
-                    if (this.query.field) {
-                        this.selectedField = this.result.resultQuery.availableFields[this.query.field].name;
-                    }
-                    if (this.query.query) {
-                        this.selectedQuery = this.queryList[this.query.analyzeTest][this.query.type][this.query.query];
-                    }
+                };
+                SinglequeryComponent.prototype.ngOnChanges = function () {
+                    setTimeout(function () {
+                        if (this.query.selectedField) {
+                            console.log(this.result.resultQuery.availableFields);
+                            var isFieldExists = this.getField(this.query.selectedField);
+                            if (!isFieldExists.length) {
+                                this.removeQuery();
+                            }
+                        }
+                    }.bind(this), 300);
                 };
                 SinglequeryComponent.prototype.ngAfterViewInit = function () {
                     this.informationList = {
@@ -97,20 +100,18 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                 // On selecting the field, we are checking if field is analyzed or not
                 // and according to that show the available query
                 SinglequeryComponent.prototype.analyzeTest = function (res) {
-                    this.query.field = res.val;
-                    var self = this;
                     $(res.selector).parents('.editable-pack').removeClass('on');
-                    var field = self.result.resultQuery.availableFields[self.query.field];
-                    self.query.analyzeTest = field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
-                    self.query.type = field.type;
-                    self.selectedField = field.name;
-                    self.buildQuery();
+                    this.query.field = this.getField(res.val)[0];
+                    this.query.analyzeTest = this.query.field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
+                    this.query.type = this.query.field.type;
+                    this.query.selectedField = res.val;
+                    this.buildQuery();
                 };
                 // Query select - change event
                 SinglequeryComponent.prototype.queryCallback = function (res) {
                     res.selector.parents('.editable-pack').removeClass('on');
                     this.query.query = res.val;
-                    this.selectedQuery = this.queryList[this.query.analyzeTest][this.query.type][this.query.query];
+                    this.query.selectedQuery = this.queryList[this.query.analyzeTest][this.query.type][this.query.query];
                     this.buildQuery();
                 };
                 // build the query
@@ -126,6 +127,11 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                     $('.editable-pack').removeClass('on');
                     $($event.currentTarget).parents('.editable-pack').addClass('on');
                     $($event.currentTarget).parents('.editable-pack').find('select').select2('open');
+                };
+                SinglequeryComponent.prototype.getField = function (fieldName) {
+                    return this.result.resultQuery.availableFields.filter(function (ele) {
+                        return ele.name === fieldName;
+                    });
                 };
                 __decorate([
                     core_1.Input(), 

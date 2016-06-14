@@ -34,6 +34,8 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                         internal: {
                             field: '',
                             query: '',
+                            selectedField: '',
+                            selectedQuery: '',
                             input: '',
                             analyzeTest: '',
                             type: ''
@@ -47,7 +49,7 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                         }
                     };
                     this.saveQuery = new core_1.EventEmitter();
-                    this.setFinalUrl = new core_1.EventEmitter();
+                    this.setProp = new core_1.EventEmitter();
                 }
                 BuildComponent.prototype.ngOnInit = function () {
                     this.handleEditable();
@@ -165,7 +167,7 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                     }
                     else {
                         if (queryParam.fieldFlag) {
-                            queryParam.field = this.result.resultQuery.availableFields[val.field].name;
+                            queryParam.field = val.selectedField;
                         }
                         var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
                         return sampleobj;
@@ -192,8 +194,8 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                 BuildComponent.prototype.openModal = function () {
                     $('#saveQueryModal').modal('show');
                 };
-                BuildComponent.prototype.setFinalUrlIn = function (url) {
-                    this.setFinalUrl.emit(url);
+                BuildComponent.prototype.setPropIn = function (propObj) {
+                    this.setProp.emit(propObj);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -234,12 +236,12 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], BuildComponent.prototype, "setFinalUrl", void 0);
+                ], BuildComponent.prototype, "setProp", void 0);
                 BuildComponent = __decorate([
                     core_1.Component({
                         selector: 'query-build',
                         templateUrl: './app/build/build.component.html',
-                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setFinalUrl', 'urlShare'],
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare'],
                         directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
                     }), 
                     __metadata('design:paramtypes', [])

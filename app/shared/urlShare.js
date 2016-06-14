@@ -6,7 +6,7 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             exports_1("UrlShare", UrlShare = function () {
-                this.secret = 'es-querycomposer';
+                this.secret = 'e';
                 this.decryptedData = {};
                 this.inputs = {};
             });
@@ -18,8 +18,11 @@ System.register([], function(exports_1, context_1) {
                 this.createUrl();
             };
             UrlShare.prototype.createUrl = function () {
-                console.log(this.inputs);
-                var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(this.inputs), this.secret).toString();
+                var inputs = JSON.parse(JSON.stringify(this.inputs));
+                delete inputs.result.resultQuery.final;
+                delete inputs.result.output;
+                console.log(inputs);
+                var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(inputs), this.secret).toString();
                 window.location.href = '#?input_state=' + ciphertext;
             };
             UrlShare.prototype.decryptUrl = function () {

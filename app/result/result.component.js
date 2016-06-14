@@ -27,13 +27,14 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
             ResultComponent = (function () {
                 function ResultComponent(appbaseService) {
                     this.appbaseService = appbaseService;
+                    this.setProp = new core_1.EventEmitter();
                 }
                 // Set codemirror instead of normal textarea
                 // Set initial height for textarea
                 ResultComponent.prototype.ngOnInit = function () {
                     var self = this;
                     this.editorHookHelp.applyEditor();
-                    var resultHeight = $(window).height() - 138;
+                    var resultHeight = $(window).height() - 138 - 49;
                     $('.queryRight .codemirror').css({ height: resultHeight });
                 };
                 // Validate using checkValidaQuery method
@@ -50,6 +51,7 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                             self.result.isWatching = false;
                             self.result.output = JSON.stringify(res.json(), null, 2);
                             self.responseHookHelp.setValue(self.result.output);
+                        }).catch(function (data) {
                         });
                     }
                     else {
@@ -87,6 +89,13 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                     }
                     return returnObj;
                 };
+                ResultComponent.prototype.setPropIn = function () {
+                    var propInfo = {
+                        name: 'finalUrl',
+                        value: this.finalUrl
+                    };
+                    this.setProp.emit(propInfo);
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
@@ -107,11 +116,15 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], ResultComponent.prototype, "result", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], ResultComponent.prototype, "setProp", void 0);
                 ResultComponent = __decorate([
                     core_1.Component({
                         selector: 'query-result',
                         templateUrl: './app/result/result.component.html',
-                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl'],
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp'],
                         pipes: [prettyJson_1.prettyJson],
                         providers: [appbase_service_1.AppbaseService]
                     }), 

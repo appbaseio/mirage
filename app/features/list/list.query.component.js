@@ -1,4 +1,4 @@
-System.register(["@angular/core", "../../shared/pipes/prettyTime"], function(exports_1, context_1) {
+System.register(["@angular/core", "./time/time.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,15 @@ System.register(["@angular/core", "../../shared/pipes/prettyTime"], function(exp
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, prettyTime_1;
+    var core_1, time_component_1;
     var ListQueryComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (prettyTime_1_1) {
-                prettyTime_1 = prettyTime_1_1;
+            function (time_component_1_1) {
+                time_component_1 = time_component_1_1;
             }],
         execute: function() {
             ListQueryComponent = (function () {
@@ -41,7 +41,12 @@ System.register(["@angular/core", "../../shared/pipes/prettyTime"], function(exp
                     this.clearAll.emit(null);
                 };
                 ListQueryComponent.prototype.applySearchList = function () {
-                    this.searchList.emit(null);
+                    this.searchList.emit(this.searchTerm);
+                };
+                ListQueryComponent.prototype.tagApply = function (event, tag) {
+                    this.searchTerm = tag;
+                    this.applySearchList();
+                    event.stopPropagation();
                 };
                 __decorate([
                     core_1.Input(), 
@@ -88,7 +93,7 @@ System.register(["@angular/core", "../../shared/pipes/prettyTime"], function(exp
                         selector: 'list-query',
                         templateUrl: './app/features/list/list.query.component.html',
                         inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll'],
-                        pipes: [prettyTime_1.prettyTime]
+                        directives: [time_component_1.TimeComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ListQueryComponent);
