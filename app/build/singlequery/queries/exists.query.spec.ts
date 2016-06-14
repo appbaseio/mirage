@@ -1,22 +1,22 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { MatchQuery } from './match.query';
+import { ExistsQuery } from './exists.query';
 
-describe('Match query format', () => {
+describe('exists query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: MatchQuery;
+  var query: ExistsQuery;
   var expectedFormat = {
-    'match': {
+    'exists': {
       'foo': 'bar'
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new MatchQuery();
-    query.queryName = 'match';
+    query = new ExistsQuery();
+    query.queryName = 'exists';
     query.fieldName = 'foo';
     query.inputs = {
       input: {

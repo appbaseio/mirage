@@ -32,6 +32,14 @@ export class AppbaseService {
         });
         return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise()
     }
+    postUrl(url: string, data: any) {
+        let requestData = JSON.stringify(data);
+        let headers = new Headers({
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': this.requestParam.auth
+        });
+        return this.http.post(url, requestData, { headers: headers }).toPromise()
+    }
     put(path: string, data: any) {
         let headers = new Headers({
             'Content-Type': 'application/json;charset=UTF-8',

@@ -7,13 +7,11 @@ import { TypesComponent } from "./types/types.component";
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setFinalUrl', 'urlShare'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
 export class BuildComponent implements OnInit {
-	public mapping;
-	public config;
 	public queryList = queryList;
 	public queryFormat: any = {
 		internal: {
@@ -32,9 +30,16 @@ export class BuildComponent implements OnInit {
 		}
 	};
 	public editorHookHelp: any;
-	@Input() query_info;
-	@Input() savedQueryList;
-	@Output() saveQuery = new EventEmitter<any>();
+	@Input() mapping: any;
+	@Input() types: any;
+	@Input() selectedTypes: any;
+	@Input() result: any;
+	@Input() query_info: any;
+	@Input() savedQueryList: any;
+	@Input() finalUrl: string;
+	@Input() urlShare: any;
+	@Output() saveQuery = new EventEmitter < any > ();
+	@Output() setFinalUrl = new EventEmitter < any > ();
 
 	ngOnInit() {
 		this.handleEditable();
@@ -44,14 +49,14 @@ export class BuildComponent implements OnInit {
 	// get the default format for query and internal query
 	// set the format and push into result array
 	addBoolQuery(parent_id: number) {
-		if (this.mapping.selectedTypes) {
+		if (this.selectedTypes) {
 			var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
 			var internalObj = JSON.parse(JSON.stringify(this.queryFormat.internal));
 			queryObj.internal.push(internalObj);
-			queryObj.id = this.mapping.queryId;
+			queryObj.id = this.result.queryId;
 			queryObj.parent_id = parent_id;
-			this.mapping.queryId += 1;
-			this.mapping.resultQuery.result.push(queryObj);
+			this.result.queryId += 1;
+			this.result.resultQuery.result.push(queryObj);
 			this.buildQuery();
 		} else {
 			alert('Select type first.');
@@ -69,7 +74,7 @@ export class BuildComponent implements OnInit {
 	// builquery - this function handles everything to build the query
 	buildQuery() {
 		var self = this;
-		var results = this.mapping.resultQuery.result;
+		var results = this.result.resultQuery.result;
 		var finalresult = {};
 		var es_final = {
 			'query': {
@@ -88,7 +93,7 @@ export class BuildComponent implements OnInit {
 					};
 					var currentBool = self.queryList['boolQuery'][result1['boolparam']];
 					current_query['bool'][currentBool] = result1.availableQuery;
-					if(currentBool === 'should') {
+					if (currentBool === 'should') {
 						current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
 					}
 					result0.availableQuery.push(current_query);
@@ -99,13 +104,19 @@ export class BuildComponent implements OnInit {
 			if (result.parent_id === 0) {
 				var currentBool = self.queryList['boolQuery'][result['boolparam']];
 				finalresult[currentBool] = result.availableQuery;
-				if(currentBool === 'should') {
+				if (currentBool === 'should') {
 					finalresult['minimum_should_match'] = result.minimum_should_match;
 				}
 			}
 		});
-		this.mapping.resultQuery.final = JSON.stringify(es_final, null, 2);
-		this.editorHookHelp.setValue(self.mapping.resultQuery.final);
+		this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+		this.editorHookHelp.setValue(self.result.resultQuery.final);
+
+		//set input state
+		try {
+			this.urlShare.inputs['result'] = this.result;
+			this.urlShare.createUrl();
+		} catch (e) {}
 	}
 
 	buildInsideQuery(result) {
@@ -121,7 +132,7 @@ export class BuildComponent implements OnInit {
 	}
 
 	buildSubQuery() {
-		var result = this.mapping.resultQuery.result[0];
+		var result = this.result.resultQuery.result[0];
 		result.forEach(function(val0) {
 			if (val0.parent_id != 0) {
 				result.forEach(function(val1) {
@@ -142,18 +153,17 @@ export class BuildComponent implements OnInit {
 			fieldFlag: true
 		};
 
-		if(val.analyzeTest === '' || val.type === '' || val.query === '') {
-			queryParam.queryFlag =  false;
+		if (val.analyzeTest === '' || val.type === '' || val.query === '') {
+			queryParam.queryFlag = false;
 		}
-		if(val.field === '') {
-			queryParam.fieldFlag =  false;
+		if (val.field === '') {
+			queryParam.fieldFlag = false;
 		}
-		if(queryParam.queryFlag) {
+		if (queryParam.queryFlag) {
 			return val.appliedQuery;
-		}
-		else {
-			if(queryParam.fieldFlag) {
-				queryParam.field = this.mapping.resultQuery.availableFields[val.field].name;
+		} else {
+			if (queryParam.fieldFlag) {
+				queryParam.field = this.result.resultQuery.availableFields[val.field].name;
 			}
 			var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
 			return sampleobj;
@@ -172,9 +182,7 @@ export class BuildComponent implements OnInit {
 	handleEditable() {
 		$('body').on('click', function(e) {
 			var target = $(e.target);
-			if(target.hasClass('.editable-pack') || target.parents('.editable-pack').length) {
-			}
-			else {
+			if (target.hasClass('.editable-pack') || target.parents('.editable-pack').length) {} else {
 				$('.editable-pack').removeClass('on');
 			}
 		});
@@ -190,18 +198,25 @@ export class BuildComponent implements OnInit {
 		var savedQueryList = this.savedQueryList;
 		var createdAt = new Date().getTime();
 		savedQueryList.forEach(function(query, index) {
-			if(query.name === this.query_info.name && query.tag === this.query_info.tag) {
+			if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
 				this.savedQueryList.splice(index, 1);
 			}
 		}.bind(this));
 		var queryData = {
 			mapping: this.mapping,
 			config: this.config,
+			types: this.types,
+			selectedTypes: this.selectedTypes,
+			result: this.result,
 			name: this.query_info.name,
 			tag: this.query_info.tag,
 			createdAt: createdAt
 		};
 		savedQueryList.push(queryData);
-		this.saveQuery.emit(savedQueryList);	
+		this.saveQuery.emit(savedQueryList);
+	}
+
+	setFinalUrlIn(url) {
+		this.setFinalUrl.emit(url);
 	}
 }

@@ -85,3 +85,17 @@
     background-color: darken($primary-color, 5%);  
   }
 }
+.btn-grey {
+  background: $dark-grey;
+  color: darken($dark-grey, 30%);
+  border: 1px solid;
+  &:hover {
+    background: darken($dark-grey, 5%);
+  }
+}
+html, body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}

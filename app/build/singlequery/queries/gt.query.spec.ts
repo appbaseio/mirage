@@ -1,26 +1,28 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { MatchQuery } from './match.query';
+import { GtQuery } from './gt.query';
 
-describe('Match query format', () => {
+describe('Gt query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: MatchQuery;
+  var query: GtQuery;
   var expectedFormat = {
-    'match': {
-      'foo': 'bar'
+    'range': {
+      'foo': {
+        'gt': 100
+      }
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new MatchQuery();
-    query.queryName = 'match';
+    query = new GtQuery();
+    query.queryName = 'gt';
     query.fieldName = 'foo';
     query.inputs = {
-      input: {
-        value: 'bar'
+      gt: {
+        value: 100
       }
     };
   });

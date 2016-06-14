@@ -3,7 +3,7 @@
 		<a href="javascript:void(0)" (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
 			<i class="fa fa-plus"></i> Nested query
 		</a>
-		<a href="javascript:void(0)" (click)="removeInQuery(query.id)" class="btn btn-danger">
+		<a href="javascript:void(0)" (click)="removeInQuery(query.id)" class="btn btn-grey delete-nested-query">
 			<i class="fa fa-trash"></i>
 		</a>
 	</div>
@@ -25,6 +25,9 @@
 		 >
 			<single-query 
 				[mapping]="mapping"
+				[types]="types"
+				[selectedTypes]="selectedTypes" 
+				[result]="result" 
 				[config]="config" 
 				[query]="queryIn" 
 				[queryList]="queryList"
@@ -36,7 +39,8 @@
 				[buildSubQuery]="buildSubQuery"
 				[createQuery]="createQuery"
 				[setQueryFormat]="setQueryFormat"
-				[editorHookHelp]="editorHookHelp">
+				[editorHookHelp]="editorHookHelp"
+				[urlShare]="urlShare">
 			</single-query>
 		</form>
 		<div class="col-xs-12 pd-0 add_condition_row">
@@ -44,10 +48,13 @@
 		</div>
 	</div>
 	<div class="subQuery">
-		<form class="row m-0" *ngFor="let queryIn of mapping.resultQuery.result">
+		<form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">
 			<div *ngIf="queryIn.parent_id != 0 && queryIn.parent_id == query.id">
 				<bool-query 
 					[mapping]="mapping"
+					[types]="types"
+					[selectedTypes]="selectedTypes" 
+					[result]="result" 
 					[config]="config" 
 					[query]="queryIn" 
 					[queryList]="queryList"
@@ -60,7 +67,8 @@
 					[buildSubQuery]="buildSubQuery"
 					[createQuery]="createQuery"
 					[setQueryFormat]="setQueryFormat"
-					[editorHookHelp]="editorHookHelp">
+					[editorHookHelp]="editorHookHelp"
+					[urlShare]="urlShare">
 				</bool-query>
 			</div>
 		</form>

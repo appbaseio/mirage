@@ -82,3 +82,16 @@
   border-color: #2d6da3; }
   .btn-primary:hover, .btn-primary:focus, .btn-primary.active {
     background-color: #2d6da3; }
+
+.btn-grey {
+  background: #eee;
+  color: #a2a2a2;
+  border: 1px solid; }
+  .btn-grey:hover {
+    background: #e1e1e1; }
+
+html, body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333; }

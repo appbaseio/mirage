@@ -17,13 +17,12 @@ export class select2Component implements OnChanges, AfterContentInit {
 	@Input() informationList;
 	constructor(private globalShare: GlobalShare) {}
 
-	ngOnChanges() {
-	}
+	ngOnChanges() {}
 
 	ngAfterContentInit() {
 		console.log(this.informationList);
 		setTimeout(function() {
-			var select2Selector = $(this.querySelector).find('.'+this.selector).find('select');
+			var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
 			this.setSelect2(select2Selector, function(val) {
 				var obj = {
 					val: val,
@@ -41,7 +40,7 @@ export class select2Component implements OnChanges, AfterContentInit {
 		field_select.on("change", function(e) {
 			callback(field_select.val())
 		}.bind(this));
-		if(this.showInfoFlag) {
+		if (this.showInfoFlag) {
 			field_select.on("select2:open", function(e) {
 				setTimeout(function() {
 					var selector = $('li.select2-results__option');
@@ -60,5 +59,5 @@ export class select2Component implements OnChanges, AfterContentInit {
 		query['trigger'] = 'hover';
 		return query;
 	}
-	
+
 }

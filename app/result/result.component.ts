@@ -1,21 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { prettyJson } from "../shared/pipes/prettyJson";
 import { AppbaseService } from "../shared/appbase.service";
 
 @Component({
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
-	inputs: ['mapping', 'config', 'editorHookHelp', 'responseHookHelp'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl'],
 	pipes: [prettyJson],
 	providers: [AppbaseService]
 })
 
 export class ResultComponent implements OnInit {
-	public mapping;
 	public config;
 	public editorHookHelp;
 	public responseHookHelp;
-
+	@Input() finalUrl;
+	@Input() mapping: any;
+	@Input() types: any;
+	@Input() selectedTypes: any;
+	@Input() result: any;
+	
 	constructor(public appbaseService: AppbaseService) {}
 
 	// Set codemirror instead of normal textarea
@@ -38,13 +42,12 @@ export class ResultComponent implements OnInit {
 		if (validate.flag) {
 			self.responseHookHelp.setValue('{"Loading": "please wait......"}');
 			$('#resultModal').modal('show');
-			this.appbaseService.post('/_search', validate.payload).then(function(res) {
-				self.mapping.isWatching = false;
-				self.mapping.output = JSON.stringify(res.json(), null, 2);
-				self.responseHookHelp.setValue(self.mapping.output);
+			this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function(res) {
+				self.result.isWatching = false;
+				self.result.output = JSON.stringify(res.json(), null, 2);
+				self.responseHookHelp.setValue(self.result.output);
 			});
-		}
-		else {
+		} else {
 			alert(validate.message);
 		}
 	}
@@ -61,22 +64,21 @@ export class ResultComponent implements OnInit {
 			message: null
 		};
 
-		this.mapping.resultQuery.result.forEach(function(result) {
+		this.result.resultQuery.result.forEach(function(result) {
 			result.internal.forEach(function(query) {
-				if(query.field === '' || query.query === '') {
+				if (query.field === '' || query.query === '') {
 					returnObj.flag = false;
 				}
 			});
 		});
 
-		if(returnObj.flag) {
+		if (returnObj.flag) {
 			try {
 				returnObj.payload = JSON.parse(getQuery);
 			} catch (e) {
 				returnObj.message = "Json is not valid.";
 			}
-		}
-		else {
+		} else {
 			returnObj.message = "Please complete your query first.";
 		}
 		return returnObj;

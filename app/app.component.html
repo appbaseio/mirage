@@ -24,7 +24,7 @@
 			placeholder="Index name to browse data from" value="moviedb" />
 			</div>
 			<div class="submit-btn-container">
-				<a (click)="connect()" [class.btn-info] ="mapping.mapping != null" class="btn btn-default submit-btn">
+				<a (click)="connect(true)" [class.btn-info] ="mapping != null" class="btn btn-default submit-btn">
 					<span *ngIf = "!connected">Connect</span>
 					<span *ngIf = "connected">Connected</span>
 				</a>
@@ -33,7 +33,7 @@
 	</form>
 	<!-- HEADER END -->
 	<div class="container-fluid">
-		<div class="row feature-query-container">
+		<div class="row feature-query-container" [ngClass]="{off: !sidebar}">
 			<!-- Sidebar start -->
 			<div class="features-section">
 				<a (click)="sidebarToggle();" class="btn btn-default sidebar-toggle">
@@ -46,12 +46,12 @@
 			</div>
 			<!-- Sidebar end -->
 			<!-- Query main container start -->
-			<div class="col-xs-12 query-main-container">
-				<div class="col-sm-12 col-md-6 query-build">
-					<query-build [detectChange]="detectChange" [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)"></query-build>
+			<div class="col-xs-12 query-main-container" id="content">
+				<div class="col-sm-12 col-md-6 query-build ui-layout-west" id="paneWest">
+					<query-build [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setFinalUrl)="setFinalUrl($event)" [urlShare]="urlShare"></query-build>
 				</div>
-				<div class="col-sm-12 col-md-6">
-					<query-result [mapping]="mapping" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp"></query-result>
+				<div class="col-sm-12 col-md-6 ui-layout-center"  id="paneCenter">
+					<query-result  [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl"></query-result>
 				</div>
 			</div>
 			<!-- Query main container end -->	
@@ -59,7 +59,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="row">
-					<query-run [mapping]="mapping" [config]="config" [responseHookHelp]="responseHookHelp"></query-run>
+					<query-run  [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [responseHookHelp]="responseHookHelp"></query-run>
 				</div>
 			</div>
 		</div>

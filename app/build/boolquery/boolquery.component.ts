@@ -1,15 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { SinglequeryComponent } from "../singlequery/singlequery.component";
 
 @Component({
 	selector: 'bool-query',
 	templateUrl: './app/build/boolquery/boolquery.component.html',
-	inputs: ['mapping', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
 	directives: [BoolqueryComponent, SinglequeryComponent]
 })
 
 export class BoolqueryComponent implements OnInit {
-	public mapping;
 	public config;
 	public queryList = this.queryList;
 	public addQuery;
@@ -18,7 +17,11 @@ export class BoolqueryComponent implements OnInit {
 	public removeArray = [];
 	public query = this.query;
 	public buildQuery;
-
+	@Input() mapping: any;
+	@Input() types: any;
+	@Input() selectedTypes: any;
+	@Input() result: any;
+	
 	ngOnInit() {
 		this.exeBuild();
 	}
@@ -27,7 +30,7 @@ export class BoolqueryComponent implements OnInit {
 		this.addBoolQuery(id);
 	}
 	removeInQuery(id: number) {
-		var resulQueries = this.mapping.resultQuery.result;
+		var resulQueries = this.result.resultQuery.result;
 		this.removeArray.push(id);
 		var removeFlag = true;
 		resulQueries.forEach(function(v, i) {

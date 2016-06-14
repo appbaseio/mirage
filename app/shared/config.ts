@@ -3,4 +3,5 @@ export interface Config {
 	appname: string;
 	username: string;
 	password: string;
+	host: string;
 }

@@ -15,7 +15,8 @@ var files = {
             'bower_components/codemirror/lib/codemirror.css',
             'bower_components/codemirror/addon/fold/foldgutter.css',
             'bower_components/codemirror/addon/dialog/dialog.css',
-            'bower_components/codemirror/theme/monokai.css'
+            'bower_components/codemirror/theme/monokai.css',
+            'assets/vendor/jquery.layout/jquery.layout.css'
         ],
         custom: ['assets/css/*.css'],
         sassFile: ['assets/styles/*.scss']
@@ -43,6 +44,8 @@ var files = {
             'bower_components/codemirror/keymap/sublime.js',
             'bower_components/moment/min/moment.min.js',
             'bower_components/crypto-js/crypto-js.js',
+            'assets/vendor/jquery.layout/jquery-ui.js',
+            'assets/vendor/jquery.layout/jquery.layout.js',
             'node_modules/core-js/client/shim.min.js',
             'node_modules/zone.js/dist/zone.js',
             'node_modules/reflect-metadata/Reflect.js',

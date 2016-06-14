@@ -1,26 +1,28 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { MatchQuery } from './match.query';
+import { LtQuery } from './lt.query';
 
-describe('Match query format', () => {
+describe('Lt query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: MatchQuery;
+  var query: LtQuery;
   var expectedFormat = {
-    'match': {
-      'foo': 'bar'
+    'range': {
+      'foo': {
+        'lt': 100
+      }
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new MatchQuery();
-    query.queryName = 'match';
+    query = new LtQuery();
+    query.queryName = 'lt';
     query.fieldName = 'foo';
     query.inputs = {
-      input: {
-        value: 'bar'
+      lt: {
+        value: 100
       }
     };
   });
