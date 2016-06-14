@@ -17,9 +17,11 @@ export class TimeComponent implements OnInit, OnChanges {
 	}
 	ngOnChanges() {}
 
-	setTimeInterval() {
-		setInterval(function() {
-			this.time = this.time;
+	setTimeInterval(flag: boolean) {
+		this.time = flag ? this.time+1 : this.time-1;
+		flag = flag ? false : true;
+		setTimeout(function() {
+			this.setTimeInterval(flag);
 		}.bind(this), 1000*60);
 	}
 }
