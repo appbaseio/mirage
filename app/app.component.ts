@@ -253,8 +253,8 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	// Searching
-	searchList($event) {
-		this.searchTerm = $event.target.value;
+	searchList(searchTerm: any) {
+		this.searchTerm = searchTerm;
 		if (this.searchTerm.trim().length > 1) {
 			this.filteredQuery = this.savedQueryList.filter(function(item) {
 				return item.tag.indexOf(this.searchTerm) !== -1 ? true : false;

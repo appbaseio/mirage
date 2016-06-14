@@ -36,7 +36,13 @@ export class ListQueryComponent implements OnInit, OnChanges {
 	}
 
 	applySearchList() {
-		this.searchList.emit(null);
+		this.searchList.emit(this.searchTerm);
+	}
+
+	tagApply(event, tag) {
+		this.searchTerm = tag;
+		this.applySearchList();
+		event.stopPropagation();
 	}
 
 }

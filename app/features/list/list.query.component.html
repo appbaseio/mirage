@@ -1,5 +1,5 @@
 <div class="col-xs-12 pd-0">
-	<input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm" (keyup)="searchList.emit($event)" />
+	<input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm" (keyup)="applySearchList();" />
 </div>
 <ul class="theme-list col-xs-12">
 	<li class="list-item col-xs-12 list-title" (click)="applyClearAll();">Saved Queries (clear all)</li>
@@ -12,9 +12,9 @@
 				</span>
 			</span>
 			<span class="col-xs-12 query-info pd-0">
-				<span class="pull-left">
+				<a class="pull-left" (click)="tagApply($event, query.tag);">
 					<span class="badge">{{query.tag}}</span>
-				</span>
+				</a>
 			</span>
 		</a>
 		<a class="btn btn-danger delete-query" (click)="applyDeleteQuery();">
