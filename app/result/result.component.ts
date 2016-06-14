@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { prettyJson } from "../shared/pipes/prettyJson";
 import { AppbaseService } from "../shared/appbase.service";
 
 @Component({
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp'],
 	pipes: [prettyJson],
 	providers: [AppbaseService]
 })
@@ -19,7 +19,8 @@ export class ResultComponent implements OnInit {
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
-	
+	@Output() setProp = new EventEmitter < any > ();
+
 	constructor(public appbaseService: AppbaseService) {}
 
 	// Set codemirror instead of normal textarea
@@ -27,7 +28,7 @@ export class ResultComponent implements OnInit {
 	ngOnInit() {
 		var self = this;
 		this.editorHookHelp.applyEditor();
-		var resultHeight = $(window).height() - 138;
+		var resultHeight = $(window).height() - 138 - 49;
 		$('.queryRight .codemirror').css({ height: resultHeight });
 	}
 
@@ -46,6 +47,7 @@ export class ResultComponent implements OnInit {
 				self.result.isWatching = false;
 				self.result.output = JSON.stringify(res.json(), null, 2);
 				self.responseHookHelp.setValue(self.result.output);
+			}).catch(function(data) {
 			});
 		} else {
 			alert(validate.message);
@@ -82,5 +84,13 @@ export class ResultComponent implements OnInit {
 			returnObj.message = "Please complete your query first.";
 		}
 		return returnObj;
+	}
+
+	setPropIn() {
+		var propInfo = {
+			name: 'finalUrl',
+			value: this.finalUrl
+		};
+		this.setProp.emit(propInfo);
 	}
 }

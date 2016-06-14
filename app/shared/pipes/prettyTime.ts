@@ -4,6 +4,7 @@ declare var moment;
 @Pipe({name: 'prettyTime'})
 export class prettyTime implements PipeTransform {
   transform(value : Object) : any {
-  	return moment(value).fromNow();
+  	console.log(moment(value).fromNow(true));
+  	return moment(value).fromNow(true);
   }
 }

@@ -7,10 +7,10 @@
 	<!-- field part start -->
 	<div class="col-xs-3 pd-l0 editable-pack">
 		<div class="editable-front col-xs-12 pd-0" (click)="editable_on($event)">
-			<div *ngIf = "query.field != ''">
-				{{result.resultQuery.availableFields[query.field].name}}
+			<div *ngIf = "query.selectedField != ''">
+				{{query.selectedField}}
 			</div>
-			<div *ngIf = "query.field == ''">
+			<div *ngIf = "query.selectedField == ''">
 				field
 			</div>
 		</div>
@@ -20,13 +20,13 @@
 	</div>
 	<!-- field part end -->
 	<!-- query part start -->
-	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( result.resultQuery.availableFields[query.field].type == 'string' || result.resultQuery.availableFields[query.field].type == 'date' || result.resultQuery.availableFields[query.field].type == 'numeric')">
+	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( query.field.type == 'string' || query.field.type == 'date' || query.field.type == 'numeric')">
 		<div class="col-xs-12 pd-0 editable-pack">
 			<div class="editable-front col-xs-12 pd-0"  (click)="editable_on($event)">
-				<div *ngIf = "query.query != ''">
-					{{queryList[query.analyzeTest][query.type][query.query]}}
+				<div *ngIf = "query.selectedQuery != ''">
+					{{query.selectedQuery}}
 				</div>
-				<div *ngIf = "query.query == ''">
+				<div *ngIf = "query.selectedQuery == ''">
 					query
 				</div>
 			</div>
@@ -41,12 +41,12 @@
 		<div class="col-xs-12 pd-0">
 			
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'match'" class="row">
+			<div [hidden]="query.selectedQuery != 'match'" class="row">
 				<match-query 
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</match-query>
@@ -54,12 +54,12 @@
 			<!-- match query end -->
 
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'match_phrase'" class="row">
+			<div [hidden]="query.selectedQuery != 'match_phrase'" class="row">
 				<match_phrase-query
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</match_phrase-query>
@@ -67,12 +67,12 @@
 			<!-- match query end -->
 
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'match-phase-prefix'" class="row">
+			<div [hidden]="query.selectedQuery != 'match-phase-prefix'" class="row">
 				<match-phase-prefix-query
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</match-phase-prefix-query>
@@ -80,12 +80,12 @@
 			<!-- match query end -->
 			
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'range'" class="row">
+			<div [hidden]="query.selectedQuery != 'range'" class="row">
 				<range-query 
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</range-query>
@@ -93,12 +93,12 @@
 			<!-- match query end -->
 			
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'gt'" class="row">
+			<div [hidden]="query.selectedQuery != 'gt'" class="row">
 				<gt-query 
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</gt-query>
@@ -106,12 +106,12 @@
 			<!-- match query end -->
 			
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'lt'" class="row">
+			<div [hidden]="query.selectedQuery != 'lt'" class="row">
 				<lt-query 
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</lt-query>
@@ -119,12 +119,12 @@
 			<!-- match query end -->
 			
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'term'" class="row">
+			<div [hidden]="query.selectedQuery != 'term'" class="row">
 				<term-query 
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</term-query>
@@ -132,12 +132,12 @@
 			<!-- match query end -->
 			
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'terms'" class="row">
+			<div [hidden]="query.selectedQuery != 'terms'" class="row">
 				<terms-query 
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</terms-query>
@@ -145,12 +145,12 @@
 			<!-- match query end -->
 			
 			<!-- match query start -->
-			<div [hidden]="selectedQuery != 'prefix'" class="row">
+			<div [hidden]="query.selectedQuery != 'prefix'" class="row">
 				<prefix-query 
 					[appliedQuery]="query.appliedQuery"
 					[queryList]="queryList"
-					[selectedQuery]="selectedQuery"
-					[selectedField]="selectedField"
+					[selectedQuery]="query.selectedQuery"
+					[selectedField]="query.selectedField"
 					(getQueryFormat)="getQueryFormat($event);"
 					>
 				</prefix-query>

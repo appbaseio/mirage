@@ -23,9 +23,10 @@
         .feature-query-container .features-section .feature-section-container .theme-list li.list-item {
           display: block;
           border-bottom: 1px solid #dedede;
-          padding: 10px 40px 10px 15px;
+          padding: 10px 15px 10px 15px;
           cursor: pointer; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item .query-name {
+            padding: 0;
             padding-bottom: 10px; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item .query-time {
             font-size: 10px; }

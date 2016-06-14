@@ -3,7 +3,7 @@ import { Component, OnChanges, SimpleChange, Input, Output, EventEmitter } from 
 @Component({
 	selector: 'types',
 	templateUrl: './app/build/types/types.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setFinalUrl', 'urlShare']
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare']
 })
 
 export class TypesComponent implements OnChanges {
@@ -14,7 +14,7 @@ export class TypesComponent implements OnChanges {
 	@Input() result: any;
 	@Input() finalUrl: string;
 	@Input() urlShare: any;
-	@Output() setFinalUrl = new EventEmitter < any > ();
+	@Output() setProp = new EventEmitter < any > ();
 
 	constructor() {}
 
@@ -51,7 +51,6 @@ export class TypesComponent implements OnChanges {
 
 	changeType(val) {
 		//this.mapping.resultQuery.result = [];
-		this.selectedTypes = val;
 		var availableFields: any = [];
 		if (val && val.length) {
 			val.forEach(function(type: any) {
@@ -76,27 +75,47 @@ export class TypesComponent implements OnChanges {
 					availableFields.push(obj);
 				}
 			}.bind(this));
-			this.setUrl();
-
-			//set input state
-			this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
-			this.urlShare.createUrl();
+			this.setUrl(val);
+			var propInfo = {
+				name: 'selectedTypes',
+				value: val
+			};
+			this.setProp.emit(propInfo);
+		} else {
+			var propInfo = {
+				name: 'selectedTypes',
+				value: []
+			};
+			this.setProp.emit(propInfo);
+			this.setUrl([]);
 		}
-		console.log(availableFields);
-		this.result.resultQuery.availableFields = availableFields;
+
+		var propInfo = {
+			name: 'availableFields',
+			value: availableFields
+		};
+		this.setProp.emit(propInfo);
 	}
 
-	setUrl() {
-		var selectedTypes = this.selectedTypes;
+	setUrl(val: any) {
+		var selectedTypes = val;
 		var finalUrl = this.finalUrl.split('/');
 		var lastUrl = '';
 		if (finalUrl.length > 4) {
-			finalUrl[4] = this.selectedTypes.join(',');
+			finalUrl[4] = selectedTypes.join(',');
 			lastUrl = finalUrl.join('/');
 		} else {
-			lastUrl = this.finalUrl + '/' + this.selectedTypes.join(',') + '/_search';
+			var typeJoin = '/' + selectedTypes.join(',');
+			if(!selectedTypes.length) {
+				typeJoin = '';
+			}
+			lastUrl = this.finalUrl + typeJoin + '/_search';
 		}
-		this.setFinalUrl.emit(lastUrl);
+		var propInfo = {
+			name: 'finalUrl',
+			value: lastUrl
+		};
+		this.setProp.emit(propInfo);
 	}
 
 }
