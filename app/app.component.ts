@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, OnChanges {
 			let list = window.localStorage.getItem('queryList');
 			if (list) {
 				this.savedQueryList = JSON.parse(list);
-				this.sort(this.sort_by, this.savedQueryList);
+				this.sort(this.savedQueryList);
 			}
 		} catch (e) {}
 	}
@@ -235,8 +235,7 @@ export class AppComponent implements OnInit, OnChanges {
 			createdAt: createdAt
 		};
 		this.savedQueryList.push(queryData);
-		var direction = this.sort_direction ? false : true;
-		this.sort(this.sort_by, this.filteredQuery, direction);
+		this.sort(this.filteredQuery);
 		var queryString = JSON.stringify(this.savedQueryList);
 		try {
 			window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
@@ -244,32 +243,12 @@ export class AppComponent implements OnInit, OnChanges {
 		$('#saveQueryModal').modal('hide');
 	}
 
-	// Sorting
-	sort(prop: string, list: any, direction: boolean) {
-		if (this.searchTerm.trim().length < 1) {
-			var list = list ? list : this.savedQueryList;
-		} else {
-			var list = list ? list : this.filteredQuery;
-		}
-		if (!direction) {
-			if (prop == this.sort_by) {
-				this.sort_direction = this.sort_direction ? false : true;
-			} else {
-				this.sort_direction = true;
-			}
-		}
-		this.sort_by = prop;
-		if (this.sort_direction) {
-			this.filteredQuery = list.sortBy(function(item) {
-				return item[prop];
-			});
-		} else {
-			this.filteredQuery = list.sortBy(function(item) {
-				return -item[prop];
-			});
-		}
-		console.log(this.sort_direction, this.sort_by);
-		console.log('filtered', this.filteredQuery);
+	// Sorting by created At
+	sort(list: any) {
+		this.sort_by = 'createdAt';
+		this.filteredQuery = list.sortBy(function(item) {
+			return -item[this.sort_by];
+		}.bind(this));
 	}
 
 	// Searching
@@ -288,8 +267,7 @@ export class AppComponent implements OnInit, OnChanges {
 		} else {
 			this.filteredQuery = this.savedQueryList;
 		}
-		var direction = this.sort_direction ? false : true;
-		this.sort(this.sort_by, this.filteredQuery, direction);
+		this.sort(this.filteredQuery);
 	}
 
 	setFinalUrl(url: string) {

@@ -1,14 +1,6 @@
 <div class="col-xs-12 pd-0">
 	<input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm" (keyup)="searchList.emit($event)" />
 </div>
-<div class="col-xs-12 pd-0">
-	<a (click)="sort.emit('tag')" class="btn btn-sort col-xs-6" [ngClass]="{active: sort_by == 'tag'}">
-		Tag
-	</a>
-	<a (click)="sort.emit('createdAt')" class="btn btn-sort col-xs-6" [ngClass]="{active: sort_by == 'createdAt'}">
-		Date
-	</a>
-</div>
 <ul class="theme-list col-xs-12">
 	<li class="list-item col-xs-12 list-title" (click)="applyClearAll();">Saved Queries (clear all)</li>
 	<li class="list-item col-xs-12" *ngFor="let query of filteredQuery, let i=index">
