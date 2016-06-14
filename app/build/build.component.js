@@ -192,28 +192,6 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                 BuildComponent.prototype.openModal = function () {
                     $('#saveQueryModal').modal('show');
                 };
-                // save query
-                BuildComponent.prototype.save = function () {
-                    var savedQueryList = this.savedQueryList;
-                    var createdAt = new Date().getTime();
-                    savedQueryList.forEach(function (query, index) {
-                        if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
-                            this.savedQueryList.splice(index, 1);
-                        }
-                    }.bind(this));
-                    var queryData = {
-                        mapping: this.mapping,
-                        config: this.config,
-                        types: this.types,
-                        selectedTypes: this.selectedTypes,
-                        result: this.result,
-                        name: this.query_info.name,
-                        tag: this.query_info.tag,
-                        createdAt: createdAt
-                    };
-                    savedQueryList.push(queryData);
-                    this.saveQuery.emit(savedQueryList);
-                };
                 BuildComponent.prototype.setFinalUrlIn = function (url) {
                     this.setFinalUrl.emit(url);
                 };

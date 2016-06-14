@@ -224,8 +224,25 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                 AppComponent.prototype.sidebarToggle = function () {
                     this.sidebar = this.sidebar ? false : true;
                 };
-                AppComponent.prototype.saveQuery = function (list) {
-                    this.savedQueryList = list;
+                // save query
+                AppComponent.prototype.saveQuery = function () {
+                    var createdAt = new Date().getTime();
+                    this.savedQueryList.forEach(function (query, index) {
+                        if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
+                            this.savedQueryList.splice(index, 1);
+                        }
+                    }.bind(this));
+                    var queryData = {
+                        mapping: this.mapping,
+                        config: this.config,
+                        types: this.types,
+                        selectedTypes: this.selectedTypes,
+                        result: this.result,
+                        name: this.query_info.name,
+                        tag: this.query_info.tag,
+                        createdAt: createdAt
+                    };
+                    this.savedQueryList.push(queryData);
                     var direction = this.sort_direction ? false : true;
                     this.sort(this.sort_by, this.filteredQuery, direction);
                     var queryString = JSON.stringify(this.savedQueryList);
