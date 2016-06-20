@@ -20,6 +20,15 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                         'foo': 'bar'
                     }
                 };
+                var expectedFormatWithOption = {
+                    'match': {
+                        'foo': {
+                            "query": "bar",
+                            "operator": "and",
+                            "zero_terms_query": "all"
+                        }
+                    }
+                };
                 // instantiate query component and set the input fields 
                 testing_1.beforeEach(function () {
                     query = new match_query_1.MatchQuery();
@@ -50,6 +59,18 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                 testing_1.it('Is setformat matches with expected query format', function () {
                     var format = query.setFormat();
                     testing_1.expect(format).toEqual(expectedFormat);
+                });
+                // Test to check if result of setformat is equal to expected query format with option.
+                testing_1.it('Is setformat matches with expected query format when pass options with query', function () {
+                    query.optionRows = [{
+                            name: 'operator',
+                            value: 'and'
+                        }, {
+                            name: 'zero_terms_query',
+                            value: 'all'
+                        }];
+                    var format = query.setFormat();
+                    testing_1.expect(format).toEqual(expectedFormatWithOption);
                 });
             });
         }

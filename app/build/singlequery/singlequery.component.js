@@ -1,4 +1,4 @@
-System.register(["@angular/core", '../select2/select2.component', './queries/match.query', './queries/match_phrase.query', './queries/match_phase_prefix.query', './queries/range.query', './queries/gt.query', './queries/lt.query', './queries/term.query', './queries/exists.query', './queries/terms.query', './queries/prefix.query'], function(exports_1, context_1) {
+System.register(["@angular/core", '../select2/select2.component', '../editable/editable.component', './queries/match.query', './queries/match_phrase.query', './queries/match_phase_prefix.query', './queries/range.query', './queries/gt.query', './queries/lt.query', './queries/term.query', './queries/exists.query', './queries/terms.query', './queries/prefix.query'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, select2_component_1, match_query_1, match_phrase_query_1, match_phase_prefix_query_1, range_query_1, gt_query_1, lt_query_1, term_query_1, exists_query_1, terms_query_1, prefix_query_1;
+    var core_1, select2_component_1, editable_component_1, match_query_1, match_phrase_query_1, match_phase_prefix_query_1, range_query_1, gt_query_1, lt_query_1, term_query_1, exists_query_1, terms_query_1, prefix_query_1;
     var SinglequeryComponent;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
             },
             function (select2_component_1_1) {
                 select2_component_1 = select2_component_1_1;
+            },
+            function (editable_component_1_1) {
+                editable_component_1 = editable_component_1_1;
             },
             function (match_query_1_1) {
                 match_query_1 = match_query_1_1;
@@ -77,13 +80,17 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                     }.bind(this), 300);
                 };
                 SinglequeryComponent.prototype.ngAfterViewInit = function () {
+                    console.log('here', this.existsQuery);
                     this.informationList = {
                         'match': this.matchQuery.information,
                         'match_phrase': this.match_phraseQuery.information,
                         'match-phase-prefix': this.match_phase_prefixQuery.information,
                         'range': this.rangeQuery.information,
                         'gt': this.gtQuery.information,
-                        'lt': this.ltQuery.information
+                        'lt': this.ltQuery.information,
+                        'term': this.termQuery.information,
+                        'terms': this.termsQuery.information,
+                        'exists': this.existsQuery.information
                     };
                 };
                 SinglequeryComponent.prototype.getQueryFormat = function (outputQuery) {
@@ -119,14 +126,6 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                 SinglequeryComponent.prototype.exeBuild = function () {
                     var _this = this;
                     setTimeout(function () { return _this.buildQuery(); }, 300);
-                };
-                // allow user to select field, or query
-                // toggle between editable-front and editable-back
-                // focus to select element
-                SinglequeryComponent.prototype.editable_on = function ($event) {
-                    $('.editable-pack').removeClass('on');
-                    $($event.currentTarget).parents('.editable-pack').addClass('on');
-                    $($event.currentTarget).parents('.editable-pack').find('select').select2('open');
                 };
                 SinglequeryComponent.prototype.getField = function (fieldName) {
                     return this.result.resultQuery.availableFields.filter(function (ele) {
@@ -178,10 +177,6 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                     __metadata('design:type', term_query_1.TermQuery)
                 ], SinglequeryComponent.prototype, "termQuery", void 0);
                 __decorate([
-                    core_1.ViewChild(exists_query_1.ExistsQuery), 
-                    __metadata('design:type', exists_query_1.ExistsQuery)
-                ], SinglequeryComponent.prototype, "existsQuery", void 0);
-                __decorate([
                     core_1.ViewChild(terms_query_1.TermsQuery), 
                     __metadata('design:type', terms_query_1.TermsQuery)
                 ], SinglequeryComponent.prototype, "termsQuery", void 0);
@@ -189,6 +184,10 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                     core_1.ViewChild(prefix_query_1.PrefixQuery), 
                     __metadata('design:type', prefix_query_1.PrefixQuery)
                 ], SinglequeryComponent.prototype, "prefixQuery", void 0);
+                __decorate([
+                    core_1.ViewChild(exists_query_1.ExistsQuery), 
+                    __metadata('design:type', exists_query_1.ExistsQuery)
+                ], SinglequeryComponent.prototype, "existsQuery", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
@@ -199,6 +198,7 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                         templateUrl: './app/build/singlequery/singlequery.component.html',
                         inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
                         directives: [
+                            editable_component_1.EditableComponent,
                             SinglequeryComponent,
                             select2_component_1.select2Component,
                             match_query_1.MatchQuery,
@@ -206,7 +206,10 @@ System.register(["@angular/core", '../select2/select2.component', './queries/mat
                             match_phase_prefix_query_1.Match_phase_prefixQuery,
                             range_query_1.RangeQuery,
                             gt_query_1.GtQuery,
-                            lt_query_1.LtQuery
+                            lt_query_1.LtQuery,
+                            term_query_1.TermQuery,
+                            terms_query_1.TermsQuery,
+                            exists_query_1.ExistsQuery
                         ]
                     }), 
                     __metadata('design:paramtypes', [])

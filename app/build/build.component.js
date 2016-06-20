@@ -83,41 +83,54 @@ System.register(["@angular/core", "./boolquery/boolquery.component", "../shared/
                 BuildComponent.prototype.buildQuery = function () {
                     var self = this;
                     var results = this.result.resultQuery.result;
-                    var finalresult = {};
-                    var es_final = {
-                        'query': {
-                            'bool': finalresult
-                        }
-                    };
-                    results.forEach(function (result) {
-                        result.availableQuery = self.buildInsideQuery(result);
-                    });
-                    results.forEach(function (result0) {
-                        results.forEach(function (result1) {
-                            if (result1.parent_id == result0.id) {
-                                var current_query = {
-                                    'bool': {}
-                                };
-                                var currentBool = self.queryList['boolQuery'][result1['boolparam']];
-                                current_query['bool'][currentBool] = result1.availableQuery;
-                                if (currentBool === 'should') {
-                                    current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
+                    if (results.length) {
+                        var finalresult = {};
+                        var es_final = {
+                            'query': {
+                                'bool': finalresult
+                            }
+                        };
+                        results.forEach(function (result) {
+                            result.availableQuery = self.buildInsideQuery(result);
+                        });
+                        results.forEach(function (result0) {
+                            results.forEach(function (result1) {
+                                if (result1.parent_id == result0.id) {
+                                    var current_query = {
+                                        'bool': {}
+                                    };
+                                    var currentBool = self.queryList['boolQuery'][result1['boolparam']];
+                                    current_query['bool'][currentBool] = result1.availableQuery;
+                                    if (currentBool === 'should') {
+                                        current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
+                                    }
+                                    result0.availableQuery.push(current_query);
                                 }
-                                result0.availableQuery.push(current_query);
+                            });
+                        });
+                        results.forEach(function (result) {
+                            if (result.parent_id === 0) {
+                                var currentBool = self.queryList['boolQuery'][result['boolparam']];
+                                finalresult[currentBool] = result.availableQuery;
+                                if (currentBool === 'should') {
+                                    finalresult['minimum_should_match'] = result.minimum_should_match;
+                                }
                             }
                         });
-                    });
-                    results.forEach(function (result) {
-                        if (result.parent_id === 0) {
-                            var currentBool = self.queryList['boolQuery'][result['boolparam']];
-                            finalresult[currentBool] = result.availableQuery;
-                            if (currentBool === 'should') {
-                                finalresult['minimum_should_match'] = result.minimum_should_match;
-                            }
+                        this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+                        this.editorHookHelp.setValue(self.result.resultQuery.final);
+                    }
+                    else {
+                        if (this.selectedTypes.length) {
+                            var match_all = {
+                                'query': {
+                                    'match_all': {}
+                                }
+                            };
+                            this.result.resultQuery.final = JSON.stringify(match_all, null, 2);
+                            this.editorHookHelp.setValue(self.result.resultQuery.final);
                         }
-                    });
-                    this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-                    this.editorHookHelp.setValue(self.result.resultQuery.final);
+                    }
                     //set input state
                     try {
                         this.urlShare.inputs['result'] = this.result;

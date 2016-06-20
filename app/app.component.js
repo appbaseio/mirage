@@ -211,7 +211,14 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                 AppComponent.prototype.deleteQuery = function (index) {
                     var confirmFlag = confirm("Do you want to delete this query?");
                     if (confirmFlag) {
-                        this.savedQueryList.splice(index, 1);
+                        var selectedQuery = this.filteredQuery[index];
+                        debugger;
+                        this.savedQueryList.forEach(function (query, index) {
+                            if (query.name === selectedQuery.name && query.tag === selectedQuery.tag) {
+                                this.savedQueryList.splice(index, 1);
+                            }
+                        }.bind(this));
+                        this.filteredQuery.splice(index, 1);
                         try {
                             window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
                         }

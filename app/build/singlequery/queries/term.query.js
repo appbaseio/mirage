@@ -24,9 +24,8 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     this.queryName = '*';
                     this.fieldName = '*';
                     this.information = {
-                        title: 'lt query',
-                        content: 'lt query content',
-                        link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+                        title: 'Term query',
+                        content: "<span class=\"description\"> Term query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-term-query.html\">Documentation</a>"
                     };
                     this.inputs = {
                         input: {
@@ -101,7 +100,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 TermQuery = __decorate([
                     core_1.Component({
                         selector: 'term-query',
-                        template: "<div class=\"form-group form-element col-xs-12\">\n\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t</div>",
+                        template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
                         inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
                     }), 
                     __metadata('design:paramtypes', [])

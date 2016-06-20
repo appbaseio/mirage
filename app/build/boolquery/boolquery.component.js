@@ -1,4 +1,4 @@
-System.register(["@angular/core", "../singlequery/singlequery.component"], function(exports_1, context_1) {
+System.register(["@angular/core", "../singlequery/singlequery.component", '../editable/editable.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "../singlequery/singlequery.component"], funct
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, singlequery_component_1;
+    var core_1, singlequery_component_1, editable_component_1;
     var BoolqueryComponent;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(["@angular/core", "../singlequery/singlequery.component"], funct
             },
             function (singlequery_component_1_1) {
                 singlequery_component_1 = singlequery_component_1_1;
+            },
+            function (editable_component_1_1) {
+                editable_component_1 = editable_component_1_1;
             }],
         execute: function() {
             BoolqueryComponent = (function () {
@@ -58,6 +61,10 @@ System.register(["@angular/core", "../singlequery/singlequery.component"], funct
                     var _this = this;
                     setTimeout(function () { return _this.buildQuery(); }, 300);
                 };
+                BoolqueryComponent.prototype.booleanChange = function (boolVal) {
+                    this.query.boolparam = boolVal;
+                    this.exeBuild();
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
@@ -79,7 +86,7 @@ System.register(["@angular/core", "../singlequery/singlequery.component"], funct
                         selector: 'bool-query',
                         templateUrl: './app/build/boolquery/boolquery.component.html',
                         inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
-                        directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent]
+                        directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent, editable_component_1.EditableComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], BoolqueryComponent);

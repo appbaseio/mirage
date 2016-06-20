@@ -17,7 +17,7 @@ System.register(['@angular/core/testing', './terms.query'], function(exports_1, 
                 var query;
                 var expectedFormat = {
                     'terms': {
-                        'foo': 'bar'
+                        'foo': ['bar']
                     }
                 };
                 // instantiate query component and set the input fields 

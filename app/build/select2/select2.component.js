@@ -62,7 +62,9 @@ System.register(["@angular/core", "../../shared/globalshare.service"], function(
                 };
                 select2Component.prototype.getInformation = function (query) {
                     var query = this.informationList[query];
+                    query['html'] = true;
                     query['trigger'] = 'hover';
+                    query['placement'] = 'right';
                     return query;
                 };
                 __decorate([

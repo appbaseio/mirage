@@ -21,6 +21,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
             TypesComponent = (function () {
                 function TypesComponent() {
                     this.setProp = new core_1.EventEmitter();
+                    this.buildQuery = new core_1.EventEmitter();
                 }
                 TypesComponent.prototype.ngOnChanges = function (changes) {
                     if (changes['detectChange'] && this.types.length) {
@@ -101,8 +102,10 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     var selectedTypes = val;
                     var finalUrl = this.finalUrl.split('/');
                     var lastUrl = '';
+                    finalUrl[3] = this.config.appname;
                     if (finalUrl.length > 4) {
                         finalUrl[4] = selectedTypes.join(',');
+                        finalUrl[5] = '_search';
                         lastUrl = finalUrl.join('/');
                     }
                     else {
@@ -117,6 +120,9 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                         value: lastUrl
                     };
                     this.setProp.emit(propInfo);
+                    setTimeout(function () {
+                        this.buildQuery.emit(null);
+                    }.bind(this), 300);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -150,11 +156,15 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     core_1.Output(), 
                     __metadata('design:type', Object)
                 ], TypesComponent.prototype, "setProp", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], TypesComponent.prototype, "buildQuery", void 0);
                 TypesComponent = __decorate([
                     core_1.Component({
                         selector: 'types',
                         templateUrl: './app/build/types/types.component.html',
-                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare']
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare', 'buildQuery']
                     }), 
                     __metadata('design:paramtypes', [])
                 ], TypesComponent);
