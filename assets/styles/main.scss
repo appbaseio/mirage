@@ -45,9 +45,10 @@
 .app-container {
   position: relative;
   padding-top: 40px;
+  padding-bottom: 60px;
+  height: 100%;
 }
-.init-ES,
-footer {
+.init-ES, footer {
   position: absolute;
   top: 0;
   left: 0;
@@ -137,6 +138,27 @@ body {
 }
 .hide-url.expand {
   width: 100%;
+}
+.query-main-container {
+  position: relative;
+  min-height: 100%;
+  height: auto;
+  display: block;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    padding-right: 5px;
+    border-top: 1px solid #ddd;
+    border-bottom: 0;
+    z-index: 99999999;
+    height: 36px;
+    padding-left: 5px;
+  .powered_by {
+    position: absolute;
+    right: 5px;
+  }
 }
 .loading {
     height: 100%;
