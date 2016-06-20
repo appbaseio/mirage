@@ -1,8 +1,5 @@
 <div class="form-group single_query col-xs-12 bool_query">
 	<div class="action-btn-group">
-		<a href="javascript:void(0)" (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
-			<i class="fa fa-plus"></i> Nested query
-		</a>
 		<a href="javascript:void(0)" (click)="removeInQuery(query.id)" class="btn btn-grey delete-nested-query">
 			<i class="fa fa-trash"></i>
 		</a>
@@ -46,7 +43,10 @@
 			</single-query>
 		</form>
 		<div class="col-xs-12 pd-0 add_condition_row">
-			<button class="btn btn-info pull-left add_condition" (click)="addQuery(query);">Add conditions</button>
+			<button class="btn btn-info add_condition" (click)="addQuery(query);">Add conditions</button>
+			<button (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
+				<i class="fa fa-plus"></i> Nested query
+			</button>
 		</div>
 	</div>
 	<div class="subQuery">
