@@ -3,6 +3,9 @@ export var queryList = {
 		string: [
 			'match',
 			'match_phrase',
+			'term',
+			'terms',
+			'exists',
 			'match-phase-prefix'
 		],
 		numeric: [

@@ -3,7 +3,7 @@ import { Component, OnChanges, SimpleChange, Input, Output, EventEmitter } from 
 @Component({
 	selector: 'types',
 	templateUrl: './app/build/types/types.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare']
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare', 'buildQuery']
 })
 
 export class TypesComponent implements OnChanges {
@@ -15,6 +15,7 @@ export class TypesComponent implements OnChanges {
 	@Input() finalUrl: string;
 	@Input() urlShare: any;
 	@Output() setProp = new EventEmitter < any > ();
+	@Output() buildQuery = new EventEmitter < any > ();
 
 	constructor() {}
 
@@ -101,8 +102,10 @@ export class TypesComponent implements OnChanges {
 		var selectedTypes = val;
 		var finalUrl = this.finalUrl.split('/');
 		var lastUrl = '';
+		finalUrl[3] = this.config.appname;
 		if (finalUrl.length > 4) {
 			finalUrl[4] = selectedTypes.join(',');
+			finalUrl[5] = '_search';
 			lastUrl = finalUrl.join('/');
 		} else {
 			var typeJoin = '/' + selectedTypes.join(',');
@@ -116,6 +119,9 @@ export class TypesComponent implements OnChanges {
 			value: lastUrl
 		};
 		this.setProp.emit(propInfo);
+		setTimeout(function() {
+			this.buildQuery.emit(null);
+		}.bind(this), 300);
 	}
 
 }

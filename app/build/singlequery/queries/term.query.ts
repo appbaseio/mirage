@@ -2,12 +2,14 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 
 @Component({
 	selector: 'term-query',
-	template: 	`<div class="form-group form-element col-xs-12">
-					<input type="text" class="form-control col-xs-12"
-						[(ngModel)]="inputs.input.value" 
-					 	placeholder="{{inputs.input.placeholder}}"
-					 	(keyup)="getFormat();" />
-				</div>`,
+	template: 	`<span class="col-xs-6 pd-0">
+					<div class="form-group form-element">
+						<input type="text" class="form-control col-xs-12"
+							[(ngModel)]="inputs.input.value" 
+						 	placeholder="{{inputs.input.placeholder}}"
+						 	(keyup)="getFormat();" />
+					</div>
+				</span>`,
 	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
@@ -20,9 +22,9 @@ export class TermQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'lt query',
-		content: 'lt query content',
-		link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+		title: 'Term query',
+		content: `<span class="description"> Term query content </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-term-query.html">Documentation</a>`
 	};
 	
 	public inputs: any = {

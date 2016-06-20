@@ -1,7 +1,7 @@
 <div class="row queryLeft">
 	<div class="col-xs-12 pd-0">
 		<div class="form-group m-b15">
-			<types  [detectChange]="detectChange" [mapping] = "mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config] = "config" [finalUrl]="finalUrl"  (setProp)="setPropIn($event)" [urlShare]="urlShare">
+			<types  [detectChange]="detectChange" [mapping] = "mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config] = "config" [finalUrl]="finalUrl"  (setProp)="setPropIn($event)" [urlShare]="urlShare" (buildQuery)="buildQuery($event);">
 			</types>
 		</div>
 		<form class="row m-0"

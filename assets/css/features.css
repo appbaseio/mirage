@@ -41,10 +41,7 @@
             position: absolute;
             right: 5px;
             top: 5px;
-            display: none;
-            color: #555;
-            border-color: #bbb;
-            background: #ccc; }
+            display: none; }
     .feature-query-container .features-section .sidebar-toggle {
       position: absolute;
       right: -27px;

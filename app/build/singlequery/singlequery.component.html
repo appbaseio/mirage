@@ -1,163 +1,149 @@
-<div class="form-group single_query col-xs-12 query-{{queryIndex}}-{{internalIndex}}" [ngClass]="{query_complete: query.field !== '' && query.query !== ''}">
+<div class="form-group single_query internal-query col-xs-12 query-{{queryIndex}}-{{internalIndex}}" [ngClass]="{query_complete: query.field !== '' && query.query !== ''}">
 	<div class="action-btn-group">
 		<a href="javascript:void(0)" (click)="removeQuery()" class="btn btn-grey add_condition_delete">
-			<i class="fa fa-trash"></i>
+			<i class="fa fa-times"></i>
 		</a>
 	</div>
 	<!-- field part start -->
-	<div class="col-xs-3 pd-l0 editable-pack">
-		<div class="editable-front col-xs-12 pd-0" (click)="editable_on($event)">
-			<div *ngIf = "query.selectedField != ''">
-				{{query.selectedField}}
-			</div>
-			<div *ngIf = "query.selectedField == ''">
-				field
-			</div>
-		</div>
-		<div class="editable-back col-xs-12 pd-0">
-			<select2 class="field-select" [selectOptions]="result.resultQuery.availableFields" [querySelector]="querySelector" [selector]="selector.field" (callback)="analyzeTest($event);"></select2>
-		</div>	
-	</div>
+	<editable class="col-xs-3 pd-l0 field-select" [editableField]="query.selectedField" [editPlaceholder]="'field'" [editableInput]="'select2'" [result]="result" [selectOption]="result.resultQuery.availableFields" [querySelector]="querySelector"  [selector]="selector.field" (callback)="analyzeTest($event)"></editable>
 	<!-- field part end -->
 	<!-- query part start -->
 	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( query.field.type == 'string' || query.field.type == 'date' || query.field.type == 'numeric')">
-		<div class="col-xs-12 pd-0 editable-pack">
-			<div class="editable-front col-xs-12 pd-0"  (click)="editable_on($event)">
-				<div *ngIf = "query.selectedQuery != ''">
-					{{query.selectedQuery}}
-				</div>
-				<div *ngIf = "query.selectedQuery == ''">
-					query
-				</div>
-			</div>
-			<div class="editable-back col-xs-12 pd-0">
-				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" [informationList]="informationList" (callback)="queryCallback($event);" [showInfoFlag]="true"></select2>
-			</div>
-		</div>
+		<editable class="query-select" [editableField]="query.selectedQuery" [editPlaceholder]="'query'" [editableInput]="'select2'" [result]="result" [selectOption]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector"  [selector]="selector.query"  [informationList]="informationList"  (callback)="queryCallback($event)" [showInfoFlag]="true"></editable>
 	</div>
 	<!-- query part end -->
 	<!-- load the slector for selected query -->
-	<div class="col-xs-6 pd-l0">
-		<div class="col-xs-12 pd-0">
-			
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'match'" class="row">
-				<match-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</match-query>
-			</div>
-			<!-- match query end -->
-
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'match_phrase'" class="row">
-				<match_phrase-query
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</match_phrase-query>
-			</div>
-			<!-- match query end -->
-
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'match-phase-prefix'" class="row">
-				<match-phase-prefix-query
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</match-phase-prefix-query>
-			</div>
-			<!-- match query end -->
-			
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'range'" class="row">
-				<range-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</range-query>
-			</div>
-			<!-- match query end -->
-			
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'gt'" class="row">
-				<gt-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</gt-query>
-			</div>
-			<!-- match query end -->
-			
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'lt'" class="row">
-				<lt-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</lt-query>
-			</div>
-			<!-- match query end -->
-			
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'term'" class="row">
-				<term-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</term-query>
-			</div>
-			<!-- match query end -->
-			
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'terms'" class="row">
-				<terms-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</terms-query>
-			</div>
-			<!-- match query end -->
-			
-			<!-- match query start -->
-			<div [hidden]="query.selectedQuery != 'prefix'" class="row">
-				<prefix-query 
-					[appliedQuery]="query.appliedQuery"
-					[queryList]="queryList"
-					[selectedQuery]="query.selectedQuery"
-					[selectedField]="query.selectedField"
-					(getQueryFormat)="getQueryFormat($event);"
-					>
-				</prefix-query>
-			</div>
-			<!-- match query end -->
-			
-		</div>
+		
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'match'" class="row">
+		<match-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</match-query>
 	</div>
+	<!-- match query end -->
+
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'match_phrase'" class="row">
+		<match_phrase-query
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</match_phrase-query>
+	</div>
+	<!-- match query end -->
+
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'match-phase-prefix'" class="row">
+		<match-phase-prefix-query
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</match-phase-prefix-query>
+	</div>
+	<!-- match query end -->
+	
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'range'" class="row">
+		<range-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</range-query>
+	</div>
+	<!-- match query end -->
+	
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'gt'" class="row">
+		<gt-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</gt-query>
+	</div>
+	<!-- match query end -->
+	
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'lt'" class="row">
+		<lt-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</lt-query>
+	</div>
+	<!-- match query end -->
+	
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'term'" class="row">
+		<term-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</term-query>
+	</div>
+	<!-- match query end -->
+	
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'terms'" class="row">
+		<terms-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</terms-query>
+	</div>
+	<!-- match query end -->
+
+
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'exists'" class="row">
+		<exists-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</exists-query>
+	</div>
+	<!-- match query end -->
+	
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'prefix'" class="row">
+		<prefix-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</prefix-query>
+	</div>
+	<!-- match query end -->
+	
 	<!-- load the slector for selected query -->
 </div>

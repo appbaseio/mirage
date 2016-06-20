@@ -89,11 +89,11 @@ footer {
   }
 }
 .btn-grey {
-  background: $dark-grey;
-  color: darken($dark-grey, 30%);
-  border: 1px solid;
+  color: #555;
+  border-color: #bbb;
+  background: #ccc; 
   &:hover {
-    background: darken($dark-grey, 5%);
+    background: darken(#ccc, 5%);
   }
 }
 html,

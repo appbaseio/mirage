@@ -1,17 +1,16 @@
 <div class="form-group single_query col-xs-12 bool_query">
-	<div class="action-btn-group">
-		<a href="javascript:void(0)" (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
-			<i class="fa fa-plus"></i> Nested query
-		</a>
+	<div class="action-btn-group bool-btn-group">
 		<a href="javascript:void(0)" (click)="removeInQuery(query.id)" class="btn btn-grey delete-nested-query">
-			<i class="fa fa-trash"></i>
+			<i class="fa fa-times"></i>
 		</a>
 	</div>
-	<div class="row m-tb-15">
+	<div class="row m-b15">
 		<div class="col-xs-6">
-			<select class="form-control form-element" [(ngModel)]="query.boolparam" (change)="exeBuild();">
+
+			<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
+			<!-- <select class="form-control form-element" [(ngModel)]="query.boolparam" (change)="exeBuild();">
 				<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo}}</option>
-			</select>
+			</select> -->
 		</div>
 		<div class="col-xs-6" *ngIf="queryList.boolQuery[query.boolparam] == 'should'">
 			<div class="form-group form-element">
@@ -43,9 +42,6 @@
 				[urlShare]="urlShare">
 			</single-query>
 		</form>
-		<div class="col-xs-12 pd-0 add_condition_row">
-			<button class="btn btn-info pull-left add_condition" (click)="addQuery(query);">Add conditions</button>
-		</div>
 	</div>
 	<div class="subQuery">
 		<form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">
@@ -72,5 +68,11 @@
 				</bool-query>
 			</div>
 		</form>
+	</div>
+	<div class="col-xs-12 add_condition_row">
+		<button class="btn btn-info add_condition" (click)="addQuery(query);">Add conditions</button>
+		<button (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
+			<i class="fa fa-plus"></i> Nested query
+		</button>
 	</div>
 </div>

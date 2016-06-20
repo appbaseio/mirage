@@ -2,16 +2,24 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 
 @Component({
 	selector: 'range-query',
-	template: 	`<div class="form-group form-element col-xs-12">
-					<input type="text" class="form-control col-xs-12"
-						[(ngModel)]="inputs.from.value" 
-					 	placeholder="{{inputs.from.placeholder}}"
-					 	(keyup)="getFormat();" />
-					<input type="text" class="form-control col-xs-12"
-						[(ngModel)]="inputs.to.value" 
-					 	placeholder="{{inputs.to.placeholder}}"
-					 	(keyup)="getFormat();" />
-				</div>`,
+	template: 	`<span class="col-xs-6 pd-0">
+					<div class="col-xs-6 pl-0">
+						<div class="form-group form-element">
+							<input type="text" class="form-control col-xs-12"
+								[(ngModel)]="inputs.from.value" 
+							 	placeholder="{{inputs.from.placeholder}}"
+							 	(keyup)="getFormat();" />
+						</div> 	
+					</div> 	
+					<div class="col-xs-6 pr-0">
+						<div class="form-group form-element">
+							<input type="text" class="form-control col-xs-12"
+								[(ngModel)]="inputs.to.value" 
+							 	placeholder="{{inputs.to.placeholder}}"
+							 	(keyup)="getFormat();" />
+						</div>	 	
+					</div>
+				</span>`,
 	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
@@ -24,11 +32,11 @@ export class RangeQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'lt query',
-		content: 'lt query content',
-		link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+	title: 'Range query',
+	content: `<span class="description"> Range query content </span>
+				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-range-query.html">Documentation</a>`
 	};
-	
+
 	public inputs: any = {
 		from: {
 			placeholder: 'From',

@@ -1,32 +1,122 @@
+@import "variables.scss";
 .bool_query {
-	.action-btn-group {
-		.btn {
-			height: 36px;
-		}
-	}
-	.nested-query,
 	.delete-nested-query {
 		display: none;
 	}
 	&:hover {
-		.nested-query,
-		.delete-nested-query {
+		.delete-nested-query, .bool-btn-group {
 			display: inline-block;
 		}
 	}
 	.internvalQuery {
+		padding-left: 15px;
 		.add_condition_row {
 			min-height: 36px;
 		}
 		.add_condition,
-		.add_condition_delete {
+		.nested-query {
 			display: none;
 		}
 		&:hover {
 			.add_condition,
+			.nested-query,
 			.add_condition_delete {
 				display: inline-block;
 			}
+		}
+	}
+	.subQuery {
+		padding-left: 15px;
+		.single_query {
+		    border: 0;
+		    padding-top: 0;
+		}
+	}
+	.add_condition_row {
+		padding: 0;
+		padding-left: 15px;
+	}
+}
+.single_query {
+	padding: 15px;
+	background: rgba(226, 91, 25, 0.2);
+	border: 1px solid darken($grey-bg, 10%);
+	margin-bottom: 10px;
+	position: relative;
+	.action-btn-group {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		display: none;
+	}
+	.form-control,
+	.form-element {
+		max-width: 100%;
+	}
+	.form-element {
+		input {
+			color: $grey-font;
+			background: 0 0;
+			border: 0;
+			box-shadow: none;
+			border-bottom: 1px solid;
+			border-radius: 0;
+			padding: 0;
+			line-height: 32px;
+			height: 32px;
+		}
+	}
+	.editable-pack {
+		line-height: 32px;
+		height: 32px;
+		.editable-front {
+			display: inline-block;
+			color: $grey-font;
+			border-bottom: 1px dashed;
+			cursor: pointer;
+			&:hover {
+				color: $primary-font-color;
+			}
+		}
+		.editable-back {
+			display: none;
+			.select2-container {
+				width: 100% !important;
+			}
+		}
+		&.on {
+			.editable-front {
+				display: none;
+			}
+			.editable-back {
+				display: inline-block;
+			}
+		}
+	}
+	&.bool_query {
+		background: $grey-bg;
+	}
+	&.query_complete {
+		background: rgba(82, 199, 130, 0.2);
+	}
+	&.internal-query:hover {
+		.action-btn-group {
+			display: inline-block;
+		}
+	}
+	.query-primary-input, .option-container {
+		position: relative;
+		.add-option, .delete-option {
+			position: absolute;
+			right: 5px;
+			top: 5px;
+		}
+	}
+	.option-container {
+		padding-left: 30px;
+		.single-option {
+			padding: 0;
+			padding-top: 5px;
 		}
 	}
 }

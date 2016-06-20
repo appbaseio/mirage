@@ -2,12 +2,14 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 
 @Component({
 	selector: 'lt-query',
-	template: 	`<div class="form-group form-element col-xs-12">
-					<input type="text" class="form-control col-xs-12"
-						[(ngModel)]="inputs.lt.value" 
-					 	placeholder="{{inputs.lt.placeholder}}"
-					 	(keyup)="getFormat();" />
-				</div>`,
+	template: 	`<span class="col-xs-6 pd-0">
+					<div class="form-group form-element">
+						<input type="text" class="form-control col-xs-12"
+							[(ngModel)]="inputs.lt.value" 
+						 	placeholder="{{inputs.lt.placeholder}}"
+						 	(keyup)="getFormat();" />
+					</div>
+				</span>`,
 	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
@@ -20,9 +22,9 @@ export class LtQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'lt query',
-		content: 'lt query content',
-		link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+		title: 'Lt query',
+		content: `<span class="description"> Lt query content </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
 	};
 	
 	

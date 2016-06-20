@@ -46,6 +46,7 @@ var files = {
             'bower_components/crypto-js/crypto-js.js',
             'assets/vendor/jquery.layout/jquery-ui.js',
             'assets/vendor/jquery.layout/jquery.layout.js',
+            'assets/vendor/jquery.simulate.js',
             'node_modules/core-js/client/shim.min.js',
             'node_modules/zone.js/dist/zone.js',
             'node_modules/reflect-metadata/Reflect.js',
