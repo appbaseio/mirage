@@ -48,6 +48,9 @@ export class ResultComponent implements OnInit {
 				self.result.output = JSON.stringify(res.json(), null, 2);
 				self.responseHookHelp.setValue(self.result.output);
 			}).catch(function(data) {
+				self.result.isWatching = false;
+				self.result.output = JSON.stringify(data, null, 2);
+				self.responseHookHelp.setValue(self.result.output);
 			});
 		} else {
 			alert(validate.message);
