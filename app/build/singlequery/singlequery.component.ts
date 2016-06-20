@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, Input, AfterViewInit, ViewChild } from "@angular/core";
 import { select2Component } from '../select2/select2.component';
+import { EditableComponent } from '../editable/editable.component';
 import { MatchQuery } from './queries/match.query';
 import { Match_phraseQuery } from './queries/match_phrase.query';
 import { Match_phase_prefixQuery } from './queries/match_phase_prefix.query';
@@ -16,6 +17,7 @@ import { PrefixQuery } from './queries/prefix.query';
 	templateUrl: './app/build/singlequery/singlequery.component.html',
 	inputs: ['mapping', 'types', 'selectedTypes', 'result',  'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
 	directives: [
+		EditableComponent,
 		SinglequeryComponent,
 		select2Component,
 		MatchQuery,
@@ -126,15 +128,6 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	// buildquery method is inside build.component
 	exeBuild() {
 		setTimeout(() => this.buildQuery(), 300);
-	}
-
-	// allow user to select field, or query
-	// toggle between editable-front and editable-back
-	// focus to select element
-	editable_on($event) {
-		$('.editable-pack').removeClass('on');
-		$($event.currentTarget).parents('.editable-pack').addClass('on');
-		$($event.currentTarget).parents('.editable-pack').find('select').select2('open');
 	}
 
 	getField(fieldName: any) {

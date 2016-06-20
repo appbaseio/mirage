@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { SinglequeryComponent } from "../singlequery/singlequery.component";
+import { EditableComponent } from '../editable/editable.component';
 
 @Component({
 	selector: 'bool-query',
 	templateUrl: './app/build/boolquery/boolquery.component.html',
 	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
-	directives: [BoolqueryComponent, SinglequeryComponent]
+	directives: [BoolqueryComponent, SinglequeryComponent, EditableComponent]
 })
 
 export class BoolqueryComponent implements OnInit {
@@ -53,5 +54,9 @@ export class BoolqueryComponent implements OnInit {
 	}
 	exeBuild() {
 		setTimeout(() => this.buildQuery(), 300);
+	}
+	booleanChange(boolVal) {
+		this.query.boolparam = boolVal;
+		this.exeBuild();
 	}
 }

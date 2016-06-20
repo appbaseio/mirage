@@ -5,35 +5,11 @@
 		</a>
 	</div>
 	<!-- field part start -->
-	<div class="col-xs-3 pd-l0 editable-pack">
-		<div class="editable-front col-xs-12 pd-0" (click)="editable_on($event)">
-			<div *ngIf = "query.selectedField != ''">
-				{{query.selectedField}}
-			</div>
-			<div *ngIf = "query.selectedField == ''">
-				field
-			</div>
-		</div>
-		<div class="editable-back col-xs-12 pd-0">
-			<select2 class="field-select" [selectOptions]="result.resultQuery.availableFields" [querySelector]="querySelector" [selector]="selector.field" (callback)="analyzeTest($event);"></select2>
-		</div>	
-	</div>
+	<editable class="col-xs-3 pd-l0 field-select" [editableField]="query.selectedField" [editPlaceholder]="'field'" [editableInput]="'select2'" [result]="result" [selectOption]="result.resultQuery.availableFields" [querySelector]="querySelector"  [selector]="selector.field" (callback)="analyzeTest($event)"></editable>
 	<!-- field part end -->
 	<!-- query part start -->
 	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( query.field.type == 'string' || query.field.type == 'date' || query.field.type == 'numeric')">
-		<div class="col-xs-12 pd-0 editable-pack">
-			<div class="editable-front col-xs-12 pd-0"  (click)="editable_on($event)">
-				<div *ngIf = "query.selectedQuery != ''">
-					{{query.selectedQuery}}
-				</div>
-				<div *ngIf = "query.selectedQuery == ''">
-					query
-				</div>
-			</div>
-			<div class="editable-back col-xs-12 pd-0">
-				<select2 class="query-select" [selectOptions]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector" [selector]="selector.query" [informationList]="informationList" (callback)="queryCallback($event);" [showInfoFlag]="true"></select2>
-			</div>
-		</div>
+		<editable class="query-select" [editableField]="query.selectedQuery" [editPlaceholder]="'query'" [editableInput]="'select2'" [result]="result" [selectOption]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector"  [selector]="selector.query"  [informationList]="informationList"  (callback)="queryCallback($event)" [showInfoFlag]="true"></editable>
 	</div>
 	<!-- query part end -->
 	<!-- load the slector for selected query -->
