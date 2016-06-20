@@ -43,10 +43,11 @@
 
 .app-container {
   position: relative;
-  padding-top: 40px; }
+  padding-top: 40px;
+  padding-bottom: 60px;
+  height: 100%; }
 
-.init-ES,
-footer {
+.init-ES, footer {
   position: absolute;
   top: 0;
   left: 0;
@@ -54,8 +55,17 @@ footer {
   z-index: 6;
   background: #f7f7f7;
   padding: 5px;
+  padding-left: 47px;
   padding-right: 130px;
   border-bottom: 1px solid #dedede; }
+  .init-ES .share-btn, footer .share-btn {
+    position: absolute;
+    left: 5px;
+    display: inline-block;
+    padding: 9px 12px; }
+
+.share_content .share_content {
+  display: none; }
 
 .init-ES .submit-btn {
   position: absolute;
@@ -97,6 +107,49 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333; }
+
+.url-container {
+  position: relative; }
+
+.hide-url {
+  position: absolute;
+  width: auto;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  height: 100%;
+  display: block;
+  text-align: right;
+  border-radius: 4px;
+  background: #ddd;
+  border: 1px solid #ccc; }
+
+.hide-url .btn {
+  margin-top: -1px;
+  padding: 9px 12px; }
+
+.hide-url.expand {
+  width: 100%; }
+
+.query-main-container {
+  position: relative;
+  min-height: 100%;
+  height: auto;
+  display: block; }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  top: auto;
+  padding-right: 5px;
+  border-top: 1px solid #ddd;
+  border-bottom: 0;
+  z-index: 99999999;
+  height: 36px;
+  padding-left: 5px; }
+  footer .powered_by {
+    position: absolute;
+    right: 5px; }
 
 .loading {
   height: 100%;

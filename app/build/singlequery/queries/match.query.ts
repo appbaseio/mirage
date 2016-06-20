@@ -3,7 +3,7 @@ import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
 	selector: 'match-query',
-	template: `<span class="col-xs-6 pd-l0">
+	template: `<span class="col-xs-6 pd-10">
 					<div class="form-group form-element query-primary-input">
 						<input type="text" class="form-control col-xs-12"
 							[(ngModel)]="inputs.input.value" 
@@ -40,7 +40,7 @@ import { EditableComponent } from '../../editable/editable.component';
 
 export class MatchQuery implements OnInit, OnChanges {
 	@Input() queryList: any;
-	@Input() selectedField:string;
+	@Input() selectedField: string;
 	@Input() appliedQuery: any;
 	@Input() selectedQuery: string;
 	@Output() getQueryFormat = new EventEmitter < any > ();
@@ -78,10 +78,10 @@ export class MatchQuery implements OnInit, OnChanges {
 	ngOnInit() {
 		try {
 			if (this.appliedQuery['match'][this.selectedField]) {
-				if(this.appliedQuery['match'][this.fieldName].query) {
+				if (this.appliedQuery['match'][this.fieldName].query) {
 					this.inputs.input.value = this.appliedQuery['match'][this.fieldName].query;
-					for(let option in this.appliedQuery['match'][this.fieldName]) {
-						if(option != 'query') {
+					for (let option in this.appliedQuery['match'][this.fieldName]) {
+						if (option != 'query') {
 							var obj = {
 								name: option,
 								value: this.appliedQuery['match'][this.fieldName][option]
@@ -89,8 +89,7 @@ export class MatchQuery implements OnInit, OnChanges {
 							this.optionRows.push(obj);
 						}
 					}
-				}
-				else {
+				} else {
 					this.inputs.input.value = this.appliedQuery['match'][this.fieldName];
 				}
 			}
@@ -133,7 +132,7 @@ export class MatchQuery implements OnInit, OnChanges {
 	setFormat() {
 		var queryFormat = {};
 		queryFormat[this.queryName] = {};
-		if(this.optionRows.length) {
+		if (this.optionRows.length) {
 			queryFormat[this.queryName][this.fieldName] = {
 				query: this.inputs.input.value
 			};
@@ -149,7 +148,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		this.optionRows[input.external].name = input.value;
 		setTimeout(function() {
 			this.getFormat();
-		}.bind(this), 300);	
+		}.bind(this), 300);
 	}
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);

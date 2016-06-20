@@ -7,29 +7,54 @@
 	<!-- HEADER START -->
 	<form class="col-xs-12 init-ES" id="init-ES">
 		<div class="esContainer">
-			<div class="form-group m-0 col-xs-8 pd-0 pr-5">
-				<input type="text"
-					[(ngModel)]="config.url"
-					class="form-control" 
-					name="url" 
-					placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
-			</div>
+			<share-url [urlShare]="urlShare"></share-url>
 			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
 				<input type="text" 
 			[(ngModel)]="config.appname"
 			class="form-control"
 			name="appname" 
+			[readonly]="connected ? true : false"
 			placeholder="Index name to browse data from" value="moviedb" />
 			</div>
+			<div class="form-group m-0 col-xs-8 pd-0 pr-5">
+				<div class="url-container">
+					<input type="text"
+						[(ngModel)]="config.url"
+						class="form-control" 
+						name="url" 
+						[readonly]="connected ? true : false"
+						placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
+					<span class="hide-url"  [ngClass]="{expand: hide_url_flag, collapse: !hide_url_flag}">
+						<a class="btn btn-default" (click)="hideUrl();">
+							<span [hidden]="hide_url_flag" class="fa fa-eye"></span>
+							<span [hidden]="!hide_url_flag" class="fa fa-eye-slash"></span>
+						</a>
+					</span>
+				</div>
+			</div>
 			<div class="submit-btn-container">
-				<a (click)="connect(true)" [class.btn-info] ="mapping != null" class="btn btn-default submit-btn">
-					<span *ngIf = "!connected">Connect</span>
-					<span *ngIf = "connected">Connected</span>
+				<a (click)="connectHandle()" [class.btn-info] ="mapping != null" class="btn btn-default submit-btn">
+					<span *ngIf = "!connected">
+						<i class="fa fa-play"></i>
+						Connect
+					</span>
+					<span *ngIf = "connected">
+						<i class="fa fa-pause"></i>
+						Disconnect
+					</span>
 				</a>
 			</div>
 		</div>
 	</form>
 	<!-- HEADER END -->
+	<footer class="text-center">
+		<span class="text-right pull-right powered_by">
+		  Create your ElasticSearch in cloud with&nbsp;<a href="http://appbase.io">appbase.io</a>
+		</span>  
+		<span class="pull-left github-star">
+		  <iframe src="https://ghbtns.com/github-btn.html?user=appbaseio&repo=dejaVu&type=star&count=true" frameBorder="0" scrolling="0" width="120px" height="20px"></iframe>
+		</span>   
+    </footer>
 	<div class="container-fluid">
 		<div class="row feature-query-container" [ngClass]="{off: !sidebar}">
 			<!-- Sidebar start -->

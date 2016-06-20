@@ -5,6 +5,7 @@ import { ResultComponent } from "./result/result.component";
 import { RunComponent } from "./run/run.component";
 import { SaveQueryComponent } from './features/save/save.query.component';
 import { ListQueryComponent } from './features/list/list.query.component';
+import { ShareUrlComponent } from './features/share/share.url.component';
 import { Config } from "./shared/config";
 import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
@@ -13,7 +14,7 @@ import { UrlShare } from "./shared/urlShare";
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent],
 	providers: [AppbaseService]
 })
 
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public filteredQuery: any;
 	public finalUrl: string;
 	public sidebar: boolean = false;
+	public hide_url_flag: boolean = false;
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
@@ -107,6 +109,18 @@ export class AppComponent implements OnInit, OnChanges {
 			output: {},
 			queryId: 1
 		};
+	}
+
+	connectHandle() {
+		if(this.connected) {
+			this.initial_connect = true;
+			this.connected = false;
+		} else {
+			this.connect(true);
+		}
+	}
+	hideUrl() {
+		this.hide_url_flag = this.hide_url_flag ? false : true;
 	}
 
 	// Connect with config url and appname
