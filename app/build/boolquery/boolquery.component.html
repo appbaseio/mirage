@@ -4,7 +4,7 @@
 			<i class="fa fa-times"></i>
 		</a>
 	</div>
-	<div class="row m-tb-15">
+	<div class="row m-b15">
 		<div class="col-xs-6">
 
 			<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
@@ -42,12 +42,6 @@
 				[urlShare]="urlShare">
 			</single-query>
 		</form>
-		<div class="col-xs-12 pd-0 add_condition_row">
-			<button class="btn btn-info add_condition" (click)="addQuery(query);">Add conditions</button>
-			<button (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
-				<i class="fa fa-plus"></i> Nested query
-			</button>
-		</div>
 	</div>
 	<div class="subQuery">
 		<form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">
@@ -74,5 +68,11 @@
 				</bool-query>
 			</div>
 		</form>
+	</div>
+	<div class="col-xs-12 add_condition_row">
+		<button class="btn btn-info add_condition" (click)="addQuery(query);">Add conditions</button>
+		<button (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
+			<i class="fa fa-plus"></i> Nested query
+		</button>
 	</div>
 </div>

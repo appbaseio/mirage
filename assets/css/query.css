@@ -1,26 +1,33 @@
 .bool_query .delete-nested-query {
   display: none; }
 
-.bool_query:hover .delete-nested-query {
+.bool_query:hover .delete-nested-query, .bool_query:hover .bool-btn-group {
   display: inline-block; }
 
-.bool_query .internvalQuery .add_condition_row {
-  min-height: 36px; }
+.bool_query .internvalQuery {
+  padding-left: 15px; }
+  .bool_query .internvalQuery .add_condition_row {
+    min-height: 36px; }
+  .bool_query .internvalQuery .add_condition,
+  .bool_query .internvalQuery .nested-query {
+    display: none; }
+  .bool_query .internvalQuery:hover .add_condition,
+  .bool_query .internvalQuery:hover .nested-query,
+  .bool_query .internvalQuery:hover .add_condition_delete {
+    display: inline-block; }
 
-.bool_query .internvalQuery .add_condition,
-.bool_query .internvalQuery .nested-query {
-  display: none; }
+.bool_query .subQuery {
+  padding-left: 15px; }
+  .bool_query .subQuery .single_query {
+    border: 0;
+    padding-top: 0; }
 
-.bool_query .internvalQuery:hover .add_condition,
-.bool_query .internvalQuery:hover .nested-query,
-.bool_query .internvalQuery:hover .add_condition_delete {
-  display: inline-block; }
-
-.bool_query:hover .bool-btn-group {
-  display: inline-block; }
+.bool_query .add_condition_row {
+  padding: 0;
+  padding-left: 15px; }
 
 .single_query {
-  padding: 20px 15px;
+  padding: 15px;
   background: rgba(226, 91, 25, 0.2);
   border: 1px solid #dedede;
   margin-bottom: 10px;

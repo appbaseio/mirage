@@ -4,11 +4,12 @@
 		display: none;
 	}
 	&:hover {
-		.delete-nested-query {
+		.delete-nested-query, .bool-btn-group {
 			display: inline-block;
 		}
 	}
 	.internvalQuery {
+		padding-left: 15px;
 		.add_condition_row {
 			min-height: 36px;
 		}
@@ -24,14 +25,20 @@
 			}
 		}
 	}
-	&:hover {
-		.bool-btn-group {
-			display: inline-block;
+	.subQuery {
+		padding-left: 15px;
+		.single_query {
+		    border: 0;
+		    padding-top: 0;
 		}
+	}
+	.add_condition_row {
+		padding: 0;
+		padding-left: 15px;
 	}
 }
 .single_query {
-	padding: 20px 15px;
+	padding: 15px;
 	background: rgba(226, 91, 25, 0.2);
 	border: 1px solid darken($grey-bg, 10%);
 	margin-bottom: 10px;
