@@ -1,9 +1,4 @@
 .bool_query {
-	.action-btn-group {
-		.btn {
-			height: 36px;
-		}
-	}
 	.delete-nested-query {
 		display: none;
 	}
@@ -17,8 +12,8 @@
 			min-height: 36px;
 		}
 		.add_condition,
-		.nested-query,
-		.add_condition_delete {
+		.nested-query
+		{
 			display: none;
 		}
 		&:hover {
@@ -27,6 +22,11 @@
 			.add_condition_delete {
 				display: inline-block;
 			}
+		}
+	}
+	&:hover {
+		.bool-btn-group	{
+			display: inline-block;
 		}
 	}
 }

@@ -1,6 +1,3 @@
-.bool_query .action-btn-group .btn {
-  height: 36px; }
-
 .bool_query .delete-nested-query {
   display: none; }
 
@@ -11,11 +8,13 @@
   min-height: 36px; }
 
 .bool_query .internvalQuery .add_condition,
-.bool_query .internvalQuery .nested-query,
-.bool_query .internvalQuery .add_condition_delete {
+.bool_query .internvalQuery .nested-query {
   display: none; }
 
 .bool_query .internvalQuery:hover .add_condition,
 .bool_query .internvalQuery:hover .nested-query,
 .bool_query .internvalQuery:hover .add_condition_delete {
+  display: inline-block; }
+
+.bool_query:hover .bool-btn-group {
   display: inline-block; }

@@ -1,7 +1,7 @@
-<div class="form-group single_query col-xs-12 query-{{queryIndex}}-{{internalIndex}}" [ngClass]="{query_complete: query.field !== '' && query.query !== ''}">
+<div class="form-group single_query internal-query col-xs-12 query-{{queryIndex}}-{{internalIndex}}" [ngClass]="{query_complete: query.field !== '' && query.query !== ''}">
 	<div class="action-btn-group">
 		<a href="javascript:void(0)" (click)="removeQuery()" class="btn btn-grey add_condition_delete">
-			<i class="fa fa-trash"></i>
+			<i class="fa fa-times"></i>
 		</a>
 	</div>
 	<!-- field part start -->

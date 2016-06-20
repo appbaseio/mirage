@@ -6,8 +6,9 @@
   position: relative; }
   .single_query .action-btn-group {
     position: absolute;
-    top: -10px;
-    right: 10px; }
+    top: 5px;
+    right: 5px;
+    display: none; }
   .single_query .form-control,
   .single_query .form-element {
     max-width: 100%; }
@@ -43,3 +44,5 @@
     background: #f7f7f7; }
   .single_query.query_complete {
     background: rgba(82, 199, 130, 0.2); }
+  .single_query.internal-query:hover .action-btn-group {
+    display: inline-block; }

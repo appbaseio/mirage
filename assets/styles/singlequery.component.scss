@@ -7,8 +7,9 @@
 	position: relative;
 	.action-btn-group {
 		position: absolute;
-		top: -10px;
-		right: 10px;
+		top: 5px;
+		right: 5px;
+		display: none;
 	}
 	.form-control,
 	.form-element {
@@ -59,5 +60,10 @@
 	}
 	&.query_complete {
 		background: rgba(82, 199, 130, 0.2);
+	}
+	&.internal-query:hover {
+		.action-btn-group {
+			display: inline-block;
+		}
 	}
 }

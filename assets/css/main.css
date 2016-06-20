@@ -85,11 +85,11 @@ footer {
     background-color: #2d6da3; }
 
 .btn-grey {
-  background: #eee;
-  color: #a2a2a2;
-  border: 1px solid; }
+  color: #555;
+  border-color: #bbb;
+  background: #ccc; }
   .btn-grey:hover {
-    background: #e1e1e1; }
+    background: #bfbfbf; }
 
 html,
 body {
