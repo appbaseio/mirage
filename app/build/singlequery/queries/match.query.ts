@@ -3,7 +3,7 @@ import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
 	selector: 'match-query',
-	template: `<span class="col-xs-6">
+	template: `<span class="col-xs-6 pd-0">
 					<div class="form-group form-element query-primary-input">
 						<input type="text" class="form-control col-xs-12"
 							[(ngModel)]="inputs.input.value" 
@@ -46,8 +46,8 @@ export class MatchQuery implements OnInit, OnChanges {
 	public fieldName = '*';
 	public information: any = {
 		title: 'Match query',
-		content: 'Match query content',
-		link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+		content: `<span class="description"> Match query content </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
 	};
 	public options: any = [
 		'operator',

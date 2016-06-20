@@ -117,6 +117,20 @@
 		</terms-query>
 	</div>
 	<!-- match query end -->
+
+
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'exists'" class="row">
+		<exists-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</exists-query>
+	</div>
+	<!-- match query end -->
 	
 	<!-- match query start -->
 	<div [hidden]="query.selectedQuery != 'prefix'" class="row">

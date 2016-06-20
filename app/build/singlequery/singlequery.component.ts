@@ -25,7 +25,10 @@ import { PrefixQuery } from './queries/prefix.query';
 		Match_phase_prefixQuery,
 		RangeQuery,
 		GtQuery,
-		LtQuery
+		LtQuery,
+		TermQuery,
+		TermsQuery,
+		ExistsQuery
 	]
 })
 
@@ -55,10 +58,10 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(GtQuery) private gtQuery: GtQuery;
 	@ViewChild(LtQuery) private ltQuery: LtQuery;
 	@ViewChild(TermQuery) private termQuery: TermQuery;
-	@ViewChild(ExistsQuery) private existsQuery: ExistsQuery;
 	@ViewChild(TermsQuery) private termsQuery: TermsQuery;
 	@ViewChild(PrefixQuery) private prefixQuery: PrefixQuery;
-
+	@ViewChild(ExistsQuery) private existsQuery: ExistsQuery;
+	
 	public informationList: any = {};
 	@Input() query: any;
 
@@ -79,15 +82,17 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		console.log('here', this.existsQuery);
 		this.informationList = {
 			'match': this.matchQuery.information,
 			'match_phrase': this.match_phraseQuery.information,
 			'match-phase-prefix': this.match_phase_prefixQuery.information,
 			'range': this.rangeQuery.information,
 			'gt': this.gtQuery.information,
-			'lt': this.ltQuery.information
-				// 'term': this.termQuery.information,
-				// 'terms': this.termsQuery.information,
+			'lt': this.ltQuery.information,
+			'term': this.termQuery.information,
+			'terms': this.termsQuery.information,
+			'exists': this.existsQuery.information
 				// 'prefix': this.prefixQuery.information
 		};
 	}

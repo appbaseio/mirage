@@ -9,7 +9,7 @@ describe('terms query format', () => {
   var query: TermsQuery;
   var expectedFormat = {
     'terms': {
-      'foo': 'bar'
+      'foo': ['bar']
     }
   };
 
