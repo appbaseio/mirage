@@ -110,6 +110,15 @@ export class AppComponent implements OnInit, OnChanges {
 		};
 	}
 
+	connectHandle() {
+		if(this.connected) {
+			this.initial_connect = true;
+			this.connected = false;
+		} else {
+			this.connect(true);
+		}
+	}
+
 	// Connect with config url and appname
 	// do mapping request  
 	// and set response in mapping property 

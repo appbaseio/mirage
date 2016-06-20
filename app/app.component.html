@@ -13,6 +13,7 @@
 			[(ngModel)]="config.appname"
 			class="form-control"
 			name="appname" 
+			[readonly]="connected ? true : false"
 			placeholder="Index name to browse data from" value="moviedb" />
 			</div>
 			<div class="form-group m-0 col-xs-8 pd-0 pr-5">
@@ -20,12 +21,19 @@
 					[(ngModel)]="config.url"
 					class="form-control" 
 					name="url" 
+					[readonly]="connected ? true : false"
 					placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
 			</div>
 			<div class="submit-btn-container">
-				<a (click)="connect(true)" [class.btn-info] ="mapping != null" class="btn btn-default submit-btn">
-					<span *ngIf = "!connected">Connect</span>
-					<span *ngIf = "connected">Connected</span>
+				<a (click)="connectHandle()" [class.btn-info] ="mapping != null" class="btn btn-default submit-btn">
+					<span *ngIf = "!connected">
+						<i class="fa fa-play"></i>
+						Connect
+					</span>
+					<span *ngIf = "connected">
+						<i class="fa fa-pause"></i>
+						Disconnect
+					</span>
 				</a>
 			</div>
 		</div>
