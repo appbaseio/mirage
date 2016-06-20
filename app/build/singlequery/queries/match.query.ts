@@ -3,7 +3,7 @@ import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
 	selector: 'match-query',
-	template: `<span class="col-xs-6 pd-0">
+	template: `<span class="col-xs-6 pd-l0">
 					<div class="form-group form-element query-primary-input">
 						<input type="text" class="form-control col-xs-12"
 							[(ngModel)]="inputs.input.value" 
@@ -23,8 +23,10 @@ import { EditableComponent } from '../../editable/editable.component';
 								[passWithCallback]="i"
 								(callback)="selectOption($event)"></editable>
 						</div>
-						<div class="form-group form-element col-xs-6">
-							<input type="text" [(ngModel)]="singleOption.value" placeholder="value"  (keyup)="getFormat();"/>
+						<div class="col-xs-6 pd-0">
+							<div class="form-group form-element">
+								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="value"  (keyup)="getFormat();"/>
+							</div>
 						</div>
 						<button (click)="removeOption(i)" class="btn btn-grey delete-option">
 							<i class="fa fa-times"></i>
