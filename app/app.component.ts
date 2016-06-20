@@ -5,6 +5,7 @@ import { ResultComponent } from "./result/result.component";
 import { RunComponent } from "./run/run.component";
 import { SaveQueryComponent } from './features/save/save.query.component';
 import { ListQueryComponent } from './features/list/list.query.component';
+import { ShareUrlComponent } from './features/share/share.url.component';
 import { Config } from "./shared/config";
 import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
@@ -13,7 +14,7 @@ import { UrlShare } from "./shared/urlShare";
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent],
 	providers: [AppbaseService]
 })
 

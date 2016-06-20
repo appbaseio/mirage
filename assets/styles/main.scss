@@ -55,8 +55,20 @@ footer {
   z-index: 6;
   background: $grey-bg;
   padding: 5px;
+  padding-left: 47px;
   padding-right: 130px;
   border-bottom: 1px solid darken($grey-bg, 10%);
+  .share-btn {
+    position: absolute;
+    left: 5px;
+    display: inline-block;
+    padding: 9px 12px;
+  }
+}
+.share_content {
+  .share_content {
+    display: none;
+  }
 }
 .init-ES .submit-btn {
   position: absolute;
