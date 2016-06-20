@@ -47,6 +47,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public filteredQuery: any;
 	public finalUrl: string;
 	public sidebar: boolean = false;
+	public hide_url_flag: boolean = false;
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
@@ -117,6 +118,9 @@ export class AppComponent implements OnInit, OnChanges {
 		} else {
 			this.connect(true);
 		}
+	}
+	hideUrl() {
+		this.hide_url_flag = this.hide_url_flag ? false : true;
 	}
 
 	// Connect with config url and appname

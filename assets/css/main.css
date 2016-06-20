@@ -108,6 +108,29 @@ body {
   line-height: 1.42857143;
   color: #333; }
 
+.url-container {
+  position: relative; }
+
+.hide-url {
+  position: absolute;
+  width: auto;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  height: 100%;
+  display: block;
+  text-align: right;
+  border-radius: 4px;
+  background: #ddd;
+  border: 1px solid #ccc; }
+
+.hide-url .btn {
+  margin-top: -1px;
+  padding: 9px 12px; }
+
+.hide-url.expand {
+  width: 100%; }
+
 .loading {
   height: 100%;
   width: 100%;

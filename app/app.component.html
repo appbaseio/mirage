@@ -17,12 +17,20 @@
 			placeholder="Index name to browse data from" value="moviedb" />
 			</div>
 			<div class="form-group m-0 col-xs-8 pd-0 pr-5">
-				<input type="text"
-					[(ngModel)]="config.url"
-					class="form-control" 
-					name="url" 
-					[readonly]="connected ? true : false"
-					placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
+				<div class="url-container">
+					<input type="text"
+						[(ngModel)]="config.url"
+						class="form-control" 
+						name="url" 
+						[readonly]="connected ? true : false"
+						placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" />
+					<span class="hide-url"  [ngClass]="{expand: hide_url_flag, collapse: !hide_url_flag}">
+						<a class="btn btn-default" (click)="hideUrl();">
+							<span [hidden]="hide_url_flag" class="fa fa-eye"></span>
+							<span [hidden]="!hide_url_flag" class="fa fa-eye-slash"></span>
+						</a>
+					</span>
+				</div>
 			</div>
 			<div class="submit-btn-container">
 				<a (click)="connectHandle()" [class.btn-info] ="mapping != null" class="btn btn-default submit-btn">
