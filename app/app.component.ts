@@ -202,7 +202,13 @@ export class AppComponent implements OnInit, OnChanges {
 	deleteQuery(index) {
 		var confirmFlag = confirm("Do you want to delete this query?");
 		if (confirmFlag) {
-			this.savedQueryList.splice(index, 1);
+			var selectedQuery = this.filteredQuery[index];
+			this.savedQueryList.forEach(function(query: any, index: Number) {
+				if (query.name === selectedQuery.name && query.tag === selectedQuery.tag) {
+					this.savedQueryList.splice(index, 1);
+				}
+			}.bind(this));
+			this.filteredQuery.splice(index, 1);
 			try {
 				window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
 			} catch (e) {}
