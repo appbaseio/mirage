@@ -101,6 +101,7 @@ export class TypesComponent implements OnChanges {
 		var selectedTypes = val;
 		var finalUrl = this.finalUrl.split('/');
 		var lastUrl = '';
+		finalUrl[3] = this.config.appname;
 		if (finalUrl.length > 4) {
 			finalUrl[4] = selectedTypes.join(',');
 			lastUrl = finalUrl.join('/');
