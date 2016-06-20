@@ -74,3 +74,14 @@
     background: rgba(82, 199, 130, 0.2); }
   .single_query.internal-query:hover .action-btn-group {
     display: inline-block; }
+  .single_query .query-primary-input, .single_query .option-container {
+    position: relative; }
+    .single_query .query-primary-input .add-option, .single_query .query-primary-input .delete-option, .single_query .option-container .add-option, .single_query .option-container .delete-option {
+      position: absolute;
+      right: 5px;
+      top: 5px; }
+  .single_query .option-container {
+    padding-left: 30px; }
+    .single_query .option-container .single-option {
+      padding: 0;
+      padding-top: 5px; }

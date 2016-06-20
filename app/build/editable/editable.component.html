@@ -15,4 +15,9 @@
 			<option *ngFor="let oo of selectOption, let i=index" [value]="i">{{oo}}</option>
 		</select>
 	</div>	
+	<div class="editable-back col-xs-12 pd-0" *ngIf="editableInput == 'selectOption'">
+		<select class="form-control form-element" [(ngModel)]="editableModal" (change)="editable_off($event);">
+			<option *ngFor="let oo of selectOption, let i=index" [value]="oo">{{oo}}</option>
+		</select>
+	</div>	
 </div>
