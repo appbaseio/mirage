@@ -34,7 +34,7 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                 ResultComponent.prototype.ngOnInit = function () {
                     var self = this;
                     this.editorHookHelp.applyEditor();
-                    var resultHeight = $(window).height() - 138 - 49;
+                    var resultHeight = $(window).height() - 138 - 49 - 49;
                     $('.queryRight .codemirror').css({ height: resultHeight });
                 };
                 // Validate using checkValidaQuery method
@@ -52,6 +52,9 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                             self.result.output = JSON.stringify(res.json(), null, 2);
                             self.responseHookHelp.setValue(self.result.output);
                         }).catch(function (data) {
+                            self.result.isWatching = false;
+                            self.result.output = JSON.stringify(data, null, 2);
+                            self.responseHookHelp.setValue(self.result.output);
                         });
                     }
                     else {
