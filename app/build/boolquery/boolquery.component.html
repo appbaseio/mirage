@@ -1,4 +1,4 @@
-<div class="form-group single_query col-xs-12 bool_query">
+<div class="form-group single_query col-xs-12 bool_query" (mouseover)="show_hidden_btns($event);" (mouseout)="hide_hidden_btns($event);">
 	<div class="action-btn-group bool-btn-group">
 		<a href="javascript:void(0)" (click)="removeInQuery(query.id)" class="btn btn-grey delete-nested-query">
 			<i class="fa fa-times"></i>
