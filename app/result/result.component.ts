@@ -5,7 +5,7 @@ import { AppbaseService } from "../shared/appbase.service";
 @Component({
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp', 'errorShow'],
 	pipes: [prettyJson],
 	providers: [AppbaseService]
 })
@@ -20,6 +20,7 @@ export class ResultComponent implements OnInit {
 	@Input() selectedTypes: any;
 	@Input() result: any;
 	@Output() setProp = new EventEmitter < any > ();
+	@Output() errorShow = new EventEmitter();
 
 	constructor(public appbaseService: AppbaseService) {}
 
@@ -48,12 +49,21 @@ export class ResultComponent implements OnInit {
 				self.result.output = JSON.stringify(res.json(), null, 2);
 				self.responseHookHelp.setValue(self.result.output);
 			}).catch(function(data) {
+				$('#resultModal').modal('hide');
 				self.result.isWatching = false;
 				self.result.output = JSON.stringify(data, null, 2);
-				self.responseHookHelp.setValue(self.result.output);
+				var obj = {
+					title: 'Response Error',
+					message: self.result.output
+				};
+				self.errorShow.emit(obj);
 			});
 		} else {
-			alert(validate.message);
+			var obj = {
+				title: 'Json validation',
+				message: validate.message
+			}
+			this.errorShow.emit(obj);
 		}
 	}
 
