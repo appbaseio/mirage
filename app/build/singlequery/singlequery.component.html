@@ -209,6 +209,19 @@
 	</div>
 	<!-- wildcard query end -->
 
+	<!-- regexp query start -->
+	<div [hidden]="query.selectedQuery != 'regexp'" class="row">
+		<regexp-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</regexp-query>
+	</div>
+	<!-- regexp query end -->
+
 	
 	<!-- load the slector for selected query -->
 </div>

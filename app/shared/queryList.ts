@@ -11,6 +11,7 @@ export var queryList = {
 			'query_string',
 			'prefix',
 			'wildcard',
+			'regexp',
 			'simple_query_string',
 			'match-phase-prefix'
 		],
