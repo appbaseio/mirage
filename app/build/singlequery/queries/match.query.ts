@@ -5,11 +5,13 @@ import { EditableComponent } from '../../editable/editable.component';
 	selector: 'match-query',
 	template: `<span class="col-xs-6 pd-10">
 					<div class="form-group form-element query-primary-input">
-						<input type="text" class="form-control col-xs-12"
-							[(ngModel)]="inputs.input.value" 
-						 	placeholder="{{inputs.input.placeholder}}"
-						 	(keyup)="getFormat();" />
-						<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
+						<span class="input_with_option">
+							<input type="text" class="form-control col-xs-12"
+								[(ngModel)]="inputs.input.value" 
+							 	placeholder="{{inputs.input.placeholder}}"
+							 	(keyup)="getFormat();" />
+							<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
+						</span>
 					</div>
 				</span>	
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
@@ -28,7 +30,7 @@ import { EditableComponent } from '../../editable/editable.component';
  								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="value"  (keyup)="getFormat();"/>							
  							</div>
 						</div>
-						<button (click)="removeOption(i)" class="btn btn-grey delete-option">
+						<button (click)="removeOption(i)" class="btn btn-grey delete-option btn-xs">
 							<i class="fa fa-times"></i>
 						</button>
 					</div>
@@ -44,6 +46,7 @@ export class MatchQuery implements OnInit, OnChanges {
 	@Input() appliedQuery: any;
 	@Input() selectedQuery: string;
 	@Output() getQueryFormat = new EventEmitter < any > ();
+	public current_query: string = 'match';
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
@@ -77,20 +80,20 @@ export class MatchQuery implements OnInit, OnChanges {
 
 	ngOnInit() {
 		try {
-			if (this.appliedQuery['match'][this.selectedField]) {
-				if (this.appliedQuery['match'][this.fieldName].query) {
-					this.inputs.input.value = this.appliedQuery['match'][this.fieldName].query;
-					for (let option in this.appliedQuery['match'][this.fieldName]) {
+			if (this.appliedQuery[this.current_query][this.selectedField]) {
+				if (this.appliedQuery[this.current_query][this.fieldName].query) {
+					this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
+					for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
 						if (option != 'query') {
 							var obj = {
 								name: option,
-								value: this.appliedQuery['match'][this.fieldName][option]
+								value: this.appliedQuery[this.current_query][this.fieldName][option]
 							};
 							this.optionRows.push(obj);
 						}
 					}
 				} else {
-					this.inputs.input.value = this.appliedQuery['match'][this.fieldName];
+					this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
 				}
 			}
 		} catch (e) {}
@@ -124,7 +127,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		}
 	*/
 	getFormat() {
-		if (this.queryName === 'match') {
+		if (this.queryName === this.current_query) {
 			this.queryFormat = this.setFormat();
 			this.getQueryFormat.emit(this.queryFormat);
 		}
