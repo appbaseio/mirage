@@ -302,7 +302,7 @@ export class AppComponent implements OnInit, OnChanges {
 			createdAt: createdAt
 		};
 		this.savedQueryList.push(queryData);
-		this.sort(this.filteredQuery);
+		this.sort(this.savedQueryList);
 		var queryString = JSON.stringify(this.savedQueryList);
 		try {
 			window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
