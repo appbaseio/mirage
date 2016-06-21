@@ -15,6 +15,7 @@ import { MultiMatchQuery } from './queries/multi-match.query';
 import { QueryStringQuery } from './queries/query_string.query';
 import { SimpleQueryStringQuery } from './queries/simple_query_string.query';
 import { MissingQuery } from './queries/missing.query';
+import { WildcardQuery } from './queries/wildcard.query';
 
 @Component({
 	selector: 'single-query',
@@ -37,7 +38,8 @@ import { MissingQuery } from './queries/missing.query';
 		QueryStringQuery,
 		SimpleQueryStringQuery,
 		MissingQuery,
-		PrefixQuery
+		PrefixQuery,
+		WildcardQuery
 	]
 })
 
@@ -74,6 +76,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(QueryStringQuery) private queryStringQuery: QueryStringQuery;
 	@ViewChild(SimpleQueryStringQuery) private simpleQueryStringQuery: SimpleQueryStringQuery;
 	@ViewChild(MissingQuery) private missingQuery: MissingQuery;
+	@ViewChild(WildcardQuery) private wildcardQuery: WildcardQuery;
 	
 	public informationList: any = {};
 	@Input() query: any;
@@ -109,7 +112,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'query_string': this.queryStringQuery.information,
 			'simple_query_string': this.simpleQueryStringQuery.information,
 			'missing': this.missingQuery.information,
-			'prefix': this.prefixQuery.information
+			'prefix': this.prefixQuery.information,
+			'wildcard': this.wildcardQuery.information
 		};
 	}
 

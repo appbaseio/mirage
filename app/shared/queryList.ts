@@ -10,6 +10,7 @@ export var queryList = {
 			'multi_match',
 			'query_string',
 			'prefix',
+			'wildcard',
 			'simple_query_string',
 			'match-phase-prefix'
 		],

@@ -196,6 +196,19 @@
 	</div>
 	<!-- missing query end -->
 
+	<!-- wildcard query start -->
+	<div [hidden]="query.selectedQuery != 'wildcard'" class="row">
+		<wildcard-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</wildcard-query>
+	</div>
+	<!-- wildcard query end -->
+
 	
 	<!-- load the slector for selected query -->
 </div>
