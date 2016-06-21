@@ -44,13 +44,13 @@
 }
 .app-container {
   position: relative;
-  padding-top: 40px;
+  padding-top: 80px;
   padding-bottom: 60px;
   height: 100%;
 }
 .init-ES, footer {
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 0;
   width: 100%;
   z-index: 6;
@@ -80,7 +80,7 @@
   background: $grey-bg;
 }
 .ui-layout-pane-west {
-  padding-bottom: 80px;
+  padding-bottom: 100px;
 }
 .queryRight {
   padding: 15px 15px 15px 0;
