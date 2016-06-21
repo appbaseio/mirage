@@ -1,5 +1,4 @@
 import {describe, it, beforeEach, expect} from '@angular/core/testing';
-
 import {MatchQuery} from './match.query';
 
 describe('Match query format', () => {
@@ -9,13 +8,13 @@ describe('Match query format', () => {
     var query: MatchQuery;
     var expectedFormat = {
         'match': {
-            'foo': 'bar'
+            'name': 'Elisabeth'
         }
     };
     var expectedFormatWithOption = {
         'match': {
-            'foo': {
-                "query": "bar",
+            'name': {
+                "query": "Elisabeth",
                 "operator" : "and",
                 "zero_terms_query": "all"
             }
@@ -26,10 +25,10 @@ describe('Match query format', () => {
     beforeEach(function() {
         query = new MatchQuery();
         query.queryName = 'match';
-        query.fieldName = 'foo';
+        query.fieldName = 'name';
         query.inputs = {
             input: {
-                value: 'bar'
+                value: 'Elisabeth'
             }
         };
     });
@@ -41,6 +40,29 @@ describe('Match query format', () => {
             return false;
         }
         return true;
+    }
+
+    function xhrCall(data: any, cb) {
+        var config = {
+            url: 'https://scalr.api.appbase.io',
+            appname: 'App3',
+            username: 'CnqEgei0f',
+            password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+        };
+        var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+        var auth = "Basic " + btoa(config.username + ':' + config.password);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                cb(true);
+            } else {
+                cb(false);
+            }
+        };
+        xhttp.open("POST", url);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Authorization", auth);
+        xhttp.send();
     }
 
     // Test to check if queryformat is valid json
@@ -69,5 +91,34 @@ describe('Match query format', () => {
         var format = query.setFormat();
         expect(format).toEqual(expectedFormatWithOption);
     });
+
+    // Test to check if result of setformat is equal to expected query format with option.
+    // it('Test if query works', () => {
+    //     var format = query.setFormat();
+    //     var config = {
+    //         url: 'https://scalr.api.appbase.io',
+    //         appname: 'App3',
+    //         username: 'CnqEgei0f',
+    //         password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+    //     };
+    //     var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+    //     var auth = "Basic " + btoa(config.username + ':' + config.password);
+    //     var xhttp = new XMLHttpRequest();
+    //     xhttp.onreadystatechange = function() {
+    //         debugger;
+    //         if (xhttp.readyState == 4 && xhttp.status == 200) {
+    //             expect(true).toBe(true);
+    //         } else {
+    //             expect(false).toBe(true);              
+    //         }
+    //     };
+    //     xhttp.open("POST", url, true);
+    //     xhttp.setRequestHeader("Content-type", "application/json");
+    //     xhttp.setRequestHeader("Authorization", auth);
+    //     xhttp.send();
+    //     // xhrCall(format, function(flag: boolean){
+    //     //     expect(flag).toBe(true);
+    //     // });
+    // });
 
 })
