@@ -39,7 +39,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 ShareUrlComponent.prototype.ngOnChanges = function () {
                 };
                 ShareUrlComponent.prototype.shareClick = function () {
-                    var link = this.urlShare.convertToUrl();
+                    var link = this.urlShare.convertToUrl('gh-pages');
                     $('#for-share').val(link);
                     var ele = document.getElementById('for-share');
                     var succeed = this.copyToClipboard(ele);

@@ -144,6 +144,8 @@ export class AppComponent implements OnInit, OnChanges {
 		if(this.connected) {
 			this.initial_connect = true;
 			this.connected = false;
+			this.urlShare.inputs = {};
+			this.urlShare.createUrl();
 		} else {
 			this.connect(true);
 		}

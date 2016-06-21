@@ -32,7 +32,7 @@ export class ShareUrlComponent implements OnInit, OnChanges {
 	}
 
 	shareClick() {
-		var link = this.urlShare.convertToUrl();
+		var link = this.urlShare.convertToUrl('gh-pages');
 		$('#for-share').val(link);
 		var ele = document.getElementById('for-share');
       	var succeed = this.copyToClipboard(ele);

@@ -164,6 +164,8 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     if (this.connected) {
                         this.initial_connect = true;
                         this.connected = false;
+                        this.urlShare.inputs = {};
+                        this.urlShare.createUrl();
                     }
                     else {
                         this.connect(true);
