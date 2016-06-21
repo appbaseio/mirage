@@ -144,6 +144,19 @@
 		</prefix-query>
 	</div>
 	<!-- match query end -->
+
+	<!-- match query start -->
+	<div [hidden]="query.selectedQuery != 'multi_match'" class="row">
+		<multi_match-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</multi_match-query>
+	</div>
+	<!-- match query end -->
 	
 	<!-- load the slector for selected query -->
 </div>

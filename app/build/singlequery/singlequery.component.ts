@@ -11,6 +11,7 @@ import { TermQuery } from './queries/term.query';
 import { ExistsQuery } from './queries/exists.query';
 import { TermsQuery } from './queries/terms.query';
 import { PrefixQuery } from './queries/prefix.query';
+import { MultiMatchQuery } from './queries/multi-match.query';
 
 @Component({
 	selector: 'single-query',
@@ -28,7 +29,8 @@ import { PrefixQuery } from './queries/prefix.query';
 		LtQuery,
 		TermQuery,
 		TermsQuery,
-		ExistsQuery
+		ExistsQuery,
+		MultiMatchQuery
 	]
 })
 
@@ -61,6 +63,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(TermsQuery) private termsQuery: TermsQuery;
 	@ViewChild(PrefixQuery) private prefixQuery: PrefixQuery;
 	@ViewChild(ExistsQuery) private existsQuery: ExistsQuery;
+	@ViewChild(MultiMatchQuery) private multiMatchQuery: MultiMatchQuery;
 	
 	public informationList: any = {};
 	@Input() query: any;
@@ -92,7 +95,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'lt': this.ltQuery.information,
 			'term': this.termQuery.information,
 			'terms': this.termsQuery.information,
-			'exists': this.existsQuery.information
+			'exists': this.existsQuery.information,
+			'multi_match': this.multiMatchQuery.information
 				// 'prefix': this.prefixQuery.information
 		};
 	}

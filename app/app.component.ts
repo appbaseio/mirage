@@ -129,61 +129,65 @@ export class AppComponent implements OnInit, OnChanges {
 	connect(clearFlag) {
 		this.connected = false;
 		this.initial_connect = false;
-		var APPNAME = this.config.appname;
-		var URL = this.config.url;
-		var urlsplit = URL.split(':');
-		var pwsplit = urlsplit[2].split('@');
-		this.config.username = urlsplit[1].replace('//', '');
-		this.config.password = pwsplit[0];
-		this.config.host = urlsplit[0] + '://' + pwsplit[1];
-		var self = this;
-		this.appbaseService.setAppbase(this.config);
-		this.appbaseService.get('/_mapping').then(function(res) {
-			self.connected = true;
-			let data = res.json();
-			self.setInitialValue();
-			self.finalUrl = self.config.host + '/' + self.config.appname;
-			self.mapping = data;
-			self.types = self.seprateType(data);
-			self.setLocalConfig(self.config.url, self.config.appname);
-			self.detectChange += "done";
-			
-			if (!clearFlag) {
-				var decryptedData = self.urlShare.decryptedData;
-				if (decryptedData.mapping) {
-					self.mapping = decryptedData.mapping;
+		try {
+			var APPNAME = this.config.appname;
+			var URL = this.config.url;
+			var urlsplit = URL.split(':');
+			var pwsplit = urlsplit[2].split('@');
+			this.config.username = urlsplit[1].replace('//', '');
+			this.config.password = pwsplit[0];
+			this.config.host = urlsplit[0] + '://' + pwsplit[1];
+			var self = this;
+			this.appbaseService.setAppbase(this.config);
+			this.appbaseService.get('/_mapping').then(function(res) {
+				self.connected = true;
+				let data = res.json();
+				self.setInitialValue();
+				self.finalUrl = self.config.host + '/' + self.config.appname;
+				self.mapping = data;
+				self.types = self.seprateType(data);
+				self.setLocalConfig(self.config.url, self.config.appname);
+				self.detectChange += "done";
+				
+				if (!clearFlag) {
+					var decryptedData = self.urlShare.decryptedData;
+					if (decryptedData.mapping) {
+						self.mapping = decryptedData.mapping;
+					}
+					if(decryptedData.types) {
+						self.types = decryptedData.types;
+					}
+					if(decryptedData.selectedTypes) {
+						self.selectedTypes = decryptedData.selectedTypes;
+						self.detectChange = "check";
+						setTimeout(() => { $('#setType').val(self.selectedTypes).trigger("change"); }, 300)
+					}
+					if(decryptedData.result) {
+						self.result = decryptedData.result;
+					}
+					if(decryptedData.finalUrl) {
+						self.finalUrl = decryptedData.finalUrl;
+					}
 				}
-				if(decryptedData.types) {
-					self.types = decryptedData.types;
-				}
-				if(decryptedData.selectedTypes) {
-					self.selectedTypes = decryptedData.selectedTypes;
-					self.detectChange = "check";
-					setTimeout(() => { $('#setType').val(self.selectedTypes).trigger("change"); }, 300)
-				}
-				if(decryptedData.result) {
-					self.result = decryptedData.result;
-				}
-				if(decryptedData.finalUrl) {
-					self.finalUrl = decryptedData.finalUrl;
-				}
-			}
 
-			//set input state
-			self.urlShare.inputs['config'] = self.config;
-			self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
-			self.urlShare.inputs['result'] = self.result;
-			self.urlShare.inputs['finalUrl'] = self.finalUrl;
-			self.urlShare.createUrl();
-			setTimeout(function() {
-				self.setLayoutResizer();
-				self.editorHookHelp.setValue('');
-			}, 300);
-			
-		}).catch(function(e) {
-			self.initial_connect = true;
-			alert(e.json().message);
-		});
+				//set input state
+				self.urlShare.inputs['config'] = self.config;
+				self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
+				self.urlShare.inputs['result'] = self.result;
+				self.urlShare.inputs['finalUrl'] = self.finalUrl;
+				self.urlShare.createUrl();
+				setTimeout(function() {
+					self.setLayoutResizer();
+					self.editorHookHelp.setValue('');
+				}, 300);
+				
+			}).catch(function(e) {
+				self.initial_connect = true;
+				alert(e.json().message);
+			});
+		} catch(e) {
+			this.initial_connect = true;
+		}
 	}
 
 	// Seprate the types from mapping	

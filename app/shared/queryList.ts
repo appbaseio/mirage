@@ -6,6 +6,7 @@ export var queryList = {
 			'term',
 			'terms',
 			'exists',
+			'multi_match',
 			'match-phase-prefix'
 		],
 		numeric: [
