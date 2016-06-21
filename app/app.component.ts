@@ -10,11 +10,12 @@ import { Config } from "./shared/config";
 import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
 import { UrlShare } from "./shared/urlShare";
+import { AppselectComponent } from "./features/appselect/appselect.component";
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent],
 	providers: [AppbaseService]
 })
 
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public finalUrl: string;
 	public sidebar: boolean = false;
 	public hide_url_flag: boolean = false;
+	public appsList: any = [];
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
@@ -79,8 +81,9 @@ export class AppComponent implements OnInit, OnChanges {
 
 	//Get config from localstorage 
 	getLocalConfig() {
-		var url = window.localStorage.getItem('url');
-		var appname = window.localStorage.getItem('appname');
+		var url = window.localStorage.getItem('mirage-url');
+		var appname = window.localStorage.getItem('mirage-appname');
+		var appsList = window.localStorage.getItem('mirage-appsList');
 		if (url != null) {
 			this.config.url = url;
 			this.config.appname = appname;
@@ -88,12 +91,38 @@ export class AppComponent implements OnInit, OnChanges {
 		} else {
 			this.initial_connect = true;
 		}
+		if(appsList) {
+			try {
+				this.appsList = JSON.parse(appsList);
+			} catch(e) {
+				this.appsList = [];
+			}
+		}
 	}
 
 	//Set config from localstorage
 	setLocalConfig(url, appname) {
-		window.localStorage.setItem('url', url);
-		window.localStorage.setItem('appname', appname);
+		window.localStorage.setItem('mirage-url', url);
+		window.localStorage.setItem('mirage-appname', appname);
+		var obj = {
+			appname: appname,
+			url: url
+		};
+		var appsList = window.localStorage.getItem('mirage-appsList');
+		if(appsList) {
+			try {
+				this.appsList = JSON.parse(appsList);
+			} catch(e) {
+				this.appsList = [];
+			}
+		}	
+		if(this.appsList.length) {
+			this.appsList = this.appsList.filter(function(app) {
+				return app.appname !== appname;
+			});
+		}
+		this.appsList.push(obj);
+		window.localStorage.setItem('mirage-appsList', JSON.stringify(this.appsList));
 	}
 
 	setInitialValue() {
@@ -129,6 +158,7 @@ export class AppComponent implements OnInit, OnChanges {
 	connect(clearFlag) {
 		this.connected = false;
 		this.initial_connect = false;
+		console.log(this.config);
 		try {
 			var APPNAME = this.config.appname;
 			var URL = this.config.url;
@@ -338,6 +368,11 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 		setSidebar();
 		$(window).on('resize', setSidebar);
+	}
+
+	setConfig(selectedConfig: any) {
+		this.config.appname = selectedConfig.appname;
+		this.config.url = selectedConfig.url;
 	}
 
 }

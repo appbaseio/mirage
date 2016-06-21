@@ -9,12 +9,13 @@
 		<div class="esContainer">
 			<share-url [urlShare]="urlShare"></share-url>
 			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
-				<input type="text" 
+			<!-- 	<input type="text" 
 			[(ngModel)]="config.appname"
 			class="form-control"
 			name="appname" 
 			[readonly]="connected ? true : false"
-			placeholder="Index name to browse data from" value="moviedb" />
+			placeholder="Index name to browse data from" value="moviedb" /> -->
+			<appselect [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
 			</div>
 			<div class="form-group m-0 col-xs-8 pd-0 pr-5">
 				<div class="url-container">
