@@ -20,7 +20,8 @@
   padding-left: 15px; }
   .bool_query .subQuery .single_query {
     border: 0;
-    padding-top: 0; }
+    padding-top: 0;
+    padding-right: 0; }
 
 .bool_query .add_condition_row {
   padding: 0;
