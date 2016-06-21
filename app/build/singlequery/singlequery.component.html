@@ -222,6 +222,19 @@
 	</div>
 	<!-- regexp query end -->
 
+	<!-- regexp query start -->
+	<div [hidden]="query.selectedQuery != 'fuzzy'" class="row">
+		<fuzzy-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</fuzzy-query>
+	</div>
+	<!-- regexp query end -->
+
 	
 	<!-- load the slector for selected query -->
 </div>

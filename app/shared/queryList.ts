@@ -12,6 +12,7 @@ export var queryList = {
 			'prefix',
 			'wildcard',
 			'regexp',
+			'fuzzy',
 			'simple_query_string',
 			'match-phase-prefix'
 		],
