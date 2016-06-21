@@ -117,20 +117,6 @@
 		</terms-query>
 	</div>
 	<!-- match query end -->
-
-
-	<!-- match query start -->
-	<div [hidden]="query.selectedQuery != 'exists'" class="row">
-		<exists-query 
-			[appliedQuery]="query.appliedQuery"
-			[queryList]="queryList"
-			[selectedQuery]="query.selectedQuery"
-			[selectedField]="query.selectedField"
-			(getQueryFormat)="getQueryFormat($event);"
-			>
-		</exists-query>
-	</div>
-	<!-- match query end -->
 	
 	<!-- match query start -->
 	<div [hidden]="query.selectedQuery != 'prefix'" class="row">
@@ -183,6 +169,33 @@
 		</simple_query_string-query>
 	</div>
 	<!-- query_string query end -->
+
+	<!-- exists query start -->
+	<div [hidden]="query.selectedQuery != 'exists'" class="row">
+		<exists-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</exists-query>
+	</div>
+	<!-- exists query end -->
+
+	<!-- missing query start -->
+	<div [hidden]="query.selectedQuery != 'missing'" class="row">
+		<missing-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</missing-query>
+	</div>
+	<!-- missing query end -->
+
 	
 	<!-- load the slector for selected query -->
 </div>

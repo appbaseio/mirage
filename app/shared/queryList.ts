@@ -6,6 +6,7 @@ export var queryList = {
 			'term',
 			'terms',
 			'exists',
+			'missing',
 			'multi_match',
 			'query_string',
 			'simple_query_string',
@@ -15,7 +16,9 @@ export var queryList = {
 			'match',
 			'range',
 			'gt',
-			'lt'
+			'lt',
+			'exists',
+			'missing'
 		]
 	},
 	not_analyzed: {

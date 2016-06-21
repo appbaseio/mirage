@@ -1,25 +1,25 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-	selector: 'exists-query',
+	selector: 'missing-query',
 	template: 	`<span class="col-xs-6 pd-0">
 				</span>`,
 	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
-export class ExistsQuery implements OnInit, OnChanges {
+export class MissingQuery implements OnInit, OnChanges {
 	@Input() queryList;
 	@Input() selectedField;
 	@Input() appliedQuery;
 	@Input() selectedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
-	public current_query = 'exists';
+	public current_query = 'missing';
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Exists query',
-		content: `<span class="description"> Exists query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-exists-query.html">Documentation</a>`
+		title: 'missing query',
+		content: `<span class="description"> missing query content </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html">Documentation</a>`
 	};
 	
 	public queryFormat: any = {};

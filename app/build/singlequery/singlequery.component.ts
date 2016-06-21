@@ -14,6 +14,7 @@ import { PrefixQuery } from './queries/prefix.query';
 import { MultiMatchQuery } from './queries/multi-match.query';
 import { QueryStringQuery } from './queries/query_string.query';
 import { SimpleQueryStringQuery } from './queries/simple_query_string.query';
+import { MissingQuery } from './queries/missing.query';
 
 @Component({
 	selector: 'single-query',
@@ -34,7 +35,8 @@ import { SimpleQueryStringQuery } from './queries/simple_query_string.query';
 		ExistsQuery,
 		MultiMatchQuery,
 		QueryStringQuery,
-		SimpleQueryStringQuery
+		SimpleQueryStringQuery,
+		MissingQuery
 	]
 })
 
@@ -70,6 +72,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(MultiMatchQuery) private multiMatchQuery: MultiMatchQuery;
 	@ViewChild(QueryStringQuery) private queryStringQuery: QueryStringQuery;
 	@ViewChild(SimpleQueryStringQuery) private simpleQueryStringQuery: SimpleQueryStringQuery;
+	@ViewChild(MissingQuery) private missingQuery: MissingQuery;
 	
 	public informationList: any = {};
 	@Input() query: any;
@@ -103,7 +106,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'exists': this.existsQuery.information,
 			'multi_match': this.multiMatchQuery.information,
 			'query_string': this.queryStringQuery.information,
-			'simple_query_string': this.simpleQueryStringQuery.information
+			'simple_query_string': this.simpleQueryStringQuery.information,
+			'missing': this.missingQuery.information
 				// 'prefix': this.prefixQuery.information
 		};
 	}
