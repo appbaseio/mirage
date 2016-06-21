@@ -13,6 +13,7 @@ import { TermsQuery } from './queries/terms.query';
 import { PrefixQuery } from './queries/prefix.query';
 import { MultiMatchQuery } from './queries/multi-match.query';
 import { QueryStringQuery } from './queries/query_string.query';
+import { SimpleQueryStringQuery } from './queries/simple_query_string.query';
 
 @Component({
 	selector: 'single-query',
@@ -32,7 +33,8 @@ import { QueryStringQuery } from './queries/query_string.query';
 		TermsQuery,
 		ExistsQuery,
 		MultiMatchQuery,
-		QueryStringQuery
+		QueryStringQuery,
+		SimpleQueryStringQuery
 	]
 })
 
@@ -67,6 +69,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(ExistsQuery) private existsQuery: ExistsQuery;
 	@ViewChild(MultiMatchQuery) private multiMatchQuery: MultiMatchQuery;
 	@ViewChild(QueryStringQuery) private queryStringQuery: QueryStringQuery;
+	@ViewChild(SimpleQueryStringQuery) private simpleQueryStringQuery: SimpleQueryStringQuery;
 	
 	public informationList: any = {};
 	@Input() query: any;
@@ -88,7 +91,6 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		console.log('here', this.existsQuery);
 		this.informationList = {
 			'match': this.matchQuery.information,
 			'match_phrase': this.match_phraseQuery.information,
@@ -100,7 +102,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'terms': this.termsQuery.information,
 			'exists': this.existsQuery.information,
 			'multi_match': this.multiMatchQuery.information,
-			'query_string': this.queryStringQuery.information
+			'query_string': this.queryStringQuery.information,
+			'simple_query_string': this.simpleQueryStringQuery.information
 				// 'prefix': this.prefixQuery.information
 		};
 	}

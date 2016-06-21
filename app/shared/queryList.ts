@@ -8,6 +8,7 @@ export var queryList = {
 			'exists',
 			'multi_match',
 			'query_string',
+			'simple_query_string',
 			'match-phase-prefix'
 		],
 		numeric: [
