@@ -36,7 +36,8 @@ import { MissingQuery } from './queries/missing.query';
 		MultiMatchQuery,
 		QueryStringQuery,
 		SimpleQueryStringQuery,
-		MissingQuery
+		MissingQuery,
+		PrefixQuery
 	]
 })
 
@@ -107,8 +108,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'multi_match': this.multiMatchQuery.information,
 			'query_string': this.queryStringQuery.information,
 			'simple_query_string': this.simpleQueryStringQuery.information,
-			'missing': this.missingQuery.information
-				// 'prefix': this.prefixQuery.information
+			'missing': this.missingQuery.information,
+			'prefix': this.prefixQuery.information
 		};
 	}
 

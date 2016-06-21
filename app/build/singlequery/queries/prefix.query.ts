@@ -2,12 +2,14 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 
 @Component({
 	selector: 'prefix-query',
-	template: 	`<div class="form-group form-element col-xs-12">
-					<input type="text" class="form-control col-xs-12"
-						[(ngModel)]="inputs.input.value" 
-					 	placeholder="{{inputs.input.placeholder}}"
-					 	(keyup)="getFormat();" />
-				</div>`,
+	template: 	`<span class="col-xs-6 pd-l0">
+					<div class="form-group form-element">
+						<input type="text" class="form-control col-xs-12"
+							[(ngModel)]="inputs.input.value" 
+						 	placeholder="{{inputs.input.placeholder}}"
+						 	(keyup)="getFormat();" />
+					</div>
+				</span>`,
 	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
@@ -17,12 +19,13 @@ export class PrefixQuery implements OnInit, OnChanges {
 	@Input() appliedQuery;
 	@Input() selectedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
+	public current_query = 'prefix';
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'lt query',
-		content: 'lt query content',
-		link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+		title: 'prefix query',
+		content: `<span class="description"> prefix query content </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html">Documentation</a>`
 	};
 	
 	
@@ -36,8 +39,8 @@ export class PrefixQuery implements OnInit, OnChanges {
 
 	ngOnInit() {
 		try {
-			if(this.appliedQuery['prefix'][this.fieldName]) {
-				this.inputs.input.value = this.appliedQuery['prefix'][this.fieldName];
+			if(this.appliedQuery[this.current_query][this.fieldName]) {
+				this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
 			}
 		} catch(e) {}
 		this.getFormat();
@@ -65,7 +68,7 @@ export class PrefixQuery implements OnInit, OnChanges {
 		}
 	*/
 	getFormat() {
-		if (this.queryName === 'prefix') {
+		if (this.queryName === this.current_query) {
 			this.queryFormat = this.setFormat();
 			this.getQueryFormat.emit(this.queryFormat);
 		}

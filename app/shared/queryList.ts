@@ -9,6 +9,7 @@ export var queryList = {
 			'missing',
 			'multi_match',
 			'query_string',
+			'prefix',
 			'simple_query_string',
 			'match-phase-prefix'
 		],

@@ -118,7 +118,7 @@
 	</div>
 	<!-- match query end -->
 	
-	<!-- match query start -->
+	<!-- prefix query start -->
 	<div [hidden]="query.selectedQuery != 'prefix'" class="row">
 		<prefix-query 
 			[appliedQuery]="query.appliedQuery"
@@ -129,7 +129,7 @@
 			>
 		</prefix-query>
 	</div>
-	<!-- match query end -->
+	<!-- prefix query end -->
 
 	<!-- multip_match query start -->
 	<div [hidden]="query.selectedQuery != 'multi_match'" class="row">
