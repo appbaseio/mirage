@@ -1,36 +1,49 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-	selector: 'exists-query',
-	template: 	`<span class="col-xs-6 pd-0">
+	selector: 'regexp-query',
+	template: 	`<span class="col-xs-6 pd-l0">
+					<div class="form-group form-element">
+						<input type="text" class="form-control col-xs-12"
+							[(ngModel)]="inputs.input.value" 
+						 	placeholder="{{inputs.input.placeholder}}"
+						 	(keyup)="getFormat();" />
+					</div>
 				</span>`,
 	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
 })
 
-export class ExistsQuery implements OnInit, OnChanges {
+export class RegexpQuery implements OnInit, OnChanges {
 	@Input() queryList;
 	@Input() selectedField;
 	@Input() appliedQuery;
 	@Input() selectedQuery;
 	@Output() getQueryFormat = new EventEmitter<any>();
-	public current_query = 'exists';
+	public current_query = 'regexp';
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Exists query',
-		content: `<span class="description"> Exists query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-exists-query.html">Documentation</a>`
+		title: 'regexp query',
+		content: `<span class="description"> regexp query content </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html">Documentation</a>`
 	};
 	
+	
+	public inputs: any = {
+		input: {
+			placeholder: 'Input',
+			value: ''
+		}
+	};
 	public queryFormat: any = {};
 
 	ngOnInit() {
 		try {
-			if(this.appliedQuery[this.current_query]['field']) {
-				this.appliedQuery[this.current_query]['field'] = this.fieldName;
+			if(this.appliedQuery[this.current_query][this.fieldName]) {
+				this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
 			}
 		} catch(e) {}
-		this.getFormat();	
+		this.getFormat();
 	}
 
 	ngOnChanges() {
@@ -47,12 +60,11 @@ export class ExistsQuery implements OnInit, OnChanges {
 			}
 		}
 	}
-
 	// QUERY FORMAT
 	/*
 		Query Format for this query is
 		@queryName: {
-			@field: @fieldName
+			@fieldName: @value
 		}
 	*/
 	getFormat() {
@@ -63,9 +75,8 @@ export class ExistsQuery implements OnInit, OnChanges {
 	}
 	setFormat() {
 		var queryFormat = {};
-		queryFormat[this.queryName] = {
-			'field': this.fieldName
-		};
+		queryFormat[this.queryName] = {};
+		queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
 		return queryFormat;
 	}
 

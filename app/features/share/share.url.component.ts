@@ -13,7 +13,7 @@ export class ShareUrlComponent implements OnInit, OnChanges {
 		var info = {
 			title: 'Share Url',
 			content: `<div class="share_content">
-						<input type="text" class="form-control" value="12341234" id="for-share">
+						<input type="text" class="form-control" value="" id="for-share">
 						<p class="mt-10 success-msg">Link is copied to clipboard!</p>
 					</div>`,
 			html: true,

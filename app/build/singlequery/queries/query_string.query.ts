@@ -2,16 +2,14 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, S
 import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
-	selector: 'match-query',
+	selector: 'query_string-query',
 	template: `<span class="col-xs-6 pd-10">
 					<div class="form-group form-element query-primary-input">
-						<span class="input_with_option">
-							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.input.value" 
-							 	placeholder="{{inputs.input.placeholder}}"
-							 	(keyup)="getFormat();" />
-							<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
-						</span>
+						<input type="text" class="form-control col-xs-12"
+							[(ngModel)]="inputs.input.value" 
+						 	placeholder="{{inputs.input.placeholder}}"
+						 	(keyup)="getFormat();" />
+						<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
 					</div>
 				</span>	
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
@@ -27,10 +25,10 @@ import { EditableComponent } from '../../editable/editable.component';
 						</div>
 						<div class="col-xs-6 pd-0">
 							<div class="form-group form-element">
-								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="value"  (keyup)="getFormat();"/>
-							</div>
+ 								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="{{placeholders[singleOption.name] || 'value'}}"  (keyup)="getFormat();"/>							
+ 							</div>
 						</div>
-						<button (click)="removeOption(i)" class="btn btn-grey delete-option btn-xs">
+						<button (click)="removeOption(i)" class="btn btn-grey delete-option">
 							<i class="fa fa-times"></i>
 						</button>
 					</div>
@@ -40,28 +38,28 @@ import { EditableComponent } from '../../editable/editable.component';
 	directives: [EditableComponent]
 })
 
-export class MatchQuery implements OnInit, OnChanges {
+export class QueryStringQuery implements OnInit, OnChanges {
 	@Input() queryList: any;
 	@Input() selectedField: string;
 	@Input() appliedQuery: any;
 	@Input() selectedQuery: string;
 	@Output() getQueryFormat = new EventEmitter < any > ();
-	public current_query: string = 'match';
+	public current_query: string = 'query_string';
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Match query',
-		content: `<span class="description"> Match query content </span>
+		title: 'Quer string query',
+		content: `<span class="description"> Multi-match query content </span>
 					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
 	};
 	public options: any = [
-		'operator',
-		'zero_terms_query',
-		'cutoff_frequency',
-		'type',
-		'analyzer',
-		'max_expansions'
+		'fields',
+		'default_field',
+		'use_dis_max'
 	];
+	public placeholders: any = {
+		fields: 'Comma seprated values'
+	};
 	public singleOption = {
 		name: '',
 		value: ''
@@ -80,21 +78,30 @@ export class MatchQuery implements OnInit, OnChanges {
 
 	ngOnInit() {
 		try {
-			if (this.appliedQuery[this.current_query][this.selectedField]) {
-				if (this.appliedQuery[this.current_query][this.fieldName].query) {
-					this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
-					for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
-						if (option != 'query') {
-							var obj = {
-								name: option,
-								value: this.appliedQuery[this.current_query][this.fieldName][option]
-							};
-							this.optionRows.push(obj);
-						}
+			if (this.appliedQuery[this.current_query]) {
+				var applied = this.appliedQuery[this.current_query];
+				this.inputs.input.value = applied.query;
+				if(applied.fields.length > 1) {
+					var other_fields = JSON.parse(JSON.stringify(applied.fields));
+					other_fields.splice(0, 1);
+					other_fields = other_fields.join(',');
+					var obj = {
+						name: 'fields',
+						value: other_fields
+					};
+					this.optionRows.push(obj);
+				} 
+				
+				for (let option in applied) {
+					if (option != 'fields' && option != 'query') {
+						var obj = {
+							name: option,
+							value: applied[option]
+						};
+						this.optionRows.push(obj);
 					}
-				} else {
-					this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
 				}
+			
 			}
 		} catch (e) {}
 		this.getFormat();
@@ -123,7 +130,8 @@ export class MatchQuery implements OnInit, OnChanges {
 	/*
 		Query Format for this query is
 		@queryName: {
-			@fieldName: @value
+			query: value,
+			fields: [fieldname, other fields]
 		}
 	*/
 	getFormat() {
@@ -134,16 +142,21 @@ export class MatchQuery implements OnInit, OnChanges {
 	}
 	setFormat() {
 		var queryFormat = {};
-		queryFormat[this.queryName] = {};
-		if (this.optionRows.length) {
-			queryFormat[this.queryName][this.fieldName] = {
-				query: this.inputs.input.value
-			};
+		var fields = [this.fieldName];
+		queryFormat[this.queryName] = {
+			query: this.inputs.input.value,
+			fields: fields
+		};
+		if(this.optionRows.length) {
 			this.optionRows.forEach(function(singleRow: any) {
-				queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+				if(singleRow.name != 'fields') {
+					queryFormat[this.queryName][singleRow.name] = singleRow.value;
+				} else {
+					var field_split = singleRow.value.split(',');
+					fields = fields.concat(field_split);
+					queryFormat[this.queryName].fields = fields;
+				}
 			}.bind(this))
-		} else {
-			queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
 		}
 		return queryFormat;
 	}

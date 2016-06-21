@@ -11,6 +11,13 @@ import { TermQuery } from './queries/term.query';
 import { ExistsQuery } from './queries/exists.query';
 import { TermsQuery } from './queries/terms.query';
 import { PrefixQuery } from './queries/prefix.query';
+import { MultiMatchQuery } from './queries/multi-match.query';
+import { QueryStringQuery } from './queries/query_string.query';
+import { SimpleQueryStringQuery } from './queries/simple_query_string.query';
+import { MissingQuery } from './queries/missing.query';
+import { WildcardQuery } from './queries/wildcard.query';
+import { RegexpQuery } from './queries/regexp.query';
+import { FuzzyQuery } from './queries/fuzzy.query';
 
 @Component({
 	selector: 'single-query',
@@ -28,7 +35,15 @@ import { PrefixQuery } from './queries/prefix.query';
 		LtQuery,
 		TermQuery,
 		TermsQuery,
-		ExistsQuery
+		ExistsQuery,
+		MultiMatchQuery,
+		QueryStringQuery,
+		SimpleQueryStringQuery,
+		MissingQuery,
+		PrefixQuery,
+		WildcardQuery,
+		RegexpQuery,
+		FuzzyQuery
 	]
 })
 
@@ -61,6 +76,13 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(TermsQuery) private termsQuery: TermsQuery;
 	@ViewChild(PrefixQuery) private prefixQuery: PrefixQuery;
 	@ViewChild(ExistsQuery) private existsQuery: ExistsQuery;
+	@ViewChild(MultiMatchQuery) private multiMatchQuery: MultiMatchQuery;
+	@ViewChild(QueryStringQuery) private queryStringQuery: QueryStringQuery;
+	@ViewChild(SimpleQueryStringQuery) private simpleQueryStringQuery: SimpleQueryStringQuery;
+	@ViewChild(MissingQuery) private missingQuery: MissingQuery;
+	@ViewChild(WildcardQuery) private wildcardQuery: WildcardQuery;
+	@ViewChild(RegexpQuery) private regexpQuery: RegexpQuery;
+	@ViewChild(FuzzyQuery) private fuzzyQuery: FuzzyQuery;
 	
 	public informationList: any = {};
 	@Input() query: any;
@@ -82,7 +104,6 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		console.log('here', this.existsQuery);
 		this.informationList = {
 			'match': this.matchQuery.information,
 			'match_phrase': this.match_phraseQuery.information,
@@ -92,8 +113,15 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'lt': this.ltQuery.information,
 			'term': this.termQuery.information,
 			'terms': this.termsQuery.information,
-			'exists': this.existsQuery.information
-				// 'prefix': this.prefixQuery.information
+			'exists': this.existsQuery.information,
+			'multi_match': this.multiMatchQuery.information,
+			'query_string': this.queryStringQuery.information,
+			'simple_query_string': this.simpleQueryStringQuery.information,
+			'missing': this.missingQuery.information,
+			'prefix': this.prefixQuery.information,
+			'wildcard': this.wildcardQuery.information,
+			'regexp': this.regexpQuery.information,
+			'fuzzy': this.fuzzyQuery.information
 		};
 	}
 

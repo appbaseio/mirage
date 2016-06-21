@@ -39,6 +39,7 @@
 }
 .single_query {
 	padding: 15px;
+	padding-top: 30px;
 	background: rgba(226, 91, 25, 0.2);
 	border: 1px solid darken($grey-bg, 10%);
 	margin-bottom: 10px;
@@ -106,10 +107,21 @@
 	}
 	.query-primary-input, .option-container {
 		position: relative;
+		.input_with_option {
+			position: relative;
+		    width: 100%;
+		    float: left;
+		    display: block;
+		    padding-right: 30px;
+		    border-bottom: 1px solid #828282;
+		    input {
+		    	border: 0;
+		    }
+		}
 		.add-option, .delete-option {
 			position: absolute;
-			right: 5px;
-			top: 5px;
+			right: 0;
+			top: 9px;
 		}
 	}
 	.option-container {

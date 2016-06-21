@@ -10,11 +10,12 @@ import { Config } from "./shared/config";
 import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
 import { UrlShare } from "./shared/urlShare";
+import { AppselectComponent } from "./features/appselect/appselect.component";
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent],
 	providers: [AppbaseService]
 })
 
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public finalUrl: string;
 	public sidebar: boolean = false;
 	public hide_url_flag: boolean = false;
+	public appsList: any = [];
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
@@ -79,8 +81,9 @@ export class AppComponent implements OnInit, OnChanges {
 
 	//Get config from localstorage 
 	getLocalConfig() {
-		var url = window.localStorage.getItem('url');
-		var appname = window.localStorage.getItem('appname');
+		var url = window.localStorage.getItem('mirage-url');
+		var appname = window.localStorage.getItem('mirage-appname');
+		var appsList = window.localStorage.getItem('mirage-appsList');
 		if (url != null) {
 			this.config.url = url;
 			this.config.appname = appname;
@@ -88,12 +91,38 @@ export class AppComponent implements OnInit, OnChanges {
 		} else {
 			this.initial_connect = true;
 		}
+		if(appsList) {
+			try {
+				this.appsList = JSON.parse(appsList);
+			} catch(e) {
+				this.appsList = [];
+			}
+		}
 	}
 
 	//Set config from localstorage
 	setLocalConfig(url, appname) {
-		window.localStorage.setItem('url', url);
-		window.localStorage.setItem('appname', appname);
+		window.localStorage.setItem('mirage-url', url);
+		window.localStorage.setItem('mirage-appname', appname);
+		var obj = {
+			appname: appname,
+			url: url
+		};
+		var appsList = window.localStorage.getItem('mirage-appsList');
+		if(appsList) {
+			try {
+				this.appsList = JSON.parse(appsList);
+			} catch(e) {
+				this.appsList = [];
+			}
+		}	
+		if(this.appsList.length) {
+			this.appsList = this.appsList.filter(function(app) {
+				return app.appname !== appname;
+			});
+		}
+		this.appsList.push(obj);
+		window.localStorage.setItem('mirage-appsList', JSON.stringify(this.appsList));
 	}
 
 	setInitialValue() {
@@ -129,61 +158,66 @@ export class AppComponent implements OnInit, OnChanges {
 	connect(clearFlag) {
 		this.connected = false;
 		this.initial_connect = false;
-		var APPNAME = this.config.appname;
-		var URL = this.config.url;
-		var urlsplit = URL.split(':');
-		var pwsplit = urlsplit[2].split('@');
-		this.config.username = urlsplit[1].replace('//', '');
-		this.config.password = pwsplit[0];
-		this.config.host = urlsplit[0] + '://' + pwsplit[1];
-		var self = this;
-		this.appbaseService.setAppbase(this.config);
-		this.appbaseService.get('/_mapping').then(function(res) {
-			self.connected = true;
-			let data = res.json();
-			self.setInitialValue();
-			self.finalUrl = self.config.host + '/' + self.config.appname;
-			self.mapping = data;
-			self.types = self.seprateType(data);
-			self.setLocalConfig(self.config.url, self.config.appname);
-			self.detectChange += "done";
-			
-			if (!clearFlag) {
-				var decryptedData = self.urlShare.decryptedData;
-				if (decryptedData.mapping) {
-					self.mapping = decryptedData.mapping;
+		console.log(this.config);
+		try {
+			var APPNAME = this.config.appname;
+			var URL = this.config.url;
+			var urlsplit = URL.split(':');
+			var pwsplit = urlsplit[2].split('@');
+			this.config.username = urlsplit[1].replace('//', '');
+			this.config.password = pwsplit[0];
+			this.config.host = urlsplit[0] + '://' + pwsplit[1];
+			var self = this;
+			this.appbaseService.setAppbase(this.config);
+			this.appbaseService.get('/_mapping').then(function(res) {
+				self.connected = true;
+				let data = res.json();
+				self.setInitialValue();
+				self.finalUrl = self.config.host + '/' + self.config.appname;
+				self.mapping = data;
+				self.types = self.seprateType(data);
+				self.setLocalConfig(self.config.url, self.config.appname);
+				self.detectChange += "done";
+				
+				if (!clearFlag) {
+					var decryptedData = self.urlShare.decryptedData;
+					if (decryptedData.mapping) {
+						self.mapping = decryptedData.mapping;
+					}
+					if(decryptedData.types) {
+						self.types = decryptedData.types;
+					}
+					if(decryptedData.selectedTypes) {
+						self.selectedTypes = decryptedData.selectedTypes;
+						self.detectChange = "check";
+						setTimeout(() => { $('#setType').val(self.selectedTypes).trigger("change"); }, 300)
+					}
+					if(decryptedData.result) {
+						self.result = decryptedData.result;
+					}
+					if(decryptedData.finalUrl) {
+						self.finalUrl = decryptedData.finalUrl;
+					}
 				}
-				if(decryptedData.types) {
-					self.types = decryptedData.types;
-				}
-				if(decryptedData.selectedTypes) {
-					self.selectedTypes = decryptedData.selectedTypes;
-					self.detectChange = "check";
-					setTimeout(() => { $('#setType').val(self.selectedTypes).trigger("change"); }, 300)
-				}
-				if(decryptedData.result) {
-					self.result = decryptedData.result;
-				}
-				if(decryptedData.finalUrl) {
-					self.finalUrl = decryptedData.finalUrl;
-				}
-			}
 
-			//set input state
-			self.urlShare.inputs['config'] = self.config;
-			self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
-			self.urlShare.inputs['result'] = self.result;
-			self.urlShare.inputs['finalUrl'] = self.finalUrl;
-			self.urlShare.createUrl();
-			setTimeout(function() {
-				self.setLayoutResizer();
-				self.editorHookHelp.setValue('');
-			}, 300);
-			
-		}).catch(function(e) {
-			self.initial_connect = true;
-			alert(e.json().message);
-		});
+				//set input state
+				self.urlShare.inputs['config'] = self.config;
+				self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
+				self.urlShare.inputs['result'] = self.result;
+				self.urlShare.inputs['finalUrl'] = self.finalUrl;
+				self.urlShare.createUrl();
+				setTimeout(function() {
+					self.setLayoutResizer();
+					self.editorHookHelp.setValue('');
+				}, 300);
+				
+			}).catch(function(e) {
+				self.initial_connect = true;
+				alert(e.json().message);
+			});
+		} catch(e) {
+			this.initial_connect = true;
+		}
 	}
 
 	// Seprate the types from mapping	
@@ -334,6 +368,11 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 		setSidebar();
 		$(window).on('resize', setSidebar);
+	}
+
+	setConfig(selectedConfig: any) {
+		this.config.appname = selectedConfig.appname;
+		this.config.url = selectedConfig.url;
 	}
 
 }

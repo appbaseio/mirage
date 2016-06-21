@@ -28,6 +28,7 @@
 
 .single_query {
   padding: 15px;
+  padding-top: 30px;
   background: rgba(226, 91, 25, 0.2);
   border: 1px solid #dedede;
   margin-bottom: 10px;
@@ -76,10 +77,19 @@
     display: inline-block; }
   .single_query .query-primary-input, .single_query .option-container {
     position: relative; }
+    .single_query .query-primary-input .input_with_option, .single_query .option-container .input_with_option {
+      position: relative;
+      width: 100%;
+      float: left;
+      display: block;
+      padding-right: 30px;
+      border-bottom: 1px solid #828282; }
+      .single_query .query-primary-input .input_with_option input, .single_query .option-container .input_with_option input {
+        border: 0; }
     .single_query .query-primary-input .add-option, .single_query .query-primary-input .delete-option, .single_query .option-container .add-option, .single_query .option-container .delete-option {
       position: absolute;
-      right: 5px;
-      top: 5px; }
+      right: 0;
+      top: 9px; }
   .single_query .option-container {
     padding-left: 30px; }
     .single_query .option-container .single-option {
