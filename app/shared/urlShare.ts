@@ -7,18 +7,20 @@ export var UrlShare = function () {
 declare var CryptoJS;
 
 UrlShare.prototype.getInputs = function() {
-	return this.inputs;
+    return this.inputs;
 }
 
 UrlShare.prototype.setInputs = function(inputs: any) {
-	this.inputs = inputs;
-	this.createUrl();
+    this.inputs = inputs;
+    this.createUrl();
 }
 
 UrlShare.prototype.createUrl = function() {
-	var inputs = JSON.parse(JSON.stringify(this.inputs));
-    delete inputs.result.resultQuery.final;
-    delete inputs.result.output;
+    var inputs = JSON.parse(JSON.stringify(this.inputs));
+    try {
+        delete inputs.result.resultQuery.final;
+        delete inputs.result.output;
+    } catch(e) {}
     console.log(inputs);
     var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(inputs), this.secret).toString();
     this.url = ciphertext;
