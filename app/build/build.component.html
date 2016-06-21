@@ -31,7 +31,7 @@
 			</div>	
 		</form>
 		<div class="col-xs-12 pd-0">
-			<button class="btn btn-info pull-left" (click)="addBoolQuery(0);">Add new query</button>
+			<button *ngIf="result.resultQuery.result.length < 1" class="btn btn-info pull-left" (click)="addBoolQuery(0);">Add new query</button>
 			<span class=" pull-right">
 				<button class="btn btn-primary" (click)="openModal();">Save Query</button>
 			</span>
