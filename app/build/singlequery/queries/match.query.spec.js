@@ -17,13 +17,13 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                 var query;
                 var expectedFormat = {
                     'match': {
-                        'foo': 'bar'
+                        'name': 'Elisabeth'
                     }
                 };
                 var expectedFormatWithOption = {
                     'match': {
-                        'foo': {
-                            "query": "bar",
+                        'name': {
+                            "query": "Elisabeth",
                             "operator": "and",
                             "zero_terms_query": "all"
                         }
@@ -33,10 +33,10 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                 testing_1.beforeEach(function () {
                     query = new match_query_1.MatchQuery();
                     query.queryName = 'match';
-                    query.fieldName = 'foo';
+                    query.fieldName = 'name';
                     query.inputs = {
                         input: {
-                            value: 'bar'
+                            value: 'Elisabeth'
                         }
                     };
                 });
@@ -48,6 +48,29 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                         return false;
                     }
                     return true;
+                }
+                function xhrCall(data, cb) {
+                    var config = {
+                        url: 'https://scalr.api.appbase.io',
+                        appname: 'App3',
+                        username: 'CnqEgei0f',
+                        password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+                    };
+                    var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+                    var auth = "Basic " + btoa(config.username + ':' + config.password);
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (xhttp.readyState == 4 && xhttp.status == 200) {
+                            cb(true);
+                        }
+                        else {
+                            cb(false);
+                        }
+                    };
+                    xhttp.open("POST", url);
+                    xhttp.setRequestHeader("Content-type", "application/json");
+                    xhttp.setRequestHeader("Authorization", auth);
+                    xhttp.send();
                 }
                 // Test to check if queryformat is valid json
                 testing_1.it('is valid json', function () {
@@ -72,6 +95,34 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                     var format = query.setFormat();
                     testing_1.expect(format).toEqual(expectedFormatWithOption);
                 });
+                // Test to check if result of setformat is equal to expected query format with option.
+                // it('Test if query works', () => {
+                //     var format = query.setFormat();
+                //     var config = {
+                //         url: 'https://scalr.api.appbase.io',
+                //         appname: 'App3',
+                //         username: 'CnqEgei0f',
+                //         password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+                //     };
+                //     var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+                //     var auth = "Basic " + btoa(config.username + ':' + config.password);
+                //     var xhttp = new XMLHttpRequest();
+                //     xhttp.onreadystatechange = function() {
+                //         debugger;
+                //         if (xhttp.readyState == 4 && xhttp.status == 200) {
+                //             expect(true).toBe(true);
+                //         } else {
+                //             expect(false).toBe(true);              
+                //         }
+                //     };
+                //     xhttp.open("POST", url, true);
+                //     xhttp.setRequestHeader("Content-type", "application/json");
+                //     xhttp.setRequestHeader("Authorization", auth);
+                //     xhttp.send();
+                //     // xhrCall(format, function(flag: boolean){
+                //     //     expect(flag).toBe(true);
+                //     // });
+                // });
             });
         }
     }

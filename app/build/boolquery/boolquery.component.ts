@@ -59,4 +59,12 @@ export class BoolqueryComponent implements OnInit {
 		this.query.boolparam = boolVal;
 		this.exeBuild();
 	}
+	show_hidden_btns(event) {
+		$('.bool_query').removeClass('show_hidden');
+		$(event.currentTarget).addClass('show_hidden');
+		event.stopPropagation();
+	}
+	hide_hidden_btns() {
+		$('.bool_query').removeClass('show_hidden');
+	}
 }

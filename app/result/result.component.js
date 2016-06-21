@@ -28,13 +28,14 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                 function ResultComponent(appbaseService) {
                     this.appbaseService = appbaseService;
                     this.setProp = new core_1.EventEmitter();
+                    this.errorShow = new core_1.EventEmitter();
                 }
                 // Set codemirror instead of normal textarea
                 // Set initial height for textarea
                 ResultComponent.prototype.ngOnInit = function () {
                     var self = this;
                     this.editorHookHelp.applyEditor();
-                    var resultHeight = $(window).height() - 138 - 49 - 49;
+                    var resultHeight = $(window).height() - 138 - 49 - 80;
                     $('.queryRight .codemirror').css({ height: resultHeight });
                 };
                 // Validate using checkValidaQuery method
@@ -52,13 +53,22 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                             self.result.output = JSON.stringify(res.json(), null, 2);
                             self.responseHookHelp.setValue(self.result.output);
                         }).catch(function (data) {
+                            $('#resultModal').modal('hide');
                             self.result.isWatching = false;
                             self.result.output = JSON.stringify(data, null, 2);
-                            self.responseHookHelp.setValue(self.result.output);
+                            var obj = {
+                                title: 'Response Error',
+                                message: self.result.output
+                            };
+                            self.errorShow.emit(obj);
                         });
                     }
                     else {
-                        alert(validate.message);
+                        var obj = {
+                            title: 'Json validation',
+                            message: validate.message
+                        };
+                        this.errorShow.emit(obj);
                     }
                 };
                 // get the textarea value using editor hook
@@ -123,11 +133,15 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                     core_1.Output(), 
                     __metadata('design:type', Object)
                 ], ResultComponent.prototype, "setProp", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], ResultComponent.prototype, "errorShow", void 0);
                 ResultComponent = __decorate([
                     core_1.Component({
                         selector: 'query-result',
                         templateUrl: './app/result/result.component.html',
-                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp'],
+                        inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp', 'errorShow'],
                         pipes: [prettyJson_1.prettyJson],
                         providers: [appbase_service_1.AppbaseService]
                     }), 

@@ -1,4 +1,4 @@
-System.register(["@angular/core", "./build/build.component", "./result/result.component", "./run/run.component", './features/save/save.query.component', './features/list/list.query.component', './features/share/share.url.component', "./shared/editorHook", "./shared/appbase.service", "./shared/urlShare", "./features/appselect/appselect.component"], function(exports_1, context_1) {
+System.register(["@angular/core", "./build/build.component", "./result/result.component", "./run/run.component", './features/save/save.query.component', './features/list/list.query.component', './features/share/share.url.component', "./shared/editorHook", "./shared/appbase.service", "./shared/urlShare", "./features/modal/error-modal.component", "./features/appselect/appselect.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, build_component_1, result_component_1, run_component_1, save_query_component_1, list_query_component_1, share_url_component_1, editorHook_1, appbase_service_1, urlShare_1, appselect_component_1;
+    var core_1, build_component_1, result_component_1, run_component_1, save_query_component_1, list_query_component_1, share_url_component_1, editorHook_1, appbase_service_1, urlShare_1, error_modal_component_1, appselect_component_1;
     var AppComponent;
     return {
         setters:[
@@ -44,6 +44,9 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
             function (urlShare_1_1) {
                 urlShare_1 = urlShare_1_1;
             },
+            function (error_modal_component_1_1) {
+                error_modal_component_1 = error_modal_component_1_1;
+            },
             function (appselect_component_1_1) {
                 appselect_component_1 = appselect_component_1_1;
             }],
@@ -72,6 +75,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.sidebar = false;
                     this.hide_url_flag = false;
                     this.appsList = [];
+                    this.errorInfo = {};
                     this.editorHookHelp = new editorHook_1.EditorHook({ editorId: 'editor' });
                     this.responseHookHelp = new editorHook_1.EditorHook({ editorId: 'responseBlock' });
                     this.urlShare = new urlShare_1.UrlShare();
@@ -232,7 +236,10 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                             }, 300);
                         }).catch(function (e) {
                             self.initial_connect = true;
-                            alert(e.json().message);
+                            self.errorShow({
+                                title: 'Disconnected',
+                                message: e.json().message
+                            });
                         });
                     }
                     catch (e) {
@@ -311,7 +318,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                         createdAt: createdAt
                     };
                     this.savedQueryList.push(queryData);
-                    this.sort(this.filteredQuery);
+                    this.sort(this.savedQueryList);
                     var queryString = JSON.stringify(this.savedQueryList);
                     try {
                         window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
@@ -383,11 +390,15 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.config.appname = selectedConfig.appname;
                     this.config.url = selectedConfig.url;
                 };
+                AppComponent.prototype.errorShow = function (info) {
+                    this.errorInfo = info;
+                    $('#errorModal').modal('show');
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
                         templateUrl: './app/app.component.html',
-                        directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent],
+                        directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent],
                         providers: [appbase_service_1.AppbaseService]
                     }), 
                     __metadata('design:paramtypes', [appbase_service_1.AppbaseService])

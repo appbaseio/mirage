@@ -1,13 +1,17 @@
-.bool_query .delete-nested-query {
-  display: none; }
+.single_query.bool_query.show_hidden {
+  background: #eee; }
 
-.bool_query:hover .delete-nested-query, .bool_query:hover .bool-btn-group {
+.bool_query.show_hidden > .add_condition_row,
+.bool_query.show_hidden > .bool-btn-group {
   display: inline-block; }
+
+.bool_query .add_condition_row {
+  padding: 0;
+  padding-left: 15px;
+  display: none; }
 
 .bool_query .internvalQuery {
   padding-left: 15px; }
-  .bool_query .internvalQuery .add_condition_row {
-    min-height: 36px; }
   .bool_query .internvalQuery .add_condition,
   .bool_query .internvalQuery .nested-query {
     display: none; }
@@ -20,11 +24,8 @@
   padding-left: 15px; }
   .bool_query .subQuery .single_query {
     border: 0;
-    padding-top: 0; }
-
-.bool_query .add_condition_row {
-  padding: 0;
-  padding-left: 15px; }
+    padding-top: 0;
+    padding-right: 0; }
 
 .single_query {
   padding: 15px;

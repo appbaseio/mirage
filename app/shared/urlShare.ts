@@ -7,16 +7,16 @@ export var UrlShare = function () {
 declare var CryptoJS;
 
 UrlShare.prototype.getInputs = function() {
-	return this.inputs;
+    return this.inputs;
 }
 
 UrlShare.prototype.setInputs = function(inputs: any) {
-	this.inputs = inputs;
-	this.createUrl();
+    this.inputs = inputs;
+    this.createUrl();
 }
 
 UrlShare.prototype.createUrl = function() {
-	var inputs = JSON.parse(JSON.stringify(this.inputs));
+    var inputs = JSON.parse(JSON.stringify(this.inputs));
     try {
         delete inputs.result.resultQuery.final;
         delete inputs.result.output;

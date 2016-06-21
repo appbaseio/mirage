@@ -10,12 +10,13 @@ import { Config } from "./shared/config";
 import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
 import { UrlShare } from "./shared/urlShare";
+import { ErrorModalComponent } from "./features/modal/error-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent],
 	providers: [AppbaseService]
 })
 
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public sidebar: boolean = false;
 	public hide_url_flag: boolean = false;
 	public appsList: any = [];
+	public errorInfo: any = {};
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
@@ -215,7 +217,10 @@ export class AppComponent implements OnInit, OnChanges {
 				
 			}).catch(function(e) {
 				self.initial_connect = true;
-				alert(e.json().message);
+				self.errorShow({
+					title: 'Disconnected',
+					message: e.json().message
+				});
 			});
 		} catch(e) {
 			this.initial_connect = true;
@@ -297,7 +302,7 @@ export class AppComponent implements OnInit, OnChanges {
 			createdAt: createdAt
 		};
 		this.savedQueryList.push(queryData);
-		this.sort(this.filteredQuery);
+		this.sort(this.savedQueryList);
 		var queryString = JSON.stringify(this.savedQueryList);
 		try {
 			window.localStorage.setItem('queryList', JSON.stringify(this.savedQueryList));
@@ -377,4 +382,8 @@ export class AppComponent implements OnInit, OnChanges {
 		this.config.url = selectedConfig.url;
 	}
 
+	errorShow(info: any) {
+		this.errorInfo = info;
+		$('#errorModal').modal('show');
+	}
 }

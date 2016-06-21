@@ -1,17 +1,22 @@
 @import "variables.scss";
+.single_query.bool_query.show_hidden {
+	background: #eee;
+}
+.bool_query.show_hidden > .add_condition_row,
+.bool_query.show_hidden > .bool-btn-group
+{
+	display: inline-block;
+}
 .bool_query {
-	.delete-nested-query {
+	.add_condition_row {
+		padding: 0;
+		padding-left: 15px;
 		display: none;
-	}
-	&:hover {
-		.delete-nested-query, .bool-btn-group {
-			display: inline-block;
-		}
 	}
 	.internvalQuery {
 		padding-left: 15px;
 		.add_condition_row {
-			min-height: 36px;
+			
 		}
 		.add_condition,
 		.nested-query {
@@ -30,11 +35,8 @@
 		.single_query {
 		    border: 0;
 		    padding-top: 0;
+			padding-right: 0;
 		}
-	}
-	.add_condition_row {
-		padding: 0;
-		padding-left: 15px;
 	}
 }
 .single_query {

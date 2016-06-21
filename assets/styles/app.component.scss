@@ -13,3 +13,25 @@
 		vertical-align: middle;
 	}
 }
+.header {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 6px;
+    max-height: 40px;
+	.img-container {
+		max-height: 30px;
+	    max-width: 30px;
+	    display: inline-block;
+	    float: left;
+	}
+	.tag-line {
+		padding-left: 15px;
+		line-height: 30px;
+		float: left;
+	}
+}

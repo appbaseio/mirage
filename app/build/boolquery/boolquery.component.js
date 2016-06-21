@@ -65,6 +65,14 @@ System.register(["@angular/core", "../singlequery/singlequery.component", '../ed
                     this.query.boolparam = boolVal;
                     this.exeBuild();
                 };
+                BoolqueryComponent.prototype.show_hidden_btns = function (event) {
+                    $('.bool_query').removeClass('show_hidden');
+                    $(event.currentTarget).addClass('show_hidden');
+                    event.stopPropagation();
+                };
+                BoolqueryComponent.prototype.hide_hidden_btns = function () {
+                    $('.bool_query').removeClass('show_hidden');
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
