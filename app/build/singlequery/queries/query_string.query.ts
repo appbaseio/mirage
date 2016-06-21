@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, S
 import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
-	selector: 'multi_match-query',
+	selector: 'query_string-query',
 	template: `<span class="col-xs-6 pd-10">
 					<div class="form-group form-element query-primary-input">
 						<input type="text" class="form-control col-xs-12"
@@ -38,25 +38,24 @@ import { EditableComponent } from '../../editable/editable.component';
 	directives: [EditableComponent]
 })
 
-export class MultiMatchQuery implements OnInit, OnChanges {
+export class QueryStringQuery implements OnInit, OnChanges {
 	@Input() queryList: any;
 	@Input() selectedField: string;
 	@Input() appliedQuery: any;
 	@Input() selectedQuery: string;
 	@Output() getQueryFormat = new EventEmitter < any > ();
-	public current_query: string = 'multi_match';
+	public current_query: string = 'query_string';
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Match query',
+		title: 'Quer string query',
 		content: `<span class="description"> Multi-match query content </span>
 					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
 	};
 	public options: any = [
 		'fields',
-		'tie_breaker',
-		'type',
-		'operator'
+		'default_field',
+		'use_dis_max'
 	];
 	public placeholders: any = {
 		fields: 'Comma seprated values'

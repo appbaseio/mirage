@@ -145,7 +145,7 @@
 	</div>
 	<!-- match query end -->
 
-	<!-- match query start -->
+	<!-- multip_match query start -->
 	<div [hidden]="query.selectedQuery != 'multi_match'" class="row">
 		<multi_match-query 
 			[appliedQuery]="query.appliedQuery"
@@ -156,7 +156,20 @@
 			>
 		</multi_match-query>
 	</div>
-	<!-- match query end -->
+	<!-- multip_match query end -->
+
+	<!-- query_string query start -->
+	<div [hidden]="query.selectedQuery != 'query_string'" class="row">
+		<query_string-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</query_string-query>
+	</div>
+	<!-- multip_match query end -->
 	
 	<!-- load the slector for selected query -->
 </div>
