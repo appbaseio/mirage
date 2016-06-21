@@ -21,24 +21,19 @@ System.register(["@angular/core"], function(exports_1, context_1) {
             ExistsQuery = (function () {
                 function ExistsQuery() {
                     this.getQueryFormat = new core_1.EventEmitter();
+                    this.current_query = 'exists';
                     this.queryName = '*';
                     this.fieldName = '*';
                     this.information = {
                         title: 'Exists query',
                         content: "<span class=\"description\"> Exists query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-exists-query.html\">Documentation</a>"
                     };
-                    this.inputs = {
-                        input: {
-                            placeholder: 'Input',
-                            value: ''
-                        }
-                    };
                     this.queryFormat = {};
                 }
                 ExistsQuery.prototype.ngOnInit = function () {
                     try {
-                        if (this.appliedQuery['exists'][this.fieldName]) {
-                            this.inputs.input.value = this.appliedQuery['exists'][this.fieldName];
+                        if (this.appliedQuery[this.current_query]['field']) {
+                            this.appliedQuery[this.current_query]['field'] = this.fieldName;
                         }
                     }
                     catch (e) { }
@@ -62,19 +57,20 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 /*
                     Query Format for this query is
                     @queryName: {
-                        @fieldName: @value
+                        @field: @fieldName
                     }
                 */
                 ExistsQuery.prototype.getFormat = function () {
-                    if (this.queryName === 'exists') {
+                    if (this.queryName === this.current_query) {
                         this.queryFormat = this.setFormat();
                         this.getQueryFormat.emit(this.queryFormat);
                     }
                 };
                 ExistsQuery.prototype.setFormat = function () {
                     var queryFormat = {};
-                    queryFormat[this.queryName] = {};
-                    queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+                    queryFormat[this.queryName] = {
+                        'field': this.fieldName
+                    };
                     return queryFormat;
                 };
                 __decorate([
@@ -100,7 +96,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 ExistsQuery = __decorate([
                     core_1.Component({
                         selector: 'exists-query',
-                        template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
+                        template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t</span>",
                         inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
                     }), 
                     __metadata('design:paramtypes', [])

@@ -11,41 +11,35 @@ System.register(["@angular/core"], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var PrefixQuery;
+    var MissingQuery;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            PrefixQuery = (function () {
-                function PrefixQuery() {
+            MissingQuery = (function () {
+                function MissingQuery() {
                     this.getQueryFormat = new core_1.EventEmitter();
-                    this.current_query = 'prefix';
+                    this.current_query = 'missing';
                     this.queryName = '*';
                     this.fieldName = '*';
                     this.information = {
-                        title: 'prefix query',
-                        content: "<span class=\"description\"> prefix query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
-                    };
-                    this.inputs = {
-                        input: {
-                            placeholder: 'Input',
-                            value: ''
-                        }
+                        title: 'missing query',
+                        content: "<span class=\"description\"> missing query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
                     };
                     this.queryFormat = {};
                 }
-                PrefixQuery.prototype.ngOnInit = function () {
+                MissingQuery.prototype.ngOnInit = function () {
                     try {
-                        if (this.appliedQuery[this.current_query][this.fieldName]) {
-                            this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                        if (this.appliedQuery[this.current_query]['field']) {
+                            this.appliedQuery[this.current_query]['field'] = this.fieldName;
                         }
                     }
                     catch (e) { }
                     this.getFormat();
                 };
-                PrefixQuery.prototype.ngOnChanges = function () {
+                MissingQuery.prototype.ngOnChanges = function () {
                     if (this.selectedField != '') {
                         if (this.selectedField !== this.fieldName) {
                             this.fieldName = this.selectedField;
@@ -63,53 +57,54 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 /*
                     Query Format for this query is
                     @queryName: {
-                        @fieldName: @value
+                        @field: @fieldName
                     }
                 */
-                PrefixQuery.prototype.getFormat = function () {
+                MissingQuery.prototype.getFormat = function () {
                     if (this.queryName === this.current_query) {
                         this.queryFormat = this.setFormat();
                         this.getQueryFormat.emit(this.queryFormat);
                     }
                 };
-                PrefixQuery.prototype.setFormat = function () {
+                MissingQuery.prototype.setFormat = function () {
                     var queryFormat = {};
-                    queryFormat[this.queryName] = {};
-                    queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+                    queryFormat[this.queryName] = {
+                        'field': this.fieldName
+                    };
                     return queryFormat;
                 };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "queryList", void 0);
+                ], MissingQuery.prototype, "queryList", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "selectedField", void 0);
+                ], MissingQuery.prototype, "selectedField", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "appliedQuery", void 0);
+                ], MissingQuery.prototype, "appliedQuery", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "selectedQuery", void 0);
+                ], MissingQuery.prototype, "selectedQuery", void 0);
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "getQueryFormat", void 0);
-                PrefixQuery = __decorate([
+                ], MissingQuery.prototype, "getQueryFormat", void 0);
+                MissingQuery = __decorate([
                     core_1.Component({
-                        selector: 'prefix-query',
-                        template: "<span class=\"col-xs-6 pd-l0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
+                        selector: 'missing-query',
+                        template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t</span>",
                         inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
                     }), 
                     __metadata('design:paramtypes', [])
-                ], PrefixQuery);
-                return PrefixQuery;
+                ], MissingQuery);
+                return MissingQuery;
             }());
-            exports_1("PrefixQuery", PrefixQuery);
+            exports_1("MissingQuery", MissingQuery);
         }
     }
 });
-//# sourceMappingURL=prefix.query.js.map
+//# sourceMappingURL=missing.query.js.map

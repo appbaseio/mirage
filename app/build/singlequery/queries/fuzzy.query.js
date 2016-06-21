@@ -11,22 +11,22 @@ System.register(["@angular/core"], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var PrefixQuery;
+    var FuzzyQuery;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            PrefixQuery = (function () {
-                function PrefixQuery() {
+            FuzzyQuery = (function () {
+                function FuzzyQuery() {
                     this.getQueryFormat = new core_1.EventEmitter();
-                    this.current_query = 'prefix';
+                    this.current_query = 'fuzzy';
                     this.queryName = '*';
                     this.fieldName = '*';
                     this.information = {
-                        title: 'prefix query',
-                        content: "<span class=\"description\"> prefix query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
+                        title: 'fuzzy query',
+                        content: "<span class=\"description\"> fuzzy query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
                     };
                     this.inputs = {
                         input: {
@@ -36,7 +36,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     };
                     this.queryFormat = {};
                 }
-                PrefixQuery.prototype.ngOnInit = function () {
+                FuzzyQuery.prototype.ngOnInit = function () {
                     try {
                         if (this.appliedQuery[this.current_query][this.fieldName]) {
                             this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
@@ -45,7 +45,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     catch (e) { }
                     this.getFormat();
                 };
-                PrefixQuery.prototype.ngOnChanges = function () {
+                FuzzyQuery.prototype.ngOnChanges = function () {
                     if (this.selectedField != '') {
                         if (this.selectedField !== this.fieldName) {
                             this.fieldName = this.selectedField;
@@ -66,13 +66,13 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                         @fieldName: @value
                     }
                 */
-                PrefixQuery.prototype.getFormat = function () {
+                FuzzyQuery.prototype.getFormat = function () {
                     if (this.queryName === this.current_query) {
                         this.queryFormat = this.setFormat();
                         this.getQueryFormat.emit(this.queryFormat);
                     }
                 };
-                PrefixQuery.prototype.setFormat = function () {
+                FuzzyQuery.prototype.setFormat = function () {
                     var queryFormat = {};
                     queryFormat[this.queryName] = {};
                     queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
@@ -81,35 +81,35 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "queryList", void 0);
+                ], FuzzyQuery.prototype, "queryList", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "selectedField", void 0);
+                ], FuzzyQuery.prototype, "selectedField", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "appliedQuery", void 0);
+                ], FuzzyQuery.prototype, "appliedQuery", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "selectedQuery", void 0);
+                ], FuzzyQuery.prototype, "selectedQuery", void 0);
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], PrefixQuery.prototype, "getQueryFormat", void 0);
-                PrefixQuery = __decorate([
+                ], FuzzyQuery.prototype, "getQueryFormat", void 0);
+                FuzzyQuery = __decorate([
                     core_1.Component({
-                        selector: 'prefix-query',
+                        selector: 'fuzzy-query',
                         template: "<span class=\"col-xs-6 pd-l0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
                         inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
                     }), 
                     __metadata('design:paramtypes', [])
-                ], PrefixQuery);
-                return PrefixQuery;
+                ], FuzzyQuery);
+                return FuzzyQuery;
             }());
-            exports_1("PrefixQuery", PrefixQuery);
+            exports_1("FuzzyQuery", FuzzyQuery);
         }
     }
 });
-//# sourceMappingURL=prefix.query.js.map
+//# sourceMappingURL=fuzzy.query.js.map

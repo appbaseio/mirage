@@ -1,4 +1,4 @@
-System.register(["@angular/core", '../select2/select2.component', '../editable/editable.component', './queries/match.query', './queries/match_phrase.query', './queries/match_phase_prefix.query', './queries/range.query', './queries/gt.query', './queries/lt.query', './queries/term.query', './queries/exists.query', './queries/terms.query', './queries/prefix.query'], function(exports_1, context_1) {
+System.register(["@angular/core", '../select2/select2.component', '../editable/editable.component', './queries/match.query', './queries/match_phrase.query', './queries/match_phase_prefix.query', './queries/range.query', './queries/gt.query', './queries/lt.query', './queries/term.query', './queries/exists.query', './queries/terms.query', './queries/prefix.query', './queries/multi-match.query', './queries/query_string.query', './queries/simple_query_string.query', './queries/missing.query', './queries/wildcard.query', './queries/regexp.query', './queries/fuzzy.query'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, select2_component_1, editable_component_1, match_query_1, match_phrase_query_1, match_phase_prefix_query_1, range_query_1, gt_query_1, lt_query_1, term_query_1, exists_query_1, terms_query_1, prefix_query_1;
+    var core_1, select2_component_1, editable_component_1, match_query_1, match_phrase_query_1, match_phase_prefix_query_1, range_query_1, gt_query_1, lt_query_1, term_query_1, exists_query_1, terms_query_1, prefix_query_1, multi_match_query_1, query_string_query_1, simple_query_string_query_1, missing_query_1, wildcard_query_1, regexp_query_1, fuzzy_query_1;
     var SinglequeryComponent;
     return {
         setters:[
@@ -52,6 +52,27 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
             },
             function (prefix_query_1_1) {
                 prefix_query_1 = prefix_query_1_1;
+            },
+            function (multi_match_query_1_1) {
+                multi_match_query_1 = multi_match_query_1_1;
+            },
+            function (query_string_query_1_1) {
+                query_string_query_1 = query_string_query_1_1;
+            },
+            function (simple_query_string_query_1_1) {
+                simple_query_string_query_1 = simple_query_string_query_1_1;
+            },
+            function (missing_query_1_1) {
+                missing_query_1 = missing_query_1_1;
+            },
+            function (wildcard_query_1_1) {
+                wildcard_query_1 = wildcard_query_1_1;
+            },
+            function (regexp_query_1_1) {
+                regexp_query_1 = regexp_query_1_1;
+            },
+            function (fuzzy_query_1_1) {
+                fuzzy_query_1 = fuzzy_query_1_1;
             }],
         execute: function() {
             SinglequeryComponent = (function () {
@@ -80,7 +101,6 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
                     }.bind(this), 300);
                 };
                 SinglequeryComponent.prototype.ngAfterViewInit = function () {
-                    console.log('here', this.existsQuery);
                     this.informationList = {
                         'match': this.matchQuery.information,
                         'match_phrase': this.match_phraseQuery.information,
@@ -90,7 +110,15 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
                         'lt': this.ltQuery.information,
                         'term': this.termQuery.information,
                         'terms': this.termsQuery.information,
-                        'exists': this.existsQuery.information
+                        'exists': this.existsQuery.information,
+                        'multi_match': this.multiMatchQuery.information,
+                        'query_string': this.queryStringQuery.information,
+                        'simple_query_string': this.simpleQueryStringQuery.information,
+                        'missing': this.missingQuery.information,
+                        'prefix': this.prefixQuery.information,
+                        'wildcard': this.wildcardQuery.information,
+                        'regexp': this.regexpQuery.information,
+                        'fuzzy': this.fuzzyQuery.information
                     };
                 };
                 SinglequeryComponent.prototype.getQueryFormat = function (outputQuery) {
@@ -189,6 +217,34 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
                     __metadata('design:type', exists_query_1.ExistsQuery)
                 ], SinglequeryComponent.prototype, "existsQuery", void 0);
                 __decorate([
+                    core_1.ViewChild(multi_match_query_1.MultiMatchQuery), 
+                    __metadata('design:type', multi_match_query_1.MultiMatchQuery)
+                ], SinglequeryComponent.prototype, "multiMatchQuery", void 0);
+                __decorate([
+                    core_1.ViewChild(query_string_query_1.QueryStringQuery), 
+                    __metadata('design:type', query_string_query_1.QueryStringQuery)
+                ], SinglequeryComponent.prototype, "queryStringQuery", void 0);
+                __decorate([
+                    core_1.ViewChild(simple_query_string_query_1.SimpleQueryStringQuery), 
+                    __metadata('design:type', simple_query_string_query_1.SimpleQueryStringQuery)
+                ], SinglequeryComponent.prototype, "simpleQueryStringQuery", void 0);
+                __decorate([
+                    core_1.ViewChild(missing_query_1.MissingQuery), 
+                    __metadata('design:type', missing_query_1.MissingQuery)
+                ], SinglequeryComponent.prototype, "missingQuery", void 0);
+                __decorate([
+                    core_1.ViewChild(wildcard_query_1.WildcardQuery), 
+                    __metadata('design:type', wildcard_query_1.WildcardQuery)
+                ], SinglequeryComponent.prototype, "wildcardQuery", void 0);
+                __decorate([
+                    core_1.ViewChild(regexp_query_1.RegexpQuery), 
+                    __metadata('design:type', regexp_query_1.RegexpQuery)
+                ], SinglequeryComponent.prototype, "regexpQuery", void 0);
+                __decorate([
+                    core_1.ViewChild(fuzzy_query_1.FuzzyQuery), 
+                    __metadata('design:type', fuzzy_query_1.FuzzyQuery)
+                ], SinglequeryComponent.prototype, "fuzzyQuery", void 0);
+                __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], SinglequeryComponent.prototype, "query", void 0);
@@ -209,7 +265,15 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
                             lt_query_1.LtQuery,
                             term_query_1.TermQuery,
                             terms_query_1.TermsQuery,
-                            exists_query_1.ExistsQuery
+                            exists_query_1.ExistsQuery,
+                            multi_match_query_1.MultiMatchQuery,
+                            query_string_query_1.QueryStringQuery,
+                            simple_query_string_query_1.SimpleQueryStringQuery,
+                            missing_query_1.MissingQuery,
+                            prefix_query_1.PrefixQuery,
+                            wildcard_query_1.WildcardQuery,
+                            regexp_query_1.RegexpQuery,
+                            fuzzy_query_1.FuzzyQuery
                         ]
                     }), 
                     __metadata('design:paramtypes', [])

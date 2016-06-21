@@ -5,11 +5,13 @@ import { EditableComponent } from '../../editable/editable.component';
 	selector: 'query_string-query',
 	template: `<span class="col-xs-6 pd-10">
 					<div class="form-group form-element query-primary-input">
-						<input type="text" class="form-control col-xs-12"
-							[(ngModel)]="inputs.input.value" 
-						 	placeholder="{{inputs.input.placeholder}}"
-						 	(keyup)="getFormat();" />
-						<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
+						<span class="input_with_option">
+							<input type="text" class="form-control col-xs-12"
+								[(ngModel)]="inputs.input.value" 
+							 	placeholder="{{inputs.input.placeholder}}"
+							 	(keyup)="getFormat();" />
+							<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
+						</span>
 					</div>
 				</span>	
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
@@ -28,7 +30,7 @@ import { EditableComponent } from '../../editable/editable.component';
  								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="{{placeholders[singleOption.name] || 'value'}}"  (keyup)="getFormat();"/>							
  							</div>
 						</div>
-						<button (click)="removeOption(i)" class="btn btn-grey delete-option">
+						<button (click)="removeOption(i)" class="btn btn-grey delete-option btn-xs">
 							<i class="fa fa-times"></i>
 						</button>
 					</div>

@@ -24,7 +24,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                 ShareUrlComponent.prototype.ngOnInit = function () {
                     var info = {
                         title: 'Share Url',
-                        content: "<div class=\"share_content\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" value=\"12341234\" id=\"for-share\">\n\t\t\t\t\t\t<p class=\"mt-10 success-msg\">Link is copied to clipboard!</p>\n\t\t\t\t\t</div>",
+                        content: "<div class=\"share_content\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" value=\"\" id=\"for-share\">\n\t\t\t\t\t\t<p class=\"mt-10 success-msg\">Link is copied to clipboard!</p>\n\t\t\t\t\t</div>",
                         html: true,
                         trigger: 'click'
                     };

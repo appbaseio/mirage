@@ -13,13 +13,23 @@ System.register([], function(exports_1, context_1) {
                         'term',
                         'terms',
                         'exists',
+                        'missing',
+                        'multi_match',
+                        'query_string',
+                        'prefix',
+                        'wildcard',
+                        'regexp',
+                        'fuzzy',
+                        'simple_query_string',
                         'match-phase-prefix'
                     ],
                     numeric: [
                         'match',
                         'range',
                         'gt',
-                        'lt'
+                        'lt',
+                        'exists',
+                        'missing'
                     ]
                 },
                 not_analyzed: {

@@ -1,4 +1,4 @@
-System.register(["@angular/core", "./build/build.component", "./result/result.component", "./run/run.component", './features/save/save.query.component', './features/list/list.query.component', './features/share/share.url.component', "./shared/editorHook", "./shared/appbase.service", "./shared/urlShare"], function(exports_1, context_1) {
+System.register(["@angular/core", "./build/build.component", "./result/result.component", "./run/run.component", './features/save/save.query.component', './features/list/list.query.component', './features/share/share.url.component', "./shared/editorHook", "./shared/appbase.service", "./shared/urlShare", "./features/appselect/appselect.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, build_component_1, result_component_1, run_component_1, save_query_component_1, list_query_component_1, share_url_component_1, editorHook_1, appbase_service_1, urlShare_1;
+    var core_1, build_component_1, result_component_1, run_component_1, save_query_component_1, list_query_component_1, share_url_component_1, editorHook_1, appbase_service_1, urlShare_1, appselect_component_1;
     var AppComponent;
     return {
         setters:[
@@ -43,6 +43,9 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
             },
             function (urlShare_1_1) {
                 urlShare_1 = urlShare_1_1;
+            },
+            function (appselect_component_1_1) {
+                appselect_component_1 = appselect_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -68,6 +71,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.searchTerm = '';
                     this.sidebar = false;
                     this.hide_url_flag = false;
+                    this.appsList = [];
                     this.editorHookHelp = new editorHook_1.EditorHook({ editorId: 'editor' });
                     this.responseHookHelp = new editorHook_1.EditorHook({ editorId: 'responseBlock' });
                     this.urlShare = new urlShare_1.UrlShare();
@@ -97,8 +101,9 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                 };
                 //Get config from localstorage 
                 AppComponent.prototype.getLocalConfig = function () {
-                    var url = window.localStorage.getItem('url');
-                    var appname = window.localStorage.getItem('appname');
+                    var url = window.localStorage.getItem('mirage-url');
+                    var appname = window.localStorage.getItem('mirage-appname');
+                    var appsList = window.localStorage.getItem('mirage-appsList');
                     if (url != null) {
                         this.config.url = url;
                         this.config.appname = appname;
@@ -107,11 +112,39 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     else {
                         this.initial_connect = true;
                     }
+                    if (appsList) {
+                        try {
+                            this.appsList = JSON.parse(appsList);
+                        }
+                        catch (e) {
+                            this.appsList = [];
+                        }
+                    }
                 };
                 //Set config from localstorage
                 AppComponent.prototype.setLocalConfig = function (url, appname) {
-                    window.localStorage.setItem('url', url);
-                    window.localStorage.setItem('appname', appname);
+                    window.localStorage.setItem('mirage-url', url);
+                    window.localStorage.setItem('mirage-appname', appname);
+                    var obj = {
+                        appname: appname,
+                        url: url
+                    };
+                    var appsList = window.localStorage.getItem('mirage-appsList');
+                    if (appsList) {
+                        try {
+                            this.appsList = JSON.parse(appsList);
+                        }
+                        catch (e) {
+                            this.appsList = [];
+                        }
+                    }
+                    if (this.appsList.length) {
+                        this.appsList = this.appsList.filter(function (app) {
+                            return app.appname !== appname;
+                        });
+                    }
+                    this.appsList.push(obj);
+                    window.localStorage.setItem('mirage-appsList', JSON.stringify(this.appsList));
                 };
                 AppComponent.prototype.setInitialValue = function () {
                     this.mapping = null;
@@ -145,58 +178,64 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                 AppComponent.prototype.connect = function (clearFlag) {
                     this.connected = false;
                     this.initial_connect = false;
-                    var APPNAME = this.config.appname;
-                    var URL = this.config.url;
-                    var urlsplit = URL.split(':');
-                    var pwsplit = urlsplit[2].split('@');
-                    this.config.username = urlsplit[1].replace('//', '');
-                    this.config.password = pwsplit[0];
-                    this.config.host = urlsplit[0] + '://' + pwsplit[1];
-                    var self = this;
-                    this.appbaseService.setAppbase(this.config);
-                    this.appbaseService.get('/_mapping').then(function (res) {
-                        self.connected = true;
-                        var data = res.json();
-                        self.setInitialValue();
-                        self.finalUrl = self.config.host + '/' + self.config.appname;
-                        self.mapping = data;
-                        self.types = self.seprateType(data);
-                        self.setLocalConfig(self.config.url, self.config.appname);
-                        self.detectChange += "done";
-                        if (!clearFlag) {
-                            var decryptedData = self.urlShare.decryptedData;
-                            if (decryptedData.mapping) {
-                                self.mapping = decryptedData.mapping;
+                    console.log(this.config);
+                    try {
+                        var APPNAME = this.config.appname;
+                        var URL = this.config.url;
+                        var urlsplit = URL.split(':');
+                        var pwsplit = urlsplit[2].split('@');
+                        this.config.username = urlsplit[1].replace('//', '');
+                        this.config.password = pwsplit[0];
+                        this.config.host = urlsplit[0] + '://' + pwsplit[1];
+                        var self = this;
+                        this.appbaseService.setAppbase(this.config);
+                        this.appbaseService.get('/_mapping').then(function (res) {
+                            self.connected = true;
+                            var data = res.json();
+                            self.setInitialValue();
+                            self.finalUrl = self.config.host + '/' + self.config.appname;
+                            self.mapping = data;
+                            self.types = self.seprateType(data);
+                            self.setLocalConfig(self.config.url, self.config.appname);
+                            self.detectChange += "done";
+                            if (!clearFlag) {
+                                var decryptedData = self.urlShare.decryptedData;
+                                if (decryptedData.mapping) {
+                                    self.mapping = decryptedData.mapping;
+                                }
+                                if (decryptedData.types) {
+                                    self.types = decryptedData.types;
+                                }
+                                if (decryptedData.selectedTypes) {
+                                    self.selectedTypes = decryptedData.selectedTypes;
+                                    self.detectChange = "check";
+                                    setTimeout(function () { $('#setType').val(self.selectedTypes).trigger("change"); }, 300);
+                                }
+                                if (decryptedData.result) {
+                                    self.result = decryptedData.result;
+                                }
+                                if (decryptedData.finalUrl) {
+                                    self.finalUrl = decryptedData.finalUrl;
+                                }
                             }
-                            if (decryptedData.types) {
-                                self.types = decryptedData.types;
-                            }
-                            if (decryptedData.selectedTypes) {
-                                self.selectedTypes = decryptedData.selectedTypes;
-                                self.detectChange = "check";
-                                setTimeout(function () { $('#setType').val(self.selectedTypes).trigger("change"); }, 300);
-                            }
-                            if (decryptedData.result) {
-                                self.result = decryptedData.result;
-                            }
-                            if (decryptedData.finalUrl) {
-                                self.finalUrl = decryptedData.finalUrl;
-                            }
-                        }
-                        //set input state
-                        self.urlShare.inputs['config'] = self.config;
-                        self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
-                        self.urlShare.inputs['result'] = self.result;
-                        self.urlShare.inputs['finalUrl'] = self.finalUrl;
-                        self.urlShare.createUrl();
-                        setTimeout(function () {
-                            self.setLayoutResizer();
-                            self.editorHookHelp.setValue('');
-                        }, 300);
-                    }).catch(function (e) {
-                        self.initial_connect = true;
-                        alert(e.json().message);
-                    });
+                            //set input state
+                            self.urlShare.inputs['config'] = self.config;
+                            self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
+                            self.urlShare.inputs['result'] = self.result;
+                            self.urlShare.inputs['finalUrl'] = self.finalUrl;
+                            self.urlShare.createUrl();
+                            setTimeout(function () {
+                                self.setLayoutResizer();
+                                self.editorHookHelp.setValue('');
+                            }, 300);
+                        }).catch(function (e) {
+                            self.initial_connect = true;
+                            alert(e.json().message);
+                        });
+                    }
+                    catch (e) {
+                        this.initial_connect = true;
+                    }
                 };
                 // Seprate the types from mapping	
                 AppComponent.prototype.seprateType = function (mappingObj) {
@@ -338,11 +377,15 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     setSidebar();
                     $(window).on('resize', setSidebar);
                 };
+                AppComponent.prototype.setConfig = function (selectedConfig) {
+                    this.config.appname = selectedConfig.appname;
+                    this.config.url = selectedConfig.url;
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
                         templateUrl: './app/app.component.html',
-                        directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent],
+                        directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent],
                         providers: [appbase_service_1.AppbaseService]
                     }), 
                     __metadata('design:paramtypes', [appbase_service_1.AppbaseService])
