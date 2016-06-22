@@ -7,6 +7,12 @@
 {
 	display: inline-block;
 }
+.queryLeft .bool_query:first-child .nested-first {
+	padding-left: 15px;
+}
+.queryLeft .bool_query .subQuery .nested-first {
+	padding-left: 0;
+}
 .bool_query {
 	.add_condition_row {
 		padding: 0;
@@ -36,23 +42,23 @@
 		padding-top: 15px;
 		.single_query {
 		    border: 0;
-		    padding-top: 0;
+		    padding-top: 10px;
 			padding-right: 0;
 		}
 	}
 	.nested-container {
 		position: relative;
-		padding-left: 140px;
+		padding-left: 125px;
 		.nested-query {
 			position: absolute;
-			left: 15px;
+			left: 0;
 			top: 0;
 		}
 	}
 }
 .single_query {
 	padding: 15px;
-	padding-top: 30px;
+	padding-top: 15px;
 	background: rgba(226, 91, 25, 0.2);
 	border: 1px solid darken($grey-bg, 10%);
 	margin-bottom: 10px;
@@ -131,11 +137,16 @@
 		    	border: 0;
 		    }
 		}
-		.add-option, .delete-option {
+		.delete-option {
 			position: absolute;
 			right: 0;
 			top: 9px;
 		}
+	}
+	.add-option {
+		position: absolute;
+		left: -50px;
+		top: 9px;
 	}
 	.option-container {
 		padding-left: 30px;
