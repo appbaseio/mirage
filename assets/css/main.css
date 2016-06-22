@@ -166,6 +166,10 @@ footer {
 .autocomplete .autolist, .select2-container--default.select2-container--focus .select2-selection--multiple {
   border-color: #3BC7F6; }
 
+.popover {
+  z-index: 99999;
+  min-width: 350px; }
+
 .loading {
   height: 100%;
   width: 100%;
