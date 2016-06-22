@@ -55,30 +55,7 @@ describe('Match query format', () => {
         }
         return true;
     }
-
-    function xhrCall(data: any, cb) {
-        var config = {
-            url: 'https://scalr.api.appbase.io',
-            appname: 'App3',
-            username: 'CnqEgei0f',
-            password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
-        };
-        var url = 'https://scalr.api.appbase.io/App3/testing/_search';
-        var auth = "Basic " + btoa(config.username + ':' + config.password);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                cb(true);
-            } else {
-                cb(false);
-            }
-        };
-        xhttp.open("POST", url);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.setRequestHeader("Authorization", auth);
-        xhttp.send();
-    }
-
+    
     // Test to check if queryformat is valid json
     it('is valid json', () => {
         var format = query.setFormat();

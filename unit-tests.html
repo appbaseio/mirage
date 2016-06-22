@@ -7,7 +7,7 @@
   <script src="./node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
   <script src="./node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
   <script src="./node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
-  <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="./dist/vendor/jquery.min.js"></script>
 </head>
 <body>
   <!-- #1. add the system.js library -->
@@ -52,6 +52,7 @@
 
     Promise.all([
       System.import('app/build/singlequery/queries/match.query.spec'),
+      System.import('app/build/singlequery/queries/exists.query.spec'),
       System.import('app/build/singlequery/queries/match_phrase.query.spec'),
       System.import('app/build/singlequery/queries/match_phase_prefix.query.spec'),
       System.import('app/build/singlequery/queries/gt.query.spec'),
