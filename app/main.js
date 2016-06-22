@@ -18,7 +18,7 @@ System.register(['@angular/platform-browser-dynamic', '@angular/http', './app.co
             }],
         execute: function() {
             core_1.enableProdMode();
-            platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [http_1.HTTP_PROVIDERS, http_1.JSONP_PROVIDERS]);
+            platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [http_1.HTTP_PROVIDERS, http_1.XHRBackend, http_1.JSONP_PROVIDERS]);
         }
     }
 });

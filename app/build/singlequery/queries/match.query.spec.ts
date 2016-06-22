@@ -1,8 +1,13 @@
-import {describe, it, beforeEach, expect} from '@angular/core/testing';
+import {describe, it, beforeEach, expect, async, inject, injectAsync, beforeEachProviders} from '@angular/core/testing';
+import {TestComponentBuilder, MockXHR} from '@angular/compiler/testing';
+import {MockBackend, MockConnection} from '@angular/http/testing';
+import {provide} from '@angular/core';
 import {MatchQuery} from './match.query';
+import {AppbaseService} from '../../../shared/appbase.service';
+import { HTTP_PROVIDERS, JSONP_PROVIDERS, XHRBackend, Response, ResponseOptions} from '@angular/http';
+
 
 describe('Match query format', () => {
-
     // Set initial things
     // set expected query format
     var query: MatchQuery;
@@ -32,6 +37,15 @@ describe('Match query format', () => {
             }
         };
     });
+    beforeEachProviders(() => {
+        return [
+          HTTP_PROVIDERS,
+          AppbaseService
+        ];
+    });
+
+
+
 
     function isValidJson(str: string) {
         try {
@@ -92,6 +106,63 @@ describe('Match query format', () => {
         expect(format).toEqual(expectedFormatWithOption);
     });
 
+    it('should get data', 
+        inject([AppbaseService], (appbaseService: AppbaseService) => {
+         var config = {
+            url: 'https://scalr.api.appbase.io',
+            appname: 'App3',
+            username: 'CnqEgei0f',
+            password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+        };
+        var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+        appbaseService.setAppbase(config);
+        var query_data = query.setFormat();
+        var request_data = {
+            "query": {
+                "bool": {
+                    "must": [query_data]
+                }
+            }
+        };
+        appbaseService.postUrl(url, request_data).then(function(data: any) {
+            expect(true).toBe(true);
+        });
+    }));
+
+    // it('should get data', 
+    //     inject([AppbaseService, XHRBackend], (appbaseService: AppbaseService, mockBackend: XHRBackend) => {
+    //      var config = {
+    //         url: 'https://scalr.api.appbase.io',
+    //         appname: 'App3',
+    //         username: 'CnqEgei0f',
+    //         password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+    //     };
+    //     var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+    //     appbaseService.setAppbase(config);
+    //     var query_data = query.setFormat();
+    //     var request_data = {
+    //         "query": {
+    //             "bool": {
+    //                 "must": [query_data]
+    //             }
+    //         }
+    //     };
+    //     // return new Promise((resolve, reject) => {});
+    //     // mockBackend.connections.subscribe(connection => {
+    //     //   connection.mockRespond(new ResponseOptions({status: 200}));
+    //     // });
+    //     appbaseService.saveBlog(url, request_data).subscribe(
+    //       (successResult) => {
+    //         expect(successResult).toBeDefined();
+    //         expect(successResult.status).toBe(200);
+    //     });
+
+    //     // appbaseService.postUrl(url, request_data).then(function(data: any) {
+    //     //     expect(true).toBe(true);
+    //     // });
+    // }));
+
+
     // Test to check if result of setformat is equal to expected query format with option.
     // it('Test if query works', () => {
     //     var format = query.setFormat();
@@ -120,5 +191,6 @@ describe('Match query format', () => {
     //     //     expect(flag).toBe(true);
     //     // });
     // });
+    
 
 })

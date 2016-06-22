@@ -24,9 +24,8 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxj
             function (_2) {}],
         execute: function() {
             AppbaseService = (function () {
-                function AppbaseService(http, jsonp) {
+                function AppbaseService(http) {
                     this.http = http;
-                    this.jsonp = jsonp;
                     this.requestParam = {
                         url: null,
                         auth: null
@@ -78,7 +77,7 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map', 'rxj
                 };
                 AppbaseService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [http_1.Http, http_1.Jsonp])
+                    __metadata('design:paramtypes', [http_1.Http])
                 ], AppbaseService);
                 return AppbaseService;
             }());

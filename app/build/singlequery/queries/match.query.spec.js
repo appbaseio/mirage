@@ -1,7 +1,7 @@
-System.register(['@angular/core/testing', './match.query'], function(exports_1, context_1) {
+System.register(['@angular/core/testing', './match.query', '../../../shared/appbase.service', '@angular/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var testing_1, match_query_1;
+    var testing_1, match_query_1, appbase_service_1, http_1;
     return {
         setters:[
             function (testing_1_1) {
@@ -9,6 +9,12 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
             },
             function (match_query_1_1) {
                 match_query_1 = match_query_1_1;
+            },
+            function (appbase_service_1_1) {
+                appbase_service_1 = appbase_service_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
             }],
         execute: function() {
             testing_1.describe('Match query format', function () {
@@ -39,6 +45,12 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                             value: 'Elisabeth'
                         }
                     };
+                });
+                testing_1.beforeEachProviders(function () {
+                    return [
+                        http_1.HTTP_PROVIDERS,
+                        appbase_service_1.AppbaseService
+                    ];
                 });
                 function isValidJson(str) {
                     try {
@@ -95,6 +107,58 @@ System.register(['@angular/core/testing', './match.query'], function(exports_1, 
                     var format = query.setFormat();
                     testing_1.expect(format).toEqual(expectedFormatWithOption);
                 });
+                testing_1.it('should get data', testing_1.inject([appbase_service_1.AppbaseService], function (appbaseService) {
+                    var config = {
+                        url: 'https://scalr.api.appbase.io',
+                        appname: 'App3',
+                        username: 'CnqEgei0f',
+                        password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+                    };
+                    var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+                    appbaseService.setAppbase(config);
+                    var query_data = query.setFormat();
+                    var request_data = {
+                        "query": {
+                            "bool": {
+                                "must": [query_data]
+                            }
+                        }
+                    };
+                    appbaseService.postUrl(url, request_data).then(function (data) {
+                        testing_1.expect(true).toBe(true);
+                    });
+                }));
+                // it('should get data', 
+                //     inject([AppbaseService, XHRBackend], (appbaseService: AppbaseService, mockBackend: XHRBackend) => {
+                //      var config = {
+                //         url: 'https://scalr.api.appbase.io',
+                //         appname: 'App3',
+                //         username: 'CnqEgei0f',
+                //         password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+                //     };
+                //     var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+                //     appbaseService.setAppbase(config);
+                //     var query_data = query.setFormat();
+                //     var request_data = {
+                //         "query": {
+                //             "bool": {
+                //                 "must": [query_data]
+                //             }
+                //         }
+                //     };
+                //     // return new Promise((resolve, reject) => {});
+                //     // mockBackend.connections.subscribe(connection => {
+                //     //   connection.mockRespond(new ResponseOptions({status: 200}));
+                //     // });
+                //     appbaseService.saveBlog(url, request_data).subscribe(
+                //       (successResult) => {
+                //         expect(successResult).toBeDefined();
+                //         expect(successResult.status).toBe(200);
+                //     });
+                //     // appbaseService.postUrl(url, request_data).then(function(data: any) {
+                //     //     expect(true).toBe(true);
+                //     // });
+                // }));
                 // Test to check if result of setformat is equal to expected query format with option.
                 // it('Test if query works', () => {
                 //     var format = query.setFormat();

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Jsonp } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 
 export class AppbaseService {
-    constructor(private http: Http, private jsonp: Jsonp) {}
+    constructor(private http: Http) {}
     public requestParam: any = {
         url: null,
         auth: null
