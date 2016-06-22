@@ -105,17 +105,29 @@ describe('Match query format', () => {
         var format = query.setFormat();
         expect(format).toEqual(expectedFormatWithOption);
     });
+})
 
-    it('should get data', 
-        inject([AppbaseService], (appbaseService: AppbaseService) => {
-         var config = {
+declare var $;
+describe("Match query test with xhr call", function () {
+    var returnedJSON = {};
+    var status = 0;
+
+    beforeEach(function (done) {
+        var query = new MatchQuery();
+        query.queryName = 'match';
+        query.fieldName = 'name';
+        query.inputs = {
+            input: {
+                value: 'Elisabeth'
+            }
+        };
+        var config = {
             url: 'https://scalr.api.appbase.io',
             appname: 'App3',
             username: 'CnqEgei0f',
             password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
         };
         var url = 'https://scalr.api.appbase.io/App3/testing/_search';
-        appbaseService.setAppbase(config);
         var query_data = query.setFormat();
         var request_data = {
             "query": {
@@ -124,73 +136,35 @@ describe('Match query format', () => {
                 }
             }
         };
-        appbaseService.postUrl(url, request_data).then(function(data: any) {
-            expect(true).toBe(true);
+        $.ajax({
+            type: 'POST',
+            beforeSend: function(request) {
+                request.setRequestHeader("Authorization", "Basic " + btoa(config.username + ':' + config.password));
+            },
+            url: url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(request_data),
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(res) {
+                returnedJSON = res;
+                status = 200;
+                done();
+            },
+            error: function(xhr) {
+                returnedJSON = res;
+                status = xhr.status;
+                done();
+            }
         });
-    }));
+    });
 
-    // it('should get data', 
-    //     inject([AppbaseService, XHRBackend], (appbaseService: AppbaseService, mockBackend: XHRBackend) => {
-    //      var config = {
-    //         url: 'https://scalr.api.appbase.io',
-    //         appname: 'App3',
-    //         username: 'CnqEgei0f',
-    //         password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
-    //     };
-    //     var url = 'https://scalr.api.appbase.io/App3/testing/_search';
-    //     appbaseService.setAppbase(config);
-    //     var query_data = query.setFormat();
-    //     var request_data = {
-    //         "query": {
-    //             "bool": {
-    //                 "must": [query_data]
-    //             }
-    //         }
-    //     };
-    //     // return new Promise((resolve, reject) => {});
-    //     // mockBackend.connections.subscribe(connection => {
-    //     //   connection.mockRespond(new ResponseOptions({status: 200}));
-    //     // });
-    //     appbaseService.saveBlog(url, request_data).subscribe(
-    //       (successResult) => {
-    //         expect(successResult).toBeDefined();
-    //         expect(successResult.status).toBe(200);
-    //     });
+    it("Should have returned JSON", function () {
+        expect(returnedJSON).not.toEqual({});
+        expect(returnedJSON).not.toBeUndefined();
+        expect(status).toEqual(200);
+    });
 
-    //     // appbaseService.postUrl(url, request_data).then(function(data: any) {
-    //     //     expect(true).toBe(true);
-    //     // });
-    // }));
-
-
-    // Test to check if result of setformat is equal to expected query format with option.
-    // it('Test if query works', () => {
-    //     var format = query.setFormat();
-    //     var config = {
-    //         url: 'https://scalr.api.appbase.io',
-    //         appname: 'App3',
-    //         username: 'CnqEgei0f',
-    //         password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
-    //     };
-    //     var url = 'https://scalr.api.appbase.io/App3/testing/_search';
-    //     var auth = "Basic " + btoa(config.username + ':' + config.password);
-    //     var xhttp = new XMLHttpRequest();
-    //     xhttp.onreadystatechange = function() {
-    //         debugger;
-    //         if (xhttp.readyState == 4 && xhttp.status == 200) {
-    //             expect(true).toBe(true);
-    //         } else {
-    //             expect(false).toBe(true);              
-    //         }
-    //     };
-    //     xhttp.open("POST", url, true);
-    //     xhttp.setRequestHeader("Content-type", "application/json");
-    //     xhttp.setRequestHeader("Authorization", auth);
-    //     xhttp.send();
-    //     // xhrCall(format, function(flag: boolean){
-    //     //     expect(flag).toBe(true);
-    //     // });
-    // });
-    
-
-})
+});
