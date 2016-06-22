@@ -59,16 +59,6 @@
   .single_query .form-control,
   .single_query .form-element {
     max-width: 100%; }
-  .single_query .form-element input {
-    color: #828282;
-    background: 0 0;
-    border: 0;
-    box-shadow: none;
-    border-bottom: 1px solid;
-    border-radius: 0;
-    padding: 0;
-    line-height: 32px;
-    height: 32px; }
   .single_query .editable-pack {
     line-height: 32px;
     height: 32px; }
@@ -119,3 +109,22 @@
       padding-top: 5px; }
     .single_query .option-container .delete-option {
       right: 0; }
+
+.form-element input {
+  color: #828282;
+  background: 0 0;
+  border: 0;
+  box-shadow: none;
+  border-bottom: 1px solid;
+  border-radius: 0;
+  padding: 0;
+  line-height: 32px;
+  height: 32px; }
+
+.form-element.header-element input {
+  border-bottom: 1px dashed #aaa;
+  background: transparent;
+  padding: 0 5px; }
+  .form-element.header-element input.form-control[readonly] {
+    background-color: transparent;
+    opacity: 0.5; }

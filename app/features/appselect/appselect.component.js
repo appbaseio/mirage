@@ -33,9 +33,17 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     this.filteredApps = this.appsList.filter(function (app, index) {
                         return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1);
                     }.bind(this));
+                    if (this.filteredApps.length) {
+                        this.appFocus = true;
+                    }
+                    else {
+                        this.appFocus = false;
+                    }
                 };
                 AppselectComponent.prototype.focusInput = function () {
-                    this.appFocus = true;
+                    if (this.filteredApps.length) {
+                        this.appFocus = true;
+                    }
                 };
                 AppselectComponent.prototype.blurInput = function () {
                     setTimeout(function () {

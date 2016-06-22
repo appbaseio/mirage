@@ -25,10 +25,16 @@ export class AppselectComponent implements OnInit, OnChanges {
         this.filteredApps = this.appsList.filter(function(app, index) {
            return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1)
         }.bind(this));
-
+        if(this.filteredApps.length) {
+			this.appFocus = true;        
+		} else {
+			this.appFocus = false;
+		}
 	}
 	focusInput() {
-		this.appFocus = true;        
+		if(this.filteredApps.length) {
+			this.appFocus = true;        
+		}
     }
     blurInput() { 
     	setTimeout(function() {
