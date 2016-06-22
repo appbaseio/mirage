@@ -6,6 +6,7 @@
 .bool_query.show_hidden > .bool-btn-group
 {
 	display: inline-block;
+	z-index: 9;
 }
 .queryLeft .bool_query:first-child .nested-first {
 	padding-left: 15px;

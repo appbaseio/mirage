@@ -160,6 +160,12 @@ footer {
     position: absolute;
     right: 5px; }
 
+.select2-container--default .select2-selection--multiple {
+  border-color: #ccc; }
+
+.autocomplete .autolist, .select2-container--default.select2-container--focus .select2-selection--multiple {
+  border-color: #3BC7F6; }
+
 .loading {
   height: 100%;
   width: 100%;
