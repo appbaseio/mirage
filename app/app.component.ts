@@ -365,9 +365,9 @@ export class AppComponent implements OnInit, OnChanges {
 
 	setLayoutResizer() {
 		$('body').layout({
-			west__size:	"50%",
+			east__size:	"50%",
 			center__paneSelector: "#paneCenter",
-			west__paneSelector: "#paneWest"
+			east__paneSelector: "#paneEast"
 		});
 		function setSidebar() {
 			var windowHeight = $(window).height();
