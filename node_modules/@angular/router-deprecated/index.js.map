@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../modules/@angular/router-deprecated/index.ts"],"names":[],"mappings":";;;;AAAA,iBAAc,UAAU,CAAC,EAAA","sourcesContent":["export * from './router';\n"]}

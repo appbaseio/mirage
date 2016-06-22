@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../modules/@angular/platform-browser/index.ts"],"names":[],"mappings":"AAIE,cAAc,wBAAwB,CAAC","sourcesContent":["interface DecoratorInvocation {\n    type: Function;\n    args?: any[];\n  }\n  export * from './src/platform_browser';\n"]}
