@@ -5,18 +5,22 @@
 		</a>
 	</div>
 	<div class="row m-b15">
-		<div class="col-xs-6">
-
-			<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
-			<!-- <select class="form-control form-element" [(ngModel)]="query.boolparam" (change)="exeBuild();">
-				<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo}}</option>
-			</select> -->
-		</div>
-		<div class="col-xs-6" *ngIf="queryList.boolQuery[query.boolparam] == 'should'">
-			<div class="form-group form-element">
-				<input type="text" class="form-control" placeholder="Minimum should match" [(ngModel)] = "query.minimum_should_match"  (keyup)="exeBuild();" />
+		<div class="col-xs-12 nested-container">
+			<button (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
+				<i class="fa fa-plus"></i> Nested query
+			</button>
+			<div class="col-xs-6">
+				<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
+				<!-- <select class="form-control form-element" [(ngModel)]="query.boolparam" (change)="exeBuild();">
+					<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo}}</option>
+				</select> -->
 			</div>
-		</div>	
+			<div class="col-xs-6" *ngIf="queryList.boolQuery[query.boolparam] == 'should'">
+				<div class="form-group form-element">
+					<input type="text" class="form-control" placeholder="Minimum should match" [(ngModel)] = "query.minimum_should_match"  (keyup)="exeBuild();" />
+				</div>
+			</div>	
+		</div>
 	</div>
 	<div class="internvalQuery">
 		<form class="row m-0"
@@ -43,7 +47,10 @@
 			</single-query>
 		</form>
 	</div>
-	<div class="subQuery">
+	<div class="col-xs-12 add_condition_row">
+		<button class="btn btn-info add_condition" (click)="addQuery(query);">Add conditions</button>
+	</div>
+	<div class="subQuery col-xs-12">
 		<form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">
 			<div *ngIf="queryIn.parent_id != 0 && queryIn.parent_id == query.id">
 				<bool-query 
@@ -68,11 +75,5 @@
 				</bool-query>
 			</div>
 		</form>
-	</div>
-	<div class="col-xs-12 add_condition_row">
-		<button class="btn btn-info add_condition" (click)="addQuery(query);">Add conditions</button>
-		<button (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
-			<i class="fa fa-plus"></i> Nested query
-		</button>
 	</div>
 </div>

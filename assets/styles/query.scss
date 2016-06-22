@@ -31,11 +31,22 @@
 		}
 	}
 	.subQuery {
+		padding: 0;
 		padding-left: 15px;
+		padding-top: 15px;
 		.single_query {
 		    border: 0;
 		    padding-top: 0;
 			padding-right: 0;
+		}
+	}
+	.nested-container {
+		position: relative;
+		padding-left: 140px;
+		.nested-query {
+			position: absolute;
+			left: 15px;
+			top: 0;
 		}
 	}
 }

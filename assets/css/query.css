@@ -21,11 +21,21 @@
     display: inline-block; }
 
 .bool_query .subQuery {
-  padding-left: 15px; }
+  padding: 0;
+  padding-left: 15px;
+  padding-top: 15px; }
   .bool_query .subQuery .single_query {
     border: 0;
     padding-top: 0;
     padding-right: 0; }
+
+.bool_query .nested-container {
+  position: relative;
+  padding-left: 140px; }
+  .bool_query .nested-container .nested-query {
+    position: absolute;
+    left: 15px;
+    top: 0; }
 
 .single_query {
   padding: 15px;
