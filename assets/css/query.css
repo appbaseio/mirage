@@ -128,3 +128,6 @@
   .form-element.header-element input.form-control[readonly] {
     background-color: transparent;
     opacity: 0.5; }
+
+.esContainer .form-element.header-element input {
+  border-bottom: 2px dashed #aaa; }

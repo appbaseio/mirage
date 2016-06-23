@@ -19,8 +19,8 @@
     left: 0;
     width: 100%;
     z-index: 9;
-    background: #f1f1f1;
-    border-bottom: 1px solid #ddd;
+    background: $grey-bg;
+    border-bottom: 0;
     padding: 6px;
     max-height: 40px;
 	.img-container {
@@ -32,6 +32,5 @@
 	.tag-line {
 		padding-left: 15px;
 		line-height: 30px;
-		float: left;
 	}
 }

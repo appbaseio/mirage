@@ -4,26 +4,22 @@
 	</div>
 </section>
 <div class="app-container">
-	<header class="header">
+	<header class="header text-center">
 		<span class="img-container">
 			<img src="https://appbaseio.github.io/dejaVu/img/icon.png" alt="Mirage" class="img-responsive" />
 		</span>
 		<span class="tag-line">
-			Mirage - Es Query Composer
+			Mirage - An elegant query composer for Elasticsearch
 		</span>
-		<a class="link pull-right" href="https://appbaseio.github.io/dejaVu/"> Link with Dejavu </a>
 	</header>
 	<!-- HEADER START -->
 	<form class="col-xs-12 init-ES" id="init-ES">
 		<div class="esContainer">
-			<share-url [urlShare]="urlShare"></share-url>
+			<span class="action-btns">
+				<share-url [urlShare]="urlShare"></share-url>
+				<a class="link btn btn-default" href="https://appbaseio.github.io/dejaVu/"> <i class="fa fa-external-link"></i> Browse app data </a>
+			</span>
 			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
-				<!-- 	<input type="text" 
-			[(ngModel)]="config.appname"
-			class="form-control"
-			name="appname" 
-			[readonly]="connected ? true : false"
-			placeholder="Index name to browse data from" value="moviedb" /> -->
 				<appselect [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
 			</div>
 			<div class="form-group m-0 col-xs-8 pr-5">

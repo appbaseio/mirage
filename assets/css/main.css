@@ -58,14 +58,17 @@
   z-index: 6;
   background: #f7f7f7;
   padding: 5px;
-  padding-left: 47px;
+  padding-left: 206px;
   padding-right: 130px;
   border-bottom: 1px solid #dedede; }
-  .init-ES .share-btn, footer .share-btn {
+  .init-ES .action-btns, footer .action-btns {
     position: absolute;
     left: 5px;
-    display: inline-block;
-    padding: 9px 12px; }
+    display: inline-block; }
+    .init-ES .action-btns .share-btn, footer .action-btns .share-btn {
+      padding: 9px 12px; }
+    .init-ES .action-btns .link, footer .action-btns .link {
+      padding-left: 10px; }
 
 .share_content .share_content {
   display: none; }
