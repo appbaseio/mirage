@@ -1,0 +1,1 @@
+{"__symbolic":"module","metadata":{"ROUTER_PROVIDERS":[{"__symbolic":"reference","name":"ROUTER_PROVIDERS_COMMON","module":"./router_providers_common"},{"provide":{"__symbolic":"reference","name":"PlatformLocation","module":"@angular/common"},"useClass":{"__symbolic":"reference","name":"BrowserPlatformLocation","module":"@angular/platform-browser"}}]}}

@@ -1,0 +1,1 @@
+{"version":3,"file":"zone.js","sourceRoot":"","sources":["../../../../modules/@angular/core/src/zone.ts"],"names":[],"mappings":";AAIE,sBAAsB;AACxB,wBAAkC,gBAAgB,CAAC;AAA3C,kCAAM;AAAE,4CAAmC","sourcesContent":["interface DecoratorInvocation {\n    type: Function;\n    args?: any[];\n  }\n  // Public API for Zone\nexport {NgZone, NgZoneError} from './zone/ng_zone';\n"]}
