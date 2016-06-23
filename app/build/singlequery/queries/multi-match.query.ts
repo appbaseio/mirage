@@ -10,9 +10,9 @@ import { EditableComponent } from '../../editable/editable.component';
 								[(ngModel)]="inputs.input.value" 
 							 	placeholder="{{inputs.input.placeholder}}"
 							 	(keyup)="getFormat();" />
-							<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
 						</span>
 					</div>
+					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
 				</span>	
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
