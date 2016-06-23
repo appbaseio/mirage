@@ -47,7 +47,7 @@ System.register(['@angular/core/testing', './exists.query'], function(exports_1,
                     testing_1.expect(format).toEqual(expectedFormat);
                 });
             });
-            testing_1.describe("Exists query test with xhr call", function () {
+            testing_1.describe("xhr call (Exists)", function () {
                 var returnedJSON = {};
                 var status = 0;
                 testing_1.beforeEach(function (done) {
@@ -56,11 +56,11 @@ System.register(['@angular/core/testing', './exists.query'], function(exports_1,
                     query.fieldName = 'name';
                     var config = {
                         url: 'https://scalr.api.appbase.io',
-                        appname: 'App3',
-                        username: 'CnqEgei0f',
-                        password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+                        appname: 'mirage_test',
+                        username: 'wvCmyBy3D',
+                        password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
                     };
-                    var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+                    var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
                     var query_data = query.setFormat();
                     var request_data = {
                         "query": {
@@ -93,10 +93,11 @@ System.register(['@angular/core/testing', './exists.query'], function(exports_1,
                         }
                     });
                 });
-                testing_1.it("Should have returned JSON", function () {
+                testing_1.it("Should have returned JSON and Should have atleast 1 record", function () {
                     testing_1.expect(returnedJSON).not.toEqual({});
                     testing_1.expect(returnedJSON).not.toBeUndefined();
                     testing_1.expect(status).toEqual(200);
+                    testing_1.expect(returnedJSON.hits.hits.length).toBeGreaterThan(0);
                 });
             });
         }

@@ -2,7 +2,7 @@ import {describe, it, beforeEach, expect, async, inject, injectAsync, beforeEach
 import {TestComponentBuilder, MockXHR} from '@angular/compiler/testing';
 import {MockBackend, MockConnection} from '@angular/http/testing';
 import {provide} from '@angular/core';
-import {MatchQuery} from './match.query';
+import {MultiMatchQuery} from './multi-match.query';
 import {AppbaseService} from '../../../shared/appbase.service';
 import { HTTP_PROVIDERS, JSONP_PROVIDERS, XHRBackend, Response, ResponseOptions} from '@angular/http';
 
@@ -10,26 +10,24 @@ import { HTTP_PROVIDERS, JSONP_PROVIDERS, XHRBackend, Response, ResponseOptions}
 describe('Match query format', () => {
     // Set initial things
     // set expected query format
-    var query: MatchQuery;
+    var query: MultiMatchQuery;
     var expectedFormat = {
-        'match': {
-            'name': 'test_foobar'
+        'multi_match': {
+            'query': 'test_foobar',
+            'fields': ['name']
         }
     };
     var expectedFormatWithOption = {
-        'match': {
-            'name': {
-                "query": "test_foobar",
-                "operator" : "and",
-                "zero_terms_query": "all"
-            }
+        'multi_match': {
+            'query': 'test_foobar',
+            'fields': ['name', 'gender', 'eyeColor']
         }
     };
 
     // instantiate query component and set the input fields 
     beforeEach(function() {
-        query = new MatchQuery();
-        query.queryName = 'match';
+        query = new MultiMatchQuery();
+        query.queryName = 'multi_match';
         query.fieldName = 'name';
         query.inputs = {
             input: {
@@ -73,11 +71,8 @@ describe('Match query format', () => {
     // Test to check if result of setformat is equal to expected query format with option.
     it('Is setformat matches with expected query format when pass options with query', () => {
         query.optionRows = [{
-            name: 'operator',
-            value: 'and'
-        }, {
-            name: 'zero_terms_query',
-            value: 'all'
+            name: 'fields',
+            value: 'gender,eyeColor'
         }];
         var format = query.setFormat();
         expect(format).toEqual(expectedFormatWithOption);
@@ -85,13 +80,13 @@ describe('Match query format', () => {
 })
 
 declare var $;
-describe("xhr test (Match)", function () {
+describe("xhr test (multi_match)", function () {
     var returnedJSON = {};
     var status = 0;
 
     beforeEach(function (done) {
-        var query = new MatchQuery();
-        query.queryName = 'match';
+        var query = new MultiMatchQuery();
+        query.queryName = 'multi_match';
         query.fieldName = 'name';
         query.inputs = {
             input: {

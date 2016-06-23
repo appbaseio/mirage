@@ -1,28 +1,23 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { PrefixQuery } from './prefix.query';
+import { MissingQuery } from './missing.query';
 
-describe('Prefix query format', () => {
+describe('missing query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: PrefixQuery;
+  var query: MissingQuery;
   var expectedFormat = {
-    'prefix': {
-      'name': 'test_foobar'
+    'missing': {
+      'field': 'name'
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new PrefixQuery();
-    query.queryName = 'prefix';
+    query = new MissingQuery();
+    query.queryName = 'missing';
     query.fieldName = 'name';
-    query.inputs = {
-      input: {
-        value: 'test_foobar'
-      }
-    };
   });
 
   function isValidJson(str: string) {
@@ -49,20 +44,16 @@ describe('Prefix query format', () => {
 
 })
 
+
 declare var $;
-describe("xhr call (prefix)", function () {
+describe("xhr call (missing)", function () {
     var returnedJSON = {};
     var status = 0;
 
     beforeEach(function (done) {
-        var query = new PrefixQuery();
-        query.queryName = 'prefix';
-        query.fieldName = 'name';
-        query.inputs = {
-          input: {
-            value: 'test_foobar'
-          }
-        };
+        var query = new MissingQuery();
+        query.queryName = 'missing';
+        query.fieldName = 'address';
         var config = {
             url: 'https://scalr.api.appbase.io',
             appname: 'mirage_test',

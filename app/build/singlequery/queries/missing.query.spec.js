@@ -1,37 +1,30 @@
-System.register(['@angular/core/testing', './lt.query'], function(exports_1, context_1) {
+System.register(['@angular/core/testing', './missing.query'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var testing_1, lt_query_1;
+    var testing_1, missing_query_1;
     return {
         setters:[
             function (testing_1_1) {
                 testing_1 = testing_1_1;
             },
-            function (lt_query_1_1) {
-                lt_query_1 = lt_query_1_1;
+            function (missing_query_1_1) {
+                missing_query_1 = missing_query_1_1;
             }],
         execute: function() {
-            testing_1.describe('Lt query format', function () {
+            testing_1.describe('missing query format', function () {
                 // Set initial things
                 // set expected query format
                 var query;
                 var expectedFormat = {
-                    'range': {
-                        'age': {
-                            'lt': 35
-                        }
+                    'missing': {
+                        'field': 'name'
                     }
                 };
                 // instantiate query component and set the input fields 
                 testing_1.beforeEach(function () {
-                    query = new lt_query_1.LtQuery();
-                    query.queryName = 'lt';
-                    query.fieldName = 'age';
-                    query.inputs = {
-                        lt: {
-                            value: 35
-                        }
-                    };
+                    query = new missing_query_1.MissingQuery();
+                    query.queryName = 'missing';
+                    query.fieldName = 'name';
                 });
                 function isValidJson(str) {
                     try {
@@ -54,18 +47,13 @@ System.register(['@angular/core/testing', './lt.query'], function(exports_1, con
                     testing_1.expect(format).toEqual(expectedFormat);
                 });
             });
-            testing_1.describe("xhr call (lt)", function () {
+            testing_1.describe("xhr call (missing)", function () {
                 var returnedJSON = {};
                 var status = 0;
                 testing_1.beforeEach(function (done) {
-                    var query = new lt_query_1.LtQuery();
-                    query.queryName = 'lt';
-                    query.fieldName = 'age';
-                    query.inputs = {
-                        lt: {
-                            value: 35
-                        }
-                    };
+                    var query = new missing_query_1.MissingQuery();
+                    query.queryName = 'missing';
+                    query.fieldName = 'address';
                     var config = {
                         url: 'https://scalr.api.appbase.io',
                         appname: 'mirage_test',
@@ -105,13 +93,14 @@ System.register(['@angular/core/testing', './lt.query'], function(exports_1, con
                         }
                     });
                 });
-                testing_1.it("Should have returned JSON", function () {
+                testing_1.it("Should have returned JSON and Should have atleast 1 record", function () {
                     testing_1.expect(returnedJSON).not.toEqual({});
                     testing_1.expect(returnedJSON).not.toBeUndefined();
                     testing_1.expect(status).toEqual(200);
+                    testing_1.expect(returnedJSON.hits.hits.length).toBeGreaterThan(0);
                 });
             });
         }
     }
 });
-//# sourceMappingURL=lt.query.spec.js.map
+//# sourceMappingURL=missing.query.spec.js.map

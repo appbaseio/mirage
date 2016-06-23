@@ -23,13 +23,13 @@ System.register(['@angular/core/testing', './match.query', '../../../shared/appb
                 var query;
                 var expectedFormat = {
                     'match': {
-                        'name': 'Elisabeth'
+                        'name': 'test_foobar'
                     }
                 };
                 var expectedFormatWithOption = {
                     'match': {
                         'name': {
-                            "query": "Elisabeth",
+                            "query": "test_foobar",
                             "operator": "and",
                             "zero_terms_query": "all"
                         }
@@ -42,7 +42,7 @@ System.register(['@angular/core/testing', './match.query', '../../../shared/appb
                     query.fieldName = 'name';
                     query.inputs = {
                         input: {
-                            value: 'Elisabeth'
+                            value: 'test_foobar'
                         }
                     };
                 });
@@ -85,7 +85,7 @@ System.register(['@angular/core/testing', './match.query', '../../../shared/appb
                     testing_1.expect(format).toEqual(expectedFormatWithOption);
                 });
             });
-            testing_1.describe("Match query test with xhr call", function () {
+            testing_1.describe("xhr test (Match)", function () {
                 var returnedJSON = {};
                 var status = 0;
                 testing_1.beforeEach(function (done) {
@@ -94,16 +94,16 @@ System.register(['@angular/core/testing', './match.query', '../../../shared/appb
                     query.fieldName = 'name';
                     query.inputs = {
                         input: {
-                            value: 'Elisabeth'
+                            value: 'test_foobar'
                         }
                     };
                     var config = {
                         url: 'https://scalr.api.appbase.io',
-                        appname: 'App3',
-                        username: 'CnqEgei0f',
-                        password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+                        appname: 'mirage_test',
+                        username: 'wvCmyBy3D',
+                        password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
                     };
-                    var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+                    var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
                     var query_data = query.setFormat();
                     var request_data = {
                         "query": {
@@ -136,10 +136,11 @@ System.register(['@angular/core/testing', './match.query', '../../../shared/appb
                         }
                     });
                 });
-                testing_1.it("Should have returned JSON", function () {
+                testing_1.it("Should have returned JSON and Should have atleast 1 record", function () {
                     testing_1.expect(returnedJSON).not.toEqual({});
                     testing_1.expect(returnedJSON).not.toBeUndefined();
                     testing_1.expect(status).toEqual(200);
+                    testing_1.expect(returnedJSON.hits.hits.length).toBeGreaterThan(0);
                 });
             });
         }

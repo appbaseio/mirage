@@ -96,6 +96,12 @@ gulp.task('movefonts', function() {
         .pipe(gulp.dest('dist/fonts'));
 });
 
+// To include in unit-tests.html
+gulp.task('move_jquery', function() {
+    return gulp.src(['bower_components/jquery/dist/jquery.min.js'])
+        .pipe(gulp.dest('dist/vendor'));
+});
+
 
 gulp.task('sass', function () {
   return gulp.src(files.css.sassFile)
@@ -103,7 +109,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('assets/css'));
 });
 
-gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts']);
+gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery']);
 
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.sassFile, ['customcss']);

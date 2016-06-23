@@ -9,9 +9,9 @@ describe('Range query format', () => {
   var query: RangeQuery;
   var expectedFormat = {
     'range': {
-      'foo': {
-        'from': 1,
-        'to': 100
+      'age': {
+        'from': 25,
+        'to': 35
       }
     }
   };
@@ -20,12 +20,12 @@ describe('Range query format', () => {
   beforeEach(function() {
     query = new RangeQuery();
     query.queryName = 'range';
-    query.fieldName = 'foo';
+    query.fieldName = 'age';
     query.inputs = {
       from: {
-        value: 1
+        value: 25
       }, to: {
-        value: 100
+        value: 35
       }
     };
   });
@@ -53,3 +53,67 @@ describe('Range query format', () => {
   });
 
 })
+
+declare var $;
+describe("xhr call (range)", function () {
+    var returnedJSON = {};
+    var status = 0;
+
+    beforeEach(function (done) {
+        var query = new RangeQuery();
+        query.queryName = 'range';
+        query.fieldName = 'age';
+        query.inputs = {
+          from: {
+            value: 25
+          }, to: {
+            value: 35
+          }
+        };
+        var config = {
+            url: 'https://scalr.api.appbase.io',
+            appname: 'mirage_test',
+            username: 'wvCmyBy3D',
+            password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
+        };
+        var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
+        var query_data = query.setFormat();
+        var request_data = {
+            "query": {
+                "bool": {
+                    "must": [query_data]
+                }
+            }
+        };
+        $.ajax({
+            type: 'POST',
+            beforeSend: function(request) {
+                request.setRequestHeader("Authorization", "Basic " + btoa(config.username + ':' + config.password));
+            },
+            url: url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(request_data),
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(res) {
+                returnedJSON = res;
+                status = 200;
+                done();
+            },
+            error: function(xhr) {
+                returnedJSON = res;
+                status = xhr.status;
+                done();
+            }
+        });
+    });
+
+    it("Should have returned JSON", function () {
+        expect(returnedJSON).not.toEqual({});
+        expect(returnedJSON).not.toBeUndefined();
+        expect(status).toEqual(200);
+    });
+
+});

@@ -1,37 +1,54 @@
-System.register(['@angular/core/testing', './lt.query'], function(exports_1, context_1) {
+System.register(['@angular/core/testing', './simple_query_string.query', '../../../shared/appbase.service', '@angular/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var testing_1, lt_query_1;
+    var testing_1, simple_query_string_query_1, appbase_service_1, http_1;
     return {
         setters:[
             function (testing_1_1) {
                 testing_1 = testing_1_1;
             },
-            function (lt_query_1_1) {
-                lt_query_1 = lt_query_1_1;
+            function (simple_query_string_query_1_1) {
+                simple_query_string_query_1 = simple_query_string_query_1_1;
+            },
+            function (appbase_service_1_1) {
+                appbase_service_1 = appbase_service_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
             }],
         execute: function() {
-            testing_1.describe('Lt query format', function () {
+            testing_1.describe('Query string format', function () {
                 // Set initial things
                 // set expected query format
                 var query;
                 var expectedFormat = {
-                    'range': {
-                        'age': {
-                            'lt': 35
-                        }
+                    'simple_query_string': {
+                        'query': 'test_foobar',
+                        'fields': ['name']
+                    }
+                };
+                var expectedFormatWithOption = {
+                    'simple_query_string': {
+                        'query': 'test_foobar',
+                        'fields': ['name', 'gender', 'eyeColor']
                     }
                 };
                 // instantiate query component and set the input fields 
                 testing_1.beforeEach(function () {
-                    query = new lt_query_1.LtQuery();
-                    query.queryName = 'lt';
-                    query.fieldName = 'age';
+                    query = new simple_query_string_query_1.SimpleQueryStringQuery();
+                    query.queryName = 'simple_query_string';
+                    query.fieldName = 'name';
                     query.inputs = {
-                        lt: {
-                            value: 35
+                        input: {
+                            value: 'test_foobar'
                         }
                     };
+                });
+                testing_1.beforeEachProviders(function () {
+                    return [
+                        http_1.HTTP_PROVIDERS,
+                        appbase_service_1.AppbaseService
+                    ];
                 });
                 function isValidJson(str) {
                     try {
@@ -53,17 +70,26 @@ System.register(['@angular/core/testing', './lt.query'], function(exports_1, con
                     var format = query.setFormat();
                     testing_1.expect(format).toEqual(expectedFormat);
                 });
+                // Test to check if result of setformat is equal to expected query format with option.
+                testing_1.it('Is setformat matches with expected query format when pass options with query', function () {
+                    query.optionRows = [{
+                            name: 'fields',
+                            value: 'gender,eyeColor'
+                        }];
+                    var format = query.setFormat();
+                    testing_1.expect(format).toEqual(expectedFormatWithOption);
+                });
             });
-            testing_1.describe("xhr call (lt)", function () {
+            testing_1.describe("xhr test (simple_query_string)", function () {
                 var returnedJSON = {};
                 var status = 0;
                 testing_1.beforeEach(function (done) {
-                    var query = new lt_query_1.LtQuery();
-                    query.queryName = 'lt';
-                    query.fieldName = 'age';
+                    var query = new simple_query_string_query_1.SimpleQueryStringQuery();
+                    query.queryName = 'simple_query_string';
+                    query.fieldName = 'name';
                     query.inputs = {
-                        lt: {
-                            value: 35
+                        input: {
+                            value: 'test_foobar'
                         }
                     };
                     var config = {
@@ -105,13 +131,14 @@ System.register(['@angular/core/testing', './lt.query'], function(exports_1, con
                         }
                     });
                 });
-                testing_1.it("Should have returned JSON", function () {
+                testing_1.it("Should have returned JSON and Should have atleast 1 record", function () {
                     testing_1.expect(returnedJSON).not.toEqual({});
                     testing_1.expect(returnedJSON).not.toBeUndefined();
                     testing_1.expect(status).toEqual(200);
+                    testing_1.expect(returnedJSON.hits.hits.length).toBeGreaterThan(0);
                 });
             });
         }
     }
 });
-//# sourceMappingURL=lt.query.spec.js.map
+//# sourceMappingURL=simple_query_string.query.spec.js.map

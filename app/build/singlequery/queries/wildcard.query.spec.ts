@@ -1,22 +1,22 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { PrefixQuery } from './prefix.query';
+import { WildcardQuery } from './wildcard.query';
 
 describe('Prefix query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: PrefixQuery;
+  var query: WildcardQuery;
   var expectedFormat = {
-    'prefix': {
+    'wildcard': {
       'name': 'test_foobar'
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new PrefixQuery();
-    query.queryName = 'prefix';
+    query = new WildcardQuery();
+    query.queryName = 'wildcard';
     query.fieldName = 'name';
     query.inputs = {
       input: {
@@ -50,13 +50,13 @@ describe('Prefix query format', () => {
 })
 
 declare var $;
-describe("xhr call (prefix)", function () {
+describe("xhr call (wildcard)", function () {
     var returnedJSON = {};
     var status = 0;
 
     beforeEach(function (done) {
-        var query = new PrefixQuery();
-        query.queryName = 'prefix';
+        var query = new WildcardQuery();
+        query.queryName = 'wildcard';
         query.fieldName = 'name';
         query.inputs = {
           input: {
