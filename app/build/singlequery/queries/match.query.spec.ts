@@ -13,13 +13,13 @@ describe('Match query format', () => {
     var query: MatchQuery;
     var expectedFormat = {
         'match': {
-            'name': 'Elisabeth'
+            'name': 'test_foobar'
         }
     };
     var expectedFormatWithOption = {
         'match': {
             'name': {
-                "query": "Elisabeth",
+                "query": "test_foobar",
                 "operator" : "and",
                 "zero_terms_query": "all"
             }
@@ -33,7 +33,7 @@ describe('Match query format', () => {
         query.fieldName = 'name';
         query.inputs = {
             input: {
-                value: 'Elisabeth'
+                value: 'test_foobar'
             }
         };
     });
@@ -85,7 +85,7 @@ describe('Match query format', () => {
 })
 
 declare var $;
-describe("Match query test with xhr call", function () {
+describe("xhr test (Match query)", function () {
     var returnedJSON = {};
     var status = 0;
 
@@ -95,16 +95,16 @@ describe("Match query test with xhr call", function () {
         query.fieldName = 'name';
         query.inputs = {
             input: {
-                value: 'Elisabeth'
+                value: 'test_foobar'
             }
         };
         var config = {
             url: 'https://scalr.api.appbase.io',
-            appname: 'App3',
-            username: 'CnqEgei0f',
-            password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+            appname: 'mirage_test',
+            username: 'wvCmyBy3D',
+            password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
         };
-        var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+        var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
         var query_data = query.setFormat();
         var request_data = {
             "query": {
@@ -138,9 +138,10 @@ describe("Match query test with xhr call", function () {
         });
     });
 
-    it("Should have returned JSON", function () {
+    it("Should have returned JSON and Should have atleast 1 record", function () {
         expect(returnedJSON).not.toEqual({});
         expect(returnedJSON).not.toBeUndefined();
+        expect(returnedJSON.hits.hits.length).toBeGreaterThan(1);
         expect(status).toEqual(200);
     });
 
