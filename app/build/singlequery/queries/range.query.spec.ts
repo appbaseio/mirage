@@ -9,9 +9,9 @@ describe('Range query format', () => {
   var query: RangeQuery;
   var expectedFormat = {
     'range': {
-      'foo': {
-        'from': 1,
-        'to': 100
+      'age': {
+        'from': 25,
+        'to': 35
       }
     }
   };
@@ -20,12 +20,12 @@ describe('Range query format', () => {
   beforeEach(function() {
     query = new RangeQuery();
     query.queryName = 'range';
-    query.fieldName = 'foo';
+    query.fieldName = 'age';
     query.inputs = {
       from: {
-        value: 1
+        value: 25
       }, to: {
-        value: 100
+        value: 35
       }
     };
   });
@@ -55,28 +55,28 @@ describe('Range query format', () => {
 })
 
 declare var $;
-describe("Range query test with xhr call", function () {
+describe("xhr call (range)", function () {
     var returnedJSON = {};
     var status = 0;
 
     beforeEach(function (done) {
         var query = new RangeQuery();
         query.queryName = 'range';
-        query.fieldName = 'foo';
+        query.fieldName = 'age';
         query.inputs = {
           from: {
-            value: 1
+            value: 25
           }, to: {
-            value: 100
+            value: 35
           }
         };
         var config = {
             url: 'https://scalr.api.appbase.io',
-            appname: 'App3',
-            username: 'CnqEgei0f',
-            password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+            appname: 'mirage_test',
+            username: 'wvCmyBy3D',
+            password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
         };
-        var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+        var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
         var query_data = query.setFormat();
         var request_data = {
             "query": {

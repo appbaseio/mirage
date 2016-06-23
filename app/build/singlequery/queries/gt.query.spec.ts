@@ -9,8 +9,8 @@ describe('Gt query format', () => {
   var query: GtQuery;
   var expectedFormat = {
     'range': {
-      'foo': {
-        'gt': 100
+      'age': {
+        'gt': 25
       }
     }
   };
@@ -19,10 +19,10 @@ describe('Gt query format', () => {
   beforeEach(function() {
     query = new GtQuery();
     query.queryName = 'gt';
-    query.fieldName = 'foo';
+    query.fieldName = 'age';
     query.inputs = {
       gt: {
-        value: 100
+        value: 25
       }
     };
   });
@@ -52,26 +52,26 @@ describe('Gt query format', () => {
 })
 
 declare var $;
-describe("Gt query test with xhr call", function () {
+describe("xhr call (Gt)", function () {
     var returnedJSON = {};
     var status = 0;
 
     beforeEach(function (done) {
         var query = new GtQuery();
         query.queryName = 'gt';
-        query.fieldName = 'foo';
+        query.fieldName = 'age';
         query.inputs = {
           gt: {
-            value: 100
+            value: 25
           }
         };
-        var config = {
+         var config = {
             url: 'https://scalr.api.appbase.io',
-            appname: 'App3',
-            username: 'CnqEgei0f',
-            password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+            appname: 'mirage_test',
+            username: 'wvCmyBy3D',
+            password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
         };
-        var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+        var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
         var query_data = query.setFormat();
         var request_data = {
             "query": {

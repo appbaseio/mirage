@@ -9,8 +9,8 @@ describe('Lt query format', () => {
   var query: LtQuery;
   var expectedFormat = {
     'range': {
-      'foo': {
-        'lt': 100
+      'age': {
+        'lt': 35
       }
     }
   };
@@ -19,10 +19,10 @@ describe('Lt query format', () => {
   beforeEach(function() {
     query = new LtQuery();
     query.queryName = 'lt';
-    query.fieldName = 'foo';
+    query.fieldName = 'age';
     query.inputs = {
       lt: {
-        value: 100
+        value: 35
       }
     };
   });
@@ -52,26 +52,26 @@ describe('Lt query format', () => {
 })
 
 declare var $;
-describe("Lt query test with xhr call", function () {
+describe("xhr call (lt)", function () {
     var returnedJSON = {};
     var status = 0;
 
     beforeEach(function (done) {
         var query = new LtQuery();
         query.queryName = 'lt';
-        query.fieldName = 'foo';
+        query.fieldName = 'age';
         query.inputs = {
           lt: {
-            value: 100
+            value: 35
           }
         };
         var config = {
             url: 'https://scalr.api.appbase.io',
-            appname: 'App3',
-            username: 'CnqEgei0f',
-            password: 'a2176969-de4c-4ed0-bbbe-67e152de04f7'
+            appname: 'mirage_test',
+            username: 'wvCmyBy3D',
+            password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
         };
-        var url = 'https://scalr.api.appbase.io/App3/testing/_search';
+        var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
         var query_data = query.setFormat();
         var request_data = {
             "query": {

@@ -1,22 +1,22 @@
 import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { PrefixQuery } from './prefix.query';
+import { FuzzyQuery } from './fuzzy.query';
 
 describe('Prefix query format', () => {
 
   // Set initial things
   // set expected query format
-  var query: PrefixQuery;
+  var query: FuzzyQuery;
   var expectedFormat = {
-    'prefix': {
+    'fuzzy': {
       'name': 'test_foobar'
     }
   };
 
   // instantiate query component and set the input fields 
   beforeEach(function() {
-    query = new PrefixQuery();
-    query.queryName = 'prefix';
+    query = new FuzzyQuery();
+    query.queryName = 'fuzzy';
     query.fieldName = 'name';
     query.inputs = {
       input: {
@@ -50,13 +50,13 @@ describe('Prefix query format', () => {
 })
 
 declare var $;
-describe("xhr call (prefix)", function () {
+describe("xhr call (fuzzy)", function () {
     var returnedJSON = {};
     var status = 0;
 
     beforeEach(function (done) {
-        var query = new PrefixQuery();
-        query.queryName = 'prefix';
+        var query = new FuzzyQuery();
+        query.queryName = 'fuzzy';
         query.fieldName = 'name';
         query.inputs = {
           input: {
