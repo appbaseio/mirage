@@ -55,7 +55,7 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                         }).catch(function (data) {
                             $('#resultModal').modal('hide');
                             self.result.isWatching = false;
-                            self.result.output = JSON.stringify(data, null, 2);
+                            self.result.output = JSON.stringify(data, null, 4);
                             var obj = {
                                 title: 'Response Error',
                                 message: self.result.output
