@@ -22,12 +22,14 @@
   padding: 6px;
   max-height: 40px;
   margin: 0 auto; }
-  .header .header-container .img-container {
-    max-width: 170px;
-    display: inline-block;
-    float: left;
-    padding: 5px;
-    left: 10px; }
-  .header .header-container .tag-line {
-    padding-left: 15px;
-    line-height: 30px; }
+  .header .header-container {
+    display: inline-block; }
+    .header .header-container .img-container {
+      max-width: 170px;
+      display: inline-block;
+      float: left;
+      padding: 5px;
+      left: 10px; }
+    .header .header-container .tag-line {
+      padding-left: 15px;
+      line-height: 30px; }
