@@ -17,7 +17,6 @@ System.register([], function(exports_1, context_1) {
                     autoCloseBrackets: true,
                     matchBrackets: true,
                     showCursorWhenSelecting: true,
-                    theme: "monokai",
                     tabSize: 2,
                     extraKeys: { "Ctrl-Q": function (cm) { cm.foldCode(cm.getCursor()); } },
                     foldGutter: true,

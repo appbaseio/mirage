@@ -2948,10 +2948,23 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
     for (;;) {
       if (bidi ? to == from || to == moveVisually(lineObj, from, 1) : to - from <= 1) {
         var ch = x < fromX || x - fromX <= toX - x ? from : to;
+        var outside = ch == from ? fromOutside : toOutside
         var xDiff = x - (ch == from ? fromX : toX);
+        // This is a kludge to handle the case where the coordinates
+        // are after a line-wrapped line. We should replace it with a
+        // more general handling of cursor positions around line
+        // breaks. (Issue #4078)
+        if (toOutside && !bidi && !/\s/.test(lineObj.text.charAt(ch)) && xDiff > 0 &&
+            ch < lineObj.text.length && preparedMeasure.view.measure.heights.length > 1) {
+          var charSize = measureCharPrepared(cm, preparedMeasure, ch, "right");
+          if (innerOff <= charSize.bottom && innerOff >= charSize.top && Math.abs(x - charSize.right) < xDiff) {
+            outside = false
+            ch++
+            xDiff = x - charSize.right
+          }
+        }
         while (isExtendingChar(lineObj.text.charAt(ch))) ++ch;
-        var pos = PosWithInfo(lineNo, ch, ch == from ? fromOutside : toOutside,
-                              xDiff < -1 ? -1 : xDiff > 1 ? 1 : 0);
+        var pos = PosWithInfo(lineNo, ch, outside, xDiff < -1 ? -1 : xDiff > 1 ? 1 : 0);
         return pos;
       }
       var step = Math.ceil(dist / 2), middle = from + step;
@@ -3675,6 +3688,7 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
     // Let the drag handler handle this.
     if (webkit) display.scroller.draggable = true;
     cm.state.draggingText = dragEnd;
+    dragEnd.copy = mac ? e.altKey : e.ctrlKey
     // IE's approach to draggable
     if (display.scroller.dragDrop) display.scroller.dragDrop();
     on(document, "mouseup", dragEnd);
@@ -3905,7 +3919,7 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
       try {
         var text = e.dataTransfer.getData("Text");
         if (text) {
-          if (cm.state.draggingText && !(mac ? e.altKey : e.ctrlKey))
+          if (cm.state.draggingText && !cm.state.draggingText.copy)
             var selected = cm.listSelections();
           setSelectionNoUndo(cm.doc, simpleSelection(pos, pos));
           if (selected) for (var i = 0; i < selected.length; ++i)
@@ -8917,7 +8931,7 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
 
   // THE END
 
-  CodeMirror.version = "5.15.2";
+  CodeMirror.version = "5.16.0";
 
   return CodeMirror;
 });
@@ -9171,12 +9185,13 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
     return cm.getSearchCursor(query, pos, queryCaseInsensitive(query));
   }
 
-  function persistentDialog(cm, text, deflt, f) {
-    cm.openDialog(text, f, {
+  function persistentDialog(cm, text, deflt, onEnter, onKeyDown) {
+    cm.openDialog(text, onEnter, {
       value: deflt,
       selectValueOnOpen: true,
       closeOnEnter: false,
-      onClose: function() { clearSearch(cm); }
+      onClose: function() { clearSearch(cm); },
+      onKeyDown: onKeyDown
     });
   }
 
@@ -9226,13 +9241,13 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
     }
   }
 
-  function doSearch(cm, rev, persistent) {
+  function doSearch(cm, rev, persistent, immediate) {
     var state = getSearchState(cm);
     if (state.query) return findNext(cm, rev);
     var q = cm.getSelection() || state.lastQuery;
     if (persistent && cm.openDialog) {
       var hiding = null
-      persistentDialog(cm, queryDialog, q, function(query, event) {
+      var searchNext = function(query, event) {
         CodeMirror.e_stop(event);
         if (!query) return;
         if (query != state.queryText) {
@@ -9247,7 +9262,22 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
               dialog.getBoundingClientRect().bottom - 4 > cm.cursorCoords(to, "window").top)
             (hiding = dialog).style.opacity = .4
         })
+      };
+      persistentDialog(cm, queryDialog, q, searchNext, function(event, query) {
+        var cmd = CodeMirror.keyMap[cm.getOption("keyMap")][CodeMirror.keyName(event)];
+        if (cmd == "findNext" || cmd == "findPrev") {
+          CodeMirror.e_stop(event);
+          startSearch(cm, getSearchState(cm), query);
+          cm.execCommand(cmd);
+        } else if (cmd == "find" || cmd == "findPersistent") {
+          CodeMirror.e_stop(event);
+          searchNext(query, event);
+        }
       });
+      if (immediate) {
+        startSearch(cm, state, q);
+        findNext(cm, rev);
+      }
     } else {
       dialog(cm, queryDialog, "Search for:", q, function(query) {
         if (query && !state.query) cm.operation(function() {
@@ -9337,6 +9367,8 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
 
   CodeMirror.commands.find = function(cm) {clearSearch(cm); doSearch(cm);};
   CodeMirror.commands.findPersistent = function(cm) {clearSearch(cm); doSearch(cm, false, true);};
+  CodeMirror.commands.findPersistentNext = function(cm) {doSearch(cm, false, true, true);};
+  CodeMirror.commands.findPersistentPrev = function(cm) {doSearch(cm, true, true, true);};
   CodeMirror.commands.findNext = doSearch;
   CodeMirror.commands.findPrev = function(cm) {doSearch(cm, true);};
   CodeMirror.commands.clearSearch = clearSearch;
@@ -10074,7 +10106,7 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
     });
     var myRange = cm.markText(range.from, range.to, {
       replacedWith: myWidget,
-      clearOnEnter: true,
+      clearOnEnter: getOption(cm, options, "clearOnEnter"),
       __isFold: true
     });
     myRange.on("clear", function(from, to) {
@@ -10154,7 +10186,8 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
     rangeFinder: CodeMirror.fold.auto,
     widget: "\u2194",
     minFoldSize: 0,
-    scanUp: false
+    scanUp: false,
+    clearOnEnter: true
   };
 
   CodeMirror.defineOption("foldOptions", null);
@@ -10225,7 +10258,7 @@ if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push
   }
 
   function isFolded(cm, line) {
-    var marks = cm.findMarksAt(Pos(line));
+    var marks = cm.findMarks(Pos(line, 0), Pos(line + 1, 0));
     for (var i = 0; i < marks.length; ++i)
       if (marks[i].__isFold && marks[i].find().from.line == line) return marks[i];
   }
@@ -10690,7 +10723,7 @@ CodeMirror.registerGlobalHelper("fold", "comment", function(mode) {
     }
     if (pass == 1 && found < start.ch) return;
     if (/comment/.test(cm.getTokenTypeAt(CodeMirror.Pos(line, found + 1))) &&
-        (lineText.slice(found - endToken.length, found) == endToken ||
+        (found == 0 || lineText.slice(found - endToken.length, found) == endToken ||
          !/comment/.test(cm.getTokenTypeAt(CodeMirror.Pos(line, found))))) {
       startCh = found + startToken.length;
       break;
@@ -11890,6 +11923,34 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
   map[cK + ctrl + "Backspace"] = "delLineLeft";
 
+  cmds[map["Backspace"] = "smartBackspace"] = function(cm) {
+    if (cm.somethingSelected()) return CodeMirror.Pass;
+
+    cm.operation(function() {
+      var cursors = cm.listSelections();
+      var indentUnit = cm.getOption("indentUnit");
+
+      for (var i = cursors.length - 1; i >= 0; i--) {
+        var cursor = cursors[i].head;
+        var toStartOfLine = cm.getRange({line: cursor.line, ch: 0}, cursor);
+        var column = CodeMirror.countColumn(toStartOfLine, null, cm.getOption("tabSize"));
+
+        // Delete by one character by default
+        var deletePos = cm.findPosH(cursor, -1, "char", false);
+
+        if (toStartOfLine && !/\S/.test(toStartOfLine) && column % indentUnit == 0) {
+          var prevIndent = new Pos(cursor.line,
+            CodeMirror.findColumn(toStartOfLine, column - indentUnit, indentUnit));
+
+          // Smart delete only if we found a valid prevIndent location
+          if (prevIndent.ch != cursor.ch) deletePos = prevIndent;
+        }
+
+        cm.replaceRange("", deletePos, cursor, "+delete");
+      }
+    });
+  };
+
   cmds[map[cK + ctrl + "K"] = "delLineRight"] = function(cm) {
     cm.operation(function() {
       var ranges = cm.listSelections();
@@ -11942,7 +12003,8 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
     cm.scrollTo(null, (pos.top + pos.bottom) / 2 - cm.getScrollInfo().clientHeight / 2);
   };
 
-  cmds[map["Shift-Alt-Up"] = "selectLinesUpward"] = function(cm) {
+  var selectLinesCombo = mac ? "Ctrl-Shift-" : "Ctrl-Alt-";
+  cmds[map[selectLinesCombo + "Up"] = "selectLinesUpward"] = function(cm) {
     cm.operation(function() {
       var ranges = cm.listSelections();
       for (var i = 0; i < ranges.length; i++) {
@@ -11952,7 +12014,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
       }
     });
   };
-  cmds[map["Shift-Alt-Down"] = "selectLinesDownward"] = function(cm) {
+  cmds[map[selectLinesCombo + "Down"] = "selectLinesDownward"] = function(cm) {
     cm.operation(function() {
       var ranges = cm.listSelections();
       for (var i = 0; i < ranges.length; i++) {
