@@ -107,11 +107,12 @@
     background-color: #fcc210; }
 
 .btn-grey {
-  color: #555;
-  border-color: #bbb;
-  background: #ccc; }
+  color: #828282;
+  border-color: transparent;
+  background: transparent;
+  padding: 2px; }
   .btn-grey:hover {
-    background: #bfbfbf; }
+    color: #757575; }
 
 .btn-theme {
   color: #fff;

@@ -116,11 +116,12 @@
   }
 }
 .btn-grey {
-  color: #555;
-  border-color: #bbb;
-  background: #ccc; 
+  color: $grey-font;
+  border-color: transparent;
+  background: transparent; 
+  padding: 2px;
   &:hover {
-    background: darken(#ccc, 5%);
+    color: darken($grey-font, 5%);
   }
 }
 .btn-theme {
