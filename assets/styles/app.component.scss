@@ -24,10 +24,12 @@
     padding: 6px;
     max-height: 40px;
 	.img-container {
-		max-height: 30px;
-	    max-width: 30px;
+		max-width: 170px;
 	    display: inline-block;
 	    float: left;
+	    padding: 5px;
+	    position: absolute;
+	    left: 10px;
 	}
 	.tag-line {
 		padding-left: 15px;

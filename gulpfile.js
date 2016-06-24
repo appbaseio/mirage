@@ -15,7 +15,6 @@ var files = {
             'bower_components/codemirror/lib/codemirror.css',
             'bower_components/codemirror/addon/fold/foldgutter.css',
             'bower_components/codemirror/addon/dialog/dialog.css',
-            'bower_components/codemirror/theme/monokai.css',
             'assets/vendor/jquery.layout/jquery.layout.css'
         ],
         custom: ['assets/css/*.css'],

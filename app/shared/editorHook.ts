@@ -12,7 +12,6 @@ EditorHook.prototype.applyEditor = function(settings) {
         autoCloseBrackets: true,
         matchBrackets: true,
         showCursorWhenSelecting: true,
-        theme: "monokai",
         tabSize: 2,
         extraKeys: {"Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }},
         foldGutter: true,
