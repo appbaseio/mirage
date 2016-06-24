@@ -2,7 +2,7 @@
 .single_query.bool_query.show_hidden {
 	background: #eee;
 }
-.bool_query.show_hidden > .add_condition_row,
+.bool_query.show_hidden > .add_condition_row > .add_condition,
 .bool_query.show_hidden > .bool-btn-group
 {
 	display: inline-block;
@@ -18,7 +18,10 @@
 	.add_condition_row {
 		padding: 0;
 		padding-left: 15px;
-		display: none;
+		min-height: 34px;
+		.add_condition {
+			display: none;
+		} 
 	}
 	.internvalQuery {
 		padding-left: 15px;

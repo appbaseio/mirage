@@ -35,7 +35,7 @@
             .feature-query-container .features-section .feature-section-container .theme-list li.list-item:hover .delete-query {
               display: inline-block; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item.list-title {
-            background: #337ab7;
+            background: #FCC829;
             color: #fff; }
           .feature-query-container .features-section .feature-section-container .theme-list li.list-item .delete-query {
             position: absolute;
@@ -45,15 +45,15 @@
     .feature-query-container .features-section .sidebar-toggle {
       position: absolute;
       right: -27px;
-      top: 15px;
+      top: 40%;
       z-index: 3;
       padding: 13px 8px;
-      background: #337ab7;
+      background: #FCC829;
       color: #fff;
       border: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      border-left: 1px solid #285f8f; }
+      border-left: 1px solid #efb503; }
       .feature-query-container .features-section .sidebar-toggle .sidebar-open {
         display: none; }
     .feature-query-container .features-section .btn-sort {
