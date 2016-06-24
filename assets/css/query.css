@@ -40,10 +40,10 @@
 
 .bool_query .nested-container {
   position: relative;
-  padding-left: 125px; }
+  padding-left: 131px; }
   .bool_query .nested-container .nested-query {
     position: absolute;
-    left: 0;
+    left: 6px;
     top: 0; }
 
 .single_query {
