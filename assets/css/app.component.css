@@ -32,4 +32,5 @@
       left: 10px; }
     .header .header-container .tag-line {
       padding-left: 15px;
-      line-height: 30px; }
+      line-height: 30px;
+      font-size: 20px; }

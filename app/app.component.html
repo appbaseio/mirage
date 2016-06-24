@@ -19,7 +19,7 @@
 		<div class="esContainer">
 			<span class="action-btns">
 				<share-url [urlShare]="urlShare"></share-url>
-				<a class="link btn btn-default" href="https://appbaseio.github.io/dejaVu/"> <i class="fa fa-external-link"></i> Browse app data </a>
+				<a class="link btn btn-default" href="https://appbaseio.github.io/dejaVu/"> <i class="fa fa-external-link"></i> View App Data </a>
 			</span>
 			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
 				<appselect [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="submit-btn-container">
-				<a (click)="connectHandle()" [class.btn-info]="mapping != null" class="btn btn-default submit-btn"> <span *ngIf="!connected">
+				<a (click)="connectHandle()" class="btn btn-default submit-btn"> <span *ngIf="!connected">
 						<i class="fa fa-play"></i>
 						Connect
 					</span> <span *ngIf="connected">

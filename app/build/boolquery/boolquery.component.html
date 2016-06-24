@@ -6,7 +6,7 @@
 	</div>
 	<div class="row m-b15 nested-first">
 		<div class="col-xs-12 nested-container">
-			<button (click)="addSubQuery(query.id)" class="btn btn-info nested-query">
+			<button (click)="addSubQuery(query.id)" class="btn btn-default nested-query">
 				<i class="fa fa-plus"></i> Nested query
 			</button>
 			<div class="col-xs-6">
@@ -48,7 +48,7 @@
 		</form>
 	</div>
 	<div class="col-xs-12 add_condition_row">
-		<button class="btn btn-info add_condition" (click)="addQuery(query);">Add conditions</button>
+		<button class="btn btn-default add_condition" (click)="addQuery(query);">Add conditions</button>
 	</div>
 	<div class="subQuery col-xs-12">
 		<form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">

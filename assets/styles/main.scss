@@ -123,12 +123,25 @@
     background: darken(#ccc, 5%);
   }
 }
+.btn-theme {
+    color: #fff;
+    background-color: $primary-color;
+    border-color: $secondary-color;
+    &:hover {
+      color: #fff;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+}
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
+}
+a {
+  color: $link-color;
 }
 .url-container {
   position: relative;
@@ -143,8 +156,8 @@ body {
   display: block;
   text-align: right;
   border-radius: 4px;
-  background: #ddd;
-  border: 1px solid #ccc;
+  background: $grey-bg;
+  border-bottom: 2px dashed #ccc;
 }
 .hide-url .btn {
   margin-top: -1px;
