@@ -23,16 +23,18 @@
     border-bottom: 0;
     padding: 6px;
     max-height: 40px;
-	.img-container {
-		max-width: 170px;
-	    display: inline-block;
-	    float: left;
-	    padding: 5px;
-	    position: absolute;
-	    left: 10px;
-	}
-	.tag-line {
-		padding-left: 15px;
-		line-height: 30px;
-	}
+    margin: 0 auto;
+    .header-container {
+		.img-container {
+			max-width: 170px;
+		    display: inline-block;
+		    float: left;
+		    padding: 5px;
+		    left: 10px;
+		}
+		.tag-line {
+			padding-left: 15px;
+			line-height: 30px;
+		}
+    }
 }
