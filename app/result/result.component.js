@@ -37,6 +37,15 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                     this.editorHookHelp.applyEditor();
                     var resultHeight = $(window).height() - 138 - 49 - 80;
                     $('.queryRight .codemirror').css({ height: resultHeight });
+                    $('#resultModal').modal({
+                        show: false,
+                        backdrop: 'static'
+                    });
+                    $('#resultModal').on('hidden.bs.modal', function () {
+                        self.responseHookHelp.setValue('{}');
+                    });
+                    var modal_height = $(window).height() - 250;
+                    $('#resultModal .modal-body').css('height', modal_height);
                 };
                 // Validate using checkValidaQuery method
                 // if validation success then apply search query and set result in textarea using editorhook

@@ -26,6 +26,8 @@ System.register(["@angular/core", "../shared/pipes/prettyJson"], function(export
                 }
                 RunComponent.prototype.ngOnInit = function () {
                     this.responseHookHelp.applyEditor({ readOnly: true });
+                    var modal_height = $(window).height() - 250;
+                    $('.result_block .codemirror').css({ height: modal_height });
                 };
                 RunComponent = __decorate([
                     core_1.Component({
