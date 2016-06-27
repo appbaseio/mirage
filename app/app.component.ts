@@ -386,4 +386,9 @@ export class AppComponent implements OnInit, OnChanges {
 		this.errorInfo = info;
 		$('#errorModal').modal('show');
 	}
+
+	viewData() {
+		var dejavuLink = this.urlShare.dejavuLink();
+		window.open(dejavuLink, '_blank');
+	}
 }
