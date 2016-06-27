@@ -2,6 +2,7 @@
 	<input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm" (keyup)="applySearchList();" />
 </div>
 <ul class="theme-list col-xs-12">
+	<li class="list-item col-xs-12 list-title">Saved Queries</li>
 	<li class="list-item col-xs-12" *ngFor="let query of filteredQuery, let i=index">
 		<a class="col-xs-12 pd-0"  (click)="applyQuery(query);">
 			<span class="col-xs-12 query-name">
