@@ -67,7 +67,7 @@ export class select2Component implements OnChanges, AfterContentInit {
 
 	setLink() {
 		setTimeout(function() {
-			$('.popover a').click(function(event) {
+			$('.popover a').unbind('click').on('click',function(event) {
 				event.preventDefault();
 				var link = $(this).attr('href');
 				window.open(link, '_blank');
