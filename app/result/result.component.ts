@@ -31,6 +31,9 @@ export class ResultComponent implements OnInit {
 		this.editorHookHelp.applyEditor();
 		var resultHeight = $(window).height() - 138 - 49 - 80;
 		$('.queryRight .codemirror').css({ height: resultHeight });
+		$('#resultModal').on('hidden.bs.modal', function() {
+			self.responseHookHelp.setValue('{}');
+		});
 	}
 
 	// Validate using checkValidaQuery method
