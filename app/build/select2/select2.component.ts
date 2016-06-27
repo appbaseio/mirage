@@ -54,11 +54,12 @@ export class select2Component implements OnChanges, AfterContentInit {
 		}
 	}
 
-	getInformation(query) {
+	getInformation(query: any) {
 		var query = this.informationList[query];
 		query['html'] = true;
-		query['trigger'] = 'hover';
+		query['trigger'] = 'click hover';
 		query['placement'] = 'right';
+		query['delay'] = {'show': 50, 'hide': 400};
 		return query;
 	}
 
