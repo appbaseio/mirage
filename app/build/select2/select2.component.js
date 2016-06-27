@@ -55,6 +55,8 @@ System.register(["@angular/core", "../../shared/globalshare.service"], function(
                                     var val = $(item).html();
                                     var info = this.getInformation(val);
                                     $(item).popover(info);
+                                    $(item).on('shown.bs.popover', this.setLink);
+                                    this.setLink();
                                 }.bind(this));
                             }.bind(this), 300);
                         }.bind(this));
@@ -67,6 +69,15 @@ System.register(["@angular/core", "../../shared/globalshare.service"], function(
                     query['placement'] = 'right';
                     query['delay'] = { 'show': 50, 'hide': 400 };
                     return query;
+                };
+                select2Component.prototype.setLink = function () {
+                    setTimeout(function () {
+                        $('.popover a').unbind('click').on('click', function (event) {
+                            event.preventDefault();
+                            var link = $(this).attr('href');
+                            window.open(link, '_blank');
+                        });
+                    }, 500);
                 };
                 __decorate([
                     core_1.Input(), 

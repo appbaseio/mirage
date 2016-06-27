@@ -394,6 +394,10 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.errorInfo = info;
                     $('#errorModal').modal('show');
                 };
+                AppComponent.prototype.viewData = function () {
+                    var dejavuLink = this.urlShare.dejavuLink();
+                    window.open(dejavuLink, '_blank');
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
