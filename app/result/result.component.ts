@@ -39,6 +39,8 @@ export class ResultComponent implements OnInit {
 		$('#resultModal').on('hidden.bs.modal', function() {
 			self.responseHookHelp.setValue('{}');
 		});
+		var modal_height = $(window).height() - 250;
+		$('#resultModal .modal-body').css('height', modal_height);
 	}
 
 	// Validate using checkValidaQuery method
