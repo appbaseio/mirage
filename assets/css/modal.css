@@ -82,3 +82,6 @@
 
 .modal.modal-danger .close {
   color: #FF8484; }
+
+#resultModal .modal-dialog {
+  width: 90%; }

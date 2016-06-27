@@ -10,11 +10,13 @@ import { prettyJson } from "../shared/pipes/prettyJson";
 })
 
 export class RunComponent implements OnInit {
-	public mapping;
-	public config;
-	public responseHookHelp;
+	public mapping: any;
+	public config: any;
+	public responseHookHelp: any;
 
 	ngOnInit() {
 		this.responseHookHelp.applyEditor({ readOnly: true });
+		var modal_height = $(window).height() - 250;
+		$('.result_block .codemirror').css({ height: modal_height });
 	}
 }

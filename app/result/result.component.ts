@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { prettyJson } from "../shared/pipes/prettyJson";
 import { AppbaseService } from "../shared/appbase.service";
+declare var $;
 
 @Component({
 	selector: 'query-result',
@@ -31,6 +32,15 @@ export class ResultComponent implements OnInit {
 		this.editorHookHelp.applyEditor();
 		var resultHeight = $(window).height() - 138 - 49 - 80;
 		$('.queryRight .codemirror').css({ height: resultHeight });
+		$('#resultModal').modal({
+			show: false,
+			backdrop: 'static'
+		});
+		$('#resultModal').on('hidden.bs.modal', function() {
+			self.responseHookHelp.setValue('{}');
+		});
+		var modal_height = $(window).height() - 250;
+		$('#resultModal .modal-body').css('height', modal_height);
 	}
 
 	// Validate using checkValidaQuery method
