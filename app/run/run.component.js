@@ -33,7 +33,7 @@ System.register(["@angular/core", "../shared/pipes/prettyJson"], function(export
                     core_1.Component({
                         selector: 'query-run',
                         templateUrl: './app/run/run.component.html',
-                        inputs: ['mapping', 'config', 'responseHookHelp'],
+                        inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken'],
                         pipes: [prettyJson_1.prettyJson]
                     }), 
                     __metadata('design:paramtypes', [])

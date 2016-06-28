@@ -43,6 +43,11 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                     });
                     $('#resultModal').on('hidden.bs.modal', function () {
                         self.responseHookHelp.setValue('{}');
+                        var propInfo = {
+                            name: 'result_time_taken',
+                            value: null
+                        };
+                        self.setProp.emit(propInfo);
                     });
                     var modal_height = $(window).height() - 250;
                     $('#resultModal .modal-body').css('height', modal_height);
@@ -61,6 +66,11 @@ System.register(["@angular/core", "../shared/pipes/prettyJson", "../shared/appba
                             self.result.isWatching = false;
                             self.result.output = JSON.stringify(res.json(), null, 2);
                             self.responseHookHelp.setValue(self.result.output);
+                            var propInfo = {
+                                name: 'result_time_taken',
+                                value: res.json().took
+                            };
+                            self.setProp.emit(propInfo);
                         }).catch(function (data) {
                             $('#resultModal').modal('hide');
                             self.result.isWatching = false;

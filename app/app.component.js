@@ -79,6 +79,7 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     this.editorHookHelp = new editorHook_1.EditorHook({ editorId: 'editor' });
                     this.responseHookHelp = new editorHook_1.EditorHook({ editorId: 'responseBlock' });
                     this.urlShare = new urlShare_1.UrlShare();
+                    this.result_time_taken = null;
                 }
                 AppComponent.prototype.ngOnInit = function () {
                     $('body').removeClass('is-loadingApp');
@@ -369,6 +370,9 @@ System.register(["@angular/core", "./build/build.component", "./result/result.co
                     if (propInfo.name === 'selectedTypes') {
                         this.selectedTypes = propInfo.value;
                         this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+                    }
+                    if (propInfo.name === 'result_time_taken') {
+                        this.result_time_taken = propInfo.value;
                     }
                     //set input state
                     this.urlShare.createUrl();
