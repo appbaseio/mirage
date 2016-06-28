@@ -65,7 +65,7 @@ export class ResultComponent implements OnInit {
 				self.responseHookHelp.setValue(self.result.output);
 				var propInfo = {
 					name: 'result_time_taken',
-					value: res.json().took +'ms'
+					value: res.json().took
 				};
 				self.setProp.emit(propInfo);
 			}).catch(function(data) {
