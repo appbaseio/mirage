@@ -67,7 +67,7 @@ System.register(["@angular/core", "../../shared/globalshare.service"], function(
                     query['html'] = true;
                     query['trigger'] = 'click hover';
                     query['placement'] = 'right';
-                    query['delay'] = { 'show': 50, 'hide': 400 };
+                    query['delay'] = { 'show': 50, 'hide': 50 };
                     return query;
                 };
                 select2Component.prototype.setLink = function () {
