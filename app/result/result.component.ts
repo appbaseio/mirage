@@ -38,6 +38,11 @@ export class ResultComponent implements OnInit {
 		});
 		$('#resultModal').on('hidden.bs.modal', function() {
 			self.responseHookHelp.setValue('{}');
+			var propInfo = {
+				name: 'result_time_taken',
+				value: null
+			};
+			self.setProp.emit(propInfo);
 		});
 		var modal_height = $(window).height() - 250;
 		$('#resultModal .modal-body').css('height', modal_height);
@@ -58,6 +63,11 @@ export class ResultComponent implements OnInit {
 				self.result.isWatching = false;
 				self.result.output = JSON.stringify(res.json(), null, 2);
 				self.responseHookHelp.setValue(self.result.output);
+				var propInfo = {
+					name: 'result_time_taken',
+					value: res.json().took +'ms'
+				};
+				self.setProp.emit(propInfo);
 			}).catch(function(data) {
 				$('#resultModal').modal('hide');
 				self.result.isWatching = false;

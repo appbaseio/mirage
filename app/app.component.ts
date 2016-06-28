@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
+	public result_time_taken = null;
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
@@ -357,6 +358,9 @@ export class AppComponent implements OnInit, OnChanges {
 		if(propInfo.name === 'selectedTypes') {
 			this.selectedTypes = propInfo.value;
 			this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+		}
+		if(propInfo.name === 'result_time_taken') {
+			this.result_time_taken = propInfo.value;
 		}
 
 		//set input state
