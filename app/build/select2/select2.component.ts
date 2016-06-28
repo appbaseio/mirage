@@ -61,7 +61,7 @@ export class select2Component implements OnChanges, AfterContentInit {
 		query['html'] = true;
 		query['trigger'] = 'click hover';
 		query['placement'] = 'right';
-		query['delay'] = {'show': 50, 'hide': 400};
+		query['delay'] = {'show': 50, 'hide': 50};
 		return query;
 	}
 
