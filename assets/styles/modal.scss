@@ -1,14 +1,14 @@
-
+@import "variables.scss";
 .modal .modal-content{
   background: #fff;
   border-radius: 4px;
   border: 3px solid;
-  border-color: #3BC7F6;
+  border-color: $primary-color;
 }
 .modal .modal-header{
   border: 0;
   padding: 5px 15px 0 15px;
-  color: #3BC7F6;
+  color: $primary-color;
 }
 .modal .modal-header .close{
   width: 20px;
@@ -25,28 +25,28 @@
   margin-top: 0;
   background: transparent;
   opacity: 1;
-  color: #3BC7F6;
+  color: $primary-color;
 }
 .modal .btn-success{
   background: transparent;
-  color: #3BC7F6;
-  border-color: #3BC7F6;
+  color: $primary-color;
+  border-color: $primary-color;
 }
 .modal .btn-success:hover{
-  background: #3BC7F6;
+  background: $primary-color;
   color: #fff;
 }
 .modal .btn-info {
   background: transparent;
-  color: #3BC7F6;
-  border-color: #3BC7F6;
+  color: $primary-color;
+  border-color: $primary-color;
 }
 .modal .btn-info:hover {
-  background: #3BC7F6;
+  background: $primary-color;
   color: #fff;
 }
 .modal.modal-info .modal-content{
-  border-color: #3BC7F6;
+  border-color: $primary-color;
 }
 .modal.modal-warning .modal-content{
   border-color: #F5E79E;

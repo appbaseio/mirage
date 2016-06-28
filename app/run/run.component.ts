@@ -5,7 +5,7 @@ import { prettyJson } from "../shared/pipes/prettyJson";
 @Component({
 	selector: 'query-run',
 	templateUrl: './app/run/run.component.html',
-	inputs: ['mapping', 'config', 'responseHookHelp'],
+	inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken'],
 	pipes: [prettyJson]
 })
 
