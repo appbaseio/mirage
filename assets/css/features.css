@@ -61,6 +61,11 @@
       color: #aaa; }
       .feature-query-container .features-section .btn-sort.active {
         color: #555; }
+  .feature-query-container .query-main-container {
+    padding: 0 0 0 250px;
+    transition: all 0.2s; }
+    .feature-query-container .query-main-container .query-build {
+      padding-left: 35px; }
   .feature-query-container.off .features-section {
     width: 0; }
     .feature-query-container.off .features-section .feature-section-container {
@@ -69,5 +74,7 @@
       display: inline-block; }
     .feature-query-container.off .features-section .sidebar-close {
       display: none; }
+  .feature-query-container.off .query-main-container {
+    padding-left: 0; }
   .feature-query-container .select2-container {
     width: 100% !important; }
