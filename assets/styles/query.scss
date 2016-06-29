@@ -1,18 +1,23 @@
 @import "variables.scss";
+.query-build {
+	padding-bottom: 100px;
+}
 .single_query.bool_query.show_hidden {
 	background: #eee;
 }
 .bool_query.show_hidden > .add_condition_row > .add_condition,
-.bool_query.show_hidden > .bool-btn-group
-{
+.bool_query.show_hidden > .bool-btn-group {
 	display: inline-block;
 	z-index: 9;
 }
-.queryLeft .bool_query:first-child .nested-first {
-	padding-left: 15px;
-}
-.queryLeft .bool_query .subQuery .nested-first {
-	padding-left: 0;
+.queryLeft {
+	padding: 15px;
+	.bool_query:first-child .nested-first {
+		padding-left: 15px;
+	}
+	.bool_query .subQuery .nested-first {
+		padding-left: 0;
+	}
 }
 .bool_query {
 	.add_condition_row {
@@ -21,13 +26,11 @@
 		min-height: 34px;
 		.add_condition {
 			display: none;
-		} 
+		}
 	}
 	.internvalQuery {
 		padding-left: 15px;
-		.add_condition_row {
-			
-		}
+		.add_condition_row {}
 		.add_condition,
 		.nested-query {
 			display: none;
@@ -45,8 +48,8 @@
 		padding-left: 15px;
 		padding-top: 15px;
 		.single_query {
-		    border: 0;
-		    padding-top: 10px;
+			border: 0;
+			padding-top: 10px;
 			padding-right: 0;
 		}
 	}
@@ -72,6 +75,9 @@
 		top: 5px;
 		right: 5px;
 		display: none;
+	}
+	.select2-container {
+		width: 100%;
 	}
 	.form-control,
 	.form-element {
@@ -115,18 +121,19 @@
 			display: inline-block;
 		}
 	}
-	.query-primary-input, .option-container {
+	.query-primary-input,
+	.option-container {
 		position: relative;
 		.input_with_option {
 			position: relative;
-		    width: 100%;
-		    float: left;
-		    display: block;
-		    padding-right: 30px;
-		    border-bottom: 1px solid #828282;
-		    input {
-		    	border: 0;
-		    }
+			width: 100%;
+			float: left;
+			display: block;
+			padding-right: 30px;
+			border-bottom: 1px solid #828282;
+			input {
+				border: 0;
+			}
 		}
 		.delete-option {
 			position: absolute;
@@ -168,8 +175,8 @@
 			background: transparent;
 			padding: 0 5px;
 			&.form-control[readonly] {
-			    background-color: transparent;
-    			opacity: 0.5;
+				background-color: transparent;
+				opacity: 0.5;
 			}
 		}
 	}
@@ -179,5 +186,5 @@
 		input {
 			border-bottom: 2px dashed #aaa;
 		}
-	}	
+	}
 }
