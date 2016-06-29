@@ -45,66 +45,6 @@
 .clearfix {
   clear: both;
 }
-.app-container {
-  position: relative;
-  padding-top: 80px;
-  padding-bottom: 60px;
-  height: 100%;
-}
-.init-ES, footer {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 100%;
-  z-index: 6;
-  background: $grey-bg;
-  padding: 5px;
-  padding-left: 206px;
-  padding-right: 130px;
-  border-bottom: 1px solid darken($grey-bg, 10%);
-  .action-btns {
-    position: absolute;
-    left: 5px;
-    display: inline-block;
-    .share-btn {
-      padding: 9px 12px;
-    }
-    .link {
-      padding-left: 10px;
-    }
-  }
-}
-.share_content {
-  .share_content {
-    display: none;
-  }
-}
-.init-ES .submit-btn {
-  position: absolute;
-  right: 5px;
-  width: 125px;
-}
-.query-result-container {
-  background: $grey-bg;
-}
-.query-build {
-  padding-bottom: 100px;
-}
-.queryRight {
-  padding: 15px 15px 15px 0;
-  background: $grey-bg;
-  border-left: 1px solid darken($grey-bg, 10%);
-  border-bottom: 1px solid darken($grey-bg, 10%);
-}
-.queryLeft {
-  padding: 15px;
-}
-.codemirror {
-  margin-bottom: 15px;
-}
-.single_query .select2-container {
-  width: 100%;
-}
 .btn-primary {
   color: $contrast-color;
   background-color: $primary-color;
@@ -118,21 +58,21 @@
 .btn-grey {
   color: $grey-font;
   border-color: transparent;
-  background: transparent; 
+  background: transparent;
   padding: 2px;
   &:hover {
     color: darken($grey-font, 5%);
   }
 }
 .btn-theme {
+  color: #fff;
+  background-color: $primary-color;
+  border-color: $secondary-color;
+  &:hover {
     color: #fff;
-    background-color: $primary-color;
+    background-color: $secondary-color;
     border-color: $secondary-color;
-    &:hover {
-      color: #fff;
-      background-color: $secondary-color;
-      border-color: $secondary-color;
-    }
+  }
 }
 html,
 body {
@@ -144,95 +84,7 @@ body {
 a {
   color: $link-color;
 }
-.url-container {
-  position: relative;
-}
-.hide-url {
-  position: absolute;
-  width: auto;
-  right: 0;
-  top: 0;
-  z-index: 2;
-  height: 100%;
-  display: block;
-  text-align: right;
-  border-radius: 4px;
-  background: $grey-bg;
-  border-bottom: 2px dashed #ccc;
-}
-.hide-url .btn {
-  margin-top: -1px;
-  padding: 9px 12px;
-}
-.hide-url.expand {
-  width: 100%;
-}
-.query-main-container {
-  position: relative;
-  min-height: 100%;
-  height: auto;
-  display: block;
-}
-footer {
-    position: absolute;
-    bottom: 0;
-    top: auto;
-    padding-right: 5px;
-    border-top: 1px solid #ddd;
-    border-bottom: 0;
-    z-index: 99999999;
-    height: 36px;
-    padding-left: 5px;
-  .powered_by {
-    position: absolute;
-    right: 5px;
-  }
-}
-.select2-container--default .select2-selection--multiple {
-  border-color: #ccc;
-}
-.autocomplete .autolist, .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border-color: #3BC7F6;
-}
 .popover {
   z-index: 99999;
   min-width: 350px;
-}
-.loading {
-    height: 100%;
-    width: 100%;
-    display: table;
-    background: rgba(247,247,247,.9);
-    position: fixed;
-    z-index: 10;
-}
-.loadingBar {
-  position: fixed;
-  display: none;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  z-index: 800;
-  background: #48e79a;
-  transform: translateX(100%)
-}
-.is-loadingApp .loadingBar {
-  display: block;
-  animation: shift-rightwards 1s ease-in-out infinite;
-  animation-delay: .8s
-}
-@keyframes shift-rightwards {
-  0% {
-    transform: translateX(-100%)
-  }
-  40% {
-    transform: translateX(0)
-  }
-  60% {
-    transform: translateX(0)
-  }
-  100% {
-    transform: translateX(100%)
-  }
 }
