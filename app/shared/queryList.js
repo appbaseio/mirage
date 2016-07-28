@@ -21,7 +21,8 @@ System.register([], function(exports_1, context_1) {
                         'regexp',
                         'fuzzy',
                         'simple_query_string',
-                        'match-phase-prefix'
+                        'match-phase-prefix',
+                        'ids'
                     ],
                     numeric: [
                         'match',
@@ -29,7 +30,8 @@ System.register([], function(exports_1, context_1) {
                         'gt',
                         'lt',
                         'exists',
-                        'missing'
+                        'missing',
+                        'ids'
                     ]
                 },
                 not_analyzed: {
