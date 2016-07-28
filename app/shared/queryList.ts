@@ -14,7 +14,8 @@ export var queryList = {
 			'regexp',
 			'fuzzy',
 			'simple_query_string',
-			'match-phase-prefix'
+			'match-phase-prefix',
+			'ids'
 		],
 		numeric: [
 			'match',
@@ -22,7 +23,8 @@ export var queryList = {
 			'gt',
 			'lt',
 			'exists',
-			'missing'
+			'missing',
+			'ids'
 		]
 	},
 	not_analyzed: {

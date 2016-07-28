@@ -234,7 +234,20 @@
 		</fuzzy-query>
 	</div>
 	<!-- regexp query end -->
-
+	
+	<!-- ids query start -->
+	<div [hidden]="query.selectedQuery != 'ids'" class="row">
+		<ids-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			[selectedTypes]="selectedTypes"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</ids-query>
+	</div>
+	<!-- ids query end -->
 	
 	<!-- load the slector for selected query -->
 </div>
