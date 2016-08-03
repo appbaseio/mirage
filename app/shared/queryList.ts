@@ -15,7 +15,8 @@ export var queryList = {
 			'fuzzy',
 			'simple_query_string',
 			'match-phase-prefix',
-			'ids'
+			'ids',
+			'common'
 		],
 		numeric: [
 			'match',
@@ -24,7 +25,8 @@ export var queryList = {
 			'lt',
 			'exists',
 			'missing',
-			'ids'
+			'ids',
+			'common'
 		]
 	},
 	not_analyzed: {

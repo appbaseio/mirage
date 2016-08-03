@@ -248,6 +248,19 @@
 		</ids-query>
 	</div>
 	<!-- ids query end -->
+
+	<!-- common query start -->
+	<div [hidden]="query.selectedQuery != 'common'" class="row">
+		<common-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</common-query>
+	</div>
+	<!-- ids query end -->
 	
 	<!-- load the slector for selected query -->
 </div>
