@@ -40,7 +40,7 @@ export class IdsQuery implements OnInit, OnChanges {
 		try {
 			if(this.appliedQuery['ids']) {
 				try {
-					this.inputs.input.value = this.appliedQuery['ids'].values.join(' ');
+					this.inputs.input.value = this.appliedQuery['ids'].values.join(',');
 				} catch(e) {
 					this.inputs.input.value = this.appliedQuery['ids'].values;
 				}
@@ -87,7 +87,7 @@ export class IdsQuery implements OnInit, OnChanges {
 			type: this.selectedTypes
 		};
 		try {
-			queryFormat[this.queryName].values = this.inputs.input.value.split(' ');
+			queryFormat[this.queryName].values = this.inputs.input.value.split(',');
 		} catch(e) {
 			queryFormat[this.queryName].values = [];
 		}
