@@ -19,6 +19,8 @@ import { WildcardQuery } from './queries/wildcard.query';
 import { RegexpQuery } from './queries/regexp.query';
 import { FuzzyQuery } from './queries/fuzzy.query';
 import { IdsQuery } from './queries/ids.query';
+import { CommonQuery } from './queries/common.query';
+
 
 @Component({
 	selector: 'single-query',
@@ -45,7 +47,8 @@ import { IdsQuery } from './queries/ids.query';
 		WildcardQuery,
 		RegexpQuery,
 		FuzzyQuery,
-		IdsQuery
+		IdsQuery,
+		CommonQuery
 	]
 })
 
@@ -86,6 +89,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(RegexpQuery) private regexpQuery: RegexpQuery;
 	@ViewChild(FuzzyQuery) private fuzzyQuery: FuzzyQuery;
 	@ViewChild(IdsQuery) private idsQuery: IdsQuery;
+	@ViewChild(CommonQuery) private commonQuery: CommonQuery;
 	
 	public informationList: any = {};
 	@Input() query: any;
@@ -125,7 +129,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'wildcard': this.wildcardQuery.information,
 			'regexp': this.regexpQuery.information,
 			'fuzzy': this.fuzzyQuery.information,
-			'ids': this.idsQuery.information
+			'ids': this.idsQuery.information,
+			'common': this.commonQuery.information
 		};
 	}
 
