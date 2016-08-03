@@ -22,7 +22,8 @@ System.register([], function(exports_1, context_1) {
                         'fuzzy',
                         'simple_query_string',
                         'match-phase-prefix',
-                        'ids'
+                        'ids',
+                        'common'
                     ],
                     numeric: [
                         'match',
@@ -31,7 +32,8 @@ System.register([], function(exports_1, context_1) {
                         'lt',
                         'exists',
                         'missing',
-                        'ids'
+                        'ids',
+                        'common'
                     ]
                 },
                 not_analyzed: {

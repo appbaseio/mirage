@@ -1,4 +1,4 @@
-System.register(["@angular/core", '../select2/select2.component', '../editable/editable.component', './queries/match.query', './queries/match_phrase.query', './queries/match_phase_prefix.query', './queries/range.query', './queries/gt.query', './queries/lt.query', './queries/term.query', './queries/exists.query', './queries/terms.query', './queries/prefix.query', './queries/multi-match.query', './queries/query_string.query', './queries/simple_query_string.query', './queries/missing.query', './queries/wildcard.query', './queries/regexp.query', './queries/fuzzy.query', './queries/ids.query'], function(exports_1, context_1) {
+System.register(["@angular/core", '../select2/select2.component', '../editable/editable.component', './queries/match.query', './queries/match_phrase.query', './queries/match_phase_prefix.query', './queries/range.query', './queries/gt.query', './queries/lt.query', './queries/term.query', './queries/exists.query', './queries/terms.query', './queries/prefix.query', './queries/multi-match.query', './queries/query_string.query', './queries/simple_query_string.query', './queries/missing.query', './queries/wildcard.query', './queries/regexp.query', './queries/fuzzy.query', './queries/ids.query', './queries/common.query'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, select2_component_1, editable_component_1, match_query_1, match_phrase_query_1, match_phase_prefix_query_1, range_query_1, gt_query_1, lt_query_1, term_query_1, exists_query_1, terms_query_1, prefix_query_1, multi_match_query_1, query_string_query_1, simple_query_string_query_1, missing_query_1, wildcard_query_1, regexp_query_1, fuzzy_query_1, ids_query_1;
+    var core_1, select2_component_1, editable_component_1, match_query_1, match_phrase_query_1, match_phase_prefix_query_1, range_query_1, gt_query_1, lt_query_1, term_query_1, exists_query_1, terms_query_1, prefix_query_1, multi_match_query_1, query_string_query_1, simple_query_string_query_1, missing_query_1, wildcard_query_1, regexp_query_1, fuzzy_query_1, ids_query_1, common_query_1;
     var SinglequeryComponent;
     return {
         setters:[
@@ -76,6 +76,9 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
             },
             function (ids_query_1_1) {
                 ids_query_1 = ids_query_1_1;
+            },
+            function (common_query_1_1) {
+                common_query_1 = common_query_1_1;
             }],
         execute: function() {
             SinglequeryComponent = (function () {
@@ -122,7 +125,8 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
                         'wildcard': this.wildcardQuery.information,
                         'regexp': this.regexpQuery.information,
                         'fuzzy': this.fuzzyQuery.information,
-                        'ids': this.idsQuery.information
+                        'ids': this.idsQuery.information,
+                        'common': this.commonQuery.information
                     };
                 };
                 SinglequeryComponent.prototype.getQueryFormat = function (outputQuery) {
@@ -253,6 +257,10 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
                     __metadata('design:type', ids_query_1.IdsQuery)
                 ], SinglequeryComponent.prototype, "idsQuery", void 0);
                 __decorate([
+                    core_1.ViewChild(common_query_1.CommonQuery), 
+                    __metadata('design:type', common_query_1.CommonQuery)
+                ], SinglequeryComponent.prototype, "commonQuery", void 0);
+                __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], SinglequeryComponent.prototype, "query", void 0);
@@ -282,7 +290,8 @@ System.register(["@angular/core", '../select2/select2.component', '../editable/e
                             wildcard_query_1.WildcardQuery,
                             regexp_query_1.RegexpQuery,
                             fuzzy_query_1.FuzzyQuery,
-                            ids_query_1.IdsQuery
+                            ids_query_1.IdsQuery,
+                            common_query_1.CommonQuery
                         ]
                     }), 
                     __metadata('design:paramtypes', [])
