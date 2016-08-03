@@ -13,6 +13,7 @@ import { UrlShare } from "./shared/urlShare";
 import { ErrorModalComponent } from "./features/modal/error-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
 import { StorageService } from "./shared/storage.service";
+declare var $: any;
 
 @Component({
 	selector: 'my-app',

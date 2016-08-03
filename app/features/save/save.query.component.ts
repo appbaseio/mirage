@@ -1,5 +1,6 @@
 import { Component, OnChanges, SimpleChange } from "@angular/core";
 import { StorageService } from "../../shared/storage.service";
+declare var $: any;
 
 @Component({
 	selector: 'save-query',

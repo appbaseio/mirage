@@ -103,7 +103,7 @@ describe("xhr call (common)", function () {
                 done();
             },
             error: function(xhr) {
-                returnedJSON = res;
+                returnedJSON = xhr;
                 status = xhr.status;
                 done();
             }

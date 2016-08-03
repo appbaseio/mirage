@@ -53,7 +53,7 @@ describe('Gt query format', () => {
 
 declare var $;
 describe("xhr call (Gt)", function () {
-    var returnedJSON = {};
+    var returnedJSON: any = {};
     var status = 0;
 
     beforeEach(function (done) {
@@ -98,7 +98,7 @@ describe("xhr call (Gt)", function () {
                 done();
             },
             error: function(xhr) {
-                returnedJSON = res;
+                returnedJSON = xhr;
                 status = xhr.status;
                 done();
             }

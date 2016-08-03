@@ -1,5 +1,6 @@
 import { Component, OnChanges, SimpleChange, Input, Output, AfterContentInit, EventEmitter } from "@angular/core";
 import { GlobalShare } from "../../shared/globalshare.service";
+declare var $: any;
 
 @Component({
 	selector: 'select2',

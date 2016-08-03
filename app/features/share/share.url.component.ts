@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter } from "@angular/core";
+declare var $: any;
 
 @Component({
 	selector: 'share-url',
@@ -45,6 +46,7 @@ export class ShareUrlComponent implements OnInit, OnChanges {
 		var targetId = "_hiddenCopyText_";
 		var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
 		var origSelectionStart, origSelectionEnd;
+		var target: any;
 		if (isInput) {
 			// can just use the original source element for the selection and copy
 			target = elem;
@@ -54,7 +56,7 @@ export class ShareUrlComponent implements OnInit, OnChanges {
 			// must use a temporary form element for the selection and copy
 			target = document.getElementById(targetId);
 			if (!target) {
-				var target = document.createElement("textarea");
+				target = document.createElement("textarea");
 				target.style.position = "absolute";
 				target.style.left = "-9999px";
 				target.style.top = "0";
@@ -64,7 +66,7 @@ export class ShareUrlComponent implements OnInit, OnChanges {
 			target.textContent = elem.textContent;
 		}
 		// select the content
-		var currentFocus = document.activeElement;
+		var currentFocus: any = document.activeElement;
 		target.focus();
 		target.setSelectionRange(0, target.value.length);
 
@@ -88,5 +90,5 @@ export class ShareUrlComponent implements OnInit, OnChanges {
 			target.textContent = "";
 		}
 		return succeed;
-	},
+	}
 }
