@@ -80,10 +80,10 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     var queryFormat = {};
                     queryFormat[this.queryName] = {};
                     try {
-                        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value.split(' ');
+                        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value.split(',');
                     }
                     catch (e) {
-                        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value.join(' ');
+                        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value.join(',');
                     }
                     return queryFormat;
                 };

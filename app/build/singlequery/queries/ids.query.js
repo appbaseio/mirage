@@ -39,7 +39,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                     try {
                         if (this.appliedQuery['ids']) {
                             try {
-                                this.inputs.input.value = this.appliedQuery['ids'].values.join(' ');
+                                this.inputs.input.value = this.appliedQuery['ids'].values.join(',');
                             }
                             catch (e) {
                                 this.inputs.input.value = this.appliedQuery['ids'].values;
@@ -86,7 +86,7 @@ System.register(["@angular/core"], function(exports_1, context_1) {
                         type: this.selectedTypes
                     };
                     try {
-                        queryFormat[this.queryName].values = this.inputs.input.value.split(' ');
+                        queryFormat[this.queryName].values = this.inputs.input.value.split(',');
                     }
                     catch (e) {
                         queryFormat[this.queryName].values = [];
