@@ -53,7 +53,18 @@ var AppComponent = (function () {
         this.responseHookHelp = new editorHook_1.EditorHook({ editorId: 'responseBlock' });
         this.urlShare = new urlShare_1.UrlShare();
         this.result_time_taken = null;
+        this.active = true;
+        this.powers = ['Really Smart', 'Super Flexible',
+            'Super Hot', 'Weather Changer'];
+        this.model = {
+            id: 18,
+            name: 'Dr IQ',
+            power: this.powers[0],
+            alterEgo: 'Chuck Overstreet'
+        };
+        this.submitted = false;
     }
+    AppComponent.prototype.onSubmit = function () { this.submitted = true; };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
         this.setInitialValue();
@@ -3678,7 +3689,7 @@ platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
 ])
     .catch(function (err) { return console.error(err); });
 //# sourceMappingURL=main.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3f089227.js","/")
+}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8ecf812d.js","/")
 },{"./app.component":1,"2ionoC":410,"@angular/core":191,"@angular/forms":280,"@angular/http":318,"@angular/platform-browser-dynamic":339,"buffer":409}],28:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
