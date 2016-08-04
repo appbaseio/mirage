@@ -7,6 +7,7 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
+    "postinstall": "typings install",
     "start": "concurrent \"gulp watch\" \"npm run tsc:w\" \"npm run lite\" ",
     "test": "live-server --open=unit-tests.html"
   },

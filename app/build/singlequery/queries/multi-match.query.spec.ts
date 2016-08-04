@@ -1,11 +1,5 @@
-import {describe, it, beforeEach, expect, async, inject, injectAsync, beforeEachProviders} from '@angular/core/testing';
-import {TestComponentBuilder, MockXHR} from '@angular/compiler/testing';
-import {MockBackend, MockConnection} from '@angular/http/testing';
-import {provide} from '@angular/core';
-import {MultiMatchQuery} from './multi-match.query';
-import {AppbaseService} from '../../../shared/appbase.service';
-import { HTTP_PROVIDERS, JSONP_PROVIDERS, XHRBackend, Response, ResponseOptions} from '@angular/http';
-
+import {describe, it, beforeEach, expect} from '@angular/core/testing';
+import { MultiMatchQuery } from './multi-match.query';
 
 describe('Match query format', () => {
     // Set initial things
@@ -35,15 +29,6 @@ describe('Match query format', () => {
             }
         };
     });
-    beforeEachProviders(() => {
-        return [
-          HTTP_PROVIDERS,
-          AppbaseService
-        ];
-    });
-
-
-
 
     function isValidJson(str: string) {
         try {
