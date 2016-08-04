@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChange } from "@angular/core";
-import { NgForm } from "@angular/common";
+import { NgForm }    from '@angular/forms';
 import { BuildComponent } from "./build/build.component";
 import { ResultComponent } from "./result/result.component";
 import { RunComponent } from "./run/run.component";
@@ -58,6 +58,17 @@ export class AppComponent implements OnInit, OnChanges {
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
+	active = true;
+	powers = ['Really Smart', 'Super Flexible',
+            'Super Hot', 'Weather Changer'];
+  	model = {
+  		id: 18,
+  		name: 'Dr IQ', 
+  		power: this.powers[0],
+  		alterEgo: 'Chuck Overstreet'
+  	};
+  	submitted = false;
+  	onSubmit() { this.submitted = true; }
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
