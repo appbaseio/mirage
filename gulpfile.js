@@ -117,12 +117,9 @@ gulp.task('sass', function () {
 
 gulp.task('build', function() {
     gulp.src('app/main.js')
-        .pipe(browserify({
-          insertGlobals : true
-        }))
+        .pipe(browserify())
         .pipe(concat('build.js'))
         .pipe(gulp.dest('dist/angular'))
-        .pipe(connect.reload())
         .pipe(uglify())
         .pipe(concat('build.min.js'))
         .pipe(gulp.dest('dist/angular'));
@@ -141,7 +138,6 @@ gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefon
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.sassFile, ['customcss']);
     gulp.watch(files.js.custom, ['customjs']);
-    gulp.watch('app/main.js', ['build']);
 });
 
 gulp.task('default', ['compact']);

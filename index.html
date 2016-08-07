@@ -9,15 +9,22 @@
     <script type="text/javascript" src="dist/js/custom.min.js"></script>
     
     <!-- Load libraries -->
-    <script type="text/javascript" src="dist/angular/dependency/Reflect.js"></script>
-    <script type="text/javascript" src="dist/angular/dependency/zone.js"></script>
-    <script type="text/javascript" src="dist/angular/build.min.js"></script>
-
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
   </head>
   <!-- 3. Display the application -->
   <body class="is-loadingApp">
     <my-app>
       <div class="loadingBar"></div>
     </my-app>
+    <!-- 
+      Only for production
+      <script type="text/javascript" src="dist/angular/build.min.js"></script>
+    -->
   </body>
 </html>

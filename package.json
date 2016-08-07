@@ -7,9 +7,10 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "postinstall": "typings install",
-    "start": "tsc && concurrently \"npm run tsc:w\" \"gulp watch\" ",
+    "lite": "lite-server",
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" \"gulp watch\" ",
     "test": "live-server --open=unit-tests.html",
-    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js"
+    "build": "gulp build"
   },
   "author": "",
   "license": "ISC",
@@ -48,6 +49,7 @@
     "jasmine-core": "2.4.1",
     "typescript": "^1.8.10",
     "typings": "^1.3.2",
-    "uglifyjs": "^2.4.10"
+    "uglifyjs": "^2.4.10",
+    "lite-server": "^2.2.0"
   }
 }

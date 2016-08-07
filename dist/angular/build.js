@@ -1,5 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -398,9 +397,7 @@ var AppComponent = (function () {
 }());
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app.component.js","/")
-},{"./build/build.component":3,"./features/appselect/appselect.component":28,"./features/list/list.query.component":29,"./features/modal/error-modal.component":31,"./features/save/save.query.component":32,"./features/share/share.url.component":33,"./result/result.component":34,"./run/run.component":35,"./shared/appbase.service":36,"./shared/editorHook":37,"./shared/storage.service":42,"./shared/urlShare":43,"2ionoC":410,"@angular/core":191,"buffer":409}],2:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./build/build.component":3,"./features/appselect/appselect.component":28,"./features/list/list.query.component":29,"./features/modal/error-modal.component":31,"./features/save/save.query.component":32,"./features/share/share.url.component":33,"./result/result.component":34,"./run/run.component":35,"./shared/appbase.service":36,"./shared/editorHook":37,"./shared/storage.service":42,"./shared/urlShare":43,"@angular/core":191}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -492,9 +489,7 @@ var BoolqueryComponent = (function () {
 }());
 exports.BoolqueryComponent = BoolqueryComponent;
 //# sourceMappingURL=boolquery.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\boolquery\\boolquery.component.js","/build\\boolquery")
-},{"../editable/editable.component":4,"../singlequery/singlequery.component":25,"2ionoC":410,"@angular/core":191,"buffer":409}],3:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../editable/editable.component":4,"../singlequery/singlequery.component":25,"@angular/core":191}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -745,9 +740,7 @@ var BuildComponent = (function () {
 }());
 exports.BuildComponent = BuildComponent;
 //# sourceMappingURL=build.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\build.component.js","/build")
-},{"../shared/queryList":41,"./boolquery/boolquery.component":2,"./types/types.component":26,"2ionoC":410,"@angular/core":191,"buffer":409}],4:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../shared/queryList":41,"./boolquery/boolquery.component":2,"./types/types.component":26,"@angular/core":191}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -843,9 +836,7 @@ var EditableComponent = (function () {
 }());
 exports.EditableComponent = EditableComponent;
 //# sourceMappingURL=editable.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\editable\\editable.component.js","/build\\editable")
-},{"../select2/select2.component":5,"2ionoC":410,"@angular/core":191,"buffer":409}],5:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../select2/select2.component":5,"@angular/core":191}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -949,9 +940,7 @@ var select2Component = (function () {
 }());
 exports.select2Component = select2Component;
 //# sourceMappingURL=select2.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\select2\\select2.component.js","/build\\select2")
-},{"../../shared/globalshare.service":38,"2ionoC":410,"@angular/core":191,"buffer":409}],6:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../shared/globalshare.service":38,"@angular/core":191}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1066,9 +1055,7 @@ var CommonQuery = (function () {
 }());
 exports.CommonQuery = CommonQuery;
 //# sourceMappingURL=common.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\common.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],7:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1167,9 +1154,7 @@ var ExistsQuery = (function () {
 }());
 exports.ExistsQuery = ExistsQuery;
 //# sourceMappingURL=exists.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\exists.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],8:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1273,9 +1258,7 @@ var FuzzyQuery = (function () {
 }());
 exports.FuzzyQuery = FuzzyQuery;
 //# sourceMappingURL=fuzzy.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\fuzzy.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],9:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1384,9 +1367,7 @@ var GtQuery = (function () {
 }());
 exports.GtQuery = GtQuery;
 //# sourceMappingURL=gt.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\gt.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],10:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1509,9 +1490,7 @@ var IdsQuery = (function () {
 }());
 exports.IdsQuery = IdsQuery;
 //# sourceMappingURL=ids.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\ids.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],11:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1619,9 +1598,7 @@ var LtQuery = (function () {
 }());
 exports.LtQuery = LtQuery;
 //# sourceMappingURL=lt.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\lt.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],12:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1777,9 +1754,7 @@ var MatchQuery = (function () {
 }());
 exports.MatchQuery = MatchQuery;
 //# sourceMappingURL=match.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\match.query.js","/build\\singlequery\\queries")
-},{"../../editable/editable.component":4,"2ionoC":410,"@angular/core":191,"buffer":409}],13:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../editable/editable.component":4,"@angular/core":191}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1883,9 +1858,7 @@ var Match_phase_prefixQuery = (function () {
 }());
 exports.Match_phase_prefixQuery = Match_phase_prefixQuery;
 //# sourceMappingURL=match_phase_prefix.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\match_phase_prefix.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],14:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1982,9 +1955,7 @@ var Match_phraseQuery = (function () {
 }());
 exports.Match_phraseQuery = Match_phraseQuery;
 //# sourceMappingURL=match_phrase.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\match_phrase.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],15:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2083,9 +2054,7 @@ var MissingQuery = (function () {
 }());
 exports.MissingQuery = MissingQuery;
 //# sourceMappingURL=missing.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\missing.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],16:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2254,9 +2223,7 @@ var MultiMatchQuery = (function () {
 }());
 exports.MultiMatchQuery = MultiMatchQuery;
 //# sourceMappingURL=multi-match.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\multi-match.query.js","/build\\singlequery\\queries")
-},{"../../editable/editable.component":4,"2ionoC":410,"@angular/core":191,"buffer":409}],17:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../editable/editable.component":4,"@angular/core":191}],17:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2360,9 +2327,7 @@ var PrefixQuery = (function () {
 }());
 exports.PrefixQuery = PrefixQuery;
 //# sourceMappingURL=prefix.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\prefix.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],18:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2530,9 +2495,7 @@ var QueryStringQuery = (function () {
 }());
 exports.QueryStringQuery = QueryStringQuery;
 //# sourceMappingURL=query_string.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\query_string.query.js","/build\\singlequery\\queries")
-},{"../../editable/editable.component":4,"2ionoC":410,"@angular/core":191,"buffer":409}],19:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../editable/editable.component":4,"@angular/core":191}],19:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2647,9 +2610,7 @@ var RangeQuery = (function () {
 }());
 exports.RangeQuery = RangeQuery;
 //# sourceMappingURL=range.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\range.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],20:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2753,9 +2714,7 @@ var RegexpQuery = (function () {
 }());
 exports.RegexpQuery = RegexpQuery;
 //# sourceMappingURL=regexp.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\regexp.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],21:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],21:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2923,9 +2882,7 @@ var SimpleQueryStringQuery = (function () {
 }());
 exports.SimpleQueryStringQuery = SimpleQueryStringQuery;
 //# sourceMappingURL=simple_query_string.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\simple_query_string.query.js","/build\\singlequery\\queries")
-},{"../../editable/editable.component":4,"2ionoC":410,"@angular/core":191,"buffer":409}],22:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../editable/editable.component":4,"@angular/core":191}],22:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3028,9 +2985,7 @@ var TermQuery = (function () {
 }());
 exports.TermQuery = TermQuery;
 //# sourceMappingURL=term.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\term.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],23:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],23:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3143,9 +3098,7 @@ var TermsQuery = (function () {
 }());
 exports.TermsQuery = TermsQuery;
 //# sourceMappingURL=terms.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\terms.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],24:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],24:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3249,9 +3202,7 @@ var WildcardQuery = (function () {
 }());
 exports.WildcardQuery = WildcardQuery;
 //# sourceMappingURL=wildcard.query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\queries\\wildcard.query.js","/build\\singlequery\\queries")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],25:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],25:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3503,9 +3454,7 @@ var SinglequeryComponent = (function () {
 }());
 exports.SinglequeryComponent = SinglequeryComponent;
 //# sourceMappingURL=singlequery.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\singlequery\\singlequery.component.js","/build\\singlequery")
-},{"../editable/editable.component":4,"../select2/select2.component":5,"./queries/common.query":6,"./queries/exists.query":7,"./queries/fuzzy.query":8,"./queries/gt.query":9,"./queries/ids.query":10,"./queries/lt.query":11,"./queries/match.query":12,"./queries/match_phase_prefix.query":13,"./queries/match_phrase.query":14,"./queries/missing.query":15,"./queries/multi-match.query":16,"./queries/prefix.query":17,"./queries/query_string.query":18,"./queries/range.query":19,"./queries/regexp.query":20,"./queries/simple_query_string.query":21,"./queries/term.query":22,"./queries/terms.query":23,"./queries/wildcard.query":24,"2ionoC":410,"@angular/core":191,"buffer":409}],26:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../editable/editable.component":4,"../select2/select2.component":5,"./queries/common.query":6,"./queries/exists.query":7,"./queries/fuzzy.query":8,"./queries/gt.query":9,"./queries/ids.query":10,"./queries/lt.query":11,"./queries/match.query":12,"./queries/match_phase_prefix.query":13,"./queries/match_phrase.query":14,"./queries/missing.query":15,"./queries/multi-match.query":16,"./queries/prefix.query":17,"./queries/query_string.query":18,"./queries/range.query":19,"./queries/regexp.query":20,"./queries/simple_query_string.query":21,"./queries/term.query":22,"./queries/terms.query":23,"./queries/wildcard.query":24,"@angular/core":191}],26:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3672,9 +3621,7 @@ var TypesComponent = (function () {
 }());
 exports.TypesComponent = TypesComponent;
 //# sourceMappingURL=types.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/build\\types\\types.component.js","/build\\types")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],27:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],27:[function(require,module,exports){
 "use strict";
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var http_1 = require('@angular/http');
@@ -3689,9 +3636,7 @@ platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
 ])
     .catch(function (err) { return console.error(err); });
 //# sourceMappingURL=main.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8ecf812d.js","/")
-},{"./app.component":1,"2ionoC":410,"@angular/core":191,"@angular/forms":280,"@angular/http":318,"@angular/platform-browser-dynamic":339,"buffer":409}],28:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./app.component":1,"@angular/core":191,"@angular/forms":280,"@angular/http":318,"@angular/platform-browser-dynamic":339}],28:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3767,9 +3712,7 @@ var AppselectComponent = (function () {
 }());
 exports.AppselectComponent = AppselectComponent;
 //# sourceMappingURL=appselect.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/features\\appselect\\appselect.component.js","/features\\appselect")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],29:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],29:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3862,9 +3805,7 @@ var ListQueryComponent = (function () {
 }());
 exports.ListQueryComponent = ListQueryComponent;
 //# sourceMappingURL=list.query.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/features\\list\\list.query.component.js","/features\\list")
-},{"./time/time.component":30,"2ionoC":410,"@angular/core":191,"buffer":409}],30:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./time/time.component":30,"@angular/core":191}],30:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3908,9 +3849,7 @@ var TimeComponent = (function () {
 }());
 exports.TimeComponent = TimeComponent;
 //# sourceMappingURL=time.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/features\\list\\time\\time.component.js","/features\\list\\time")
-},{"../../../shared/pipes/prettyTime":40,"2ionoC":410,"@angular/core":191,"buffer":409}],31:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../../shared/pipes/prettyTime":40,"@angular/core":191}],31:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3951,9 +3890,7 @@ var ErrorModalComponent = (function () {
 }());
 exports.ErrorModalComponent = ErrorModalComponent;
 //# sourceMappingURL=error-modal.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/features\\modal\\error-modal.component.js","/features\\modal")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],32:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],32:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4004,9 +3941,7 @@ var SaveQueryComponent = (function () {
 }());
 exports.SaveQueryComponent = SaveQueryComponent;
 //# sourceMappingURL=save.query.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/features\\save\\save.query.component.js","/features\\save")
-},{"../../shared/storage.service":42,"2ionoC":410,"@angular/core":191,"buffer":409}],33:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../shared/storage.service":42,"@angular/core":191}],33:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4115,9 +4050,7 @@ var ShareUrlComponent = (function () {
 }());
 exports.ShareUrlComponent = ShareUrlComponent;
 //# sourceMappingURL=share.url.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/features\\share\\share.url.component.js","/features\\share")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],34:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],34:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4277,9 +4210,7 @@ var ResultComponent = (function () {
 }());
 exports.ResultComponent = ResultComponent;
 //# sourceMappingURL=result.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/result\\result.component.js","/result")
-},{"../shared/appbase.service":36,"../shared/pipes/prettyJson":39,"2ionoC":410,"@angular/core":191,"buffer":409}],35:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../shared/appbase.service":36,"../shared/pipes/prettyJson":39,"@angular/core":191}],35:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4313,9 +4244,7 @@ var RunComponent = (function () {
 }());
 exports.RunComponent = RunComponent;
 //# sourceMappingURL=run.component.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/run\\run.component.js","/run")
-},{"../shared/pipes/prettyJson":39,"2ionoC":410,"@angular/core":191,"buffer":409}],36:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../shared/pipes/prettyJson":39,"@angular/core":191}],36:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4389,9 +4318,7 @@ var AppbaseService = (function () {
 }());
 exports.AppbaseService = AppbaseService;
 //# sourceMappingURL=appbase.service.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\appbase.service.js","/shared")
-},{"2ionoC":410,"@angular/core":191,"@angular/http":318,"buffer":409,"rxjs/add/operator/toPromise":418}],37:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191,"@angular/http":318,"rxjs/add/operator/toPromise":414}],37:[function(require,module,exports){
 "use strict";
 exports.EditorHook = function (config) {
     this.editorId = config.editorId;
@@ -4423,9 +4350,7 @@ exports.EditorHook.prototype.getInstance = function () {
     return this.editor;
 };
 //# sourceMappingURL=editorHook.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\editorHook.js","/shared")
-},{"2ionoC":410,"buffer":409}],38:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],38:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4458,9 +4383,7 @@ var GlobalShare = (function () {
 }());
 exports.GlobalShare = GlobalShare;
 //# sourceMappingURL=globalshare.service.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\globalshare.service.js","/shared")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],39:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],39:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4486,9 +4409,7 @@ var prettyJson = (function () {
 }());
 exports.prettyJson = prettyJson;
 //# sourceMappingURL=prettyJson.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\pipes\\prettyJson.js","/shared\\pipes")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],40:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],40:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4515,9 +4436,7 @@ var prettyTime = (function () {
 }());
 exports.prettyTime = prettyTime;
 //# sourceMappingURL=prettyTime.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\pipes\\prettyTime.js","/shared\\pipes")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],41:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],41:[function(require,module,exports){
 "use strict";
 exports.queryList = {
     analyzed: {
@@ -4598,9 +4517,7 @@ exports.queryList = {
     }
 };
 //# sourceMappingURL=queryList.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\queryList.js","/shared")
-},{"2ionoC":410,"buffer":409}],42:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],42:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4629,9 +4546,7 @@ var StorageService = (function () {
 }());
 exports.StorageService = StorageService;
 //# sourceMappingURL=storage.service.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\storage.service.js","/shared")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],43:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],43:[function(require,module,exports){
 "use strict";
 exports.UrlShare = function () {
     this.secret = 'e';
@@ -4687,9 +4602,7 @@ exports.UrlShare.prototype.dejavuLink = function () {
     return final_url;
 };
 //# sourceMappingURL=urlShare.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/shared\\urlShare.js","/shared")
-},{"2ionoC":410,"buffer":409}],44:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],44:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -4709,9 +4622,7 @@ __export(require('./src/location'));
 var localization_1 = require('./src/localization');
 exports.NgLocalization = localization_1.NgLocalization;
 //# sourceMappingURL=index.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\index.js","/..\\node_modules\\@angular\\common")
-},{"./src/common_directives":45,"./src/directives":46,"./src/forms-deprecated":63,"./src/localization":88,"./src/location":89,"./src/pipes":95,"2ionoC":410,"buffer":409}],45:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./src/common_directives":45,"./src/directives":46,"./src/forms-deprecated":63,"./src/localization":88,"./src/location":89,"./src/pipes":95}],45:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -4769,9 +4680,7 @@ var forms_deprecated_1 = require('./forms-deprecated');
  */
 exports.COMMON_DIRECTIVES = [directives_1.CORE_DIRECTIVES, forms_deprecated_1.FORM_DIRECTIVES];
 //# sourceMappingURL=common_directives.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\common_directives.js","/..\\node_modules\\@angular\\common\\src")
-},{"./directives":46,"./forms-deprecated":63,"2ionoC":410,"buffer":409}],46:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./directives":46,"./forms-deprecated":63}],46:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -4805,9 +4714,7 @@ exports.NgSwitchDefault = ng_switch_1.NgSwitchDefault;
 var ng_template_outlet_1 = require('./directives/ng_template_outlet');
 exports.NgTemplateOutlet = ng_template_outlet_1.NgTemplateOutlet;
 //# sourceMappingURL=directives.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives.js","/..\\node_modules\\@angular\\common\\src")
-},{"./directives/core_directives":47,"./directives/ng_class":48,"./directives/ng_for":49,"./directives/ng_if":50,"./directives/ng_plural":51,"./directives/ng_style":52,"./directives/ng_switch":53,"./directives/ng_template_outlet":54,"2ionoC":410,"buffer":409}],47:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./directives/core_directives":47,"./directives/ng_class":48,"./directives/ng_for":49,"./directives/ng_if":50,"./directives/ng_plural":51,"./directives/ng_style":52,"./directives/ng_switch":53,"./directives/ng_template_outlet":54}],47:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -4878,9 +4785,7 @@ exports.CORE_DIRECTIVES = [
     ng_plural_1.NgPluralCase,
 ];
 //# sourceMappingURL=core_directives.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\core_directives.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"./ng_class":48,"./ng_for":49,"./ng_if":50,"./ng_plural":51,"./ng_style":52,"./ng_switch":53,"./ng_template_outlet":54,"2ionoC":410,"buffer":409}],48:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./ng_class":48,"./ng_for":49,"./ng_if":50,"./ng_plural":51,"./ng_style":52,"./ng_switch":53,"./ng_template_outlet":54}],48:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5015,9 +4920,7 @@ var NgClass = (function () {
 }());
 exports.NgClass = NgClass;
 //# sourceMappingURL=ng_class.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\ng_class.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"../facade/collection":57,"../facade/lang":61,"2ionoC":410,"@angular/core":191,"buffer":409}],49:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":57,"../facade/lang":61,"@angular/core":191}],49:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5187,9 +5090,7 @@ var RecordViewTuple = (function () {
     return RecordViewTuple;
 }());
 //# sourceMappingURL=ng_for.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\ng_for.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"../facade/exceptions":59,"../facade/lang":61,"2ionoC":410,"@angular/core":191,"buffer":409}],50:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":59,"../facade/lang":61,"@angular/core":191}],50:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5233,9 +5134,7 @@ var NgIf = (function () {
 }());
 exports.NgIf = NgIf;
 //# sourceMappingURL=ng_if.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\ng_if.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"../facade/lang":61,"2ionoC":410,"@angular/core":191,"buffer":409}],51:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"@angular/core":191}],51:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5322,9 +5221,7 @@ var NgPlural = (function () {
 }());
 exports.NgPlural = NgPlural;
 //# sourceMappingURL=ng_plural.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\ng_plural.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"../facade/lang":61,"../localization":88,"./ng_switch":53,"2ionoC":410,"@angular/core":191,"buffer":409}],52:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"../localization":88,"./ng_switch":53,"@angular/core":191}],52:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5382,9 +5279,7 @@ var NgStyle = (function () {
 }());
 exports.NgStyle = NgStyle;
 //# sourceMappingURL=ng_style.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\ng_style.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"../facade/lang":61,"2ionoC":410,"@angular/core":191,"buffer":409}],53:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"@angular/core":191}],53:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5560,9 +5455,7 @@ var NgSwitchDefault = (function () {
 }());
 exports.NgSwitchDefault = NgSwitchDefault;
 //# sourceMappingURL=ng_switch.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\ng_switch.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"../facade/collection":57,"../facade/lang":61,"2ionoC":410,"@angular/core":191,"buffer":409}],54:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":57,"../facade/lang":61,"@angular/core":191}],54:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5624,9 +5517,7 @@ var NgTemplateOutlet = (function () {
 }());
 exports.NgTemplateOutlet = NgTemplateOutlet;
 //# sourceMappingURL=ng_template_outlet.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\directives\\ng_template_outlet.js","/..\\node_modules\\@angular\\common\\src\\directives")
-},{"../facade/lang":61,"2ionoC":410,"@angular/core":191,"buffer":409}],55:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"@angular/core":191}],55:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5794,9 +5685,7 @@ var EventEmitter = (function (_super) {
 }(Subject_1.Subject));
 exports.EventEmitter = EventEmitter;
 //# sourceMappingURL=async.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\async.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"./lang":61,"./promise":62,"2ionoC":410,"buffer":409,"rxjs/Observable":412,"rxjs/Subject":414,"rxjs/observable/PromiseObservable":419,"rxjs/operator/toPromise":420}],56:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./lang":61,"./promise":62,"rxjs/Observable":408,"rxjs/Subject":410,"rxjs/observable/PromiseObservable":415,"rxjs/operator/toPromise":416}],56:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5854,9 +5743,7 @@ var BaseWrappedException = (function (_super) {
 }(Error));
 exports.BaseWrappedException = BaseWrappedException;
 //# sourceMappingURL=base_wrapped_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\base_wrapped_exception.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"2ionoC":410,"buffer":409}],57:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],57:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -6232,9 +6119,7 @@ var SetWrapper = (function () {
 }());
 exports.SetWrapper = SetWrapper;
 //# sourceMappingURL=collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\collection.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"./lang":61,"2ionoC":410,"buffer":409}],58:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./lang":61}],58:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -6375,9 +6260,7 @@ var ExceptionHandler = (function () {
 }());
 exports.ExceptionHandler = ExceptionHandler;
 //# sourceMappingURL=exception_handler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\exception_handler.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"./base_wrapped_exception":56,"./collection":57,"./lang":61,"2ionoC":410,"buffer":409}],59:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./base_wrapped_exception":56,"./collection":57,"./lang":61}],59:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -6467,9 +6350,7 @@ function unimplemented() {
 }
 exports.unimplemented = unimplemented;
 //# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\exceptions.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"./base_wrapped_exception":56,"./exception_handler":58,"2ionoC":410,"buffer":409}],60:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./base_wrapped_exception":56,"./exception_handler":58}],60:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -6659,9 +6540,8 @@ var DateFormatter = (function () {
 }());
 exports.DateFormatter = DateFormatter;
 //# sourceMappingURL=intl.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\intl.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"2ionoC":410,"buffer":409}],61:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],61:[function(require,module,exports){
+(function (global){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7127,9 +7007,8 @@ function escapeRegExp(s) {
 }
 exports.escapeRegExp = escapeRegExp;
 //# sourceMappingURL=lang.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\lang.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"2ionoC":410,"buffer":409}],62:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],62:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7185,9 +7064,7 @@ var PromiseWrapper = (function () {
 }());
 exports.PromiseWrapper = PromiseWrapper;
 //# sourceMappingURL=promise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\facade\\promise.js","/..\\node_modules\\@angular\\common\\src\\facade")
-},{"2ionoC":410,"buffer":409}],63:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],63:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7259,9 +7136,7 @@ exports.Validators = validators_2.Validators;
  */
 exports.FORM_PROVIDERS = [form_builder_1.FormBuilder, radio_control_value_accessor_1.RadioControlRegistry];
 //# sourceMappingURL=forms-deprecated.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated.js","/..\\node_modules\\@angular\\common\\src")
-},{"./forms-deprecated/directives":64,"./forms-deprecated/directives/abstract_control_directive":65,"./forms-deprecated/directives/checkbox_value_accessor":66,"./forms-deprecated/directives/control_container":67,"./forms-deprecated/directives/control_value_accessor":68,"./forms-deprecated/directives/default_value_accessor":69,"./forms-deprecated/directives/ng_control":70,"./forms-deprecated/directives/ng_control_group":71,"./forms-deprecated/directives/ng_control_name":72,"./forms-deprecated/directives/ng_control_status":73,"./forms-deprecated/directives/ng_form":74,"./forms-deprecated/directives/ng_form_control":75,"./forms-deprecated/directives/ng_form_model":76,"./forms-deprecated/directives/ng_model":77,"./forms-deprecated/directives/radio_control_value_accessor":80,"./forms-deprecated/directives/select_control_value_accessor":81,"./forms-deprecated/directives/validators":84,"./forms-deprecated/form_builder":85,"./forms-deprecated/model":86,"./forms-deprecated/validators":87,"2ionoC":410,"buffer":409}],64:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./forms-deprecated/directives":64,"./forms-deprecated/directives/abstract_control_directive":65,"./forms-deprecated/directives/checkbox_value_accessor":66,"./forms-deprecated/directives/control_container":67,"./forms-deprecated/directives/control_value_accessor":68,"./forms-deprecated/directives/default_value_accessor":69,"./forms-deprecated/directives/ng_control":70,"./forms-deprecated/directives/ng_control_group":71,"./forms-deprecated/directives/ng_control_name":72,"./forms-deprecated/directives/ng_control_status":73,"./forms-deprecated/directives/ng_form":74,"./forms-deprecated/directives/ng_form_control":75,"./forms-deprecated/directives/ng_form_model":76,"./forms-deprecated/directives/ng_model":77,"./forms-deprecated/directives/radio_control_value_accessor":80,"./forms-deprecated/directives/select_control_value_accessor":81,"./forms-deprecated/directives/validators":84,"./forms-deprecated/form_builder":85,"./forms-deprecated/model":86,"./forms-deprecated/validators":87}],64:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7359,9 +7234,7 @@ exports.FORM_DIRECTIVES = [
     validators_1.PatternValidator,
 ];
 //# sourceMappingURL=directives.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated")
-},{"./directives/checkbox_value_accessor":66,"./directives/default_value_accessor":69,"./directives/ng_control":70,"./directives/ng_control_group":71,"./directives/ng_control_name":72,"./directives/ng_control_status":73,"./directives/ng_form":74,"./directives/ng_form_control":75,"./directives/ng_form_model":76,"./directives/ng_model":77,"./directives/number_value_accessor":79,"./directives/radio_control_value_accessor":80,"./directives/select_control_value_accessor":81,"./directives/select_multiple_control_value_accessor":82,"./directives/validators":84,"2ionoC":410,"buffer":409}],65:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./directives/checkbox_value_accessor":66,"./directives/default_value_accessor":69,"./directives/ng_control":70,"./directives/ng_control_group":71,"./directives/ng_control_name":72,"./directives/ng_control_status":73,"./directives/ng_form":74,"./directives/ng_form_control":75,"./directives/ng_form_model":76,"./directives/ng_model":77,"./directives/number_value_accessor":79,"./directives/radio_control_value_accessor":80,"./directives/select_control_value_accessor":81,"./directives/select_multiple_control_value_accessor":82,"./directives/validators":84}],65:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7433,9 +7306,7 @@ var AbstractControlDirective = (function () {
 }());
 exports.AbstractControlDirective = AbstractControlDirective;
 //# sourceMappingURL=abstract_control_directive.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\abstract_control_directive.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/exceptions":59,"../../facade/lang":61,"2ionoC":410,"buffer":409}],66:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/exceptions":59,"../../facade/lang":61}],66:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7480,9 +7351,7 @@ var CheckboxControlValueAccessor = (function () {
 }());
 exports.CheckboxControlValueAccessor = CheckboxControlValueAccessor;
 //# sourceMappingURL=checkbox_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\checkbox_value_accessor.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"./control_value_accessor":68,"2ionoC":410,"@angular/core":191,"buffer":409}],67:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./control_value_accessor":68,"@angular/core":191}],67:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7529,9 +7398,7 @@ var ControlContainer = (function (_super) {
 }(abstract_control_directive_1.AbstractControlDirective));
 exports.ControlContainer = ControlContainer;
 //# sourceMappingURL=control_container.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\control_container.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"./abstract_control_directive":65,"2ionoC":410,"buffer":409}],68:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./abstract_control_directive":65}],68:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7550,9 +7417,7 @@ var core_1 = require('@angular/core');
 exports.NG_VALUE_ACCESSOR = 
 /*@ts2dart_const*/ new core_1.OpaqueToken('NgValueAccessor');
 //# sourceMappingURL=control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\control_value_accessor.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],69:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],69:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7603,9 +7468,7 @@ var DefaultValueAccessor = (function () {
 }());
 exports.DefaultValueAccessor = DefaultValueAccessor;
 //# sourceMappingURL=default_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\default_value_accessor.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/lang":61,"./control_value_accessor":68,"2ionoC":410,"@angular/core":191,"buffer":409}],70:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/lang":61,"./control_value_accessor":68,"@angular/core":191}],70:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7650,9 +7513,7 @@ var NgControl = (function (_super) {
 }(abstract_control_directive_1.AbstractControlDirective));
 exports.NgControl = NgControl;
 //# sourceMappingURL=ng_control.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_control.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/exceptions":59,"./abstract_control_directive":65,"2ionoC":410,"buffer":409}],71:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/exceptions":59,"./abstract_control_directive":65}],71:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7738,9 +7599,7 @@ var NgControlGroup = (function (_super) {
 }(control_container_1.ControlContainer));
 exports.NgControlGroup = NgControlGroup;
 //# sourceMappingURL=ng_control_group.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_control_group.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../validators":87,"./control_container":67,"./shared":83,"2ionoC":410,"@angular/core":191,"buffer":409}],72:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../validators":87,"./control_container":67,"./shared":83,"@angular/core":191}],72:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7841,9 +7700,7 @@ var NgControlName = (function (_super) {
 }(ng_control_1.NgControl));
 exports.NgControlName = NgControlName;
 //# sourceMappingURL=ng_control_name.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_control_name.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/async":55,"../validators":87,"./control_container":67,"./control_value_accessor":68,"./ng_control":70,"./shared":83,"2ionoC":410,"@angular/core":191,"buffer":409}],73:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":55,"../validators":87,"./control_container":67,"./control_value_accessor":68,"./ng_control":70,"./shared":83,"@angular/core":191}],73:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7923,9 +7780,7 @@ var NgControlStatus = (function () {
 }());
 exports.NgControlStatus = NgControlStatus;
 //# sourceMappingURL=ng_control_status.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_control_status.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/lang":61,"./ng_control":70,"2ionoC":410,"@angular/core":191,"buffer":409}],74:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/lang":61,"./ng_control":70,"@angular/core":191}],74:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8071,9 +7926,7 @@ var NgForm = (function (_super) {
 }(control_container_1.ControlContainer));
 exports.NgForm = NgForm;
 //# sourceMappingURL=ng_form.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_form.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/async":55,"../../facade/collection":57,"../../facade/lang":61,"../model":86,"../validators":87,"./control_container":67,"./shared":83,"2ionoC":410,"@angular/core":191,"buffer":409}],75:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":55,"../../facade/collection":57,"../../facade/lang":61,"../model":86,"../validators":87,"./control_container":67,"./shared":83,"@angular/core":191}],75:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8167,9 +8020,7 @@ var NgFormControl = (function (_super) {
 }(ng_control_1.NgControl));
 exports.NgFormControl = NgFormControl;
 //# sourceMappingURL=ng_form_control.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_form_control.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/async":55,"../../facade/collection":57,"../validators":87,"./control_value_accessor":68,"./ng_control":70,"./shared":83,"2ionoC":410,"@angular/core":191,"buffer":409}],76:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":55,"../../facade/collection":57,"../validators":87,"./control_value_accessor":68,"./ng_control":70,"./shared":83,"@angular/core":191}],76:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8306,9 +8157,7 @@ var NgFormModel = (function (_super) {
 }(control_container_1.ControlContainer));
 exports.NgFormModel = NgFormModel;
 //# sourceMappingURL=ng_form_model.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_form_model.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/async":55,"../../facade/collection":57,"../../facade/exceptions":59,"../../facade/lang":61,"../validators":87,"./control_container":67,"./shared":83,"2ionoC":410,"@angular/core":191,"buffer":409}],77:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":55,"../../facade/collection":57,"../../facade/exceptions":59,"../../facade/lang":61,"../validators":87,"./control_container":67,"./shared":83,"@angular/core":191}],77:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8404,9 +8253,7 @@ var NgModel = (function (_super) {
 }(ng_control_1.NgControl));
 exports.NgModel = NgModel;
 //# sourceMappingURL=ng_model.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\ng_model.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/async":55,"../model":86,"../validators":87,"./control_value_accessor":68,"./ng_control":70,"./shared":83,"2ionoC":410,"@angular/core":191,"buffer":409}],78:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":55,"../model":86,"../validators":87,"./control_value_accessor":68,"./ng_control":70,"./shared":83,"@angular/core":191}],78:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8434,9 +8281,7 @@ function normalizeAsyncValidator(validator) {
 }
 exports.normalizeAsyncValidator = normalizeAsyncValidator;
 //# sourceMappingURL=normalize_validator.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\normalize_validator.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"2ionoC":410,"buffer":409}],79:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],79:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8488,9 +8333,7 @@ var NumberValueAccessor = (function () {
 }());
 exports.NumberValueAccessor = NumberValueAccessor;
 //# sourceMappingURL=number_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\number_value_accessor.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/lang":61,"./control_value_accessor":68,"2ionoC":410,"@angular/core":191,"buffer":409}],80:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/lang":61,"./control_value_accessor":68,"@angular/core":191}],80:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8610,9 +8453,7 @@ var RadioControlValueAccessor = (function () {
 }());
 exports.RadioControlValueAccessor = RadioControlValueAccessor;
 //# sourceMappingURL=radio_control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\radio_control_value_accessor.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/collection":57,"../../facade/lang":61,"./control_value_accessor":68,"./ng_control":70,"2ionoC":410,"@angular/core":191,"buffer":409}],81:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":57,"../../facade/lang":61,"./control_value_accessor":68,"./ng_control":70,"@angular/core":191}],81:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8753,9 +8594,7 @@ var NgSelectOption = (function () {
 }());
 exports.NgSelectOption = NgSelectOption;
 //# sourceMappingURL=select_control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\select_control_value_accessor.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/collection":57,"../../facade/lang":61,"./control_value_accessor":68,"2ionoC":410,"@angular/core":191,"buffer":409}],82:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":57,"../../facade/lang":61,"./control_value_accessor":68,"@angular/core":191}],82:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8937,9 +8776,7 @@ var NgSelectMultipleOption = (function () {
 exports.NgSelectMultipleOption = NgSelectMultipleOption;
 exports.SELECT_DIRECTIVES = [SelectMultipleControlValueAccessor, NgSelectMultipleOption];
 //# sourceMappingURL=select_multiple_control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\select_multiple_control_value_accessor.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/collection":57,"../../facade/lang":61,"./control_value_accessor":68,"2ionoC":410,"@angular/core":191,"buffer":409}],83:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":57,"../../facade/lang":61,"./control_value_accessor":68,"@angular/core":191}],83:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9050,9 +8887,7 @@ function selectValueAccessor(dir, valueAccessors) {
 }
 exports.selectValueAccessor = selectValueAccessor;
 //# sourceMappingURL=shared.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\shared.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/collection":57,"../../facade/exceptions":59,"../../facade/lang":61,"../validators":87,"./checkbox_value_accessor":66,"./default_value_accessor":69,"./normalize_validator":78,"./number_value_accessor":79,"./radio_control_value_accessor":80,"./select_control_value_accessor":81,"./select_multiple_control_value_accessor":82,"2ionoC":410,"buffer":409}],84:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":57,"../../facade/exceptions":59,"../../facade/lang":61,"../validators":87,"./checkbox_value_accessor":66,"./default_value_accessor":69,"./normalize_validator":78,"./number_value_accessor":79,"./radio_control_value_accessor":80,"./select_control_value_accessor":81,"./select_multiple_control_value_accessor":82}],84:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9170,9 +9005,7 @@ var PatternValidator = (function () {
 }());
 exports.PatternValidator = PatternValidator;
 //# sourceMappingURL=validators.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives\\validators.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\directives")
-},{"../../facade/lang":61,"../validators":87,"2ionoC":410,"@angular/core":191,"buffer":409}],85:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/lang":61,"../validators":87,"@angular/core":191}],85:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9254,9 +9087,7 @@ var FormBuilder = (function () {
 }());
 exports.FormBuilder = FormBuilder;
 //# sourceMappingURL=form_builder.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\form_builder.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated")
-},{"../facade/collection":57,"../facade/lang":61,"./model":86,"2ionoC":410,"@angular/core":191,"buffer":409}],86:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":57,"../facade/lang":61,"./model":86,"@angular/core":191}],86:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9782,9 +9613,7 @@ var ControlArray = (function (_super) {
 }(AbstractControl));
 exports.ControlArray = ControlArray;
 //# sourceMappingURL=model.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\model.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated")
-},{"../facade/async":55,"../facade/collection":57,"../facade/lang":61,"2ionoC":410,"buffer":409}],87:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":55,"../facade/collection":57,"../facade/lang":61}],87:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9933,9 +9762,7 @@ function _mergeErrors(arrayOfErrors) {
     return collection_1.StringMapWrapper.isEmpty(res) ? null : res;
 }
 //# sourceMappingURL=validators.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\forms-deprecated\\validators.js","/..\\node_modules\\@angular\\common\\src\\forms-deprecated")
-},{"../facade/async":55,"../facade/collection":57,"../facade/lang":61,"../facade/promise":62,"2ionoC":410,"@angular/core":191,"buffer":409}],88:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":55,"../facade/collection":57,"../facade/lang":61,"../facade/promise":62,"@angular/core":191}],88:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9966,9 +9793,7 @@ function getPluralCategory(value, cases, ngLocalization) {
 }
 exports.getPluralCategory = getPluralCategory;
 //# sourceMappingURL=localization.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\localization.js","/..\\node_modules\\@angular\\common\\src")
-},{"2ionoC":410,"buffer":409}],89:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],89:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9986,9 +9811,7 @@ __export(require('./location/hash_location_strategy'));
 __export(require('./location/path_location_strategy'));
 __export(require('./location/location'));
 //# sourceMappingURL=location.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\location.js","/..\\node_modules\\@angular\\common\\src")
-},{"./location/hash_location_strategy":90,"./location/location":91,"./location/location_strategy":92,"./location/path_location_strategy":93,"./location/platform_location":94,"2ionoC":410,"buffer":409}],90:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./location/hash_location_strategy":90,"./location/location":91,"./location/location_strategy":92,"./location/path_location_strategy":93,"./location/platform_location":94}],90:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10067,9 +9890,7 @@ var HashLocationStrategy = (function (_super) {
 }(location_strategy_1.LocationStrategy));
 exports.HashLocationStrategy = HashLocationStrategy;
 //# sourceMappingURL=hash_location_strategy.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\location\\hash_location_strategy.js","/..\\node_modules\\@angular\\common\\src\\location")
-},{"../facade/lang":61,"./location":91,"./location_strategy":92,"./platform_location":94,"2ionoC":410,"@angular/core":191,"buffer":409}],91:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"./location":91,"./location_strategy":92,"./platform_location":94,"@angular/core":191}],91:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10227,9 +10048,7 @@ function _stripIndexHtml(url) {
     return url;
 }
 //# sourceMappingURL=location.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\location\\location.js","/..\\node_modules\\@angular\\common\\src\\location")
-},{"../facade/async":55,"./location_strategy":92,"2ionoC":410,"@angular/core":191,"buffer":409}],92:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":55,"./location_strategy":92,"@angular/core":191}],92:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10295,9 +10114,7 @@ exports.LocationStrategy = LocationStrategy;
  */
 exports.APP_BASE_HREF = new core_1.OpaqueToken('appBaseHref');
 //# sourceMappingURL=location_strategy.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\location\\location_strategy.js","/..\\node_modules\\@angular\\common\\src\\location")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],93:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],93:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10368,9 +10185,7 @@ var PathLocationStrategy = (function (_super) {
 }(location_strategy_1.LocationStrategy));
 exports.PathLocationStrategy = PathLocationStrategy;
 //# sourceMappingURL=path_location_strategy.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\location\\path_location_strategy.js","/..\\node_modules\\@angular\\common\\src\\location")
-},{"../facade/exceptions":59,"../facade/lang":61,"./location":91,"./location_strategy":92,"./platform_location":94,"2ionoC":410,"@angular/core":191,"buffer":409}],94:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":59,"../facade/lang":61,"./location":91,"./location_strategy":92,"./platform_location":94,"@angular/core":191}],94:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10427,9 +10242,7 @@ var PlatformLocation = (function () {
 }());
 exports.PlatformLocation = PlatformLocation;
 //# sourceMappingURL=platform_location.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\location\\platform_location.js","/..\\node_modules\\@angular\\common\\src\\location")
-},{"2ionoC":410,"buffer":409}],95:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],95:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10468,9 +10281,7 @@ exports.SlicePipe = slice_pipe_1.SlicePipe;
 var uppercase_pipe_1 = require('./pipes/uppercase_pipe');
 exports.UpperCasePipe = uppercase_pipe_1.UpperCasePipe;
 //# sourceMappingURL=pipes.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes.js","/..\\node_modules\\@angular\\common\\src")
-},{"./pipes/async_pipe":96,"./pipes/common_pipes":97,"./pipes/date_pipe":98,"./pipes/i18n_plural_pipe":99,"./pipes/i18n_select_pipe":100,"./pipes/json_pipe":102,"./pipes/lowercase_pipe":103,"./pipes/number_pipe":104,"./pipes/replace_pipe":105,"./pipes/slice_pipe":106,"./pipes/uppercase_pipe":107,"2ionoC":410,"buffer":409}],96:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./pipes/async_pipe":96,"./pipes/common_pipes":97,"./pipes/date_pipe":98,"./pipes/i18n_plural_pipe":99,"./pipes/i18n_select_pipe":100,"./pipes/json_pipe":102,"./pipes/lowercase_pipe":103,"./pipes/number_pipe":104,"./pipes/replace_pipe":105,"./pipes/slice_pipe":106,"./pipes/uppercase_pipe":107}],96:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10590,9 +10401,7 @@ var AsyncPipe = (function () {
 }());
 exports.AsyncPipe = AsyncPipe;
 //# sourceMappingURL=async_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\async_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/async":55,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],97:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":55,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],97:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10640,9 +10449,7 @@ exports.COMMON_PIPES = [
     i18n_select_pipe_1.I18nSelectPipe,
 ];
 //# sourceMappingURL=common_pipes.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\common_pipes.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"./async_pipe":96,"./date_pipe":98,"./i18n_plural_pipe":99,"./i18n_select_pipe":100,"./json_pipe":102,"./lowercase_pipe":103,"./number_pipe":104,"./replace_pipe":105,"./slice_pipe":106,"./uppercase_pipe":107,"2ionoC":410,"buffer":409}],98:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./async_pipe":96,"./date_pipe":98,"./i18n_plural_pipe":99,"./i18n_select_pipe":100,"./json_pipe":102,"./lowercase_pipe":103,"./number_pipe":104,"./replace_pipe":105,"./slice_pipe":106,"./uppercase_pipe":107}],98:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10707,9 +10514,7 @@ var DatePipe = (function () {
 }());
 exports.DatePipe = DatePipe;
 //# sourceMappingURL=date_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\date_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/collection":57,"../facade/intl":60,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],99:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":57,"../facade/intl":60,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],99:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10748,9 +10553,7 @@ var I18nPluralPipe = (function () {
 }());
 exports.I18nPluralPipe = I18nPluralPipe;
 //# sourceMappingURL=i18n_plural_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\i18n_plural_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/lang":61,"../localization":88,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],100:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"../localization":88,"./invalid_pipe_argument_exception":101,"@angular/core":191}],100:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10781,9 +10584,7 @@ var I18nSelectPipe = (function () {
 }());
 exports.I18nSelectPipe = I18nSelectPipe;
 //# sourceMappingURL=i18n_select_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\i18n_select_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],101:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],101:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10808,9 +10609,7 @@ var InvalidPipeArgumentException = (function (_super) {
 }(exceptions_1.BaseException));
 exports.InvalidPipeArgumentException = InvalidPipeArgumentException;
 //# sourceMappingURL=invalid_pipe_argument_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\invalid_pipe_argument_exception.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/exceptions":59,"../facade/lang":61,"2ionoC":410,"buffer":409}],102:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":59,"../facade/lang":61}],102:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10833,9 +10632,7 @@ var JsonPipe = (function () {
 }());
 exports.JsonPipe = JsonPipe;
 //# sourceMappingURL=json_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\json_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/lang":61,"2ionoC":410,"@angular/core":191,"buffer":409}],103:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"@angular/core":191}],103:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10866,9 +10663,7 @@ var LowerCasePipe = (function () {
 }());
 exports.LowerCasePipe = LowerCasePipe;
 //# sourceMappingURL=lowercase_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\lowercase_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],104:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],104:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10964,9 +10759,7 @@ var CurrencyPipe = (function () {
 }());
 exports.CurrencyPipe = CurrencyPipe;
 //# sourceMappingURL=number_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\number_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/exceptions":59,"../facade/intl":60,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],105:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":59,"../facade/intl":60,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],105:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11020,9 +10813,7 @@ var ReplacePipe = (function () {
 }());
 exports.ReplacePipe = ReplacePipe;
 //# sourceMappingURL=replace_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\replace_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],106:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],106:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11059,9 +10850,7 @@ var SlicePipe = (function () {
 }());
 exports.SlicePipe = SlicePipe;
 //# sourceMappingURL=slice_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\slice_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/collection":57,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],107:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":57,"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],107:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11092,9 +10881,7 @@ var UpperCasePipe = (function () {
 }());
 exports.UpperCasePipe = UpperCasePipe;
 //# sourceMappingURL=uppercase_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\common\\src\\pipes\\uppercase_pipe.js","/..\\node_modules\\@angular\\common\\src\\pipes")
-},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"2ionoC":410,"@angular/core":191,"buffer":409}],108:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":61,"./invalid_pipe_argument_exception":101,"@angular/core":191}],108:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11144,9 +10931,7 @@ exports.ElementSchemaRegistry = element_schema_registry_1.ElementSchemaRegistry;
 __export(require('./src/template_ast'));
 __export(require('./private_export'));
 //# sourceMappingURL=compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\compiler.js","/..\\node_modules\\@angular\\compiler")
-},{"./private_export":111,"./src/compiler":119,"./src/schema/element_schema_registry":164,"./src/template_ast":169,"2ionoC":410,"buffer":409}],109:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./private_export":111,"./src/compiler":119,"./src/schema/element_schema_registry":164,"./src/template_ast":169}],109:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11220,9 +11005,7 @@ exports.clearStyles = core_1.__core_private__.clearStyles;
 exports.collectAndResolveStyles = core_1.__core_private__.collectAndResolveStyles;
 exports.renderStyles = core_1.__core_private__.renderStyles;
 //# sourceMappingURL=core_private.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\core_private.js","/..\\node_modules\\@angular\\compiler")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],110:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],110:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11236,9 +11019,7 @@ function __export(m) {
 }
 __export(require('./compiler'));
 //# sourceMappingURL=index.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\index.js","/..\\node_modules\\@angular\\compiler")
-},{"./compiler":108,"2ionoC":410,"buffer":409}],111:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./compiler":108}],111:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11294,9 +11075,7 @@ var __compiler_private__;
     __compiler_private__.TypeScriptEmitter = ts_emitter.TypeScriptEmitter;
 })(__compiler_private__ = exports.__compiler_private__ || (exports.__compiler_private__ = {}));
 //# sourceMappingURL=private_export.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\private_export.js","/..\\node_modules\\@angular\\compiler")
-},{"./src/directive_normalizer":122,"./src/expression_parser/lexer":125,"./src/expression_parser/parser":126,"./src/html_parser":137,"./src/i18n/i18n_html_parser":140,"./src/i18n/message":141,"./src/i18n/message_extractor":142,"./src/i18n/xmb_serializer":144,"./src/metadata_resolver":147,"./src/output/path_util":156,"./src/output/ts_emitter":157,"./src/parse_util":158,"./src/schema/dom_element_schema_registry":162,"./src/selector":165,"./src/style_compiler":167,"./src/template_parser":170,"./src/view_compiler/view_compiler":188,"2ionoC":410,"buffer":409}],112:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./src/directive_normalizer":122,"./src/expression_parser/lexer":125,"./src/expression_parser/parser":126,"./src/html_parser":137,"./src/i18n/i18n_html_parser":140,"./src/i18n/message":141,"./src/i18n/message_extractor":142,"./src/i18n/xmb_serializer":144,"./src/metadata_resolver":147,"./src/output/path_util":156,"./src/output/ts_emitter":157,"./src/parse_util":158,"./src/schema/dom_element_schema_registry":162,"./src/selector":165,"./src/style_compiler":167,"./src/template_parser":170,"./src/view_compiler/view_compiler":188}],112:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11447,9 +11226,7 @@ var AnimationSequenceAst = (function (_super) {
 }(AnimationWithStepsAst));
 exports.AnimationSequenceAst = AnimationSequenceAst;
 //# sourceMappingURL=animation_ast.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\animation\\animation_ast.js","/..\\node_modules\\@angular\\compiler\\src\\animation")
-},{"2ionoC":410,"buffer":409}],113:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],113:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11743,9 +11520,7 @@ function _getStylesArray(obj) {
     return obj.styles.styles;
 }
 //# sourceMappingURL=animation_compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\animation\\animation_compiler.js","/..\\node_modules\\@angular\\compiler\\src\\animation")
-},{"../../core_private":109,"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./animation_ast":112,"./animation_parser":114,"2ionoC":410,"buffer":409}],114:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./animation_ast":112,"./animation_parser":114}],114:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -12221,9 +11996,7 @@ function _createStartKeyframeFromEndKeyframe(endKeyframe, startTime, duration, c
     return new animation_ast_1.AnimationKeyframeAst(_INITIAL_KEYFRAME, new animation_ast_1.AnimationStylesAst([values]));
 }
 //# sourceMappingURL=animation_parser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\animation\\animation_parser.js","/..\\node_modules\\@angular\\compiler\\src\\animation")
-},{"../../core_private":109,"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../facade/math":133,"../parse_util":158,"./animation_ast":112,"./styles_collection":115,"2ionoC":410,"buffer":409}],115:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../facade/math":133,"../parse_util":158,"./animation_ast":112,"./styles_collection":115}],115:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -12287,9 +12060,7 @@ var StylesCollection = (function () {
 }());
 exports.StylesCollection = StylesCollection;
 //# sourceMappingURL=styles_collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\animation\\styles_collection.js","/..\\node_modules\\@angular\\compiler\\src\\animation")
-},{"../facade/collection":129,"../facade/lang":132,"2ionoC":410,"buffer":409}],116:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129,"../facade/lang":132}],116:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -12338,9 +12109,7 @@ function assertInterpolationSymbols(identifier, value) {
 }
 exports.assertInterpolationSymbols = assertInterpolationSymbols;
 //# sourceMappingURL=assertions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\assertions.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/exceptions":131,"../src/facade/lang":132,"2ionoC":410,"@angular/core":191,"buffer":409}],117:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/exceptions":131,"../src/facade/lang":132,"@angular/core":191}],117:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -12424,9 +12193,7 @@ function isAsciiHexDigit(code) {
 }
 exports.isAsciiHexDigit = isAsciiHexDigit;
 //# sourceMappingURL=chars.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\chars.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"2ionoC":410,"buffer":409}],118:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],118:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -13323,9 +13090,7 @@ function _normalizeArray(obj) {
     return lang_1.isPresent(obj) ? obj : [];
 }
 //# sourceMappingURL=compile_metadata.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\compile_metadata.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./selector":165,"./url_resolver":172,"./util":173,"2ionoC":410,"@angular/core":191,"buffer":409}],119:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./selector":165,"./url_resolver":172,"./util":173,"@angular/core":191}],119:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -13389,9 +13154,7 @@ exports.COMPILER_PROVIDERS =
     url_resolver_2.UrlResolver, view_resolver_2.ViewResolver, directive_resolver_2.DirectiveResolver, pipe_resolver_2.PipeResolver
 ];
 //# sourceMappingURL=compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\compiler.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"./compile_metadata":118,"./config":120,"./directive_normalizer":122,"./directive_resolver":123,"./expression_parser/lexer":125,"./expression_parser/parser":126,"./html_parser":137,"./metadata_resolver":147,"./offline_compiler":148,"./pipe_resolver":159,"./runtime_compiler":161,"./schema/dom_element_schema_registry":162,"./schema/element_schema_registry":164,"./style_compiler":167,"./template_ast":169,"./template_parser":170,"./url_resolver":172,"./view_compiler/view_compiler":188,"./view_resolver":189,"./xhr":190,"2ionoC":410,"@angular/core":191,"buffer":409}],120:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./compile_metadata":118,"./config":120,"./directive_normalizer":122,"./directive_resolver":123,"./expression_parser/lexer":125,"./expression_parser/parser":126,"./html_parser":137,"./metadata_resolver":147,"./offline_compiler":148,"./pipe_resolver":159,"./runtime_compiler":161,"./schema/dom_element_schema_registry":162,"./schema/element_schema_registry":164,"./style_compiler":167,"./template_ast":169,"./template_parser":170,"./url_resolver":172,"./view_compiler/view_compiler":188,"./view_resolver":189,"./xhr":190,"@angular/core":191}],120:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -13485,9 +13248,7 @@ var DefaultRenderTypes = (function () {
 }());
 exports.DefaultRenderTypes = DefaultRenderTypes;
 //# sourceMappingURL=config.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\config.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/exceptions":131,"./identifiers":145,"2ionoC":410,"@angular/core":191,"buffer":409}],121:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/exceptions":131,"./identifiers":145,"@angular/core":191}],121:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -13526,9 +13287,7 @@ function hasLifecycleHook(hook, token) {
 }
 exports.hasLifecycleHook = hasLifecycleHook;
 //# sourceMappingURL=directive_lifecycle_reflector.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\directive_lifecycle_reflector.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"../src/facade/collection":129,"2ionoC":410,"@angular/core":191,"buffer":409}],122:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"../src/facade/collection":129,"@angular/core":191}],122:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -13780,9 +13539,7 @@ function _cloneDirectiveWithTemplate(directive, template) {
     });
 }
 //# sourceMappingURL=directive_normalizer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\directive_normalizer.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./compile_metadata":118,"./config":120,"./html_ast":135,"./html_parser":137,"./style_url_resolver":168,"./template_preparser":171,"./url_resolver":172,"./xhr":190,"2ionoC":410,"@angular/core":191,"buffer":409}],123:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./compile_metadata":118,"./config":120,"./html_ast":135,"./html_parser":137,"./style_url_resolver":168,"./template_preparser":171,"./url_resolver":172,"./xhr":190,"@angular/core":191}],123:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -13916,9 +13673,7 @@ var DirectiveResolver = (function () {
 exports.DirectiveResolver = DirectiveResolver;
 exports.CODEGEN_DIRECTIVE_RESOLVER = new DirectiveResolver(core_private_1.reflector);
 //# sourceMappingURL=directive_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\directive_resolver.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"2ionoC":410,"@angular/core":191,"buffer":409}],124:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"@angular/core":191}],124:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -14413,9 +14168,7 @@ var AstTransformer = (function () {
 }());
 exports.AstTransformer = AstTransformer;
 //# sourceMappingURL=ast.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\expression_parser\\ast.js","/..\\node_modules\\@angular\\compiler\\src\\expression_parser")
-},{"../facade/collection":129,"2ionoC":410,"buffer":409}],125:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129}],125:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -14795,9 +14548,7 @@ function unescape(code) {
     }
 }
 //# sourceMappingURL=lexer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\expression_parser\\lexer.js","/..\\node_modules\\@angular\\compiler\\src\\expression_parser")
-},{"../chars":117,"../facade/exceptions":131,"../facade/lang":132,"2ionoC":410,"@angular/core":191,"buffer":409}],126:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../chars":117,"../facade/exceptions":131,"../facade/lang":132,"@angular/core":191}],126:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -15477,1320 +15228,19 @@ var SimpleExpressionChecker = (function () {
     return SimpleExpressionChecker;
 }());
 //# sourceMappingURL=parser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\expression_parser\\parser.js","/..\\node_modules\\@angular\\compiler\\src\\expression_parser")
-},{"../chars":117,"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"../interpolation_config":146,"./ast":124,"./lexer":125,"2ionoC":410,"@angular/core":191,"buffer":409}],127:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subject_1 = require('rxjs/Subject');
-var PromiseObservable_1 = require('rxjs/observable/PromiseObservable');
-var toPromise_1 = require('rxjs/operator/toPromise');
-var lang_1 = require('./lang');
-var Observable_1 = require('rxjs/Observable');
-exports.Observable = Observable_1.Observable;
-var Subject_2 = require('rxjs/Subject');
-exports.Subject = Subject_2.Subject;
-var promise_1 = require('./promise');
-exports.PromiseCompleter = promise_1.PromiseCompleter;
-exports.PromiseWrapper = promise_1.PromiseWrapper;
-var TimerWrapper = (function () {
-    function TimerWrapper() {
-    }
-    TimerWrapper.setTimeout = function (fn, millis) {
-        return lang_1.global.setTimeout(fn, millis);
-    };
-    TimerWrapper.clearTimeout = function (id) { lang_1.global.clearTimeout(id); };
-    TimerWrapper.setInterval = function (fn, millis) {
-        return lang_1.global.setInterval(fn, millis);
-    };
-    TimerWrapper.clearInterval = function (id) { lang_1.global.clearInterval(id); };
-    return TimerWrapper;
-}());
-exports.TimerWrapper = TimerWrapper;
-var ObservableWrapper = (function () {
-    function ObservableWrapper() {
-    }
-    // TODO(vsavkin): when we use rxnext, try inferring the generic type from the first arg
-    ObservableWrapper.subscribe = function (emitter, onNext, onError, onComplete) {
-        if (onComplete === void 0) { onComplete = function () { }; }
-        onError = (typeof onError === 'function') && onError || lang_1.noop;
-        onComplete = (typeof onComplete === 'function') && onComplete || lang_1.noop;
-        return emitter.subscribe({ next: onNext, error: onError, complete: onComplete });
-    };
-    ObservableWrapper.isObservable = function (obs) { return !!obs.subscribe; };
-    /**
-     * Returns whether `obs` has any subscribers listening to events.
-     */
-    ObservableWrapper.hasSubscribers = function (obs) { return obs.observers.length > 0; };
-    ObservableWrapper.dispose = function (subscription) { subscription.unsubscribe(); };
-    /**
-     * @deprecated - use callEmit() instead
-     */
-    ObservableWrapper.callNext = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callEmit = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callError = function (emitter, error) { emitter.error(error); };
-    ObservableWrapper.callComplete = function (emitter) { emitter.complete(); };
-    ObservableWrapper.fromPromise = function (promise) {
-        return PromiseObservable_1.PromiseObservable.create(promise);
-    };
-    ObservableWrapper.toPromise = function (obj) { return toPromise_1.toPromise.call(obj); };
-    return ObservableWrapper;
-}());
-exports.ObservableWrapper = ObservableWrapper;
-/**
- * Use by directives and components to emit custom Events.
- *
- * ### Examples
- *
- * In the following example, `Zippy` alternatively emits `open` and `close` events when its
- * title gets clicked:
- *
- * ```
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
- *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
- *
- * The events payload can be accessed by the parameter `$event` on the components output event
- * handler:
- *
- * ```
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
- *
- * Uses Rx.Observable but provides an adapter to make it work as specified here:
- * https://github.com/jhusain/observable-spec
- *
- * Once a reference implementation of the spec is available, switch to it.
- * @stable
- */
-var EventEmitter = (function (_super) {
-    __extends(EventEmitter, _super);
-    /**
-     * Creates an instance of [EventEmitter], which depending on [isAsync],
-     * delivers events synchronously or asynchronously.
-     */
-    function EventEmitter(isAsync) {
-        if (isAsync === void 0) { isAsync = false; }
-        _super.call(this);
-        this.__isAsync = isAsync;
-    }
-    EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
-    /**
-     * @deprecated - use .emit(value) instead
-     */
-    EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
-    EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
-        var schedulerFn;
-        var errorFn = function (err) { return null; };
-        var completeFn = function () { return null; };
-        if (generatorOrNext && typeof generatorOrNext === 'object') {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext.next(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
-            if (generatorOrNext.error) {
-                errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
-                    function (err) { generatorOrNext.error(err); };
-            }
-            if (generatorOrNext.complete) {
-                completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
-                    function () { generatorOrNext.complete(); };
-            }
-        }
-        else {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext(value); };
-            if (error) {
-                errorFn =
-                    this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
-            }
-            if (complete) {
-                completeFn =
-                    this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
-            }
-        }
-        return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
-    };
-    return EventEmitter;
-}(Subject_1.Subject));
-exports.EventEmitter = EventEmitter;
-//# sourceMappingURL=async.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\async.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"./lang":132,"./promise":134,"2ionoC":410,"buffer":409,"rxjs/Observable":412,"rxjs/Subject":414,"rxjs/observable/PromiseObservable":419,"rxjs/operator/toPromise":420}],128:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * A base class for the WrappedException that can be used to identify
- * a WrappedException from ExceptionHandler without adding circular
- * dependency.
- */
-var BaseWrappedException = (function (_super) {
-    __extends(BaseWrappedException, _super);
-    function BaseWrappedException(message) {
-        _super.call(this, message);
-    }
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperMessage", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalException", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "context", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "message", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    return BaseWrappedException;
-}(Error));
-exports.BaseWrappedException = BaseWrappedException;
-//# sourceMappingURL=base_wrapped_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\base_wrapped_exception.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"2ionoC":410,"buffer":409}],129:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var lang_1 = require('./lang');
-exports.Map = lang_1.global.Map;
-exports.Set = lang_1.global.Set;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
-var createMapFromPairs = (function () {
-    try {
-        if (new exports.Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new exports.Map(pairs); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromPairs(pairs) {
-        var map = new exports.Map();
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i];
-            map.set(pair[0], pair[1]);
-        }
-        return map;
-    };
-})();
-var createMapFromMap = (function () {
-    try {
-        if (new exports.Map(new exports.Map())) {
-            return function createMapFromMap(m) { return new exports.Map(m); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromMap(m) {
-        var map = new exports.Map();
-        m.forEach(function (v, k) { map.set(k, v); });
-        return map;
-    };
-})();
-var _clearValues = (function () {
-    if ((new exports.Map()).keys().next) {
-        return function _clearValues(m) {
-            var keyIterator = m.keys();
-            var k;
-            while (!((k = keyIterator.next()).done)) {
-                m.set(k.value, null);
-            }
-        };
-    }
-    else {
-        return function _clearValuesWithForeEach(m) {
-            m.forEach(function (v, k) { m.set(k, null); });
-        };
-    }
-})();
-// Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
-// TODO(mlaval): remove the work around once we have a working polyfill of Array.from
-var _arrayFromMap = (function () {
-    try {
-        if ((new exports.Map()).values().next) {
-            return function createArrayFromMap(m, getValues) {
-                return getValues ? Array.from(m.values()) : Array.from(m.keys());
-            };
-        }
-    }
-    catch (e) {
-    }
-    return function createArrayFromMapWithForeach(m, getValues) {
-        var res = ListWrapper.createFixedSize(m.size), i = 0;
-        m.forEach(function (v, k) {
-            res[i] = getValues ? v : k;
-            i++;
-        });
-        return res;
-    };
-})();
-var MapWrapper = (function () {
-    function MapWrapper() {
-    }
-    MapWrapper.clone = function (m) { return createMapFromMap(m); };
-    MapWrapper.createFromStringMap = function (stringMap) {
-        var result = new exports.Map();
-        for (var prop in stringMap) {
-            result.set(prop, stringMap[prop]);
-        }
-        return result;
-    };
-    MapWrapper.toStringMap = function (m) {
-        var r = {};
-        m.forEach(function (v, k) { return r[k] = v; });
-        return r;
-    };
-    MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.clearValues = function (m) { _clearValues(m); };
-    MapWrapper.iterable = function (m) { return m; };
-    MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
-    MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
-    return MapWrapper;
-}());
-exports.MapWrapper = MapWrapper;
-/**
- * Wraps Javascript Objects
- */
-var StringMapWrapper = (function () {
-    function StringMapWrapper() {
-    }
-    StringMapWrapper.create = function () {
-        // Note: We are not using Object.create(null) here due to
-        // performance!
-        // http://jsperf.com/ng2-object-create-null
-        return {};
-    };
-    StringMapWrapper.contains = function (map, key) {
-        return map.hasOwnProperty(key);
-    };
-    StringMapWrapper.get = function (map, key) {
-        return map.hasOwnProperty(key) ? map[key] : undefined;
-    };
-    StringMapWrapper.set = function (map, key, value) { map[key] = value; };
-    StringMapWrapper.keys = function (map) { return Object.keys(map); };
-    StringMapWrapper.values = function (map) {
-        return Object.keys(map).reduce(function (r, a) {
-            r.push(map[a]);
-            return r;
-        }, []);
-    };
-    StringMapWrapper.isEmpty = function (map) {
-        for (var prop in map) {
-            return false;
-        }
-        return true;
-    };
-    StringMapWrapper.delete = function (map, key) { delete map[key]; };
-    StringMapWrapper.forEach = function (map, callback) {
-        for (var prop in map) {
-            if (map.hasOwnProperty(prop)) {
-                callback(map[prop], prop);
-            }
-        }
-    };
-    StringMapWrapper.merge = function (m1, m2) {
-        var m = {};
-        for (var attr in m1) {
-            if (m1.hasOwnProperty(attr)) {
-                m[attr] = m1[attr];
-            }
-        }
-        for (var attr in m2) {
-            if (m2.hasOwnProperty(attr)) {
-                m[attr] = m2[attr];
-            }
-        }
-        return m;
-    };
-    StringMapWrapper.equals = function (m1, m2) {
-        var k1 = Object.keys(m1);
-        var k2 = Object.keys(m2);
-        if (k1.length != k2.length) {
-            return false;
-        }
-        var key;
-        for (var i = 0; i < k1.length; i++) {
-            key = k1[i];
-            if (m1[key] !== m2[key]) {
-                return false;
-            }
-        }
-        return true;
-    };
-    return StringMapWrapper;
-}());
-exports.StringMapWrapper = StringMapWrapper;
-var ListWrapper = (function () {
-    function ListWrapper() {
-    }
-    // JS has no way to express a statically fixed size list, but dart does so we
-    // keep both methods.
-    ListWrapper.createFixedSize = function (size) { return new Array(size); };
-    ListWrapper.createGrowableSize = function (size) { return new Array(size); };
-    ListWrapper.clone = function (array) { return array.slice(0); };
-    ListWrapper.forEachWithIndex = function (array, fn) {
-        for (var i = 0; i < array.length; i++) {
-            fn(array[i], i);
-        }
-    };
-    ListWrapper.first = function (array) {
-        if (!array)
-            return null;
-        return array[0];
-    };
-    ListWrapper.last = function (array) {
-        if (!array || array.length == 0)
-            return null;
-        return array[array.length - 1];
-    };
-    ListWrapper.indexOf = function (array, value, startIndex) {
-        if (startIndex === void 0) { startIndex = 0; }
-        return array.indexOf(value, startIndex);
-    };
-    ListWrapper.contains = function (list, el) { return list.indexOf(el) !== -1; };
-    ListWrapper.reversed = function (array) {
-        var a = ListWrapper.clone(array);
-        return a.reverse();
-    };
-    ListWrapper.concat = function (a, b) { return a.concat(b); };
-    ListWrapper.insert = function (list, index, value) { list.splice(index, 0, value); };
-    ListWrapper.removeAt = function (list, index) {
-        var res = list[index];
-        list.splice(index, 1);
-        return res;
-    };
-    ListWrapper.removeAll = function (list, items) {
-        for (var i = 0; i < items.length; ++i) {
-            var index = list.indexOf(items[i]);
-            list.splice(index, 1);
-        }
-    };
-    ListWrapper.remove = function (list, el) {
-        var index = list.indexOf(el);
-        if (index > -1) {
-            list.splice(index, 1);
-            return true;
-        }
-        return false;
-    };
-    ListWrapper.clear = function (list) { list.length = 0; };
-    ListWrapper.isEmpty = function (list) { return list.length == 0; };
-    ListWrapper.fill = function (list, value, start, end) {
-        if (start === void 0) { start = 0; }
-        if (end === void 0) { end = null; }
-        list.fill(value, start, end === null ? list.length : end);
-    };
-    ListWrapper.equals = function (a, b) {
-        if (a.length != b.length)
-            return false;
-        for (var i = 0; i < a.length; ++i) {
-            if (a[i] !== b[i])
-                return false;
-        }
-        return true;
-    };
-    ListWrapper.slice = function (l, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return l.slice(from, to === null ? undefined : to);
-    };
-    ListWrapper.splice = function (l, from, length) { return l.splice(from, length); };
-    ListWrapper.sort = function (l, compareFn) {
-        if (lang_1.isPresent(compareFn)) {
-            l.sort(compareFn);
-        }
-        else {
-            l.sort();
-        }
-    };
-    ListWrapper.toString = function (l) { return l.toString(); };
-    ListWrapper.toJSON = function (l) { return JSON.stringify(l); };
-    ListWrapper.maximum = function (list, predicate) {
-        if (list.length == 0) {
-            return null;
-        }
-        var solution = null;
-        var maxValue = -Infinity;
-        for (var index = 0; index < list.length; index++) {
-            var candidate = list[index];
-            if (lang_1.isBlank(candidate)) {
-                continue;
-            }
-            var candidateValue = predicate(candidate);
-            if (candidateValue > maxValue) {
-                solution = candidate;
-                maxValue = candidateValue;
-            }
-        }
-        return solution;
-    };
-    ListWrapper.flatten = function (list) {
-        var target = [];
-        _flattenArray(list, target);
-        return target;
-    };
-    ListWrapper.addAll = function (list, source) {
-        for (var i = 0; i < source.length; i++) {
-            list.push(source[i]);
-        }
-    };
-    return ListWrapper;
-}());
-exports.ListWrapper = ListWrapper;
-function _flattenArray(source, target) {
-    if (lang_1.isPresent(source)) {
-        for (var i = 0; i < source.length; i++) {
-            var item = source[i];
-            if (lang_1.isArray(item)) {
-                _flattenArray(item, target);
-            }
-            else {
-                target.push(item);
-            }
-        }
-    }
-    return target;
-}
-function isListLikeIterable(obj) {
-    if (!lang_1.isJsObject(obj))
-        return false;
-    return lang_1.isArray(obj) ||
-        (!(obj instanceof exports.Map) &&
-            lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
-}
-exports.isListLikeIterable = isListLikeIterable;
-function areIterablesEqual(a, b, comparator) {
-    var iterator1 = a[lang_1.getSymbolIterator()]();
-    var iterator2 = b[lang_1.getSymbolIterator()]();
-    while (true) {
-        var item1 = iterator1.next();
-        var item2 = iterator2.next();
-        if (item1.done && item2.done)
-            return true;
-        if (item1.done || item2.done)
-            return false;
-        if (!comparator(item1.value, item2.value))
-            return false;
-    }
-}
-exports.areIterablesEqual = areIterablesEqual;
-function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
-        for (var i = 0; i < obj.length; i++) {
-            fn(obj[i]);
-        }
-    }
-    else {
-        var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
-        while (!((item = iterator.next()).done)) {
-            fn(item.value);
-        }
-    }
-}
-exports.iterateListLike = iterateListLike;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Set constructor.  We work around that by manually adding the items.
-var createSetFromList = (function () {
-    var test = new exports.Set([1, 2, 3]);
-    if (test.size === 3) {
-        return function createSetFromList(lst) { return new exports.Set(lst); };
-    }
-    else {
-        return function createSetAndPopulateFromList(lst) {
-            var res = new exports.Set(lst);
-            if (res.size !== lst.length) {
-                for (var i = 0; i < lst.length; i++) {
-                    res.add(lst[i]);
-                }
-            }
-            return res;
-        };
-    }
-})();
-var SetWrapper = (function () {
-    function SetWrapper() {
-    }
-    SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-    SetWrapper.has = function (s, key) { return s.has(key); };
-    SetWrapper.delete = function (m, k) { m.delete(k); };
-    return SetWrapper;
-}());
-exports.SetWrapper = SetWrapper;
-//# sourceMappingURL=collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\collection.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"./lang":132,"2ionoC":410,"buffer":409}],130:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var collection_1 = require('./collection');
-var lang_1 = require('./lang');
-var _ArrayLogger = (function () {
-    function _ArrayLogger() {
-        this.res = [];
-    }
-    _ArrayLogger.prototype.log = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logError = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroup = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroupEnd = function () { };
-    ;
-    return _ArrayLogger;
-}());
-/**
- * Provides a hook for centralized exception handling.
- *
- * The default implementation of `ExceptionHandler` prints error messages to the `Console`. To
- * intercept error handling,
- * write a custom exception handler that replaces this default as appropriate for your app.
- *
- * ### Example
- *
- * ```javascript
- *
- * class MyExceptionHandler implements ExceptionHandler {
- *   call(error, stackTrace = null, reason = null) {
- *     // do something with the exception
- *   }
- * }
- *
- * bootstrap(MyApp, {provide: ExceptionHandler, useClass: MyExceptionHandler}])
- *
- * ```
- * @stable
- */
-var ExceptionHandler = (function () {
-    function ExceptionHandler(_logger, _rethrowException) {
-        if (_rethrowException === void 0) { _rethrowException = true; }
-        this._logger = _logger;
-        this._rethrowException = _rethrowException;
-    }
-    ExceptionHandler.exceptionToString = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var l = new _ArrayLogger();
-        var e = new ExceptionHandler(l, false);
-        e.call(exception, stackTrace, reason);
-        return l.res.join('\n');
-    };
-    ExceptionHandler.prototype.call = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var originalException = this._findOriginalException(exception);
-        var originalStack = this._findOriginalStack(exception);
-        var context = this._findContext(exception);
-        this._logger.logGroup("EXCEPTION: " + this._extractMessage(exception));
-        if (lang_1.isPresent(stackTrace) && lang_1.isBlank(originalStack)) {
-            this._logger.logError('STACKTRACE:');
-            this._logger.logError(this._longStackTrace(stackTrace));
-        }
-        if (lang_1.isPresent(reason)) {
-            this._logger.logError("REASON: " + reason);
-        }
-        if (lang_1.isPresent(originalException)) {
-            this._logger.logError("ORIGINAL EXCEPTION: " + this._extractMessage(originalException));
-        }
-        if (lang_1.isPresent(originalStack)) {
-            this._logger.logError('ORIGINAL STACKTRACE:');
-            this._logger.logError(this._longStackTrace(originalStack));
-        }
-        if (lang_1.isPresent(context)) {
-            this._logger.logError('ERROR CONTEXT:');
-            this._logger.logError(context);
-        }
-        this._logger.logGroupEnd();
-        // We rethrow exceptions, so operations like 'bootstrap' will result in an error
-        // when an exception happens. If we do not rethrow, bootstrap will always succeed.
-        if (this._rethrowException)
-            throw exception;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._extractMessage = function (exception) {
-        return exception instanceof base_wrapped_exception_1.BaseWrappedException ? exception.wrapperMessage :
-            exception.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._longStackTrace = function (stackTrace) {
-        return collection_1.isListLikeIterable(stackTrace) ? stackTrace.join('\n\n-----async gap-----\n') :
-            stackTrace.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findContext = function (exception) {
-        try {
-            if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-                return null;
-            return lang_1.isPresent(exception.context) ? exception.context :
-                this._findContext(exception.originalException);
-        }
-        catch (e) {
-            // exception.context can throw an exception. if it happens, we ignore the context.
-            return null;
-        }
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalException = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception.originalException;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-        }
-        return e;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalStack = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception;
-        var stack = exception.originalStack;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-            if (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-                stack = e.originalStack;
-            }
-        }
-        return stack;
-    };
-    return ExceptionHandler;
-}());
-exports.ExceptionHandler = ExceptionHandler;
-//# sourceMappingURL=exception_handler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\exception_handler.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"./base_wrapped_exception":128,"./collection":129,"./lang":132,"2ionoC":410,"buffer":409}],131:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var exception_handler_1 = require('./exception_handler');
-var exception_handler_2 = require('./exception_handler');
-exports.ExceptionHandler = exception_handler_2.ExceptionHandler;
-/**
- * @stable
- */
-var BaseException = (function (_super) {
-    __extends(BaseException, _super);
-    function BaseException(message) {
-        if (message === void 0) { message = '--'; }
-        _super.call(this, message);
-        this.message = message;
-        this.stack = (new Error(message)).stack;
-    }
-    BaseException.prototype.toString = function () { return this.message; };
-    return BaseException;
-}(Error));
-exports.BaseException = BaseException;
-/**
- * Wraps an exception and provides additional context or information.
- * @stable
- */
-var WrappedException = (function (_super) {
-    __extends(WrappedException, _super);
-    function WrappedException(_wrapperMessage, _originalException /** TODO #9100 */, _originalStack /** TODO #9100 */, _context /** TODO #9100 */) {
-        _super.call(this, _wrapperMessage);
-        this._wrapperMessage = _wrapperMessage;
-        this._originalException = _originalException;
-        this._originalStack = _originalStack;
-        this._context = _context;
-        this._wrapperStack = (new Error(_wrapperMessage)).stack;
-    }
-    Object.defineProperty(WrappedException.prototype, "wrapperMessage", {
-        get: function () { return this._wrapperMessage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "wrapperStack", {
-        get: function () { return this._wrapperStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalException", {
-        get: function () { return this._originalException; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalStack", {
-        get: function () { return this._originalStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "context", {
-        get: function () { return this._context; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "message", {
-        get: function () { return exception_handler_1.ExceptionHandler.exceptionToString(this); },
-        enumerable: true,
-        configurable: true
-    });
-    WrappedException.prototype.toString = function () { return this.message; };
-    return WrappedException;
-}(base_wrapped_exception_1.BaseWrappedException));
-exports.WrappedException = WrappedException;
-function makeTypeError(message) {
-    return new TypeError(message);
-}
-exports.makeTypeError = makeTypeError;
-function unimplemented() {
-    throw new BaseException('unimplemented');
-}
-exports.unimplemented = unimplemented;
-//# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\exceptions.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"./base_wrapped_exception":128,"./exception_handler":130,"2ionoC":410,"buffer":409}],132:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    }
-    else {
-        globalScope = global;
-    }
-}
-else {
-    globalScope = window;
-}
-function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-}
-exports.scheduleMicroTask = scheduleMicroTask;
-exports.IS_DART = false;
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var _global = globalScope;
-exports.global = _global;
-/**
- * Runtime representation a type that a Component or other object is instances of.
- *
- * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
- * the `MyCustomComponent` constructor function.
- *
- * @stable
- */
-exports.Type = Function;
-function getTypeNameForDebugging(type) {
-    if (type['name']) {
-        return type['name'];
-    }
-    return typeof type;
-}
-exports.getTypeNameForDebugging = getTypeNameForDebugging;
-exports.Math = _global.Math;
-exports.Date = _global.Date;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-function isPresent(obj) {
-    return obj !== undefined && obj !== null;
-}
-exports.isPresent = isPresent;
-function isBlank(obj) {
-    return obj === undefined || obj === null;
-}
-exports.isBlank = isBlank;
-function isBoolean(obj) {
-    return typeof obj === 'boolean';
-}
-exports.isBoolean = isBoolean;
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-exports.isNumber = isNumber;
-function isString(obj) {
-    return typeof obj === 'string';
-}
-exports.isString = isString;
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-exports.isFunction = isFunction;
-function isType(obj) {
-    return isFunction(obj);
-}
-exports.isType = isType;
-function isStringMap(obj) {
-    return typeof obj === 'object' && obj !== null;
-}
-exports.isStringMap = isStringMap;
-var STRING_MAP_PROTO = Object.getPrototypeOf({});
-function isStrictStringMap(obj) {
-    return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
-}
-exports.isStrictStringMap = isStrictStringMap;
-function isPromise(obj) {
-    return obj instanceof _global.Promise;
-}
-exports.isPromise = isPromise;
-function isArray(obj) {
-    return Array.isArray(obj);
-}
-exports.isArray = isArray;
-function isDate(obj) {
-    return obj instanceof exports.Date && !isNaN(obj.valueOf());
-}
-exports.isDate = isDate;
-function noop() { }
-exports.noop = noop;
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token === undefined || token === null) {
-        return '' + token;
-    }
-    if (token.name) {
-        return token.name;
-    }
-    if (token.overriddenName) {
-        return token.overriddenName;
-    }
-    var res = token.toString();
-    var newLineIndex = res.indexOf('\n');
-    return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
-}
-exports.stringify = stringify;
-// serialize / deserialize enum exist only for consistency with dart API
-// enums in typescript don't need to be serialized
-function serializeEnum(val) {
-    return val;
-}
-exports.serializeEnum = serializeEnum;
-function deserializeEnum(val, values) {
-    return val;
-}
-exports.deserializeEnum = deserializeEnum;
-function resolveEnumToken(enumValue, val) {
-    return enumValue[val];
-}
-exports.resolveEnumToken = resolveEnumToken;
-var StringWrapper = (function () {
-    function StringWrapper() {
-    }
-    StringWrapper.fromCharCode = function (code) { return String.fromCharCode(code); };
-    StringWrapper.charCodeAt = function (s, index) { return s.charCodeAt(index); };
-    StringWrapper.split = function (s, regExp) { return s.split(regExp); };
-    StringWrapper.equals = function (s, s2) { return s === s2; };
-    StringWrapper.stripLeft = function (s, charVal) {
-        if (s && s.length) {
-            var pos = 0;
-            for (var i = 0; i < s.length; i++) {
-                if (s[i] != charVal)
-                    break;
-                pos++;
-            }
-            s = s.substring(pos);
-        }
-        return s;
-    };
-    StringWrapper.stripRight = function (s, charVal) {
-        if (s && s.length) {
-            var pos = s.length;
-            for (var i = s.length - 1; i >= 0; i--) {
-                if (s[i] != charVal)
-                    break;
-                pos--;
-            }
-            s = s.substring(0, pos);
-        }
-        return s;
-    };
-    StringWrapper.replace = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.replaceAll = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.slice = function (s, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return s.slice(from, to === null ? undefined : to);
-    };
-    StringWrapper.replaceAllMapped = function (s, from, cb) {
-        return s.replace(from, function () {
-            var matches = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                matches[_i - 0] = arguments[_i];
-            }
-            // Remove offset & string from the result array
-            matches.splice(-2, 2);
-            // The callback receives match, p1, ..., pn
-            return cb(matches);
-        });
-    };
-    StringWrapper.contains = function (s, substr) { return s.indexOf(substr) != -1; };
-    StringWrapper.compare = function (a, b) {
-        if (a < b) {
-            return -1;
-        }
-        else if (a > b) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    };
-    return StringWrapper;
-}());
-exports.StringWrapper = StringWrapper;
-var StringJoiner = (function () {
-    function StringJoiner(parts) {
-        if (parts === void 0) { parts = []; }
-        this.parts = parts;
-    }
-    StringJoiner.prototype.add = function (part) { this.parts.push(part); };
-    StringJoiner.prototype.toString = function () { return this.parts.join(''); };
-    return StringJoiner;
-}());
-exports.StringJoiner = StringJoiner;
-var NumberParseError = (function (_super) {
-    __extends(NumberParseError, _super);
-    function NumberParseError(message) {
-        _super.call(this);
-        this.message = message;
-    }
-    NumberParseError.prototype.toString = function () { return this.message; };
-    return NumberParseError;
-}(Error));
-exports.NumberParseError = NumberParseError;
-var NumberWrapper = (function () {
-    function NumberWrapper() {
-    }
-    NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
-    NumberWrapper.equal = function (a, b) { return a === b; };
-    NumberWrapper.parseIntAutoRadix = function (text) {
-        var result = parseInt(text);
-        if (isNaN(result)) {
-            throw new NumberParseError('Invalid integer literal when parsing ' + text);
-        }
-        return result;
-    };
-    NumberWrapper.parseInt = function (text, radix) {
-        if (radix == 10) {
-            if (/^(\-|\+)?[0-9]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else if (radix == 16) {
-            if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else {
-            var result = parseInt(text, radix);
-            if (!isNaN(result)) {
-                return result;
-            }
-        }
-        throw new NumberParseError('Invalid integer literal when parsing ' + text + ' in base ' + radix);
-    };
-    // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
-    NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
-    Object.defineProperty(NumberWrapper, "NaN", {
-        get: function () { return NaN; },
-        enumerable: true,
-        configurable: true
-    });
-    NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    NumberWrapper.isNaN = function (value) { return isNaN(value); };
-    NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
-    return NumberWrapper;
-}());
-exports.NumberWrapper = NumberWrapper;
-exports.RegExp = _global.RegExp;
-var RegExpWrapper = (function () {
-    function RegExpWrapper() {
-    }
-    RegExpWrapper.create = function (regExpStr, flags) {
-        if (flags === void 0) { flags = ''; }
-        flags = flags.replace(/g/g, '');
-        return new _global.RegExp(regExpStr, flags + 'g');
-    };
-    RegExpWrapper.firstMatch = function (regExp, input) {
-        // Reset multimatch regex state
-        regExp.lastIndex = 0;
-        return regExp.exec(input);
-    };
-    RegExpWrapper.test = function (regExp, input) {
-        regExp.lastIndex = 0;
-        return regExp.test(input);
-    };
-    RegExpWrapper.matcher = function (regExp, input) {
-        // Reset regex state for the case
-        // someone did not loop over all matches
-        // last time.
-        regExp.lastIndex = 0;
-        return { re: regExp, input: input };
-    };
-    RegExpWrapper.replaceAll = function (regExp, input, replace) {
-        var c = regExp.exec(input);
-        var res = '';
-        regExp.lastIndex = 0;
-        var prev = 0;
-        while (c) {
-            res += input.substring(prev, c.index);
-            res += replace(c);
-            prev = c.index + c[0].length;
-            regExp.lastIndex = prev;
-            c = regExp.exec(input);
-        }
-        res += input.substring(prev);
-        return res;
-    };
-    return RegExpWrapper;
-}());
-exports.RegExpWrapper = RegExpWrapper;
-var RegExpMatcherWrapper = (function () {
-    function RegExpMatcherWrapper() {
-    }
-    RegExpMatcherWrapper.next = function (matcher) {
-        return matcher.re.exec(matcher.input);
-    };
-    return RegExpMatcherWrapper;
-}());
-exports.RegExpMatcherWrapper = RegExpMatcherWrapper;
-var FunctionWrapper = (function () {
-    function FunctionWrapper() {
-    }
-    FunctionWrapper.apply = function (fn, posArgs) { return fn.apply(null, posArgs); };
-    FunctionWrapper.bind = function (fn, scope) { return fn.bind(scope); };
-    return FunctionWrapper;
-}());
-exports.FunctionWrapper = FunctionWrapper;
-// JS has NaN !== NaN
-function looseIdentical(a, b) {
-    return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
-}
-exports.looseIdentical = looseIdentical;
-// JS considers NaN is the same as NaN for map Key (while NaN !== NaN otherwise)
-// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-function getMapKey(value) {
-    return value;
-}
-exports.getMapKey = getMapKey;
-function normalizeBlank(obj) {
-    return isBlank(obj) ? null : obj;
-}
-exports.normalizeBlank = normalizeBlank;
-function normalizeBool(obj) {
-    return isBlank(obj) ? false : obj;
-}
-exports.normalizeBool = normalizeBool;
-function isJsObject(o) {
-    return o !== null && (typeof o === 'function' || typeof o === 'object');
-}
-exports.isJsObject = isJsObject;
-function print(obj) {
-    console.log(obj);
-}
-exports.print = print;
-function warn(obj) {
-    console.warn(obj);
-}
-exports.warn = warn;
-// Can't be all uppercase as our transpiler would think it is a special directive...
-var Json = (function () {
-    function Json() {
-    }
-    Json.parse = function (s) { return _global.JSON.parse(s); };
-    Json.stringify = function (data) {
-        // Dart doesn't take 3 arguments
-        return _global.JSON.stringify(data, null, 2);
-    };
-    return Json;
-}());
-exports.Json = Json;
-var DateWrapper = (function () {
-    function DateWrapper() {
-    }
-    DateWrapper.create = function (year, month, day, hour, minutes, seconds, milliseconds) {
-        if (month === void 0) { month = 1; }
-        if (day === void 0) { day = 1; }
-        if (hour === void 0) { hour = 0; }
-        if (minutes === void 0) { minutes = 0; }
-        if (seconds === void 0) { seconds = 0; }
-        if (milliseconds === void 0) { milliseconds = 0; }
-        return new exports.Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
-    };
-    DateWrapper.fromISOString = function (str) { return new exports.Date(str); };
-    DateWrapper.fromMillis = function (ms) { return new exports.Date(ms); };
-    DateWrapper.toMillis = function (date) { return date.getTime(); };
-    DateWrapper.now = function () { return new exports.Date(); };
-    DateWrapper.toJson = function (date) { return date.toJSON(); };
-    return DateWrapper;
-}());
-exports.DateWrapper = DateWrapper;
-function setValueOnPath(global, path, value) {
-    var parts = path.split('.');
-    var obj = global;
-    while (parts.length > 1) {
-        var name = parts.shift();
-        if (obj.hasOwnProperty(name) && isPresent(obj[name])) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-exports.setValueOnPath = setValueOnPath;
-var _symbolIterator = null;
-function getSymbolIterator() {
-    if (isBlank(_symbolIterator)) {
-        if (isPresent(globalScope.Symbol) && isPresent(Symbol.iterator)) {
-            _symbolIterator = Symbol.iterator;
-        }
-        else {
-            // es6-shim specific logic
-            var keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var i = 0; i < keys.length; ++i) {
-                var key = keys[i];
-                if (key !== 'entries' && key !== 'size' &&
-                    Map.prototype[key] === Map.prototype['entries']) {
-                    _symbolIterator = key;
-                }
-            }
-        }
-    }
-    return _symbolIterator;
-}
-exports.getSymbolIterator = getSymbolIterator;
-function evalExpression(sourceUrl, expr, declarations, vars) {
-    var fnBody = declarations + "\nreturn " + expr + "\n//# sourceURL=" + sourceUrl;
-    var fnArgNames = [];
-    var fnArgValues = [];
-    for (var argName in vars) {
-        fnArgNames.push(argName);
-        fnArgValues.push(vars[argName]);
-    }
-    return new (Function.bind.apply(Function, [void 0].concat(fnArgNames.concat(fnBody))))().apply(void 0, fnArgValues);
-}
-exports.evalExpression = evalExpression;
-function isPrimitive(obj) {
-    return !isJsObject(obj);
-}
-exports.isPrimitive = isPrimitive;
-function hasConstructor(value, type) {
-    return value.constructor === type;
-}
-exports.hasConstructor = hasConstructor;
-function escape(s) {
-    return _global.encodeURI(s);
-}
-exports.escape = escape;
-function escapeRegExp(s) {
-    return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-}
-exports.escapeRegExp = escapeRegExp;
-//# sourceMappingURL=lang.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\lang.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"2ionoC":410,"buffer":409}],133:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../chars":117,"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"../interpolation_config":146,"./ast":124,"./lexer":125,"@angular/core":191}],127:[function(require,module,exports){
+module.exports=require(55)
+},{"./lang":132,"./promise":134,"rxjs/Observable":408,"rxjs/Subject":410,"rxjs/observable/PromiseObservable":415,"rxjs/operator/toPromise":416}],128:[function(require,module,exports){
+module.exports=require(56)
+},{}],129:[function(require,module,exports){
+module.exports=require(57)
+},{"./lang":132}],130:[function(require,module,exports){
+module.exports=require(58)
+},{"./base_wrapped_exception":128,"./collection":129,"./lang":132}],131:[function(require,module,exports){
+module.exports=require(59)
+},{"./base_wrapped_exception":128,"./exception_handler":130}],132:[function(require,module,exports){
+module.exports=require(61)
+},{}],133:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -16803,67 +15253,9 @@ var lang_1 = require('./lang');
 exports.Math = lang_1.global.Math;
 exports.NaN = typeof exports.NaN;
 //# sourceMappingURL=math.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\math.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"./lang":132,"2ionoC":410,"buffer":409}],134:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var PromiseCompleter = (function () {
-    function PromiseCompleter() {
-        var _this = this;
-        this.promise = new Promise(function (res, rej) {
-            _this.resolve = res;
-            _this.reject = rej;
-        });
-    }
-    return PromiseCompleter;
-}());
-exports.PromiseCompleter = PromiseCompleter;
-var PromiseWrapper = (function () {
-    function PromiseWrapper() {
-    }
-    PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-    PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
-    // Note: We can't rename this method into `catch`, as this is not a valid
-    // method name in Dart.
-    PromiseWrapper.catchError = function (promise, onError) {
-        return promise.catch(onError);
-    };
-    PromiseWrapper.all = function (promises) {
-        if (promises.length == 0)
-            return Promise.resolve([]);
-        return Promise.all(promises);
-    };
-    PromiseWrapper.then = function (promise, success, rejection) {
-        return promise.then(success, rejection);
-    };
-    PromiseWrapper.wrap = function (computation) {
-        return new Promise(function (res, rej) {
-            try {
-                res(computation());
-            }
-            catch (e) {
-                rej(e);
-            }
-        });
-    };
-    PromiseWrapper.scheduleMicrotask = function (computation) {
-        PromiseWrapper.then(PromiseWrapper.resolve(null), computation, function (_) { });
-    };
-    PromiseWrapper.completer = function () { return new PromiseCompleter(); };
-    return PromiseWrapper;
-}());
-exports.PromiseWrapper = PromiseWrapper;
-//# sourceMappingURL=promise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\facade\\promise.js","/..\\node_modules\\@angular\\compiler\\src\\facade")
-},{"2ionoC":410,"buffer":409}],135:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./lang":132}],134:[function(require,module,exports){
+module.exports=require(62)
+},{}],135:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -16955,9 +15347,7 @@ function htmlVisitAll(visitor, asts, context) {
 }
 exports.htmlVisitAll = htmlVisitAll;
 //# sourceMappingURL=html_ast.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\html_ast.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/lang":132,"2ionoC":410,"buffer":409}],136:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":132}],136:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -17618,9 +16008,7 @@ function mergeTextTokens(srcTokens) {
     return dstTokens;
 }
 //# sourceMappingURL=html_lexer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\html_lexer.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"./chars":117,"./facade/lang":132,"./html_tags":138,"./interpolation_config":146,"./parse_util":158,"2ionoC":410,"buffer":409}],137:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./chars":117,"./facade/lang":132,"./html_tags":138,"./interpolation_config":146,"./parse_util":158}],137:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -17992,9 +16380,7 @@ function lastOnStack(stack, element) {
     return stack.length > 0 && stack[stack.length - 1] === element;
 }
 //# sourceMappingURL=html_parser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\html_parser.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/collection":129,"../src/facade/lang":132,"./html_ast":135,"./html_lexer":136,"./html_tags":138,"./parse_util":158,"2ionoC":410,"@angular/core":191,"buffer":409}],138:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/collection":129,"../src/facade/lang":132,"./html_ast":135,"./html_lexer":136,"./html_tags":138,"./parse_util":158,"@angular/core":191}],138:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -18381,9 +16767,7 @@ function mergeNsAndName(prefix, localName) {
 }
 exports.mergeNsAndName = mergeNsAndName;
 //# sourceMappingURL=html_tags.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\html_tags.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/lang":132,"2ionoC":410,"buffer":409}],139:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":132}],139:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -18482,9 +16866,7 @@ function _expandDefaultForm(ast, errors) {
     return new html_ast_1.HtmlElementAst('ng-container', [switchAttr], children, ast.sourceSpan, ast.sourceSpan, ast.sourceSpan);
 }
 //# sourceMappingURL=expander.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\i18n\\expander.js","/..\\node_modules\\@angular\\compiler\\src\\i18n")
-},{"../facade/exceptions":131,"../html_ast":135,"./shared":143,"2ionoC":410,"buffer":409}],140:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../html_ast":135,"./shared":143}],140:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -18764,9 +17146,7 @@ var _CreateNodeMapping = (function () {
     return _CreateNodeMapping;
 }());
 //# sourceMappingURL=i18n_html_parser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\i18n\\i18n_html_parser.js","/..\\node_modules\\@angular\\compiler\\src\\i18n")
-},{"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"../html_ast":135,"../html_parser":137,"../interpolation_config":146,"./expander":139,"./message":141,"./shared":143,"2ionoC":410,"buffer":409}],141:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"../html_ast":135,"../html_parser":137,"../interpolation_config":146,"./expander":139,"./message":141,"./shared":143}],141:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -18803,9 +17183,7 @@ function id(m) {
 }
 exports.id = id;
 //# sourceMappingURL=message.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\i18n\\message.js","/..\\node_modules\\@angular\\compiler\\src\\i18n")
-},{"../facade/lang":132,"2ionoC":410,"buffer":409}],142:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":132}],142:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -18979,9 +17357,7 @@ var MessageExtractor = (function () {
 }());
 exports.MessageExtractor = MessageExtractor;
 //# sourceMappingURL=message_extractor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\i18n\\message_extractor.js","/..\\node_modules\\@angular\\compiler\\src\\i18n")
-},{"../facade/collection":129,"../facade/lang":132,"../html_ast":135,"../interpolation_config":146,"./message":141,"./shared":143,"2ionoC":410,"buffer":409}],143:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129,"../facade/lang":132,"../html_ast":135,"../interpolation_config":146,"./message":141,"./shared":143}],143:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -19195,9 +17571,7 @@ var _StringifyVisitor = (function () {
     return _StringifyVisitor;
 }());
 //# sourceMappingURL=shared.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\i18n\\shared.js","/..\\node_modules\\@angular\\compiler\\src\\i18n")
-},{"../facade/lang":132,"../html_ast":135,"../parse_util":158,"./message":141,"2ionoC":410,"buffer":409}],144:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":132,"../html_ast":135,"../parse_util":158,"./message":141}],144:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -19308,9 +17682,7 @@ function _escapeXml(value) {
     return _XML_ESCAPED_CHARS.reduce(function (value, escape) { return value.replace(escape[0], escape[1]); }, value);
 }
 //# sourceMappingURL=xmb_serializer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\i18n\\xmb_serializer.js","/..\\node_modules\\@angular\\compiler\\src\\i18n")
-},{"../facade/lang":132,"../html_ast":135,"../html_parser":137,"../parse_util":158,"./message":141,"2ionoC":410,"buffer":409}],145:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":132,"../html_ast":135,"../html_parser":137,"../parse_util":158,"./message":141}],145:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -19518,9 +17890,7 @@ function identifierToken(identifier) {
 }
 exports.identifierToken = identifierToken;
 //# sourceMappingURL=identifiers.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\identifiers.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"./compile_metadata":118,"./util":173,"2ionoC":410,"@angular/core":191,"buffer":409}],146:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"./compile_metadata":118,"./util":173,"@angular/core":191}],146:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -19534,9 +17904,7 @@ exports.DEFAULT_INTERPOLATION_CONFIG = {
     end: '}}'
 };
 //# sourceMappingURL=interpolation_config.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\interpolation_config.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"2ionoC":410,"buffer":409}],147:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],147:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -20043,9 +18411,7 @@ var _CompileValueConverter = (function (_super) {
     return _CompileValueConverter;
 }(util_1.ValueTransformer));
 //# sourceMappingURL=metadata_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\metadata_resolver.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./assertions":116,"./compile_metadata":118,"./config":120,"./directive_lifecycle_reflector":121,"./directive_resolver":123,"./pipe_resolver":159,"./url_resolver":172,"./util":173,"./view_resolver":189,"2ionoC":410,"@angular/core":191,"buffer":409}],148:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./assertions":116,"./compile_metadata":118,"./config":120,"./directive_lifecycle_reflector":121,"./directive_resolver":123,"./pipe_resolver":159,"./url_resolver":172,"./util":173,"./view_resolver":189,"@angular/core":191}],148:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -20201,9 +18567,7 @@ function _splitLastSuffix(path) {
     }
 }
 //# sourceMappingURL=offline_compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\offline_compiler.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"./compile_metadata":118,"./facade/collection":129,"./facade/exceptions":131,"./output/output_ast":153,"./util":173,"./view_compiler/view_compiler":188,"2ionoC":410,"@angular/core":191,"buffer":409}],149:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./compile_metadata":118,"./facade/collection":129,"./facade/exceptions":131,"./output/output_ast":153,"./util":173,"./view_compiler/view_compiler":188,"@angular/core":191}],149:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -20622,9 +18986,7 @@ function _createIndent(count) {
     return res;
 }
 //# sourceMappingURL=abstract_emitter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\abstract_emitter.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../facade/exceptions":131,"../facade/lang":132,"./output_ast":153,"2ionoC":410,"buffer":409}],150:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132,"./output_ast":153}],150:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -20796,9 +19158,7 @@ var AbstractJsEmitterVisitor = (function (_super) {
 }(abstract_emitter_1.AbstractEmitterVisitor));
 exports.AbstractJsEmitterVisitor = AbstractJsEmitterVisitor;
 //# sourceMappingURL=abstract_js_emitter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\abstract_js_emitter.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../facade/exceptions":131,"../facade/lang":132,"./abstract_emitter":149,"./output_ast":153,"2ionoC":410,"buffer":409}],151:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132,"./abstract_emitter":149,"./output_ast":153}],151:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -21187,9 +19547,7 @@ function isConstType(type) {
     return lang_1.isPresent(type) && type.hasModifier(o.TypeModifier.Const);
 }
 //# sourceMappingURL=dart_emitter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\dart_emitter.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../facade/exceptions":131,"../facade/lang":132,"./abstract_emitter":149,"./output_ast":153,"2ionoC":410,"buffer":409}],152:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132,"./abstract_emitter":149,"./output_ast":153}],152:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -21290,9 +19648,7 @@ var _InterpretiveAppView = (function (_super) {
     return _InterpretiveAppView;
 }(core_private_1.DebugAppView));
 //# sourceMappingURL=interpretive_view.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\interpretive_view.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../../core_private":109,"../facade/exceptions":131,"../facade/lang":132,"2ionoC":410,"buffer":409}],153:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../facade/exceptions":131,"../facade/lang":132}],153:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -22279,9 +20635,7 @@ function fn(params, body, type) {
 }
 exports.fn = fn;
 //# sourceMappingURL=output_ast.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\output_ast.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../facade/lang":132,"2ionoC":410,"buffer":409}],154:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":132}],154:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -22739,9 +21093,7 @@ function _declareFn(varNames, statements, ctx, visitor) {
 var CATCH_ERROR_VAR = 'error';
 var CATCH_STACK_VAR = 'stack';
 //# sourceMappingURL=output_interpreter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\output_interpreter.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../../core_private":109,"../facade/async":127,"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"./dart_emitter":151,"./output_ast":153,"./ts_emitter":157,"2ionoC":410,"buffer":409}],155:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../facade/async":127,"../facade/collection":129,"../facade/exceptions":131,"../facade/lang":132,"./dart_emitter":151,"./output_ast":153,"./ts_emitter":157}],155:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -22795,9 +21147,7 @@ var JitEmitterVisitor = (function (_super) {
     return JitEmitterVisitor;
 }(abstract_js_emitter_1.AbstractJsEmitterVisitor));
 //# sourceMappingURL=output_jit.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\output_jit.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../facade/lang":132,"../util":173,"./abstract_emitter":149,"./abstract_js_emitter":150,"2ionoC":410,"buffer":409}],156:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":132,"../util":173,"./abstract_emitter":149,"./abstract_js_emitter":150}],156:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -22841,9 +21191,7 @@ var AssetUrl = (function () {
 }());
 exports.AssetUrl = AssetUrl;
 //# sourceMappingURL=path_util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\path_util.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../facade/exceptions":131,"../facade/lang":132,"2ionoC":410,"buffer":409}],157:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132}],157:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -23156,9 +21504,7 @@ var _TsEmitterVisitor = (function (_super) {
     return _TsEmitterVisitor;
 }(abstract_emitter_1.AbstractEmitterVisitor));
 //# sourceMappingURL=ts_emitter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\output\\ts_emitter.js","/..\\node_modules\\@angular\\compiler\\src\\output")
-},{"../facade/exceptions":131,"../facade/lang":132,"./abstract_emitter":149,"./output_ast":153,"2ionoC":410,"buffer":409}],158:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132,"./abstract_emitter":149,"./output_ast":153}],158:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -23246,9 +21592,7 @@ var ParseError = (function () {
 }());
 exports.ParseError = ParseError;
 //# sourceMappingURL=parse_util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\parse_util.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"2ionoC":410,"buffer":409}],159:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],159:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -23294,9 +21638,7 @@ var PipeResolver = (function () {
 }());
 exports.PipeResolver = PipeResolver;
 //# sourceMappingURL=pipe_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\pipe_resolver.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"../src/facade/exceptions":131,"../src/facade/lang":132,"2ionoC":410,"@angular/core":191,"buffer":409}],160:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"../src/facade/exceptions":131,"../src/facade/lang":132,"@angular/core":191}],160:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -23680,9 +22022,7 @@ function _addQueryToTokenMap(map, query) {
     });
 }
 //# sourceMappingURL=provider_parser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\provider_parser.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/collection":129,"../src/facade/lang":132,"./compile_metadata":118,"./identifiers":145,"./parse_util":158,"./template_ast":169,"2ionoC":410,"buffer":409}],161:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/collection":129,"../src/facade/lang":132,"./compile_metadata":118,"./identifiers":145,"./parse_util":158,"./template_ast":169}],161:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -23938,9 +22278,7 @@ function assertComponent(meta) {
     }
 }
 //# sourceMappingURL=runtime_compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\runtime_compiler.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/async":127,"../src/facade/exceptions":131,"../src/facade/lang":132,"./compile_metadata":118,"./config":120,"./directive_normalizer":122,"./metadata_resolver":147,"./output/interpretive_view":152,"./output/output_ast":153,"./output/output_interpreter":154,"./output/output_jit":155,"./style_compiler":167,"./template_parser":170,"./view_compiler/view_compiler":188,"2ionoC":410,"@angular/core":191,"buffer":409}],162:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/async":127,"../src/facade/exceptions":131,"../src/facade/lang":132,"./compile_metadata":118,"./config":120,"./directive_normalizer":122,"./metadata_resolver":147,"./output/interpretive_view":152,"./output/output_ast":153,"./output/output_interpreter":154,"./output/output_jit":155,"./style_compiler":167,"./template_parser":170,"./view_compiler/view_compiler":188,"@angular/core":191}],162:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -24262,9 +22600,7 @@ var DomElementSchemaRegistry = (function (_super) {
 }(element_schema_registry_1.ElementSchemaRegistry));
 exports.DomElementSchemaRegistry = DomElementSchemaRegistry;
 //# sourceMappingURL=dom_element_schema_registry.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\schema\\dom_element_schema_registry.js","/..\\node_modules\\@angular\\compiler\\src\\schema")
-},{"../../core_private":109,"../facade/collection":129,"../facade/lang":132,"./dom_security_schema":163,"./element_schema_registry":164,"2ionoC":410,"@angular/core":191,"buffer":409}],163:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../facade/collection":129,"../facade/lang":132,"./dom_security_schema":163,"./element_schema_registry":164,"@angular/core":191}],163:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -24323,9 +22659,7 @@ registerContext(core_private_1.SecurityContext.RESOURCE_URL, [
     'track|src',
 ]);
 //# sourceMappingURL=dom_security_schema.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\schema\\dom_security_schema.js","/..\\node_modules\\@angular\\compiler\\src\\schema")
-},{"../../core_private":109,"2ionoC":410,"buffer":409}],164:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109}],164:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -24341,9 +22675,7 @@ var ElementSchemaRegistry = (function () {
 }());
 exports.ElementSchemaRegistry = ElementSchemaRegistry;
 //# sourceMappingURL=element_schema_registry.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\schema\\element_schema_registry.js","/..\\node_modules\\@angular\\compiler\\src\\schema")
-},{"2ionoC":410,"buffer":409}],165:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],165:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -24709,9 +23041,7 @@ var SelectorContext = (function () {
 }());
 exports.SelectorContext = SelectorContext;
 //# sourceMappingURL=selector.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\selector.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"2ionoC":410,"buffer":409}],166:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132}],166:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -25219,9 +23549,7 @@ function escapeBlocks(input) {
     return new StringWithEscapedBlocks(resultParts.join(''), escapedBlocks);
 }
 //# sourceMappingURL=shadow_css.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\shadow_css.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/collection":129,"../src/facade/lang":132,"2ionoC":410,"buffer":409}],167:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/collection":129,"../src/facade/lang":132}],167:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -25326,9 +23654,7 @@ function getStylesVarName(component) {
     return result;
 }
 //# sourceMappingURL=style_compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\style_compiler.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"./compile_metadata":118,"./output/output_ast":153,"./shadow_css":166,"./url_resolver":172,"2ionoC":410,"@angular/core":191,"buffer":409}],168:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./compile_metadata":118,"./output/output_ast":153,"./shadow_css":166,"./url_resolver":172,"@angular/core":191}],168:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -25378,9 +23704,7 @@ var _cssImportRe = /@import\s+(?:url\()?\s*(?:(?:['"]([^'"]*))|([^;\)\s]*))[^;]*
 //       https://github.com/angular/angular/issues/4596
 var _urlWithSchemaRe = /^([a-zA-Z\-\+\.]+):/g;
 //# sourceMappingURL=style_url_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\style_url_resolver.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/lang":132,"2ionoC":410,"buffer":409}],169:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":132}],169:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -25669,9 +23993,7 @@ function templateVisitAll(visitor, asts, context) {
 }
 exports.templateVisitAll = templateVisitAll;
 //# sourceMappingURL=template_ast.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\template_ast.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/lang":132,"2ionoC":410,"buffer":409}],170:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":132}],170:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -26506,9 +24828,7 @@ function removeDuplicates(items) {
     return res;
 }
 //# sourceMappingURL=template_parser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\template_parser.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./expression_parser/ast":124,"./expression_parser/parser":126,"./html_ast":135,"./html_parser":137,"./html_tags":138,"./identifiers":145,"./parse_util":158,"./provider_parser":160,"./schema/element_schema_registry":164,"./selector":165,"./style_url_resolver":168,"./template_ast":169,"./template_preparser":171,"./util":173,"2ionoC":410,"@angular/core":191,"buffer":409}],171:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"../src/facade/collection":129,"../src/facade/exceptions":131,"../src/facade/lang":132,"./expression_parser/ast":124,"./expression_parser/parser":126,"./html_ast":135,"./html_parser":137,"./html_tags":138,"./identifiers":145,"./parse_util":158,"./provider_parser":160,"./schema/element_schema_registry":164,"./selector":165,"./style_url_resolver":168,"./template_ast":169,"./template_preparser":171,"./util":173,"@angular/core":191}],171:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -26599,9 +24919,7 @@ function normalizeNgContentSelect(selectAttr) {
     return selectAttr;
 }
 //# sourceMappingURL=template_preparser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\template_preparser.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/lang":132,"./html_tags":138,"2ionoC":410,"buffer":409}],172:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":132,"./html_tags":138}],172:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -26924,9 +25242,7 @@ function _resolveUrl(base, url) {
     return _joinAndCanonicalizePath(parts);
 }
 //# sourceMappingURL=url_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\url_resolver.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../src/facade/lang":132,"2ionoC":410,"@angular/core":191,"buffer":409}],173:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":132,"@angular/core":191}],173:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -27014,9 +25330,7 @@ function assetUrl(pkg, path, type) {
 }
 exports.assetUrl = assetUrl;
 //# sourceMappingURL=util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\util.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"./facade/collection":129,"./facade/lang":132,"2ionoC":410,"buffer":409}],174:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./facade/collection":129,"./facade/lang":132}],174:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -27034,9 +25348,7 @@ var CompileBinding = (function () {
 }());
 exports.CompileBinding = CompileBinding;
 //# sourceMappingURL=compile_binding.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\compile_binding.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"2ionoC":410,"buffer":409}],175:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],175:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -27447,9 +25759,7 @@ var _ValueOutputAstTransformer = (function (_super) {
     return _ValueOutputAstTransformer;
 }(util_2.ValueTransformer));
 //# sourceMappingURL=compile_element.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\compile_element.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"../template_ast":169,"../util":173,"./compile_method":176,"./compile_query":178,"./constants":180,"./util":185,"2ionoC":410,"@angular/core":191,"buffer":409}],176:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"../template_ast":169,"../util":173,"./compile_method":176,"./compile_query":178,"./constants":180,"./util":185,"@angular/core":191}],176:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -27521,9 +25831,7 @@ var CompileMethod = (function () {
 }());
 exports.CompileMethod = CompileMethod;
 //# sourceMappingURL=compile_method.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\compile_method.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../facade/collection":129,"../facade/lang":132,"../output/output_ast":153,"2ionoC":410,"buffer":409}],177:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129,"../facade/lang":132,"../output/output_ast":153}],177:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -27630,9 +25938,7 @@ function _findPipeMeta(view, name) {
     return pipeMeta;
 }
 //# sourceMappingURL=compile_pipe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\compile_pipe.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./util":185,"2ionoC":410,"buffer":409}],178:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./util":185}],178:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -27753,9 +26059,7 @@ function addQueryToTokenMap(map, query) {
 }
 exports.addQueryToTokenMap = addQueryToTokenMap;
 //# sourceMappingURL=compile_query.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\compile_query.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./util":185,"2ionoC":410,"buffer":409}],179:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./util":185}],179:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -27924,9 +26228,7 @@ function getViewType(component, embeddedTemplateIndex) {
     }
 }
 //# sourceMappingURL=compile_view.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\compile_view.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../../core_private":109,"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./compile_method":176,"./compile_pipe":177,"./compile_query":178,"./constants":180,"./util":185,"2ionoC":410,"buffer":409}],180:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"./compile_method":176,"./compile_pipe":177,"./compile_query":178,"./constants":180,"./util":185}],180:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28046,9 +26348,7 @@ var DetectChangesVars = (function () {
 }());
 exports.DetectChangesVars = DetectChangesVars;
 //# sourceMappingURL=constants.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\constants.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../../core_private":109,"../compile_metadata":118,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"2ionoC":410,"@angular/core":191,"buffer":409}],181:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../compile_metadata":118,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"@angular/core":191}],181:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28190,9 +26490,7 @@ function santitizeEventName(name) {
     return lang_1.StringWrapper.replaceAll(name, /[^a-zA-Z_]/g, '_');
 }
 //# sourceMappingURL=event_binder.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\event_binder.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../facade/collection":129,"../facade/lang":132,"../output/output_ast":153,"./compile_binding":174,"./compile_method":176,"./constants":180,"./expression_converter":182,"2ionoC":410,"buffer":409}],182:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129,"../facade/lang":132,"../output/output_ast":153,"./compile_binding":174,"./compile_method":176,"./constants":180,"./expression_converter":182}],182:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28437,9 +26735,7 @@ function flattenStatements(arg, output) {
     }
 }
 //# sourceMappingURL=expression_converter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\expression_converter.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"2ionoC":410,"buffer":409}],183:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153}],183:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28510,9 +26806,7 @@ function bindPipeDestroyLifecycleCallbacks(pipeMeta, pipeInstance, view) {
 }
 exports.bindPipeDestroyLifecycleCallbacks = bindPipeDestroyLifecycleCallbacks;
 //# sourceMappingURL=lifecycle_binder.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\lifecycle_binder.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../../core_private":109,"../output/output_ast":153,"./constants":180,"2ionoC":410,"buffer":409}],184:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../output/output_ast":153,"./constants":180}],184:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28731,9 +27025,7 @@ function logBindingUpdateStmt(renderNode, propName, value) {
         .toStmt();
 }
 //# sourceMappingURL=property_binder.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\property_binder.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../../core_private":109,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"../template_ast":169,"../util":173,"./compile_binding":174,"./constants":180,"./expression_converter":182,"2ionoC":410,"@angular/core":191,"buffer":409}],185:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"../template_ast":169,"../util":173,"./compile_binding":174,"./constants":180,"./expression_converter":182,"@angular/core":191}],185:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28831,9 +27123,7 @@ function createPureProxy(fn, argCount, pureProxyProp, view) {
 }
 exports.createPureProxy = createPureProxy;
 //# sourceMappingURL=util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\util.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"2ionoC":410,"buffer":409}],186:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":131,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153}],186:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28918,9 +27208,7 @@ var ViewBinderVisitor = (function () {
     return ViewBinderVisitor;
 }());
 //# sourceMappingURL=view_binder.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\view_binder.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../facade/collection":129,"../template_ast":169,"./event_binder":181,"./lifecycle_binder":183,"./property_binder":184,"2ionoC":410,"buffer":409}],187:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":129,"../template_ast":169,"./event_binder":181,"./lifecycle_binder":183,"./property_binder":184}],187:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29433,9 +27721,7 @@ function getChangeDetectionMode(view) {
     return mode;
 }
 //# sourceMappingURL=view_builder.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\view_builder.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../../core_private":109,"../animation/animation_compiler":113,"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"../template_ast":169,"./compile_element":175,"./compile_view":179,"./constants":180,"./util":185,"2ionoC":410,"@angular/core":191,"buffer":409}],188:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":109,"../animation/animation_compiler":113,"../compile_metadata":118,"../facade/collection":129,"../facade/lang":132,"../identifiers":145,"../output/output_ast":153,"../template_ast":169,"./compile_element":175,"./compile_view":179,"./constants":180,"./util":185,"@angular/core":191}],188:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29496,9 +27782,7 @@ var ViewCompiler = (function () {
 }());
 exports.ViewCompiler = ViewCompiler;
 //# sourceMappingURL=view_compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_compiler\\view_compiler.js","/..\\node_modules\\@angular\\compiler\\src\\view_compiler")
-},{"../animation/animation_compiler":113,"../config":120,"./compile_element":175,"./compile_view":179,"./view_binder":186,"./view_builder":187,"2ionoC":410,"@angular/core":191,"buffer":409}],189:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../animation/animation_compiler":113,"../config":120,"./compile_element":175,"./compile_view":179,"./view_binder":186,"./view_builder":187,"@angular/core":191}],189:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29557,9 +27841,7 @@ var ViewResolver = (function () {
 }());
 exports.ViewResolver = ViewResolver;
 //# sourceMappingURL=view_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\view_resolver.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"../core_private":109,"../src/facade/exceptions":131,"../src/facade/lang":132,"2ionoC":410,"@angular/core":191,"buffer":409}],190:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":109,"../src/facade/exceptions":131,"../src/facade/lang":132,"@angular/core":191}],190:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29581,9 +27863,7 @@ var XHR = (function () {
 }());
 exports.XHR = XHR;
 //# sourceMappingURL=xhr.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\compiler\\src\\xhr.js","/..\\node_modules\\@angular\\compiler\\src")
-},{"2ionoC":410,"buffer":409}],191:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],191:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29652,9 +27932,7 @@ __export(require('./src/animation/metadata'));
 var animation_player_1 = require('./src/animation/animation_player');
 exports.AnimationPlayer = animation_player_1.AnimationPlayer;
 //# sourceMappingURL=index.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\index.js","/..\\node_modules\\@angular\\core")
-},{"./private_export":192,"./src/animation/animation_player":198,"./src/animation/metadata":202,"./src/application_common_providers":203,"./src/application_ref":204,"./src/application_tokens":205,"./src/change_detection":206,"./src/debug/debug_node":216,"./src/di":218,"./src/facade/async":230,"./src/facade/exceptions":234,"./src/facade/lang":235,"./src/linker":238,"./src/metadata":257,"./src/platform_common_providers":262,"./src/platform_directives_and_pipes":263,"./src/profile/profile":264,"./src/render":271,"./src/testability/testability":274,"./src/util":275,"./src/zone":277,"2ionoC":410,"buffer":409}],192:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./private_export":192,"./src/animation/animation_player":198,"./src/animation/metadata":202,"./src/application_common_providers":203,"./src/application_ref":204,"./src/application_tokens":205,"./src/change_detection":206,"./src/debug/debug_node":216,"./src/di":218,"./src/facade/async":230,"./src/facade/exceptions":234,"./src/facade/lang":235,"./src/linker":238,"./src/metadata":257,"./src/platform_common_providers":262,"./src/platform_directives_and_pipes":263,"./src/profile/profile":264,"./src/render":271,"./src/testability/testability":274,"./src/util":275,"./src/zone":277}],192:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29765,9 +28043,7 @@ exports.__core_private__ = {
     FILL_STYLE_FLAG: animation_constants_1.FILL_STYLE_FLAG
 };
 //# sourceMappingURL=private_export.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\private_export.js","/..\\node_modules\\@angular\\core")
-},{"./src/animation/animation_constants":194,"./src/animation/animation_driver":195,"./src/animation/animation_group_player":196,"./src/animation/animation_keyframe":197,"./src/animation/animation_player":198,"./src/animation/animation_sequence_player":199,"./src/animation/animation_style_util":200,"./src/animation/animation_styles":201,"./src/change_detection/change_detection_util":208,"./src/change_detection/constants":210,"./src/console":215,"./src/debug/debug_renderer":217,"./src/di/provider_util":225,"./src/di/reflective_provider":229,"./src/linker/component_factory_resolver":241,"./src/linker/component_resolver":242,"./src/linker/debug_context":243,"./src/linker/element":245,"./src/linker/template_ref":251,"./src/linker/view":252,"./src/linker/view_type":255,"./src/linker/view_utils":256,"./src/metadata/lifecycle_hooks":260,"./src/metadata/view":261,"./src/profile/wtf_init":266,"./src/reflection/reflection":267,"./src/reflection/reflection_capabilities":268,"./src/reflection/reflector_reader":270,"./src/render/api":272,"./src/security":273,"./src/util/decorators":276,"2ionoC":410,"buffer":409}],193:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./src/animation/animation_constants":194,"./src/animation/animation_driver":195,"./src/animation/animation_group_player":196,"./src/animation/animation_keyframe":197,"./src/animation/animation_player":198,"./src/animation/animation_sequence_player":199,"./src/animation/animation_style_util":200,"./src/animation/animation_styles":201,"./src/change_detection/change_detection_util":208,"./src/change_detection/constants":210,"./src/console":215,"./src/debug/debug_renderer":217,"./src/di/provider_util":225,"./src/di/reflective_provider":229,"./src/linker/component_factory_resolver":241,"./src/linker/component_resolver":242,"./src/linker/debug_context":243,"./src/linker/element":245,"./src/linker/template_ref":251,"./src/linker/view":252,"./src/linker/view_type":255,"./src/linker/view_utils":256,"./src/metadata/lifecycle_hooks":260,"./src/metadata/view":261,"./src/profile/wtf_init":266,"./src/reflection/reflection":267,"./src/reflection/reflection_capabilities":268,"./src/reflection/reflector_reader":270,"./src/render/api":272,"./src/security":273,"./src/util/decorators":276}],193:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29829,9 +28105,7 @@ var ActiveAnimationPlayersMap = (function () {
 }());
 exports.ActiveAnimationPlayersMap = ActiveAnimationPlayersMap;
 //# sourceMappingURL=active_animation_players_map.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\active_animation_players_map.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"../facade/collection":232,"../facade/lang":235,"2ionoC":410,"buffer":409}],194:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/lang":235}],194:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29845,9 +28119,7 @@ exports.ANY_STATE = '*';
 exports.DEFAULT_STATE = '*';
 exports.EMPTY_STATE = 'void';
 //# sourceMappingURL=animation_constants.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_constants.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"2ionoC":410,"buffer":409}],195:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],195:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29880,9 +28152,7 @@ var NoOpAnimationDriver = (function (_super) {
 }(AnimationDriver));
 exports.NoOpAnimationDriver = NoOpAnimationDriver;
 //# sourceMappingURL=animation_driver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_driver.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"./animation_player":198,"2ionoC":410,"buffer":409}],196:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./animation_player":198}],196:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29954,9 +28224,7 @@ var AnimationGroupPlayer = (function () {
 }());
 exports.AnimationGroupPlayer = AnimationGroupPlayer;
 //# sourceMappingURL=animation_group_player.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_group_player.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"../facade/lang":235,"../facade/math":236,"2ionoC":410,"buffer":409}],197:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235,"../facade/math":236}],197:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29974,9 +28242,7 @@ var AnimationKeyframe = (function () {
 }());
 exports.AnimationKeyframe = AnimationKeyframe;
 //# sourceMappingURL=animation_keyframe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_keyframe.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"2ionoC":410,"buffer":409}],198:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],198:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -30029,9 +28295,7 @@ var NoOpAnimationPlayer = (function () {
 }());
 exports.NoOpAnimationPlayer = NoOpAnimationPlayer;
 //# sourceMappingURL=animation_player.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_player.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"../facade/exceptions":234,"../facade/lang":235,"2ionoC":410,"buffer":409}],199:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234,"../facade/lang":235}],199:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -30108,9 +28372,7 @@ var AnimationSequencePlayer = (function () {
 }());
 exports.AnimationSequencePlayer = AnimationSequencePlayer;
 //# sourceMappingURL=animation_sequence_player.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_sequence_player.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"../facade/lang":235,"./animation_player":198,"2ionoC":410,"buffer":409}],200:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235,"./animation_player":198}],200:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -30217,9 +28479,7 @@ function flattenStyles(styles) {
 }
 exports.flattenStyles = flattenStyles;
 //# sourceMappingURL=animation_style_util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_style_util.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"../facade/collection":232,"../facade/lang":235,"./animation_constants":194,"./metadata":202,"2ionoC":410,"buffer":409}],201:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/lang":235,"./animation_constants":194,"./metadata":202}],201:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -30236,9 +28496,7 @@ var AnimationStyles = (function () {
 }());
 exports.AnimationStyles = AnimationStyles;
 //# sourceMappingURL=animation_styles.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\animation_styles.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"2ionoC":410,"buffer":409}],202:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],202:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -30917,9 +29175,7 @@ function trigger(name, animation) {
 }
 exports.trigger = trigger;
 //# sourceMappingURL=metadata.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\animation\\metadata.js","/..\\node_modules\\@angular\\core\\src\\animation")
-},{"../facade/exceptions":234,"../facade/lang":235,"2ionoC":410,"buffer":409}],203:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234,"../facade/lang":235}],203:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -30953,9 +29209,7 @@ exports.APPLICATION_COMMON_PROVIDERS =
     /* @ts2dart_Provider */ { provide: dynamic_component_loader_1.DynamicComponentLoader, useClass: dynamic_component_loader_1.DynamicComponentLoader_ },
 ];
 //# sourceMappingURL=application_common_providers.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\application_common_providers.js","/..\\node_modules\\@angular\\core\\src")
-},{"./application_ref":204,"./application_tokens":205,"./change_detection/change_detection":207,"./linker/component_factory_resolver":241,"./linker/component_resolver":242,"./linker/dynamic_component_loader":244,"./linker/view_utils":256,"2ionoC":410,"buffer":409}],204:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./application_ref":204,"./application_tokens":205,"./change_detection/change_detection":207,"./linker/component_factory_resolver":241,"./linker/component_resolver":242,"./linker/dynamic_component_loader":244,"./linker/view_utils":256}],204:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -31438,9 +29692,7 @@ exports.APPLICATION_CORE_PROVIDERS = [
     /* @ts2dart_Provider */ { provide: ApplicationRef, useExisting: ApplicationRef_ },
 ];
 //# sourceMappingURL=application_ref.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\application_ref.js","/..\\node_modules\\@angular\\core\\src")
-},{"../src/facade/async":230,"../src/facade/collection":232,"../src/facade/exceptions":234,"../src/facade/lang":235,"./application_tokens":205,"./console":215,"./di":218,"./linker/component_resolver":242,"./profile/profile":264,"./testability/testability":274,"./zone/ng_zone":278,"2ionoC":410,"buffer":409}],205:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/async":230,"../src/facade/collection":232,"../src/facade/exceptions":234,"../src/facade/lang":235,"./application_tokens":205,"./console":215,"./di":218,"./linker/component_resolver":242,"./profile/profile":264,"./testability/testability":274,"./zone/ng_zone":278}],205:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -31497,9 +29749,7 @@ exports.APP_INITIALIZER =
 exports.PACKAGE_ROOT_URL = 
 /*@ts2dart_const*/ new di_1.OpaqueToken('Application Packages Root URL');
 //# sourceMappingURL=application_tokens.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\application_tokens.js","/..\\node_modules\\@angular\\core\\src")
-},{"../src/facade/lang":235,"./di":218,"2ionoC":410,"buffer":409}],206:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":235,"./di":218}],206:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -31524,9 +29774,7 @@ exports.KeyValueDiffers = change_detection_1.KeyValueDiffers;
 exports.SimpleChange = change_detection_1.SimpleChange;
 exports.WrappedValue = change_detection_1.WrappedValue;
 //# sourceMappingURL=change_detection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection.js","/..\\node_modules\\@angular\\core\\src")
-},{"./change_detection/change_detection":207,"2ionoC":410,"buffer":409}],207:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./change_detection/change_detection":207}],207:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -31578,9 +29826,7 @@ exports.iterableDiff =
 exports.defaultIterableDiffers = new iterable_differs_1.IterableDiffers(exports.iterableDiff);
 exports.defaultKeyValueDiffers = new keyvalue_differs_1.KeyValueDiffers(exports.keyValDiff);
 //# sourceMappingURL=change_detection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\change_detection.js","/..\\node_modules\\@angular\\core\\src\\change_detection")
-},{"./change_detection_util":208,"./change_detector_ref":209,"./constants":210,"./differs/default_iterable_differ":211,"./differs/default_keyvalue_differ":212,"./differs/iterable_differs":213,"./differs/keyvalue_differs":214,"2ionoC":410,"buffer":409}],208:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./change_detection_util":208,"./change_detector_ref":209,"./constants":210,"./differs/default_iterable_differ":211,"./differs/default_keyvalue_differ":212,"./differs/iterable_differs":213,"./differs/keyvalue_differs":214}],208:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -31668,9 +29914,7 @@ var SimpleChange = (function () {
 }());
 exports.SimpleChange = SimpleChange;
 //# sourceMappingURL=change_detection_util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\change_detection_util.js","/..\\node_modules\\@angular\\core\\src\\change_detection")
-},{"../facade/collection":232,"../facade/lang":235,"2ionoC":410,"buffer":409}],209:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/lang":235}],209:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -31689,9 +29933,7 @@ var ChangeDetectorRef = (function () {
 }());
 exports.ChangeDetectorRef = ChangeDetectorRef;
 //# sourceMappingURL=change_detector_ref.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\change_detector_ref.js","/..\\node_modules\\@angular\\core\\src\\change_detection")
-},{"2ionoC":410,"buffer":409}],210:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],210:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -31777,9 +30019,7 @@ function isDefaultChangeDetectionStrategy(changeDetectionStrategy) {
 }
 exports.isDefaultChangeDetectionStrategy = isDefaultChangeDetectionStrategy;
 //# sourceMappingURL=constants.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\constants.js","/..\\node_modules\\@angular\\core\\src\\change_detection")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],211:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],211:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -32447,9 +30687,7 @@ var _DuplicateMap = (function () {
     return _DuplicateMap;
 }());
 //# sourceMappingURL=default_iterable_differ.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\differs\\default_iterable_differ.js","/..\\node_modules\\@angular\\core\\src\\change_detection\\differs")
-},{"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235,"2ionoC":410,"buffer":409}],212:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235}],212:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -32817,9 +31055,7 @@ var KeyValueChangeRecord = (function () {
 }());
 exports.KeyValueChangeRecord = KeyValueChangeRecord;
 //# sourceMappingURL=default_keyvalue_differ.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\differs\\default_keyvalue_differ.js","/..\\node_modules\\@angular\\core\\src\\change_detection\\differs")
-},{"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235,"2ionoC":410,"buffer":409}],213:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235}],213:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -32899,9 +31135,7 @@ var IterableDiffers = (function () {
 }());
 exports.IterableDiffers = IterableDiffers;
 //# sourceMappingURL=iterable_differs.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\differs\\iterable_differs.js","/..\\node_modules\\@angular\\core\\src\\change_detection\\differs")
-},{"../../di":218,"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235,"2ionoC":410,"buffer":409}],214:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../di":218,"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235}],214:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -32981,9 +31215,7 @@ var KeyValueDiffers = (function () {
 }());
 exports.KeyValueDiffers = KeyValueDiffers;
 //# sourceMappingURL=keyvalue_differs.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\change_detection\\differs\\keyvalue_differs.js","/..\\node_modules\\@angular\\core\\src\\change_detection\\differs")
-},{"../../di":218,"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235,"2ionoC":410,"buffer":409}],215:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../di":218,"../../facade/collection":232,"../../facade/exceptions":234,"../../facade/lang":235}],215:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33011,9 +31243,7 @@ var Console = (function () {
 }());
 exports.Console = Console;
 //# sourceMappingURL=console.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\console.js","/..\\node_modules\\@angular\\core\\src")
-},{"./di/decorators":219,"./facade/lang":235,"2ionoC":410,"buffer":409}],216:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./di/decorators":219,"./facade/lang":235}],216:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33229,9 +31459,7 @@ function removeDebugNodeFromIndex(node) {
 }
 exports.removeDebugNodeFromIndex = removeDebugNodeFromIndex;
 //# sourceMappingURL=debug_node.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\debug\\debug_node.js","/..\\node_modules\\@angular\\core\\src\\debug")
-},{"../facade/collection":232,"../facade/lang":235,"2ionoC":410,"buffer":409}],217:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/lang":235}],217:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33367,9 +31595,7 @@ var DebugDomRenderer = (function () {
 }());
 exports.DebugDomRenderer = DebugDomRenderer;
 //# sourceMappingURL=debug_renderer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\debug\\debug_renderer.js","/..\\node_modules\\@angular\\core\\src\\debug")
-},{"../facade/lang":235,"./debug_node":216,"2ionoC":410,"buffer":409}],218:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235,"./debug_node":216}],218:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33423,9 +31649,7 @@ exports.OutOfBoundsError = reflective_exceptions_1.OutOfBoundsError;
 var opaque_token_1 = require('./di/opaque_token');
 exports.OpaqueToken = opaque_token_1.OpaqueToken;
 //# sourceMappingURL=di.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di.js","/..\\node_modules\\@angular\\core\\src")
-},{"./di/decorators":219,"./di/forward_ref":220,"./di/injector":221,"./di/metadata":222,"./di/opaque_token":223,"./di/provider":224,"./di/reflective_exceptions":226,"./di/reflective_injector":227,"./di/reflective_key":228,"./di/reflective_provider":229,"2ionoC":410,"buffer":409}],219:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./di/decorators":219,"./di/forward_ref":220,"./di/injector":221,"./di/metadata":222,"./di/opaque_token":223,"./di/provider":224,"./di/reflective_exceptions":226,"./di/reflective_injector":227,"./di/reflective_key":228,"./di/reflective_provider":229}],219:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33473,9 +31697,7 @@ exports.Host = decorators_1.makeParamDecorator(metadata_1.HostMetadata);
  */
 exports.SkipSelf = decorators_1.makeParamDecorator(metadata_1.SkipSelfMetadata);
 //# sourceMappingURL=decorators.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\decorators.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../util/decorators":276,"./metadata":222,"2ionoC":410,"buffer":409}],220:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../util/decorators":276,"./metadata":222}],220:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33530,9 +31752,7 @@ function resolveForwardRef(type) {
 }
 exports.resolveForwardRef = resolveForwardRef;
 //# sourceMappingURL=forward_ref.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\forward_ref.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],221:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],221:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33580,9 +31800,7 @@ var Injector = (function () {
 }());
 exports.Injector = Injector;
 //# sourceMappingURL=injector.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\injector.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/exceptions":234,"2ionoC":410,"buffer":409}],222:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234}],222:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33862,9 +32080,7 @@ var HostMetadata = (function () {
 }());
 exports.HostMetadata = HostMetadata;
 //# sourceMappingURL=metadata.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\metadata.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],223:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],223:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33905,9 +32121,7 @@ var OpaqueToken = (function () {
 }());
 exports.OpaqueToken = OpaqueToken;
 //# sourceMappingURL=opaque_token.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\opaque_token.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"2ionoC":410,"buffer":409}],224:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],224:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -34199,9 +32413,7 @@ function provide(token, _a) {
 }
 exports.provide = provide;
 //# sourceMappingURL=provider.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\provider.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/exceptions":234,"../facade/lang":235,"2ionoC":410,"buffer":409}],225:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234,"../facade/lang":235}],225:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -34220,9 +32432,7 @@ function createProvider(obj) {
 }
 exports.createProvider = createProvider;
 //# sourceMappingURL=provider_util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\provider_util.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"./provider":224,"2ionoC":410,"buffer":409}],226:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./provider":224}],226:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -34513,9 +32723,7 @@ var MixingMultiProvidersWithRegularProvidersError = (function (_super) {
 }(exceptions_1.BaseException));
 exports.MixingMultiProvidersWithRegularProvidersError = MixingMultiProvidersWithRegularProvidersError;
 //# sourceMappingURL=reflective_exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\reflective_exceptions.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"2ionoC":410,"buffer":409}],227:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235}],227:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -35354,9 +33562,7 @@ function _mapProviders(injector, fn) {
     return res;
 }
 //# sourceMappingURL=reflective_injector.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\reflective_injector.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/collection":232,"../facade/exceptions":234,"./injector":221,"./metadata":222,"./reflective_exceptions":226,"./reflective_key":228,"./reflective_provider":229,"2ionoC":410,"buffer":409}],228:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/exceptions":234,"./injector":221,"./metadata":222,"./reflective_exceptions":226,"./reflective_key":228,"./reflective_provider":229}],228:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -35447,9 +33653,7 @@ var KeyRegistry = (function () {
 exports.KeyRegistry = KeyRegistry;
 var _globalKeyRegistry = new KeyRegistry();
 //# sourceMappingURL=reflective_key.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\reflective_key.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/exceptions":234,"../facade/lang":235,"./forward_ref":220,"2ionoC":410,"buffer":409}],229:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234,"../facade/lang":235,"./forward_ref":220}],229:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -35696,1393 +33900,23 @@ function _createDependency(token /** TODO #9100 */, optional /** TODO #9100 */, 
     return new ReflectiveDependency(reflective_key_1.ReflectiveKey.get(token), optional, lowerBoundVisibility, upperBoundVisibility, depProps);
 }
 //# sourceMappingURL=reflective_provider.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\di\\reflective_provider.js","/..\\node_modules\\@angular\\core\\src\\di")
-},{"../facade/collection":232,"../facade/lang":235,"../reflection/reflection":267,"./forward_ref":220,"./metadata":222,"./provider":224,"./provider_util":225,"./reflective_exceptions":226,"./reflective_key":228,"2ionoC":410,"buffer":409}],230:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subject_1 = require('rxjs/Subject');
-var PromiseObservable_1 = require('rxjs/observable/PromiseObservable');
-var toPromise_1 = require('rxjs/operator/toPromise');
-var lang_1 = require('./lang');
-var Observable_1 = require('rxjs/Observable');
-exports.Observable = Observable_1.Observable;
-var Subject_2 = require('rxjs/Subject');
-exports.Subject = Subject_2.Subject;
-var promise_1 = require('./promise');
-exports.PromiseCompleter = promise_1.PromiseCompleter;
-exports.PromiseWrapper = promise_1.PromiseWrapper;
-var TimerWrapper = (function () {
-    function TimerWrapper() {
-    }
-    TimerWrapper.setTimeout = function (fn, millis) {
-        return lang_1.global.setTimeout(fn, millis);
-    };
-    TimerWrapper.clearTimeout = function (id) { lang_1.global.clearTimeout(id); };
-    TimerWrapper.setInterval = function (fn, millis) {
-        return lang_1.global.setInterval(fn, millis);
-    };
-    TimerWrapper.clearInterval = function (id) { lang_1.global.clearInterval(id); };
-    return TimerWrapper;
-}());
-exports.TimerWrapper = TimerWrapper;
-var ObservableWrapper = (function () {
-    function ObservableWrapper() {
-    }
-    // TODO(vsavkin): when we use rxnext, try inferring the generic type from the first arg
-    ObservableWrapper.subscribe = function (emitter, onNext, onError, onComplete) {
-        if (onComplete === void 0) { onComplete = function () { }; }
-        onError = (typeof onError === 'function') && onError || lang_1.noop;
-        onComplete = (typeof onComplete === 'function') && onComplete || lang_1.noop;
-        return emitter.subscribe({ next: onNext, error: onError, complete: onComplete });
-    };
-    ObservableWrapper.isObservable = function (obs) { return !!obs.subscribe; };
-    /**
-     * Returns whether `obs` has any subscribers listening to events.
-     */
-    ObservableWrapper.hasSubscribers = function (obs) { return obs.observers.length > 0; };
-    ObservableWrapper.dispose = function (subscription) { subscription.unsubscribe(); };
-    /**
-     * @deprecated - use callEmit() instead
-     */
-    ObservableWrapper.callNext = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callEmit = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callError = function (emitter, error) { emitter.error(error); };
-    ObservableWrapper.callComplete = function (emitter) { emitter.complete(); };
-    ObservableWrapper.fromPromise = function (promise) {
-        return PromiseObservable_1.PromiseObservable.create(promise);
-    };
-    ObservableWrapper.toPromise = function (obj) { return toPromise_1.toPromise.call(obj); };
-    return ObservableWrapper;
-}());
-exports.ObservableWrapper = ObservableWrapper;
-/**
- * Use by directives and components to emit custom Events.
- *
- * ### Examples
- *
- * In the following example, `Zippy` alternatively emits `open` and `close` events when its
- * title gets clicked:
- *
- * ```
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
- *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
- *
- * The events payload can be accessed by the parameter `$event` on the components output event
- * handler:
- *
- * ```
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
- *
- * Uses Rx.Observable but provides an adapter to make it work as specified here:
- * https://github.com/jhusain/observable-spec
- *
- * Once a reference implementation of the spec is available, switch to it.
- * @stable
- */
-var EventEmitter = (function (_super) {
-    __extends(EventEmitter, _super);
-    /**
-     * Creates an instance of [EventEmitter], which depending on [isAsync],
-     * delivers events synchronously or asynchronously.
-     */
-    function EventEmitter(isAsync) {
-        if (isAsync === void 0) { isAsync = false; }
-        _super.call(this);
-        this.__isAsync = isAsync;
-    }
-    EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
-    /**
-     * @deprecated - use .emit(value) instead
-     */
-    EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
-    EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
-        var schedulerFn;
-        var errorFn = function (err) { return null; };
-        var completeFn = function () { return null; };
-        if (generatorOrNext && typeof generatorOrNext === 'object') {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext.next(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
-            if (generatorOrNext.error) {
-                errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
-                    function (err) { generatorOrNext.error(err); };
-            }
-            if (generatorOrNext.complete) {
-                completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
-                    function () { generatorOrNext.complete(); };
-            }
-        }
-        else {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext(value); };
-            if (error) {
-                errorFn =
-                    this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
-            }
-            if (complete) {
-                completeFn =
-                    this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
-            }
-        }
-        return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
-    };
-    return EventEmitter;
-}(Subject_1.Subject));
-exports.EventEmitter = EventEmitter;
-//# sourceMappingURL=async.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\async.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"./lang":235,"./promise":237,"2ionoC":410,"buffer":409,"rxjs/Observable":412,"rxjs/Subject":414,"rxjs/observable/PromiseObservable":419,"rxjs/operator/toPromise":420}],231:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * A base class for the WrappedException that can be used to identify
- * a WrappedException from ExceptionHandler without adding circular
- * dependency.
- */
-var BaseWrappedException = (function (_super) {
-    __extends(BaseWrappedException, _super);
-    function BaseWrappedException(message) {
-        _super.call(this, message);
-    }
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperMessage", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalException", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "context", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "message", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    return BaseWrappedException;
-}(Error));
-exports.BaseWrappedException = BaseWrappedException;
-//# sourceMappingURL=base_wrapped_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\base_wrapped_exception.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"2ionoC":410,"buffer":409}],232:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var lang_1 = require('./lang');
-exports.Map = lang_1.global.Map;
-exports.Set = lang_1.global.Set;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
-var createMapFromPairs = (function () {
-    try {
-        if (new exports.Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new exports.Map(pairs); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromPairs(pairs) {
-        var map = new exports.Map();
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i];
-            map.set(pair[0], pair[1]);
-        }
-        return map;
-    };
-})();
-var createMapFromMap = (function () {
-    try {
-        if (new exports.Map(new exports.Map())) {
-            return function createMapFromMap(m) { return new exports.Map(m); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromMap(m) {
-        var map = new exports.Map();
-        m.forEach(function (v, k) { map.set(k, v); });
-        return map;
-    };
-})();
-var _clearValues = (function () {
-    if ((new exports.Map()).keys().next) {
-        return function _clearValues(m) {
-            var keyIterator = m.keys();
-            var k;
-            while (!((k = keyIterator.next()).done)) {
-                m.set(k.value, null);
-            }
-        };
-    }
-    else {
-        return function _clearValuesWithForeEach(m) {
-            m.forEach(function (v, k) { m.set(k, null); });
-        };
-    }
-})();
-// Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
-// TODO(mlaval): remove the work around once we have a working polyfill of Array.from
-var _arrayFromMap = (function () {
-    try {
-        if ((new exports.Map()).values().next) {
-            return function createArrayFromMap(m, getValues) {
-                return getValues ? Array.from(m.values()) : Array.from(m.keys());
-            };
-        }
-    }
-    catch (e) {
-    }
-    return function createArrayFromMapWithForeach(m, getValues) {
-        var res = ListWrapper.createFixedSize(m.size), i = 0;
-        m.forEach(function (v, k) {
-            res[i] = getValues ? v : k;
-            i++;
-        });
-        return res;
-    };
-})();
-var MapWrapper = (function () {
-    function MapWrapper() {
-    }
-    MapWrapper.clone = function (m) { return createMapFromMap(m); };
-    MapWrapper.createFromStringMap = function (stringMap) {
-        var result = new exports.Map();
-        for (var prop in stringMap) {
-            result.set(prop, stringMap[prop]);
-        }
-        return result;
-    };
-    MapWrapper.toStringMap = function (m) {
-        var r = {};
-        m.forEach(function (v, k) { return r[k] = v; });
-        return r;
-    };
-    MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.clearValues = function (m) { _clearValues(m); };
-    MapWrapper.iterable = function (m) { return m; };
-    MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
-    MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
-    return MapWrapper;
-}());
-exports.MapWrapper = MapWrapper;
-/**
- * Wraps Javascript Objects
- */
-var StringMapWrapper = (function () {
-    function StringMapWrapper() {
-    }
-    StringMapWrapper.create = function () {
-        // Note: We are not using Object.create(null) here due to
-        // performance!
-        // http://jsperf.com/ng2-object-create-null
-        return {};
-    };
-    StringMapWrapper.contains = function (map, key) {
-        return map.hasOwnProperty(key);
-    };
-    StringMapWrapper.get = function (map, key) {
-        return map.hasOwnProperty(key) ? map[key] : undefined;
-    };
-    StringMapWrapper.set = function (map, key, value) { map[key] = value; };
-    StringMapWrapper.keys = function (map) { return Object.keys(map); };
-    StringMapWrapper.values = function (map) {
-        return Object.keys(map).reduce(function (r, a) {
-            r.push(map[a]);
-            return r;
-        }, []);
-    };
-    StringMapWrapper.isEmpty = function (map) {
-        for (var prop in map) {
-            return false;
-        }
-        return true;
-    };
-    StringMapWrapper.delete = function (map, key) { delete map[key]; };
-    StringMapWrapper.forEach = function (map, callback) {
-        for (var prop in map) {
-            if (map.hasOwnProperty(prop)) {
-                callback(map[prop], prop);
-            }
-        }
-    };
-    StringMapWrapper.merge = function (m1, m2) {
-        var m = {};
-        for (var attr in m1) {
-            if (m1.hasOwnProperty(attr)) {
-                m[attr] = m1[attr];
-            }
-        }
-        for (var attr in m2) {
-            if (m2.hasOwnProperty(attr)) {
-                m[attr] = m2[attr];
-            }
-        }
-        return m;
-    };
-    StringMapWrapper.equals = function (m1, m2) {
-        var k1 = Object.keys(m1);
-        var k2 = Object.keys(m2);
-        if (k1.length != k2.length) {
-            return false;
-        }
-        var key;
-        for (var i = 0; i < k1.length; i++) {
-            key = k1[i];
-            if (m1[key] !== m2[key]) {
-                return false;
-            }
-        }
-        return true;
-    };
-    return StringMapWrapper;
-}());
-exports.StringMapWrapper = StringMapWrapper;
-var ListWrapper = (function () {
-    function ListWrapper() {
-    }
-    // JS has no way to express a statically fixed size list, but dart does so we
-    // keep both methods.
-    ListWrapper.createFixedSize = function (size) { return new Array(size); };
-    ListWrapper.createGrowableSize = function (size) { return new Array(size); };
-    ListWrapper.clone = function (array) { return array.slice(0); };
-    ListWrapper.forEachWithIndex = function (array, fn) {
-        for (var i = 0; i < array.length; i++) {
-            fn(array[i], i);
-        }
-    };
-    ListWrapper.first = function (array) {
-        if (!array)
-            return null;
-        return array[0];
-    };
-    ListWrapper.last = function (array) {
-        if (!array || array.length == 0)
-            return null;
-        return array[array.length - 1];
-    };
-    ListWrapper.indexOf = function (array, value, startIndex) {
-        if (startIndex === void 0) { startIndex = 0; }
-        return array.indexOf(value, startIndex);
-    };
-    ListWrapper.contains = function (list, el) { return list.indexOf(el) !== -1; };
-    ListWrapper.reversed = function (array) {
-        var a = ListWrapper.clone(array);
-        return a.reverse();
-    };
-    ListWrapper.concat = function (a, b) { return a.concat(b); };
-    ListWrapper.insert = function (list, index, value) { list.splice(index, 0, value); };
-    ListWrapper.removeAt = function (list, index) {
-        var res = list[index];
-        list.splice(index, 1);
-        return res;
-    };
-    ListWrapper.removeAll = function (list, items) {
-        for (var i = 0; i < items.length; ++i) {
-            var index = list.indexOf(items[i]);
-            list.splice(index, 1);
-        }
-    };
-    ListWrapper.remove = function (list, el) {
-        var index = list.indexOf(el);
-        if (index > -1) {
-            list.splice(index, 1);
-            return true;
-        }
-        return false;
-    };
-    ListWrapper.clear = function (list) { list.length = 0; };
-    ListWrapper.isEmpty = function (list) { return list.length == 0; };
-    ListWrapper.fill = function (list, value, start, end) {
-        if (start === void 0) { start = 0; }
-        if (end === void 0) { end = null; }
-        list.fill(value, start, end === null ? list.length : end);
-    };
-    ListWrapper.equals = function (a, b) {
-        if (a.length != b.length)
-            return false;
-        for (var i = 0; i < a.length; ++i) {
-            if (a[i] !== b[i])
-                return false;
-        }
-        return true;
-    };
-    ListWrapper.slice = function (l, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return l.slice(from, to === null ? undefined : to);
-    };
-    ListWrapper.splice = function (l, from, length) { return l.splice(from, length); };
-    ListWrapper.sort = function (l, compareFn) {
-        if (lang_1.isPresent(compareFn)) {
-            l.sort(compareFn);
-        }
-        else {
-            l.sort();
-        }
-    };
-    ListWrapper.toString = function (l) { return l.toString(); };
-    ListWrapper.toJSON = function (l) { return JSON.stringify(l); };
-    ListWrapper.maximum = function (list, predicate) {
-        if (list.length == 0) {
-            return null;
-        }
-        var solution = null;
-        var maxValue = -Infinity;
-        for (var index = 0; index < list.length; index++) {
-            var candidate = list[index];
-            if (lang_1.isBlank(candidate)) {
-                continue;
-            }
-            var candidateValue = predicate(candidate);
-            if (candidateValue > maxValue) {
-                solution = candidate;
-                maxValue = candidateValue;
-            }
-        }
-        return solution;
-    };
-    ListWrapper.flatten = function (list) {
-        var target = [];
-        _flattenArray(list, target);
-        return target;
-    };
-    ListWrapper.addAll = function (list, source) {
-        for (var i = 0; i < source.length; i++) {
-            list.push(source[i]);
-        }
-    };
-    return ListWrapper;
-}());
-exports.ListWrapper = ListWrapper;
-function _flattenArray(source, target) {
-    if (lang_1.isPresent(source)) {
-        for (var i = 0; i < source.length; i++) {
-            var item = source[i];
-            if (lang_1.isArray(item)) {
-                _flattenArray(item, target);
-            }
-            else {
-                target.push(item);
-            }
-        }
-    }
-    return target;
-}
-function isListLikeIterable(obj) {
-    if (!lang_1.isJsObject(obj))
-        return false;
-    return lang_1.isArray(obj) ||
-        (!(obj instanceof exports.Map) &&
-            lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
-}
-exports.isListLikeIterable = isListLikeIterable;
-function areIterablesEqual(a, b, comparator) {
-    var iterator1 = a[lang_1.getSymbolIterator()]();
-    var iterator2 = b[lang_1.getSymbolIterator()]();
-    while (true) {
-        var item1 = iterator1.next();
-        var item2 = iterator2.next();
-        if (item1.done && item2.done)
-            return true;
-        if (item1.done || item2.done)
-            return false;
-        if (!comparator(item1.value, item2.value))
-            return false;
-    }
-}
-exports.areIterablesEqual = areIterablesEqual;
-function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
-        for (var i = 0; i < obj.length; i++) {
-            fn(obj[i]);
-        }
-    }
-    else {
-        var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
-        while (!((item = iterator.next()).done)) {
-            fn(item.value);
-        }
-    }
-}
-exports.iterateListLike = iterateListLike;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Set constructor.  We work around that by manually adding the items.
-var createSetFromList = (function () {
-    var test = new exports.Set([1, 2, 3]);
-    if (test.size === 3) {
-        return function createSetFromList(lst) { return new exports.Set(lst); };
-    }
-    else {
-        return function createSetAndPopulateFromList(lst) {
-            var res = new exports.Set(lst);
-            if (res.size !== lst.length) {
-                for (var i = 0; i < lst.length; i++) {
-                    res.add(lst[i]);
-                }
-            }
-            return res;
-        };
-    }
-})();
-var SetWrapper = (function () {
-    function SetWrapper() {
-    }
-    SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-    SetWrapper.has = function (s, key) { return s.has(key); };
-    SetWrapper.delete = function (m, k) { m.delete(k); };
-    return SetWrapper;
-}());
-exports.SetWrapper = SetWrapper;
-//# sourceMappingURL=collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\collection.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"./lang":235,"2ionoC":410,"buffer":409}],233:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var collection_1 = require('./collection');
-var lang_1 = require('./lang');
-var _ArrayLogger = (function () {
-    function _ArrayLogger() {
-        this.res = [];
-    }
-    _ArrayLogger.prototype.log = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logError = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroup = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroupEnd = function () { };
-    ;
-    return _ArrayLogger;
-}());
-/**
- * Provides a hook for centralized exception handling.
- *
- * The default implementation of `ExceptionHandler` prints error messages to the `Console`. To
- * intercept error handling,
- * write a custom exception handler that replaces this default as appropriate for your app.
- *
- * ### Example
- *
- * ```javascript
- *
- * class MyExceptionHandler implements ExceptionHandler {
- *   call(error, stackTrace = null, reason = null) {
- *     // do something with the exception
- *   }
- * }
- *
- * bootstrap(MyApp, {provide: ExceptionHandler, useClass: MyExceptionHandler}])
- *
- * ```
- * @stable
- */
-var ExceptionHandler = (function () {
-    function ExceptionHandler(_logger, _rethrowException) {
-        if (_rethrowException === void 0) { _rethrowException = true; }
-        this._logger = _logger;
-        this._rethrowException = _rethrowException;
-    }
-    ExceptionHandler.exceptionToString = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var l = new _ArrayLogger();
-        var e = new ExceptionHandler(l, false);
-        e.call(exception, stackTrace, reason);
-        return l.res.join('\n');
-    };
-    ExceptionHandler.prototype.call = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var originalException = this._findOriginalException(exception);
-        var originalStack = this._findOriginalStack(exception);
-        var context = this._findContext(exception);
-        this._logger.logGroup("EXCEPTION: " + this._extractMessage(exception));
-        if (lang_1.isPresent(stackTrace) && lang_1.isBlank(originalStack)) {
-            this._logger.logError('STACKTRACE:');
-            this._logger.logError(this._longStackTrace(stackTrace));
-        }
-        if (lang_1.isPresent(reason)) {
-            this._logger.logError("REASON: " + reason);
-        }
-        if (lang_1.isPresent(originalException)) {
-            this._logger.logError("ORIGINAL EXCEPTION: " + this._extractMessage(originalException));
-        }
-        if (lang_1.isPresent(originalStack)) {
-            this._logger.logError('ORIGINAL STACKTRACE:');
-            this._logger.logError(this._longStackTrace(originalStack));
-        }
-        if (lang_1.isPresent(context)) {
-            this._logger.logError('ERROR CONTEXT:');
-            this._logger.logError(context);
-        }
-        this._logger.logGroupEnd();
-        // We rethrow exceptions, so operations like 'bootstrap' will result in an error
-        // when an exception happens. If we do not rethrow, bootstrap will always succeed.
-        if (this._rethrowException)
-            throw exception;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._extractMessage = function (exception) {
-        return exception instanceof base_wrapped_exception_1.BaseWrappedException ? exception.wrapperMessage :
-            exception.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._longStackTrace = function (stackTrace) {
-        return collection_1.isListLikeIterable(stackTrace) ? stackTrace.join('\n\n-----async gap-----\n') :
-            stackTrace.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findContext = function (exception) {
-        try {
-            if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-                return null;
-            return lang_1.isPresent(exception.context) ? exception.context :
-                this._findContext(exception.originalException);
-        }
-        catch (e) {
-            // exception.context can throw an exception. if it happens, we ignore the context.
-            return null;
-        }
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalException = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception.originalException;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-        }
-        return e;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalStack = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception;
-        var stack = exception.originalStack;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-            if (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-                stack = e.originalStack;
-            }
-        }
-        return stack;
-    };
-    return ExceptionHandler;
-}());
-exports.ExceptionHandler = ExceptionHandler;
-//# sourceMappingURL=exception_handler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\exception_handler.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"./base_wrapped_exception":231,"./collection":232,"./lang":235,"2ionoC":410,"buffer":409}],234:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var exception_handler_1 = require('./exception_handler');
-var exception_handler_2 = require('./exception_handler');
-exports.ExceptionHandler = exception_handler_2.ExceptionHandler;
-/**
- * @stable
- */
-var BaseException = (function (_super) {
-    __extends(BaseException, _super);
-    function BaseException(message) {
-        if (message === void 0) { message = '--'; }
-        _super.call(this, message);
-        this.message = message;
-        this.stack = (new Error(message)).stack;
-    }
-    BaseException.prototype.toString = function () { return this.message; };
-    return BaseException;
-}(Error));
-exports.BaseException = BaseException;
-/**
- * Wraps an exception and provides additional context or information.
- * @stable
- */
-var WrappedException = (function (_super) {
-    __extends(WrappedException, _super);
-    function WrappedException(_wrapperMessage, _originalException /** TODO #9100 */, _originalStack /** TODO #9100 */, _context /** TODO #9100 */) {
-        _super.call(this, _wrapperMessage);
-        this._wrapperMessage = _wrapperMessage;
-        this._originalException = _originalException;
-        this._originalStack = _originalStack;
-        this._context = _context;
-        this._wrapperStack = (new Error(_wrapperMessage)).stack;
-    }
-    Object.defineProperty(WrappedException.prototype, "wrapperMessage", {
-        get: function () { return this._wrapperMessage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "wrapperStack", {
-        get: function () { return this._wrapperStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalException", {
-        get: function () { return this._originalException; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalStack", {
-        get: function () { return this._originalStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "context", {
-        get: function () { return this._context; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "message", {
-        get: function () { return exception_handler_1.ExceptionHandler.exceptionToString(this); },
-        enumerable: true,
-        configurable: true
-    });
-    WrappedException.prototype.toString = function () { return this.message; };
-    return WrappedException;
-}(base_wrapped_exception_1.BaseWrappedException));
-exports.WrappedException = WrappedException;
-function makeTypeError(message) {
-    return new TypeError(message);
-}
-exports.makeTypeError = makeTypeError;
-function unimplemented() {
-    throw new BaseException('unimplemented');
-}
-exports.unimplemented = unimplemented;
-//# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\exceptions.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"./base_wrapped_exception":231,"./exception_handler":233,"2ionoC":410,"buffer":409}],235:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    }
-    else {
-        globalScope = global;
-    }
-}
-else {
-    globalScope = window;
-}
-function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-}
-exports.scheduleMicroTask = scheduleMicroTask;
-exports.IS_DART = false;
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var _global = globalScope;
-exports.global = _global;
-/**
- * Runtime representation a type that a Component or other object is instances of.
- *
- * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
- * the `MyCustomComponent` constructor function.
- *
- * @stable
- */
-exports.Type = Function;
-function getTypeNameForDebugging(type) {
-    if (type['name']) {
-        return type['name'];
-    }
-    return typeof type;
-}
-exports.getTypeNameForDebugging = getTypeNameForDebugging;
-exports.Math = _global.Math;
-exports.Date = _global.Date;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-function isPresent(obj) {
-    return obj !== undefined && obj !== null;
-}
-exports.isPresent = isPresent;
-function isBlank(obj) {
-    return obj === undefined || obj === null;
-}
-exports.isBlank = isBlank;
-function isBoolean(obj) {
-    return typeof obj === 'boolean';
-}
-exports.isBoolean = isBoolean;
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-exports.isNumber = isNumber;
-function isString(obj) {
-    return typeof obj === 'string';
-}
-exports.isString = isString;
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-exports.isFunction = isFunction;
-function isType(obj) {
-    return isFunction(obj);
-}
-exports.isType = isType;
-function isStringMap(obj) {
-    return typeof obj === 'object' && obj !== null;
-}
-exports.isStringMap = isStringMap;
-var STRING_MAP_PROTO = Object.getPrototypeOf({});
-function isStrictStringMap(obj) {
-    return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
-}
-exports.isStrictStringMap = isStrictStringMap;
-function isPromise(obj) {
-    return obj instanceof _global.Promise;
-}
-exports.isPromise = isPromise;
-function isArray(obj) {
-    return Array.isArray(obj);
-}
-exports.isArray = isArray;
-function isDate(obj) {
-    return obj instanceof exports.Date && !isNaN(obj.valueOf());
-}
-exports.isDate = isDate;
-function noop() { }
-exports.noop = noop;
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token === undefined || token === null) {
-        return '' + token;
-    }
-    if (token.name) {
-        return token.name;
-    }
-    if (token.overriddenName) {
-        return token.overriddenName;
-    }
-    var res = token.toString();
-    var newLineIndex = res.indexOf('\n');
-    return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
-}
-exports.stringify = stringify;
-// serialize / deserialize enum exist only for consistency with dart API
-// enums in typescript don't need to be serialized
-function serializeEnum(val) {
-    return val;
-}
-exports.serializeEnum = serializeEnum;
-function deserializeEnum(val, values) {
-    return val;
-}
-exports.deserializeEnum = deserializeEnum;
-function resolveEnumToken(enumValue, val) {
-    return enumValue[val];
-}
-exports.resolveEnumToken = resolveEnumToken;
-var StringWrapper = (function () {
-    function StringWrapper() {
-    }
-    StringWrapper.fromCharCode = function (code) { return String.fromCharCode(code); };
-    StringWrapper.charCodeAt = function (s, index) { return s.charCodeAt(index); };
-    StringWrapper.split = function (s, regExp) { return s.split(regExp); };
-    StringWrapper.equals = function (s, s2) { return s === s2; };
-    StringWrapper.stripLeft = function (s, charVal) {
-        if (s && s.length) {
-            var pos = 0;
-            for (var i = 0; i < s.length; i++) {
-                if (s[i] != charVal)
-                    break;
-                pos++;
-            }
-            s = s.substring(pos);
-        }
-        return s;
-    };
-    StringWrapper.stripRight = function (s, charVal) {
-        if (s && s.length) {
-            var pos = s.length;
-            for (var i = s.length - 1; i >= 0; i--) {
-                if (s[i] != charVal)
-                    break;
-                pos--;
-            }
-            s = s.substring(0, pos);
-        }
-        return s;
-    };
-    StringWrapper.replace = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.replaceAll = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.slice = function (s, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return s.slice(from, to === null ? undefined : to);
-    };
-    StringWrapper.replaceAllMapped = function (s, from, cb) {
-        return s.replace(from, function () {
-            var matches = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                matches[_i - 0] = arguments[_i];
-            }
-            // Remove offset & string from the result array
-            matches.splice(-2, 2);
-            // The callback receives match, p1, ..., pn
-            return cb(matches);
-        });
-    };
-    StringWrapper.contains = function (s, substr) { return s.indexOf(substr) != -1; };
-    StringWrapper.compare = function (a, b) {
-        if (a < b) {
-            return -1;
-        }
-        else if (a > b) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    };
-    return StringWrapper;
-}());
-exports.StringWrapper = StringWrapper;
-var StringJoiner = (function () {
-    function StringJoiner(parts) {
-        if (parts === void 0) { parts = []; }
-        this.parts = parts;
-    }
-    StringJoiner.prototype.add = function (part) { this.parts.push(part); };
-    StringJoiner.prototype.toString = function () { return this.parts.join(''); };
-    return StringJoiner;
-}());
-exports.StringJoiner = StringJoiner;
-var NumberParseError = (function (_super) {
-    __extends(NumberParseError, _super);
-    function NumberParseError(message) {
-        _super.call(this);
-        this.message = message;
-    }
-    NumberParseError.prototype.toString = function () { return this.message; };
-    return NumberParseError;
-}(Error));
-exports.NumberParseError = NumberParseError;
-var NumberWrapper = (function () {
-    function NumberWrapper() {
-    }
-    NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
-    NumberWrapper.equal = function (a, b) { return a === b; };
-    NumberWrapper.parseIntAutoRadix = function (text) {
-        var result = parseInt(text);
-        if (isNaN(result)) {
-            throw new NumberParseError('Invalid integer literal when parsing ' + text);
-        }
-        return result;
-    };
-    NumberWrapper.parseInt = function (text, radix) {
-        if (radix == 10) {
-            if (/^(\-|\+)?[0-9]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else if (radix == 16) {
-            if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else {
-            var result = parseInt(text, radix);
-            if (!isNaN(result)) {
-                return result;
-            }
-        }
-        throw new NumberParseError('Invalid integer literal when parsing ' + text + ' in base ' + radix);
-    };
-    // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
-    NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
-    Object.defineProperty(NumberWrapper, "NaN", {
-        get: function () { return NaN; },
-        enumerable: true,
-        configurable: true
-    });
-    NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    NumberWrapper.isNaN = function (value) { return isNaN(value); };
-    NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
-    return NumberWrapper;
-}());
-exports.NumberWrapper = NumberWrapper;
-exports.RegExp = _global.RegExp;
-var RegExpWrapper = (function () {
-    function RegExpWrapper() {
-    }
-    RegExpWrapper.create = function (regExpStr, flags) {
-        if (flags === void 0) { flags = ''; }
-        flags = flags.replace(/g/g, '');
-        return new _global.RegExp(regExpStr, flags + 'g');
-    };
-    RegExpWrapper.firstMatch = function (regExp, input) {
-        // Reset multimatch regex state
-        regExp.lastIndex = 0;
-        return regExp.exec(input);
-    };
-    RegExpWrapper.test = function (regExp, input) {
-        regExp.lastIndex = 0;
-        return regExp.test(input);
-    };
-    RegExpWrapper.matcher = function (regExp, input) {
-        // Reset regex state for the case
-        // someone did not loop over all matches
-        // last time.
-        regExp.lastIndex = 0;
-        return { re: regExp, input: input };
-    };
-    RegExpWrapper.replaceAll = function (regExp, input, replace) {
-        var c = regExp.exec(input);
-        var res = '';
-        regExp.lastIndex = 0;
-        var prev = 0;
-        while (c) {
-            res += input.substring(prev, c.index);
-            res += replace(c);
-            prev = c.index + c[0].length;
-            regExp.lastIndex = prev;
-            c = regExp.exec(input);
-        }
-        res += input.substring(prev);
-        return res;
-    };
-    return RegExpWrapper;
-}());
-exports.RegExpWrapper = RegExpWrapper;
-var RegExpMatcherWrapper = (function () {
-    function RegExpMatcherWrapper() {
-    }
-    RegExpMatcherWrapper.next = function (matcher) {
-        return matcher.re.exec(matcher.input);
-    };
-    return RegExpMatcherWrapper;
-}());
-exports.RegExpMatcherWrapper = RegExpMatcherWrapper;
-var FunctionWrapper = (function () {
-    function FunctionWrapper() {
-    }
-    FunctionWrapper.apply = function (fn, posArgs) { return fn.apply(null, posArgs); };
-    FunctionWrapper.bind = function (fn, scope) { return fn.bind(scope); };
-    return FunctionWrapper;
-}());
-exports.FunctionWrapper = FunctionWrapper;
-// JS has NaN !== NaN
-function looseIdentical(a, b) {
-    return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
-}
-exports.looseIdentical = looseIdentical;
-// JS considers NaN is the same as NaN for map Key (while NaN !== NaN otherwise)
-// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-function getMapKey(value) {
-    return value;
-}
-exports.getMapKey = getMapKey;
-function normalizeBlank(obj) {
-    return isBlank(obj) ? null : obj;
-}
-exports.normalizeBlank = normalizeBlank;
-function normalizeBool(obj) {
-    return isBlank(obj) ? false : obj;
-}
-exports.normalizeBool = normalizeBool;
-function isJsObject(o) {
-    return o !== null && (typeof o === 'function' || typeof o === 'object');
-}
-exports.isJsObject = isJsObject;
-function print(obj) {
-    console.log(obj);
-}
-exports.print = print;
-function warn(obj) {
-    console.warn(obj);
-}
-exports.warn = warn;
-// Can't be all uppercase as our transpiler would think it is a special directive...
-var Json = (function () {
-    function Json() {
-    }
-    Json.parse = function (s) { return _global.JSON.parse(s); };
-    Json.stringify = function (data) {
-        // Dart doesn't take 3 arguments
-        return _global.JSON.stringify(data, null, 2);
-    };
-    return Json;
-}());
-exports.Json = Json;
-var DateWrapper = (function () {
-    function DateWrapper() {
-    }
-    DateWrapper.create = function (year, month, day, hour, minutes, seconds, milliseconds) {
-        if (month === void 0) { month = 1; }
-        if (day === void 0) { day = 1; }
-        if (hour === void 0) { hour = 0; }
-        if (minutes === void 0) { minutes = 0; }
-        if (seconds === void 0) { seconds = 0; }
-        if (milliseconds === void 0) { milliseconds = 0; }
-        return new exports.Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
-    };
-    DateWrapper.fromISOString = function (str) { return new exports.Date(str); };
-    DateWrapper.fromMillis = function (ms) { return new exports.Date(ms); };
-    DateWrapper.toMillis = function (date) { return date.getTime(); };
-    DateWrapper.now = function () { return new exports.Date(); };
-    DateWrapper.toJson = function (date) { return date.toJSON(); };
-    return DateWrapper;
-}());
-exports.DateWrapper = DateWrapper;
-function setValueOnPath(global, path, value) {
-    var parts = path.split('.');
-    var obj = global;
-    while (parts.length > 1) {
-        var name = parts.shift();
-        if (obj.hasOwnProperty(name) && isPresent(obj[name])) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-exports.setValueOnPath = setValueOnPath;
-var _symbolIterator = null;
-function getSymbolIterator() {
-    if (isBlank(_symbolIterator)) {
-        if (isPresent(globalScope.Symbol) && isPresent(Symbol.iterator)) {
-            _symbolIterator = Symbol.iterator;
-        }
-        else {
-            // es6-shim specific logic
-            var keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var i = 0; i < keys.length; ++i) {
-                var key = keys[i];
-                if (key !== 'entries' && key !== 'size' &&
-                    Map.prototype[key] === Map.prototype['entries']) {
-                    _symbolIterator = key;
-                }
-            }
-        }
-    }
-    return _symbolIterator;
-}
-exports.getSymbolIterator = getSymbolIterator;
-function evalExpression(sourceUrl, expr, declarations, vars) {
-    var fnBody = declarations + "\nreturn " + expr + "\n//# sourceURL=" + sourceUrl;
-    var fnArgNames = [];
-    var fnArgValues = [];
-    for (var argName in vars) {
-        fnArgNames.push(argName);
-        fnArgValues.push(vars[argName]);
-    }
-    return new (Function.bind.apply(Function, [void 0].concat(fnArgNames.concat(fnBody))))().apply(void 0, fnArgValues);
-}
-exports.evalExpression = evalExpression;
-function isPrimitive(obj) {
-    return !isJsObject(obj);
-}
-exports.isPrimitive = isPrimitive;
-function hasConstructor(value, type) {
-    return value.constructor === type;
-}
-exports.hasConstructor = hasConstructor;
-function escape(s) {
-    return _global.encodeURI(s);
-}
-exports.escape = escape;
-function escapeRegExp(s) {
-    return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-}
-exports.escapeRegExp = escapeRegExp;
-//# sourceMappingURL=lang.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\lang.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"2ionoC":410,"buffer":409}],236:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var lang_1 = require('./lang');
-exports.Math = lang_1.global.Math;
-exports.NaN = typeof exports.NaN;
-//# sourceMappingURL=math.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\math.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"./lang":235,"2ionoC":410,"buffer":409}],237:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var PromiseCompleter = (function () {
-    function PromiseCompleter() {
-        var _this = this;
-        this.promise = new Promise(function (res, rej) {
-            _this.resolve = res;
-            _this.reject = rej;
-        });
-    }
-    return PromiseCompleter;
-}());
-exports.PromiseCompleter = PromiseCompleter;
-var PromiseWrapper = (function () {
-    function PromiseWrapper() {
-    }
-    PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-    PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
-    // Note: We can't rename this method into `catch`, as this is not a valid
-    // method name in Dart.
-    PromiseWrapper.catchError = function (promise, onError) {
-        return promise.catch(onError);
-    };
-    PromiseWrapper.all = function (promises) {
-        if (promises.length == 0)
-            return Promise.resolve([]);
-        return Promise.all(promises);
-    };
-    PromiseWrapper.then = function (promise, success, rejection) {
-        return promise.then(success, rejection);
-    };
-    PromiseWrapper.wrap = function (computation) {
-        return new Promise(function (res, rej) {
-            try {
-                res(computation());
-            }
-            catch (e) {
-                rej(e);
-            }
-        });
-    };
-    PromiseWrapper.scheduleMicrotask = function (computation) {
-        PromiseWrapper.then(PromiseWrapper.resolve(null), computation, function (_) { });
-    };
-    PromiseWrapper.completer = function () { return new PromiseCompleter(); };
-    return PromiseWrapper;
-}());
-exports.PromiseWrapper = PromiseWrapper;
-//# sourceMappingURL=promise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\facade\\promise.js","/..\\node_modules\\@angular\\core\\src\\facade")
-},{"2ionoC":410,"buffer":409}],238:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/lang":235,"../reflection/reflection":267,"./forward_ref":220,"./metadata":222,"./provider":224,"./provider_util":225,"./reflective_exceptions":226,"./reflective_key":228}],230:[function(require,module,exports){
+module.exports=require(55)
+},{"./lang":235,"./promise":237,"rxjs/Observable":408,"rxjs/Subject":410,"rxjs/observable/PromiseObservable":415,"rxjs/operator/toPromise":416}],231:[function(require,module,exports){
+module.exports=require(56)
+},{}],232:[function(require,module,exports){
+module.exports=require(57)
+},{"./lang":235}],233:[function(require,module,exports){
+module.exports=require(58)
+},{"./base_wrapped_exception":231,"./collection":232,"./lang":235}],234:[function(require,module,exports){
+module.exports=require(59)
+},{"./base_wrapped_exception":231,"./exception_handler":233}],235:[function(require,module,exports){
+module.exports=require(61)
+},{}],236:[function(require,module,exports){
+module.exports=require(133)
+},{"./lang":235}],237:[function(require,module,exports){
+module.exports=require(62)
+},{}],238:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37121,9 +33955,7 @@ var view_ref_1 = require('./linker/view_ref');
 exports.EmbeddedViewRef = view_ref_1.EmbeddedViewRef;
 exports.ViewRef = view_ref_1.ViewRef;
 //# sourceMappingURL=linker.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker.js","/..\\node_modules\\@angular\\core\\src")
-},{"./linker/compiler":239,"./linker/component_factory":240,"./linker/component_factory_resolver":241,"./linker/component_resolver":242,"./linker/dynamic_component_loader":244,"./linker/element_ref":247,"./linker/exceptions":248,"./linker/query_list":249,"./linker/systemjs_component_resolver":250,"./linker/template_ref":251,"./linker/view_container_ref":253,"./linker/view_ref":254,"2ionoC":410,"buffer":409}],239:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./linker/compiler":239,"./linker/component_factory":240,"./linker/component_factory_resolver":241,"./linker/component_resolver":242,"./linker/dynamic_component_loader":244,"./linker/element_ref":247,"./linker/exceptions":248,"./linker/query_list":249,"./linker/systemjs_component_resolver":250,"./linker/template_ref":251,"./linker/view_container_ref":253,"./linker/view_ref":254}],239:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37168,9 +34000,7 @@ var Compiler = (function () {
 }());
 exports.Compiler = Compiler;
 //# sourceMappingURL=compiler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\compiler.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/exceptions":234,"../facade/lang":235,"2ionoC":410,"buffer":409}],240:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234,"../facade/lang":235}],240:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37334,9 +34164,7 @@ var ComponentFactory = (function () {
 }());
 exports.ComponentFactory = ComponentFactory;
 //# sourceMappingURL=component_factory.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\component_factory.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/exceptions":234,"../facade/lang":235,"./view_utils":256,"2ionoC":410,"buffer":409}],241:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234,"../facade/lang":235,"./view_utils":256}],241:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37402,9 +34230,7 @@ var CodegenComponentFactoryResolver = (function () {
 }());
 exports.CodegenComponentFactoryResolver = CodegenComponentFactoryResolver;
 //# sourceMappingURL=component_factory_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\component_factory_resolver.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/exceptions":234,"../facade/lang":235,"2ionoC":410,"buffer":409}],242:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234,"../facade/lang":235}],242:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37463,9 +34289,7 @@ var ReflectorComponentResolver = (function (_super) {
 }(ComponentResolver));
 exports.ReflectorComponentResolver = ReflectorComponentResolver;
 //# sourceMappingURL=component_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\component_resolver.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../di/decorators":219,"../facade/async":230,"../facade/exceptions":234,"../facade/lang":235,"../reflection/reflection":267,"./component_factory":240,"2ionoC":410,"buffer":409}],243:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../di/decorators":219,"../facade/async":230,"../facade/exceptions":234,"../facade/lang":235,"../reflection/reflection":267,"./component_factory":240}],243:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37591,9 +34415,7 @@ var DebugContext = (function () {
 }());
 exports.DebugContext = DebugContext;
 //# sourceMappingURL=debug_context.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\debug_context.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/collection":232,"../facade/lang":235,"./view_type":255,"2ionoC":410,"buffer":409}],244:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/lang":235,"./view_type":255}],244:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37660,9 +34482,7 @@ var DynamicComponentLoader_ = (function (_super) {
 }(DynamicComponentLoader));
 exports.DynamicComponentLoader_ = DynamicComponentLoader_;
 //# sourceMappingURL=dynamic_component_loader.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\dynamic_component_loader.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../di/decorators":219,"../di/reflective_injector":227,"../facade/lang":235,"./component_resolver":242,"2ionoC":410,"buffer":409}],245:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../di/decorators":219,"../di/reflective_injector":227,"../facade/lang":235,"./component_resolver":242}],245:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37763,9 +34583,7 @@ var AppElement = (function () {
 }());
 exports.AppElement = AppElement;
 //# sourceMappingURL=element.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\element.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"./element_ref":247,"./view_container_ref":253,"./view_type":255,"2ionoC":410,"buffer":409}],246:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"./element_ref":247,"./view_container_ref":253,"./view_type":255}],246:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37803,9 +34621,7 @@ var ElementInjector = (function (_super) {
 }(injector_1.Injector));
 exports.ElementInjector = ElementInjector;
 //# sourceMappingURL=element_injector.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\element_injector.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../di/injector":221,"2ionoC":410,"buffer":409}],247:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../di/injector":221}],247:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37837,9 +34653,7 @@ var ElementRef = (function () {
 }());
 exports.ElementRef = ElementRef;
 //# sourceMappingURL=element_ref.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\element_ref.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"2ionoC":410,"buffer":409}],248:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],248:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37929,9 +34743,7 @@ var ViewDestroyedException = (function (_super) {
 }(exceptions_1.BaseException));
 exports.ViewDestroyedException = ViewDestroyedException;
 //# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\exceptions.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/exceptions":234,"2ionoC":410,"buffer":409}],249:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234}],249:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38043,9 +34855,7 @@ var QueryList = (function () {
 }());
 exports.QueryList = QueryList;
 //# sourceMappingURL=query_list.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\query_list.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/async":230,"../facade/collection":232,"../facade/lang":235,"2ionoC":410,"buffer":409}],250:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":230,"../facade/collection":232,"../facade/lang":235}],250:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38105,9 +34915,7 @@ var SystemJsCmpFactoryResolver = (function () {
 }());
 exports.SystemJsCmpFactoryResolver = SystemJsCmpFactoryResolver;
 //# sourceMappingURL=systemjs_component_resolver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\systemjs_component_resolver.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],251:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],251:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38183,9 +34991,7 @@ var TemplateRef_ = (function (_super) {
 }(TemplateRef));
 exports.TemplateRef_ = TemplateRef_;
 //# sourceMappingURL=template_ref.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\template_ref.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],252:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],252:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38592,9 +35398,7 @@ function _findLastRenderNode(node) {
     return lastNode;
 }
 //# sourceMappingURL=view.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\view.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../animation/active_animation_players_map":193,"../animation/animation_group_player":196,"../change_detection/change_detection":207,"../facade/async":230,"../facade/collection":232,"../facade/lang":235,"../profile/profile":264,"./debug_context":243,"./element":245,"./element_injector":246,"./exceptions":248,"./view_ref":254,"./view_type":255,"./view_utils":256,"2ionoC":410,"buffer":409}],253:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../animation/active_animation_players_map":193,"../animation/animation_group_player":196,"../change_detection/change_detection":207,"../facade/async":230,"../facade/collection":232,"../facade/lang":235,"../profile/profile":264,"./debug_context":243,"./element":245,"./element_injector":246,"./exceptions":248,"./view_ref":254,"./view_type":255,"./view_utils":256}],253:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38756,9 +35560,7 @@ var ViewContainerRef_ = (function () {
 }());
 exports.ViewContainerRef_ = ViewContainerRef_;
 //# sourceMappingURL=view_container_ref.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\view_container_ref.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"../profile/profile":264,"2ionoC":410,"buffer":409}],254:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"../profile/profile":264}],254:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38901,9 +35703,7 @@ var ViewRef_ = (function () {
 }());
 exports.ViewRef_ = ViewRef_;
 //# sourceMappingURL=view_ref.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\view_ref.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../change_detection/constants":210,"../facade/exceptions":234,"2ionoC":410,"buffer":409}],255:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../change_detection/constants":210,"../facade/exceptions":234}],255:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38925,9 +35725,7 @@ exports.ViewRef_ = ViewRef_;
 })(exports.ViewType || (exports.ViewType = {}));
 var ViewType = exports.ViewType;
 //# sourceMappingURL=view_type.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\view_type.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"2ionoC":410,"buffer":409}],256:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],256:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -39289,9 +36087,7 @@ function pureProxy10(fn) {
 }
 exports.pureProxy10 = pureProxy10;
 //# sourceMappingURL=view_utils.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\linker\\view_utils.js","/..\\node_modules\\@angular\\core\\src\\linker")
-},{"../application_tokens":205,"../change_detection/change_detection":207,"../change_detection/change_detection_util":208,"../di/decorators":219,"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"../render/api":272,"../security":273,"./element":245,"./exceptions":248,"2ionoC":410,"buffer":409}],257:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../application_tokens":205,"../change_detection/change_detection":207,"../change_detection/change_detection_util":208,"../di/decorators":219,"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"../render/api":272,"../security":273,"./element":245,"./exceptions":248}],257:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -40337,9 +37133,7 @@ exports.HostBinding = decorators_1.makePropDecorator(directives_1.HostBindingMet
  */
 exports.HostListener = decorators_1.makePropDecorator(directives_1.HostListenerMetadata);
 //# sourceMappingURL=metadata.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\metadata.js","/..\\node_modules\\@angular\\core\\src")
-},{"./metadata/di":258,"./metadata/directives":259,"./metadata/lifecycle_hooks":260,"./metadata/view":261,"./util/decorators":276,"2ionoC":410,"buffer":409}],258:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./metadata/di":258,"./metadata/directives":259,"./metadata/lifecycle_hooks":260,"./metadata/view":261,"./util/decorators":276}],258:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -40842,9 +37636,7 @@ var ViewChildMetadata = (function (_super) {
 }(ViewQueryMetadata));
 exports.ViewChildMetadata = ViewChildMetadata;
 //# sourceMappingURL=di.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\metadata\\di.js","/..\\node_modules\\@angular\\core\\src\\metadata")
-},{"../di/forward_ref":220,"../di/metadata":222,"../facade/lang":235,"2ionoC":410,"buffer":409}],259:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../di/forward_ref":220,"../di/metadata":222,"../facade/lang":235}],259:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -41746,9 +38538,7 @@ var HostListenerMetadata = (function () {
 }());
 exports.HostListenerMetadata = HostListenerMetadata;
 //# sourceMappingURL=directives.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\metadata\\directives.js","/..\\node_modules\\@angular\\core\\src\\metadata")
-},{"../change_detection/constants":210,"../di/metadata":222,"../facade/lang":235,"2ionoC":410,"buffer":409}],260:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../change_detection/constants":210,"../di/metadata":222,"../facade/lang":235}],260:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42268,9 +39058,7 @@ var AfterViewChecked = (function () {
 }());
 exports.AfterViewChecked = AfterViewChecked;
 //# sourceMappingURL=lifecycle_hooks.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\metadata\\lifecycle_hooks.js","/..\\node_modules\\@angular\\core\\src\\metadata")
-},{"2ionoC":410,"buffer":409}],261:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],261:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42358,9 +39146,7 @@ var ViewMetadata = (function () {
 }());
 exports.ViewMetadata = ViewMetadata;
 //# sourceMappingURL=view.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\metadata\\view.js","/..\\node_modules\\@angular\\core\\src\\metadata")
-},{"2ionoC":410,"buffer":409}],262:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],262:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42389,9 +39175,7 @@ exports.PLATFORM_COMMON_PROVIDERS = [
     console_1.Console
 ];
 //# sourceMappingURL=platform_common_providers.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\platform_common_providers.js","/..\\node_modules\\@angular\\core\\src")
-},{"./application_ref":204,"./console":215,"./reflection/reflection":267,"./reflection/reflector_reader":270,"./testability/testability":274,"2ionoC":410,"buffer":409}],263:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./application_ref":204,"./console":215,"./reflection/reflection":267,"./reflection/reflector_reader":270,"./testability/testability":274}],263:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42455,9 +39239,7 @@ exports.PLATFORM_DIRECTIVES =
   */
 exports.PLATFORM_PIPES = new di_1.OpaqueToken('Platform Pipes');
 //# sourceMappingURL=platform_directives_and_pipes.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\platform_directives_and_pipes.js","/..\\node_modules\\@angular\\core\\src")
-},{"./di":218,"2ionoC":410,"buffer":409}],264:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./di":218}],264:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42538,9 +39320,7 @@ exports.wtfStartTimeRange = exports.wtfEnabled ? wtf_impl_1.startTimeRange : fun
  */
 exports.wtfEndTimeRange = exports.wtfEnabled ? wtf_impl_1.endTimeRange : function (r) { return null; };
 //# sourceMappingURL=profile.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\profile\\profile.js","/..\\node_modules\\@angular\\core\\src\\profile")
-},{"./wtf_impl":265,"2ionoC":410,"buffer":409}],265:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./wtf_impl":265}],265:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42583,9 +39363,7 @@ function endTimeRange(range) {
 }
 exports.endTimeRange = endTimeRange;
 //# sourceMappingURL=wtf_impl.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\profile\\wtf_impl.js","/..\\node_modules\\@angular\\core\\src\\profile")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],266:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],266:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42600,9 +39378,7 @@ exports.endTimeRange = endTimeRange;
 function wtfInit() { }
 exports.wtfInit = wtfInit;
 //# sourceMappingURL=wtf_init.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\profile\\wtf_init.js","/..\\node_modules\\@angular\\core\\src\\profile")
-},{"2ionoC":410,"buffer":409}],267:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],267:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42622,9 +39398,7 @@ exports.Reflector = reflector_2.Reflector;
  */
 exports.reflector = new reflector_1.Reflector(new reflection_capabilities_1.ReflectionCapabilities());
 //# sourceMappingURL=reflection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\reflection\\reflection.js","/..\\node_modules\\@angular\\core\\src\\reflection")
-},{"./reflection_capabilities":268,"./reflector":269,"2ionoC":410,"buffer":409}],268:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./reflection_capabilities":268,"./reflector":269}],268:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42863,9 +39637,7 @@ function convertTsickleDecoratorIntoMetadata(decoratorInvocations) {
     });
 }
 //# sourceMappingURL=reflection_capabilities.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\reflection\\reflection_capabilities.js","/..\\node_modules\\@angular\\core\\src\\reflection")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],269:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],269:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43040,9 +39812,7 @@ function _mergeMaps(target, config) {
     collection_1.StringMapWrapper.forEach(config, function (v, k) { return target.set(k, v); });
 }
 //# sourceMappingURL=reflector.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\reflection\\reflector.js","/..\\node_modules\\@angular\\core\\src\\reflection")
-},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"./reflector_reader":270,"2ionoC":410,"buffer":409}],270:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"./reflector_reader":270}],270:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43062,9 +39832,7 @@ var ReflectorReader = (function () {
 }());
 exports.ReflectorReader = ReflectorReader;
 //# sourceMappingURL=reflector_reader.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\reflection\\reflector_reader.js","/..\\node_modules\\@angular\\core\\src\\reflection")
-},{"2ionoC":410,"buffer":409}],271:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],271:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43079,9 +39847,7 @@ exports.RenderComponentType = api_1.RenderComponentType;
 exports.Renderer = api_1.Renderer;
 exports.RootRenderer = api_1.RootRenderer;
 //# sourceMappingURL=render.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\render.js","/..\\node_modules\\@angular\\core\\src")
-},{"./render/api":272,"2ionoC":410,"buffer":409}],272:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./render/api":272}],272:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43170,9 +39936,7 @@ var RootRenderer = (function () {
 }());
 exports.RootRenderer = RootRenderer;
 //# sourceMappingURL=api.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\render\\api.js","/..\\node_modules\\@angular\\core\\src\\render")
-},{"../facade/exceptions":234,"2ionoC":410,"buffer":409}],273:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":234}],273:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43212,9 +39976,7 @@ var SanitizationService = (function () {
 }());
 exports.SanitizationService = SanitizationService;
 //# sourceMappingURL=security.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\security.js","/..\\node_modules\\@angular\\core\\src")
-},{"2ionoC":410,"buffer":409}],274:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],274:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43366,9 +40128,7 @@ function setTestabilityGetter(getter) {
 exports.setTestabilityGetter = setTestabilityGetter;
 var _testabilityGetter = new _NoopGetTestability();
 //# sourceMappingURL=testability.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\testability\\testability.js","/..\\node_modules\\@angular\\core\\src\\testability")
-},{"../di/decorators":219,"../facade/async":230,"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"../zone/ng_zone":278,"2ionoC":410,"buffer":409}],275:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../di/decorators":219,"../facade/async":230,"../facade/collection":232,"../facade/exceptions":234,"../facade/lang":235,"../zone/ng_zone":278}],275:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43381,9 +40141,7 @@ var _testabilityGetter = new _NoopGetTestability();
 var decorators_1 = require('./util/decorators');
 exports.Class = decorators_1.Class;
 //# sourceMappingURL=util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\util.js","/..\\node_modules\\@angular\\core\\src")
-},{"./util/decorators":276,"2ionoC":410,"buffer":409}],276:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./util/decorators":276}],276:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43650,9 +40408,7 @@ function makePropDecorator(annotationCls /** TODO #9100 */) {
 }
 exports.makePropDecorator = makePropDecorator;
 //# sourceMappingURL=decorators.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\util\\decorators.js","/..\\node_modules\\@angular\\core\\src\\util")
-},{"../facade/lang":235,"2ionoC":410,"buffer":409}],277:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":235}],277:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43666,9 +40422,7 @@ var ng_zone_1 = require('./zone/ng_zone');
 exports.NgZone = ng_zone_1.NgZone;
 exports.NgZoneError = ng_zone_1.NgZoneError;
 //# sourceMappingURL=zone.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\zone.js","/..\\node_modules\\@angular\\core\\src")
-},{"./zone/ng_zone":278,"2ionoC":410,"buffer":409}],278:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./zone/ng_zone":278}],278:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43926,9 +40680,7 @@ var NgZone = (function () {
 }());
 exports.NgZone = NgZone;
 //# sourceMappingURL=ng_zone.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\zone\\ng_zone.js","/..\\node_modules\\@angular\\core\\src\\zone")
-},{"../facade/async":230,"../facade/exceptions":234,"./ng_zone_impl":279,"2ionoC":410,"buffer":409}],279:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":230,"../facade/exceptions":234,"./ng_zone_impl":279}],279:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44022,9 +40774,7 @@ var NgZoneImpl = (function () {
 }());
 exports.NgZoneImpl = NgZoneImpl;
 //# sourceMappingURL=ng_zone_impl.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\core\\src\\zone\\ng_zone_impl.js","/..\\node_modules\\@angular\\core\\src\\zone")
-},{"2ionoC":410,"buffer":409}],280:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],280:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44038,9 +40788,7 @@ function __export(m) {
 }
 __export(require('./src/forms'));
 //# sourceMappingURL=index.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\index.js","/..\\node_modules\\@angular\\forms")
-},{"./src/forms":314,"2ionoC":410,"buffer":409}],281:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./src/forms":314}],281:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44136,9 +40884,7 @@ exports.REACTIVE_FORM_DIRECTIVES =
     form_control_directive_1.FormControlDirective, form_group_directive_1.FormGroupDirective, form_control_name_1.FormControlName, form_group_name_1.FormGroupName, form_array_name_1.FormArrayName
 ];
 //# sourceMappingURL=directives.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives.js","/..\\node_modules\\@angular\\forms\\src")
-},{"./directives/checkbox_value_accessor":284,"./directives/default_value_accessor":287,"./directives/ng_control":288,"./directives/ng_control_status":289,"./directives/ng_form":290,"./directives/ng_model":291,"./directives/ng_model_group":292,"./directives/number_value_accessor":294,"./directives/radio_control_value_accessor":295,"./directives/reactive_directives/form_array_name":296,"./directives/reactive_directives/form_control_directive":297,"./directives/reactive_directives/form_control_name":298,"./directives/reactive_directives/form_group_directive":299,"./directives/reactive_directives/form_group_name":300,"./directives/select_control_value_accessor":301,"./directives/select_multiple_control_value_accessor":302,"./directives/validators":304,"2ionoC":410,"buffer":409}],282:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./directives/checkbox_value_accessor":284,"./directives/default_value_accessor":287,"./directives/ng_control":288,"./directives/ng_control_status":289,"./directives/ng_form":290,"./directives/ng_model":291,"./directives/ng_model_group":292,"./directives/number_value_accessor":294,"./directives/radio_control_value_accessor":295,"./directives/reactive_directives/form_array_name":296,"./directives/reactive_directives/form_control_directive":297,"./directives/reactive_directives/form_control_name":298,"./directives/reactive_directives/form_group_directive":299,"./directives/reactive_directives/form_group_name":300,"./directives/select_control_value_accessor":301,"./directives/select_multiple_control_value_accessor":302,"./directives/validators":304}],282:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44224,9 +40970,7 @@ var AbstractControlDirective = (function () {
 }());
 exports.AbstractControlDirective = AbstractControlDirective;
 //# sourceMappingURL=abstract_control_directive.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\abstract_control_directive.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/exceptions":309,"../facade/lang":310,"2ionoC":410,"buffer":409}],283:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":309,"../facade/lang":310}],283:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44290,9 +41034,7 @@ var AbstractFormGroupDirective = (function (_super) {
 }(control_container_1.ControlContainer));
 exports.AbstractFormGroupDirective = AbstractFormGroupDirective;
 //# sourceMappingURL=abstract_form_group_directive.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\abstract_form_group_directive.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"./control_container":285,"./shared":303,"2ionoC":410,"buffer":409}],284:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./control_container":285,"./shared":303}],284:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44337,79 +41079,11 @@ var CheckboxControlValueAccessor = (function () {
 }());
 exports.CheckboxControlValueAccessor = CheckboxControlValueAccessor;
 //# sourceMappingURL=checkbox_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\checkbox_value_accessor.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"./control_value_accessor":286,"2ionoC":410,"@angular/core":191,"buffer":409}],285:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var abstract_control_directive_1 = require('./abstract_control_directive');
-/**
- * A directive that contains multiple {@link NgControl}s.
- *
- * Only used by the forms module.
- *
- * @experimental
- */
-var ControlContainer = (function (_super) {
-    __extends(ControlContainer, _super);
-    function ControlContainer() {
-        _super.apply(this, arguments);
-    }
-    Object.defineProperty(ControlContainer.prototype, "formDirective", {
-        /**
-         * Get the form to which this container belongs.
-         */
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ControlContainer.prototype, "path", {
-        /**
-         * Get the path to this container.
-         */
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    return ControlContainer;
-}(abstract_control_directive_1.AbstractControlDirective));
-exports.ControlContainer = ControlContainer;
-//# sourceMappingURL=control_container.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\control_container.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"./abstract_control_directive":282,"2ionoC":410,"buffer":409}],286:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var core_1 = require('@angular/core');
-/**
- * Used to provide a {@link ControlValueAccessor} for form controls.
- *
- * See {@link DefaultValueAccessor} for how to implement one.
- * @experimental
- */
-exports.NG_VALUE_ACCESSOR = 
-/*@ts2dart_const*/ new core_1.OpaqueToken('NgValueAccessor');
-//# sourceMappingURL=control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\control_value_accessor.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],287:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./control_value_accessor":286,"@angular/core":191}],285:[function(require,module,exports){
+arguments[4][67][0].apply(exports,arguments)
+},{"./abstract_control_directive":282}],286:[function(require,module,exports){
+module.exports=require(68)
+},{"@angular/core":191}],287:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44460,9 +41134,7 @@ var DefaultValueAccessor = (function () {
 }());
 exports.DefaultValueAccessor = DefaultValueAccessor;
 //# sourceMappingURL=default_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\default_value_accessor.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/lang":310,"./control_value_accessor":286,"2ionoC":410,"@angular/core":191,"buffer":409}],288:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":310,"./control_value_accessor":286,"@angular/core":191}],288:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44507,9 +41179,7 @@ var NgControl = (function (_super) {
 }(abstract_control_directive_1.AbstractControlDirective));
 exports.NgControl = NgControl;
 //# sourceMappingURL=ng_control.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\ng_control.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/exceptions":309,"./abstract_control_directive":282,"2ionoC":410,"buffer":409}],289:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":309,"./abstract_control_directive":282}],289:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44589,9 +41259,7 @@ var NgControlStatus = (function () {
 }());
 exports.NgControlStatus = NgControlStatus;
 //# sourceMappingURL=ng_control_status.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\ng_control_status.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/lang":310,"./ng_control":288,"2ionoC":410,"@angular/core":191,"buffer":409}],290:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":310,"./ng_control":288,"@angular/core":191}],290:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44725,9 +41393,7 @@ var NgForm = (function (_super) {
 }(control_container_1.ControlContainer));
 exports.NgForm = NgForm;
 //# sourceMappingURL=ng_form.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\ng_form.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/async":305,"../facade/collection":307,"../facade/lang":310,"../model":315,"../validators":316,"./control_container":285,"./shared":303,"2ionoC":410,"@angular/core":191,"buffer":409}],291:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":305,"../facade/collection":307,"../facade/lang":310,"../model":315,"../validators":316,"./control_container":285,"./shared":303,"@angular/core":191}],291:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44861,9 +41527,7 @@ var NgModel = (function (_super) {
 }(ng_control_1.NgControl));
 exports.NgModel = NgModel;
 //# sourceMappingURL=ng_model.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\ng_model.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/async":305,"../facade/exceptions":309,"../model":315,"../validators":316,"./control_container":285,"./control_value_accessor":286,"./ng_control":288,"./shared":303,"2ionoC":410,"@angular/core":191,"buffer":409}],292:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/async":305,"../facade/exceptions":309,"../model":315,"../validators":316,"./control_container":285,"./control_value_accessor":286,"./ng_control":288,"./shared":303,"@angular/core":191}],292:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44912,39 +41576,9 @@ var NgModelGroup = (function (_super) {
 }(abstract_form_group_directive_1.AbstractFormGroupDirective));
 exports.NgModelGroup = NgModelGroup;
 //# sourceMappingURL=ng_model_group.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\ng_model_group.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../validators":316,"./abstract_form_group_directive":283,"./control_container":285,"2ionoC":410,"@angular/core":191,"buffer":409}],293:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-function normalizeValidator(validator) {
-    if (validator.validate !== undefined) {
-        return function (c) { return validator.validate(c); };
-    }
-    else {
-        return validator;
-    }
-}
-exports.normalizeValidator = normalizeValidator;
-function normalizeAsyncValidator(validator) {
-    if (validator.validate !== undefined) {
-        return function (c) { return validator.validate(c); };
-    }
-    else {
-        return validator;
-    }
-}
-exports.normalizeAsyncValidator = normalizeAsyncValidator;
-//# sourceMappingURL=normalize_validator.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\normalize_validator.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"2ionoC":410,"buffer":409}],294:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../validators":316,"./abstract_form_group_directive":283,"./control_container":285,"@angular/core":191}],293:[function(require,module,exports){
+module.exports=require(78)
+},{}],294:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -44996,9 +41630,7 @@ var NumberValueAccessor = (function () {
 }());
 exports.NumberValueAccessor = NumberValueAccessor;
 //# sourceMappingURL=number_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\number_value_accessor.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/lang":310,"./control_value_accessor":286,"2ionoC":410,"@angular/core":191,"buffer":409}],295:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":310,"./control_value_accessor":286,"@angular/core":191}],295:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45121,9 +41753,7 @@ var RadioControlValueAccessor = (function () {
 }());
 exports.RadioControlValueAccessor = RadioControlValueAccessor;
 //# sourceMappingURL=radio_control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\radio_control_value_accessor.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/collection":307,"../facade/exceptions":309,"../facade/lang":310,"./control_value_accessor":286,"./ng_control":288,"2ionoC":410,"@angular/core":191,"buffer":409}],296:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":307,"../facade/exceptions":309,"../facade/lang":310,"./control_value_accessor":286,"./ng_control":288,"@angular/core":191}],296:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45199,9 +41829,7 @@ var FormArrayName = (function (_super) {
 }(control_container_1.ControlContainer));
 exports.FormArrayName = FormArrayName;
 //# sourceMappingURL=form_array_name.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives\\form_array_name.js","/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives")
-},{"../../validators":316,"../control_container":285,"../shared":303,"2ionoC":410,"@angular/core":191,"buffer":409}],297:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../validators":316,"../control_container":285,"../shared":303,"@angular/core":191}],297:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45295,9 +41923,7 @@ var FormControlDirective = (function (_super) {
 }(ng_control_1.NgControl));
 exports.FormControlDirective = FormControlDirective;
 //# sourceMappingURL=form_control_directive.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives\\form_control_directive.js","/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives")
-},{"../../facade/async":305,"../../facade/collection":307,"../../validators":316,"../control_value_accessor":286,"../ng_control":288,"../shared":303,"2ionoC":410,"@angular/core":191,"buffer":409}],298:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":305,"../../facade/collection":307,"../../validators":316,"../control_value_accessor":286,"../ng_control":288,"../shared":303,"@angular/core":191}],298:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45397,9 +42023,7 @@ var FormControlName = (function (_super) {
 }(ng_control_1.NgControl));
 exports.FormControlName = FormControlName;
 //# sourceMappingURL=form_control_name.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives\\form_control_name.js","/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives")
-},{"../../facade/async":305,"../../validators":316,"../control_container":285,"../control_value_accessor":286,"../ng_control":288,"../shared":303,"2ionoC":410,"@angular/core":191,"buffer":409}],299:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":305,"../../validators":316,"../control_container":285,"../control_value_accessor":286,"../ng_control":288,"../shared":303,"@angular/core":191}],299:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45535,9 +42159,7 @@ var FormGroupDirective = (function (_super) {
 }(control_container_1.ControlContainer));
 exports.FormGroupDirective = FormGroupDirective;
 //# sourceMappingURL=form_group_directive.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives\\form_group_directive.js","/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives")
-},{"../../facade/async":305,"../../facade/collection":307,"../../facade/exceptions":309,"../../facade/lang":310,"../../validators":316,"../control_container":285,"../shared":303,"2ionoC":410,"@angular/core":191,"buffer":409}],300:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":305,"../../facade/collection":307,"../../facade/exceptions":309,"../../facade/lang":310,"../../validators":316,"../control_container":285,"../shared":303,"@angular/core":191}],300:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45586,9 +42208,7 @@ var FormGroupName = (function (_super) {
 }(abstract_form_group_directive_1.AbstractFormGroupDirective));
 exports.FormGroupName = FormGroupName;
 //# sourceMappingURL=form_group_name.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives\\form_group_name.js","/..\\node_modules\\@angular\\forms\\src\\directives\\reactive_directives")
-},{"../../validators":316,"../abstract_form_group_directive":283,"../control_container":285,"2ionoC":410,"@angular/core":191,"buffer":409}],301:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../validators":316,"../abstract_form_group_directive":283,"../control_container":285,"@angular/core":191}],301:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45729,9 +42349,7 @@ var NgSelectOption = (function () {
 }());
 exports.NgSelectOption = NgSelectOption;
 //# sourceMappingURL=select_control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\select_control_value_accessor.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/collection":307,"../facade/lang":310,"./control_value_accessor":286,"2ionoC":410,"@angular/core":191,"buffer":409}],302:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":307,"../facade/lang":310,"./control_value_accessor":286,"@angular/core":191}],302:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45913,9 +42531,7 @@ var NgSelectMultipleOption = (function () {
 exports.NgSelectMultipleOption = NgSelectMultipleOption;
 exports.SELECT_DIRECTIVES = [SelectMultipleControlValueAccessor, NgSelectMultipleOption];
 //# sourceMappingURL=select_multiple_control_value_accessor.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\select_multiple_control_value_accessor.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/collection":307,"../facade/lang":310,"./control_value_accessor":286,"2ionoC":410,"@angular/core":191,"buffer":409}],303:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":307,"../facade/lang":310,"./control_value_accessor":286,"@angular/core":191}],303:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -46026,9 +42642,7 @@ function selectValueAccessor(dir, valueAccessors) {
 }
 exports.selectValueAccessor = selectValueAccessor;
 //# sourceMappingURL=shared.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\shared.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/collection":307,"../facade/exceptions":309,"../facade/lang":310,"../validators":316,"./checkbox_value_accessor":284,"./default_value_accessor":287,"./normalize_validator":293,"./number_value_accessor":294,"./radio_control_value_accessor":295,"./select_control_value_accessor":301,"./select_multiple_control_value_accessor":302,"2ionoC":410,"buffer":409}],304:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":307,"../facade/exceptions":309,"../facade/lang":310,"../validators":316,"./checkbox_value_accessor":284,"./default_value_accessor":287,"./normalize_validator":293,"./number_value_accessor":294,"./radio_control_value_accessor":295,"./select_control_value_accessor":301,"./select_multiple_control_value_accessor":302}],304:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -46146,1378 +42760,21 @@ var PatternValidator = (function () {
 }());
 exports.PatternValidator = PatternValidator;
 //# sourceMappingURL=validators.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\directives\\validators.js","/..\\node_modules\\@angular\\forms\\src\\directives")
-},{"../facade/lang":310,"../validators":316,"2ionoC":410,"@angular/core":191,"buffer":409}],305:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subject_1 = require('rxjs/Subject');
-var PromiseObservable_1 = require('rxjs/observable/PromiseObservable');
-var toPromise_1 = require('rxjs/operator/toPromise');
-var lang_1 = require('./lang');
-var Observable_1 = require('rxjs/Observable');
-exports.Observable = Observable_1.Observable;
-var Subject_2 = require('rxjs/Subject');
-exports.Subject = Subject_2.Subject;
-var promise_1 = require('./promise');
-exports.PromiseCompleter = promise_1.PromiseCompleter;
-exports.PromiseWrapper = promise_1.PromiseWrapper;
-var TimerWrapper = (function () {
-    function TimerWrapper() {
-    }
-    TimerWrapper.setTimeout = function (fn, millis) {
-        return lang_1.global.setTimeout(fn, millis);
-    };
-    TimerWrapper.clearTimeout = function (id) { lang_1.global.clearTimeout(id); };
-    TimerWrapper.setInterval = function (fn, millis) {
-        return lang_1.global.setInterval(fn, millis);
-    };
-    TimerWrapper.clearInterval = function (id) { lang_1.global.clearInterval(id); };
-    return TimerWrapper;
-}());
-exports.TimerWrapper = TimerWrapper;
-var ObservableWrapper = (function () {
-    function ObservableWrapper() {
-    }
-    // TODO(vsavkin): when we use rxnext, try inferring the generic type from the first arg
-    ObservableWrapper.subscribe = function (emitter, onNext, onError, onComplete) {
-        if (onComplete === void 0) { onComplete = function () { }; }
-        onError = (typeof onError === 'function') && onError || lang_1.noop;
-        onComplete = (typeof onComplete === 'function') && onComplete || lang_1.noop;
-        return emitter.subscribe({ next: onNext, error: onError, complete: onComplete });
-    };
-    ObservableWrapper.isObservable = function (obs) { return !!obs.subscribe; };
-    /**
-     * Returns whether `obs` has any subscribers listening to events.
-     */
-    ObservableWrapper.hasSubscribers = function (obs) { return obs.observers.length > 0; };
-    ObservableWrapper.dispose = function (subscription) { subscription.unsubscribe(); };
-    /**
-     * @deprecated - use callEmit() instead
-     */
-    ObservableWrapper.callNext = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callEmit = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callError = function (emitter, error) { emitter.error(error); };
-    ObservableWrapper.callComplete = function (emitter) { emitter.complete(); };
-    ObservableWrapper.fromPromise = function (promise) {
-        return PromiseObservable_1.PromiseObservable.create(promise);
-    };
-    ObservableWrapper.toPromise = function (obj) { return toPromise_1.toPromise.call(obj); };
-    return ObservableWrapper;
-}());
-exports.ObservableWrapper = ObservableWrapper;
-/**
- * Use by directives and components to emit custom Events.
- *
- * ### Examples
- *
- * In the following example, `Zippy` alternatively emits `open` and `close` events when its
- * title gets clicked:
- *
- * ```
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
- *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
- *
- * The events payload can be accessed by the parameter `$event` on the components output event
- * handler:
- *
- * ```
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
- *
- * Uses Rx.Observable but provides an adapter to make it work as specified here:
- * https://github.com/jhusain/observable-spec
- *
- * Once a reference implementation of the spec is available, switch to it.
- * @stable
- */
-var EventEmitter = (function (_super) {
-    __extends(EventEmitter, _super);
-    /**
-     * Creates an instance of [EventEmitter], which depending on [isAsync],
-     * delivers events synchronously or asynchronously.
-     */
-    function EventEmitter(isAsync) {
-        if (isAsync === void 0) { isAsync = false; }
-        _super.call(this);
-        this.__isAsync = isAsync;
-    }
-    EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
-    /**
-     * @deprecated - use .emit(value) instead
-     */
-    EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
-    EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
-        var schedulerFn;
-        var errorFn = function (err) { return null; };
-        var completeFn = function () { return null; };
-        if (generatorOrNext && typeof generatorOrNext === 'object') {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext.next(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
-            if (generatorOrNext.error) {
-                errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
-                    function (err) { generatorOrNext.error(err); };
-            }
-            if (generatorOrNext.complete) {
-                completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
-                    function () { generatorOrNext.complete(); };
-            }
-        }
-        else {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext(value); };
-            if (error) {
-                errorFn =
-                    this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
-            }
-            if (complete) {
-                completeFn =
-                    this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
-            }
-        }
-        return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
-    };
-    return EventEmitter;
-}(Subject_1.Subject));
-exports.EventEmitter = EventEmitter;
-//# sourceMappingURL=async.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\facade\\async.js","/..\\node_modules\\@angular\\forms\\src\\facade")
-},{"./lang":310,"./promise":311,"2ionoC":410,"buffer":409,"rxjs/Observable":412,"rxjs/Subject":414,"rxjs/observable/PromiseObservable":419,"rxjs/operator/toPromise":420}],306:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * A base class for the WrappedException that can be used to identify
- * a WrappedException from ExceptionHandler without adding circular
- * dependency.
- */
-var BaseWrappedException = (function (_super) {
-    __extends(BaseWrappedException, _super);
-    function BaseWrappedException(message) {
-        _super.call(this, message);
-    }
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperMessage", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalException", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "context", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "message", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    return BaseWrappedException;
-}(Error));
-exports.BaseWrappedException = BaseWrappedException;
-//# sourceMappingURL=base_wrapped_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\facade\\base_wrapped_exception.js","/..\\node_modules\\@angular\\forms\\src\\facade")
-},{"2ionoC":410,"buffer":409}],307:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var lang_1 = require('./lang');
-exports.Map = lang_1.global.Map;
-exports.Set = lang_1.global.Set;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
-var createMapFromPairs = (function () {
-    try {
-        if (new exports.Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new exports.Map(pairs); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromPairs(pairs) {
-        var map = new exports.Map();
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i];
-            map.set(pair[0], pair[1]);
-        }
-        return map;
-    };
-})();
-var createMapFromMap = (function () {
-    try {
-        if (new exports.Map(new exports.Map())) {
-            return function createMapFromMap(m) { return new exports.Map(m); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromMap(m) {
-        var map = new exports.Map();
-        m.forEach(function (v, k) { map.set(k, v); });
-        return map;
-    };
-})();
-var _clearValues = (function () {
-    if ((new exports.Map()).keys().next) {
-        return function _clearValues(m) {
-            var keyIterator = m.keys();
-            var k;
-            while (!((k = keyIterator.next()).done)) {
-                m.set(k.value, null);
-            }
-        };
-    }
-    else {
-        return function _clearValuesWithForeEach(m) {
-            m.forEach(function (v, k) { m.set(k, null); });
-        };
-    }
-})();
-// Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
-// TODO(mlaval): remove the work around once we have a working polyfill of Array.from
-var _arrayFromMap = (function () {
-    try {
-        if ((new exports.Map()).values().next) {
-            return function createArrayFromMap(m, getValues) {
-                return getValues ? Array.from(m.values()) : Array.from(m.keys());
-            };
-        }
-    }
-    catch (e) {
-    }
-    return function createArrayFromMapWithForeach(m, getValues) {
-        var res = ListWrapper.createFixedSize(m.size), i = 0;
-        m.forEach(function (v, k) {
-            res[i] = getValues ? v : k;
-            i++;
-        });
-        return res;
-    };
-})();
-var MapWrapper = (function () {
-    function MapWrapper() {
-    }
-    MapWrapper.clone = function (m) { return createMapFromMap(m); };
-    MapWrapper.createFromStringMap = function (stringMap) {
-        var result = new exports.Map();
-        for (var prop in stringMap) {
-            result.set(prop, stringMap[prop]);
-        }
-        return result;
-    };
-    MapWrapper.toStringMap = function (m) {
-        var r = {};
-        m.forEach(function (v, k) { return r[k] = v; });
-        return r;
-    };
-    MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.clearValues = function (m) { _clearValues(m); };
-    MapWrapper.iterable = function (m) { return m; };
-    MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
-    MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
-    return MapWrapper;
-}());
-exports.MapWrapper = MapWrapper;
-/**
- * Wraps Javascript Objects
- */
-var StringMapWrapper = (function () {
-    function StringMapWrapper() {
-    }
-    StringMapWrapper.create = function () {
-        // Note: We are not using Object.create(null) here due to
-        // performance!
-        // http://jsperf.com/ng2-object-create-null
-        return {};
-    };
-    StringMapWrapper.contains = function (map, key) {
-        return map.hasOwnProperty(key);
-    };
-    StringMapWrapper.get = function (map, key) {
-        return map.hasOwnProperty(key) ? map[key] : undefined;
-    };
-    StringMapWrapper.set = function (map, key, value) { map[key] = value; };
-    StringMapWrapper.keys = function (map) { return Object.keys(map); };
-    StringMapWrapper.values = function (map) {
-        return Object.keys(map).reduce(function (r, a) {
-            r.push(map[a]);
-            return r;
-        }, []);
-    };
-    StringMapWrapper.isEmpty = function (map) {
-        for (var prop in map) {
-            return false;
-        }
-        return true;
-    };
-    StringMapWrapper.delete = function (map, key) { delete map[key]; };
-    StringMapWrapper.forEach = function (map, callback) {
-        for (var prop in map) {
-            if (map.hasOwnProperty(prop)) {
-                callback(map[prop], prop);
-            }
-        }
-    };
-    StringMapWrapper.merge = function (m1, m2) {
-        var m = {};
-        for (var attr in m1) {
-            if (m1.hasOwnProperty(attr)) {
-                m[attr] = m1[attr];
-            }
-        }
-        for (var attr in m2) {
-            if (m2.hasOwnProperty(attr)) {
-                m[attr] = m2[attr];
-            }
-        }
-        return m;
-    };
-    StringMapWrapper.equals = function (m1, m2) {
-        var k1 = Object.keys(m1);
-        var k2 = Object.keys(m2);
-        if (k1.length != k2.length) {
-            return false;
-        }
-        var key;
-        for (var i = 0; i < k1.length; i++) {
-            key = k1[i];
-            if (m1[key] !== m2[key]) {
-                return false;
-            }
-        }
-        return true;
-    };
-    return StringMapWrapper;
-}());
-exports.StringMapWrapper = StringMapWrapper;
-var ListWrapper = (function () {
-    function ListWrapper() {
-    }
-    // JS has no way to express a statically fixed size list, but dart does so we
-    // keep both methods.
-    ListWrapper.createFixedSize = function (size) { return new Array(size); };
-    ListWrapper.createGrowableSize = function (size) { return new Array(size); };
-    ListWrapper.clone = function (array) { return array.slice(0); };
-    ListWrapper.forEachWithIndex = function (array, fn) {
-        for (var i = 0; i < array.length; i++) {
-            fn(array[i], i);
-        }
-    };
-    ListWrapper.first = function (array) {
-        if (!array)
-            return null;
-        return array[0];
-    };
-    ListWrapper.last = function (array) {
-        if (!array || array.length == 0)
-            return null;
-        return array[array.length - 1];
-    };
-    ListWrapper.indexOf = function (array, value, startIndex) {
-        if (startIndex === void 0) { startIndex = 0; }
-        return array.indexOf(value, startIndex);
-    };
-    ListWrapper.contains = function (list, el) { return list.indexOf(el) !== -1; };
-    ListWrapper.reversed = function (array) {
-        var a = ListWrapper.clone(array);
-        return a.reverse();
-    };
-    ListWrapper.concat = function (a, b) { return a.concat(b); };
-    ListWrapper.insert = function (list, index, value) { list.splice(index, 0, value); };
-    ListWrapper.removeAt = function (list, index) {
-        var res = list[index];
-        list.splice(index, 1);
-        return res;
-    };
-    ListWrapper.removeAll = function (list, items) {
-        for (var i = 0; i < items.length; ++i) {
-            var index = list.indexOf(items[i]);
-            list.splice(index, 1);
-        }
-    };
-    ListWrapper.remove = function (list, el) {
-        var index = list.indexOf(el);
-        if (index > -1) {
-            list.splice(index, 1);
-            return true;
-        }
-        return false;
-    };
-    ListWrapper.clear = function (list) { list.length = 0; };
-    ListWrapper.isEmpty = function (list) { return list.length == 0; };
-    ListWrapper.fill = function (list, value, start, end) {
-        if (start === void 0) { start = 0; }
-        if (end === void 0) { end = null; }
-        list.fill(value, start, end === null ? list.length : end);
-    };
-    ListWrapper.equals = function (a, b) {
-        if (a.length != b.length)
-            return false;
-        for (var i = 0; i < a.length; ++i) {
-            if (a[i] !== b[i])
-                return false;
-        }
-        return true;
-    };
-    ListWrapper.slice = function (l, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return l.slice(from, to === null ? undefined : to);
-    };
-    ListWrapper.splice = function (l, from, length) { return l.splice(from, length); };
-    ListWrapper.sort = function (l, compareFn) {
-        if (lang_1.isPresent(compareFn)) {
-            l.sort(compareFn);
-        }
-        else {
-            l.sort();
-        }
-    };
-    ListWrapper.toString = function (l) { return l.toString(); };
-    ListWrapper.toJSON = function (l) { return JSON.stringify(l); };
-    ListWrapper.maximum = function (list, predicate) {
-        if (list.length == 0) {
-            return null;
-        }
-        var solution = null;
-        var maxValue = -Infinity;
-        for (var index = 0; index < list.length; index++) {
-            var candidate = list[index];
-            if (lang_1.isBlank(candidate)) {
-                continue;
-            }
-            var candidateValue = predicate(candidate);
-            if (candidateValue > maxValue) {
-                solution = candidate;
-                maxValue = candidateValue;
-            }
-        }
-        return solution;
-    };
-    ListWrapper.flatten = function (list) {
-        var target = [];
-        _flattenArray(list, target);
-        return target;
-    };
-    ListWrapper.addAll = function (list, source) {
-        for (var i = 0; i < source.length; i++) {
-            list.push(source[i]);
-        }
-    };
-    return ListWrapper;
-}());
-exports.ListWrapper = ListWrapper;
-function _flattenArray(source, target) {
-    if (lang_1.isPresent(source)) {
-        for (var i = 0; i < source.length; i++) {
-            var item = source[i];
-            if (lang_1.isArray(item)) {
-                _flattenArray(item, target);
-            }
-            else {
-                target.push(item);
-            }
-        }
-    }
-    return target;
-}
-function isListLikeIterable(obj) {
-    if (!lang_1.isJsObject(obj))
-        return false;
-    return lang_1.isArray(obj) ||
-        (!(obj instanceof exports.Map) &&
-            lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
-}
-exports.isListLikeIterable = isListLikeIterable;
-function areIterablesEqual(a, b, comparator) {
-    var iterator1 = a[lang_1.getSymbolIterator()]();
-    var iterator2 = b[lang_1.getSymbolIterator()]();
-    while (true) {
-        var item1 = iterator1.next();
-        var item2 = iterator2.next();
-        if (item1.done && item2.done)
-            return true;
-        if (item1.done || item2.done)
-            return false;
-        if (!comparator(item1.value, item2.value))
-            return false;
-    }
-}
-exports.areIterablesEqual = areIterablesEqual;
-function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
-        for (var i = 0; i < obj.length; i++) {
-            fn(obj[i]);
-        }
-    }
-    else {
-        var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
-        while (!((item = iterator.next()).done)) {
-            fn(item.value);
-        }
-    }
-}
-exports.iterateListLike = iterateListLike;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Set constructor.  We work around that by manually adding the items.
-var createSetFromList = (function () {
-    var test = new exports.Set([1, 2, 3]);
-    if (test.size === 3) {
-        return function createSetFromList(lst) { return new exports.Set(lst); };
-    }
-    else {
-        return function createSetAndPopulateFromList(lst) {
-            var res = new exports.Set(lst);
-            if (res.size !== lst.length) {
-                for (var i = 0; i < lst.length; i++) {
-                    res.add(lst[i]);
-                }
-            }
-            return res;
-        };
-    }
-})();
-var SetWrapper = (function () {
-    function SetWrapper() {
-    }
-    SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-    SetWrapper.has = function (s, key) { return s.has(key); };
-    SetWrapper.delete = function (m, k) { m.delete(k); };
-    return SetWrapper;
-}());
-exports.SetWrapper = SetWrapper;
-//# sourceMappingURL=collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\facade\\collection.js","/..\\node_modules\\@angular\\forms\\src\\facade")
-},{"./lang":310,"2ionoC":410,"buffer":409}],308:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var collection_1 = require('./collection');
-var lang_1 = require('./lang');
-var _ArrayLogger = (function () {
-    function _ArrayLogger() {
-        this.res = [];
-    }
-    _ArrayLogger.prototype.log = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logError = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroup = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroupEnd = function () { };
-    ;
-    return _ArrayLogger;
-}());
-/**
- * Provides a hook for centralized exception handling.
- *
- * The default implementation of `ExceptionHandler` prints error messages to the `Console`. To
- * intercept error handling,
- * write a custom exception handler that replaces this default as appropriate for your app.
- *
- * ### Example
- *
- * ```javascript
- *
- * class MyExceptionHandler implements ExceptionHandler {
- *   call(error, stackTrace = null, reason = null) {
- *     // do something with the exception
- *   }
- * }
- *
- * bootstrap(MyApp, {provide: ExceptionHandler, useClass: MyExceptionHandler}])
- *
- * ```
- * @stable
- */
-var ExceptionHandler = (function () {
-    function ExceptionHandler(_logger, _rethrowException) {
-        if (_rethrowException === void 0) { _rethrowException = true; }
-        this._logger = _logger;
-        this._rethrowException = _rethrowException;
-    }
-    ExceptionHandler.exceptionToString = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var l = new _ArrayLogger();
-        var e = new ExceptionHandler(l, false);
-        e.call(exception, stackTrace, reason);
-        return l.res.join('\n');
-    };
-    ExceptionHandler.prototype.call = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var originalException = this._findOriginalException(exception);
-        var originalStack = this._findOriginalStack(exception);
-        var context = this._findContext(exception);
-        this._logger.logGroup("EXCEPTION: " + this._extractMessage(exception));
-        if (lang_1.isPresent(stackTrace) && lang_1.isBlank(originalStack)) {
-            this._logger.logError('STACKTRACE:');
-            this._logger.logError(this._longStackTrace(stackTrace));
-        }
-        if (lang_1.isPresent(reason)) {
-            this._logger.logError("REASON: " + reason);
-        }
-        if (lang_1.isPresent(originalException)) {
-            this._logger.logError("ORIGINAL EXCEPTION: " + this._extractMessage(originalException));
-        }
-        if (lang_1.isPresent(originalStack)) {
-            this._logger.logError('ORIGINAL STACKTRACE:');
-            this._logger.logError(this._longStackTrace(originalStack));
-        }
-        if (lang_1.isPresent(context)) {
-            this._logger.logError('ERROR CONTEXT:');
-            this._logger.logError(context);
-        }
-        this._logger.logGroupEnd();
-        // We rethrow exceptions, so operations like 'bootstrap' will result in an error
-        // when an exception happens. If we do not rethrow, bootstrap will always succeed.
-        if (this._rethrowException)
-            throw exception;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._extractMessage = function (exception) {
-        return exception instanceof base_wrapped_exception_1.BaseWrappedException ? exception.wrapperMessage :
-            exception.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._longStackTrace = function (stackTrace) {
-        return collection_1.isListLikeIterable(stackTrace) ? stackTrace.join('\n\n-----async gap-----\n') :
-            stackTrace.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findContext = function (exception) {
-        try {
-            if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-                return null;
-            return lang_1.isPresent(exception.context) ? exception.context :
-                this._findContext(exception.originalException);
-        }
-        catch (e) {
-            // exception.context can throw an exception. if it happens, we ignore the context.
-            return null;
-        }
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalException = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception.originalException;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-        }
-        return e;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalStack = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception;
-        var stack = exception.originalStack;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-            if (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-                stack = e.originalStack;
-            }
-        }
-        return stack;
-    };
-    return ExceptionHandler;
-}());
-exports.ExceptionHandler = ExceptionHandler;
-//# sourceMappingURL=exception_handler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\facade\\exception_handler.js","/..\\node_modules\\@angular\\forms\\src\\facade")
-},{"./base_wrapped_exception":306,"./collection":307,"./lang":310,"2ionoC":410,"buffer":409}],309:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var exception_handler_1 = require('./exception_handler');
-var exception_handler_2 = require('./exception_handler');
-exports.ExceptionHandler = exception_handler_2.ExceptionHandler;
-/**
- * @stable
- */
-var BaseException = (function (_super) {
-    __extends(BaseException, _super);
-    function BaseException(message) {
-        if (message === void 0) { message = '--'; }
-        _super.call(this, message);
-        this.message = message;
-        this.stack = (new Error(message)).stack;
-    }
-    BaseException.prototype.toString = function () { return this.message; };
-    return BaseException;
-}(Error));
-exports.BaseException = BaseException;
-/**
- * Wraps an exception and provides additional context or information.
- * @stable
- */
-var WrappedException = (function (_super) {
-    __extends(WrappedException, _super);
-    function WrappedException(_wrapperMessage, _originalException /** TODO #9100 */, _originalStack /** TODO #9100 */, _context /** TODO #9100 */) {
-        _super.call(this, _wrapperMessage);
-        this._wrapperMessage = _wrapperMessage;
-        this._originalException = _originalException;
-        this._originalStack = _originalStack;
-        this._context = _context;
-        this._wrapperStack = (new Error(_wrapperMessage)).stack;
-    }
-    Object.defineProperty(WrappedException.prototype, "wrapperMessage", {
-        get: function () { return this._wrapperMessage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "wrapperStack", {
-        get: function () { return this._wrapperStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalException", {
-        get: function () { return this._originalException; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalStack", {
-        get: function () { return this._originalStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "context", {
-        get: function () { return this._context; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "message", {
-        get: function () { return exception_handler_1.ExceptionHandler.exceptionToString(this); },
-        enumerable: true,
-        configurable: true
-    });
-    WrappedException.prototype.toString = function () { return this.message; };
-    return WrappedException;
-}(base_wrapped_exception_1.BaseWrappedException));
-exports.WrappedException = WrappedException;
-function makeTypeError(message) {
-    return new TypeError(message);
-}
-exports.makeTypeError = makeTypeError;
-function unimplemented() {
-    throw new BaseException('unimplemented');
-}
-exports.unimplemented = unimplemented;
-//# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\facade\\exceptions.js","/..\\node_modules\\@angular\\forms\\src\\facade")
-},{"./base_wrapped_exception":306,"./exception_handler":308,"2ionoC":410,"buffer":409}],310:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    }
-    else {
-        globalScope = global;
-    }
-}
-else {
-    globalScope = window;
-}
-function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-}
-exports.scheduleMicroTask = scheduleMicroTask;
-exports.IS_DART = false;
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var _global = globalScope;
-exports.global = _global;
-/**
- * Runtime representation a type that a Component or other object is instances of.
- *
- * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
- * the `MyCustomComponent` constructor function.
- *
- * @stable
- */
-exports.Type = Function;
-function getTypeNameForDebugging(type) {
-    if (type['name']) {
-        return type['name'];
-    }
-    return typeof type;
-}
-exports.getTypeNameForDebugging = getTypeNameForDebugging;
-exports.Math = _global.Math;
-exports.Date = _global.Date;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-function isPresent(obj) {
-    return obj !== undefined && obj !== null;
-}
-exports.isPresent = isPresent;
-function isBlank(obj) {
-    return obj === undefined || obj === null;
-}
-exports.isBlank = isBlank;
-function isBoolean(obj) {
-    return typeof obj === 'boolean';
-}
-exports.isBoolean = isBoolean;
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-exports.isNumber = isNumber;
-function isString(obj) {
-    return typeof obj === 'string';
-}
-exports.isString = isString;
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-exports.isFunction = isFunction;
-function isType(obj) {
-    return isFunction(obj);
-}
-exports.isType = isType;
-function isStringMap(obj) {
-    return typeof obj === 'object' && obj !== null;
-}
-exports.isStringMap = isStringMap;
-var STRING_MAP_PROTO = Object.getPrototypeOf({});
-function isStrictStringMap(obj) {
-    return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
-}
-exports.isStrictStringMap = isStrictStringMap;
-function isPromise(obj) {
-    return obj instanceof _global.Promise;
-}
-exports.isPromise = isPromise;
-function isArray(obj) {
-    return Array.isArray(obj);
-}
-exports.isArray = isArray;
-function isDate(obj) {
-    return obj instanceof exports.Date && !isNaN(obj.valueOf());
-}
-exports.isDate = isDate;
-function noop() { }
-exports.noop = noop;
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token === undefined || token === null) {
-        return '' + token;
-    }
-    if (token.name) {
-        return token.name;
-    }
-    if (token.overriddenName) {
-        return token.overriddenName;
-    }
-    var res = token.toString();
-    var newLineIndex = res.indexOf('\n');
-    return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
-}
-exports.stringify = stringify;
-// serialize / deserialize enum exist only for consistency with dart API
-// enums in typescript don't need to be serialized
-function serializeEnum(val) {
-    return val;
-}
-exports.serializeEnum = serializeEnum;
-function deserializeEnum(val, values) {
-    return val;
-}
-exports.deserializeEnum = deserializeEnum;
-function resolveEnumToken(enumValue, val) {
-    return enumValue[val];
-}
-exports.resolveEnumToken = resolveEnumToken;
-var StringWrapper = (function () {
-    function StringWrapper() {
-    }
-    StringWrapper.fromCharCode = function (code) { return String.fromCharCode(code); };
-    StringWrapper.charCodeAt = function (s, index) { return s.charCodeAt(index); };
-    StringWrapper.split = function (s, regExp) { return s.split(regExp); };
-    StringWrapper.equals = function (s, s2) { return s === s2; };
-    StringWrapper.stripLeft = function (s, charVal) {
-        if (s && s.length) {
-            var pos = 0;
-            for (var i = 0; i < s.length; i++) {
-                if (s[i] != charVal)
-                    break;
-                pos++;
-            }
-            s = s.substring(pos);
-        }
-        return s;
-    };
-    StringWrapper.stripRight = function (s, charVal) {
-        if (s && s.length) {
-            var pos = s.length;
-            for (var i = s.length - 1; i >= 0; i--) {
-                if (s[i] != charVal)
-                    break;
-                pos--;
-            }
-            s = s.substring(0, pos);
-        }
-        return s;
-    };
-    StringWrapper.replace = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.replaceAll = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.slice = function (s, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return s.slice(from, to === null ? undefined : to);
-    };
-    StringWrapper.replaceAllMapped = function (s, from, cb) {
-        return s.replace(from, function () {
-            var matches = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                matches[_i - 0] = arguments[_i];
-            }
-            // Remove offset & string from the result array
-            matches.splice(-2, 2);
-            // The callback receives match, p1, ..., pn
-            return cb(matches);
-        });
-    };
-    StringWrapper.contains = function (s, substr) { return s.indexOf(substr) != -1; };
-    StringWrapper.compare = function (a, b) {
-        if (a < b) {
-            return -1;
-        }
-        else if (a > b) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    };
-    return StringWrapper;
-}());
-exports.StringWrapper = StringWrapper;
-var StringJoiner = (function () {
-    function StringJoiner(parts) {
-        if (parts === void 0) { parts = []; }
-        this.parts = parts;
-    }
-    StringJoiner.prototype.add = function (part) { this.parts.push(part); };
-    StringJoiner.prototype.toString = function () { return this.parts.join(''); };
-    return StringJoiner;
-}());
-exports.StringJoiner = StringJoiner;
-var NumberParseError = (function (_super) {
-    __extends(NumberParseError, _super);
-    function NumberParseError(message) {
-        _super.call(this);
-        this.message = message;
-    }
-    NumberParseError.prototype.toString = function () { return this.message; };
-    return NumberParseError;
-}(Error));
-exports.NumberParseError = NumberParseError;
-var NumberWrapper = (function () {
-    function NumberWrapper() {
-    }
-    NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
-    NumberWrapper.equal = function (a, b) { return a === b; };
-    NumberWrapper.parseIntAutoRadix = function (text) {
-        var result = parseInt(text);
-        if (isNaN(result)) {
-            throw new NumberParseError('Invalid integer literal when parsing ' + text);
-        }
-        return result;
-    };
-    NumberWrapper.parseInt = function (text, radix) {
-        if (radix == 10) {
-            if (/^(\-|\+)?[0-9]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else if (radix == 16) {
-            if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else {
-            var result = parseInt(text, radix);
-            if (!isNaN(result)) {
-                return result;
-            }
-        }
-        throw new NumberParseError('Invalid integer literal when parsing ' + text + ' in base ' + radix);
-    };
-    // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
-    NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
-    Object.defineProperty(NumberWrapper, "NaN", {
-        get: function () { return NaN; },
-        enumerable: true,
-        configurable: true
-    });
-    NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    NumberWrapper.isNaN = function (value) { return isNaN(value); };
-    NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
-    return NumberWrapper;
-}());
-exports.NumberWrapper = NumberWrapper;
-exports.RegExp = _global.RegExp;
-var RegExpWrapper = (function () {
-    function RegExpWrapper() {
-    }
-    RegExpWrapper.create = function (regExpStr, flags) {
-        if (flags === void 0) { flags = ''; }
-        flags = flags.replace(/g/g, '');
-        return new _global.RegExp(regExpStr, flags + 'g');
-    };
-    RegExpWrapper.firstMatch = function (regExp, input) {
-        // Reset multimatch regex state
-        regExp.lastIndex = 0;
-        return regExp.exec(input);
-    };
-    RegExpWrapper.test = function (regExp, input) {
-        regExp.lastIndex = 0;
-        return regExp.test(input);
-    };
-    RegExpWrapper.matcher = function (regExp, input) {
-        // Reset regex state for the case
-        // someone did not loop over all matches
-        // last time.
-        regExp.lastIndex = 0;
-        return { re: regExp, input: input };
-    };
-    RegExpWrapper.replaceAll = function (regExp, input, replace) {
-        var c = regExp.exec(input);
-        var res = '';
-        regExp.lastIndex = 0;
-        var prev = 0;
-        while (c) {
-            res += input.substring(prev, c.index);
-            res += replace(c);
-            prev = c.index + c[0].length;
-            regExp.lastIndex = prev;
-            c = regExp.exec(input);
-        }
-        res += input.substring(prev);
-        return res;
-    };
-    return RegExpWrapper;
-}());
-exports.RegExpWrapper = RegExpWrapper;
-var RegExpMatcherWrapper = (function () {
-    function RegExpMatcherWrapper() {
-    }
-    RegExpMatcherWrapper.next = function (matcher) {
-        return matcher.re.exec(matcher.input);
-    };
-    return RegExpMatcherWrapper;
-}());
-exports.RegExpMatcherWrapper = RegExpMatcherWrapper;
-var FunctionWrapper = (function () {
-    function FunctionWrapper() {
-    }
-    FunctionWrapper.apply = function (fn, posArgs) { return fn.apply(null, posArgs); };
-    FunctionWrapper.bind = function (fn, scope) { return fn.bind(scope); };
-    return FunctionWrapper;
-}());
-exports.FunctionWrapper = FunctionWrapper;
-// JS has NaN !== NaN
-function looseIdentical(a, b) {
-    return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
-}
-exports.looseIdentical = looseIdentical;
-// JS considers NaN is the same as NaN for map Key (while NaN !== NaN otherwise)
-// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-function getMapKey(value) {
-    return value;
-}
-exports.getMapKey = getMapKey;
-function normalizeBlank(obj) {
-    return isBlank(obj) ? null : obj;
-}
-exports.normalizeBlank = normalizeBlank;
-function normalizeBool(obj) {
-    return isBlank(obj) ? false : obj;
-}
-exports.normalizeBool = normalizeBool;
-function isJsObject(o) {
-    return o !== null && (typeof o === 'function' || typeof o === 'object');
-}
-exports.isJsObject = isJsObject;
-function print(obj) {
-    console.log(obj);
-}
-exports.print = print;
-function warn(obj) {
-    console.warn(obj);
-}
-exports.warn = warn;
-// Can't be all uppercase as our transpiler would think it is a special directive...
-var Json = (function () {
-    function Json() {
-    }
-    Json.parse = function (s) { return _global.JSON.parse(s); };
-    Json.stringify = function (data) {
-        // Dart doesn't take 3 arguments
-        return _global.JSON.stringify(data, null, 2);
-    };
-    return Json;
-}());
-exports.Json = Json;
-var DateWrapper = (function () {
-    function DateWrapper() {
-    }
-    DateWrapper.create = function (year, month, day, hour, minutes, seconds, milliseconds) {
-        if (month === void 0) { month = 1; }
-        if (day === void 0) { day = 1; }
-        if (hour === void 0) { hour = 0; }
-        if (minutes === void 0) { minutes = 0; }
-        if (seconds === void 0) { seconds = 0; }
-        if (milliseconds === void 0) { milliseconds = 0; }
-        return new exports.Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
-    };
-    DateWrapper.fromISOString = function (str) { return new exports.Date(str); };
-    DateWrapper.fromMillis = function (ms) { return new exports.Date(ms); };
-    DateWrapper.toMillis = function (date) { return date.getTime(); };
-    DateWrapper.now = function () { return new exports.Date(); };
-    DateWrapper.toJson = function (date) { return date.toJSON(); };
-    return DateWrapper;
-}());
-exports.DateWrapper = DateWrapper;
-function setValueOnPath(global, path, value) {
-    var parts = path.split('.');
-    var obj = global;
-    while (parts.length > 1) {
-        var name = parts.shift();
-        if (obj.hasOwnProperty(name) && isPresent(obj[name])) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-exports.setValueOnPath = setValueOnPath;
-var _symbolIterator = null;
-function getSymbolIterator() {
-    if (isBlank(_symbolIterator)) {
-        if (isPresent(globalScope.Symbol) && isPresent(Symbol.iterator)) {
-            _symbolIterator = Symbol.iterator;
-        }
-        else {
-            // es6-shim specific logic
-            var keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var i = 0; i < keys.length; ++i) {
-                var key = keys[i];
-                if (key !== 'entries' && key !== 'size' &&
-                    Map.prototype[key] === Map.prototype['entries']) {
-                    _symbolIterator = key;
-                }
-            }
-        }
-    }
-    return _symbolIterator;
-}
-exports.getSymbolIterator = getSymbolIterator;
-function evalExpression(sourceUrl, expr, declarations, vars) {
-    var fnBody = declarations + "\nreturn " + expr + "\n//# sourceURL=" + sourceUrl;
-    var fnArgNames = [];
-    var fnArgValues = [];
-    for (var argName in vars) {
-        fnArgNames.push(argName);
-        fnArgValues.push(vars[argName]);
-    }
-    return new (Function.bind.apply(Function, [void 0].concat(fnArgNames.concat(fnBody))))().apply(void 0, fnArgValues);
-}
-exports.evalExpression = evalExpression;
-function isPrimitive(obj) {
-    return !isJsObject(obj);
-}
-exports.isPrimitive = isPrimitive;
-function hasConstructor(value, type) {
-    return value.constructor === type;
-}
-exports.hasConstructor = hasConstructor;
-function escape(s) {
-    return _global.encodeURI(s);
-}
-exports.escape = escape;
-function escapeRegExp(s) {
-    return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-}
-exports.escapeRegExp = escapeRegExp;
-//# sourceMappingURL=lang.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\facade\\lang.js","/..\\node_modules\\@angular\\forms\\src\\facade")
-},{"2ionoC":410,"buffer":409}],311:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var PromiseCompleter = (function () {
-    function PromiseCompleter() {
-        var _this = this;
-        this.promise = new Promise(function (res, rej) {
-            _this.resolve = res;
-            _this.reject = rej;
-        });
-    }
-    return PromiseCompleter;
-}());
-exports.PromiseCompleter = PromiseCompleter;
-var PromiseWrapper = (function () {
-    function PromiseWrapper() {
-    }
-    PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-    PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
-    // Note: We can't rename this method into `catch`, as this is not a valid
-    // method name in Dart.
-    PromiseWrapper.catchError = function (promise, onError) {
-        return promise.catch(onError);
-    };
-    PromiseWrapper.all = function (promises) {
-        if (promises.length == 0)
-            return Promise.resolve([]);
-        return Promise.all(promises);
-    };
-    PromiseWrapper.then = function (promise, success, rejection) {
-        return promise.then(success, rejection);
-    };
-    PromiseWrapper.wrap = function (computation) {
-        return new Promise(function (res, rej) {
-            try {
-                res(computation());
-            }
-            catch (e) {
-                rej(e);
-            }
-        });
-    };
-    PromiseWrapper.scheduleMicrotask = function (computation) {
-        PromiseWrapper.then(PromiseWrapper.resolve(null), computation, function (_) { });
-    };
-    PromiseWrapper.completer = function () { return new PromiseCompleter(); };
-    return PromiseWrapper;
-}());
-exports.PromiseWrapper = PromiseWrapper;
-//# sourceMappingURL=promise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\facade\\promise.js","/..\\node_modules\\@angular\\forms\\src\\facade")
-},{"2ionoC":410,"buffer":409}],312:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":310,"../validators":316,"@angular/core":191}],305:[function(require,module,exports){
+module.exports=require(55)
+},{"./lang":310,"./promise":311,"rxjs/Observable":408,"rxjs/Subject":410,"rxjs/observable/PromiseObservable":415,"rxjs/operator/toPromise":416}],306:[function(require,module,exports){
+module.exports=require(56)
+},{}],307:[function(require,module,exports){
+module.exports=require(57)
+},{"./lang":310}],308:[function(require,module,exports){
+module.exports=require(58)
+},{"./base_wrapped_exception":306,"./collection":307,"./lang":310}],309:[function(require,module,exports){
+module.exports=require(59)
+},{"./base_wrapped_exception":306,"./exception_handler":308}],310:[function(require,module,exports){
+module.exports=require(61)
+},{}],311:[function(require,module,exports){
+module.exports=require(62)
+},{}],312:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -47599,9 +42856,7 @@ var FormBuilder = (function () {
 }());
 exports.FormBuilder = FormBuilder;
 //# sourceMappingURL=form_builder.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\form_builder.js","/..\\node_modules\\@angular\\forms\\src")
-},{"./facade/collection":307,"./facade/lang":310,"./model":315,"2ionoC":410,"@angular/core":191,"buffer":409}],313:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./facade/collection":307,"./facade/lang":310,"./model":315,"@angular/core":191}],313:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -47666,9 +42921,7 @@ function provideForms() {
 }
 exports.provideForms = provideForms;
 //# sourceMappingURL=form_providers.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\form_providers.js","/..\\node_modules\\@angular\\forms\\src")
-},{"./directives":281,"./directives/radio_control_value_accessor":295,"./facade/collection":307,"./form_builder":312,"2ionoC":410,"@angular/common":44,"@angular/compiler":110,"@angular/core":191,"buffer":409}],314:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./directives":281,"./directives/radio_control_value_accessor":295,"./facade/collection":307,"./form_builder":312,"@angular/common":44,"@angular/compiler":110,"@angular/core":191}],314:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -47747,9 +43000,7 @@ exports.NG_VALIDATORS = validators_2.NG_VALIDATORS;
 exports.Validators = validators_2.Validators;
 __export(require('./form_providers'));
 //# sourceMappingURL=forms.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\forms.js","/..\\node_modules\\@angular\\forms\\src")
-},{"./directives":281,"./directives/abstract_control_directive":282,"./directives/checkbox_value_accessor":284,"./directives/control_container":285,"./directives/control_value_accessor":286,"./directives/default_value_accessor":287,"./directives/ng_control":288,"./directives/ng_control_status":289,"./directives/ng_form":290,"./directives/ng_model":291,"./directives/ng_model_group":292,"./directives/reactive_directives/form_array_name":296,"./directives/reactive_directives/form_control_directive":297,"./directives/reactive_directives/form_control_name":298,"./directives/reactive_directives/form_group_directive":299,"./directives/reactive_directives/form_group_name":300,"./directives/select_control_value_accessor":301,"./directives/validators":304,"./form_builder":312,"./form_providers":313,"./model":315,"./validators":316,"2ionoC":410,"buffer":409}],315:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./directives":281,"./directives/abstract_control_directive":282,"./directives/checkbox_value_accessor":284,"./directives/control_container":285,"./directives/control_value_accessor":286,"./directives/default_value_accessor":287,"./directives/ng_control":288,"./directives/ng_control_status":289,"./directives/ng_form":290,"./directives/ng_model":291,"./directives/ng_model_group":292,"./directives/reactive_directives/form_array_name":296,"./directives/reactive_directives/form_control_directive":297,"./directives/reactive_directives/form_control_name":298,"./directives/reactive_directives/form_group_directive":299,"./directives/reactive_directives/form_group_name":300,"./directives/select_control_value_accessor":301,"./directives/validators":304,"./form_builder":312,"./form_providers":313,"./model":315,"./validators":316}],315:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -48294,9 +43545,7 @@ var FormArray = (function (_super) {
 }(AbstractControl));
 exports.FormArray = FormArray;
 //# sourceMappingURL=model.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\model.js","/..\\node_modules\\@angular\\forms\\src")
-},{"./directives/shared":303,"./facade/async":305,"./facade/collection":307,"./facade/lang":310,"2ionoC":410,"buffer":409}],316:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./directives/shared":303,"./facade/async":305,"./facade/collection":307,"./facade/lang":310}],316:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -48445,9 +43694,7 @@ function _mergeErrors(arrayOfErrors) {
     return collection_1.StringMapWrapper.isEmpty(res) ? null : res;
 }
 //# sourceMappingURL=validators.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\forms\\src\\validators.js","/..\\node_modules\\@angular\\forms\\src")
-},{"./facade/async":305,"./facade/collection":307,"./facade/lang":310,"./facade/promise":311,"2ionoC":410,"@angular/core":191,"buffer":409}],317:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./facade/async":305,"./facade/collection":307,"./facade/lang":310,"./facade/promise":311,"@angular/core":191}],317:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -48795,9 +44042,7 @@ function jsonpFactory(jsonpBackend, requestOptions) {
  */
 exports.JSON_BINDINGS = exports.JSONP_PROVIDERS;
 //# sourceMappingURL=http.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\http.js","/..\\node_modules\\@angular\\http")
-},{"./src/backends/browser_jsonp":319,"./src/backends/browser_xhr":320,"./src/backends/jsonp_backend":321,"./src/backends/xhr_backend":322,"./src/base_request_options":323,"./src/base_response_options":324,"./src/enums":325,"./src/headers":331,"./src/http":332,"./src/interfaces":334,"./src/static_request":335,"./src/static_response":336,"./src/url_search_params":337,"2ionoC":410,"buffer":409}],318:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./src/backends/browser_jsonp":319,"./src/backends/browser_xhr":320,"./src/backends/jsonp_backend":321,"./src/backends/xhr_backend":322,"./src/base_request_options":323,"./src/base_response_options":324,"./src/enums":325,"./src/headers":331,"./src/http":332,"./src/interfaces":334,"./src/static_request":335,"./src/static_response":336,"./src/url_search_params":337}],318:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -48811,9 +44056,7 @@ function __export(m) {
 }
 __export(require('./http'));
 //# sourceMappingURL=index.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\index.js","/..\\node_modules\\@angular\\http")
-},{"./http":317,"2ionoC":410,"buffer":409}],319:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./http":317}],319:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -48868,9 +44111,7 @@ var BrowserJsonp = (function () {
 }());
 exports.BrowserJsonp = BrowserJsonp;
 //# sourceMappingURL=browser_jsonp.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\backends\\browser_jsonp.js","/..\\node_modules\\@angular\\http\\src\\backends")
-},{"../facade/lang":330,"2ionoC":410,"@angular/core":191,"buffer":409}],320:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":330,"@angular/core":191}],320:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -48894,9 +44135,7 @@ var BrowserXhr = (function () {
 }());
 exports.BrowserXhr = BrowserXhr;
 //# sourceMappingURL=browser_xhr.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\backends\\browser_xhr.js","/..\\node_modules\\@angular\\http\\src\\backends")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],321:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],321:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -49050,9 +44289,7 @@ var JSONPBackend_ = (function (_super) {
 }(JSONPBackend));
 exports.JSONPBackend_ = JSONPBackend_;
 //# sourceMappingURL=jsonp_backend.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\backends\\jsonp_backend.js","/..\\node_modules\\@angular\\http\\src\\backends")
-},{"../base_response_options":324,"../enums":325,"../facade/exceptions":329,"../facade/lang":330,"../interfaces":334,"../static_response":336,"./browser_jsonp":319,"2ionoC":410,"@angular/core":191,"buffer":409,"rxjs/Observable":412}],322:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../base_response_options":324,"../enums":325,"../facade/exceptions":329,"../facade/lang":330,"../interfaces":334,"../static_response":336,"./browser_jsonp":319,"@angular/core":191,"rxjs/Observable":408}],322:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -49234,9 +44471,7 @@ var XHRBackend = (function () {
 }());
 exports.XHRBackend = XHRBackend;
 //# sourceMappingURL=xhr_backend.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\backends\\xhr_backend.js","/..\\node_modules\\@angular\\http\\src\\backends")
-},{"../base_response_options":324,"../enums":325,"../facade/lang":330,"../headers":331,"../http_utils":333,"../interfaces":334,"../static_response":336,"./browser_xhr":320,"2ionoC":410,"@angular/core":191,"@angular/platform-browser":350,"buffer":409,"rxjs/Observable":412}],323:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../base_response_options":324,"../enums":325,"../facade/lang":330,"../headers":331,"../http_utils":333,"../interfaces":334,"../static_response":336,"./browser_xhr":320,"@angular/core":191,"@angular/platform-browser":350,"rxjs/Observable":408}],323:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -49352,9 +44587,7 @@ var BaseRequestOptions = (function (_super) {
 }(RequestOptions));
 exports.BaseRequestOptions = BaseRequestOptions;
 //# sourceMappingURL=base_request_options.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\base_request_options.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/lang":330,"./enums":325,"./headers":331,"./http_utils":333,"./url_search_params":337,"2ionoC":410,"@angular/core":191,"buffer":409}],324:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":330,"./enums":325,"./headers":331,"./http_utils":333,"./url_search_params":337,"@angular/core":191}],324:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -49464,9 +44697,7 @@ var BaseResponseOptions = (function (_super) {
 }(ResponseOptions));
 exports.BaseResponseOptions = BaseResponseOptions;
 //# sourceMappingURL=base_response_options.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\base_response_options.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/lang":330,"./enums":325,"./headers":331,"2ionoC":410,"@angular/core":191,"buffer":409}],325:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":330,"./enums":325,"./headers":331,"@angular/core":191}],325:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -49532,1150 +44763,17 @@ var ResponseType = exports.ResponseType;
 })(exports.ContentType || (exports.ContentType = {}));
 var ContentType = exports.ContentType;
 //# sourceMappingURL=enums.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\enums.js","/..\\node_modules\\@angular\\http\\src")
-},{"2ionoC":410,"buffer":409}],326:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * A base class for the WrappedException that can be used to identify
- * a WrappedException from ExceptionHandler without adding circular
- * dependency.
- */
-var BaseWrappedException = (function (_super) {
-    __extends(BaseWrappedException, _super);
-    function BaseWrappedException(message) {
-        _super.call(this, message);
-    }
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperMessage", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalException", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "context", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "message", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    return BaseWrappedException;
-}(Error));
-exports.BaseWrappedException = BaseWrappedException;
-//# sourceMappingURL=base_wrapped_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\facade\\base_wrapped_exception.js","/..\\node_modules\\@angular\\http\\src\\facade")
-},{"2ionoC":410,"buffer":409}],327:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var lang_1 = require('./lang');
-exports.Map = lang_1.global.Map;
-exports.Set = lang_1.global.Set;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
-var createMapFromPairs = (function () {
-    try {
-        if (new exports.Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new exports.Map(pairs); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromPairs(pairs) {
-        var map = new exports.Map();
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i];
-            map.set(pair[0], pair[1]);
-        }
-        return map;
-    };
-})();
-var createMapFromMap = (function () {
-    try {
-        if (new exports.Map(new exports.Map())) {
-            return function createMapFromMap(m) { return new exports.Map(m); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromMap(m) {
-        var map = new exports.Map();
-        m.forEach(function (v, k) { map.set(k, v); });
-        return map;
-    };
-})();
-var _clearValues = (function () {
-    if ((new exports.Map()).keys().next) {
-        return function _clearValues(m) {
-            var keyIterator = m.keys();
-            var k;
-            while (!((k = keyIterator.next()).done)) {
-                m.set(k.value, null);
-            }
-        };
-    }
-    else {
-        return function _clearValuesWithForeEach(m) {
-            m.forEach(function (v, k) { m.set(k, null); });
-        };
-    }
-})();
-// Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
-// TODO(mlaval): remove the work around once we have a working polyfill of Array.from
-var _arrayFromMap = (function () {
-    try {
-        if ((new exports.Map()).values().next) {
-            return function createArrayFromMap(m, getValues) {
-                return getValues ? Array.from(m.values()) : Array.from(m.keys());
-            };
-        }
-    }
-    catch (e) {
-    }
-    return function createArrayFromMapWithForeach(m, getValues) {
-        var res = ListWrapper.createFixedSize(m.size), i = 0;
-        m.forEach(function (v, k) {
-            res[i] = getValues ? v : k;
-            i++;
-        });
-        return res;
-    };
-})();
-var MapWrapper = (function () {
-    function MapWrapper() {
-    }
-    MapWrapper.clone = function (m) { return createMapFromMap(m); };
-    MapWrapper.createFromStringMap = function (stringMap) {
-        var result = new exports.Map();
-        for (var prop in stringMap) {
-            result.set(prop, stringMap[prop]);
-        }
-        return result;
-    };
-    MapWrapper.toStringMap = function (m) {
-        var r = {};
-        m.forEach(function (v, k) { return r[k] = v; });
-        return r;
-    };
-    MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.clearValues = function (m) { _clearValues(m); };
-    MapWrapper.iterable = function (m) { return m; };
-    MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
-    MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
-    return MapWrapper;
-}());
-exports.MapWrapper = MapWrapper;
-/**
- * Wraps Javascript Objects
- */
-var StringMapWrapper = (function () {
-    function StringMapWrapper() {
-    }
-    StringMapWrapper.create = function () {
-        // Note: We are not using Object.create(null) here due to
-        // performance!
-        // http://jsperf.com/ng2-object-create-null
-        return {};
-    };
-    StringMapWrapper.contains = function (map, key) {
-        return map.hasOwnProperty(key);
-    };
-    StringMapWrapper.get = function (map, key) {
-        return map.hasOwnProperty(key) ? map[key] : undefined;
-    };
-    StringMapWrapper.set = function (map, key, value) { map[key] = value; };
-    StringMapWrapper.keys = function (map) { return Object.keys(map); };
-    StringMapWrapper.values = function (map) {
-        return Object.keys(map).reduce(function (r, a) {
-            r.push(map[a]);
-            return r;
-        }, []);
-    };
-    StringMapWrapper.isEmpty = function (map) {
-        for (var prop in map) {
-            return false;
-        }
-        return true;
-    };
-    StringMapWrapper.delete = function (map, key) { delete map[key]; };
-    StringMapWrapper.forEach = function (map, callback) {
-        for (var prop in map) {
-            if (map.hasOwnProperty(prop)) {
-                callback(map[prop], prop);
-            }
-        }
-    };
-    StringMapWrapper.merge = function (m1, m2) {
-        var m = {};
-        for (var attr in m1) {
-            if (m1.hasOwnProperty(attr)) {
-                m[attr] = m1[attr];
-            }
-        }
-        for (var attr in m2) {
-            if (m2.hasOwnProperty(attr)) {
-                m[attr] = m2[attr];
-            }
-        }
-        return m;
-    };
-    StringMapWrapper.equals = function (m1, m2) {
-        var k1 = Object.keys(m1);
-        var k2 = Object.keys(m2);
-        if (k1.length != k2.length) {
-            return false;
-        }
-        var key;
-        for (var i = 0; i < k1.length; i++) {
-            key = k1[i];
-            if (m1[key] !== m2[key]) {
-                return false;
-            }
-        }
-        return true;
-    };
-    return StringMapWrapper;
-}());
-exports.StringMapWrapper = StringMapWrapper;
-var ListWrapper = (function () {
-    function ListWrapper() {
-    }
-    // JS has no way to express a statically fixed size list, but dart does so we
-    // keep both methods.
-    ListWrapper.createFixedSize = function (size) { return new Array(size); };
-    ListWrapper.createGrowableSize = function (size) { return new Array(size); };
-    ListWrapper.clone = function (array) { return array.slice(0); };
-    ListWrapper.forEachWithIndex = function (array, fn) {
-        for (var i = 0; i < array.length; i++) {
-            fn(array[i], i);
-        }
-    };
-    ListWrapper.first = function (array) {
-        if (!array)
-            return null;
-        return array[0];
-    };
-    ListWrapper.last = function (array) {
-        if (!array || array.length == 0)
-            return null;
-        return array[array.length - 1];
-    };
-    ListWrapper.indexOf = function (array, value, startIndex) {
-        if (startIndex === void 0) { startIndex = 0; }
-        return array.indexOf(value, startIndex);
-    };
-    ListWrapper.contains = function (list, el) { return list.indexOf(el) !== -1; };
-    ListWrapper.reversed = function (array) {
-        var a = ListWrapper.clone(array);
-        return a.reverse();
-    };
-    ListWrapper.concat = function (a, b) { return a.concat(b); };
-    ListWrapper.insert = function (list, index, value) { list.splice(index, 0, value); };
-    ListWrapper.removeAt = function (list, index) {
-        var res = list[index];
-        list.splice(index, 1);
-        return res;
-    };
-    ListWrapper.removeAll = function (list, items) {
-        for (var i = 0; i < items.length; ++i) {
-            var index = list.indexOf(items[i]);
-            list.splice(index, 1);
-        }
-    };
-    ListWrapper.remove = function (list, el) {
-        var index = list.indexOf(el);
-        if (index > -1) {
-            list.splice(index, 1);
-            return true;
-        }
-        return false;
-    };
-    ListWrapper.clear = function (list) { list.length = 0; };
-    ListWrapper.isEmpty = function (list) { return list.length == 0; };
-    ListWrapper.fill = function (list, value, start, end) {
-        if (start === void 0) { start = 0; }
-        if (end === void 0) { end = null; }
-        list.fill(value, start, end === null ? list.length : end);
-    };
-    ListWrapper.equals = function (a, b) {
-        if (a.length != b.length)
-            return false;
-        for (var i = 0; i < a.length; ++i) {
-            if (a[i] !== b[i])
-                return false;
-        }
-        return true;
-    };
-    ListWrapper.slice = function (l, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return l.slice(from, to === null ? undefined : to);
-    };
-    ListWrapper.splice = function (l, from, length) { return l.splice(from, length); };
-    ListWrapper.sort = function (l, compareFn) {
-        if (lang_1.isPresent(compareFn)) {
-            l.sort(compareFn);
-        }
-        else {
-            l.sort();
-        }
-    };
-    ListWrapper.toString = function (l) { return l.toString(); };
-    ListWrapper.toJSON = function (l) { return JSON.stringify(l); };
-    ListWrapper.maximum = function (list, predicate) {
-        if (list.length == 0) {
-            return null;
-        }
-        var solution = null;
-        var maxValue = -Infinity;
-        for (var index = 0; index < list.length; index++) {
-            var candidate = list[index];
-            if (lang_1.isBlank(candidate)) {
-                continue;
-            }
-            var candidateValue = predicate(candidate);
-            if (candidateValue > maxValue) {
-                solution = candidate;
-                maxValue = candidateValue;
-            }
-        }
-        return solution;
-    };
-    ListWrapper.flatten = function (list) {
-        var target = [];
-        _flattenArray(list, target);
-        return target;
-    };
-    ListWrapper.addAll = function (list, source) {
-        for (var i = 0; i < source.length; i++) {
-            list.push(source[i]);
-        }
-    };
-    return ListWrapper;
-}());
-exports.ListWrapper = ListWrapper;
-function _flattenArray(source, target) {
-    if (lang_1.isPresent(source)) {
-        for (var i = 0; i < source.length; i++) {
-            var item = source[i];
-            if (lang_1.isArray(item)) {
-                _flattenArray(item, target);
-            }
-            else {
-                target.push(item);
-            }
-        }
-    }
-    return target;
-}
-function isListLikeIterable(obj) {
-    if (!lang_1.isJsObject(obj))
-        return false;
-    return lang_1.isArray(obj) ||
-        (!(obj instanceof exports.Map) &&
-            lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
-}
-exports.isListLikeIterable = isListLikeIterable;
-function areIterablesEqual(a, b, comparator) {
-    var iterator1 = a[lang_1.getSymbolIterator()]();
-    var iterator2 = b[lang_1.getSymbolIterator()]();
-    while (true) {
-        var item1 = iterator1.next();
-        var item2 = iterator2.next();
-        if (item1.done && item2.done)
-            return true;
-        if (item1.done || item2.done)
-            return false;
-        if (!comparator(item1.value, item2.value))
-            return false;
-    }
-}
-exports.areIterablesEqual = areIterablesEqual;
-function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
-        for (var i = 0; i < obj.length; i++) {
-            fn(obj[i]);
-        }
-    }
-    else {
-        var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
-        while (!((item = iterator.next()).done)) {
-            fn(item.value);
-        }
-    }
-}
-exports.iterateListLike = iterateListLike;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Set constructor.  We work around that by manually adding the items.
-var createSetFromList = (function () {
-    var test = new exports.Set([1, 2, 3]);
-    if (test.size === 3) {
-        return function createSetFromList(lst) { return new exports.Set(lst); };
-    }
-    else {
-        return function createSetAndPopulateFromList(lst) {
-            var res = new exports.Set(lst);
-            if (res.size !== lst.length) {
-                for (var i = 0; i < lst.length; i++) {
-                    res.add(lst[i]);
-                }
-            }
-            return res;
-        };
-    }
-})();
-var SetWrapper = (function () {
-    function SetWrapper() {
-    }
-    SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-    SetWrapper.has = function (s, key) { return s.has(key); };
-    SetWrapper.delete = function (m, k) { m.delete(k); };
-    return SetWrapper;
-}());
-exports.SetWrapper = SetWrapper;
-//# sourceMappingURL=collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\facade\\collection.js","/..\\node_modules\\@angular\\http\\src\\facade")
-},{"./lang":330,"2ionoC":410,"buffer":409}],328:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var collection_1 = require('./collection');
-var lang_1 = require('./lang');
-var _ArrayLogger = (function () {
-    function _ArrayLogger() {
-        this.res = [];
-    }
-    _ArrayLogger.prototype.log = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logError = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroup = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroupEnd = function () { };
-    ;
-    return _ArrayLogger;
-}());
-/**
- * Provides a hook for centralized exception handling.
- *
- * The default implementation of `ExceptionHandler` prints error messages to the `Console`. To
- * intercept error handling,
- * write a custom exception handler that replaces this default as appropriate for your app.
- *
- * ### Example
- *
- * ```javascript
- *
- * class MyExceptionHandler implements ExceptionHandler {
- *   call(error, stackTrace = null, reason = null) {
- *     // do something with the exception
- *   }
- * }
- *
- * bootstrap(MyApp, {provide: ExceptionHandler, useClass: MyExceptionHandler}])
- *
- * ```
- * @stable
- */
-var ExceptionHandler = (function () {
-    function ExceptionHandler(_logger, _rethrowException) {
-        if (_rethrowException === void 0) { _rethrowException = true; }
-        this._logger = _logger;
-        this._rethrowException = _rethrowException;
-    }
-    ExceptionHandler.exceptionToString = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var l = new _ArrayLogger();
-        var e = new ExceptionHandler(l, false);
-        e.call(exception, stackTrace, reason);
-        return l.res.join('\n');
-    };
-    ExceptionHandler.prototype.call = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var originalException = this._findOriginalException(exception);
-        var originalStack = this._findOriginalStack(exception);
-        var context = this._findContext(exception);
-        this._logger.logGroup("EXCEPTION: " + this._extractMessage(exception));
-        if (lang_1.isPresent(stackTrace) && lang_1.isBlank(originalStack)) {
-            this._logger.logError('STACKTRACE:');
-            this._logger.logError(this._longStackTrace(stackTrace));
-        }
-        if (lang_1.isPresent(reason)) {
-            this._logger.logError("REASON: " + reason);
-        }
-        if (lang_1.isPresent(originalException)) {
-            this._logger.logError("ORIGINAL EXCEPTION: " + this._extractMessage(originalException));
-        }
-        if (lang_1.isPresent(originalStack)) {
-            this._logger.logError('ORIGINAL STACKTRACE:');
-            this._logger.logError(this._longStackTrace(originalStack));
-        }
-        if (lang_1.isPresent(context)) {
-            this._logger.logError('ERROR CONTEXT:');
-            this._logger.logError(context);
-        }
-        this._logger.logGroupEnd();
-        // We rethrow exceptions, so operations like 'bootstrap' will result in an error
-        // when an exception happens. If we do not rethrow, bootstrap will always succeed.
-        if (this._rethrowException)
-            throw exception;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._extractMessage = function (exception) {
-        return exception instanceof base_wrapped_exception_1.BaseWrappedException ? exception.wrapperMessage :
-            exception.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._longStackTrace = function (stackTrace) {
-        return collection_1.isListLikeIterable(stackTrace) ? stackTrace.join('\n\n-----async gap-----\n') :
-            stackTrace.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findContext = function (exception) {
-        try {
-            if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-                return null;
-            return lang_1.isPresent(exception.context) ? exception.context :
-                this._findContext(exception.originalException);
-        }
-        catch (e) {
-            // exception.context can throw an exception. if it happens, we ignore the context.
-            return null;
-        }
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalException = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception.originalException;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-        }
-        return e;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalStack = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception;
-        var stack = exception.originalStack;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-            if (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-                stack = e.originalStack;
-            }
-        }
-        return stack;
-    };
-    return ExceptionHandler;
-}());
-exports.ExceptionHandler = ExceptionHandler;
-//# sourceMappingURL=exception_handler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\facade\\exception_handler.js","/..\\node_modules\\@angular\\http\\src\\facade")
-},{"./base_wrapped_exception":326,"./collection":327,"./lang":330,"2ionoC":410,"buffer":409}],329:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var exception_handler_1 = require('./exception_handler');
-var exception_handler_2 = require('./exception_handler');
-exports.ExceptionHandler = exception_handler_2.ExceptionHandler;
-/**
- * @stable
- */
-var BaseException = (function (_super) {
-    __extends(BaseException, _super);
-    function BaseException(message) {
-        if (message === void 0) { message = '--'; }
-        _super.call(this, message);
-        this.message = message;
-        this.stack = (new Error(message)).stack;
-    }
-    BaseException.prototype.toString = function () { return this.message; };
-    return BaseException;
-}(Error));
-exports.BaseException = BaseException;
-/**
- * Wraps an exception and provides additional context or information.
- * @stable
- */
-var WrappedException = (function (_super) {
-    __extends(WrappedException, _super);
-    function WrappedException(_wrapperMessage, _originalException /** TODO #9100 */, _originalStack /** TODO #9100 */, _context /** TODO #9100 */) {
-        _super.call(this, _wrapperMessage);
-        this._wrapperMessage = _wrapperMessage;
-        this._originalException = _originalException;
-        this._originalStack = _originalStack;
-        this._context = _context;
-        this._wrapperStack = (new Error(_wrapperMessage)).stack;
-    }
-    Object.defineProperty(WrappedException.prototype, "wrapperMessage", {
-        get: function () { return this._wrapperMessage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "wrapperStack", {
-        get: function () { return this._wrapperStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalException", {
-        get: function () { return this._originalException; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalStack", {
-        get: function () { return this._originalStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "context", {
-        get: function () { return this._context; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "message", {
-        get: function () { return exception_handler_1.ExceptionHandler.exceptionToString(this); },
-        enumerable: true,
-        configurable: true
-    });
-    WrappedException.prototype.toString = function () { return this.message; };
-    return WrappedException;
-}(base_wrapped_exception_1.BaseWrappedException));
-exports.WrappedException = WrappedException;
-function makeTypeError(message) {
-    return new TypeError(message);
-}
-exports.makeTypeError = makeTypeError;
-function unimplemented() {
-    throw new BaseException('unimplemented');
-}
-exports.unimplemented = unimplemented;
-//# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\facade\\exceptions.js","/..\\node_modules\\@angular\\http\\src\\facade")
-},{"./base_wrapped_exception":326,"./exception_handler":328,"2ionoC":410,"buffer":409}],330:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    }
-    else {
-        globalScope = global;
-    }
-}
-else {
-    globalScope = window;
-}
-function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-}
-exports.scheduleMicroTask = scheduleMicroTask;
-exports.IS_DART = false;
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var _global = globalScope;
-exports.global = _global;
-/**
- * Runtime representation a type that a Component or other object is instances of.
- *
- * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
- * the `MyCustomComponent` constructor function.
- *
- * @stable
- */
-exports.Type = Function;
-function getTypeNameForDebugging(type) {
-    if (type['name']) {
-        return type['name'];
-    }
-    return typeof type;
-}
-exports.getTypeNameForDebugging = getTypeNameForDebugging;
-exports.Math = _global.Math;
-exports.Date = _global.Date;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-function isPresent(obj) {
-    return obj !== undefined && obj !== null;
-}
-exports.isPresent = isPresent;
-function isBlank(obj) {
-    return obj === undefined || obj === null;
-}
-exports.isBlank = isBlank;
-function isBoolean(obj) {
-    return typeof obj === 'boolean';
-}
-exports.isBoolean = isBoolean;
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-exports.isNumber = isNumber;
-function isString(obj) {
-    return typeof obj === 'string';
-}
-exports.isString = isString;
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-exports.isFunction = isFunction;
-function isType(obj) {
-    return isFunction(obj);
-}
-exports.isType = isType;
-function isStringMap(obj) {
-    return typeof obj === 'object' && obj !== null;
-}
-exports.isStringMap = isStringMap;
-var STRING_MAP_PROTO = Object.getPrototypeOf({});
-function isStrictStringMap(obj) {
-    return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
-}
-exports.isStrictStringMap = isStrictStringMap;
-function isPromise(obj) {
-    return obj instanceof _global.Promise;
-}
-exports.isPromise = isPromise;
-function isArray(obj) {
-    return Array.isArray(obj);
-}
-exports.isArray = isArray;
-function isDate(obj) {
-    return obj instanceof exports.Date && !isNaN(obj.valueOf());
-}
-exports.isDate = isDate;
-function noop() { }
-exports.noop = noop;
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token === undefined || token === null) {
-        return '' + token;
-    }
-    if (token.name) {
-        return token.name;
-    }
-    if (token.overriddenName) {
-        return token.overriddenName;
-    }
-    var res = token.toString();
-    var newLineIndex = res.indexOf('\n');
-    return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
-}
-exports.stringify = stringify;
-// serialize / deserialize enum exist only for consistency with dart API
-// enums in typescript don't need to be serialized
-function serializeEnum(val) {
-    return val;
-}
-exports.serializeEnum = serializeEnum;
-function deserializeEnum(val, values) {
-    return val;
-}
-exports.deserializeEnum = deserializeEnum;
-function resolveEnumToken(enumValue, val) {
-    return enumValue[val];
-}
-exports.resolveEnumToken = resolveEnumToken;
-var StringWrapper = (function () {
-    function StringWrapper() {
-    }
-    StringWrapper.fromCharCode = function (code) { return String.fromCharCode(code); };
-    StringWrapper.charCodeAt = function (s, index) { return s.charCodeAt(index); };
-    StringWrapper.split = function (s, regExp) { return s.split(regExp); };
-    StringWrapper.equals = function (s, s2) { return s === s2; };
-    StringWrapper.stripLeft = function (s, charVal) {
-        if (s && s.length) {
-            var pos = 0;
-            for (var i = 0; i < s.length; i++) {
-                if (s[i] != charVal)
-                    break;
-                pos++;
-            }
-            s = s.substring(pos);
-        }
-        return s;
-    };
-    StringWrapper.stripRight = function (s, charVal) {
-        if (s && s.length) {
-            var pos = s.length;
-            for (var i = s.length - 1; i >= 0; i--) {
-                if (s[i] != charVal)
-                    break;
-                pos--;
-            }
-            s = s.substring(0, pos);
-        }
-        return s;
-    };
-    StringWrapper.replace = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.replaceAll = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.slice = function (s, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return s.slice(from, to === null ? undefined : to);
-    };
-    StringWrapper.replaceAllMapped = function (s, from, cb) {
-        return s.replace(from, function () {
-            var matches = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                matches[_i - 0] = arguments[_i];
-            }
-            // Remove offset & string from the result array
-            matches.splice(-2, 2);
-            // The callback receives match, p1, ..., pn
-            return cb(matches);
-        });
-    };
-    StringWrapper.contains = function (s, substr) { return s.indexOf(substr) != -1; };
-    StringWrapper.compare = function (a, b) {
-        if (a < b) {
-            return -1;
-        }
-        else if (a > b) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    };
-    return StringWrapper;
-}());
-exports.StringWrapper = StringWrapper;
-var StringJoiner = (function () {
-    function StringJoiner(parts) {
-        if (parts === void 0) { parts = []; }
-        this.parts = parts;
-    }
-    StringJoiner.prototype.add = function (part) { this.parts.push(part); };
-    StringJoiner.prototype.toString = function () { return this.parts.join(''); };
-    return StringJoiner;
-}());
-exports.StringJoiner = StringJoiner;
-var NumberParseError = (function (_super) {
-    __extends(NumberParseError, _super);
-    function NumberParseError(message) {
-        _super.call(this);
-        this.message = message;
-    }
-    NumberParseError.prototype.toString = function () { return this.message; };
-    return NumberParseError;
-}(Error));
-exports.NumberParseError = NumberParseError;
-var NumberWrapper = (function () {
-    function NumberWrapper() {
-    }
-    NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
-    NumberWrapper.equal = function (a, b) { return a === b; };
-    NumberWrapper.parseIntAutoRadix = function (text) {
-        var result = parseInt(text);
-        if (isNaN(result)) {
-            throw new NumberParseError('Invalid integer literal when parsing ' + text);
-        }
-        return result;
-    };
-    NumberWrapper.parseInt = function (text, radix) {
-        if (radix == 10) {
-            if (/^(\-|\+)?[0-9]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else if (radix == 16) {
-            if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else {
-            var result = parseInt(text, radix);
-            if (!isNaN(result)) {
-                return result;
-            }
-        }
-        throw new NumberParseError('Invalid integer literal when parsing ' + text + ' in base ' + radix);
-    };
-    // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
-    NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
-    Object.defineProperty(NumberWrapper, "NaN", {
-        get: function () { return NaN; },
-        enumerable: true,
-        configurable: true
-    });
-    NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    NumberWrapper.isNaN = function (value) { return isNaN(value); };
-    NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
-    return NumberWrapper;
-}());
-exports.NumberWrapper = NumberWrapper;
-exports.RegExp = _global.RegExp;
-var RegExpWrapper = (function () {
-    function RegExpWrapper() {
-    }
-    RegExpWrapper.create = function (regExpStr, flags) {
-        if (flags === void 0) { flags = ''; }
-        flags = flags.replace(/g/g, '');
-        return new _global.RegExp(regExpStr, flags + 'g');
-    };
-    RegExpWrapper.firstMatch = function (regExp, input) {
-        // Reset multimatch regex state
-        regExp.lastIndex = 0;
-        return regExp.exec(input);
-    };
-    RegExpWrapper.test = function (regExp, input) {
-        regExp.lastIndex = 0;
-        return regExp.test(input);
-    };
-    RegExpWrapper.matcher = function (regExp, input) {
-        // Reset regex state for the case
-        // someone did not loop over all matches
-        // last time.
-        regExp.lastIndex = 0;
-        return { re: regExp, input: input };
-    };
-    RegExpWrapper.replaceAll = function (regExp, input, replace) {
-        var c = regExp.exec(input);
-        var res = '';
-        regExp.lastIndex = 0;
-        var prev = 0;
-        while (c) {
-            res += input.substring(prev, c.index);
-            res += replace(c);
-            prev = c.index + c[0].length;
-            regExp.lastIndex = prev;
-            c = regExp.exec(input);
-        }
-        res += input.substring(prev);
-        return res;
-    };
-    return RegExpWrapper;
-}());
-exports.RegExpWrapper = RegExpWrapper;
-var RegExpMatcherWrapper = (function () {
-    function RegExpMatcherWrapper() {
-    }
-    RegExpMatcherWrapper.next = function (matcher) {
-        return matcher.re.exec(matcher.input);
-    };
-    return RegExpMatcherWrapper;
-}());
-exports.RegExpMatcherWrapper = RegExpMatcherWrapper;
-var FunctionWrapper = (function () {
-    function FunctionWrapper() {
-    }
-    FunctionWrapper.apply = function (fn, posArgs) { return fn.apply(null, posArgs); };
-    FunctionWrapper.bind = function (fn, scope) { return fn.bind(scope); };
-    return FunctionWrapper;
-}());
-exports.FunctionWrapper = FunctionWrapper;
-// JS has NaN !== NaN
-function looseIdentical(a, b) {
-    return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
-}
-exports.looseIdentical = looseIdentical;
-// JS considers NaN is the same as NaN for map Key (while NaN !== NaN otherwise)
-// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-function getMapKey(value) {
-    return value;
-}
-exports.getMapKey = getMapKey;
-function normalizeBlank(obj) {
-    return isBlank(obj) ? null : obj;
-}
-exports.normalizeBlank = normalizeBlank;
-function normalizeBool(obj) {
-    return isBlank(obj) ? false : obj;
-}
-exports.normalizeBool = normalizeBool;
-function isJsObject(o) {
-    return o !== null && (typeof o === 'function' || typeof o === 'object');
-}
-exports.isJsObject = isJsObject;
-function print(obj) {
-    console.log(obj);
-}
-exports.print = print;
-function warn(obj) {
-    console.warn(obj);
-}
-exports.warn = warn;
-// Can't be all uppercase as our transpiler would think it is a special directive...
-var Json = (function () {
-    function Json() {
-    }
-    Json.parse = function (s) { return _global.JSON.parse(s); };
-    Json.stringify = function (data) {
-        // Dart doesn't take 3 arguments
-        return _global.JSON.stringify(data, null, 2);
-    };
-    return Json;
-}());
-exports.Json = Json;
-var DateWrapper = (function () {
-    function DateWrapper() {
-    }
-    DateWrapper.create = function (year, month, day, hour, minutes, seconds, milliseconds) {
-        if (month === void 0) { month = 1; }
-        if (day === void 0) { day = 1; }
-        if (hour === void 0) { hour = 0; }
-        if (minutes === void 0) { minutes = 0; }
-        if (seconds === void 0) { seconds = 0; }
-        if (milliseconds === void 0) { milliseconds = 0; }
-        return new exports.Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
-    };
-    DateWrapper.fromISOString = function (str) { return new exports.Date(str); };
-    DateWrapper.fromMillis = function (ms) { return new exports.Date(ms); };
-    DateWrapper.toMillis = function (date) { return date.getTime(); };
-    DateWrapper.now = function () { return new exports.Date(); };
-    DateWrapper.toJson = function (date) { return date.toJSON(); };
-    return DateWrapper;
-}());
-exports.DateWrapper = DateWrapper;
-function setValueOnPath(global, path, value) {
-    var parts = path.split('.');
-    var obj = global;
-    while (parts.length > 1) {
-        var name = parts.shift();
-        if (obj.hasOwnProperty(name) && isPresent(obj[name])) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-exports.setValueOnPath = setValueOnPath;
-var _symbolIterator = null;
-function getSymbolIterator() {
-    if (isBlank(_symbolIterator)) {
-        if (isPresent(globalScope.Symbol) && isPresent(Symbol.iterator)) {
-            _symbolIterator = Symbol.iterator;
-        }
-        else {
-            // es6-shim specific logic
-            var keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var i = 0; i < keys.length; ++i) {
-                var key = keys[i];
-                if (key !== 'entries' && key !== 'size' &&
-                    Map.prototype[key] === Map.prototype['entries']) {
-                    _symbolIterator = key;
-                }
-            }
-        }
-    }
-    return _symbolIterator;
-}
-exports.getSymbolIterator = getSymbolIterator;
-function evalExpression(sourceUrl, expr, declarations, vars) {
-    var fnBody = declarations + "\nreturn " + expr + "\n//# sourceURL=" + sourceUrl;
-    var fnArgNames = [];
-    var fnArgValues = [];
-    for (var argName in vars) {
-        fnArgNames.push(argName);
-        fnArgValues.push(vars[argName]);
-    }
-    return new (Function.bind.apply(Function, [void 0].concat(fnArgNames.concat(fnBody))))().apply(void 0, fnArgValues);
-}
-exports.evalExpression = evalExpression;
-function isPrimitive(obj) {
-    return !isJsObject(obj);
-}
-exports.isPrimitive = isPrimitive;
-function hasConstructor(value, type) {
-    return value.constructor === type;
-}
-exports.hasConstructor = hasConstructor;
-function escape(s) {
-    return _global.encodeURI(s);
-}
-exports.escape = escape;
-function escapeRegExp(s) {
-    return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-}
-exports.escapeRegExp = escapeRegExp;
-//# sourceMappingURL=lang.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\facade\\lang.js","/..\\node_modules\\@angular\\http\\src\\facade")
-},{"2ionoC":410,"buffer":409}],331:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],326:[function(require,module,exports){
+module.exports=require(56)
+},{}],327:[function(require,module,exports){
+module.exports=require(57)
+},{"./lang":330}],328:[function(require,module,exports){
+module.exports=require(58)
+},{"./base_wrapped_exception":326,"./collection":327,"./lang":330}],329:[function(require,module,exports){
+module.exports=require(59)
+},{"./base_wrapped_exception":326,"./exception_handler":328}],330:[function(require,module,exports){
+module.exports=require(61)
+},{}],331:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -50820,9 +44918,7 @@ var Headers = (function () {
 }());
 exports.Headers = Headers;
 //# sourceMappingURL=headers.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\headers.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/collection":327,"../src/facade/exceptions":329,"../src/facade/lang":330,"2ionoC":410,"buffer":409}],332:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/collection":327,"../src/facade/exceptions":329,"../src/facade/lang":330}],332:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -50987,9 +45083,7 @@ var Jsonp = (function (_super) {
 }(Http));
 exports.Jsonp = Jsonp;
 //# sourceMappingURL=http.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\http.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/exceptions":329,"../src/facade/lang":330,"./base_request_options":323,"./enums":325,"./interfaces":334,"./static_request":335,"2ionoC":410,"@angular/core":191,"buffer":409}],333:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/exceptions":329,"../src/facade/lang":330,"./base_request_options":323,"./enums":325,"./interfaces":334,"./static_request":335,"@angular/core":191}],333:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -51027,9 +45121,7 @@ exports.getResponseURL = getResponseURL;
 var lang_2 = require('../src/facade/lang');
 exports.isJsObject = lang_2.isJsObject;
 //# sourceMappingURL=http_utils.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\http_utils.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/exceptions":329,"../src/facade/lang":330,"./enums":325,"2ionoC":410,"buffer":409}],334:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/exceptions":329,"../src/facade/lang":330,"./enums":325}],334:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -51075,9 +45167,7 @@ var XSRFStrategy = (function () {
 }());
 exports.XSRFStrategy = XSRFStrategy;
 //# sourceMappingURL=interfaces.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\interfaces.js","/..\\node_modules\\@angular\\http\\src")
-},{"2ionoC":410,"buffer":409}],335:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],335:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -51247,9 +45337,7 @@ var FormData = w['FormData'] || noop;
 var Blob = w['Blob'] || noop;
 var ArrayBuffer = w['ArrayBuffer'] || noop;
 //# sourceMappingURL=static_request.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\static_request.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/lang":330,"./enums":325,"./headers":331,"./http_utils":333,"./url_search_params":337,"2ionoC":410,"buffer":409}],336:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/lang":330,"./enums":325,"./headers":331,"./http_utils":333,"./url_search_params":337}],336:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -51327,9 +45415,7 @@ var Response = (function () {
 }());
 exports.Response = Response;
 //# sourceMappingURL=static_response.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\static_response.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/exceptions":329,"../src/facade/lang":330,"./http_utils":333,"2ionoC":410,"buffer":409}],337:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/exceptions":329,"../src/facade/lang":330,"./http_utils":333}],337:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -51520,9 +45606,7 @@ var URLSearchParams = (function () {
 }());
 exports.URLSearchParams = URLSearchParams;
 //# sourceMappingURL=url_search_params.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\http\\src\\url_search_params.js","/..\\node_modules\\@angular\\http\\src")
-},{"../src/facade/collection":327,"../src/facade/lang":330,"2ionoC":410,"buffer":409}],338:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../src/facade/collection":327,"../src/facade/lang":330}],338:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -51535,9 +45619,7 @@ var core_1 = require('@angular/core');
 exports.ReflectionCapabilities = core_1.__core_private__.ReflectionCapabilities;
 exports.reflector = core_1.__core_private__.reflector;
 //# sourceMappingURL=core_private.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\core_private.js","/..\\node_modules\\@angular\\platform-browser-dynamic")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],339:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],339:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -51697,1378 +45779,21 @@ function bootstrapWorkerApp(appComponentType, customProviders) {
 }
 exports.bootstrapWorkerApp = bootstrapWorkerApp;
 //# sourceMappingURL=index.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\index.js","/..\\node_modules\\@angular\\platform-browser-dynamic")
-},{"./core_private":338,"./src/facade/async":340,"./src/facade/lang":345,"./src/xhr/xhr_cache":347,"./src/xhr/xhr_impl":348,"2ionoC":410,"@angular/common":44,"@angular/compiler":110,"@angular/core":191,"@angular/platform-browser":350,"buffer":409}],340:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subject_1 = require('rxjs/Subject');
-var PromiseObservable_1 = require('rxjs/observable/PromiseObservable');
-var toPromise_1 = require('rxjs/operator/toPromise');
-var lang_1 = require('./lang');
-var Observable_1 = require('rxjs/Observable');
-exports.Observable = Observable_1.Observable;
-var Subject_2 = require('rxjs/Subject');
-exports.Subject = Subject_2.Subject;
-var promise_1 = require('./promise');
-exports.PromiseCompleter = promise_1.PromiseCompleter;
-exports.PromiseWrapper = promise_1.PromiseWrapper;
-var TimerWrapper = (function () {
-    function TimerWrapper() {
-    }
-    TimerWrapper.setTimeout = function (fn, millis) {
-        return lang_1.global.setTimeout(fn, millis);
-    };
-    TimerWrapper.clearTimeout = function (id) { lang_1.global.clearTimeout(id); };
-    TimerWrapper.setInterval = function (fn, millis) {
-        return lang_1.global.setInterval(fn, millis);
-    };
-    TimerWrapper.clearInterval = function (id) { lang_1.global.clearInterval(id); };
-    return TimerWrapper;
-}());
-exports.TimerWrapper = TimerWrapper;
-var ObservableWrapper = (function () {
-    function ObservableWrapper() {
-    }
-    // TODO(vsavkin): when we use rxnext, try inferring the generic type from the first arg
-    ObservableWrapper.subscribe = function (emitter, onNext, onError, onComplete) {
-        if (onComplete === void 0) { onComplete = function () { }; }
-        onError = (typeof onError === 'function') && onError || lang_1.noop;
-        onComplete = (typeof onComplete === 'function') && onComplete || lang_1.noop;
-        return emitter.subscribe({ next: onNext, error: onError, complete: onComplete });
-    };
-    ObservableWrapper.isObservable = function (obs) { return !!obs.subscribe; };
-    /**
-     * Returns whether `obs` has any subscribers listening to events.
-     */
-    ObservableWrapper.hasSubscribers = function (obs) { return obs.observers.length > 0; };
-    ObservableWrapper.dispose = function (subscription) { subscription.unsubscribe(); };
-    /**
-     * @deprecated - use callEmit() instead
-     */
-    ObservableWrapper.callNext = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callEmit = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callError = function (emitter, error) { emitter.error(error); };
-    ObservableWrapper.callComplete = function (emitter) { emitter.complete(); };
-    ObservableWrapper.fromPromise = function (promise) {
-        return PromiseObservable_1.PromiseObservable.create(promise);
-    };
-    ObservableWrapper.toPromise = function (obj) { return toPromise_1.toPromise.call(obj); };
-    return ObservableWrapper;
-}());
-exports.ObservableWrapper = ObservableWrapper;
-/**
- * Use by directives and components to emit custom Events.
- *
- * ### Examples
- *
- * In the following example, `Zippy` alternatively emits `open` and `close` events when its
- * title gets clicked:
- *
- * ```
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
- *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
- *
- * The events payload can be accessed by the parameter `$event` on the components output event
- * handler:
- *
- * ```
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
- *
- * Uses Rx.Observable but provides an adapter to make it work as specified here:
- * https://github.com/jhusain/observable-spec
- *
- * Once a reference implementation of the spec is available, switch to it.
- * @stable
- */
-var EventEmitter = (function (_super) {
-    __extends(EventEmitter, _super);
-    /**
-     * Creates an instance of [EventEmitter], which depending on [isAsync],
-     * delivers events synchronously or asynchronously.
-     */
-    function EventEmitter(isAsync) {
-        if (isAsync === void 0) { isAsync = false; }
-        _super.call(this);
-        this.__isAsync = isAsync;
-    }
-    EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
-    /**
-     * @deprecated - use .emit(value) instead
-     */
-    EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
-    EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
-        var schedulerFn;
-        var errorFn = function (err) { return null; };
-        var completeFn = function () { return null; };
-        if (generatorOrNext && typeof generatorOrNext === 'object') {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext.next(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
-            if (generatorOrNext.error) {
-                errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
-                    function (err) { generatorOrNext.error(err); };
-            }
-            if (generatorOrNext.complete) {
-                completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
-                    function () { generatorOrNext.complete(); };
-            }
-        }
-        else {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext(value); };
-            if (error) {
-                errorFn =
-                    this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
-            }
-            if (complete) {
-                completeFn =
-                    this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
-            }
-        }
-        return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
-    };
-    return EventEmitter;
-}(Subject_1.Subject));
-exports.EventEmitter = EventEmitter;
-//# sourceMappingURL=async.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade\\async.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade")
-},{"./lang":345,"./promise":346,"2ionoC":410,"buffer":409,"rxjs/Observable":412,"rxjs/Subject":414,"rxjs/observable/PromiseObservable":419,"rxjs/operator/toPromise":420}],341:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * A base class for the WrappedException that can be used to identify
- * a WrappedException from ExceptionHandler without adding circular
- * dependency.
- */
-var BaseWrappedException = (function (_super) {
-    __extends(BaseWrappedException, _super);
-    function BaseWrappedException(message) {
-        _super.call(this, message);
-    }
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperMessage", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalException", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "context", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "message", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    return BaseWrappedException;
-}(Error));
-exports.BaseWrappedException = BaseWrappedException;
-//# sourceMappingURL=base_wrapped_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade\\base_wrapped_exception.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade")
-},{"2ionoC":410,"buffer":409}],342:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var lang_1 = require('./lang');
-exports.Map = lang_1.global.Map;
-exports.Set = lang_1.global.Set;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
-var createMapFromPairs = (function () {
-    try {
-        if (new exports.Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new exports.Map(pairs); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromPairs(pairs) {
-        var map = new exports.Map();
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i];
-            map.set(pair[0], pair[1]);
-        }
-        return map;
-    };
-})();
-var createMapFromMap = (function () {
-    try {
-        if (new exports.Map(new exports.Map())) {
-            return function createMapFromMap(m) { return new exports.Map(m); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromMap(m) {
-        var map = new exports.Map();
-        m.forEach(function (v, k) { map.set(k, v); });
-        return map;
-    };
-})();
-var _clearValues = (function () {
-    if ((new exports.Map()).keys().next) {
-        return function _clearValues(m) {
-            var keyIterator = m.keys();
-            var k;
-            while (!((k = keyIterator.next()).done)) {
-                m.set(k.value, null);
-            }
-        };
-    }
-    else {
-        return function _clearValuesWithForeEach(m) {
-            m.forEach(function (v, k) { m.set(k, null); });
-        };
-    }
-})();
-// Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
-// TODO(mlaval): remove the work around once we have a working polyfill of Array.from
-var _arrayFromMap = (function () {
-    try {
-        if ((new exports.Map()).values().next) {
-            return function createArrayFromMap(m, getValues) {
-                return getValues ? Array.from(m.values()) : Array.from(m.keys());
-            };
-        }
-    }
-    catch (e) {
-    }
-    return function createArrayFromMapWithForeach(m, getValues) {
-        var res = ListWrapper.createFixedSize(m.size), i = 0;
-        m.forEach(function (v, k) {
-            res[i] = getValues ? v : k;
-            i++;
-        });
-        return res;
-    };
-})();
-var MapWrapper = (function () {
-    function MapWrapper() {
-    }
-    MapWrapper.clone = function (m) { return createMapFromMap(m); };
-    MapWrapper.createFromStringMap = function (stringMap) {
-        var result = new exports.Map();
-        for (var prop in stringMap) {
-            result.set(prop, stringMap[prop]);
-        }
-        return result;
-    };
-    MapWrapper.toStringMap = function (m) {
-        var r = {};
-        m.forEach(function (v, k) { return r[k] = v; });
-        return r;
-    };
-    MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.clearValues = function (m) { _clearValues(m); };
-    MapWrapper.iterable = function (m) { return m; };
-    MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
-    MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
-    return MapWrapper;
-}());
-exports.MapWrapper = MapWrapper;
-/**
- * Wraps Javascript Objects
- */
-var StringMapWrapper = (function () {
-    function StringMapWrapper() {
-    }
-    StringMapWrapper.create = function () {
-        // Note: We are not using Object.create(null) here due to
-        // performance!
-        // http://jsperf.com/ng2-object-create-null
-        return {};
-    };
-    StringMapWrapper.contains = function (map, key) {
-        return map.hasOwnProperty(key);
-    };
-    StringMapWrapper.get = function (map, key) {
-        return map.hasOwnProperty(key) ? map[key] : undefined;
-    };
-    StringMapWrapper.set = function (map, key, value) { map[key] = value; };
-    StringMapWrapper.keys = function (map) { return Object.keys(map); };
-    StringMapWrapper.values = function (map) {
-        return Object.keys(map).reduce(function (r, a) {
-            r.push(map[a]);
-            return r;
-        }, []);
-    };
-    StringMapWrapper.isEmpty = function (map) {
-        for (var prop in map) {
-            return false;
-        }
-        return true;
-    };
-    StringMapWrapper.delete = function (map, key) { delete map[key]; };
-    StringMapWrapper.forEach = function (map, callback) {
-        for (var prop in map) {
-            if (map.hasOwnProperty(prop)) {
-                callback(map[prop], prop);
-            }
-        }
-    };
-    StringMapWrapper.merge = function (m1, m2) {
-        var m = {};
-        for (var attr in m1) {
-            if (m1.hasOwnProperty(attr)) {
-                m[attr] = m1[attr];
-            }
-        }
-        for (var attr in m2) {
-            if (m2.hasOwnProperty(attr)) {
-                m[attr] = m2[attr];
-            }
-        }
-        return m;
-    };
-    StringMapWrapper.equals = function (m1, m2) {
-        var k1 = Object.keys(m1);
-        var k2 = Object.keys(m2);
-        if (k1.length != k2.length) {
-            return false;
-        }
-        var key;
-        for (var i = 0; i < k1.length; i++) {
-            key = k1[i];
-            if (m1[key] !== m2[key]) {
-                return false;
-            }
-        }
-        return true;
-    };
-    return StringMapWrapper;
-}());
-exports.StringMapWrapper = StringMapWrapper;
-var ListWrapper = (function () {
-    function ListWrapper() {
-    }
-    // JS has no way to express a statically fixed size list, but dart does so we
-    // keep both methods.
-    ListWrapper.createFixedSize = function (size) { return new Array(size); };
-    ListWrapper.createGrowableSize = function (size) { return new Array(size); };
-    ListWrapper.clone = function (array) { return array.slice(0); };
-    ListWrapper.forEachWithIndex = function (array, fn) {
-        for (var i = 0; i < array.length; i++) {
-            fn(array[i], i);
-        }
-    };
-    ListWrapper.first = function (array) {
-        if (!array)
-            return null;
-        return array[0];
-    };
-    ListWrapper.last = function (array) {
-        if (!array || array.length == 0)
-            return null;
-        return array[array.length - 1];
-    };
-    ListWrapper.indexOf = function (array, value, startIndex) {
-        if (startIndex === void 0) { startIndex = 0; }
-        return array.indexOf(value, startIndex);
-    };
-    ListWrapper.contains = function (list, el) { return list.indexOf(el) !== -1; };
-    ListWrapper.reversed = function (array) {
-        var a = ListWrapper.clone(array);
-        return a.reverse();
-    };
-    ListWrapper.concat = function (a, b) { return a.concat(b); };
-    ListWrapper.insert = function (list, index, value) { list.splice(index, 0, value); };
-    ListWrapper.removeAt = function (list, index) {
-        var res = list[index];
-        list.splice(index, 1);
-        return res;
-    };
-    ListWrapper.removeAll = function (list, items) {
-        for (var i = 0; i < items.length; ++i) {
-            var index = list.indexOf(items[i]);
-            list.splice(index, 1);
-        }
-    };
-    ListWrapper.remove = function (list, el) {
-        var index = list.indexOf(el);
-        if (index > -1) {
-            list.splice(index, 1);
-            return true;
-        }
-        return false;
-    };
-    ListWrapper.clear = function (list) { list.length = 0; };
-    ListWrapper.isEmpty = function (list) { return list.length == 0; };
-    ListWrapper.fill = function (list, value, start, end) {
-        if (start === void 0) { start = 0; }
-        if (end === void 0) { end = null; }
-        list.fill(value, start, end === null ? list.length : end);
-    };
-    ListWrapper.equals = function (a, b) {
-        if (a.length != b.length)
-            return false;
-        for (var i = 0; i < a.length; ++i) {
-            if (a[i] !== b[i])
-                return false;
-        }
-        return true;
-    };
-    ListWrapper.slice = function (l, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return l.slice(from, to === null ? undefined : to);
-    };
-    ListWrapper.splice = function (l, from, length) { return l.splice(from, length); };
-    ListWrapper.sort = function (l, compareFn) {
-        if (lang_1.isPresent(compareFn)) {
-            l.sort(compareFn);
-        }
-        else {
-            l.sort();
-        }
-    };
-    ListWrapper.toString = function (l) { return l.toString(); };
-    ListWrapper.toJSON = function (l) { return JSON.stringify(l); };
-    ListWrapper.maximum = function (list, predicate) {
-        if (list.length == 0) {
-            return null;
-        }
-        var solution = null;
-        var maxValue = -Infinity;
-        for (var index = 0; index < list.length; index++) {
-            var candidate = list[index];
-            if (lang_1.isBlank(candidate)) {
-                continue;
-            }
-            var candidateValue = predicate(candidate);
-            if (candidateValue > maxValue) {
-                solution = candidate;
-                maxValue = candidateValue;
-            }
-        }
-        return solution;
-    };
-    ListWrapper.flatten = function (list) {
-        var target = [];
-        _flattenArray(list, target);
-        return target;
-    };
-    ListWrapper.addAll = function (list, source) {
-        for (var i = 0; i < source.length; i++) {
-            list.push(source[i]);
-        }
-    };
-    return ListWrapper;
-}());
-exports.ListWrapper = ListWrapper;
-function _flattenArray(source, target) {
-    if (lang_1.isPresent(source)) {
-        for (var i = 0; i < source.length; i++) {
-            var item = source[i];
-            if (lang_1.isArray(item)) {
-                _flattenArray(item, target);
-            }
-            else {
-                target.push(item);
-            }
-        }
-    }
-    return target;
-}
-function isListLikeIterable(obj) {
-    if (!lang_1.isJsObject(obj))
-        return false;
-    return lang_1.isArray(obj) ||
-        (!(obj instanceof exports.Map) &&
-            lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
-}
-exports.isListLikeIterable = isListLikeIterable;
-function areIterablesEqual(a, b, comparator) {
-    var iterator1 = a[lang_1.getSymbolIterator()]();
-    var iterator2 = b[lang_1.getSymbolIterator()]();
-    while (true) {
-        var item1 = iterator1.next();
-        var item2 = iterator2.next();
-        if (item1.done && item2.done)
-            return true;
-        if (item1.done || item2.done)
-            return false;
-        if (!comparator(item1.value, item2.value))
-            return false;
-    }
-}
-exports.areIterablesEqual = areIterablesEqual;
-function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
-        for (var i = 0; i < obj.length; i++) {
-            fn(obj[i]);
-        }
-    }
-    else {
-        var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
-        while (!((item = iterator.next()).done)) {
-            fn(item.value);
-        }
-    }
-}
-exports.iterateListLike = iterateListLike;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Set constructor.  We work around that by manually adding the items.
-var createSetFromList = (function () {
-    var test = new exports.Set([1, 2, 3]);
-    if (test.size === 3) {
-        return function createSetFromList(lst) { return new exports.Set(lst); };
-    }
-    else {
-        return function createSetAndPopulateFromList(lst) {
-            var res = new exports.Set(lst);
-            if (res.size !== lst.length) {
-                for (var i = 0; i < lst.length; i++) {
-                    res.add(lst[i]);
-                }
-            }
-            return res;
-        };
-    }
-})();
-var SetWrapper = (function () {
-    function SetWrapper() {
-    }
-    SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-    SetWrapper.has = function (s, key) { return s.has(key); };
-    SetWrapper.delete = function (m, k) { m.delete(k); };
-    return SetWrapper;
-}());
-exports.SetWrapper = SetWrapper;
-//# sourceMappingURL=collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade\\collection.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade")
-},{"./lang":345,"2ionoC":410,"buffer":409}],343:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var collection_1 = require('./collection');
-var lang_1 = require('./lang');
-var _ArrayLogger = (function () {
-    function _ArrayLogger() {
-        this.res = [];
-    }
-    _ArrayLogger.prototype.log = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logError = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroup = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroupEnd = function () { };
-    ;
-    return _ArrayLogger;
-}());
-/**
- * Provides a hook for centralized exception handling.
- *
- * The default implementation of `ExceptionHandler` prints error messages to the `Console`. To
- * intercept error handling,
- * write a custom exception handler that replaces this default as appropriate for your app.
- *
- * ### Example
- *
- * ```javascript
- *
- * class MyExceptionHandler implements ExceptionHandler {
- *   call(error, stackTrace = null, reason = null) {
- *     // do something with the exception
- *   }
- * }
- *
- * bootstrap(MyApp, {provide: ExceptionHandler, useClass: MyExceptionHandler}])
- *
- * ```
- * @stable
- */
-var ExceptionHandler = (function () {
-    function ExceptionHandler(_logger, _rethrowException) {
-        if (_rethrowException === void 0) { _rethrowException = true; }
-        this._logger = _logger;
-        this._rethrowException = _rethrowException;
-    }
-    ExceptionHandler.exceptionToString = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var l = new _ArrayLogger();
-        var e = new ExceptionHandler(l, false);
-        e.call(exception, stackTrace, reason);
-        return l.res.join('\n');
-    };
-    ExceptionHandler.prototype.call = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var originalException = this._findOriginalException(exception);
-        var originalStack = this._findOriginalStack(exception);
-        var context = this._findContext(exception);
-        this._logger.logGroup("EXCEPTION: " + this._extractMessage(exception));
-        if (lang_1.isPresent(stackTrace) && lang_1.isBlank(originalStack)) {
-            this._logger.logError('STACKTRACE:');
-            this._logger.logError(this._longStackTrace(stackTrace));
-        }
-        if (lang_1.isPresent(reason)) {
-            this._logger.logError("REASON: " + reason);
-        }
-        if (lang_1.isPresent(originalException)) {
-            this._logger.logError("ORIGINAL EXCEPTION: " + this._extractMessage(originalException));
-        }
-        if (lang_1.isPresent(originalStack)) {
-            this._logger.logError('ORIGINAL STACKTRACE:');
-            this._logger.logError(this._longStackTrace(originalStack));
-        }
-        if (lang_1.isPresent(context)) {
-            this._logger.logError('ERROR CONTEXT:');
-            this._logger.logError(context);
-        }
-        this._logger.logGroupEnd();
-        // We rethrow exceptions, so operations like 'bootstrap' will result in an error
-        // when an exception happens. If we do not rethrow, bootstrap will always succeed.
-        if (this._rethrowException)
-            throw exception;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._extractMessage = function (exception) {
-        return exception instanceof base_wrapped_exception_1.BaseWrappedException ? exception.wrapperMessage :
-            exception.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._longStackTrace = function (stackTrace) {
-        return collection_1.isListLikeIterable(stackTrace) ? stackTrace.join('\n\n-----async gap-----\n') :
-            stackTrace.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findContext = function (exception) {
-        try {
-            if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-                return null;
-            return lang_1.isPresent(exception.context) ? exception.context :
-                this._findContext(exception.originalException);
-        }
-        catch (e) {
-            // exception.context can throw an exception. if it happens, we ignore the context.
-            return null;
-        }
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalException = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception.originalException;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-        }
-        return e;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalStack = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception;
-        var stack = exception.originalStack;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-            if (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-                stack = e.originalStack;
-            }
-        }
-        return stack;
-    };
-    return ExceptionHandler;
-}());
-exports.ExceptionHandler = ExceptionHandler;
-//# sourceMappingURL=exception_handler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade\\exception_handler.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade")
-},{"./base_wrapped_exception":341,"./collection":342,"./lang":345,"2ionoC":410,"buffer":409}],344:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var exception_handler_1 = require('./exception_handler');
-var exception_handler_2 = require('./exception_handler');
-exports.ExceptionHandler = exception_handler_2.ExceptionHandler;
-/**
- * @stable
- */
-var BaseException = (function (_super) {
-    __extends(BaseException, _super);
-    function BaseException(message) {
-        if (message === void 0) { message = '--'; }
-        _super.call(this, message);
-        this.message = message;
-        this.stack = (new Error(message)).stack;
-    }
-    BaseException.prototype.toString = function () { return this.message; };
-    return BaseException;
-}(Error));
-exports.BaseException = BaseException;
-/**
- * Wraps an exception and provides additional context or information.
- * @stable
- */
-var WrappedException = (function (_super) {
-    __extends(WrappedException, _super);
-    function WrappedException(_wrapperMessage, _originalException /** TODO #9100 */, _originalStack /** TODO #9100 */, _context /** TODO #9100 */) {
-        _super.call(this, _wrapperMessage);
-        this._wrapperMessage = _wrapperMessage;
-        this._originalException = _originalException;
-        this._originalStack = _originalStack;
-        this._context = _context;
-        this._wrapperStack = (new Error(_wrapperMessage)).stack;
-    }
-    Object.defineProperty(WrappedException.prototype, "wrapperMessage", {
-        get: function () { return this._wrapperMessage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "wrapperStack", {
-        get: function () { return this._wrapperStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalException", {
-        get: function () { return this._originalException; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalStack", {
-        get: function () { return this._originalStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "context", {
-        get: function () { return this._context; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "message", {
-        get: function () { return exception_handler_1.ExceptionHandler.exceptionToString(this); },
-        enumerable: true,
-        configurable: true
-    });
-    WrappedException.prototype.toString = function () { return this.message; };
-    return WrappedException;
-}(base_wrapped_exception_1.BaseWrappedException));
-exports.WrappedException = WrappedException;
-function makeTypeError(message) {
-    return new TypeError(message);
-}
-exports.makeTypeError = makeTypeError;
-function unimplemented() {
-    throw new BaseException('unimplemented');
-}
-exports.unimplemented = unimplemented;
-//# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade\\exceptions.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade")
-},{"./base_wrapped_exception":341,"./exception_handler":343,"2ionoC":410,"buffer":409}],345:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    }
-    else {
-        globalScope = global;
-    }
-}
-else {
-    globalScope = window;
-}
-function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-}
-exports.scheduleMicroTask = scheduleMicroTask;
-exports.IS_DART = false;
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var _global = globalScope;
-exports.global = _global;
-/**
- * Runtime representation a type that a Component or other object is instances of.
- *
- * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
- * the `MyCustomComponent` constructor function.
- *
- * @stable
- */
-exports.Type = Function;
-function getTypeNameForDebugging(type) {
-    if (type['name']) {
-        return type['name'];
-    }
-    return typeof type;
-}
-exports.getTypeNameForDebugging = getTypeNameForDebugging;
-exports.Math = _global.Math;
-exports.Date = _global.Date;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-function isPresent(obj) {
-    return obj !== undefined && obj !== null;
-}
-exports.isPresent = isPresent;
-function isBlank(obj) {
-    return obj === undefined || obj === null;
-}
-exports.isBlank = isBlank;
-function isBoolean(obj) {
-    return typeof obj === 'boolean';
-}
-exports.isBoolean = isBoolean;
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-exports.isNumber = isNumber;
-function isString(obj) {
-    return typeof obj === 'string';
-}
-exports.isString = isString;
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-exports.isFunction = isFunction;
-function isType(obj) {
-    return isFunction(obj);
-}
-exports.isType = isType;
-function isStringMap(obj) {
-    return typeof obj === 'object' && obj !== null;
-}
-exports.isStringMap = isStringMap;
-var STRING_MAP_PROTO = Object.getPrototypeOf({});
-function isStrictStringMap(obj) {
-    return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
-}
-exports.isStrictStringMap = isStrictStringMap;
-function isPromise(obj) {
-    return obj instanceof _global.Promise;
-}
-exports.isPromise = isPromise;
-function isArray(obj) {
-    return Array.isArray(obj);
-}
-exports.isArray = isArray;
-function isDate(obj) {
-    return obj instanceof exports.Date && !isNaN(obj.valueOf());
-}
-exports.isDate = isDate;
-function noop() { }
-exports.noop = noop;
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token === undefined || token === null) {
-        return '' + token;
-    }
-    if (token.name) {
-        return token.name;
-    }
-    if (token.overriddenName) {
-        return token.overriddenName;
-    }
-    var res = token.toString();
-    var newLineIndex = res.indexOf('\n');
-    return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
-}
-exports.stringify = stringify;
-// serialize / deserialize enum exist only for consistency with dart API
-// enums in typescript don't need to be serialized
-function serializeEnum(val) {
-    return val;
-}
-exports.serializeEnum = serializeEnum;
-function deserializeEnum(val, values) {
-    return val;
-}
-exports.deserializeEnum = deserializeEnum;
-function resolveEnumToken(enumValue, val) {
-    return enumValue[val];
-}
-exports.resolveEnumToken = resolveEnumToken;
-var StringWrapper = (function () {
-    function StringWrapper() {
-    }
-    StringWrapper.fromCharCode = function (code) { return String.fromCharCode(code); };
-    StringWrapper.charCodeAt = function (s, index) { return s.charCodeAt(index); };
-    StringWrapper.split = function (s, regExp) { return s.split(regExp); };
-    StringWrapper.equals = function (s, s2) { return s === s2; };
-    StringWrapper.stripLeft = function (s, charVal) {
-        if (s && s.length) {
-            var pos = 0;
-            for (var i = 0; i < s.length; i++) {
-                if (s[i] != charVal)
-                    break;
-                pos++;
-            }
-            s = s.substring(pos);
-        }
-        return s;
-    };
-    StringWrapper.stripRight = function (s, charVal) {
-        if (s && s.length) {
-            var pos = s.length;
-            for (var i = s.length - 1; i >= 0; i--) {
-                if (s[i] != charVal)
-                    break;
-                pos--;
-            }
-            s = s.substring(0, pos);
-        }
-        return s;
-    };
-    StringWrapper.replace = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.replaceAll = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.slice = function (s, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return s.slice(from, to === null ? undefined : to);
-    };
-    StringWrapper.replaceAllMapped = function (s, from, cb) {
-        return s.replace(from, function () {
-            var matches = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                matches[_i - 0] = arguments[_i];
-            }
-            // Remove offset & string from the result array
-            matches.splice(-2, 2);
-            // The callback receives match, p1, ..., pn
-            return cb(matches);
-        });
-    };
-    StringWrapper.contains = function (s, substr) { return s.indexOf(substr) != -1; };
-    StringWrapper.compare = function (a, b) {
-        if (a < b) {
-            return -1;
-        }
-        else if (a > b) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    };
-    return StringWrapper;
-}());
-exports.StringWrapper = StringWrapper;
-var StringJoiner = (function () {
-    function StringJoiner(parts) {
-        if (parts === void 0) { parts = []; }
-        this.parts = parts;
-    }
-    StringJoiner.prototype.add = function (part) { this.parts.push(part); };
-    StringJoiner.prototype.toString = function () { return this.parts.join(''); };
-    return StringJoiner;
-}());
-exports.StringJoiner = StringJoiner;
-var NumberParseError = (function (_super) {
-    __extends(NumberParseError, _super);
-    function NumberParseError(message) {
-        _super.call(this);
-        this.message = message;
-    }
-    NumberParseError.prototype.toString = function () { return this.message; };
-    return NumberParseError;
-}(Error));
-exports.NumberParseError = NumberParseError;
-var NumberWrapper = (function () {
-    function NumberWrapper() {
-    }
-    NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
-    NumberWrapper.equal = function (a, b) { return a === b; };
-    NumberWrapper.parseIntAutoRadix = function (text) {
-        var result = parseInt(text);
-        if (isNaN(result)) {
-            throw new NumberParseError('Invalid integer literal when parsing ' + text);
-        }
-        return result;
-    };
-    NumberWrapper.parseInt = function (text, radix) {
-        if (radix == 10) {
-            if (/^(\-|\+)?[0-9]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else if (radix == 16) {
-            if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else {
-            var result = parseInt(text, radix);
-            if (!isNaN(result)) {
-                return result;
-            }
-        }
-        throw new NumberParseError('Invalid integer literal when parsing ' + text + ' in base ' + radix);
-    };
-    // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
-    NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
-    Object.defineProperty(NumberWrapper, "NaN", {
-        get: function () { return NaN; },
-        enumerable: true,
-        configurable: true
-    });
-    NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    NumberWrapper.isNaN = function (value) { return isNaN(value); };
-    NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
-    return NumberWrapper;
-}());
-exports.NumberWrapper = NumberWrapper;
-exports.RegExp = _global.RegExp;
-var RegExpWrapper = (function () {
-    function RegExpWrapper() {
-    }
-    RegExpWrapper.create = function (regExpStr, flags) {
-        if (flags === void 0) { flags = ''; }
-        flags = flags.replace(/g/g, '');
-        return new _global.RegExp(regExpStr, flags + 'g');
-    };
-    RegExpWrapper.firstMatch = function (regExp, input) {
-        // Reset multimatch regex state
-        regExp.lastIndex = 0;
-        return regExp.exec(input);
-    };
-    RegExpWrapper.test = function (regExp, input) {
-        regExp.lastIndex = 0;
-        return regExp.test(input);
-    };
-    RegExpWrapper.matcher = function (regExp, input) {
-        // Reset regex state for the case
-        // someone did not loop over all matches
-        // last time.
-        regExp.lastIndex = 0;
-        return { re: regExp, input: input };
-    };
-    RegExpWrapper.replaceAll = function (regExp, input, replace) {
-        var c = regExp.exec(input);
-        var res = '';
-        regExp.lastIndex = 0;
-        var prev = 0;
-        while (c) {
-            res += input.substring(prev, c.index);
-            res += replace(c);
-            prev = c.index + c[0].length;
-            regExp.lastIndex = prev;
-            c = regExp.exec(input);
-        }
-        res += input.substring(prev);
-        return res;
-    };
-    return RegExpWrapper;
-}());
-exports.RegExpWrapper = RegExpWrapper;
-var RegExpMatcherWrapper = (function () {
-    function RegExpMatcherWrapper() {
-    }
-    RegExpMatcherWrapper.next = function (matcher) {
-        return matcher.re.exec(matcher.input);
-    };
-    return RegExpMatcherWrapper;
-}());
-exports.RegExpMatcherWrapper = RegExpMatcherWrapper;
-var FunctionWrapper = (function () {
-    function FunctionWrapper() {
-    }
-    FunctionWrapper.apply = function (fn, posArgs) { return fn.apply(null, posArgs); };
-    FunctionWrapper.bind = function (fn, scope) { return fn.bind(scope); };
-    return FunctionWrapper;
-}());
-exports.FunctionWrapper = FunctionWrapper;
-// JS has NaN !== NaN
-function looseIdentical(a, b) {
-    return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
-}
-exports.looseIdentical = looseIdentical;
-// JS considers NaN is the same as NaN for map Key (while NaN !== NaN otherwise)
-// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-function getMapKey(value) {
-    return value;
-}
-exports.getMapKey = getMapKey;
-function normalizeBlank(obj) {
-    return isBlank(obj) ? null : obj;
-}
-exports.normalizeBlank = normalizeBlank;
-function normalizeBool(obj) {
-    return isBlank(obj) ? false : obj;
-}
-exports.normalizeBool = normalizeBool;
-function isJsObject(o) {
-    return o !== null && (typeof o === 'function' || typeof o === 'object');
-}
-exports.isJsObject = isJsObject;
-function print(obj) {
-    console.log(obj);
-}
-exports.print = print;
-function warn(obj) {
-    console.warn(obj);
-}
-exports.warn = warn;
-// Can't be all uppercase as our transpiler would think it is a special directive...
-var Json = (function () {
-    function Json() {
-    }
-    Json.parse = function (s) { return _global.JSON.parse(s); };
-    Json.stringify = function (data) {
-        // Dart doesn't take 3 arguments
-        return _global.JSON.stringify(data, null, 2);
-    };
-    return Json;
-}());
-exports.Json = Json;
-var DateWrapper = (function () {
-    function DateWrapper() {
-    }
-    DateWrapper.create = function (year, month, day, hour, minutes, seconds, milliseconds) {
-        if (month === void 0) { month = 1; }
-        if (day === void 0) { day = 1; }
-        if (hour === void 0) { hour = 0; }
-        if (minutes === void 0) { minutes = 0; }
-        if (seconds === void 0) { seconds = 0; }
-        if (milliseconds === void 0) { milliseconds = 0; }
-        return new exports.Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
-    };
-    DateWrapper.fromISOString = function (str) { return new exports.Date(str); };
-    DateWrapper.fromMillis = function (ms) { return new exports.Date(ms); };
-    DateWrapper.toMillis = function (date) { return date.getTime(); };
-    DateWrapper.now = function () { return new exports.Date(); };
-    DateWrapper.toJson = function (date) { return date.toJSON(); };
-    return DateWrapper;
-}());
-exports.DateWrapper = DateWrapper;
-function setValueOnPath(global, path, value) {
-    var parts = path.split('.');
-    var obj = global;
-    while (parts.length > 1) {
-        var name = parts.shift();
-        if (obj.hasOwnProperty(name) && isPresent(obj[name])) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-exports.setValueOnPath = setValueOnPath;
-var _symbolIterator = null;
-function getSymbolIterator() {
-    if (isBlank(_symbolIterator)) {
-        if (isPresent(globalScope.Symbol) && isPresent(Symbol.iterator)) {
-            _symbolIterator = Symbol.iterator;
-        }
-        else {
-            // es6-shim specific logic
-            var keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var i = 0; i < keys.length; ++i) {
-                var key = keys[i];
-                if (key !== 'entries' && key !== 'size' &&
-                    Map.prototype[key] === Map.prototype['entries']) {
-                    _symbolIterator = key;
-                }
-            }
-        }
-    }
-    return _symbolIterator;
-}
-exports.getSymbolIterator = getSymbolIterator;
-function evalExpression(sourceUrl, expr, declarations, vars) {
-    var fnBody = declarations + "\nreturn " + expr + "\n//# sourceURL=" + sourceUrl;
-    var fnArgNames = [];
-    var fnArgValues = [];
-    for (var argName in vars) {
-        fnArgNames.push(argName);
-        fnArgValues.push(vars[argName]);
-    }
-    return new (Function.bind.apply(Function, [void 0].concat(fnArgNames.concat(fnBody))))().apply(void 0, fnArgValues);
-}
-exports.evalExpression = evalExpression;
-function isPrimitive(obj) {
-    return !isJsObject(obj);
-}
-exports.isPrimitive = isPrimitive;
-function hasConstructor(value, type) {
-    return value.constructor === type;
-}
-exports.hasConstructor = hasConstructor;
-function escape(s) {
-    return _global.encodeURI(s);
-}
-exports.escape = escape;
-function escapeRegExp(s) {
-    return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-}
-exports.escapeRegExp = escapeRegExp;
-//# sourceMappingURL=lang.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade\\lang.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade")
-},{"2ionoC":410,"buffer":409}],346:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var PromiseCompleter = (function () {
-    function PromiseCompleter() {
-        var _this = this;
-        this.promise = new Promise(function (res, rej) {
-            _this.resolve = res;
-            _this.reject = rej;
-        });
-    }
-    return PromiseCompleter;
-}());
-exports.PromiseCompleter = PromiseCompleter;
-var PromiseWrapper = (function () {
-    function PromiseWrapper() {
-    }
-    PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-    PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
-    // Note: We can't rename this method into `catch`, as this is not a valid
-    // method name in Dart.
-    PromiseWrapper.catchError = function (promise, onError) {
-        return promise.catch(onError);
-    };
-    PromiseWrapper.all = function (promises) {
-        if (promises.length == 0)
-            return Promise.resolve([]);
-        return Promise.all(promises);
-    };
-    PromiseWrapper.then = function (promise, success, rejection) {
-        return promise.then(success, rejection);
-    };
-    PromiseWrapper.wrap = function (computation) {
-        return new Promise(function (res, rej) {
-            try {
-                res(computation());
-            }
-            catch (e) {
-                rej(e);
-            }
-        });
-    };
-    PromiseWrapper.scheduleMicrotask = function (computation) {
-        PromiseWrapper.then(PromiseWrapper.resolve(null), computation, function (_) { });
-    };
-    PromiseWrapper.completer = function () { return new PromiseCompleter(); };
-    return PromiseWrapper;
-}());
-exports.PromiseWrapper = PromiseWrapper;
-//# sourceMappingURL=promise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade\\promise.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\facade")
-},{"2ionoC":410,"buffer":409}],347:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./core_private":338,"./src/facade/async":340,"./src/facade/lang":345,"./src/xhr/xhr_cache":347,"./src/xhr/xhr_impl":348,"@angular/common":44,"@angular/compiler":110,"@angular/core":191,"@angular/platform-browser":350}],340:[function(require,module,exports){
+module.exports=require(55)
+},{"./lang":345,"./promise":346,"rxjs/Observable":408,"rxjs/Subject":410,"rxjs/observable/PromiseObservable":415,"rxjs/operator/toPromise":416}],341:[function(require,module,exports){
+module.exports=require(56)
+},{}],342:[function(require,module,exports){
+module.exports=require(57)
+},{"./lang":345}],343:[function(require,module,exports){
+module.exports=require(58)
+},{"./base_wrapped_exception":341,"./collection":342,"./lang":345}],344:[function(require,module,exports){
+module.exports=require(59)
+},{"./base_wrapped_exception":341,"./exception_handler":343}],345:[function(require,module,exports){
+module.exports=require(61)
+},{}],346:[function(require,module,exports){
+module.exports=require(62)
+},{}],347:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53114,9 +45839,7 @@ var CachedXHR = (function (_super) {
 }(compiler_1.XHR));
 exports.CachedXHR = CachedXHR;
 //# sourceMappingURL=xhr_cache.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\xhr\\xhr_cache.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\xhr")
-},{"../facade/exceptions":344,"../facade/lang":345,"../facade/promise":346,"2ionoC":410,"@angular/compiler":110,"buffer":409}],348:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/exceptions":344,"../facade/lang":345,"../facade/promise":346,"@angular/compiler":110}],348:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53170,9 +45893,7 @@ var XHRImpl = (function (_super) {
 }(compiler_1.XHR));
 exports.XHRImpl = XHRImpl;
 //# sourceMappingURL=xhr_impl.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\xhr\\xhr_impl.js","/..\\node_modules\\@angular\\platform-browser-dynamic\\src\\xhr")
-},{"../facade/lang":345,"../facade/promise":346,"2ionoC":410,"@angular/compiler":110,"buffer":409}],349:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":345,"../facade/promise":346,"@angular/compiler":110}],349:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53208,9 +45929,7 @@ exports.flattenStyles = core_1.__core_private__.flattenStyles;
 exports.clearStyles = core_1.__core_private__.clearStyles;
 exports.collectAndResolveStyles = core_1.__core_private__.collectAndResolveStyles;
 //# sourceMappingURL=core_private.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\core_private.js","/..\\node_modules\\@angular\\platform-browser")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],350:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],350:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53264,9 +45983,7 @@ __export(require('./src/worker_render'));
 __export(require('./src/worker_app'));
 __export(require('./private_export'));
 //# sourceMappingURL=index.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\index.js","/..\\node_modules\\@angular\\platform-browser")
-},{"./private_export":351,"./src/browser":352,"./src/browser/location/browser_platform_location":355,"./src/browser/title":358,"./src/browser/tools/tools":360,"./src/dom/debug/by":361,"./src/dom/dom_tokens":365,"./src/dom/events/event_manager":367,"./src/dom/events/hammer_gestures":369,"./src/security/dom_sanitization_service":383,"./src/web_workers/shared/client_message_broker":388,"./src/web_workers/shared/message_bus":389,"./src/web_workers/shared/serializer":394,"./src/web_workers/shared/service_message_broker":395,"./src/web_workers/ui/location_providers":398,"./src/web_workers/worker/location_providers":402,"./src/worker_app":406,"./src/worker_render":407,"2ionoC":410,"buffer":409}],351:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./private_export":351,"./src/browser":352,"./src/browser/location/browser_platform_location":355,"./src/browser/title":358,"./src/browser/tools/tools":360,"./src/dom/debug/by":361,"./src/dom/dom_tokens":365,"./src/dom/events/event_manager":367,"./src/dom/events/hammer_gestures":369,"./src/security/dom_sanitization_service":383,"./src/web_workers/shared/client_message_broker":388,"./src/web_workers/shared/message_bus":389,"./src/web_workers/shared/serializer":394,"./src/web_workers/shared/service_message_broker":395,"./src/web_workers/ui/location_providers":398,"./src/web_workers/worker/location_providers":402,"./src/worker_app":406,"./src/worker_render":407}],351:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53292,9 +46009,7 @@ exports.__platform_browser_private__ = {
     DomEventsPlugin: dom_events.DomEventsPlugin
 };
 //# sourceMappingURL=private_export.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\private_export.js","/..\\node_modules\\@angular\\platform-browser")
-},{"./src/dom/debug/ng_probe":362,"./src/dom/dom_adapter":363,"./src/dom/dom_renderer":364,"./src/dom/events/dom_events":366,"./src/dom/shared_styles_host":371,"2ionoC":410,"buffer":409}],352:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./src/dom/debug/ng_probe":362,"./src/dom/dom_adapter":363,"./src/dom/dom_renderer":364,"./src/dom/events/dom_events":366,"./src/dom/shared_styles_host":371}],352:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53393,9 +46108,7 @@ function _resolveDefaultAnimationDriver() {
     return new core_private_1.NoOpAnimationDriver();
 }
 //# sourceMappingURL=browser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser.js","/..\\node_modules\\@angular\\platform-browser\\src")
-},{"../core_private":349,"../src/dom/web_animations_driver":373,"./browser/browser_adapter":353,"./browser/location/browser_platform_location":355,"./browser/testability":357,"./dom/debug/ng_probe":362,"./dom/dom_adapter":363,"./dom/dom_renderer":364,"./dom/dom_tokens":365,"./dom/events/dom_events":366,"./dom/events/event_manager":367,"./dom/events/hammer_gestures":369,"./dom/events/key_events":370,"./dom/shared_styles_host":371,"./facade/lang":381,"./security/dom_sanitization_service":383,"2ionoC":410,"@angular/common":44,"@angular/core":191,"buffer":409}],353:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":349,"../src/dom/web_animations_driver":373,"./browser/browser_adapter":353,"./browser/location/browser_platform_location":355,"./browser/testability":357,"./dom/debug/ng_probe":362,"./dom/dom_adapter":363,"./dom/dom_renderer":364,"./dom/dom_tokens":365,"./dom/events/dom_events":366,"./dom/events/event_manager":367,"./dom/events/hammer_gestures":369,"./dom/events/key_events":370,"./dom/shared_styles_host":371,"./facade/lang":381,"./security/dom_sanitization_service":383,"@angular/common":44,"@angular/core":191}],353:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53867,9 +46580,7 @@ function parseCookieValue(cookie, name) {
 }
 exports.parseCookieValue = parseCookieValue;
 //# sourceMappingURL=browser_adapter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\browser_adapter.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser")
-},{"../dom/dom_adapter":363,"../facade/collection":378,"../facade/lang":381,"./generic_browser_adapter":354,"2ionoC":410,"buffer":409}],354:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom/dom_adapter":363,"../facade/collection":378,"../facade/lang":381,"./generic_browser_adapter":354}],354:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53946,9 +46657,7 @@ var GenericBrowserDomAdapter = (function (_super) {
 }(dom_adapter_1.DomAdapter));
 exports.GenericBrowserDomAdapter = GenericBrowserDomAdapter;
 //# sourceMappingURL=generic_browser_adapter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\generic_browser_adapter.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser")
-},{"../dom/dom_adapter":363,"../facade/collection":378,"../facade/lang":381,"2ionoC":410,"buffer":409}],355:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom/dom_adapter":363,"../facade/collection":378,"../facade/lang":381}],355:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54035,9 +46744,7 @@ var BrowserPlatformLocation = (function (_super) {
 }(common_1.PlatformLocation));
 exports.BrowserPlatformLocation = BrowserPlatformLocation;
 //# sourceMappingURL=browser_platform_location.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\location\\browser_platform_location.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser\\location")
-},{"../../dom/dom_adapter":363,"./history":356,"2ionoC":410,"@angular/common":44,"@angular/core":191,"buffer":409}],356:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../dom/dom_adapter":363,"./history":356,"@angular/common":44,"@angular/core":191}],356:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54051,9 +46758,7 @@ function supportsState() {
 }
 exports.supportsState = supportsState;
 //# sourceMappingURL=history.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\location\\history.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser\\location")
-},{"2ionoC":410,"buffer":409}],357:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],357:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54138,9 +46843,7 @@ var BrowserGetTestability = (function () {
 }());
 exports.BrowserGetTestability = BrowserGetTestability;
 //# sourceMappingURL=testability.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\testability.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser")
-},{"../dom/dom_adapter":363,"../facade/collection":378,"../facade/lang":381,"2ionoC":410,"@angular/core":191,"buffer":409}],358:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom/dom_adapter":363,"../facade/collection":378,"../facade/lang":381,"@angular/core":191}],358:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54177,9 +46880,7 @@ var Title = (function () {
 }());
 exports.Title = Title;
 //# sourceMappingURL=title.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\title.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser")
-},{"../dom/dom_adapter":363,"2ionoC":410,"buffer":409}],359:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom/dom_adapter":363}],359:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54266,9 +46967,7 @@ var AngularProfiler = (function () {
 }());
 exports.AngularProfiler = AngularProfiler;
 //# sourceMappingURL=common_tools.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\tools\\common_tools.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser\\tools")
-},{"../../dom/dom_adapter":363,"../../facade/browser":377,"../../facade/lang":381,"2ionoC":410,"@angular/core":191,"buffer":409}],360:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../dom/dom_adapter":363,"../../facade/browser":377,"../../facade/lang":381,"@angular/core":191}],360:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54308,9 +47007,7 @@ function disableDebugTools() {
 }
 exports.disableDebugTools = disableDebugTools;
 //# sourceMappingURL=tools.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\browser\\tools\\tools.js","/..\\node_modules\\@angular\\platform-browser\\src\\browser\\tools")
-},{"../../facade/lang":381,"./common_tools":359,"2ionoC":410,"buffer":409}],361:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/lang":381,"./common_tools":359}],361:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54365,9 +47062,7 @@ var By = (function () {
 }());
 exports.By = By;
 //# sourceMappingURL=by.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\debug\\by.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom\\debug")
-},{"../../dom/dom_adapter":363,"../../facade/lang":381,"2ionoC":410,"buffer":409}],362:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../dom/dom_adapter":363,"../../facade/lang":381}],362:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54412,9 +47107,7 @@ function _createRootRenderer(rootRenderer /** TODO #9100 */) {
 exports.ELEMENT_PROBE_PROVIDERS = [{ provide: core_1.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [dom_renderer_1.DomRootRenderer] }];
 exports.ELEMENT_PROBE_PROVIDERS_PROD_MODE = [{ provide: core_1.RootRenderer, useFactory: _createRootRenderer, deps: [dom_renderer_1.DomRootRenderer] }];
 //# sourceMappingURL=ng_probe.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\debug\\ng_probe.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom\\debug")
-},{"../../../core_private":349,"../dom_adapter":363,"../dom_renderer":364,"2ionoC":410,"@angular/core":191,"buffer":409}],363:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../../core_private":349,"../dom_adapter":363,"../dom_renderer":364,"@angular/core":191}],363:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54465,9 +47158,7 @@ var DomAdapter = (function () {
 }());
 exports.DomAdapter = DomAdapter;
 //# sourceMappingURL=dom_adapter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\dom_adapter.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom")
-},{"../facade/lang":381,"2ionoC":410,"buffer":409}],364:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":381}],364:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54760,9 +47451,7 @@ function splitNamespace(name) {
     return [match[1], match[2]];
 }
 //# sourceMappingURL=dom_renderer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\dom_renderer.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom")
-},{"../../core_private":349,"../facade/exceptions":380,"../facade/lang":381,"./dom_adapter":363,"./dom_tokens":365,"./events/event_manager":367,"./shared_styles_host":371,"./util":372,"2ionoC":410,"@angular/core":191,"buffer":409}],365:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":349,"../facade/exceptions":380,"../facade/lang":381,"./dom_adapter":363,"./dom_tokens":365,"./events/event_manager":367,"./shared_styles_host":371,"./util":372,"@angular/core":191}],365:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54782,9 +47471,7 @@ var core_1 = require('@angular/core');
  */
 exports.DOCUMENT = new core_1.OpaqueToken('DocumentToken');
 //# sourceMappingURL=dom_tokens.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\dom_tokens.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],366:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],366:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54828,9 +47515,7 @@ var DomEventsPlugin = (function (_super) {
 }(event_manager_1.EventManagerPlugin));
 exports.DomEventsPlugin = DomEventsPlugin;
 //# sourceMappingURL=dom_events.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events\\dom_events.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events")
-},{"../dom_adapter":363,"./event_manager":367,"2ionoC":410,"@angular/core":191,"buffer":409}],367:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom_adapter":363,"./event_manager":367,"@angular/core":191}],367:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54900,9 +47585,7 @@ var EventManagerPlugin = (function () {
 }());
 exports.EventManagerPlugin = EventManagerPlugin;
 //# sourceMappingURL=event_manager.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events\\event_manager.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events")
-},{"../../facade/collection":378,"../../facade/exceptions":380,"2ionoC":410,"@angular/core":191,"buffer":409}],368:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":378,"../../facade/exceptions":380,"@angular/core":191}],368:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -54968,9 +47651,7 @@ var HammerGesturesPluginCommon = (function (_super) {
 }(event_manager_1.EventManagerPlugin));
 exports.HammerGesturesPluginCommon = HammerGesturesPluginCommon;
 //# sourceMappingURL=hammer_common.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events\\hammer_common.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events")
-},{"../../facade/collection":378,"./event_manager":367,"2ionoC":410,"buffer":409}],369:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":378,"./event_manager":367}],369:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -55057,9 +47738,7 @@ var HammerGesturesPlugin = (function (_super) {
 }(hammer_common_1.HammerGesturesPluginCommon));
 exports.HammerGesturesPlugin = HammerGesturesPlugin;
 //# sourceMappingURL=hammer_gestures.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events\\hammer_gestures.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events")
-},{"../../facade/exceptions":380,"../../facade/lang":381,"./hammer_common":368,"2ionoC":410,"@angular/core":191,"buffer":409}],370:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/exceptions":380,"../../facade/lang":381,"./hammer_common":368,"@angular/core":191}],370:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -55174,9 +47853,7 @@ var KeyEventsPlugin = (function (_super) {
 }(event_manager_1.EventManagerPlugin));
 exports.KeyEventsPlugin = KeyEventsPlugin;
 //# sourceMappingURL=key_events.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events\\key_events.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom\\events")
-},{"../../facade/collection":378,"../../facade/lang":381,"../dom_adapter":363,"./event_manager":367,"2ionoC":410,"@angular/core":191,"buffer":409}],371:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":378,"../../facade/lang":381,"../dom_adapter":363,"./event_manager":367,"@angular/core":191}],371:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -55259,9 +47936,7 @@ var DomSharedStylesHost = (function (_super) {
 }(SharedStylesHost));
 exports.DomSharedStylesHost = DomSharedStylesHost;
 //# sourceMappingURL=shared_styles_host.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\shared_styles_host.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom")
-},{"../facade/collection":378,"./dom_adapter":363,"./dom_tokens":365,"2ionoC":410,"@angular/core":191,"buffer":409}],372:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":378,"./dom_adapter":363,"./dom_tokens":365,"@angular/core":191}],372:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -55282,9 +47957,7 @@ function dashCaseToCamelCase(input) {
 }
 exports.dashCaseToCamelCase = dashCaseToCamelCase;
 //# sourceMappingURL=util.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\util.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom")
-},{"../facade/lang":381,"2ionoC":410,"buffer":409}],373:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":381}],373:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -55421,9 +48094,7 @@ function _computeStyle(element, prop) {
     return dom_adapter_1.getDOM().getComputedStyle(element)[prop];
 }
 //# sourceMappingURL=web_animations_driver.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\web_animations_driver.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom")
-},{"../facade/collection":378,"../facade/lang":381,"./dom_adapter":363,"./util":372,"./web_animations_player":374,"2ionoC":410,"@angular/core":191,"buffer":409}],374:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/collection":378,"../facade/lang":381,"./dom_adapter":363,"./util":372,"./web_animations_player":374,"@angular/core":191}],374:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -55477,239 +48148,11 @@ var WebAnimationsPlayer = (function () {
 }());
 exports.WebAnimationsPlayer = WebAnimationsPlayer;
 //# sourceMappingURL=web_animations_player.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\dom\\web_animations_player.js","/..\\node_modules\\@angular\\platform-browser\\src\\dom")
-},{"../facade/lang":381,"2ionoC":410,"buffer":409}],375:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var Subject_1 = require('rxjs/Subject');
-var PromiseObservable_1 = require('rxjs/observable/PromiseObservable');
-var toPromise_1 = require('rxjs/operator/toPromise');
-var lang_1 = require('./lang');
-var Observable_1 = require('rxjs/Observable');
-exports.Observable = Observable_1.Observable;
-var Subject_2 = require('rxjs/Subject');
-exports.Subject = Subject_2.Subject;
-var promise_1 = require('./promise');
-exports.PromiseCompleter = promise_1.PromiseCompleter;
-exports.PromiseWrapper = promise_1.PromiseWrapper;
-var TimerWrapper = (function () {
-    function TimerWrapper() {
-    }
-    TimerWrapper.setTimeout = function (fn, millis) {
-        return lang_1.global.setTimeout(fn, millis);
-    };
-    TimerWrapper.clearTimeout = function (id) { lang_1.global.clearTimeout(id); };
-    TimerWrapper.setInterval = function (fn, millis) {
-        return lang_1.global.setInterval(fn, millis);
-    };
-    TimerWrapper.clearInterval = function (id) { lang_1.global.clearInterval(id); };
-    return TimerWrapper;
-}());
-exports.TimerWrapper = TimerWrapper;
-var ObservableWrapper = (function () {
-    function ObservableWrapper() {
-    }
-    // TODO(vsavkin): when we use rxnext, try inferring the generic type from the first arg
-    ObservableWrapper.subscribe = function (emitter, onNext, onError, onComplete) {
-        if (onComplete === void 0) { onComplete = function () { }; }
-        onError = (typeof onError === 'function') && onError || lang_1.noop;
-        onComplete = (typeof onComplete === 'function') && onComplete || lang_1.noop;
-        return emitter.subscribe({ next: onNext, error: onError, complete: onComplete });
-    };
-    ObservableWrapper.isObservable = function (obs) { return !!obs.subscribe; };
-    /**
-     * Returns whether `obs` has any subscribers listening to events.
-     */
-    ObservableWrapper.hasSubscribers = function (obs) { return obs.observers.length > 0; };
-    ObservableWrapper.dispose = function (subscription) { subscription.unsubscribe(); };
-    /**
-     * @deprecated - use callEmit() instead
-     */
-    ObservableWrapper.callNext = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callEmit = function (emitter, value) { emitter.emit(value); };
-    ObservableWrapper.callError = function (emitter, error) { emitter.error(error); };
-    ObservableWrapper.callComplete = function (emitter) { emitter.complete(); };
-    ObservableWrapper.fromPromise = function (promise) {
-        return PromiseObservable_1.PromiseObservable.create(promise);
-    };
-    ObservableWrapper.toPromise = function (obj) { return toPromise_1.toPromise.call(obj); };
-    return ObservableWrapper;
-}());
-exports.ObservableWrapper = ObservableWrapper;
-/**
- * Use by directives and components to emit custom Events.
- *
- * ### Examples
- *
- * In the following example, `Zippy` alternatively emits `open` and `close` events when its
- * title gets clicked:
- *
- * ```
- * @Component({
- *   selector: 'zippy',
- *   template: `
- *   <div class="zippy">
- *     <div (click)="toggle()">Toggle</div>
- *     <div [hidden]="!visible">
- *       <ng-content></ng-content>
- *     </div>
- *  </div>`})
- * export class Zippy {
- *   visible: boolean = true;
- *   @Output() open: EventEmitter<any> = new EventEmitter();
- *   @Output() close: EventEmitter<any> = new EventEmitter();
- *
- *   toggle() {
- *     this.visible = !this.visible;
- *     if (this.visible) {
- *       this.open.emit(null);
- *     } else {
- *       this.close.emit(null);
- *     }
- *   }
- * }
- * ```
- *
- * The events payload can be accessed by the parameter `$event` on the components output event
- * handler:
- *
- * ```
- * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
- * ```
- *
- * Uses Rx.Observable but provides an adapter to make it work as specified here:
- * https://github.com/jhusain/observable-spec
- *
- * Once a reference implementation of the spec is available, switch to it.
- * @stable
- */
-var EventEmitter = (function (_super) {
-    __extends(EventEmitter, _super);
-    /**
-     * Creates an instance of [EventEmitter], which depending on [isAsync],
-     * delivers events synchronously or asynchronously.
-     */
-    function EventEmitter(isAsync) {
-        if (isAsync === void 0) { isAsync = false; }
-        _super.call(this);
-        this.__isAsync = isAsync;
-    }
-    EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
-    /**
-     * @deprecated - use .emit(value) instead
-     */
-    EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
-    EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
-        var schedulerFn;
-        var errorFn = function (err) { return null; };
-        var completeFn = function () { return null; };
-        if (generatorOrNext && typeof generatorOrNext === 'object') {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext.next(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
-            if (generatorOrNext.error) {
-                errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
-                    function (err) { generatorOrNext.error(err); };
-            }
-            if (generatorOrNext.complete) {
-                completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
-                    function () { generatorOrNext.complete(); };
-            }
-        }
-        else {
-            schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                setTimeout(function () { return generatorOrNext(value); });
-            } : function (value /** TODO #9100 */) { generatorOrNext(value); };
-            if (error) {
-                errorFn =
-                    this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
-            }
-            if (complete) {
-                completeFn =
-                    this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
-            }
-        }
-        return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
-    };
-    return EventEmitter;
-}(Subject_1.Subject));
-exports.EventEmitter = EventEmitter;
-//# sourceMappingURL=async.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\async.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"./lang":381,"./promise":382,"2ionoC":410,"buffer":409,"rxjs/Observable":412,"rxjs/Subject":414,"rxjs/observable/PromiseObservable":419,"rxjs/operator/toPromise":420}],376:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * A base class for the WrappedException that can be used to identify
- * a WrappedException from ExceptionHandler without adding circular
- * dependency.
- */
-var BaseWrappedException = (function (_super) {
-    __extends(BaseWrappedException, _super);
-    function BaseWrappedException(message) {
-        _super.call(this, message);
-    }
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperMessage", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "wrapperStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalException", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "originalStack", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "context", {
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseWrappedException.prototype, "message", {
-        get: function () { return ''; },
-        enumerable: true,
-        configurable: true
-    });
-    return BaseWrappedException;
-}(Error));
-exports.BaseWrappedException = BaseWrappedException;
-//# sourceMappingURL=base_wrapped_exception.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\base_wrapped_exception.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"2ionoC":410,"buffer":409}],377:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../facade/lang":381}],375:[function(require,module,exports){
+module.exports=require(55)
+},{"./lang":381,"./promise":382,"rxjs/Observable":408,"rxjs/Subject":410,"rxjs/observable/PromiseObservable":415,"rxjs/operator/toPromise":416}],376:[function(require,module,exports){
+module.exports=require(56)
+},{}],377:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -55735,1148 +48178,17 @@ exports.History = win['History'];
 exports.Location = win['Location'];
 exports.EventListener = win['EventListener'];
 //# sourceMappingURL=browser.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\browser.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"2ionoC":410,"buffer":409}],378:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var lang_1 = require('./lang');
-exports.Map = lang_1.global.Map;
-exports.Set = lang_1.global.Set;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Map constructor.  We work around that by manually adding the items.
-var createMapFromPairs = (function () {
-    try {
-        if (new exports.Map([[1, 2]]).size === 1) {
-            return function createMapFromPairs(pairs) { return new exports.Map(pairs); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromPairs(pairs) {
-        var map = new exports.Map();
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i];
-            map.set(pair[0], pair[1]);
-        }
-        return map;
-    };
-})();
-var createMapFromMap = (function () {
-    try {
-        if (new exports.Map(new exports.Map())) {
-            return function createMapFromMap(m) { return new exports.Map(m); };
-        }
-    }
-    catch (e) {
-    }
-    return function createMapAndPopulateFromMap(m) {
-        var map = new exports.Map();
-        m.forEach(function (v, k) { map.set(k, v); });
-        return map;
-    };
-})();
-var _clearValues = (function () {
-    if ((new exports.Map()).keys().next) {
-        return function _clearValues(m) {
-            var keyIterator = m.keys();
-            var k;
-            while (!((k = keyIterator.next()).done)) {
-                m.set(k.value, null);
-            }
-        };
-    }
-    else {
-        return function _clearValuesWithForeEach(m) {
-            m.forEach(function (v, k) { m.set(k, null); });
-        };
-    }
-})();
-// Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
-// TODO(mlaval): remove the work around once we have a working polyfill of Array.from
-var _arrayFromMap = (function () {
-    try {
-        if ((new exports.Map()).values().next) {
-            return function createArrayFromMap(m, getValues) {
-                return getValues ? Array.from(m.values()) : Array.from(m.keys());
-            };
-        }
-    }
-    catch (e) {
-    }
-    return function createArrayFromMapWithForeach(m, getValues) {
-        var res = ListWrapper.createFixedSize(m.size), i = 0;
-        m.forEach(function (v, k) {
-            res[i] = getValues ? v : k;
-            i++;
-        });
-        return res;
-    };
-})();
-var MapWrapper = (function () {
-    function MapWrapper() {
-    }
-    MapWrapper.clone = function (m) { return createMapFromMap(m); };
-    MapWrapper.createFromStringMap = function (stringMap) {
-        var result = new exports.Map();
-        for (var prop in stringMap) {
-            result.set(prop, stringMap[prop]);
-        }
-        return result;
-    };
-    MapWrapper.toStringMap = function (m) {
-        var r = {};
-        m.forEach(function (v, k) { return r[k] = v; });
-        return r;
-    };
-    MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-    MapWrapper.clearValues = function (m) { _clearValues(m); };
-    MapWrapper.iterable = function (m) { return m; };
-    MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
-    MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
-    return MapWrapper;
-}());
-exports.MapWrapper = MapWrapper;
-/**
- * Wraps Javascript Objects
- */
-var StringMapWrapper = (function () {
-    function StringMapWrapper() {
-    }
-    StringMapWrapper.create = function () {
-        // Note: We are not using Object.create(null) here due to
-        // performance!
-        // http://jsperf.com/ng2-object-create-null
-        return {};
-    };
-    StringMapWrapper.contains = function (map, key) {
-        return map.hasOwnProperty(key);
-    };
-    StringMapWrapper.get = function (map, key) {
-        return map.hasOwnProperty(key) ? map[key] : undefined;
-    };
-    StringMapWrapper.set = function (map, key, value) { map[key] = value; };
-    StringMapWrapper.keys = function (map) { return Object.keys(map); };
-    StringMapWrapper.values = function (map) {
-        return Object.keys(map).reduce(function (r, a) {
-            r.push(map[a]);
-            return r;
-        }, []);
-    };
-    StringMapWrapper.isEmpty = function (map) {
-        for (var prop in map) {
-            return false;
-        }
-        return true;
-    };
-    StringMapWrapper.delete = function (map, key) { delete map[key]; };
-    StringMapWrapper.forEach = function (map, callback) {
-        for (var prop in map) {
-            if (map.hasOwnProperty(prop)) {
-                callback(map[prop], prop);
-            }
-        }
-    };
-    StringMapWrapper.merge = function (m1, m2) {
-        var m = {};
-        for (var attr in m1) {
-            if (m1.hasOwnProperty(attr)) {
-                m[attr] = m1[attr];
-            }
-        }
-        for (var attr in m2) {
-            if (m2.hasOwnProperty(attr)) {
-                m[attr] = m2[attr];
-            }
-        }
-        return m;
-    };
-    StringMapWrapper.equals = function (m1, m2) {
-        var k1 = Object.keys(m1);
-        var k2 = Object.keys(m2);
-        if (k1.length != k2.length) {
-            return false;
-        }
-        var key;
-        for (var i = 0; i < k1.length; i++) {
-            key = k1[i];
-            if (m1[key] !== m2[key]) {
-                return false;
-            }
-        }
-        return true;
-    };
-    return StringMapWrapper;
-}());
-exports.StringMapWrapper = StringMapWrapper;
-var ListWrapper = (function () {
-    function ListWrapper() {
-    }
-    // JS has no way to express a statically fixed size list, but dart does so we
-    // keep both methods.
-    ListWrapper.createFixedSize = function (size) { return new Array(size); };
-    ListWrapper.createGrowableSize = function (size) { return new Array(size); };
-    ListWrapper.clone = function (array) { return array.slice(0); };
-    ListWrapper.forEachWithIndex = function (array, fn) {
-        for (var i = 0; i < array.length; i++) {
-            fn(array[i], i);
-        }
-    };
-    ListWrapper.first = function (array) {
-        if (!array)
-            return null;
-        return array[0];
-    };
-    ListWrapper.last = function (array) {
-        if (!array || array.length == 0)
-            return null;
-        return array[array.length - 1];
-    };
-    ListWrapper.indexOf = function (array, value, startIndex) {
-        if (startIndex === void 0) { startIndex = 0; }
-        return array.indexOf(value, startIndex);
-    };
-    ListWrapper.contains = function (list, el) { return list.indexOf(el) !== -1; };
-    ListWrapper.reversed = function (array) {
-        var a = ListWrapper.clone(array);
-        return a.reverse();
-    };
-    ListWrapper.concat = function (a, b) { return a.concat(b); };
-    ListWrapper.insert = function (list, index, value) { list.splice(index, 0, value); };
-    ListWrapper.removeAt = function (list, index) {
-        var res = list[index];
-        list.splice(index, 1);
-        return res;
-    };
-    ListWrapper.removeAll = function (list, items) {
-        for (var i = 0; i < items.length; ++i) {
-            var index = list.indexOf(items[i]);
-            list.splice(index, 1);
-        }
-    };
-    ListWrapper.remove = function (list, el) {
-        var index = list.indexOf(el);
-        if (index > -1) {
-            list.splice(index, 1);
-            return true;
-        }
-        return false;
-    };
-    ListWrapper.clear = function (list) { list.length = 0; };
-    ListWrapper.isEmpty = function (list) { return list.length == 0; };
-    ListWrapper.fill = function (list, value, start, end) {
-        if (start === void 0) { start = 0; }
-        if (end === void 0) { end = null; }
-        list.fill(value, start, end === null ? list.length : end);
-    };
-    ListWrapper.equals = function (a, b) {
-        if (a.length != b.length)
-            return false;
-        for (var i = 0; i < a.length; ++i) {
-            if (a[i] !== b[i])
-                return false;
-        }
-        return true;
-    };
-    ListWrapper.slice = function (l, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return l.slice(from, to === null ? undefined : to);
-    };
-    ListWrapper.splice = function (l, from, length) { return l.splice(from, length); };
-    ListWrapper.sort = function (l, compareFn) {
-        if (lang_1.isPresent(compareFn)) {
-            l.sort(compareFn);
-        }
-        else {
-            l.sort();
-        }
-    };
-    ListWrapper.toString = function (l) { return l.toString(); };
-    ListWrapper.toJSON = function (l) { return JSON.stringify(l); };
-    ListWrapper.maximum = function (list, predicate) {
-        if (list.length == 0) {
-            return null;
-        }
-        var solution = null;
-        var maxValue = -Infinity;
-        for (var index = 0; index < list.length; index++) {
-            var candidate = list[index];
-            if (lang_1.isBlank(candidate)) {
-                continue;
-            }
-            var candidateValue = predicate(candidate);
-            if (candidateValue > maxValue) {
-                solution = candidate;
-                maxValue = candidateValue;
-            }
-        }
-        return solution;
-    };
-    ListWrapper.flatten = function (list) {
-        var target = [];
-        _flattenArray(list, target);
-        return target;
-    };
-    ListWrapper.addAll = function (list, source) {
-        for (var i = 0; i < source.length; i++) {
-            list.push(source[i]);
-        }
-    };
-    return ListWrapper;
-}());
-exports.ListWrapper = ListWrapper;
-function _flattenArray(source, target) {
-    if (lang_1.isPresent(source)) {
-        for (var i = 0; i < source.length; i++) {
-            var item = source[i];
-            if (lang_1.isArray(item)) {
-                _flattenArray(item, target);
-            }
-            else {
-                target.push(item);
-            }
-        }
-    }
-    return target;
-}
-function isListLikeIterable(obj) {
-    if (!lang_1.isJsObject(obj))
-        return false;
-    return lang_1.isArray(obj) ||
-        (!(obj instanceof exports.Map) &&
-            lang_1.getSymbolIterator() in obj); // JS Iterable have a Symbol.iterator prop
-}
-exports.isListLikeIterable = isListLikeIterable;
-function areIterablesEqual(a, b, comparator) {
-    var iterator1 = a[lang_1.getSymbolIterator()]();
-    var iterator2 = b[lang_1.getSymbolIterator()]();
-    while (true) {
-        var item1 = iterator1.next();
-        var item2 = iterator2.next();
-        if (item1.done && item2.done)
-            return true;
-        if (item1.done || item2.done)
-            return false;
-        if (!comparator(item1.value, item2.value))
-            return false;
-    }
-}
-exports.areIterablesEqual = areIterablesEqual;
-function iterateListLike(obj, fn) {
-    if (lang_1.isArray(obj)) {
-        for (var i = 0; i < obj.length; i++) {
-            fn(obj[i]);
-        }
-    }
-    else {
-        var iterator = obj[lang_1.getSymbolIterator()]();
-        var item;
-        while (!((item = iterator.next()).done)) {
-            fn(item.value);
-        }
-    }
-}
-exports.iterateListLike = iterateListLike;
-// Safari and Internet Explorer do not support the iterable parameter to the
-// Set constructor.  We work around that by manually adding the items.
-var createSetFromList = (function () {
-    var test = new exports.Set([1, 2, 3]);
-    if (test.size === 3) {
-        return function createSetFromList(lst) { return new exports.Set(lst); };
-    }
-    else {
-        return function createSetAndPopulateFromList(lst) {
-            var res = new exports.Set(lst);
-            if (res.size !== lst.length) {
-                for (var i = 0; i < lst.length; i++) {
-                    res.add(lst[i]);
-                }
-            }
-            return res;
-        };
-    }
-})();
-var SetWrapper = (function () {
-    function SetWrapper() {
-    }
-    SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-    SetWrapper.has = function (s, key) { return s.has(key); };
-    SetWrapper.delete = function (m, k) { m.delete(k); };
-    return SetWrapper;
-}());
-exports.SetWrapper = SetWrapper;
-//# sourceMappingURL=collection.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\collection.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"./lang":381,"2ionoC":410,"buffer":409}],379:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var collection_1 = require('./collection');
-var lang_1 = require('./lang');
-var _ArrayLogger = (function () {
-    function _ArrayLogger() {
-        this.res = [];
-    }
-    _ArrayLogger.prototype.log = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logError = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroup = function (s) { this.res.push(s); };
-    _ArrayLogger.prototype.logGroupEnd = function () { };
-    ;
-    return _ArrayLogger;
-}());
-/**
- * Provides a hook for centralized exception handling.
- *
- * The default implementation of `ExceptionHandler` prints error messages to the `Console`. To
- * intercept error handling,
- * write a custom exception handler that replaces this default as appropriate for your app.
- *
- * ### Example
- *
- * ```javascript
- *
- * class MyExceptionHandler implements ExceptionHandler {
- *   call(error, stackTrace = null, reason = null) {
- *     // do something with the exception
- *   }
- * }
- *
- * bootstrap(MyApp, {provide: ExceptionHandler, useClass: MyExceptionHandler}])
- *
- * ```
- * @stable
- */
-var ExceptionHandler = (function () {
-    function ExceptionHandler(_logger, _rethrowException) {
-        if (_rethrowException === void 0) { _rethrowException = true; }
-        this._logger = _logger;
-        this._rethrowException = _rethrowException;
-    }
-    ExceptionHandler.exceptionToString = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var l = new _ArrayLogger();
-        var e = new ExceptionHandler(l, false);
-        e.call(exception, stackTrace, reason);
-        return l.res.join('\n');
-    };
-    ExceptionHandler.prototype.call = function (exception, stackTrace, reason) {
-        if (stackTrace === void 0) { stackTrace = null; }
-        if (reason === void 0) { reason = null; }
-        var originalException = this._findOriginalException(exception);
-        var originalStack = this._findOriginalStack(exception);
-        var context = this._findContext(exception);
-        this._logger.logGroup("EXCEPTION: " + this._extractMessage(exception));
-        if (lang_1.isPresent(stackTrace) && lang_1.isBlank(originalStack)) {
-            this._logger.logError('STACKTRACE:');
-            this._logger.logError(this._longStackTrace(stackTrace));
-        }
-        if (lang_1.isPresent(reason)) {
-            this._logger.logError("REASON: " + reason);
-        }
-        if (lang_1.isPresent(originalException)) {
-            this._logger.logError("ORIGINAL EXCEPTION: " + this._extractMessage(originalException));
-        }
-        if (lang_1.isPresent(originalStack)) {
-            this._logger.logError('ORIGINAL STACKTRACE:');
-            this._logger.logError(this._longStackTrace(originalStack));
-        }
-        if (lang_1.isPresent(context)) {
-            this._logger.logError('ERROR CONTEXT:');
-            this._logger.logError(context);
-        }
-        this._logger.logGroupEnd();
-        // We rethrow exceptions, so operations like 'bootstrap' will result in an error
-        // when an exception happens. If we do not rethrow, bootstrap will always succeed.
-        if (this._rethrowException)
-            throw exception;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._extractMessage = function (exception) {
-        return exception instanceof base_wrapped_exception_1.BaseWrappedException ? exception.wrapperMessage :
-            exception.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._longStackTrace = function (stackTrace) {
-        return collection_1.isListLikeIterable(stackTrace) ? stackTrace.join('\n\n-----async gap-----\n') :
-            stackTrace.toString();
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findContext = function (exception) {
-        try {
-            if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-                return null;
-            return lang_1.isPresent(exception.context) ? exception.context :
-                this._findContext(exception.originalException);
-        }
-        catch (e) {
-            // exception.context can throw an exception. if it happens, we ignore the context.
-            return null;
-        }
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalException = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception.originalException;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-        }
-        return e;
-    };
-    /** @internal */
-    ExceptionHandler.prototype._findOriginalStack = function (exception) {
-        if (!(exception instanceof base_wrapped_exception_1.BaseWrappedException))
-            return null;
-        var e = exception;
-        var stack = exception.originalStack;
-        while (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-            e = e.originalException;
-            if (e instanceof base_wrapped_exception_1.BaseWrappedException && lang_1.isPresent(e.originalException)) {
-                stack = e.originalStack;
-            }
-        }
-        return stack;
-    };
-    return ExceptionHandler;
-}());
-exports.ExceptionHandler = ExceptionHandler;
-//# sourceMappingURL=exception_handler.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\exception_handler.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"./base_wrapped_exception":376,"./collection":378,"./lang":381,"2ionoC":410,"buffer":409}],380:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var base_wrapped_exception_1 = require('./base_wrapped_exception');
-var exception_handler_1 = require('./exception_handler');
-var exception_handler_2 = require('./exception_handler');
-exports.ExceptionHandler = exception_handler_2.ExceptionHandler;
-/**
- * @stable
- */
-var BaseException = (function (_super) {
-    __extends(BaseException, _super);
-    function BaseException(message) {
-        if (message === void 0) { message = '--'; }
-        _super.call(this, message);
-        this.message = message;
-        this.stack = (new Error(message)).stack;
-    }
-    BaseException.prototype.toString = function () { return this.message; };
-    return BaseException;
-}(Error));
-exports.BaseException = BaseException;
-/**
- * Wraps an exception and provides additional context or information.
- * @stable
- */
-var WrappedException = (function (_super) {
-    __extends(WrappedException, _super);
-    function WrappedException(_wrapperMessage, _originalException /** TODO #9100 */, _originalStack /** TODO #9100 */, _context /** TODO #9100 */) {
-        _super.call(this, _wrapperMessage);
-        this._wrapperMessage = _wrapperMessage;
-        this._originalException = _originalException;
-        this._originalStack = _originalStack;
-        this._context = _context;
-        this._wrapperStack = (new Error(_wrapperMessage)).stack;
-    }
-    Object.defineProperty(WrappedException.prototype, "wrapperMessage", {
-        get: function () { return this._wrapperMessage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "wrapperStack", {
-        get: function () { return this._wrapperStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalException", {
-        get: function () { return this._originalException; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "originalStack", {
-        get: function () { return this._originalStack; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "context", {
-        get: function () { return this._context; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WrappedException.prototype, "message", {
-        get: function () { return exception_handler_1.ExceptionHandler.exceptionToString(this); },
-        enumerable: true,
-        configurable: true
-    });
-    WrappedException.prototype.toString = function () { return this.message; };
-    return WrappedException;
-}(base_wrapped_exception_1.BaseWrappedException));
-exports.WrappedException = WrappedException;
-function makeTypeError(message) {
-    return new TypeError(message);
-}
-exports.makeTypeError = makeTypeError;
-function unimplemented() {
-    throw new BaseException('unimplemented');
-}
-exports.unimplemented = unimplemented;
-//# sourceMappingURL=exceptions.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\exceptions.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"./base_wrapped_exception":376,"./exception_handler":379,"2ionoC":410,"buffer":409}],381:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    }
-    else {
-        globalScope = global;
-    }
-}
-else {
-    globalScope = window;
-}
-function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-}
-exports.scheduleMicroTask = scheduleMicroTask;
-exports.IS_DART = false;
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var _global = globalScope;
-exports.global = _global;
-/**
- * Runtime representation a type that a Component or other object is instances of.
- *
- * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
- * the `MyCustomComponent` constructor function.
- *
- * @stable
- */
-exports.Type = Function;
-function getTypeNameForDebugging(type) {
-    if (type['name']) {
-        return type['name'];
-    }
-    return typeof type;
-}
-exports.getTypeNameForDebugging = getTypeNameForDebugging;
-exports.Math = _global.Math;
-exports.Date = _global.Date;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-function isPresent(obj) {
-    return obj !== undefined && obj !== null;
-}
-exports.isPresent = isPresent;
-function isBlank(obj) {
-    return obj === undefined || obj === null;
-}
-exports.isBlank = isBlank;
-function isBoolean(obj) {
-    return typeof obj === 'boolean';
-}
-exports.isBoolean = isBoolean;
-function isNumber(obj) {
-    return typeof obj === 'number';
-}
-exports.isNumber = isNumber;
-function isString(obj) {
-    return typeof obj === 'string';
-}
-exports.isString = isString;
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-exports.isFunction = isFunction;
-function isType(obj) {
-    return isFunction(obj);
-}
-exports.isType = isType;
-function isStringMap(obj) {
-    return typeof obj === 'object' && obj !== null;
-}
-exports.isStringMap = isStringMap;
-var STRING_MAP_PROTO = Object.getPrototypeOf({});
-function isStrictStringMap(obj) {
-    return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
-}
-exports.isStrictStringMap = isStrictStringMap;
-function isPromise(obj) {
-    return obj instanceof _global.Promise;
-}
-exports.isPromise = isPromise;
-function isArray(obj) {
-    return Array.isArray(obj);
-}
-exports.isArray = isArray;
-function isDate(obj) {
-    return obj instanceof exports.Date && !isNaN(obj.valueOf());
-}
-exports.isDate = isDate;
-function noop() { }
-exports.noop = noop;
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token === undefined || token === null) {
-        return '' + token;
-    }
-    if (token.name) {
-        return token.name;
-    }
-    if (token.overriddenName) {
-        return token.overriddenName;
-    }
-    var res = token.toString();
-    var newLineIndex = res.indexOf('\n');
-    return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
-}
-exports.stringify = stringify;
-// serialize / deserialize enum exist only for consistency with dart API
-// enums in typescript don't need to be serialized
-function serializeEnum(val) {
-    return val;
-}
-exports.serializeEnum = serializeEnum;
-function deserializeEnum(val, values) {
-    return val;
-}
-exports.deserializeEnum = deserializeEnum;
-function resolveEnumToken(enumValue, val) {
-    return enumValue[val];
-}
-exports.resolveEnumToken = resolveEnumToken;
-var StringWrapper = (function () {
-    function StringWrapper() {
-    }
-    StringWrapper.fromCharCode = function (code) { return String.fromCharCode(code); };
-    StringWrapper.charCodeAt = function (s, index) { return s.charCodeAt(index); };
-    StringWrapper.split = function (s, regExp) { return s.split(regExp); };
-    StringWrapper.equals = function (s, s2) { return s === s2; };
-    StringWrapper.stripLeft = function (s, charVal) {
-        if (s && s.length) {
-            var pos = 0;
-            for (var i = 0; i < s.length; i++) {
-                if (s[i] != charVal)
-                    break;
-                pos++;
-            }
-            s = s.substring(pos);
-        }
-        return s;
-    };
-    StringWrapper.stripRight = function (s, charVal) {
-        if (s && s.length) {
-            var pos = s.length;
-            for (var i = s.length - 1; i >= 0; i--) {
-                if (s[i] != charVal)
-                    break;
-                pos--;
-            }
-            s = s.substring(0, pos);
-        }
-        return s;
-    };
-    StringWrapper.replace = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.replaceAll = function (s, from, replace) {
-        return s.replace(from, replace);
-    };
-    StringWrapper.slice = function (s, from, to) {
-        if (from === void 0) { from = 0; }
-        if (to === void 0) { to = null; }
-        return s.slice(from, to === null ? undefined : to);
-    };
-    StringWrapper.replaceAllMapped = function (s, from, cb) {
-        return s.replace(from, function () {
-            var matches = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                matches[_i - 0] = arguments[_i];
-            }
-            // Remove offset & string from the result array
-            matches.splice(-2, 2);
-            // The callback receives match, p1, ..., pn
-            return cb(matches);
-        });
-    };
-    StringWrapper.contains = function (s, substr) { return s.indexOf(substr) != -1; };
-    StringWrapper.compare = function (a, b) {
-        if (a < b) {
-            return -1;
-        }
-        else if (a > b) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    };
-    return StringWrapper;
-}());
-exports.StringWrapper = StringWrapper;
-var StringJoiner = (function () {
-    function StringJoiner(parts) {
-        if (parts === void 0) { parts = []; }
-        this.parts = parts;
-    }
-    StringJoiner.prototype.add = function (part) { this.parts.push(part); };
-    StringJoiner.prototype.toString = function () { return this.parts.join(''); };
-    return StringJoiner;
-}());
-exports.StringJoiner = StringJoiner;
-var NumberParseError = (function (_super) {
-    __extends(NumberParseError, _super);
-    function NumberParseError(message) {
-        _super.call(this);
-        this.message = message;
-    }
-    NumberParseError.prototype.toString = function () { return this.message; };
-    return NumberParseError;
-}(Error));
-exports.NumberParseError = NumberParseError;
-var NumberWrapper = (function () {
-    function NumberWrapper() {
-    }
-    NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
-    NumberWrapper.equal = function (a, b) { return a === b; };
-    NumberWrapper.parseIntAutoRadix = function (text) {
-        var result = parseInt(text);
-        if (isNaN(result)) {
-            throw new NumberParseError('Invalid integer literal when parsing ' + text);
-        }
-        return result;
-    };
-    NumberWrapper.parseInt = function (text, radix) {
-        if (radix == 10) {
-            if (/^(\-|\+)?[0-9]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else if (radix == 16) {
-            if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
-                return parseInt(text, radix);
-            }
-        }
-        else {
-            var result = parseInt(text, radix);
-            if (!isNaN(result)) {
-                return result;
-            }
-        }
-        throw new NumberParseError('Invalid integer literal when parsing ' + text + ' in base ' + radix);
-    };
-    // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
-    NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
-    Object.defineProperty(NumberWrapper, "NaN", {
-        get: function () { return NaN; },
-        enumerable: true,
-        configurable: true
-    });
-    NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
-    NumberWrapper.isNaN = function (value) { return isNaN(value); };
-    NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
-    return NumberWrapper;
-}());
-exports.NumberWrapper = NumberWrapper;
-exports.RegExp = _global.RegExp;
-var RegExpWrapper = (function () {
-    function RegExpWrapper() {
-    }
-    RegExpWrapper.create = function (regExpStr, flags) {
-        if (flags === void 0) { flags = ''; }
-        flags = flags.replace(/g/g, '');
-        return new _global.RegExp(regExpStr, flags + 'g');
-    };
-    RegExpWrapper.firstMatch = function (regExp, input) {
-        // Reset multimatch regex state
-        regExp.lastIndex = 0;
-        return regExp.exec(input);
-    };
-    RegExpWrapper.test = function (regExp, input) {
-        regExp.lastIndex = 0;
-        return regExp.test(input);
-    };
-    RegExpWrapper.matcher = function (regExp, input) {
-        // Reset regex state for the case
-        // someone did not loop over all matches
-        // last time.
-        regExp.lastIndex = 0;
-        return { re: regExp, input: input };
-    };
-    RegExpWrapper.replaceAll = function (regExp, input, replace) {
-        var c = regExp.exec(input);
-        var res = '';
-        regExp.lastIndex = 0;
-        var prev = 0;
-        while (c) {
-            res += input.substring(prev, c.index);
-            res += replace(c);
-            prev = c.index + c[0].length;
-            regExp.lastIndex = prev;
-            c = regExp.exec(input);
-        }
-        res += input.substring(prev);
-        return res;
-    };
-    return RegExpWrapper;
-}());
-exports.RegExpWrapper = RegExpWrapper;
-var RegExpMatcherWrapper = (function () {
-    function RegExpMatcherWrapper() {
-    }
-    RegExpMatcherWrapper.next = function (matcher) {
-        return matcher.re.exec(matcher.input);
-    };
-    return RegExpMatcherWrapper;
-}());
-exports.RegExpMatcherWrapper = RegExpMatcherWrapper;
-var FunctionWrapper = (function () {
-    function FunctionWrapper() {
-    }
-    FunctionWrapper.apply = function (fn, posArgs) { return fn.apply(null, posArgs); };
-    FunctionWrapper.bind = function (fn, scope) { return fn.bind(scope); };
-    return FunctionWrapper;
-}());
-exports.FunctionWrapper = FunctionWrapper;
-// JS has NaN !== NaN
-function looseIdentical(a, b) {
-    return a === b || typeof a === 'number' && typeof b === 'number' && isNaN(a) && isNaN(b);
-}
-exports.looseIdentical = looseIdentical;
-// JS considers NaN is the same as NaN for map Key (while NaN !== NaN otherwise)
-// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
-function getMapKey(value) {
-    return value;
-}
-exports.getMapKey = getMapKey;
-function normalizeBlank(obj) {
-    return isBlank(obj) ? null : obj;
-}
-exports.normalizeBlank = normalizeBlank;
-function normalizeBool(obj) {
-    return isBlank(obj) ? false : obj;
-}
-exports.normalizeBool = normalizeBool;
-function isJsObject(o) {
-    return o !== null && (typeof o === 'function' || typeof o === 'object');
-}
-exports.isJsObject = isJsObject;
-function print(obj) {
-    console.log(obj);
-}
-exports.print = print;
-function warn(obj) {
-    console.warn(obj);
-}
-exports.warn = warn;
-// Can't be all uppercase as our transpiler would think it is a special directive...
-var Json = (function () {
-    function Json() {
-    }
-    Json.parse = function (s) { return _global.JSON.parse(s); };
-    Json.stringify = function (data) {
-        // Dart doesn't take 3 arguments
-        return _global.JSON.stringify(data, null, 2);
-    };
-    return Json;
-}());
-exports.Json = Json;
-var DateWrapper = (function () {
-    function DateWrapper() {
-    }
-    DateWrapper.create = function (year, month, day, hour, minutes, seconds, milliseconds) {
-        if (month === void 0) { month = 1; }
-        if (day === void 0) { day = 1; }
-        if (hour === void 0) { hour = 0; }
-        if (minutes === void 0) { minutes = 0; }
-        if (seconds === void 0) { seconds = 0; }
-        if (milliseconds === void 0) { milliseconds = 0; }
-        return new exports.Date(year, month - 1, day, hour, minutes, seconds, milliseconds);
-    };
-    DateWrapper.fromISOString = function (str) { return new exports.Date(str); };
-    DateWrapper.fromMillis = function (ms) { return new exports.Date(ms); };
-    DateWrapper.toMillis = function (date) { return date.getTime(); };
-    DateWrapper.now = function () { return new exports.Date(); };
-    DateWrapper.toJson = function (date) { return date.toJSON(); };
-    return DateWrapper;
-}());
-exports.DateWrapper = DateWrapper;
-function setValueOnPath(global, path, value) {
-    var parts = path.split('.');
-    var obj = global;
-    while (parts.length > 1) {
-        var name = parts.shift();
-        if (obj.hasOwnProperty(name) && isPresent(obj[name])) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-exports.setValueOnPath = setValueOnPath;
-var _symbolIterator = null;
-function getSymbolIterator() {
-    if (isBlank(_symbolIterator)) {
-        if (isPresent(globalScope.Symbol) && isPresent(Symbol.iterator)) {
-            _symbolIterator = Symbol.iterator;
-        }
-        else {
-            // es6-shim specific logic
-            var keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var i = 0; i < keys.length; ++i) {
-                var key = keys[i];
-                if (key !== 'entries' && key !== 'size' &&
-                    Map.prototype[key] === Map.prototype['entries']) {
-                    _symbolIterator = key;
-                }
-            }
-        }
-    }
-    return _symbolIterator;
-}
-exports.getSymbolIterator = getSymbolIterator;
-function evalExpression(sourceUrl, expr, declarations, vars) {
-    var fnBody = declarations + "\nreturn " + expr + "\n//# sourceURL=" + sourceUrl;
-    var fnArgNames = [];
-    var fnArgValues = [];
-    for (var argName in vars) {
-        fnArgNames.push(argName);
-        fnArgValues.push(vars[argName]);
-    }
-    return new (Function.bind.apply(Function, [void 0].concat(fnArgNames.concat(fnBody))))().apply(void 0, fnArgValues);
-}
-exports.evalExpression = evalExpression;
-function isPrimitive(obj) {
-    return !isJsObject(obj);
-}
-exports.isPrimitive = isPrimitive;
-function hasConstructor(value, type) {
-    return value.constructor === type;
-}
-exports.hasConstructor = hasConstructor;
-function escape(s) {
-    return _global.encodeURI(s);
-}
-exports.escape = escape;
-function escapeRegExp(s) {
-    return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-}
-exports.escapeRegExp = escapeRegExp;
-//# sourceMappingURL=lang.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\lang.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"2ionoC":410,"buffer":409}],382:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-"use strict";
-var PromiseCompleter = (function () {
-    function PromiseCompleter() {
-        var _this = this;
-        this.promise = new Promise(function (res, rej) {
-            _this.resolve = res;
-            _this.reject = rej;
-        });
-    }
-    return PromiseCompleter;
-}());
-exports.PromiseCompleter = PromiseCompleter;
-var PromiseWrapper = (function () {
-    function PromiseWrapper() {
-    }
-    PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-    PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
-    // Note: We can't rename this method into `catch`, as this is not a valid
-    // method name in Dart.
-    PromiseWrapper.catchError = function (promise, onError) {
-        return promise.catch(onError);
-    };
-    PromiseWrapper.all = function (promises) {
-        if (promises.length == 0)
-            return Promise.resolve([]);
-        return Promise.all(promises);
-    };
-    PromiseWrapper.then = function (promise, success, rejection) {
-        return promise.then(success, rejection);
-    };
-    PromiseWrapper.wrap = function (computation) {
-        return new Promise(function (res, rej) {
-            try {
-                res(computation());
-            }
-            catch (e) {
-                rej(e);
-            }
-        });
-    };
-    PromiseWrapper.scheduleMicrotask = function (computation) {
-        PromiseWrapper.then(PromiseWrapper.resolve(null), computation, function (_) { });
-    };
-    PromiseWrapper.completer = function () { return new PromiseCompleter(); };
-    return PromiseWrapper;
-}());
-exports.PromiseWrapper = PromiseWrapper;
-//# sourceMappingURL=promise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\facade\\promise.js","/..\\node_modules\\@angular\\platform-browser\\src\\facade")
-},{"2ionoC":410,"buffer":409}],383:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],378:[function(require,module,exports){
+module.exports=require(57)
+},{"./lang":381}],379:[function(require,module,exports){
+module.exports=require(58)
+},{"./base_wrapped_exception":376,"./collection":378,"./lang":381}],380:[function(require,module,exports){
+module.exports=require(59)
+},{"./base_wrapped_exception":376,"./exception_handler":379}],381:[function(require,module,exports){
+module.exports=require(61)
+},{}],382:[function(require,module,exports){
+module.exports=require(62)
+},{}],383:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57046,9 +48358,7 @@ var SafeResourceUrlImpl = (function (_super) {
     return SafeResourceUrlImpl;
 }(SafeValueImpl));
 //# sourceMappingURL=dom_sanitization_service.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\security\\dom_sanitization_service.js","/..\\node_modules\\@angular\\platform-browser\\src\\security")
-},{"../../core_private":349,"./html_sanitizer":384,"./style_sanitizer":385,"./url_sanitizer":386,"2ionoC":410,"@angular/core":191,"buffer":409}],384:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../core_private":349,"./html_sanitizer":384,"./style_sanitizer":385,"./url_sanitizer":386,"@angular/core":191}],384:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57306,9 +48616,7 @@ function sanitizeHtml(unsafeHtmlInput) {
 }
 exports.sanitizeHtml = sanitizeHtml;
 //# sourceMappingURL=html_sanitizer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\security\\html_sanitizer.js","/..\\node_modules\\@angular\\platform-browser\\src\\security")
-},{"../dom/dom_adapter":363,"./url_sanitizer":386,"2ionoC":410,"@angular/core":191,"buffer":409}],385:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom/dom_adapter":363,"./url_sanitizer":386,"@angular/core":191}],385:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57402,9 +48710,7 @@ function sanitizeStyle(value) {
 }
 exports.sanitizeStyle = sanitizeStyle;
 //# sourceMappingURL=style_sanitizer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\security\\style_sanitizer.js","/..\\node_modules\\@angular\\platform-browser\\src\\security")
-},{"../dom/dom_adapter":363,"./url_sanitizer":386,"2ionoC":410,"@angular/core":191,"buffer":409}],386:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom/dom_adapter":363,"./url_sanitizer":386,"@angular/core":191}],386:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57462,9 +48768,7 @@ function sanitizeSrcset(srcset) {
 }
 exports.sanitizeSrcset = sanitizeSrcset;
 //# sourceMappingURL=url_sanitizer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\security\\url_sanitizer.js","/..\\node_modules\\@angular\\platform-browser\\src\\security")
-},{"../dom/dom_adapter":363,"2ionoC":410,"@angular/core":191,"buffer":409}],387:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../dom/dom_adapter":363,"@angular/core":191}],387:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57476,9 +48780,7 @@ exports.sanitizeSrcset = sanitizeSrcset;
 var core_1 = require('@angular/core');
 exports.ON_WEB_WORKER = new core_1.OpaqueToken('WebWorker.onWebWorker');
 //# sourceMappingURL=api.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\api.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],388:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],388:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57670,9 +48972,7 @@ var UiArguments = (function () {
 }());
 exports.UiArguments = UiArguments;
 //# sourceMappingURL=client_message_broker.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\client_message_broker.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"../../facade/async":375,"../../facade/collection":378,"../../facade/lang":381,"./message_bus":389,"./serializer":394,"2ionoC":410,"@angular/core":191,"buffer":409}],389:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":375,"../../facade/collection":378,"../../facade/lang":381,"./message_bus":389,"./serializer":394,"@angular/core":191}],389:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57696,9 +48996,7 @@ var MessageBus = (function () {
 }());
 exports.MessageBus = MessageBus;
 //# sourceMappingURL=message_bus.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\message_bus.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"2ionoC":410,"buffer":409}],390:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],390:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57715,9 +49013,7 @@ exports.RENDERER_CHANNEL = 'ng-Renderer';
 exports.EVENT_CHANNEL = 'ng-Events';
 exports.ROUTER_CHANNEL = 'ng-Router';
 //# sourceMappingURL=messaging_api.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\messaging_api.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"2ionoC":410,"buffer":409}],391:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],391:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57872,9 +49168,7 @@ var _Channel = (function () {
     return _Channel;
 }());
 //# sourceMappingURL=post_message_bus.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\post_message_bus.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"../../facade/async":375,"../../facade/collection":378,"../../facade/exceptions":380,"2ionoC":410,"@angular/core":191,"buffer":409}],392:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":375,"../../facade/collection":378,"../../facade/exceptions":380,"@angular/core":191}],392:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57925,9 +49219,7 @@ var RenderStore = (function () {
 }());
 exports.RenderStore = RenderStore;
 //# sourceMappingURL=render_store.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\render_store.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"2ionoC":410,"@angular/core":191,"buffer":409}],393:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"@angular/core":191}],393:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -57954,9 +49246,7 @@ var LocationType = (function () {
 }());
 exports.LocationType = LocationType;
 //# sourceMappingURL=serialized_types.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\serialized_types.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"2ionoC":410,"buffer":409}],394:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],394:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58083,9 +49373,7 @@ var RenderStoreObject = (function () {
 }());
 exports.RenderStoreObject = RenderStoreObject;
 //# sourceMappingURL=serializer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\serializer.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"../../../core_private":349,"../../facade/exceptions":380,"../../facade/lang":381,"./render_store":392,"./serialized_types":393,"2ionoC":410,"@angular/core":191,"buffer":409}],395:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../../core_private":349,"../../facade/exceptions":380,"../../facade/lang":381,"./render_store":392,"./serialized_types":393,"@angular/core":191}],395:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58209,9 +49497,7 @@ var ReceivedMessage = (function () {
 }());
 exports.ReceivedMessage = ReceivedMessage;
 //# sourceMappingURL=service_message_broker.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared\\service_message_broker.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\shared")
-},{"../../facade/async":375,"../../facade/collection":378,"../../facade/lang":381,"../shared/message_bus":389,"../shared/serializer":394,"2ionoC":410,"@angular/core":191,"buffer":409}],396:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":375,"../../facade/collection":378,"../../facade/lang":381,"../shared/message_bus":389,"../shared/serializer":394,"@angular/core":191}],396:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58326,9 +49612,7 @@ var EventDispatcher = (function () {
 }());
 exports.EventDispatcher = EventDispatcher;
 //# sourceMappingURL=event_dispatcher.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui\\event_dispatcher.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui")
-},{"../../facade/async":375,"../../facade/exceptions":380,"../shared/serializer":394,"./event_serializer":397,"2ionoC":410,"buffer":409}],397:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":375,"../../facade/exceptions":380,"../shared/serializer":394,"./event_serializer":397}],397:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58395,9 +49679,7 @@ function serializeEvent(e, properties) {
     return serialized;
 }
 //# sourceMappingURL=event_serializer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui\\event_serializer.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui")
-},{"../../facade/collection":378,"../../facade/lang":381,"2ionoC":410,"buffer":409}],398:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/collection":378,"../../facade/lang":381}],398:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58425,9 +49707,7 @@ function initUiLocation(injector) {
     };
 }
 //# sourceMappingURL=location_providers.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui\\location_providers.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui")
-},{"../../browser/location/browser_platform_location":355,"./platform_location":399,"2ionoC":410,"@angular/core":191,"buffer":409}],399:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../browser/location/browser_platform_location":355,"./platform_location":399,"@angular/core":191}],399:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58487,9 +49767,7 @@ var MessageBasedPlatformLocation = (function () {
 }());
 exports.MessageBasedPlatformLocation = MessageBasedPlatformLocation;
 //# sourceMappingURL=platform_location.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui\\platform_location.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui")
-},{"../../browser/location/browser_platform_location":355,"../../facade/async":375,"../../facade/lang":381,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/serialized_types":393,"../shared/serializer":394,"../shared/service_message_broker":395,"2ionoC":410,"@angular/core":191,"buffer":409}],400:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../browser/location/browser_platform_location":355,"../../facade/async":375,"../../facade/lang":381,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/serialized_types":393,"../shared/serializer":394,"../shared/service_message_broker":395,"@angular/core":191}],400:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58628,9 +49906,7 @@ var MessageBasedRenderer = (function () {
 }());
 exports.MessageBasedRenderer = MessageBasedRenderer;
 //# sourceMappingURL=renderer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui\\renderer.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\ui")
-},{"../../facade/lang":381,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/render_store":392,"../shared/serializer":394,"../shared/service_message_broker":395,"../ui/event_dispatcher":396,"2ionoC":410,"@angular/core":191,"buffer":409}],401:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/lang":381,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/render_store":392,"../shared/serializer":394,"../shared/service_message_broker":395,"../ui/event_dispatcher":396,"@angular/core":191}],401:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58646,9 +49922,7 @@ function deserializeGenericEvent(serializedEvent) {
 }
 exports.deserializeGenericEvent = deserializeGenericEvent;
 //# sourceMappingURL=event_deserializer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker\\event_deserializer.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker")
-},{"2ionoC":410,"buffer":409}],402:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],402:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58677,9 +49951,7 @@ function appInitFnFactory(platformLocation, zone) {
     return function () { return zone.runGuarded(function () { return platformLocation.init(); }); };
 }
 //# sourceMappingURL=location_providers.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker\\location_providers.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker")
-},{"./platform_location":403,"2ionoC":410,"@angular/common":44,"@angular/core":191,"buffer":409}],403:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./platform_location":403,"@angular/common":44,"@angular/core":191}],403:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58821,9 +50093,7 @@ var WebWorkerPlatformLocation = (function (_super) {
 }(common_1.PlatformLocation));
 exports.WebWorkerPlatformLocation = WebWorkerPlatformLocation;
 //# sourceMappingURL=platform_location.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker\\platform_location.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker")
-},{"../../facade/async":375,"../../facade/collection":378,"../../facade/exceptions":380,"../../facade/lang":381,"../shared/client_message_broker":388,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/serialized_types":393,"../shared/serializer":394,"./event_deserializer":401,"2ionoC":410,"@angular/common":44,"@angular/core":191,"buffer":409}],404:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":375,"../../facade/collection":378,"../../facade/exceptions":380,"../../facade/lang":381,"../shared/client_message_broker":388,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/serialized_types":393,"../shared/serializer":394,"./event_deserializer":401,"@angular/common":44,"@angular/core":191}],404:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -59072,9 +50342,7 @@ var WebWorkerRenderNode = (function () {
 }());
 exports.WebWorkerRenderNode = WebWorkerRenderNode;
 //# sourceMappingURL=renderer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker\\renderer.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker")
-},{"../../facade/async":375,"../../facade/collection":378,"../../facade/lang":381,"../shared/client_message_broker":388,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/render_store":392,"../shared/serializer":394,"./event_deserializer":401,"2ionoC":410,"@angular/core":191,"buffer":409}],405:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../facade/async":375,"../../facade/collection":378,"../../facade/lang":381,"../shared/client_message_broker":388,"../shared/message_bus":389,"../shared/messaging_api":390,"../shared/render_store":392,"../shared/serializer":394,"./event_deserializer":401,"@angular/core":191}],405:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -59290,9 +50558,7 @@ var WorkerDomAdapter = (function (_super) {
 }(dom_adapter_1.DomAdapter));
 exports.WorkerDomAdapter = WorkerDomAdapter;
 //# sourceMappingURL=worker_adapter.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker\\worker_adapter.js","/..\\node_modules\\@angular\\platform-browser\\src\\web_workers\\worker")
-},{"../../dom/dom_adapter":363,"2ionoC":410,"buffer":409}],406:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../dom/dom_adapter":363}],406:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -59371,9 +50637,7 @@ function setupWebWorker() {
     worker_adapter_1.WorkerDomAdapter.makeCurrent();
 }
 //# sourceMappingURL=worker_app.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\worker_app.js","/..\\node_modules\\@angular\\platform-browser\\src")
-},{"./browser":352,"./facade/lang":381,"./web_workers/shared/api":387,"./web_workers/shared/client_message_broker":388,"./web_workers/shared/message_bus":389,"./web_workers/shared/post_message_bus":391,"./web_workers/shared/render_store":392,"./web_workers/shared/serializer":394,"./web_workers/shared/service_message_broker":395,"./web_workers/worker/renderer":404,"./web_workers/worker/worker_adapter":405,"2ionoC":410,"@angular/common":44,"@angular/core":191,"buffer":409}],407:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./browser":352,"./facade/lang":381,"./web_workers/shared/api":387,"./web_workers/shared/client_message_broker":388,"./web_workers/shared/message_bus":389,"./web_workers/shared/post_message_bus":391,"./web_workers/shared/render_store":392,"./web_workers/shared/serializer":394,"./web_workers/shared/service_message_broker":395,"./web_workers/worker/renderer":404,"./web_workers/worker/worker_adapter":405,"@angular/common":44,"@angular/core":191}],407:[function(require,module,exports){
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -59534,1405 +50798,7 @@ function _resolveDefaultAnimationDriver() {
     return new core_private_1.NoOpAnimationDriver();
 }
 //# sourceMappingURL=worker_render.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\@angular\\platform-browser\\src\\worker_render.js","/..\\node_modules\\@angular\\platform-browser\\src")
-},{"../core_private":349,"./browser":352,"./browser/browser_adapter":353,"./browser/testability":357,"./dom/dom_adapter":363,"./dom/dom_renderer":364,"./dom/dom_tokens":365,"./dom/events/dom_events":366,"./dom/events/event_manager":367,"./dom/events/hammer_gestures":369,"./dom/events/key_events":370,"./dom/shared_styles_host":371,"./facade/exceptions":380,"./facade/lang":381,"./web_workers/shared/api":387,"./web_workers/shared/client_message_broker":388,"./web_workers/shared/message_bus":389,"./web_workers/shared/post_message_bus":391,"./web_workers/shared/render_store":392,"./web_workers/shared/serializer":394,"./web_workers/shared/service_message_broker":395,"./web_workers/ui/renderer":400,"2ionoC":410,"@angular/core":191,"buffer":409}],408:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-;(function (exports) {
-	'use strict';
-
-  var Arr = (typeof Uint8Array !== 'undefined')
-    ? Uint8Array
-    : Array
-
-	var PLUS   = '+'.charCodeAt(0)
-	var SLASH  = '/'.charCodeAt(0)
-	var NUMBER = '0'.charCodeAt(0)
-	var LOWER  = 'a'.charCodeAt(0)
-	var UPPER  = 'A'.charCodeAt(0)
-	var PLUS_URL_SAFE = '-'.charCodeAt(0)
-	var SLASH_URL_SAFE = '_'.charCodeAt(0)
-
-	function decode (elt) {
-		var code = elt.charCodeAt(0)
-		if (code === PLUS ||
-		    code === PLUS_URL_SAFE)
-			return 62 // '+'
-		if (code === SLASH ||
-		    code === SLASH_URL_SAFE)
-			return 63 // '/'
-		if (code < NUMBER)
-			return -1 //no match
-		if (code < NUMBER + 10)
-			return code - NUMBER + 26 + 26
-		if (code < UPPER + 26)
-			return code - UPPER
-		if (code < LOWER + 26)
-			return code - LOWER + 26
-	}
-
-	function b64ToByteArray (b64) {
-		var i, j, l, tmp, placeHolders, arr
-
-		if (b64.length % 4 > 0) {
-			throw new Error('Invalid string. Length must be a multiple of 4')
-		}
-
-		// the number of equal signs (place holders)
-		// if there are two placeholders, than the two characters before it
-		// represent one byte
-		// if there is only one, then the three characters before it represent 2 bytes
-		// this is just a cheap hack to not do indexOf twice
-		var len = b64.length
-		placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0
-
-		// base64 is 4/3 + up to two characters of the original data
-		arr = new Arr(b64.length * 3 / 4 - placeHolders)
-
-		// if there are placeholders, only get up to the last complete 4 chars
-		l = placeHolders > 0 ? b64.length - 4 : b64.length
-
-		var L = 0
-
-		function push (v) {
-			arr[L++] = v
-		}
-
-		for (i = 0, j = 0; i < l; i += 4, j += 3) {
-			tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3))
-			push((tmp & 0xFF0000) >> 16)
-			push((tmp & 0xFF00) >> 8)
-			push(tmp & 0xFF)
-		}
-
-		if (placeHolders === 2) {
-			tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4)
-			push(tmp & 0xFF)
-		} else if (placeHolders === 1) {
-			tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2)
-			push((tmp >> 8) & 0xFF)
-			push(tmp & 0xFF)
-		}
-
-		return arr
-	}
-
-	function uint8ToBase64 (uint8) {
-		var i,
-			extraBytes = uint8.length % 3, // if we have 1 byte left, pad 2 bytes
-			output = "",
-			temp, length
-
-		function encode (num) {
-			return lookup.charAt(num)
-		}
-
-		function tripletToBase64 (num) {
-			return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F)
-		}
-
-		// go through the array every three bytes, we'll deal with trailing stuff later
-		for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
-			temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
-			output += tripletToBase64(temp)
-		}
-
-		// pad the end with zeros, but make sure to not forget the extra bytes
-		switch (extraBytes) {
-			case 1:
-				temp = uint8[uint8.length - 1]
-				output += encode(temp >> 2)
-				output += encode((temp << 4) & 0x3F)
-				output += '=='
-				break
-			case 2:
-				temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1])
-				output += encode(temp >> 10)
-				output += encode((temp >> 4) & 0x3F)
-				output += encode((temp << 2) & 0x3F)
-				output += '='
-				break
-		}
-
-		return output
-	}
-
-	exports.toByteArray = b64ToByteArray
-	exports.fromByteArray = uint8ToBase64
-}(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
-
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\gulp-browserify\\node_modules\\base64-js\\lib\\b64.js","/..\\node_modules\\gulp-browserify\\node_modules\\base64-js\\lib")
-},{"2ionoC":410,"buffer":409}],409:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-var base64 = require('base64-js')
-var ieee754 = require('ieee754')
-
-exports.Buffer = Buffer
-exports.SlowBuffer = Buffer
-exports.INSPECT_MAX_BYTES = 50
-Buffer.poolSize = 8192
-
-/**
- * If `Buffer._useTypedArrays`:
- *   === true    Use Uint8Array implementation (fastest)
- *   === false   Use Object implementation (compatible down to IE6)
- */
-Buffer._useTypedArrays = (function () {
-  // Detect if browser supports Typed Arrays. Supported browsers are IE 10+, Firefox 4+,
-  // Chrome 7+, Safari 5.1+, Opera 11.6+, iOS 4.2+. If the browser does not support adding
-  // properties to `Uint8Array` instances, then that's the same as no `Uint8Array` support
-  // because we need to be able to add all the node Buffer API methods. This is an issue
-  // in Firefox 4-29. Now fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=695438
-  try {
-    var buf = new ArrayBuffer(0)
-    var arr = new Uint8Array(buf)
-    arr.foo = function () { return 42 }
-    return 42 === arr.foo() &&
-        typeof arr.subarray === 'function' // Chrome 9-10 lack `subarray`
-  } catch (e) {
-    return false
-  }
-})()
-
-/**
- * Class: Buffer
- * =============
- *
- * The Buffer constructor returns instances of `Uint8Array` that are augmented
- * with function properties for all the node `Buffer` API functions. We use
- * `Uint8Array` so that square bracket notation works as expected -- it returns
- * a single octet.
- *
- * By augmenting the instances, we can avoid modifying the `Uint8Array`
- * prototype.
- */
-function Buffer (subject, encoding, noZero) {
-  if (!(this instanceof Buffer))
-    return new Buffer(subject, encoding, noZero)
-
-  var type = typeof subject
-
-  // Workaround: node's base64 implementation allows for non-padded strings
-  // while base64-js does not.
-  if (encoding === 'base64' && type === 'string') {
-    subject = stringtrim(subject)
-    while (subject.length % 4 !== 0) {
-      subject = subject + '='
-    }
-  }
-
-  // Find the length
-  var length
-  if (type === 'number')
-    length = coerce(subject)
-  else if (type === 'string')
-    length = Buffer.byteLength(subject, encoding)
-  else if (type === 'object')
-    length = coerce(subject.length) // assume that object is array-like
-  else
-    throw new Error('First argument needs to be a number, array or string.')
-
-  var buf
-  if (Buffer._useTypedArrays) {
-    // Preferred: Return an augmented `Uint8Array` instance for best performance
-    buf = Buffer._augment(new Uint8Array(length))
-  } else {
-    // Fallback: Return THIS instance of Buffer (created by `new`)
-    buf = this
-    buf.length = length
-    buf._isBuffer = true
-  }
-
-  var i
-  if (Buffer._useTypedArrays && typeof subject.byteLength === 'number') {
-    // Speed optimization -- use set if we're copying from a typed array
-    buf._set(subject)
-  } else if (isArrayish(subject)) {
-    // Treat array-ish objects as a byte array
-    for (i = 0; i < length; i++) {
-      if (Buffer.isBuffer(subject))
-        buf[i] = subject.readUInt8(i)
-      else
-        buf[i] = subject[i]
-    }
-  } else if (type === 'string') {
-    buf.write(subject, 0, encoding)
-  } else if (type === 'number' && !Buffer._useTypedArrays && !noZero) {
-    for (i = 0; i < length; i++) {
-      buf[i] = 0
-    }
-  }
-
-  return buf
-}
-
-// STATIC METHODS
-// ==============
-
-Buffer.isEncoding = function (encoding) {
-  switch (String(encoding).toLowerCase()) {
-    case 'hex':
-    case 'utf8':
-    case 'utf-8':
-    case 'ascii':
-    case 'binary':
-    case 'base64':
-    case 'raw':
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      return true
-    default:
-      return false
-  }
-}
-
-Buffer.isBuffer = function (b) {
-  return !!(b !== null && b !== undefined && b._isBuffer)
-}
-
-Buffer.byteLength = function (str, encoding) {
-  var ret
-  str = str + ''
-  switch (encoding || 'utf8') {
-    case 'hex':
-      ret = str.length / 2
-      break
-    case 'utf8':
-    case 'utf-8':
-      ret = utf8ToBytes(str).length
-      break
-    case 'ascii':
-    case 'binary':
-    case 'raw':
-      ret = str.length
-      break
-    case 'base64':
-      ret = base64ToBytes(str).length
-      break
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      ret = str.length * 2
-      break
-    default:
-      throw new Error('Unknown encoding')
-  }
-  return ret
-}
-
-Buffer.concat = function (list, totalLength) {
-  assert(isArray(list), 'Usage: Buffer.concat(list, [totalLength])\n' +
-      'list should be an Array.')
-
-  if (list.length === 0) {
-    return new Buffer(0)
-  } else if (list.length === 1) {
-    return list[0]
-  }
-
-  var i
-  if (typeof totalLength !== 'number') {
-    totalLength = 0
-    for (i = 0; i < list.length; i++) {
-      totalLength += list[i].length
-    }
-  }
-
-  var buf = new Buffer(totalLength)
-  var pos = 0
-  for (i = 0; i < list.length; i++) {
-    var item = list[i]
-    item.copy(buf, pos)
-    pos += item.length
-  }
-  return buf
-}
-
-// BUFFER INSTANCE METHODS
-// =======================
-
-function _hexWrite (buf, string, offset, length) {
-  offset = Number(offset) || 0
-  var remaining = buf.length - offset
-  if (!length) {
-    length = remaining
-  } else {
-    length = Number(length)
-    if (length > remaining) {
-      length = remaining
-    }
-  }
-
-  // must be an even number of digits
-  var strLen = string.length
-  assert(strLen % 2 === 0, 'Invalid hex string')
-
-  if (length > strLen / 2) {
-    length = strLen / 2
-  }
-  for (var i = 0; i < length; i++) {
-    var byte = parseInt(string.substr(i * 2, 2), 16)
-    assert(!isNaN(byte), 'Invalid hex string')
-    buf[offset + i] = byte
-  }
-  Buffer._charsWritten = i * 2
-  return i
-}
-
-function _utf8Write (buf, string, offset, length) {
-  var charsWritten = Buffer._charsWritten =
-    blitBuffer(utf8ToBytes(string), buf, offset, length)
-  return charsWritten
-}
-
-function _asciiWrite (buf, string, offset, length) {
-  var charsWritten = Buffer._charsWritten =
-    blitBuffer(asciiToBytes(string), buf, offset, length)
-  return charsWritten
-}
-
-function _binaryWrite (buf, string, offset, length) {
-  return _asciiWrite(buf, string, offset, length)
-}
-
-function _base64Write (buf, string, offset, length) {
-  var charsWritten = Buffer._charsWritten =
-    blitBuffer(base64ToBytes(string), buf, offset, length)
-  return charsWritten
-}
-
-function _utf16leWrite (buf, string, offset, length) {
-  var charsWritten = Buffer._charsWritten =
-    blitBuffer(utf16leToBytes(string), buf, offset, length)
-  return charsWritten
-}
-
-Buffer.prototype.write = function (string, offset, length, encoding) {
-  // Support both (string, offset, length, encoding)
-  // and the legacy (string, encoding, offset, length)
-  if (isFinite(offset)) {
-    if (!isFinite(length)) {
-      encoding = length
-      length = undefined
-    }
-  } else {  // legacy
-    var swap = encoding
-    encoding = offset
-    offset = length
-    length = swap
-  }
-
-  offset = Number(offset) || 0
-  var remaining = this.length - offset
-  if (!length) {
-    length = remaining
-  } else {
-    length = Number(length)
-    if (length > remaining) {
-      length = remaining
-    }
-  }
-  encoding = String(encoding || 'utf8').toLowerCase()
-
-  var ret
-  switch (encoding) {
-    case 'hex':
-      ret = _hexWrite(this, string, offset, length)
-      break
-    case 'utf8':
-    case 'utf-8':
-      ret = _utf8Write(this, string, offset, length)
-      break
-    case 'ascii':
-      ret = _asciiWrite(this, string, offset, length)
-      break
-    case 'binary':
-      ret = _binaryWrite(this, string, offset, length)
-      break
-    case 'base64':
-      ret = _base64Write(this, string, offset, length)
-      break
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      ret = _utf16leWrite(this, string, offset, length)
-      break
-    default:
-      throw new Error('Unknown encoding')
-  }
-  return ret
-}
-
-Buffer.prototype.toString = function (encoding, start, end) {
-  var self = this
-
-  encoding = String(encoding || 'utf8').toLowerCase()
-  start = Number(start) || 0
-  end = (end !== undefined)
-    ? Number(end)
-    : end = self.length
-
-  // Fastpath empty strings
-  if (end === start)
-    return ''
-
-  var ret
-  switch (encoding) {
-    case 'hex':
-      ret = _hexSlice(self, start, end)
-      break
-    case 'utf8':
-    case 'utf-8':
-      ret = _utf8Slice(self, start, end)
-      break
-    case 'ascii':
-      ret = _asciiSlice(self, start, end)
-      break
-    case 'binary':
-      ret = _binarySlice(self, start, end)
-      break
-    case 'base64':
-      ret = _base64Slice(self, start, end)
-      break
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      ret = _utf16leSlice(self, start, end)
-      break
-    default:
-      throw new Error('Unknown encoding')
-  }
-  return ret
-}
-
-Buffer.prototype.toJSON = function () {
-  return {
-    type: 'Buffer',
-    data: Array.prototype.slice.call(this._arr || this, 0)
-  }
-}
-
-// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
-Buffer.prototype.copy = function (target, target_start, start, end) {
-  var source = this
-
-  if (!start) start = 0
-  if (!end && end !== 0) end = this.length
-  if (!target_start) target_start = 0
-
-  // Copy 0 bytes; we're done
-  if (end === start) return
-  if (target.length === 0 || source.length === 0) return
-
-  // Fatal error conditions
-  assert(end >= start, 'sourceEnd < sourceStart')
-  assert(target_start >= 0 && target_start < target.length,
-      'targetStart out of bounds')
-  assert(start >= 0 && start < source.length, 'sourceStart out of bounds')
-  assert(end >= 0 && end <= source.length, 'sourceEnd out of bounds')
-
-  // Are we oob?
-  if (end > this.length)
-    end = this.length
-  if (target.length - target_start < end - start)
-    end = target.length - target_start + start
-
-  var len = end - start
-
-  if (len < 100 || !Buffer._useTypedArrays) {
-    for (var i = 0; i < len; i++)
-      target[i + target_start] = this[i + start]
-  } else {
-    target._set(this.subarray(start, start + len), target_start)
-  }
-}
-
-function _base64Slice (buf, start, end) {
-  if (start === 0 && end === buf.length) {
-    return base64.fromByteArray(buf)
-  } else {
-    return base64.fromByteArray(buf.slice(start, end))
-  }
-}
-
-function _utf8Slice (buf, start, end) {
-  var res = ''
-  var tmp = ''
-  end = Math.min(buf.length, end)
-
-  for (var i = start; i < end; i++) {
-    if (buf[i] <= 0x7F) {
-      res += decodeUtf8Char(tmp) + String.fromCharCode(buf[i])
-      tmp = ''
-    } else {
-      tmp += '%' + buf[i].toString(16)
-    }
-  }
-
-  return res + decodeUtf8Char(tmp)
-}
-
-function _asciiSlice (buf, start, end) {
-  var ret = ''
-  end = Math.min(buf.length, end)
-
-  for (var i = start; i < end; i++)
-    ret += String.fromCharCode(buf[i])
-  return ret
-}
-
-function _binarySlice (buf, start, end) {
-  return _asciiSlice(buf, start, end)
-}
-
-function _hexSlice (buf, start, end) {
-  var len = buf.length
-
-  if (!start || start < 0) start = 0
-  if (!end || end < 0 || end > len) end = len
-
-  var out = ''
-  for (var i = start; i < end; i++) {
-    out += toHex(buf[i])
-  }
-  return out
-}
-
-function _utf16leSlice (buf, start, end) {
-  var bytes = buf.slice(start, end)
-  var res = ''
-  for (var i = 0; i < bytes.length; i += 2) {
-    res += String.fromCharCode(bytes[i] + bytes[i+1] * 256)
-  }
-  return res
-}
-
-Buffer.prototype.slice = function (start, end) {
-  var len = this.length
-  start = clamp(start, len, 0)
-  end = clamp(end, len, len)
-
-  if (Buffer._useTypedArrays) {
-    return Buffer._augment(this.subarray(start, end))
-  } else {
-    var sliceLen = end - start
-    var newBuf = new Buffer(sliceLen, undefined, true)
-    for (var i = 0; i < sliceLen; i++) {
-      newBuf[i] = this[i + start]
-    }
-    return newBuf
-  }
-}
-
-// `get` will be removed in Node 0.13+
-Buffer.prototype.get = function (offset) {
-  console.log('.get() is deprecated. Access using array indexes instead.')
-  return this.readUInt8(offset)
-}
-
-// `set` will be removed in Node 0.13+
-Buffer.prototype.set = function (v, offset) {
-  console.log('.set() is deprecated. Access using array indexes instead.')
-  return this.writeUInt8(v, offset)
-}
-
-Buffer.prototype.readUInt8 = function (offset, noAssert) {
-  if (!noAssert) {
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset < this.length, 'Trying to read beyond buffer length')
-  }
-
-  if (offset >= this.length)
-    return
-
-  return this[offset]
-}
-
-function _readUInt16 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val
-  if (littleEndian) {
-    val = buf[offset]
-    if (offset + 1 < len)
-      val |= buf[offset + 1] << 8
-  } else {
-    val = buf[offset] << 8
-    if (offset + 1 < len)
-      val |= buf[offset + 1]
-  }
-  return val
-}
-
-Buffer.prototype.readUInt16LE = function (offset, noAssert) {
-  return _readUInt16(this, offset, true, noAssert)
-}
-
-Buffer.prototype.readUInt16BE = function (offset, noAssert) {
-  return _readUInt16(this, offset, false, noAssert)
-}
-
-function _readUInt32 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val
-  if (littleEndian) {
-    if (offset + 2 < len)
-      val = buf[offset + 2] << 16
-    if (offset + 1 < len)
-      val |= buf[offset + 1] << 8
-    val |= buf[offset]
-    if (offset + 3 < len)
-      val = val + (buf[offset + 3] << 24 >>> 0)
-  } else {
-    if (offset + 1 < len)
-      val = buf[offset + 1] << 16
-    if (offset + 2 < len)
-      val |= buf[offset + 2] << 8
-    if (offset + 3 < len)
-      val |= buf[offset + 3]
-    val = val + (buf[offset] << 24 >>> 0)
-  }
-  return val
-}
-
-Buffer.prototype.readUInt32LE = function (offset, noAssert) {
-  return _readUInt32(this, offset, true, noAssert)
-}
-
-Buffer.prototype.readUInt32BE = function (offset, noAssert) {
-  return _readUInt32(this, offset, false, noAssert)
-}
-
-Buffer.prototype.readInt8 = function (offset, noAssert) {
-  if (!noAssert) {
-    assert(offset !== undefined && offset !== null,
-        'missing offset')
-    assert(offset < this.length, 'Trying to read beyond buffer length')
-  }
-
-  if (offset >= this.length)
-    return
-
-  var neg = this[offset] & 0x80
-  if (neg)
-    return (0xff - this[offset] + 1) * -1
-  else
-    return this[offset]
-}
-
-function _readInt16 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val = _readUInt16(buf, offset, littleEndian, true)
-  var neg = val & 0x8000
-  if (neg)
-    return (0xffff - val + 1) * -1
-  else
-    return val
-}
-
-Buffer.prototype.readInt16LE = function (offset, noAssert) {
-  return _readInt16(this, offset, true, noAssert)
-}
-
-Buffer.prototype.readInt16BE = function (offset, noAssert) {
-  return _readInt16(this, offset, false, noAssert)
-}
-
-function _readInt32 (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  var val = _readUInt32(buf, offset, littleEndian, true)
-  var neg = val & 0x80000000
-  if (neg)
-    return (0xffffffff - val + 1) * -1
-  else
-    return val
-}
-
-Buffer.prototype.readInt32LE = function (offset, noAssert) {
-  return _readInt32(this, offset, true, noAssert)
-}
-
-Buffer.prototype.readInt32BE = function (offset, noAssert) {
-  return _readInt32(this, offset, false, noAssert)
-}
-
-function _readFloat (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset + 3 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  return ieee754.read(buf, offset, littleEndian, 23, 4)
-}
-
-Buffer.prototype.readFloatLE = function (offset, noAssert) {
-  return _readFloat(this, offset, true, noAssert)
-}
-
-Buffer.prototype.readFloatBE = function (offset, noAssert) {
-  return _readFloat(this, offset, false, noAssert)
-}
-
-function _readDouble (buf, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset + 7 < buf.length, 'Trying to read beyond buffer length')
-  }
-
-  return ieee754.read(buf, offset, littleEndian, 52, 8)
-}
-
-Buffer.prototype.readDoubleLE = function (offset, noAssert) {
-  return _readDouble(this, offset, true, noAssert)
-}
-
-Buffer.prototype.readDoubleBE = function (offset, noAssert) {
-  return _readDouble(this, offset, false, noAssert)
-}
-
-Buffer.prototype.writeUInt8 = function (value, offset, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset < this.length, 'trying to write beyond buffer length')
-    verifuint(value, 0xff)
-  }
-
-  if (offset >= this.length) return
-
-  this[offset] = value
-}
-
-function _writeUInt16 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'trying to write beyond buffer length')
-    verifuint(value, 0xffff)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  for (var i = 0, j = Math.min(len - offset, 2); i < j; i++) {
-    buf[offset + i] =
-        (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
-            (littleEndian ? i : 1 - i) * 8
-  }
-}
-
-Buffer.prototype.writeUInt16LE = function (value, offset, noAssert) {
-  _writeUInt16(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeUInt16BE = function (value, offset, noAssert) {
-  _writeUInt16(this, value, offset, false, noAssert)
-}
-
-function _writeUInt32 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'trying to write beyond buffer length')
-    verifuint(value, 0xffffffff)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  for (var i = 0, j = Math.min(len - offset, 4); i < j; i++) {
-    buf[offset + i] =
-        (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
-  }
-}
-
-Buffer.prototype.writeUInt32LE = function (value, offset, noAssert) {
-  _writeUInt32(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeUInt32BE = function (value, offset, noAssert) {
-  _writeUInt32(this, value, offset, false, noAssert)
-}
-
-Buffer.prototype.writeInt8 = function (value, offset, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset < this.length, 'Trying to write beyond buffer length')
-    verifsint(value, 0x7f, -0x80)
-  }
-
-  if (offset >= this.length)
-    return
-
-  if (value >= 0)
-    this.writeUInt8(value, offset, noAssert)
-  else
-    this.writeUInt8(0xff + value + 1, offset, noAssert)
-}
-
-function _writeInt16 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 1 < buf.length, 'Trying to write beyond buffer length')
-    verifsint(value, 0x7fff, -0x8000)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  if (value >= 0)
-    _writeUInt16(buf, value, offset, littleEndian, noAssert)
-  else
-    _writeUInt16(buf, 0xffff + value + 1, offset, littleEndian, noAssert)
-}
-
-Buffer.prototype.writeInt16LE = function (value, offset, noAssert) {
-  _writeInt16(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeInt16BE = function (value, offset, noAssert) {
-  _writeInt16(this, value, offset, false, noAssert)
-}
-
-function _writeInt32 (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to write beyond buffer length')
-    verifsint(value, 0x7fffffff, -0x80000000)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  if (value >= 0)
-    _writeUInt32(buf, value, offset, littleEndian, noAssert)
-  else
-    _writeUInt32(buf, 0xffffffff + value + 1, offset, littleEndian, noAssert)
-}
-
-Buffer.prototype.writeInt32LE = function (value, offset, noAssert) {
-  _writeInt32(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeInt32BE = function (value, offset, noAssert) {
-  _writeInt32(this, value, offset, false, noAssert)
-}
-
-function _writeFloat (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 3 < buf.length, 'Trying to write beyond buffer length')
-    verifIEEE754(value, 3.4028234663852886e+38, -3.4028234663852886e+38)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  ieee754.write(buf, value, offset, littleEndian, 23, 4)
-}
-
-Buffer.prototype.writeFloatLE = function (value, offset, noAssert) {
-  _writeFloat(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeFloatBE = function (value, offset, noAssert) {
-  _writeFloat(this, value, offset, false, noAssert)
-}
-
-function _writeDouble (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    assert(value !== undefined && value !== null, 'missing value')
-    assert(typeof littleEndian === 'boolean', 'missing or invalid endian')
-    assert(offset !== undefined && offset !== null, 'missing offset')
-    assert(offset + 7 < buf.length,
-        'Trying to write beyond buffer length')
-    verifIEEE754(value, 1.7976931348623157E+308, -1.7976931348623157E+308)
-  }
-
-  var len = buf.length
-  if (offset >= len)
-    return
-
-  ieee754.write(buf, value, offset, littleEndian, 52, 8)
-}
-
-Buffer.prototype.writeDoubleLE = function (value, offset, noAssert) {
-  _writeDouble(this, value, offset, true, noAssert)
-}
-
-Buffer.prototype.writeDoubleBE = function (value, offset, noAssert) {
-  _writeDouble(this, value, offset, false, noAssert)
-}
-
-// fill(value, start=0, end=buffer.length)
-Buffer.prototype.fill = function (value, start, end) {
-  if (!value) value = 0
-  if (!start) start = 0
-  if (!end) end = this.length
-
-  if (typeof value === 'string') {
-    value = value.charCodeAt(0)
-  }
-
-  assert(typeof value === 'number' && !isNaN(value), 'value is not a number')
-  assert(end >= start, 'end < start')
-
-  // Fill 0 bytes; we're done
-  if (end === start) return
-  if (this.length === 0) return
-
-  assert(start >= 0 && start < this.length, 'start out of bounds')
-  assert(end >= 0 && end <= this.length, 'end out of bounds')
-
-  for (var i = start; i < end; i++) {
-    this[i] = value
-  }
-}
-
-Buffer.prototype.inspect = function () {
-  var out = []
-  var len = this.length
-  for (var i = 0; i < len; i++) {
-    out[i] = toHex(this[i])
-    if (i === exports.INSPECT_MAX_BYTES) {
-      out[i + 1] = '...'
-      break
-    }
-  }
-  return '<Buffer ' + out.join(' ') + '>'
-}
-
-/**
- * Creates a new `ArrayBuffer` with the *copied* memory of the buffer instance.
- * Added in Node 0.12. Only available in browsers that support ArrayBuffer.
- */
-Buffer.prototype.toArrayBuffer = function () {
-  if (typeof Uint8Array !== 'undefined') {
-    if (Buffer._useTypedArrays) {
-      return (new Buffer(this)).buffer
-    } else {
-      var buf = new Uint8Array(this.length)
-      for (var i = 0, len = buf.length; i < len; i += 1)
-        buf[i] = this[i]
-      return buf.buffer
-    }
-  } else {
-    throw new Error('Buffer.toArrayBuffer not supported in this browser')
-  }
-}
-
-// HELPER FUNCTIONS
-// ================
-
-function stringtrim (str) {
-  if (str.trim) return str.trim()
-  return str.replace(/^\s+|\s+$/g, '')
-}
-
-var BP = Buffer.prototype
-
-/**
- * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
- */
-Buffer._augment = function (arr) {
-  arr._isBuffer = true
-
-  // save reference to original Uint8Array get/set methods before overwriting
-  arr._get = arr.get
-  arr._set = arr.set
-
-  // deprecated, will be removed in node 0.13+
-  arr.get = BP.get
-  arr.set = BP.set
-
-  arr.write = BP.write
-  arr.toString = BP.toString
-  arr.toLocaleString = BP.toString
-  arr.toJSON = BP.toJSON
-  arr.copy = BP.copy
-  arr.slice = BP.slice
-  arr.readUInt8 = BP.readUInt8
-  arr.readUInt16LE = BP.readUInt16LE
-  arr.readUInt16BE = BP.readUInt16BE
-  arr.readUInt32LE = BP.readUInt32LE
-  arr.readUInt32BE = BP.readUInt32BE
-  arr.readInt8 = BP.readInt8
-  arr.readInt16LE = BP.readInt16LE
-  arr.readInt16BE = BP.readInt16BE
-  arr.readInt32LE = BP.readInt32LE
-  arr.readInt32BE = BP.readInt32BE
-  arr.readFloatLE = BP.readFloatLE
-  arr.readFloatBE = BP.readFloatBE
-  arr.readDoubleLE = BP.readDoubleLE
-  arr.readDoubleBE = BP.readDoubleBE
-  arr.writeUInt8 = BP.writeUInt8
-  arr.writeUInt16LE = BP.writeUInt16LE
-  arr.writeUInt16BE = BP.writeUInt16BE
-  arr.writeUInt32LE = BP.writeUInt32LE
-  arr.writeUInt32BE = BP.writeUInt32BE
-  arr.writeInt8 = BP.writeInt8
-  arr.writeInt16LE = BP.writeInt16LE
-  arr.writeInt16BE = BP.writeInt16BE
-  arr.writeInt32LE = BP.writeInt32LE
-  arr.writeInt32BE = BP.writeInt32BE
-  arr.writeFloatLE = BP.writeFloatLE
-  arr.writeFloatBE = BP.writeFloatBE
-  arr.writeDoubleLE = BP.writeDoubleLE
-  arr.writeDoubleBE = BP.writeDoubleBE
-  arr.fill = BP.fill
-  arr.inspect = BP.inspect
-  arr.toArrayBuffer = BP.toArrayBuffer
-
-  return arr
-}
-
-// slice(start, end)
-function clamp (index, len, defaultValue) {
-  if (typeof index !== 'number') return defaultValue
-  index = ~~index;  // Coerce to integer.
-  if (index >= len) return len
-  if (index >= 0) return index
-  index += len
-  if (index >= 0) return index
-  return 0
-}
-
-function coerce (length) {
-  // Coerce length to a number (possibly NaN), round up
-  // in case it's fractional (e.g. 123.456) then do a
-  // double negate to coerce a NaN to 0. Easy, right?
-  length = ~~Math.ceil(+length)
-  return length < 0 ? 0 : length
-}
-
-function isArray (subject) {
-  return (Array.isArray || function (subject) {
-    return Object.prototype.toString.call(subject) === '[object Array]'
-  })(subject)
-}
-
-function isArrayish (subject) {
-  return isArray(subject) || Buffer.isBuffer(subject) ||
-      subject && typeof subject === 'object' &&
-      typeof subject.length === 'number'
-}
-
-function toHex (n) {
-  if (n < 16) return '0' + n.toString(16)
-  return n.toString(16)
-}
-
-function utf8ToBytes (str) {
-  var byteArray = []
-  for (var i = 0; i < str.length; i++) {
-    var b = str.charCodeAt(i)
-    if (b <= 0x7F)
-      byteArray.push(str.charCodeAt(i))
-    else {
-      var start = i
-      if (b >= 0xD800 && b <= 0xDFFF) i++
-      var h = encodeURIComponent(str.slice(start, i+1)).substr(1).split('%')
-      for (var j = 0; j < h.length; j++)
-        byteArray.push(parseInt(h[j], 16))
-    }
-  }
-  return byteArray
-}
-
-function asciiToBytes (str) {
-  var byteArray = []
-  for (var i = 0; i < str.length; i++) {
-    // Node's code seems to be doing this and not & 0x7F..
-    byteArray.push(str.charCodeAt(i) & 0xFF)
-  }
-  return byteArray
-}
-
-function utf16leToBytes (str) {
-  var c, hi, lo
-  var byteArray = []
-  for (var i = 0; i < str.length; i++) {
-    c = str.charCodeAt(i)
-    hi = c >> 8
-    lo = c % 256
-    byteArray.push(lo)
-    byteArray.push(hi)
-  }
-
-  return byteArray
-}
-
-function base64ToBytes (str) {
-  return base64.toByteArray(str)
-}
-
-function blitBuffer (src, dst, offset, length) {
-  var pos
-  for (var i = 0; i < length; i++) {
-    if ((i + offset >= dst.length) || (i >= src.length))
-      break
-    dst[i + offset] = src[i]
-  }
-  return i
-}
-
-function decodeUtf8Char (str) {
-  try {
-    return decodeURIComponent(str)
-  } catch (err) {
-    return String.fromCharCode(0xFFFD) // UTF 8 invalid char
-  }
-}
-
-/*
- * We have to make sure that the value is a valid integer. This means that it
- * is non-negative. It has no fractional component and that it does not
- * exceed the maximum allowed value.
- */
-function verifuint (value, max) {
-  assert(typeof value === 'number', 'cannot write a non-number as a number')
-  assert(value >= 0, 'specified a negative value for writing an unsigned value')
-  assert(value <= max, 'value is larger than maximum value for type')
-  assert(Math.floor(value) === value, 'value has a fractional component')
-}
-
-function verifsint (value, max, min) {
-  assert(typeof value === 'number', 'cannot write a non-number as a number')
-  assert(value <= max, 'value larger than maximum allowed value')
-  assert(value >= min, 'value smaller than minimum allowed value')
-  assert(Math.floor(value) === value, 'value has a fractional component')
-}
-
-function verifIEEE754 (value, max, min) {
-  assert(typeof value === 'number', 'cannot write a non-number as a number')
-  assert(value <= max, 'value larger than maximum allowed value')
-  assert(value >= min, 'value smaller than minimum allowed value')
-}
-
-function assert (test, message) {
-  if (!test) throw new Error(message || 'Failed assertion')
-}
-
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\gulp-browserify\\node_modules\\buffer\\index.js","/..\\node_modules\\gulp-browserify\\node_modules\\buffer")
-},{"2ionoC":410,"base64-js":408,"buffer":409,"ieee754":411}],410:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-// shim for using process in browser
-
-var process = module.exports = {};
-
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
-
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
-    }
-
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            var source = ev.source;
-            if ((source === window || source === null) && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
-            }
-        }, true);
-
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
-        };
-    }
-
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
-    };
-})();
-
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-}
-
-// TODO(shtylman)
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\gulp-browserify\\node_modules\\process\\browser.js","/..\\node_modules\\gulp-browserify\\node_modules\\process")
-},{"2ionoC":410,"buffer":409}],411:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-exports.read = function (buffer, offset, isLE, mLen, nBytes) {
-  var e, m
-  var eLen = nBytes * 8 - mLen - 1
-  var eMax = (1 << eLen) - 1
-  var eBias = eMax >> 1
-  var nBits = -7
-  var i = isLE ? (nBytes - 1) : 0
-  var d = isLE ? -1 : 1
-  var s = buffer[offset + i]
-
-  i += d
-
-  e = s & ((1 << (-nBits)) - 1)
-  s >>= (-nBits)
-  nBits += eLen
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-  m = e & ((1 << (-nBits)) - 1)
-  e >>= (-nBits)
-  nBits += mLen
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-  if (e === 0) {
-    e = 1 - eBias
-  } else if (e === eMax) {
-    return m ? NaN : ((s ? -1 : 1) * Infinity)
-  } else {
-    m = m + Math.pow(2, mLen)
-    e = e - eBias
-  }
-  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
-}
-
-exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
-  var e, m, c
-  var eLen = nBytes * 8 - mLen - 1
-  var eMax = (1 << eLen) - 1
-  var eBias = eMax >> 1
-  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
-  var i = isLE ? 0 : (nBytes - 1)
-  var d = isLE ? 1 : -1
-  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
-
-  value = Math.abs(value)
-
-  if (isNaN(value) || value === Infinity) {
-    m = isNaN(value) ? 1 : 0
-    e = eMax
-  } else {
-    e = Math.floor(Math.log(value) / Math.LN2)
-    if (value * (c = Math.pow(2, -e)) < 1) {
-      e--
-      c *= 2
-    }
-    if (e + eBias >= 1) {
-      value += rt / c
-    } else {
-      value += rt * Math.pow(2, 1 - eBias)
-    }
-    if (value * c >= 2) {
-      e++
-      c /= 2
-    }
-
-    if (e + eBias >= eMax) {
-      m = 0
-      e = eMax
-    } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen)
-      e = e + eBias
-    } else {
-      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
-      e = 0
-    }
-  }
-
-  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-  e = (e << mLen) | m
-  eLen += mLen
-  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-  buffer[offset + i - d] |= s * 128
-}
-
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\ieee754\\index.js","/..\\node_modules\\ieee754")
-},{"2ionoC":410,"buffer":409}],412:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../core_private":349,"./browser":352,"./browser/browser_adapter":353,"./browser/testability":357,"./dom/dom_adapter":363,"./dom/dom_renderer":364,"./dom/dom_tokens":365,"./dom/events/dom_events":366,"./dom/events/event_manager":367,"./dom/events/hammer_gestures":369,"./dom/events/key_events":370,"./dom/shared_styles_host":371,"./facade/exceptions":380,"./facade/lang":381,"./web_workers/shared/api":387,"./web_workers/shared/client_message_broker":388,"./web_workers/shared/message_bus":389,"./web_workers/shared/post_message_bus":391,"./web_workers/shared/render_store":392,"./web_workers/shared/serializer":394,"./web_workers/shared/service_message_broker":395,"./web_workers/ui/renderer":400,"@angular/core":191}],408:[function(require,module,exports){
 "use strict";
 var root_1 = require('./util/root');
 var observable_1 = require('./symbol/observable');
@@ -61068,9 +50934,7 @@ var Observable = (function () {
 }());
 exports.Observable = Observable;
 //# sourceMappingURL=Observable.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\Observable.js","/..\\node_modules\\rxjs")
-},{"./symbol/observable":421,"./util/root":429,"./util/toSubscriber":431,"2ionoC":410,"buffer":409}],413:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./symbol/observable":417,"./util/root":425,"./util/toSubscriber":427}],409:[function(require,module,exports){
 "use strict";
 exports.empty = {
     isUnsubscribed: true,
@@ -61079,9 +50943,7 @@ exports.empty = {
     complete: function () { }
 };
 //# sourceMappingURL=Observer.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\Observer.js","/..\\node_modules\\rxjs")
-},{"2ionoC":410,"buffer":409}],414:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],410:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -61288,9 +51150,7 @@ var SubjectObservable = (function (_super) {
     return SubjectObservable;
 }(Observable_1.Observable));
 //# sourceMappingURL=Subject.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\Subject.js","/..\\node_modules\\rxjs")
-},{"./Observable":412,"./SubjectSubscription":415,"./Subscriber":416,"./Subscription":417,"./symbol/rxSubscriber":422,"./util/ObjectUnsubscribedError":423,"./util/throwError":430,"2ionoC":410,"buffer":409}],415:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./Observable":408,"./SubjectSubscription":411,"./Subscriber":412,"./Subscription":413,"./symbol/rxSubscriber":418,"./util/ObjectUnsubscribedError":419,"./util/throwError":426}],411:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -61331,9 +51191,7 @@ var SubjectSubscription = (function (_super) {
 }(Subscription_1.Subscription));
 exports.SubjectSubscription = SubjectSubscription;
 //# sourceMappingURL=SubjectSubscription.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\SubjectSubscription.js","/..\\node_modules\\rxjs")
-},{"./Subscription":417,"2ionoC":410,"buffer":409}],416:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./Subscription":413}],412:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -61585,9 +51443,7 @@ var SafeSubscriber = (function (_super) {
     return SafeSubscriber;
 }(Subscriber));
 //# sourceMappingURL=Subscriber.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\Subscriber.js","/..\\node_modules\\rxjs")
-},{"./Observer":413,"./Subscription":417,"./symbol/rxSubscriber":422,"./util/isFunction":427,"2ionoC":410,"buffer":409}],417:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./Observer":409,"./Subscription":413,"./symbol/rxSubscriber":418,"./util/isFunction":423}],413:[function(require,module,exports){
 "use strict";
 var isArray_1 = require('./util/isArray');
 var isObject_1 = require('./util/isObject');
@@ -61738,17 +51594,13 @@ var Subscription = (function () {
 }());
 exports.Subscription = Subscription;
 //# sourceMappingURL=Subscription.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\Subscription.js","/..\\node_modules\\rxjs")
-},{"./util/UnsubscriptionError":424,"./util/errorObject":425,"./util/isArray":426,"./util/isFunction":427,"./util/isObject":428,"./util/tryCatch":432,"2ionoC":410,"buffer":409}],418:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"./util/UnsubscriptionError":420,"./util/errorObject":421,"./util/isArray":422,"./util/isFunction":423,"./util/isObject":424,"./util/tryCatch":428}],414:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var toPromise_1 = require('../../operator/toPromise');
 Observable_1.Observable.prototype.toPromise = toPromise_1.toPromise;
 //# sourceMappingURL=toPromise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\add\\operator\\toPromise.js","/..\\node_modules\\rxjs\\add\\operator")
-},{"../../Observable":412,"../../operator/toPromise":420,"2ionoC":410,"buffer":409}],419:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../../Observable":408,"../../operator/toPromise":416}],415:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -61854,9 +51706,7 @@ function dispatchError(arg) {
     }
 }
 //# sourceMappingURL=PromiseObservable.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\observable\\PromiseObservable.js","/..\\node_modules\\rxjs\\observable")
-},{"../Observable":412,"../util/root":429,"2ionoC":410,"buffer":409}],420:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../Observable":408,"../util/root":425}],416:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 /**
@@ -61885,9 +51735,7 @@ function toPromise(PromiseCtor) {
 }
 exports.toPromise = toPromise;
 //# sourceMappingURL=toPromise.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\operator\\toPromise.js","/..\\node_modules\\rxjs\\operator")
-},{"../util/root":429,"2ionoC":410,"buffer":409}],421:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../util/root":425}],417:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 var Symbol = root_1.root.Symbol;
@@ -61909,18 +51757,14 @@ else {
     exports.$$observable = '@@observable';
 }
 //# sourceMappingURL=observable.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\symbol\\observable.js","/..\\node_modules\\rxjs\\symbol")
-},{"../util/root":429,"2ionoC":410,"buffer":409}],422:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../util/root":425}],418:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 var Symbol = root_1.root.Symbol;
 exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
     Symbol.for('rxSubscriber') : '@@rxSubscriber';
 //# sourceMappingURL=rxSubscriber.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\symbol\\rxSubscriber.js","/..\\node_modules\\rxjs\\symbol")
-},{"../util/root":429,"2ionoC":410,"buffer":409}],423:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../util/root":425}],419:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -61946,9 +51790,7 @@ var ObjectUnsubscribedError = (function (_super) {
 }(Error));
 exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 //# sourceMappingURL=ObjectUnsubscribedError.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\ObjectUnsubscribedError.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],424:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],420:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -61971,40 +51813,31 @@ var UnsubscriptionError = (function (_super) {
 }(Error));
 exports.UnsubscriptionError = UnsubscriptionError;
 //# sourceMappingURL=UnsubscriptionError.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\UnsubscriptionError.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],425:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],421:[function(require,module,exports){
 "use strict";
 // typeof any so that it we don't have to cast when comparing a result to the error object
 exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\errorObject.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],426:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],422:[function(require,module,exports){
 "use strict";
 exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 //# sourceMappingURL=isArray.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\isArray.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],427:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],423:[function(require,module,exports){
 "use strict";
 function isFunction(x) {
     return typeof x === 'function';
 }
 exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\isFunction.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],428:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],424:[function(require,module,exports){
 "use strict";
 function isObject(x) {
     return x != null && typeof x === 'object';
 }
 exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\isObject.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],429:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],425:[function(require,module,exports){
+(function (global){
 "use strict";
 var objectTypes = {
     'boolean': false,
@@ -62023,16 +51856,13 @@ if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === fre
     exports.root = freeGlobal;
 }
 //# sourceMappingURL=root.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\root.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],430:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],426:[function(require,module,exports){
 "use strict";
 function throwError(e) { throw e; }
 exports.throwError = throwError;
 //# sourceMappingURL=throwError.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\throwError.js","/..\\node_modules\\rxjs\\util")
-},{"2ionoC":410,"buffer":409}],431:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{}],427:[function(require,module,exports){
 "use strict";
 var Subscriber_1 = require('../Subscriber');
 var rxSubscriber_1 = require('../symbol/rxSubscriber');
@@ -62049,9 +51879,7 @@ function toSubscriber(nextOrObserver, error, complete) {
 }
 exports.toSubscriber = toSubscriber;
 //# sourceMappingURL=toSubscriber.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\toSubscriber.js","/..\\node_modules\\rxjs\\util")
-},{"../Subscriber":416,"../symbol/rxSubscriber":422,"2ionoC":410,"buffer":409}],432:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+},{"../Subscriber":412,"../symbol/rxSubscriber":418}],428:[function(require,module,exports){
 "use strict";
 var errorObject_1 = require('./errorObject');
 var tryCatchTarget;
@@ -62071,5 +51899,4 @@ function tryCatch(fn) {
 exports.tryCatch = tryCatch;
 ;
 //# sourceMappingURL=tryCatch.js.map
-}).call(this,require("2ionoC"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/..\\node_modules\\rxjs\\util\\tryCatch.js","/..\\node_modules\\rxjs\\util")
-},{"./errorObject":425,"2ionoC":410,"buffer":409}]},{},[27])
+},{"./errorObject":421}]},{},[27])

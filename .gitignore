@@ -6,4 +6,5 @@ app/**/*.js
 app/**/*.js.map
 app/**/**/*.js
 app/**/**/*.js.map
-dist 
+dist
+typings
