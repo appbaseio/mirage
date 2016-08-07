@@ -1,4 +1,5 @@
 import { Component, OnChanges, SimpleChange, Input, Output, EventEmitter } from "@angular/core";
+declare var $: any;
 
 @Component({
 	selector: 'types',
@@ -53,6 +54,7 @@ export class TypesComponent implements OnChanges {
 	changeType(val) {
 		//this.mapping.resultQuery.result = [];
 		var availableFields: any = [];
+		var propInfo: any;
 		if (val && val.length) {
 			val.forEach(function(type: any) {
 				var mapObj = this.mapping[this.config.appname].mappings[type].properties;
@@ -77,13 +79,13 @@ export class TypesComponent implements OnChanges {
 				}
 			}.bind(this));
 			this.setUrl(val);
-			var propInfo = {
+			propInfo = {
 				name: 'selectedTypes',
 				value: val
 			};
 			this.setProp.emit(propInfo);
 		} else {
-			var propInfo = {
+			propInfo = {
 				name: 'selectedTypes',
 				value: []
 			};
@@ -91,7 +93,7 @@ export class TypesComponent implements OnChanges {
 			this.setUrl([]);
 		}
 
-		var propInfo = {
+		propInfo = {
 			name: 'availableFields',
 			value: availableFields
 		};

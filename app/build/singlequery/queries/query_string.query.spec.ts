@@ -1,11 +1,5 @@
-import {describe, it, beforeEach, expect, async, inject, injectAsync, beforeEachProviders} from '@angular/core/testing';
-import {TestComponentBuilder, MockXHR} from '@angular/compiler/testing';
-import {MockBackend, MockConnection} from '@angular/http/testing';
-import {provide} from '@angular/core';
+import {describe, it, beforeEach, expect} from '@angular/core/testing';
 import {QueryStringQuery} from './query_string.query';
-import {AppbaseService} from '../../../shared/appbase.service';
-import { HTTP_PROVIDERS, JSONP_PROVIDERS, XHRBackend, Response, ResponseOptions} from '@angular/http';
-
 
 describe('Query string format', () => {
     // Set initial things
@@ -35,15 +29,6 @@ describe('Query string format', () => {
             }
         };
     });
-    beforeEachProviders(() => {
-        return [
-          HTTP_PROVIDERS,
-          AppbaseService
-        ];
-    });
-
-
-
 
     function isValidJson(str: string) {
         try {
@@ -81,7 +66,7 @@ describe('Query string format', () => {
 
 declare var $;
 describe("xhr test (query_string)", function () {
-    var returnedJSON = {};
+    var returnedJSON: any = {};
     var status = 0;
 
     beforeEach(function (done) {
@@ -126,7 +111,7 @@ describe("xhr test (query_string)", function () {
                 done();
             },
             error: function(xhr) {
-                returnedJSON = res;
+                returnedJSON = xhr;
                 status = xhr.status;
                 done();
             }

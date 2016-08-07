@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { prettyJson } from "../shared/pipes/prettyJson";
-
+declare var $: any;
 
 @Component({
 	selector: 'query-run',

@@ -1,3 +1,5 @@
+declare var $: any, jQuery: any, CodeMirror: any;
+
 export var EditorHook = function (config) {
     this.editorId = config.editorId;
     this.$editor = '#'+config.editorId;

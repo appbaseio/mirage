@@ -5,6 +5,8 @@ var minifyCSS = require('gulp-minify-css');
 var sass = require('gulp-sass');
 var rename = require("gulp-rename");
 var watch = require('gulp-watch');
+var browserify = require('gulp-browserify');
+var connect = require('gulp-connect');
 
 var files = {
     css: {
@@ -45,12 +47,7 @@ var files = {
             'bower_components/crypto-js/crypto-js.js',
             'assets/vendor/jquery.layout/jquery-ui.js',
             'assets/vendor/jquery.layout/jquery.layout.js',
-            'assets/vendor/jquery.simulate.js',
-            'node_modules/core-js/client/shim.min.js',
-            'node_modules/zone.js/dist/zone.js',
-            'node_modules/reflect-metadata/Reflect.js',
-            'node_modules/systemjs/dist/system.src.js',
-            'systemjs.config.js'
+            'assets/vendor/jquery.simulate.js'
         ],
         custom: [
             'assets/js/helper.js'
@@ -95,6 +92,14 @@ gulp.task('movefonts', function() {
         .pipe(gulp.dest('dist/fonts'));
 });
 
+
+gulp.task('move_js', function() {
+    return gulp.src([
+        'node_modules/zone.js/dist/zone.js', 
+        'node_modules/reflect-metadata/Reflect.js'])
+        .pipe(gulp.dest('dist/angular/dependency'));
+});
+
 // To include in unit-tests.html
 gulp.task('move_jquery', function() {
     return gulp.src(['bower_components/jquery/dist/jquery.min.js'])
@@ -105,10 +110,30 @@ gulp.task('move_jquery', function() {
 gulp.task('sass', function () {
   return gulp.src(files.css.sassFile)
     .pipe(sass.sync().on('error', sass.logError))
-    .pipe(gulp.dest('assets/css'));
+    .pipe(gulp.dest('assets/css'))
+    .pipe(connect.reload());
 });
 
-gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery']);
+
+gulp.task('build', function() {
+    gulp.src('app/main.js')
+        .pipe(browserify())
+        .pipe(concat('build.js'))
+        .pipe(gulp.dest('dist/angular'))
+        .pipe(uglify())
+        .pipe(concat('build.min.js'))
+        .pipe(gulp.dest('dist/angular'));
+});
+
+gulp.task('connect', function() {
+  connect.server({
+    root: './',
+    livereload: true,
+    port: 3030
+  });
+});
+
+gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery', 'move_js']);
 
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.sassFile, ['customcss']);
@@ -117,4 +142,4 @@ gulp.task('watchfiles', function() {
 
 gulp.task('default', ['compact']);
 
-gulp.task('watch', ['compact', 'watchfiles']);
+gulp.task('watch', ['compact', 'watchfiles', 'connect']);

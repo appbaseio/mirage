@@ -20,7 +20,7 @@ import { RegexpQuery } from './queries/regexp.query';
 import { FuzzyQuery } from './queries/fuzzy.query';
 import { IdsQuery } from './queries/ids.query';
 import { CommonQuery } from './queries/common.query';
-
+declare var $: any;
 
 @Component({
 	selector: 'single-query',

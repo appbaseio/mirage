@@ -8,7 +8,7 @@ import { TimeComponent } from "./time/time.component";
 	directives: [TimeComponent]
 })
 
-export class ListQueryComponent implements OnInit, OnChanges {
+export class ListQueryComponent implements OnInit {
 	@Input() savedQueryList;
 	@Input() sort_by;
 	@Input() sort_direction;

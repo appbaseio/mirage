@@ -1,9 +1,12 @@
 import { Component, OnChanges, SimpleChange } from "@angular/core";
+import { StorageService } from "../../shared/storage.service";
+declare var $: any;
 
 @Component({
 	selector: 'save-query',
 	templateUrl: './app/features/save/save.query.component.html',
-	inputs: ['config', 'mapping', 'queryList']
+	inputs: ['config', 'mapping', 'queryList'],
+	providers: [StorageService]
 })
 
 export class SaveQueryComponent {
@@ -14,6 +17,8 @@ export class SaveQueryComponent {
 		name: '',
 		tag: ''
 	};
+
+	constructor(public storageService: StorageService) {}
 
 	openModal() {
 		$('#saveQueryModal').modal('show');
@@ -28,7 +33,7 @@ export class SaveQueryComponent {
 		};
 		this.queryList.push(queryData);
 		try {
-			window.localStorage.setItem('queryList', JSON.stringify(this.queryList));
+			this.storageService.set('queryList', JSON.stringify(this.queryList));
 		} catch (e) {}
 		console.log(this.queryList);
 	}

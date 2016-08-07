@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { SinglequeryComponent } from "../singlequery/singlequery.component";
 import { EditableComponent } from '../editable/editable.component';
+declare var $: any;
 
 @Component({
 	selector: 'bool-query',
@@ -10,14 +11,14 @@ import { EditableComponent } from '../editable/editable.component';
 })
 
 export class BoolqueryComponent implements OnInit {
-	public config;
-	public queryList = this.queryList;
-	public addQuery;
-	public addBoolQuery;
-	public removeQuery;
-	public removeArray = [];
-	public query = this.query;
-	public buildQuery;
+	public config: Object;
+	public queryList: any = this.queryList;
+	public addQuery: any;
+	public addBoolQuery: any;
+	public removeQuery: any;
+	public removeArray: any = [];
+	public query: any = this.query;
+	public buildQuery: any;
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
@@ -27,14 +28,14 @@ export class BoolqueryComponent implements OnInit {
 		this.exeBuild();
 	}
 
-	addSubQuery(id) {
+	addSubQuery(id: number) {
 		this.addBoolQuery(id);
 	}
 	removeInQuery(id: number) {
 		var resulQueries = this.result.resultQuery.result;
 		this.removeArray.push(id);
 		var removeFlag = true;
-		resulQueries.forEach(function(v, i) {
+		resulQueries.forEach(function(v: any, i: number) {
 			if (v.parent_id == id) {
 				this.removeInQuery(v.id);
 				removeFlag = false;
@@ -42,8 +43,8 @@ export class BoolqueryComponent implements OnInit {
 		}.bind(this));
 
 		if (removeFlag) {
-			this.removeArray.forEach(function(remove_q) {
-				resulQueries.forEach(function(v, i) {
+			this.removeArray.forEach(function(remove_q: number) {
+				resulQueries.forEach(function(v: any, i: number) {
 					if (v.id == remove_q) {
 						resulQueries.splice(i, 1);
 					}
@@ -55,11 +56,11 @@ export class BoolqueryComponent implements OnInit {
 	exeBuild() {
 		setTimeout(() => this.buildQuery(), 300);
 	}
-	booleanChange(boolVal) {
+	booleanChange(boolVal: any) {
 		this.query.boolparam = boolVal;
 		this.exeBuild();
 	}
-	show_hidden_btns(event) {
+	show_hidden_btns(event: any) {
 		$('.bool_query').removeClass('show_hidden');
 		$(event.currentTarget).addClass('show_hidden');
 		event.stopPropagation();

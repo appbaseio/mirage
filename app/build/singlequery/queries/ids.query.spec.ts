@@ -54,7 +54,7 @@ describe('ids query format', () => {
 
 declare var $;
 describe("xhr test (ids)", function () {
-    var returnedJSON = {};
+    var returnedJSON: any = {};
     var status = 0;
 
     beforeEach(function (done) {
@@ -101,7 +101,7 @@ describe("xhr test (ids)", function () {
                 done();
             },
             error: function(xhr) {
-                returnedJSON = res;
+                returnedJSON = xhr;
                 status = xhr.status;
                 done();
             }

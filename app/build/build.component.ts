@@ -3,6 +3,7 @@ import { NgForm } from "@angular/common";
 import { BoolqueryComponent } from "./boolquery/boolquery.component";
 import { queryList } from "../shared/queryList";
 import { TypesComponent } from "./types/types.component";
+declare var $: any;
 
 @Component({
 	selector: 'query-build',
