@@ -1,0 +1,8 @@
+.select2-container {
+  width: 100% !important; }
+
+.select2-container--default .select2-selection--multiple {
+  border-color: #ccc; }
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border-color: #3BC7F6; }

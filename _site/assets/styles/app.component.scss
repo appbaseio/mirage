@@ -1,0 +1,42 @@
+@import "variables.scss";
+.loading {
+	height: 100%;
+	width: 100%;
+	display: table;
+	background: rgba($grey-bg, 0.9);
+	position: fixed;
+	z-index: 4;
+	.vertical-cell {
+		height: 100%;
+		width: 100%;
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+.header {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+    background: $grey-bg;
+    border-bottom: 0;
+    padding: 6px;
+    max-height: 40px;
+    margin: 0 auto;
+    .header-container {
+    	display: inline-block;
+		.img-container {
+			max-width: 170px;
+		    display: inline-block;
+		    float: left;
+		    padding: 5px;
+		    left: 10px;
+		}
+		.tag-line {
+			padding-left: 15px;
+			line-height: 30px;
+			font-size: 20px;
+		}
+    }
+}
