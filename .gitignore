@@ -8,3 +8,4 @@ app/**/**/*.js
 app/**/**/*.js.map
 dist
 typings
+_site
