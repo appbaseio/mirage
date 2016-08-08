@@ -9,4 +9,3 @@ app/**/**/*.js.map
 dist
 typings
 _site
-site
