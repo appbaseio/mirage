@@ -24,6 +24,9 @@ var files = {
     },
     js: {
         vendor: [
+            'node_modules/zone.js/dist/zone.js',
+            'node_modules/reflect-metadata/Reflect.js',
+            'node_modules/systemjs/dist/system.src.js',
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/bootstrap/dist/js/bootstrap.min.js',
             'bower_components/select2/dist/js/select2.min.js',
@@ -115,7 +118,7 @@ gulp.task('sass', function () {
 });
 
 
-gulp.task('build', function() {
+gulp.task('build',['compact'], function() {
     gulp.src('app/main.js')
         .pipe(browserify())
         .pipe(concat('build.js'))
@@ -133,7 +136,7 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery', 'move_js']);
+gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery']);
 
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.sassFile, ['customcss']);

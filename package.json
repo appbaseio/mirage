@@ -7,10 +7,11 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "postinstall": "typings install",
+    "typings": "typings",
     "lite": "lite-server",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" \"gulp watch\" ",
     "test": "live-server --open=unit-tests.html",
-    "build": "gulp build"
+    "build": "tsc && gulp build"
   },
   "author": "",
   "license": "ISC",
