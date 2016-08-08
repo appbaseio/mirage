@@ -6,7 +6,6 @@ var sass = require('gulp-sass');
 var rename = require("gulp-rename");
 var watch = require('gulp-watch');
 var browserify = require('gulp-browserify');
-var connect = require('gulp-connect');
 
 var files = {
     css: {
@@ -139,8 +138,7 @@ gulp.task('move_jquery', function() {
 gulp.task('sass', function () {
   return gulp.src(files.css.sassFile)
     .pipe(sass.sync().on('error', sass.logError))
-    .pipe(gulp.dest('assets/css'))
-    .pipe(connect.reload());
+    .pipe(gulp.dest('assets/css'));
 });
 
 
@@ -154,14 +152,6 @@ gulp.task('build',['compact'], function() {
         .pipe(gulp.dest('dist/angular'));
 });
 
-gulp.task('connect', function() {
-  connect.server({
-    root: './',
-    livereload: true,
-    port: 3030
-  });
-});
-
 gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery']);
 
 gulp.task('watchfiles', function() {
@@ -171,4 +161,4 @@ gulp.task('watchfiles', function() {
 
 gulp.task('default', ['compact']);
 
-gulp.task('watch', ['compact', 'watchfiles', 'connect']);
+gulp.task('watch', ['compact', 'watchfiles']);
