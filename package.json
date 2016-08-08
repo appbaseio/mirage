@@ -11,7 +11,8 @@
     "lite": "lite-server",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" \"gulp watch\" ",
     "test": "live-server --open=unit-tests.html",
-    "build": "tsc && gulp build"
+    "build": "tsc && gulp build",
+    "build_es_plugin": "tsc && gulp build && gulp build_es_plugin"
   },
   "author": "",
   "license": "ISC",

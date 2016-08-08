@@ -103,6 +103,32 @@ gulp.task('move_js', function() {
         .pipe(gulp.dest('dist/angular/dependency'));
 });
 
+// Prepare files for es plugin
+gulp.task('build_es_plugin', ['app_dir', 'assets_dir', 'dist_dir'], function() {
+    return gulp.src(['index_prod.html'])
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('_site'));
+});
+
+// copy app dir
+gulp.task('app_dir', function() {
+    return gulp.src(['app/**/*']).pipe(gulp.dest('_site/app'));
+});
+// copy assets dir
+gulp.task('assets_dir', function() {
+    return gulp.src(['assets/**/*']).pipe(gulp.dest('_site/assets'));
+});
+// copy dist dir
+gulp.task('dist_dir', function() {
+    return gulp.src(['dist/**/*']).pipe(gulp.dest('_site/dist'));
+});
+
+// copy app dir
+gulp.task('app_dir', function() {
+    return gulp.src(['app/**/*']).pipe(gulp.dest('_site/app'));
+});
+
+
 // To include in unit-tests.html
 gulp.task('move_jquery', function() {
     return gulp.src(['bower_components/jquery/dist/jquery.min.js'])
