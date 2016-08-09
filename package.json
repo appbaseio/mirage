@@ -1,7 +1,9 @@
 {
-  "name": "es-query-composer",
-  "version": "1.0.0",
-  "description": "",
+  "name": "mirage",
+  "version": "0.0.1",
+  "description": "Elegant Query Composing for Elasticsearch",
+  "author": "Farhan Chauhan, appbase.io",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
@@ -12,10 +14,9 @@
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" \"gulp watch\" ",
     "test": "live-server --open=unit-tests.html",
     "build": "tsc && gulp build",
-    "build_es_plugin": "tsc && gulp build && gulp build_es_plugin"
+    "build_es_plugin": "npm run build && gulp build_es_plugin",
+    "build_chrome_extension": "npm run build && gulp build_chrome_extension"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
     "@angular/compiler": "2.0.0-rc.4",
