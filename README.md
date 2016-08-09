@@ -5,13 +5,24 @@
 ### Usage
 
 
-
 ### Installation Instructions
 
 ```sh
 $ npm install 
 $ bower install
 $ npm start
+```
+
+### Elasticsearch Build on master branch
+
+```sh
+$ npm run build_es_plugin
+```
+
+### Chrome extension Build
+
+```sh
+$ npm run build_chrome_extension
 ```
 
 This will start a local webserver running on port 3000 serving mirage locally.
