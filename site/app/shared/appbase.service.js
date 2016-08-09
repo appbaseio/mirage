@@ -18,8 +18,14 @@ var AppbaseService = (function () {
             url: null,
             auth: null
         };
+        this.config = {
+            username: null,
+            password: null
+        };
     }
     AppbaseService.prototype.setAppbase = function (config) {
+        this.config.username = config.username;
+        this.config.password = config.password;
         this.requestParam.url = config.url + '/' + config.appname;
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
     };
@@ -28,7 +34,10 @@ var AppbaseService = (function () {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': this.requestParam.auth
         });
-        return this.http.get(this.requestParam.url + path, { headers: headers }).toPromise();
+        var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
+        var request_path = request_url + path + '/';
+        console.log(request_path);
+        return this.http.get(request_path, { headers: headers }).toPromise();
     };
     AppbaseService.prototype.post = function (path, data) {
         var requestData = JSON.stringify(data);

@@ -12,10 +12,7 @@
             "scripts": [ "background.js" ]
         }
     },
-    "sandbox": {
-        "pages": ["site/index.html"]
-    },
-    "permissions": ["webview", "system.display", "system.network", "<all_urls>", "*://*/*"],
+    "permissions": ["webview", "system.display", "system.network", "<all_urls>"],
     "manifest_version": 2,
     "offline_enabled":true,
     "description": "Elegant Query Composing for Elasticsearch",
