@@ -1,6 +1,6 @@
 {
   "port": 3030,
-  "files": ["*"],
+  "files": ["*", "*/*.js", "**/*.js"],
   "server": { "baseDir": "./" },
   "ui": {
     "port": 3031
