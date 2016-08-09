@@ -7,3 +7,5 @@ app/**/*.js.map
 app/**/**/*.js
 app/**/**/*.js.map
 typings
+site
+_site
