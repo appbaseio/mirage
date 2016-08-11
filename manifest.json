@@ -7,14 +7,17 @@
         "48":"site/assets/images/icon_48.png",
         "128":"site/assets/images/icon_128.png"
     },
-    "app": {
-        "background": {
-            "scripts": [ "background.js" ]
-        }
+    "background": {
+        "scripts": [ "background.js" ]
     },
-    "permissions": ["webview", "system.display", "system.network", "<all_urls>"],
+    "permissions": ["storage", "system.display", "system.network", "<all_urls>"],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "manifest_version": 2,
     "offline_enabled":true,
+    "browser_action": {
+        "default_icon": "site/assets/images/icon_32.png",
+        "default_title": "Mirage"
+    },
     "description": "Elegant Query Composing for Elasticsearch",
     "author": "Farhan Chauhan, appbase.io"
 }
