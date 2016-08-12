@@ -9,3 +9,5 @@ app/**/**/*.js.map
 dist
 typings
 _site
+mirage-unpacked
+mirage.zip
