@@ -36,7 +36,7 @@ export class ResultComponent implements OnInit {
 			show: false,
 			backdrop: 'static'
 		});
-		$('#resultModal').on('hidden.bs.modal', function() {
+		$('#resultModal').on('hide.bs.modal', function() {
 			self.responseHookHelp.setValue('{}');
 			var propInfo = {
 				name: 'result_time_taken',
