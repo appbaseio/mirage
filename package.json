@@ -15,7 +15,8 @@
     "test": "live-server --open=unit-tests.html",
     "build": "tsc && gulp build",
     "build_es_plugin": "npm run build && gulp build_es_plugin",
-    "build_chrome_extension": "npm run build && gulp build_chrome_extension"
+    "build_chrome_extension": "npm run build && gulp build_chrome_extension && sh chrome-build.sh",
+    "chrome": "sh chrome-build.sh"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
