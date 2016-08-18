@@ -115,7 +115,9 @@ export class BuildComponent implements OnInit {
 				}
 			});
 			this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-			this.editorHookHelp.setValue(self.result.resultQuery.final);
+			try {
+				this.editorHookHelp.setValue(self.result.resultQuery.final);
+			} catch(e) {}
 		} else {
 			if(this.selectedTypes.length) {
 				var match_all = {
@@ -124,7 +126,9 @@ export class BuildComponent implements OnInit {
 					}
 				};
 				this.result.resultQuery.final = JSON.stringify(match_all, null, 2);	
-				this.editorHookHelp.setValue(self.result.resultQuery.final);			
+				try {
+					this.editorHookHelp.setValue(self.result.resultQuery.final);			
+				} catch(e) {}
 			}
 		}
 		//set input state
