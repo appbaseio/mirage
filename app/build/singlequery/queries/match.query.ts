@@ -66,7 +66,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		name: '',
 		value: ''
 	};
-	public optionRows: any = []
+	public optionRows: any = [];
 
 	constructor() {}
 
@@ -114,11 +114,6 @@ export class MatchQuery implements OnInit, OnChanges {
 		}
 	}
 
-	addOption() {
-		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-		this.optionRows.push(singleOption);
-	}
-
 	// QUERY FORMAT
 	/*
 		Query Format for this query is
@@ -152,6 +147,10 @@ export class MatchQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
+	}	
+	addOption() {
+		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+		this.optionRows.push(singleOption);
 	}
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);

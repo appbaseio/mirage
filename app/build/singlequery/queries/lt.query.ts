@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
+import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
 	selector: 'lt-query',
@@ -9,8 +10,31 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 						 	placeholder="{{inputs.lt.placeholder}}"
 						 	(keyup)="getFormat();" />
 					</div>
-				</span>`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
+				<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
+				</span>
+				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
+					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
+						<div class="col-xs-6 pd-l0">			
+							<editable [editableField]="singleOption.name" 
+								[editableModal]="singleOption.name" 
+								[editPlaceholder]="'--choose option--'"
+								[editableInput]="'selectOption'" 
+								[selectOption]="options" 
+								[passWithCallback]="i"
+								(callback)="selectOption($event)"></editable>
+						</div>
+						<div class="col-xs-6 pd-0">
+							<div class="form-group form-element">
+								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="value"  (keyup)="getFormat();"/>
+							</div>
+						</div>
+						<button (click)="removeOption(i)" class="btn btn-grey delete-option btn-xs">
+							<i class="fa fa-times"></i>
+						</button>
+					</div>
+				</div>`,
+	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat'],
+	directives: [EditableComponent]
 })
 
 export class LtQuery implements OnInit, OnChanges {
@@ -21,13 +45,20 @@ export class LtQuery implements OnInit, OnChanges {
 	@Output() getQueryFormat = new EventEmitter<any>();
 	public queryName = '*';
 	public fieldName = '*';
+	public current_query = 'lt';	
 	public information: any = {
 		title: 'Lt query',
 		content: `<span class="description"> Lt query content </span>
 					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
 	};
-	
-	
+	public options: any = [
+		'boost'
+	];
+	public singleOption = {
+		name: '',
+		value: ''
+	};
+	public optionRows: any = [];
 	public inputs: any = {
 		lt: {
 			placeholder: 'Less than',
@@ -40,6 +71,15 @@ export class LtQuery implements OnInit, OnChanges {
 		try {
 			if(this.appliedQuery['range'][this.fieldName]['lt']) {
 				this.inputs.lt.value = this.appliedQuery['range'][this.fieldName]['lt']
+				for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
+					if (option != 'lt') {
+						var obj = {
+							name: option,
+							value: this.appliedQuery[this.current_query][this.fieldName][option]
+						};
+						this.optionRows.push(obj);
+					}
+				}
 			}
 		} catch(e) {}
 		this.getFormat();	
@@ -81,7 +121,23 @@ export class LtQuery implements OnInit, OnChanges {
 		queryFormat['range'][this.fieldName] = {
 			lt: this.inputs.lt.value,
 		};
+		this.optionRows.forEach(function(singleRow: any) {
+			queryFormat['range'][this.fieldName][singleRow.name] = singleRow.value;
+		}.bind(this));
 		return queryFormat;
 	}
-
+	selectOption(input: any) {
+		this.optionRows[input.external].name = input.value;
+		setTimeout(function() {
+			this.getFormat();
+		}.bind(this), 300);
+	}
+	addOption() {
+		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+		this.optionRows.push(singleOption);
+	}
+	removeOption(index: Number) {
+		this.optionRows.splice(index, 1);
+		this.getFormat();
+	}
 }
