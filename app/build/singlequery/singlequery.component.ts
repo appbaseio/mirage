@@ -114,7 +114,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 		this.informationList = {
 			'match': this.matchQuery.information,
 			'match_phrase': this.match_phraseQuery.information,
-			'match-phase-prefix': this.match_phase_prefixQuery.information,
+			'match_phrase_prefix': this.match_phase_prefixQuery.information,
 			'range': this.rangeQuery.information,
 			'gt': this.gtQuery.information,
 			'lt': this.ltQuery.information,
