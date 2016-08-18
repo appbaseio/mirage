@@ -12,3 +12,4 @@ _site
 mirage-unpacked
 mirage-unpacked?
 mirage.zip
+*.log

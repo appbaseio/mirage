@@ -15,7 +15,7 @@ exports.queryList = {
             'regexp',
             'fuzzy',
             'simple_query_string',
-            'match-phase-prefix',
+            'match_phrase_prefix',
             'ids',
             'common'
         ],

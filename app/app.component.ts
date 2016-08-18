@@ -81,13 +81,7 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 		
 		this.getLocalConfig();
-		try {
-			let list = this.storageService.get('queryList');
-			if (list) {
-				this.savedQueryList = JSON.parse(list);
-				this.sort(this.savedQueryList);
-			}
-		} catch (e) {}
+		this.getQueryList();
 	}
 
 	ngOnChanges(changes) {
@@ -114,6 +108,17 @@ export class AppComponent implements OnInit, OnChanges {
 				this.appsList = [];
 			}
 		}
+	}
+
+	// get query list from local storage
+	getQueryList() {
+		try {
+			let list = this.storageService.get('queryList');
+			if (list) {
+				this.savedQueryList = JSON.parse(list);
+				this.sort(this.savedQueryList);
+			}
+		} catch (e) {}
 	}
 
 	//Set config from localstorage
@@ -271,6 +276,7 @@ export class AppComponent implements OnInit, OnChanges {
 	deleteQuery(index) {
 		var confirmFlag = confirm("Do you want to delete this query?");
 		if (confirmFlag) {
+			this.getQueryList();
 			var selectedQuery = this.filteredQuery[index];
 			this.savedQueryList.forEach(function(query: any, index: Number) {
 				if (query.name === selectedQuery.name && query.tag === selectedQuery.tag) {
@@ -300,6 +306,7 @@ export class AppComponent implements OnInit, OnChanges {
 
 	// save query
 	saveQuery() {
+		this.getQueryList();
 		var createdAt = new Date().getTime();
 		this.savedQueryList.forEach(function(query, index) {
 			if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
