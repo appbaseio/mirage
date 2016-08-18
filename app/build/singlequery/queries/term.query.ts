@@ -48,6 +48,7 @@ export class TermQuery implements OnInit, OnChanges {
 	@Output() getQueryFormat = new EventEmitter<any>();
 	public queryName = '*';
 	public fieldName = '*';
+	public current_query = 'term';
 	public information: any = {
 		title: 'Term query',
 		content: `<span class="description"> Term query content </span>
