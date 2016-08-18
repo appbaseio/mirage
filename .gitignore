@@ -9,3 +9,8 @@ app/**/**/*.js.map
 typings
 site
 _site
+<<<<<<< HEAD
+=======
+site
+*.log
+>>>>>>> dev
