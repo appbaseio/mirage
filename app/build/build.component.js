@@ -103,7 +103,10 @@ var BuildComponent = (function () {
                 }
             });
             this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-            this.editorHookHelp.setValue(self.result.resultQuery.final);
+            try {
+                this.editorHookHelp.setValue(self.result.resultQuery.final);
+            }
+            catch (e) { }
         }
         else {
             if (this.selectedTypes.length) {
@@ -113,7 +116,12 @@ var BuildComponent = (function () {
                     }
                 };
                 this.result.resultQuery.final = JSON.stringify(match_all, null, 2);
-                this.editorHookHelp.setValue(self.result.resultQuery.final);
+                try {
+                    this.editorHookHelp.setValue(self.result.resultQuery.final);
+                }
+                catch (e) {
+                    console.log(e);
+                }
             }
         }
         //set input state
@@ -121,7 +129,9 @@ var BuildComponent = (function () {
             this.urlShare.inputs['result'] = this.result;
             this.urlShare.createUrl();
         }
-        catch (e) { }
+        catch (e) {
+            console.log(e);
+        }
     };
     BuildComponent.prototype.buildInsideQuery = function (result) {
         var objChain = [];

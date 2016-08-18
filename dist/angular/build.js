@@ -74,14 +74,7 @@ var AppComponent = (function () {
             this.setLocalConfig(config.url, config.appname);
         }
         this.getLocalConfig();
-        try {
-            var list = this.storageService.get('queryList');
-            if (list) {
-                this.savedQueryList = JSON.parse(list);
-                this.sort(this.savedQueryList);
-            }
-        }
-        catch (e) { }
+        this.getQueryList();
     };
     AppComponent.prototype.ngOnChanges = function (changes) {
         var prev = changes['selectedQuery'].previousValue;
@@ -108,6 +101,17 @@ var AppComponent = (function () {
                 this.appsList = [];
             }
         }
+    };
+    // get query list from local storage
+    AppComponent.prototype.getQueryList = function () {
+        try {
+            var list = this.storageService.get('queryList');
+            if (list) {
+                this.savedQueryList = JSON.parse(list);
+                this.sort(this.savedQueryList);
+            }
+        }
+        catch (e) { }
     };
     //Set config from localstorage
     AppComponent.prototype.setLocalConfig = function (url, appname) {
@@ -259,6 +263,7 @@ var AppComponent = (function () {
     AppComponent.prototype.deleteQuery = function (index) {
         var confirmFlag = confirm("Do you want to delete this query?");
         if (confirmFlag) {
+            this.getQueryList();
             var selectedQuery = this.filteredQuery[index];
             this.savedQueryList.forEach(function (query, index) {
                 if (query.name === selectedQuery.name && query.tag === selectedQuery.tag) {
@@ -286,6 +291,7 @@ var AppComponent = (function () {
     };
     // save query
     AppComponent.prototype.saveQuery = function () {
+        this.getQueryList();
         var createdAt = new Date().getTime();
         this.savedQueryList.forEach(function (query, index) {
             if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
@@ -595,7 +601,10 @@ var BuildComponent = (function () {
                 }
             });
             this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-            this.editorHookHelp.setValue(self.result.resultQuery.final);
+            try {
+                this.editorHookHelp.setValue(self.result.resultQuery.final);
+            }
+            catch (e) { }
         }
         else {
             if (this.selectedTypes.length) {
@@ -605,7 +614,12 @@ var BuildComponent = (function () {
                     }
                 };
                 this.result.resultQuery.final = JSON.stringify(match_all, null, 2);
-                this.editorHookHelp.setValue(self.result.resultQuery.final);
+                try {
+                    this.editorHookHelp.setValue(self.result.resultQuery.final);
+                }
+                catch (e) {
+                    console.log(e);
+                }
             }
         }
         //set input state
@@ -613,7 +627,9 @@ var BuildComponent = (function () {
             this.urlShare.inputs['result'] = this.result;
             this.urlShare.createUrl();
         }
-        catch (e) { }
+        catch (e) {
+            console.log(e);
+        }
     };
     BuildComponent.prototype.buildInsideQuery = function (result) {
         var objChain = [];
@@ -952,15 +968,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var CommonQuery = (function () {
     function CommonQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
+        this.current_query = 'common';
         this.queryName = '*';
         this.fieldName = '*';
         this.information = {
             title: 'Common query',
             content: "<span class=\"description\"> Common query content </span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-range-query.html\">Documentation</a>"
         };
+        this.options = [
+            'low_freq_operator',
+            'minimum_should_match'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             query: {
                 placeholder: 'Query',
@@ -979,7 +1006,16 @@ var CommonQuery = (function () {
                 this.inputs.query.value = this.appliedQuery['common'][this.fieldName]['query'];
             }
             if (this.appliedQuery['common'][this.fieldName]['cutoff_frequency']) {
-                this.inputs.to.value = this.appliedQuery['common'][this.fieldName]['cutoff_frequency'];
+                this.inputs.cutoff_frequency.value = this.appliedQuery['common'][this.fieldName]['cutoff_frequency'];
+            }
+            for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                if (['query', 'cutoff_frequency'].indexOf(option) === -1) {
+                    var obj = {
+                        name: option,
+                        value: this.appliedQuery[this.current_query][this.fieldName][option]
+                    };
+                    this.optionRows.push(obj);
+                }
             }
         }
         catch (e) { }
@@ -989,6 +1025,7 @@ var CommonQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -997,6 +1034,10 @@ var CommonQuery = (function () {
                 this.getFormat();
             }
         }
+    };
+    CommonQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
     /*
@@ -1017,11 +1058,32 @@ var CommonQuery = (function () {
     CommonQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = {
-            query: this.inputs.query.value,
-            cutoff_frequency: this.inputs.cutoff_frequency.value,
-        };
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                query: this.inputs.query.value,
+                cutoff_frequency: this.inputs.cutoff_frequency.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = {
+                query: this.inputs.query.value,
+                cutoff_frequency: this.inputs.cutoff_frequency.value
+            };
+        }
         return queryFormat;
+    };
+    CommonQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    CommonQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -1046,8 +1108,9 @@ var CommonQuery = (function () {
     CommonQuery = __decorate([
         core_1.Component({
             selector: 'common-query',
-            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"col-xs-6 pl-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.query.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.query.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div> \t\n\t\t\t\t\t</div> \t\n\t\t\t\t\t<div class=\"col-xs-6 pr-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.cutoff_frequency.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.cutoff_frequency.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div>\t \t\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"col-xs-6 pl-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.query.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.query.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div> \t\n\t\t\t\t\t</div> \t\n\t\t\t\t\t<div class=\"col-xs-6 pr-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.cutoff_frequency.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.cutoff_frequency.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div>\t \t\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], CommonQuery);
@@ -1055,7 +1118,7 @@ var CommonQuery = (function () {
 }());
 exports.CommonQuery = CommonQuery;
 //# sourceMappingURL=common.query.js.map
-},{"@angular/core":191}],7:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1166,6 +1229,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var FuzzyQuery = (function () {
     function FuzzyQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
@@ -1176,6 +1240,17 @@ var FuzzyQuery = (function () {
             title: 'fuzzy query',
             content: "<span class=\"description\"> fuzzy query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
         };
+        this.options = [
+            'boost',
+            'fuzziness',
+            'prefix_length',
+            'max_expansions'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             input: {
                 placeholder: 'Input',
@@ -1187,7 +1262,21 @@ var FuzzyQuery = (function () {
     FuzzyQuery.prototype.ngOnInit = function () {
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                    for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                        if (option != 'value') {
+                            var obj = {
+                                name: option,
+                                value: this.appliedQuery[this.current_query][this.fieldName][option]
+                            };
+                            this.optionRows.push(obj);
+                        }
+                    }
+                }
+                else {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                }
             }
         }
         catch (e) { }
@@ -1223,8 +1312,32 @@ var FuzzyQuery = (function () {
     FuzzyQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                value: this.inputs.input.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        }
         return queryFormat;
+    };
+    FuzzyQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    FuzzyQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    FuzzyQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -1249,8 +1362,9 @@ var FuzzyQuery = (function () {
     FuzzyQuery = __decorate([
         core_1.Component({
             selector: 'fuzzy-query',
-            template: "<span class=\"col-xs-6 pd-l0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-l0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], FuzzyQuery);
@@ -1258,7 +1372,7 @@ var FuzzyQuery = (function () {
 }());
 exports.FuzzyQuery = FuzzyQuery;
 //# sourceMappingURL=fuzzy.query.js.map
-},{"@angular/core":191}],9:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1270,15 +1384,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var GtQuery = (function () {
     function GtQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
         this.queryName = '*';
         this.fieldName = '*';
+        this.current_query = 'gt';
         this.information = {
             title: 'Gt query',
             content: "<span class=\"description\"> Gt query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html\">Documentation</a>"
         };
+        this.options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             gt: {
                 placeholder: 'Greater than',
@@ -1289,8 +1413,17 @@ var GtQuery = (function () {
     }
     GtQuery.prototype.ngOnInit = function () {
         try {
-            if (this.appliedQuery['range'][this.fieldName]['gt']) {
+            if (this.appliedQuery['range'][this.fieldName][this.current_query]) {
                 this.inputs.gt.value = this.appliedQuery['range'][this.fieldName]['gt'];
+                for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                    if (option != 'gt') {
+                        var obj = {
+                            name: option,
+                            value: this.appliedQuery[this.current_query][this.fieldName][option]
+                        };
+                        this.optionRows.push(obj);
+                    }
+                }
             }
         }
         catch (e) { }
@@ -1300,6 +1433,7 @@ var GtQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -1333,7 +1467,24 @@ var GtQuery = (function () {
         queryFormat['range'][this.fieldName] = {
             gt: this.inputs.gt.value,
         };
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat['range'][this.fieldName][singleRow.name] = singleRow.value;
+        }.bind(this));
         return queryFormat;
+    };
+    GtQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    GtQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    GtQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -1358,8 +1509,9 @@ var GtQuery = (function () {
     GtQuery = __decorate([
         core_1.Component({
             selector: 'gt-query',
-            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.gt.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.gt.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.gt.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.gt.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], GtQuery);
@@ -1367,7 +1519,7 @@ var GtQuery = (function () {
 }());
 exports.GtQuery = GtQuery;
 //# sourceMappingURL=gt.query.js.map
-},{"@angular/core":191}],10:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1502,15 +1654,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var LtQuery = (function () {
     function LtQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
         this.queryName = '*';
         this.fieldName = '*';
+        this.current_query = 'lt';
         this.information = {
             title: 'Lt query',
             content: "<span class=\"description\"> Lt query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html\">Documentation</a>"
         };
+        this.options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             lt: {
                 placeholder: 'Less than',
@@ -1523,6 +1685,15 @@ var LtQuery = (function () {
         try {
             if (this.appliedQuery['range'][this.fieldName]['lt']) {
                 this.inputs.lt.value = this.appliedQuery['range'][this.fieldName]['lt'];
+                for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                    if (option != 'lt') {
+                        var obj = {
+                            name: option,
+                            value: this.appliedQuery[this.current_query][this.fieldName][option]
+                        };
+                        this.optionRows.push(obj);
+                    }
+                }
             }
         }
         catch (e) { }
@@ -1564,7 +1735,24 @@ var LtQuery = (function () {
         queryFormat['range'][this.fieldName] = {
             lt: this.inputs.lt.value,
         };
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat['range'][this.fieldName][singleRow.name] = singleRow.value;
+        }.bind(this));
         return queryFormat;
+    };
+    LtQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    LtQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    LtQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -1589,8 +1777,9 @@ var LtQuery = (function () {
     LtQuery = __decorate([
         core_1.Component({
             selector: 'lt-query',
-            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.lt.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.lt.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.lt.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.lt.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], LtQuery);
@@ -1598,7 +1787,7 @@ var LtQuery = (function () {
 }());
 exports.LtQuery = LtQuery;
 //# sourceMappingURL=lt.query.js.map
-},{"@angular/core":191}],12:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1669,6 +1858,7 @@ var MatchQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -1677,10 +1867,6 @@ var MatchQuery = (function () {
                 this.getFormat();
             }
         }
-    };
-    MatchQuery.prototype.addOption = function () {
-        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-        this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
     /*
@@ -1716,6 +1902,10 @@ var MatchQuery = (function () {
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
+    };
+    MatchQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
     };
     MatchQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
@@ -1766,16 +1956,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var Match_phase_prefixQuery = (function () {
     function Match_phase_prefixQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
         this.queryName = '*';
         this.fieldName = '*';
+        this.current_query = 'match_phrase_prefix';
         this.information = {
-            title: 'lt query',
-            content: 'lt query content',
-            link: 'https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html'
+            title: 'match_phrase_prefix query',
+            content: "<span class=\"description\"> match_phrase_prefix query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-match-query.html#query-dsl-match-query-phrase-prefix\">Documentation</a>"
         };
+        this.options = [
+            'max_expansions'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             input: {
                 placeholder: 'Prefix',
@@ -1786,8 +1985,22 @@ var Match_phase_prefixQuery = (function () {
     }
     Match_phase_prefixQuery.prototype.ngOnInit = function () {
         try {
-            if (this.appliedQuery['match_phase_prefix'][this.fieldName]) {
-                this.inputs.input.value = this.appliedQuery['match_phase_prefix'][this.fieldName];
+            if (this.appliedQuery['match_phrase_prefix'][this.fieldName]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].query) {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
+                    for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                        if (option != 'query') {
+                            var obj = {
+                                name: option,
+                                value: this.appliedQuery[this.current_query][this.fieldName][option]
+                            };
+                            this.optionRows.push(obj);
+                        }
+                    }
+                }
+                else {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                }
             }
         }
         catch (e) { }
@@ -1815,7 +2028,7 @@ var Match_phase_prefixQuery = (function () {
         }
     */
     Match_phase_prefixQuery.prototype.getFormat = function () {
-        if (this.queryName === 'match-phase-prefix') {
+        if (this.queryName === 'match_phrase_prefix') {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
@@ -1823,8 +2036,32 @@ var Match_phase_prefixQuery = (function () {
     Match_phase_prefixQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                query: this.inputs.input.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        }
         return queryFormat;
+    };
+    Match_phase_prefixQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    Match_phase_prefixQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    Match_phase_prefixQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -1849,8 +2086,9 @@ var Match_phase_prefixQuery = (function () {
     Match_phase_prefixQuery = __decorate([
         core_1.Component({
             selector: 'match-phase-prefix-query',
-            template: "<div class=\"form-group form-element col-xs-12\">\n\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t</div>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-10\">\n\t\t\t\t\t<div class=\"form-group form-element query-primary-input\">\n\t\t\t\t\t\t<span class=\"input_with_option\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\t\t\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], Match_phase_prefixQuery);
@@ -1858,7 +2096,7 @@ var Match_phase_prefixQuery = (function () {
 }());
 exports.Match_phase_prefixQuery = Match_phase_prefixQuery;
 //# sourceMappingURL=match_phase_prefix.query.js.map
-},{"@angular/core":191}],14:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1870,11 +2108,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var Match_phraseQuery = (function () {
     function Match_phraseQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
         this.queryName = '*';
         this.fieldName = '*';
+        this.current_query = 'match_phrase';
         this.information = {
             title: 'Match_phrase query',
             content: "<span class=\"description\"> Match query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/guide/current/phrase-matching.html\">Documentation</a>"
@@ -1885,9 +2125,37 @@ var Match_phraseQuery = (function () {
                 value: ''
             }
         };
+        this.options = [
+            'analyzer'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.queryFormat = {};
     }
     Match_phraseQuery.prototype.ngOnInit = function () {
+        try {
+            if (this.appliedQuery[this.current_query][this.selectedField]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].query) {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
+                    for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                        if (option != 'query') {
+                            var obj = {
+                                name: option,
+                                value: this.appliedQuery[this.current_query][this.fieldName][option]
+                            };
+                            this.optionRows.push(obj);
+                        }
+                    }
+                }
+                else {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                }
+            }
+        }
+        catch (e) { }
         this.getFormat();
     };
     Match_phraseQuery.prototype.ngOnChanges = function () {
@@ -1920,8 +2188,32 @@ var Match_phraseQuery = (function () {
     Match_phraseQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                query: this.inputs.input.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        }
         return queryFormat;
+    };
+    Match_phraseQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    Match_phraseQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    Match_phraseQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -1946,8 +2238,9 @@ var Match_phraseQuery = (function () {
     Match_phraseQuery = __decorate([
         core_1.Component({
             selector: 'match_phrase-query',
-            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-10\">\n\t\t\t\t\t<div class=\"form-group form-element query-primary-input\">\n\t\t\t\t\t\t<span class=\"input_with_option\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\t\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], Match_phraseQuery);
@@ -1955,7 +2248,7 @@ var Match_phraseQuery = (function () {
 }());
 exports.Match_phraseQuery = Match_phraseQuery;
 //# sourceMappingURL=match_phrase.query.js.map
-},{"@angular/core":191}],15:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1967,6 +2260,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var MissingQuery = (function () {
     function MissingQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
@@ -1977,12 +2271,30 @@ var MissingQuery = (function () {
             title: 'missing query',
             content: "<span class=\"description\"> missing query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
         };
+        this.options = [
+            'existence',
+            'null_value'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.queryFormat = {};
     }
     MissingQuery.prototype.ngOnInit = function () {
         try {
             if (this.appliedQuery[this.current_query]['field']) {
                 this.appliedQuery[this.current_query]['field'] = this.fieldName;
+                for (var option in this.appliedQuery[this.current_query]) {
+                    if (option != 'field') {
+                        var obj = {
+                            name: option,
+                            value: this.appliedQuery[this.current_query][option]
+                        };
+                        this.optionRows.push(obj);
+                    }
+                }
             }
         }
         catch (e) { }
@@ -2020,7 +2332,24 @@ var MissingQuery = (function () {
         queryFormat[this.queryName] = {
             'field': this.fieldName
         };
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat[this.queryName][singleRow.name] = singleRow.value;
+        }.bind(this));
         return queryFormat;
+    };
+    MissingQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    MissingQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    MissingQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -2045,8 +2374,9 @@ var MissingQuery = (function () {
     MissingQuery = __decorate([
         core_1.Component({
             selector: 'missing-query',
-            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-10\">\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\t\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], MissingQuery);
@@ -2054,7 +2384,7 @@ var MissingQuery = (function () {
 }());
 exports.MissingQuery = MissingQuery;
 //# sourceMappingURL=missing.query.js.map
-},{"@angular/core":191}],16:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2132,6 +2462,7 @@ var MultiMatchQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -2235,6 +2566,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var PrefixQuery = (function () {
     function PrefixQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
@@ -2245,6 +2577,14 @@ var PrefixQuery = (function () {
             title: 'prefix query',
             content: "<span class=\"description\"> prefix query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
         };
+        this.options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             input: {
                 placeholder: 'Input',
@@ -2256,7 +2596,21 @@ var PrefixQuery = (function () {
     PrefixQuery.prototype.ngOnInit = function () {
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                    for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                        if (option != 'value') {
+                            var obj = {
+                                name: option,
+                                value: this.appliedQuery[this.current_query][this.fieldName][option]
+                            };
+                            this.optionRows.push(obj);
+                        }
+                    }
+                }
+                else {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                }
             }
         }
         catch (e) { }
@@ -2292,8 +2646,32 @@ var PrefixQuery = (function () {
     PrefixQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                value: this.inputs.input.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        }
         return queryFormat;
+    };
+    PrefixQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    PrefixQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    PrefixQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -2318,8 +2696,9 @@ var PrefixQuery = (function () {
     PrefixQuery = __decorate([
         core_1.Component({
             selector: 'prefix-query',
-            template: "<span class=\"col-xs-6 pd-l0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-10\">\n\t\t\t\t\t<div class=\"form-group form-element query-primary-input\">\n\t\t\t\t\t\t<span class=\"input_with_option\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\t\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], PrefixQuery);
@@ -2327,7 +2706,7 @@ var PrefixQuery = (function () {
 }());
 exports.PrefixQuery = PrefixQuery;
 //# sourceMappingURL=prefix.query.js.map
-},{"@angular/core":191}],18:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2404,6 +2783,7 @@ var QueryStringQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -2507,15 +2887,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var RangeQuery = (function () {
     function RangeQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
         this.queryName = '*';
         this.fieldName = '*';
+        this.current_query = 'range';
         this.information = {
             title: 'Range query',
             content: "<span class=\"description\"> Range query content </span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-range-query.html\">Documentation</a>"
         };
+        this.options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             from: {
                 placeholder: 'From',
@@ -2536,6 +2926,15 @@ var RangeQuery = (function () {
             if (this.appliedQuery['range'][this.fieldName]['to']) {
                 this.inputs.to.value = this.appliedQuery['range'][this.fieldName]['to'];
             }
+            for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                if (option != 'from' && option != 'to') {
+                    var obj = {
+                        name: option,
+                        value: this.appliedQuery[this.current_query][this.fieldName][option]
+                    };
+                    this.optionRows.push(obj);
+                }
+            }
         }
         catch (e) { }
         this.getFormat();
@@ -2544,6 +2943,7 @@ var RangeQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -2576,7 +2976,24 @@ var RangeQuery = (function () {
             from: this.inputs.from.value,
             to: this.inputs.to.value,
         };
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+        }.bind(this));
         return queryFormat;
+    };
+    RangeQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    RangeQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    RangeQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -2601,8 +3018,9 @@ var RangeQuery = (function () {
     RangeQuery = __decorate([
         core_1.Component({
             selector: 'range-query',
-            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"col-xs-6 pl-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.from.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.from.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div> \t\n\t\t\t\t\t</div> \t\n\t\t\t\t\t<div class=\"col-xs-6 pr-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.to.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.to.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div>\t \t\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"col-xs-6 pl-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.from.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.from.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div> \t\n\t\t\t\t\t</div> \t\n\t\t\t\t\t<div class=\"col-xs-6 pr-0\">\n\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.to.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.to.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</div>\t \t\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], RangeQuery);
@@ -2610,7 +3028,7 @@ var RangeQuery = (function () {
 }());
 exports.RangeQuery = RangeQuery;
 //# sourceMappingURL=range.query.js.map
-},{"@angular/core":191}],20:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2622,6 +3040,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var RegexpQuery = (function () {
     function RegexpQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
@@ -2632,6 +3051,15 @@ var RegexpQuery = (function () {
             title: 'regexp query',
             content: "<span class=\"description\"> regexp query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
         };
+        this.options = [
+            'flags',
+            'max_determinized_states'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             input: {
                 placeholder: 'Input',
@@ -2642,8 +3070,22 @@ var RegexpQuery = (function () {
     }
     RegexpQuery.prototype.ngOnInit = function () {
         try {
-            if (this.appliedQuery[this.current_query][this.fieldName]) {
-                this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+            if (this.appliedQuery[this.current_query][this.selectedField]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                    for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                        if (option != 'value') {
+                            var obj = {
+                                name: option,
+                                value: this.appliedQuery[this.current_query][this.fieldName][option]
+                            };
+                            this.optionRows.push(obj);
+                        }
+                    }
+                }
+                else {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                }
             }
         }
         catch (e) { }
@@ -2679,8 +3121,32 @@ var RegexpQuery = (function () {
     RegexpQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                value: this.inputs.input.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        }
         return queryFormat;
+    };
+    RegexpQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    RegexpQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    RegexpQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -2705,8 +3171,9 @@ var RegexpQuery = (function () {
     RegexpQuery = __decorate([
         core_1.Component({
             selector: 'regexp-query',
-            template: "<span class=\"col-xs-6 pd-l0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-10\">\n\t\t\t\t\t<div class=\"form-group form-element query-primary-input\">\n\t\t\t\t\t\t<span class=\"input_with_option\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\t\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], RegexpQuery);
@@ -2714,7 +3181,7 @@ var RegexpQuery = (function () {
 }());
 exports.RegexpQuery = RegexpQuery;
 //# sourceMappingURL=regexp.query.js.map
-},{"@angular/core":191}],21:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],21:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2791,6 +3258,7 @@ var SimpleQueryStringQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -2894,15 +3362,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var TermQuery = (function () {
     function TermQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
         this.queryName = '*';
         this.fieldName = '*';
+        this.current_query = 'term';
         this.information = {
             title: 'Term query',
             content: "<span class=\"description\"> Term query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-term-query.html\">Documentation</a>"
         };
+        this.options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             input: {
                 placeholder: 'Input',
@@ -2913,8 +3391,22 @@ var TermQuery = (function () {
     }
     TermQuery.prototype.ngOnInit = function () {
         try {
-            if (this.appliedQuery['term'][this.fieldName]) {
-                this.inputs.input.value = this.appliedQuery['term'][this.fieldName];
+            if (this.appliedQuery[this.current_query][this.selectedField]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                    for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                        if (option != 'value') {
+                            var obj = {
+                                name: option,
+                                value: this.appliedQuery[this.current_query][this.fieldName][option]
+                            };
+                            this.optionRows.push(obj);
+                        }
+                    }
+                }
+                else {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                }
             }
         }
         catch (e) { }
@@ -2950,8 +3442,32 @@ var TermQuery = (function () {
     TermQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                value: this.inputs.input.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        }
         return queryFormat;
+    };
+    TermQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    TermQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    TermQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -2976,8 +3492,9 @@ var TermQuery = (function () {
     TermQuery = __decorate([
         core_1.Component({
             selector: 'term-query',
-            template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-10\">\n\t\t\t\t\t<div class=\"form-group form-element query-primary-input\">\n\t\t\t\t\t\t<span class=\"input_with_option\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\t\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], TermQuery);
@@ -2985,7 +3502,7 @@ var TermQuery = (function () {
 }());
 exports.TermQuery = TermQuery;
 //# sourceMappingURL=term.query.js.map
-},{"@angular/core":191}],23:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],23:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3110,6 +3627,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var editable_component_1 = require('../../editable/editable.component');
 var WildcardQuery = (function () {
     function WildcardQuery() {
         this.getQueryFormat = new core_1.EventEmitter();
@@ -3120,6 +3638,14 @@ var WildcardQuery = (function () {
             title: 'wildcard query',
             content: "<span class=\"description\"> wildcard query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Documentation</a>"
         };
+        this.options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
         this.inputs = {
             input: {
                 placeholder: 'Input',
@@ -3130,8 +3656,22 @@ var WildcardQuery = (function () {
     }
     WildcardQuery.prototype.ngOnInit = function () {
         try {
-            if (this.appliedQuery[this.current_query][this.fieldName]) {
-                this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+            if (this.appliedQuery[this.current_query][this.selectedField]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                    for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                        if (option != 'value') {
+                            var obj = {
+                                name: option,
+                                value: this.appliedQuery[this.current_query][this.fieldName][option]
+                            };
+                            this.optionRows.push(obj);
+                        }
+                    }
+                }
+                else {
+                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
+                }
             }
         }
         catch (e) { }
@@ -3167,8 +3707,32 @@ var WildcardQuery = (function () {
     WildcardQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
-        queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName] = {
+                value: this.inputs.input.value
+            };
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
+        }
         return queryFormat;
+    };
+    WildcardQuery.prototype.selectOption = function (input) {
+        this.optionRows[input.external].name = input.value;
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    WildcardQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
+    };
+    WildcardQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.getFormat();
     };
     __decorate([
         core_1.Input(), 
@@ -3193,8 +3757,9 @@ var WildcardQuery = (function () {
     WildcardQuery = __decorate([
         core_1.Component({
             selector: 'wildcard-query',
-            template: "<span class=\"col-xs-6 pd-l0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            template: "<span class=\"col-xs-6 pd-10\">\n\t\t\t\t\t<div class=\"form-group form-element query-primary-input\">\n\t\t\t\t\t\t<span class=\"input_with_option\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\" \n\t\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n\t\t\t\t</span>\t\n\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n\t\t\t\t\t<div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-l0\">\t\t\t\n\t\t\t\t\t\t\t<editable [editableField]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editableModal]=\"singleOption.name\" \n\t\t\t\t\t\t\t\t[editPlaceholder]=\"'--choose option--'\"\n\t\t\t\t\t\t\t\t[editableInput]=\"'selectOption'\" \n\t\t\t\t\t\t\t\t[selectOption]=\"options\" \n\t\t\t\t\t\t\t\t[passWithCallback]=\"i\"\n\t\t\t\t\t\t\t\t(callback)=\"selectOption($event)\"></editable>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-6 pd-0\">\n\t\t\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t\t\t<input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n\t\t\t\t\t\t\t<i class=\"fa fa-times\"></i>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t",
+            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+            directives: [editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], WildcardQuery);
@@ -3202,7 +3767,7 @@ var WildcardQuery = (function () {
 }());
 exports.WildcardQuery = WildcardQuery;
 //# sourceMappingURL=wildcard.query.js.map
-},{"@angular/core":191}],25:[function(require,module,exports){
+},{"../../editable/editable.component":4,"@angular/core":191}],25:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3264,7 +3829,7 @@ var SinglequeryComponent = (function () {
         this.informationList = {
             'match': this.matchQuery.information,
             'match_phrase': this.match_phraseQuery.information,
-            'match-phase-prefix': this.match_phase_prefixQuery.information,
+            'match_phrase_prefix': this.match_phase_prefixQuery.information,
             'range': this.rangeQuery.information,
             'gt': this.gtQuery.information,
             'lt': this.ltQuery.information,
@@ -3302,7 +3867,6 @@ var SinglequeryComponent = (function () {
         this.query.analyzeTest = this.query.field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
         this.query.type = this.query.field.type;
         this.query.selectedField = res.val;
-        this.buildQuery();
     };
     // Query select - change event
     SinglequeryComponent.prototype.queryCallback = function (res) {
@@ -4463,7 +5027,7 @@ exports.queryList = {
             'regexp',
             'fuzzy',
             'simple_query_string',
-            'match-phase-prefix',
+            'match_phrase_prefix',
             'ids',
             'common'
         ],
