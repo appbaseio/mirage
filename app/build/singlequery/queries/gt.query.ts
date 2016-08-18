@@ -89,6 +89,7 @@ export class GtQuery implements OnInit, OnChanges {
 		if(this.selectedField != '') {
 			if(this.selectedField !== this.fieldName) {
 				this.fieldName = this.selectedField;
+				this.getFormat();
 			}
 		}
 		if(this.selectedQuery != '') {

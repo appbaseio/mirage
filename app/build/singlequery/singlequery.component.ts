@@ -155,7 +155,6 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 		this.query.analyzeTest = this.query.field.index === 'not_analyzed' ? 'not_analyzed' : 'analyzed';
 		this.query.type = this.query.field.type;
 		this.query.selectedField = res.val;
-		this.buildQuery();
 	}
 
 	// Query select - change event
