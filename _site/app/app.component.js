@@ -73,14 +73,7 @@ var AppComponent = (function () {
             this.setLocalConfig(config.url, config.appname);
         }
         this.getLocalConfig();
-        try {
-            var list = this.storageService.get('queryList');
-            if (list) {
-                this.savedQueryList = JSON.parse(list);
-                this.sort(this.savedQueryList);
-            }
-        }
-        catch (e) { }
+        this.getQueryList();
     };
     AppComponent.prototype.ngOnChanges = function (changes) {
         var prev = changes['selectedQuery'].previousValue;
@@ -107,6 +100,17 @@ var AppComponent = (function () {
                 this.appsList = [];
             }
         }
+    };
+    // get query list from local storage
+    AppComponent.prototype.getQueryList = function () {
+        try {
+            var list = this.storageService.get('queryList');
+            if (list) {
+                this.savedQueryList = JSON.parse(list);
+                this.sort(this.savedQueryList);
+            }
+        }
+        catch (e) { }
     };
     //Set config from localstorage
     AppComponent.prototype.setLocalConfig = function (url, appname) {
@@ -258,6 +262,7 @@ var AppComponent = (function () {
     AppComponent.prototype.deleteQuery = function (index) {
         var confirmFlag = confirm("Do you want to delete this query?");
         if (confirmFlag) {
+            this.getQueryList();
             var selectedQuery = this.filteredQuery[index];
             this.savedQueryList.forEach(function (query, index) {
                 if (query.name === selectedQuery.name && query.tag === selectedQuery.tag) {
@@ -285,6 +290,7 @@ var AppComponent = (function () {
     };
     // save query
     AppComponent.prototype.saveQuery = function () {
+        this.getQueryList();
         var createdAt = new Date().getTime();
         this.savedQueryList.forEach(function (query, index) {
             if (query.name === this.query_info.name && query.tag === this.query_info.tag) {

@@ -8,3 +8,5 @@ app/**/**/*.js
 app/**/**/*.js.map
 typings
 site
+site
+*.log

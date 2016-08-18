@@ -68,6 +68,7 @@ var MatchQuery = (function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
                 this.fieldName = this.selectedField;
+                this.getFormat();
             }
         }
         if (this.selectedQuery != '') {
@@ -76,10 +77,6 @@ var MatchQuery = (function () {
                 this.getFormat();
             }
         }
-    };
-    MatchQuery.prototype.addOption = function () {
-        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-        this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
     /*
@@ -115,6 +112,10 @@ var MatchQuery = (function () {
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
+    };
+    MatchQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.optionRows.push(singleOption);
     };
     MatchQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
