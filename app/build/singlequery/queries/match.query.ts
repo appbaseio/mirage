@@ -66,7 +66,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		name: '',
 		value: ''
 	};
-	public optionRows: any = []
+	public optionRows: any = [];
 
 	constructor() {}
 
@@ -104,6 +104,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		if (this.selectedField != '') {
 			if (this.selectedField !== this.fieldName) {
 				this.fieldName = this.selectedField;
+				this.getFormat();
 			}
 		}
 		if (this.selectedQuery != '') {
@@ -112,11 +113,6 @@ export class MatchQuery implements OnInit, OnChanges {
 				this.getFormat();
 			}
 		}
-	}
-
-	addOption() {
-		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-		this.optionRows.push(singleOption);
 	}
 
 	// QUERY FORMAT
@@ -152,6 +148,10 @@ export class MatchQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
+	}	
+	addOption() {
+		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+		this.optionRows.push(singleOption);
 	}
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);

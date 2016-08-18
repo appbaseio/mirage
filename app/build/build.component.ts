@@ -115,7 +115,9 @@ export class BuildComponent implements OnInit {
 				}
 			});
 			this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-			this.editorHookHelp.setValue(self.result.resultQuery.final);
+			try {
+				this.editorHookHelp.setValue(self.result.resultQuery.final);
+			} catch(e) {}
 		} else {
 			if(this.selectedTypes.length) {
 				var match_all = {
@@ -124,14 +126,20 @@ export class BuildComponent implements OnInit {
 					}
 				};
 				this.result.resultQuery.final = JSON.stringify(match_all, null, 2);	
-				this.editorHookHelp.setValue(self.result.resultQuery.final);			
+				try {
+					this.editorHookHelp.setValue(self.result.resultQuery.final);			
+				} catch(e) {
+					console.log(e);
+				}
 			}
 		}
 		//set input state
 		try {
 			this.urlShare.inputs['result'] = this.result;
 			this.urlShare.createUrl();
-		} catch (e) {}
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	buildInsideQuery(result) {
@@ -174,6 +182,7 @@ export class BuildComponent implements OnInit {
 		if (val.field === '') {
 			queryParam.fieldFlag = false;
 		}
+			
 		if (queryParam.queryFlag) {
 			return val.appliedQuery;
 		} else {

@@ -41,7 +41,7 @@
 	<!-- match query end -->
 
 	<!-- match query start -->
-	<div [hidden]="query.selectedQuery != 'match-phase-prefix'" class="row">
+	<div [hidden]="query.selectedQuery != 'match_phrase_prefix'" class="row">
 		<match-phase-prefix-query
 			[appliedQuery]="query.appliedQuery"
 			[queryList]="queryList"
