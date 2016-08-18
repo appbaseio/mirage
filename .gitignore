@@ -10,3 +10,4 @@ dist
 typings
 _site
 site
+*.log
