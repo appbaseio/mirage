@@ -1,0 +1,48 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\F-Awesome\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'lite' ]
+2 info using npm@3.10.7
+3 info using node@v6.3.1
+4 verbose run-script [ 'prelite', 'lite', 'postlite' ]
+5 info lifecycle mirage@0.0.1~prelite: mirage@0.0.1
+6 silly lifecycle mirage@0.0.1~prelite: no script for prelite, continuing
+7 info lifecycle mirage@0.0.1~lite: mirage@0.0.1
+8 verbose lifecycle mirage@0.0.1~lite: unsafe-perm in lifecycle true
+9 verbose lifecycle mirage@0.0.1~lite: PATH: C:\Users\F-Awesome\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;E:\Work\htdocs\appbase-work\mirage\node_modules\.bin;C:\Users\F-Awesome\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;E:\Work\htdocs\appbase-work\mirage\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\Tools\Binn\ManagementStudio\;C:\Users\F-Awesome\.windows-build-tools\python27;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Broadcom\Broadcom 802.11 Network Adapter;E:\Work\elasticsearch-2.2.0\elasticsearch-2.2.0\bin;C:\Program Files\Java\jdk1.8.0_101\bin;C:\Users\F-Awesome\AppData\Local\Microsoft\WindowsApps;C:\Users\F-Awesome\AppData\Roaming\npm
+10 verbose lifecycle mirage@0.0.1~lite: CWD: E:\Work\htdocs\appbase-work\mirage
+11 silly lifecycle mirage@0.0.1~lite: Args: [ '/d /s /c', 'lite-server' ]
+12 silly lifecycle mirage@0.0.1~lite: Returned: code: 1  signal: null
+13 info lifecycle mirage@0.0.1~lite: Failed to exec lite script
+14 verbose stack Error: mirage@0.0.1 lite: `lite-server`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (C:\Users\F-Awesome\AppData\Roaming\npm\node_modules\npm\lib\utils\lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (C:\Users\F-Awesome\AppData\Roaming\npm\node_modules\npm\lib\utils\spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:852:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
+15 verbose pkgid mirage@0.0.1
+16 verbose cwd E:\Work\htdocs\appbase-work\mirage
+17 error Windows_NT 10.0.14393
+18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\F-Awesome\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "run" "lite"
+19 error node v6.3.1
+20 error npm  v3.10.7
+21 error code ELIFECYCLE
+22 error mirage@0.0.1 lite: `lite-server`
+22 error Exit status 1
+23 error Failed at the mirage@0.0.1 lite script 'lite-server'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the mirage package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     lite-server
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs mirage
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls mirage
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
