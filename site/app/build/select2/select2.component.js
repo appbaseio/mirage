@@ -20,19 +20,29 @@ var select2Component = (function () {
         console.log(this.informationList);
         setTimeout(function () {
             var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            if (typeof this.passWithCallback != 'undefined') {
+                select2Selector = $(this.querySelector).find('.' + this.selector + '-' + this.passWithCallback).find('select');
+            }
             this.setSelect2(select2Selector, function (val) {
                 var obj = {
                     val: val,
                     selector: select2Selector
                 };
+                if (typeof this.passWithCallback != 'undefined') {
+                    obj.external = this.passWithCallback;
+                }
                 this.callback.emit(obj);
             }.bind(this));
         }.bind(this), 300);
     };
     select2Component.prototype.setSelect2 = function (field_select, callback) {
-        field_select.select2({
+        var select2Option = {
             placeholder: "Select from the option"
-        });
+        };
+        if (this.searchOff) {
+            select2Option.minimumResultsForSearch = -1;
+        }
+        field_select.select2(select2Option);
         field_select.on("change", function (e) {
             callback(field_select.val());
         }.bind(this));
@@ -81,6 +91,14 @@ var select2Component = (function () {
         __metadata('design:type', Object)
     ], select2Component.prototype, "showInfoFlag", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], select2Component.prototype, "passWithCallback", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], select2Component.prototype, "searchOff", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], select2Component.prototype, "callback", void 0);
@@ -92,7 +110,7 @@ var select2Component = (function () {
         core_1.Component({
             selector: 'select2',
             templateUrl: './app/build/select2/select2.component.html',
-            inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList"],
+            inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff"],
             providers: [globalshare_service_1.GlobalShare]
         }), 
         __metadata('design:paramtypes', [globalshare_service_1.GlobalShare])

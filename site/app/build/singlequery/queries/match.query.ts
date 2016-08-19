@@ -17,13 +17,20 @@ import { EditableComponent } from '../../editable/editable.component';
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
 						<div class="col-xs-6 pd-l0">			
-							<editable [editableField]="singleOption.name" 
-								[editableModal]="singleOption.name" 
+							<editable 
+								class = "additional-option-select-{{i}}"
+								[editableField]="singleOption.name" 
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'selectOption'" 
+								[editableInput]="'select2'" 
 								[selectOption]="options" 
 								[passWithCallback]="i"
-								(callback)="selectOption($event)"></editable>
+								[selector]="'additional-option-select'" 
+								[querySelector]="querySelector"
+								[informationList]="informationList"
+								[showInfoFlag]="true"
+								[searchOff]="true"
+								(callback)="selectOption($event)">
+							</editable>
 						</div>
 						<div class="col-xs-6 pd-0">
 							<div class="form-group form-element">
@@ -36,7 +43,7 @@ import { EditableComponent } from '../../editable/editable.component';
 					</div>
 				</div>
 				`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat', 'querySelector'],
 	directives: [EditableComponent]
 })
 
@@ -53,6 +60,32 @@ export class MatchQuery implements OnInit, OnChanges {
 		title: 'Match query',
 		content: `<span class="description"> Match query content </span>
 					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+	};
+	public informationList: any = {
+		'operator': {
+			title: 'Operator',
+			content: `<span class="description"> Operator content </span>`	
+		},
+		'zero_terms_query': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		},
+		'cutoff_frequency': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		},
+		'type': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		},
+		'analyzer': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		},
+		'max_expansions': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		}
 	};
 	public options: any = [
 		'operator',
@@ -110,6 +143,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		if (this.selectedQuery != '') {
 			if (this.selectedQuery !== this.queryName) {
 				this.queryName = this.selectedQuery;
+				this.optionRows = [];
 				this.getFormat();
 			}
 		}
@@ -144,7 +178,8 @@ export class MatchQuery implements OnInit, OnChanges {
 		return queryFormat;
 	}
 	selectOption(input: any) {
-		this.optionRows[input.external].name = input.value;
+		input.selector.parents('.editable-pack').removeClass('on');
+		this.optionRows[input.external].name = input.val;
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);

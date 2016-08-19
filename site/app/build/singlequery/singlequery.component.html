@@ -9,7 +9,17 @@
 	<!-- field part end -->
 	<!-- query part start -->
 	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( query.field.type == 'string' || query.field.type == 'date' || query.field.type == 'numeric')">
-		<editable class="query-select" [editableField]="query.selectedQuery" [editPlaceholder]="'query'" [editableInput]="'select2'" [result]="result" [selectOption]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector"  [selector]="selector.query"  [informationList]="informationList"  (callback)="queryCallback($event)" [showInfoFlag]="true"></editable>
+		<editable class="query-select" 
+			[editableField]="query.selectedQuery" 
+			[editPlaceholder]="'query'" 
+			[editableInput]="'select2'" 
+			[result]="result" 
+			[selectOption]="queryList[query.analyzeTest][query.type]" 
+			[querySelector]="querySelector"  
+			[selector]="selector.query" 
+			[informationList]="informationList"  
+			(callback)="queryCallback($event)" 
+			[showInfoFlag]="true"></editable>
 	</div>
 	<!-- query part end -->
 	<!-- load the slector for selected query -->
@@ -21,6 +31,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector"  
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</match-query>
@@ -34,6 +45,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</match_phrase-query>
@@ -47,6 +59,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</match-phase-prefix-query>
@@ -60,6 +73,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</range-query>
@@ -73,6 +87,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</gt-query>
@@ -86,6 +101,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</lt-query>
@@ -99,6 +115,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</term-query>
@@ -112,6 +129,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</terms-query>
@@ -125,6 +143,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</prefix-query>
@@ -138,6 +157,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</multi_match-query>
@@ -151,6 +171,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</query_string-query>
@@ -164,6 +185,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</simple_query_string-query>
@@ -177,6 +199,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</exists-query>
@@ -190,6 +213,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</missing-query>
@@ -203,6 +227,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</wildcard-query>
@@ -216,6 +241,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</regexp-query>
@@ -229,6 +255,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</fuzzy-query>
@@ -243,6 +270,7 @@
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
 			[selectedTypes]="selectedTypes"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</ids-query>
@@ -256,6 +284,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</common-query>

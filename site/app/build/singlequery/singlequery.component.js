@@ -45,6 +45,7 @@ var SinglequeryComponent = (function () {
         this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
     };
     SinglequeryComponent.prototype.ngOnChanges = function () {
+        this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
         setTimeout(function () {
             if (this.query.selectedField) {
                 console.log(this.result.resultQuery.availableFields);

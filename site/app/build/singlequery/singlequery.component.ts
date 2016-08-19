@@ -99,6 +99,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
 	}
 	ngOnChanges() {
+		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
 		setTimeout(function() {
 			if(this.query.selectedField) {
 				console.log(this.result.resultQuery.availableFields);
