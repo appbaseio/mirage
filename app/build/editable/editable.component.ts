@@ -5,7 +5,7 @@ declare var $;
 @Component({
 	selector: 'editable',
 	templateUrl: './app/build/editable/editable.component.html',
-	inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback'],
+	inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff'],
 	directives: [select2Component]
 })
 

@@ -8,5 +8,6 @@ app/**/**/*.js
 app/**/**/*.js.map
 typings
 site
-site
 *.log
+mirage-unpacked
+mirage-unpacked?
