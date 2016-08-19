@@ -29,7 +29,8 @@ import { EditableComponent } from '../../editable/editable.component';
 								[informationList]="informationList"
 								[showInfoFlag]="true"
 								[searchOff]="true"
-								(callback)="selectOption($event)"></editable>
+								(callback)="selectOption($event)">
+							</editable>
 						</div>
 						<div class="col-xs-6 pd-0">
 							<div class="form-group form-element">
@@ -142,6 +143,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		if (this.selectedQuery != '') {
 			if (this.selectedQuery !== this.queryName) {
 				this.queryName = this.selectedQuery;
+				this.optionRows = [];
 				this.getFormat();
 			}
 		}

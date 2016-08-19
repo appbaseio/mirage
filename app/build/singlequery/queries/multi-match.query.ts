@@ -17,18 +17,25 @@ import { EditableComponent } from '../../editable/editable.component';
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
 						<div class="col-xs-6 pd-l0">			
-							<editable [editableField]="singleOption.name" 
-								[editableModal]="singleOption.name" 
+							<editable 
+								class = "additional-option-select-{{i}}"
+								[editableField]="singleOption.name" 
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'selectOption'" 
+								[editableInput]="'select2'" 
 								[selectOption]="options" 
 								[passWithCallback]="i"
-								(callback)="selectOption($event)"></editable>
+								[selector]="'additional-option-select'" 
+								[querySelector]="querySelector"
+								[informationList]="informationList"
+								[showInfoFlag]="true"
+								[searchOff]="true"
+								(callback)="selectOption($event)">
+							</editable>
 						</div>
 						<div class="col-xs-6 pd-0">
 							<div class="form-group form-element">
- 								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="{{placeholders[singleOption.name] || 'value'}}"  (keyup)="getFormat();"/>							
- 							</div>
+								<input class="form-control col-xs-12 pd-0" type="text" [(ngModel)]="singleOption.value" placeholder="value"  (keyup)="getFormat();"/>
+							</div>
 						</div>
 						<button (click)="removeOption(i)" class="btn btn-grey delete-option btn-xs">
 							<i class="fa fa-times"></i>
@@ -36,7 +43,7 @@ import { EditableComponent } from '../../editable/editable.component';
 					</div>
 				</div>
 				`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat'],
+	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat', 'querySelector'],
 	directives: [EditableComponent]
 })
 
@@ -53,6 +60,24 @@ export class MultiMatchQuery implements OnInit, OnChanges {
 		title: 'Match query',
 		content: `<span class="description"> Multi-match query content </span>
 					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+	};
+	public informationList: any = {
+		'operator': {
+			title: 'Operator',
+			content: `<span class="description"> Operator content </span>`	
+		},
+		'fields': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		},
+		'tie_breaker': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		},
+		'type': {
+			title: 'zero_terms',
+			content: `<span class="description"> zero_terms content </span>`	
+		}
 	};
 	public options: any = [
 		'fields',
@@ -121,6 +146,7 @@ export class MultiMatchQuery implements OnInit, OnChanges {
 			if (this.selectedQuery !== this.queryName) {
 				this.queryName = this.selectedQuery;
 				this.getFormat();
+				this.optionRows = [];
 			}
 		}
 	}
@@ -165,11 +191,12 @@ export class MultiMatchQuery implements OnInit, OnChanges {
 		return queryFormat;
 	}
 	selectOption(input: any) {
-		this.optionRows[input.external].name = input.value;
+		input.selector.parents('.editable-pack').removeClass('on');
+		this.optionRows[input.external].name = input.val;
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}
+	}	
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);
 		this.getFormat();
