@@ -84,7 +84,7 @@ var EditableComponent = (function () {
         core_1.Component({
             selector: 'editable',
             templateUrl: './app/build/editable/editable.component.html',
-            inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback'],
+            inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff'],
             directives: [select2_component_1.select2Component]
         }), 
         __metadata('design:paramtypes', [])
