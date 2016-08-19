@@ -9,7 +9,17 @@
 	<!-- field part end -->
 	<!-- query part start -->
 	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( query.field.type == 'string' || query.field.type == 'date' || query.field.type == 'numeric')">
-		<editable class="query-select" [editableField]="query.selectedQuery" [editPlaceholder]="'query'" [editableInput]="'select2'" [result]="result" [selectOption]="queryList[query.analyzeTest][query.type]" [querySelector]="querySelector"  [selector]="selector.query"  [informationList]="informationList"  (callback)="queryCallback($event)" [showInfoFlag]="true"></editable>
+		<editable class="query-select" 
+			[editableField]="query.selectedQuery" 
+			[editPlaceholder]="'query'" 
+			[editableInput]="'select2'" 
+			[result]="result" 
+			[selectOption]="queryList[query.analyzeTest][query.type]" 
+			[querySelector]="querySelector"  
+			[selector]="selector.query" 
+			[informationList]="informationList"  
+			(callback)="queryCallback($event)" 
+			[showInfoFlag]="true"></editable>
 	</div>
 	<!-- query part end -->
 	<!-- load the slector for selected query -->
@@ -21,6 +31,7 @@
 			[queryList]="queryList"
 			[selectedQuery]="query.selectedQuery"
 			[selectedField]="query.selectedField"
+			[querySelector]="querySelector"  
 			(getQueryFormat)="getQueryFormat($event);"
 			>
 		</match-query>
