@@ -9,8 +9,7 @@ app/**/**/*.js.map
 typings
 site
 _site
-<<<<<<< HEAD
-=======
 site
 *.log
->>>>>>> dev
+mirage-unpacked
+mirage-unpacked?

@@ -5,7 +5,7 @@ declare var $: any;
 @Component({
 	selector: 'select2',
 	templateUrl: './app/build/select2/select2.component.html',
-	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList"],
+	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff"],
 	providers: [GlobalShare]
 })
 
@@ -13,6 +13,8 @@ export class select2Component implements OnChanges, AfterContentInit {
 	@Input() querySelector;
 	@Input() selector;
 	@Input() showInfoFlag;
+	@Input() passWithCallback: any;
+	@Input() searchOff: boolean;
 	@Output() callback = new EventEmitter();
 	public select2Selector;
 	@Input() informationList;
@@ -24,20 +26,30 @@ export class select2Component implements OnChanges, AfterContentInit {
 		console.log(this.informationList);
 		setTimeout(function() {
 			var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+			if(typeof this.passWithCallback != 'undefined') {
+				select2Selector = $(this.querySelector).find('.' + this.selector+'-'+this.passWithCallback).find('select');	
+			}
 			this.setSelect2(select2Selector, function(val) {
-				var obj = {
+				var obj: any = {
 					val: val,
 					selector: select2Selector
 				};
+				if(typeof this.passWithCallback != 'undefined') {
+					obj.external = this.passWithCallback;
+				}
 				this.callback.emit(obj);
 			}.bind(this));
 		}.bind(this), 300);
 	}
 
 	setSelect2(field_select, callback) {
-		field_select.select2({
+		var select2Option: any = {
 			placeholder: "Select from the option"
-		});
+		};
+		if(this.searchOff) {
+			select2Option.minimumResultsForSearch = -1;
+		}
+		field_select.select2(select2Option);
 		field_select.on("change", function(e) {
 			callback(field_select.val())
 		}.bind(this));
