@@ -78,10 +78,11 @@ export class CommonQuery implements OnInit, OnChanges {
 			content: `<span class="description"> zero_terms content </span>`	
 		}
 	};
-	public options: any = [
+	public default_options: any = [
 		'low_freq_operator',
 		'minimum_should_match'
 	];
+	public options: any;
 	public singleOption = {
 		name: '',
 		value: ''
@@ -102,6 +103,7 @@ export class CommonQuery implements OnInit, OnChanges {
 	public queryFormat: any = {};
 
 	ngOnInit() {
+		this.options = JSON.parse(JSON.stringify(this.default_options));
 		try {
 			if(this.appliedQuery['common'][this.fieldName]['query']) {
 				this.inputs.query.value = this.appliedQuery['common'][this.fieldName]['query']
@@ -119,6 +121,7 @@ export class CommonQuery implements OnInit, OnChanges {
 				}
 			}
 		} catch(e) {}
+		this.filterOptions();
 		this.getFormat();	
 	}
 
@@ -181,9 +184,21 @@ export class CommonQuery implements OnInit, OnChanges {
 	selectOption(input: any) {
 		input.selector.parents('.editable-pack').removeClass('on');
 		this.optionRows[input.external].name = input.val;
+		this.filterOptions();
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
+	}	
+	filterOptions() {
+		this.options = this.default_options.filter(function(opt) {
+			var flag = true;
+			this.optionRows.forEach(function(row) {
+				if(row.name === opt) {
+					flag = false;
+				}
+			});
+			return flag;
+		}.bind(this));
 	}
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);
