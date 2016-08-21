@@ -46,7 +46,7 @@ var MatchQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'operator',
             'zero_terms_query',
             'cutoff_frequency',
@@ -68,9 +68,10 @@ var MatchQuery = (function () {
         this.queryFormat = {};
     }
     MatchQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].query) {
+                if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('query')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'query') {
@@ -88,6 +89,7 @@ var MatchQuery = (function () {
             }
         }
         catch (e) { }
+        this.filterOptions();
         this.getFormat();
     };
     MatchQuery.prototype.ngOnChanges = function () {
@@ -137,9 +139,21 @@ var MatchQuery = (function () {
     MatchQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
+    };
+    MatchQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
     };
     MatchQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
