@@ -201,10 +201,12 @@ export class MatchQuery implements OnInit, OnChanges {
 	}
 	addOption() {
 		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+		this.filterOptions();
 		this.optionRows.push(singleOption);
 	}
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);
+		this.filterOptions();
 		this.getFormat();
 	}
 
