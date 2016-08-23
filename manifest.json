@@ -18,6 +18,6 @@
         "default_icon": "site/assets/images/icon_32.png",
         "default_title": "Mirage"
     },
-    "description": "Elegant Query Composing for Elasticsearch",
+    "description": "Elegant Query Composer for Elasticsearch",
     "author": "Farhan Chauhan, appbase.io"
 }
