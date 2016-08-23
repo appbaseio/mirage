@@ -2032,10 +2032,12 @@ var MatchQuery = (function () {
     };
     MatchQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     MatchQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
