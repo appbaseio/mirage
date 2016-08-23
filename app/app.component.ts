@@ -189,7 +189,11 @@ export class AppComponent implements OnInit, OnChanges {
 			var pwsplit = urlsplit[2].split('@');
 			this.config.username = urlsplit[1].replace('//', '');
 			this.config.password = pwsplit[0];
-			this.config.host = urlsplit[0] + '://' + pwsplit[1];
+			if(pwsplit.length > 1) {
+				this.config.host = urlsplit[0] + '://' + pwsplit[1];
+			} else {
+				this.config.host = URL;
+			}
 			var self = this;
 			this.appbaseService.setAppbase(this.config);
 			this.appbaseService.get('/_mapping').then(function(res) {
