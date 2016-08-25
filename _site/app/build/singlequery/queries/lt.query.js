@@ -26,7 +26,7 @@ var LtQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -43,6 +43,7 @@ var LtQuery = (function () {
         this.queryFormat = {};
     }
     LtQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['range'][this.fieldName]['lt']) {
                 this.inputs.lt.value = this.appliedQuery['range'][this.fieldName]['lt'];
@@ -59,6 +60,7 @@ var LtQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     LtQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -105,16 +107,30 @@ var LtQuery = (function () {
     LtQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    LtQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     LtQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     LtQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

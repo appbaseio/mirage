@@ -30,7 +30,7 @@ var CommonQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'low_freq_operator',
             'minimum_should_match'
         ];
@@ -52,6 +52,7 @@ var CommonQuery = (function () {
         this.queryFormat = {};
     }
     CommonQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['common'][this.fieldName]['query']) {
                 this.inputs.query.value = this.appliedQuery['common'][this.fieldName]['query'];
@@ -70,6 +71,7 @@ var CommonQuery = (function () {
             }
         }
         catch (e) { }
+        this.filterOptions();
         this.getFormat();
     };
     CommonQuery.prototype.ngOnChanges = function () {
@@ -89,6 +91,7 @@ var CommonQuery = (function () {
     };
     CommonQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
@@ -130,12 +133,25 @@ var CommonQuery = (function () {
     CommonQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    CommonQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     CommonQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

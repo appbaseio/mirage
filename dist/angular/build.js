@@ -180,7 +180,12 @@ var AppComponent = (function () {
             var pwsplit = urlsplit[2].split('@');
             this.config.username = urlsplit[1].replace('//', '');
             this.config.password = pwsplit[0];
-            this.config.host = urlsplit[0] + '://' + pwsplit[1];
+            if (pwsplit.length > 1) {
+                this.config.host = urlsplit[0] + '://' + pwsplit[1];
+            }
+            else {
+                this.config.host = URL;
+            }
             var self = this;
             this.appbaseService.setAppbase(this.config);
             this.appbaseService.get('/_mapping').then(function (res) {
@@ -1007,7 +1012,7 @@ var CommonQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'low_freq_operator',
             'minimum_should_match'
         ];
@@ -1029,6 +1034,7 @@ var CommonQuery = (function () {
         this.queryFormat = {};
     }
     CommonQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['common'][this.fieldName]['query']) {
                 this.inputs.query.value = this.appliedQuery['common'][this.fieldName]['query'];
@@ -1047,6 +1053,7 @@ var CommonQuery = (function () {
             }
         }
         catch (e) { }
+        this.filterOptions();
         this.getFormat();
     };
     CommonQuery.prototype.ngOnChanges = function () {
@@ -1066,6 +1073,7 @@ var CommonQuery = (function () {
     };
     CommonQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
@@ -1107,12 +1115,25 @@ var CommonQuery = (function () {
     CommonQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    CommonQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     CommonQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -1288,7 +1309,7 @@ var FuzzyQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost',
             'fuzziness',
             'prefix_length',
@@ -1308,9 +1329,10 @@ var FuzzyQuery = (function () {
         this.queryFormat = {};
     }
     FuzzyQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                if (this.appliedQuery[this.current_query][this.fieldName]) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'value') {
@@ -1328,6 +1350,7 @@ var FuzzyQuery = (function () {
             }
         }
         catch (e) { }
+        this.filterOptions();
         this.getFormat();
     };
     FuzzyQuery.prototype.ngOnChanges = function () {
@@ -1377,16 +1400,30 @@ var FuzzyQuery = (function () {
     FuzzyQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    FuzzyQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     FuzzyQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     FuzzyQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -1451,7 +1488,7 @@ var GtQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -1468,6 +1505,7 @@ var GtQuery = (function () {
         this.queryFormat = {};
     }
     GtQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['range'][this.fieldName][this.current_query]) {
                 this.inputs.gt.value = this.appliedQuery['range'][this.fieldName]['gt'];
@@ -1532,16 +1570,30 @@ var GtQuery = (function () {
     GtQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    GtQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     GtQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     GtQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -1729,7 +1781,7 @@ var LtQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -1746,6 +1798,7 @@ var LtQuery = (function () {
         this.queryFormat = {};
     }
     LtQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['range'][this.fieldName]['lt']) {
                 this.inputs.lt.value = this.appliedQuery['range'][this.fieldName]['lt'];
@@ -1762,6 +1815,7 @@ var LtQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     LtQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -1808,16 +1862,30 @@ var LtQuery = (function () {
     LtQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    LtQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     LtQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     LtQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -1902,7 +1970,7 @@ var MatchQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'operator',
             'zero_terms_query',
             'cutoff_frequency',
@@ -1924,9 +1992,10 @@ var MatchQuery = (function () {
         this.queryFormat = {};
     }
     MatchQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].query) {
+                if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('query')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'query') {
@@ -1944,6 +2013,7 @@ var MatchQuery = (function () {
             }
         }
         catch (e) { }
+        this.filterOptions();
         this.getFormat();
     };
     MatchQuery.prototype.ngOnChanges = function () {
@@ -1993,16 +2063,30 @@ var MatchQuery = (function () {
     MatchQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    MatchQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     MatchQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     MatchQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -2067,7 +2151,7 @@ var Match_phase_prefixQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'max_expansions'
         ];
         this.singleOption = {
@@ -2084,9 +2168,10 @@ var Match_phase_prefixQuery = (function () {
         this.queryFormat = {};
     }
     Match_phase_prefixQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['match_phrase_prefix'][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].query) {
+                if (this.appliedQuery[this.current_query][this.fieldName]) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'query') {
@@ -2105,6 +2190,7 @@ var Match_phase_prefixQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     Match_phase_prefixQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -2153,16 +2239,30 @@ var Match_phase_prefixQuery = (function () {
     Match_phase_prefixQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    Match_phase_prefixQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     Match_phase_prefixQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     Match_phase_prefixQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -2233,7 +2333,7 @@ var Match_phraseQuery = (function () {
                 value: ''
             }
         };
-        this.options = [
+        this.default_options = [
             'analyzer'
         ];
         this.singleOption = {
@@ -2244,9 +2344,10 @@ var Match_phraseQuery = (function () {
         this.queryFormat = {};
     }
     Match_phraseQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].query) {
+                if (this.appliedQuery[this.current_query][this.fieldName]) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'query') {
@@ -2265,6 +2366,7 @@ var Match_phraseQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     Match_phraseQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -2313,16 +2415,30 @@ var Match_phraseQuery = (function () {
     Match_phraseQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    Match_phraseQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     Match_phraseQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     Match_phraseQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -2391,7 +2507,7 @@ var MissingQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'existence',
             'null_value'
         ];
@@ -2403,6 +2519,7 @@ var MissingQuery = (function () {
         this.queryFormat = {};
     }
     MissingQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query]['field']) {
                 this.appliedQuery[this.current_query]['field'] = this.fieldName;
@@ -2419,6 +2536,7 @@ var MissingQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     MissingQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -2460,16 +2578,30 @@ var MissingQuery = (function () {
     MissingQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    MissingQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     MissingQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     MissingQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -2546,7 +2678,7 @@ var MultiMatchQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'fields',
             'tie_breaker',
             'type',
@@ -2569,6 +2701,7 @@ var MultiMatchQuery = (function () {
         this.queryFormat = {};
     }
     MultiMatchQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query]) {
                 var applied = this.appliedQuery[this.current_query];
@@ -2596,6 +2729,7 @@ var MultiMatchQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     MultiMatchQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -2611,10 +2745,6 @@ var MultiMatchQuery = (function () {
                 this.optionRows = [];
             }
         }
-    };
-    MultiMatchQuery.prototype.addOption = function () {
-        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-        this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
     /*
@@ -2654,12 +2784,30 @@ var MultiMatchQuery = (function () {
     MultiMatchQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    MultiMatchQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    MultiMatchQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
     MultiMatchQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -2724,7 +2872,7 @@ var PrefixQuery = (function () {
                 content: "<span class=\"description\"> Operator content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -2741,9 +2889,10 @@ var PrefixQuery = (function () {
         this.queryFormat = {};
     }
     PrefixQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                if (this.appliedQuery[this.current_query][this.fieldName]) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'value') {
@@ -2762,6 +2911,7 @@ var PrefixQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     PrefixQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -2810,16 +2960,30 @@ var PrefixQuery = (function () {
     PrefixQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    PrefixQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     PrefixQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     PrefixQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -2892,7 +3056,7 @@ var QueryStringQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'fields',
             'default_field',
             'use_dis_max'
@@ -2914,6 +3078,7 @@ var QueryStringQuery = (function () {
         this.queryFormat = {};
     }
     QueryStringQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query]) {
                 var applied = this.appliedQuery[this.current_query];
@@ -2941,6 +3106,7 @@ var QueryStringQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     QueryStringQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -2956,10 +3122,6 @@ var QueryStringQuery = (function () {
                 this.optionRows = [];
             }
         }
-    };
-    QueryStringQuery.prototype.addOption = function () {
-        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-        this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
     /*
@@ -2999,12 +3161,30 @@ var QueryStringQuery = (function () {
     QueryStringQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    QueryStringQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    QueryStringQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
     QueryStringQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -3069,7 +3249,7 @@ var RangeQuery = (function () {
                 content: "<span class=\"description\"> Operator content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -3090,6 +3270,7 @@ var RangeQuery = (function () {
         this.queryFormat = {};
     }
     RangeQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['range'][this.fieldName]['from']) {
                 this.inputs.from.value = this.appliedQuery['range'][this.fieldName]['from'];
@@ -3109,6 +3290,7 @@ var RangeQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     RangeQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -3156,16 +3338,30 @@ var RangeQuery = (function () {
     RangeQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    RangeQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     RangeQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     RangeQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -3234,7 +3430,7 @@ var RegexpQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'flags',
             'max_determinized_states'
         ];
@@ -3252,6 +3448,7 @@ var RegexpQuery = (function () {
         this.queryFormat = {};
     }
     RegexpQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
                 if (this.appliedQuery[this.current_query][this.fieldName].value) {
@@ -3273,6 +3470,7 @@ var RegexpQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     RegexpQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -3321,16 +3519,30 @@ var RegexpQuery = (function () {
     RegexpQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    RegexpQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     RegexpQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     RegexpQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -3403,7 +3615,7 @@ var SimpleQueryStringQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'fields',
             'default_operator',
             'analyzer'
@@ -3425,6 +3637,7 @@ var SimpleQueryStringQuery = (function () {
         this.queryFormat = {};
     }
     SimpleQueryStringQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query]) {
                 var applied = this.appliedQuery[this.current_query];
@@ -3452,6 +3665,7 @@ var SimpleQueryStringQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     SimpleQueryStringQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -3467,10 +3681,6 @@ var SimpleQueryStringQuery = (function () {
                 this.optionRows = [];
             }
         }
-    };
-    SimpleQueryStringQuery.prototype.addOption = function () {
-        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-        this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
     /*
@@ -3510,12 +3720,30 @@ var SimpleQueryStringQuery = (function () {
     SimpleQueryStringQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    SimpleQueryStringQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    SimpleQueryStringQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
     SimpleQueryStringQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -3580,7 +3808,7 @@ var TermQuery = (function () {
                 content: "<span class=\"description\"> Operator content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -3597,6 +3825,7 @@ var TermQuery = (function () {
         this.queryFormat = {};
     }
     TermQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
                 if (this.appliedQuery[this.current_query][this.fieldName].value) {
@@ -3618,6 +3847,7 @@ var TermQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     TermQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -3666,16 +3896,30 @@ var TermQuery = (function () {
     TermQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    TermQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     TermQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     TermQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
@@ -3853,7 +4097,7 @@ var WildcardQuery = (function () {
                 content: "<span class=\"description\"> Operator content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -3870,6 +4114,7 @@ var WildcardQuery = (function () {
         this.queryFormat = {};
     }
     WildcardQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
                 if (this.appliedQuery[this.current_query][this.fieldName].value) {
@@ -3891,6 +4136,7 @@ var WildcardQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     WildcardQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -3939,16 +4185,30 @@ var WildcardQuery = (function () {
     WildcardQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    WildcardQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     WildcardQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     WildcardQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([
