@@ -76,12 +76,13 @@ export class FuzzyQuery implements OnInit, OnChanges {
 			content: `<span class="description"> zero_terms content </span>`	
 		}
 	};
-	public options: any = [
+	public default_options: any = [
 		'boost',
 		'fuzziness',
 		'prefix_length',
 		'max_expansions'
 	];
+	public options: any;
 	public singleOption = {
 		name: '',
 		value: ''
@@ -98,9 +99,10 @@ export class FuzzyQuery implements OnInit, OnChanges {
 	public queryFormat: any = {};
 
 	ngOnInit() {
+		this.options = JSON.parse(JSON.stringify(this.default_options));
 		try {
 			if(this.appliedQuery[this.current_query][this.fieldName]) {
-				if (this.appliedQuery[this.current_query][this.fieldName].value) {
+				if (this.appliedQuery[this.current_query][this.fieldName]) {
 					this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
 					for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
 						if (option != 'value') {
@@ -116,6 +118,7 @@ export class FuzzyQuery implements OnInit, OnChanges {
 				}
 			}
 		} catch(e) {}
+		this.filterOptions();
 		this.getFormat();
 	}
 
@@ -165,17 +168,30 @@ export class FuzzyQuery implements OnInit, OnChanges {
 	selectOption(input: any) {
 		input.selector.parents('.editable-pack').removeClass('on');
 		this.optionRows[input.external].name = input.val;
+		this.filterOptions();
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
+	}	
+	filterOptions() {
+		this.options = this.default_options.filter(function(opt) {
+			var flag = true;
+			this.optionRows.forEach(function(row) {
+				if(row.name === opt) {
+					flag = false;
+				}
+			});
+			return flag;
+		}.bind(this));
 	}
 	addOption() {
 		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+		this.filterOptions();
 		this.optionRows.push(singleOption);
 	}
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);
+		this.filterOptions();
 		this.getFormat();
 	}
-
 }
