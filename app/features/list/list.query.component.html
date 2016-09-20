@@ -12,9 +12,12 @@
 				</span>
 			</span>
 			<span class="col-xs-12 query-info pd-0">
-				<a class="pull-left" (click)="tagApply($event, query.tag);">
+				<a class="pull-left m-r5" (click)="tagApply($event, query.tag);">
 					<span class="badge">{{query.tag}}</span>
 				</a>
+				<span class="pull-left" *ngIf="query.version" >
+					<span class="badge">{{query.version}}</span>
+				</span>
 			</span>
 		</a>
 		<a class="btn btn-grey delete-query" (click)="applyDeleteQuery(i);">

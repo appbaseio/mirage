@@ -11,3 +11,4 @@ site
 *.log
 mirage-unpacked
 mirage-unpacked?
+npm-debug.log.*
