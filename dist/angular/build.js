@@ -52,6 +52,7 @@ var AppComponent = (function () {
         this.responseHookHelp = new editorHook_1.EditorHook({ editorId: 'responseBlock' });
         this.urlShare = new urlShare_1.UrlShare();
         this.result_time_taken = null;
+        this.version = '2.0';
         this.active = true;
         this.powers = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
@@ -182,12 +183,28 @@ var AppComponent = (function () {
             this.config.password = pwsplit[0];
             if (pwsplit.length > 1) {
                 this.config.host = urlsplit[0] + '://' + pwsplit[1];
+                if (urlsplit[3]) {
+                    this.config.host += urlsplit[3];
+                }
             }
             else {
                 this.config.host = URL;
             }
             var self = this;
             this.appbaseService.setAppbase(this.config);
+            this.appbaseService.getVersion().then(function (res) {
+                var data = res.json();
+                if (data && data.version && data.version.number) {
+                    var version = data.version.number;
+                    self.version = version;
+                    if (self.version.split('.')[0] !== '2') {
+                        self.errorShow({
+                            title: 'Elasticsearch Version Support',
+                            message: 'We are only supporting version 2.x for Mirage'
+                        });
+                    }
+                }
+            });
             this.appbaseService.get('/_mapping').then(function (res) {
                 self.connected = true;
                 var data = res.json();
@@ -309,6 +326,7 @@ var AppComponent = (function () {
             result: this.result,
             name: this.query_info.name,
             tag: this.query_info.tag,
+            version: this.version,
             createdAt: createdAt
         };
         this.savedQueryList.push(queryData);
@@ -5315,6 +5333,7 @@ var AppbaseService = (function () {
     AppbaseService.prototype.setAppbase = function (config) {
         this.config.username = config.username;
         this.config.password = config.password;
+        this.requestParam.pureUrl = config.url;
         this.requestParam.url = config.url + '/' + config.appname;
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
     };
@@ -5325,6 +5344,16 @@ var AppbaseService = (function () {
         });
         var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
         var request_path = request_url + path + '/';
+        console.log(request_path);
+        return this.http.get(request_path, { headers: headers }).toPromise();
+    };
+    AppbaseService.prototype.getVersion = function () {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': this.requestParam.auth
+        });
+        var request_url = this.requestParam.pureUrl.replace(this.config.username + ':' + this.config.password + '@', '');
+        var request_path = request_url + '/';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
     };
