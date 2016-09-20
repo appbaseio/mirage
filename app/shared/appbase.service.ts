@@ -19,6 +19,7 @@ export class AppbaseService {
     setAppbase(config: any) {
         this.config.username = config.username;
         this.config.password = config.password;
+        this.requestParam.pureUrl = config.url;
         this.requestParam.url = config.url + '/' + config.appname;
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
     }
@@ -29,6 +30,16 @@ export class AppbaseService {
         });
         var request_url = this.requestParam.url.replace(this.config.username+':'+this.config.password+'@', '');
         var request_path = request_url + path + '/';
+        console.log(request_path);
+        return this.http.get(request_path, { headers: headers }).toPromise()
+    }
+    getVersion() {
+        let headers = new Headers({
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': this.requestParam.auth
+        });
+        var request_url = this.requestParam.pureUrl.replace(this.config.username+':'+this.config.password+'@', '');
+        var request_path = request_url + '/';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise()
     }
