@@ -182,6 +182,9 @@ var AppComponent = (function () {
             this.config.password = pwsplit[0];
             if (pwsplit.length > 1) {
                 this.config.host = urlsplit[0] + '://' + pwsplit[1];
+                if (urlsplit[3]) {
+                    this.config.host += urlsplit[3];
+                }
             }
             else {
                 this.config.host = URL;
