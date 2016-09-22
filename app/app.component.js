@@ -183,7 +183,7 @@ var AppComponent = (function () {
             if (pwsplit.length > 1) {
                 this.config.host = urlsplit[0] + '://' + pwsplit[1];
                 if (urlsplit[3]) {
-                    this.config.host += urlsplit[3];
+                    this.config.host += ':' + urlsplit[3];
                 }
             }
             else {
