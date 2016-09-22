@@ -61,13 +61,20 @@ export class ResultComponent implements OnInit {
 			$('#resultModal').modal('show');
 			this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function(res) {
 				self.result.isWatching = false;
-				self.result.output = JSON.stringify(res.json(), null, 2);
-				self.responseHookHelp.setValue(self.result.output);
 				var propInfo = {
 					name: 'result_time_taken',
 					value: res.json().took
 				};
 				self.setProp.emit(propInfo);
+				self.result.output = JSON.stringify(res.json(), null, 2);
+				if($('#resultModal').hasClass('in')) {
+					self.responseHookHelp.setValue(self.result.output);	
+				} else {
+					setTimeout(function() {
+						self.responseHookHelp.setValue(self.result.output);
+					}, 300);
+				}
+				
 			}).catch(function(data) {
 				$('#resultModal').modal('hide');
 				self.result.isWatching = false;
