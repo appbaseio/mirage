@@ -16,7 +16,5 @@ export class RunComponent implements OnInit {
 
 	ngOnInit() {
 		this.responseHookHelp.applyEditor({ readOnly: true });
-		var modal_height = $(window).height() - 250;
-		$('.result_block .codemirror').css({ height: modal_height });
 	}
 }
