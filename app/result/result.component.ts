@@ -26,12 +26,9 @@ export class ResultComponent implements OnInit {
 	constructor(public appbaseService: AppbaseService) {}
 
 	// Set codemirror instead of normal textarea
-	// Set initial height for textarea
 	ngOnInit() {
 		var self = this;
 		this.editorHookHelp.applyEditor();
-		var resultHeight = $(window).height() - 138 - 49 - 80;
-		$('.queryRight .codemirror').css({ height: resultHeight });
 		$('#resultModal').modal({
 			show: false,
 			backdrop: 'static'
@@ -44,8 +41,6 @@ export class ResultComponent implements OnInit {
 			};
 			self.setProp.emit(propInfo);
 		});
-		var modal_height = $(window).height() - 250;
-		$('#resultModal .modal-body').css('height', modal_height);
 	}
 
 	// Validate using checkValidaQuery method
