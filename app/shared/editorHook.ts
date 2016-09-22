@@ -26,6 +26,7 @@ EditorHook.prototype.applyEditor = function(settings) {
 
 EditorHook.prototype.setValue = function(value) {
     this.editor.setValue(value);
+    this.editor.focus();
 }
 
 EditorHook.prototype.getValue = function() {
