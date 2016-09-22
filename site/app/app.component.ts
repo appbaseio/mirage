@@ -58,6 +58,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
+	public version: string = '2.0';
 	active = true;
 	powers = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
@@ -191,11 +192,27 @@ export class AppComponent implements OnInit, OnChanges {
 			this.config.password = pwsplit[0];
 			if(pwsplit.length > 1) {
 				this.config.host = urlsplit[0] + '://' + pwsplit[1];
+				if(urlsplit[3]) {
+					this.config.host += ':'+urlsplit[3];
+				}
 			} else {
 				this.config.host = URL;
 			}
 			var self = this;
 			this.appbaseService.setAppbase(this.config);
+			this.appbaseService.getVersion().then(function(res) {
+				let data = res.json();
+				if(data && data.version && data.version.number) {
+					let version = data.version.number;
+					self.version = version; 
+					if(self.version.split('.')[0] !== '2') {
+						self.errorShow({
+							title: 'Elasticsearch Version Support',
+							message: 'We are only supporting version 2.x for Mirage'
+						});
+					}
+				}
+			});
 			this.appbaseService.get('/_mapping').then(function(res) {
 				self.connected = true;
 				let data = res.json();
@@ -323,6 +340,7 @@ export class AppComponent implements OnInit, OnChanges {
 			result: this.result,
 			name: this.query_info.name,
 			tag: this.query_info.tag,
+			version: this.version,
 			createdAt: createdAt
 		};
 		this.savedQueryList.push(queryData);

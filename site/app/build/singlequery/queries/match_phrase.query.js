@@ -32,7 +32,7 @@ var Match_phraseQuery = (function () {
                 value: ''
             }
         };
-        this.options = [
+        this.default_options = [
             'analyzer'
         ];
         this.singleOption = {
@@ -43,9 +43,10 @@ var Match_phraseQuery = (function () {
         this.queryFormat = {};
     }
     Match_phraseQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].query) {
+                if (this.appliedQuery[this.current_query][this.fieldName]) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'query') {
@@ -64,6 +65,7 @@ var Match_phraseQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     Match_phraseQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -112,16 +114,30 @@ var Match_phraseQuery = (function () {
     Match_phraseQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    Match_phraseQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     Match_phraseQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     Match_phraseQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

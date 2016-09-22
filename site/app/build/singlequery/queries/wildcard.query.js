@@ -26,7 +26,7 @@ var WildcardQuery = (function () {
                 content: "<span class=\"description\"> Operator content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -43,6 +43,7 @@ var WildcardQuery = (function () {
         this.queryFormat = {};
     }
     WildcardQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
                 if (this.appliedQuery[this.current_query][this.fieldName].value) {
@@ -64,6 +65,7 @@ var WildcardQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     WildcardQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -112,16 +114,30 @@ var WildcardQuery = (function () {
     WildcardQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    WildcardQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     WildcardQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     WildcardQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

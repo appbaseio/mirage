@@ -91,6 +91,7 @@ var CommonQuery = (function () {
     };
     CommonQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
@@ -150,6 +151,7 @@ var CommonQuery = (function () {
     };
     CommonQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

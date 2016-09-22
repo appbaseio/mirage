@@ -84,4 +84,10 @@
   color: #FF8484; }
 
 #resultModal .modal-dialog {
-  width: 90%; }
+  width: 90%;
+  position: relative; }
+  #resultModal .modal-dialog .modal-body {
+    height: 70%;
+    position: relative; }
+    #resultModal .modal-dialog .modal-body .CodeMirror {
+      height: 100%; }
