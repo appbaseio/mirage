@@ -64,9 +64,11 @@ export class ResultComponent implements OnInit {
 				self.result.output = JSON.stringify(res.json(), null, 2);
 				if($('#resultModal').hasClass('in')) {
 					self.responseHookHelp.setValue(self.result.output);	
+					self.responseHookHelp.focus();
 				} else {
 					setTimeout(function() {
 						self.responseHookHelp.setValue(self.result.output);
+						self.responseHookHelp.focus();
 					}, 300);
 				}
 				
