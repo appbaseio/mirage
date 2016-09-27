@@ -17,10 +17,9 @@ var TypesComponent = (function () {
     TypesComponent.prototype.ngOnChanges = function (changes) {
         if (changes['detectChange'] && this.types.length) {
             var setType = $('#setType');
-            try {
+            if (setType.attr('class').indexOf('selec2') > -1) {
                 setType.select2('destroy').html('');
             }
-            catch (e) { }
             setType.select2({
                 placeholder: "Select types to apply query",
                 tags: false,

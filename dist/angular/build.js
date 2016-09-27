@@ -2910,7 +2910,7 @@ var PrefixQuery = (function () {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('value')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'value') {
@@ -4534,10 +4534,9 @@ var TypesComponent = (function () {
     TypesComponent.prototype.ngOnChanges = function (changes) {
         if (changes['detectChange'] && this.types.length) {
             var setType = $('#setType');
-            try {
+            if (setType.attr('class').indexOf('selec2') > -1) {
                 setType.select2('destroy').html('');
             }
-            catch (e) { }
             setType.select2({
                 placeholder: "Select types to apply query",
                 tags: false,
@@ -5510,7 +5509,6 @@ var prettyTime = (function () {
     function prettyTime() {
     }
     prettyTime.prototype.transform = function (value) {
-        console.log(moment(value).fromNow(true));
         return moment(value).fromNow(true);
     };
     prettyTime = __decorate([

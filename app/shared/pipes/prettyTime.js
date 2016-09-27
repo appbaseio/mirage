@@ -13,7 +13,6 @@ var prettyTime = (function () {
     function prettyTime() {
     }
     prettyTime.prototype.transform = function (value) {
-        console.log(moment(value).fromNow(true));
         return moment(value).fromNow(true);
     };
     prettyTime = __decorate([
