@@ -73,6 +73,18 @@ footer {
       padding-left: 15px;
       line-height: 30px;
       font-size: 20px; }
+  @media screen and (max-width: 768px) {
+    .header .header-container .img-container {
+      max-width: 120px; }
+    .header .header-container .tag-line {
+      padding-left: 15px;
+      line-height: 30px;
+      font-size: 14px; } }
+  @media screen and (max-width: 500px) {
+    .header .header-container {
+      height: 30px; }
+      .header .header-container .tag-line {
+        display: none; } }
 
 footer {
   position: absolute;
@@ -87,3 +99,7 @@ footer {
   footer .powered_by {
     position: absolute;
     right: 5px; }
+    @media screen and (max-width: 768px) {
+      footer .powered_by {
+        font-size: 11px;
+        line-height: 23px; } }

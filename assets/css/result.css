@@ -25,6 +25,9 @@
       padding: 25px 0 50px 0; }
       .query-result-container .queryRight .codeMirror-container .CodeMirror {
         height: 100%; }
+  @media screen and (max-width: 768px) {
+    .query-result-container {
+      padding-bottom: 0; } }
 
 .codemirror {
   margin-bottom: 15px; }
