@@ -82,6 +82,26 @@ footer {
 			font-size: 20px;
 		}
 	}
+	@media screen and (max-width: 768px) {
+		.header-container {
+			.img-container {
+				max-width: 120px;
+			}
+			.tag-line {
+				padding-left: 15px;
+				line-height: 30px;
+				font-size: 14px;
+			}
+		}
+	}
+	@media screen and (max-width: 500px) { 
+		.header-container {
+			height: 30px;
+			.tag-line {
+				display: none;
+			}
+		}
+	}
 }
 footer {
 	position: absolute;
@@ -96,5 +116,9 @@ footer {
 	.powered_by {
 		position: absolute;
 		right: 5px;
+		@media screen and (max-width: 768px) {
+			font-size: 11px;
+			line-height: 23px;
+		}
 	}
 }

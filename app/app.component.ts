@@ -251,7 +251,11 @@ export class AppComponent implements OnInit, OnChanges {
 				self.urlShare.inputs['finalUrl'] = self.finalUrl;
 				self.urlShare.createUrl();
 				setTimeout(function() {
-					self.setLayoutResizer();
+					if($('body').width() > 768) {
+						self.setLayoutResizer();
+					} else {
+						self.setMobileLayout();
+					}
 					self.editorHookHelp.setValue('');
 				}, 300);
 				
@@ -420,6 +424,11 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 		setSidebar();
 		$(window).on('resize', setSidebar);
+	}
+	setMobileLayout() {
+		var bodyHeight = $('body').height();
+		$('#mirage-container').css('height', bodyHeight- 116);
+		$('#paneCenter, #paneEast').css('height', bodyHeight);
 	}
 
 	setConfig(selectedConfig: any) {
