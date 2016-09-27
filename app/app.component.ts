@@ -207,8 +207,8 @@ export class AppComponent implements OnInit, OnChanges {
 					self.version = version; 
 					if(self.version.split('.')[0] !== '2') {
 						self.errorShow({
-							title: 'Elasticsearch Version Support',
-							message: 'We are only supporting version 2.x for Mirage'
+							title: 'Elasticsearch Version Not Supported',
+							message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
 						});
 					}
 				}
