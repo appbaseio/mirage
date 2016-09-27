@@ -46,7 +46,7 @@ var PrefixQuery = (function () {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('value')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'value') {

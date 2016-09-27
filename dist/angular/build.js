@@ -241,7 +241,12 @@ var AppComponent = (function () {
                 self.urlShare.inputs['finalUrl'] = self.finalUrl;
                 self.urlShare.createUrl();
                 setTimeout(function () {
-                    self.setLayoutResizer();
+                    if ($('body').width() > 768) {
+                        self.setLayoutResizer();
+                    }
+                    else {
+                        self.setMobileLayout();
+                    }
                     self.editorHookHelp.setValue('');
                 }, 300);
             }).catch(function (e) {
@@ -400,6 +405,11 @@ var AppComponent = (function () {
         }
         setSidebar();
         $(window).on('resize', setSidebar);
+    };
+    AppComponent.prototype.setMobileLayout = function () {
+        var bodyHeight = $('body').height();
+        $('#mirage-container').css('height', bodyHeight - 116);
+        $('#paneCenter, #paneEast').css('height', bodyHeight);
     };
     AppComponent.prototype.setConfig = function (selectedConfig) {
         this.config.appname = selectedConfig.appname;
@@ -2910,7 +2920,7 @@ var PrefixQuery = (function () {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName]) {
+                if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('value')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'value') {
@@ -4534,10 +4544,9 @@ var TypesComponent = (function () {
     TypesComponent.prototype.ngOnChanges = function (changes) {
         if (changes['detectChange'] && this.types.length) {
             var setType = $('#setType');
-            try {
+            if (setType.attr('class').indexOf('selec2') > -1) {
                 setType.select2('destroy').html('');
             }
-            catch (e) { }
             setType.select2({
                 placeholder: "Select types to apply query",
                 tags: false,
