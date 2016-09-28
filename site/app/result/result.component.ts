@@ -26,26 +26,21 @@ export class ResultComponent implements OnInit {
 	constructor(public appbaseService: AppbaseService) {}
 
 	// Set codemirror instead of normal textarea
-	// Set initial height for textarea
 	ngOnInit() {
 		var self = this;
 		this.editorHookHelp.applyEditor();
-		var resultHeight = $(window).height() - 138 - 49 - 80;
-		$('.queryRight .codemirror').css({ height: resultHeight });
 		$('#resultModal').modal({
 			show: false,
 			backdrop: 'static'
 		});
 		$('#resultModal').on('hide.bs.modal', function() {
-			self.responseHookHelp.setValue('{}');
+			self.responseHookHelp.focus('{"Loading": "please wait......"}');
 			var propInfo = {
 				name: 'result_time_taken',
 				value: null
 			};
 			self.setProp.emit(propInfo);
 		});
-		var modal_height = $(window).height() - 250;
-		$('#resultModal .modal-body').css('height', modal_height);
 	}
 
 	// Validate using checkValidaQuery method
@@ -57,17 +52,23 @@ export class ResultComponent implements OnInit {
 		var validate = this.checkValidQuery();
 
 		if (validate.flag) {
-			self.responseHookHelp.setValue('{"Loading": "please wait......"}');
 			$('#resultModal').modal('show');
 			this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function(res) {
 				self.result.isWatching = false;
-				self.result.output = JSON.stringify(res.json(), null, 2);
-				self.responseHookHelp.setValue(self.result.output);
 				var propInfo = {
 					name: 'result_time_taken',
 					value: res.json().took
 				};
 				self.setProp.emit(propInfo);
+				self.result.output = JSON.stringify(res.json(), null, 2);
+				if($('#resultModal').hasClass('in')) {
+					self.responseHookHelp.setValue(self.result.output);
+				} else {
+					setTimeout(function() {
+						self.responseHookHelp.setValue(self.result.output);
+					}, 300);
+				}
+				
 			}).catch(function(data) {
 				$('#resultModal').modal('hide');
 				self.result.isWatching = false;

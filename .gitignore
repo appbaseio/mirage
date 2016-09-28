@@ -13,3 +13,4 @@ mirage-unpacked
 mirage-unpacked?
 mirage.zip
 *.log
+npm-debug.log.*

@@ -87,5 +87,13 @@
 #resultModal {
   .modal-dialog {
     width: 90%;
+    position: relative;
+    .modal-body {
+      height: 70%;
+      position: relative;
+      .CodeMirror {
+        height: 100%;
+      }
+    }
   }
 }

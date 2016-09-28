@@ -5,6 +5,7 @@ exports.EditorHook = function (config) {
 };
 exports.EditorHook.prototype.applyEditor = function (settings) {
     var self = this;
+    this.settings = settings;
     var defaultOptions = {
         lineNumbers: true,
         mode: "javascript",
@@ -21,6 +22,11 @@ exports.EditorHook.prototype.applyEditor = function (settings) {
 };
 exports.EditorHook.prototype.setValue = function (value) {
     this.editor.setValue(value);
+};
+exports.EditorHook.prototype.focus = function (value) {
+    this.editor.toTextArea();
+    this.applyEditor(this.settings);
+    this.setValue(value);
 };
 exports.EditorHook.prototype.getValue = function () {
     return this.editor.getValue();

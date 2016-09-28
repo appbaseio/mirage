@@ -10,10 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var globalshare_service_1 = require("../../shared/globalshare.service");
+var docService_1 = require("../../shared/docService");
 var select2Component = (function () {
-    function select2Component(globalShare) {
+    function select2Component(globalShare, docService) {
         this.globalShare = globalShare;
+        this.docService = docService;
         this.callback = new core_1.EventEmitter();
+        this.setDocSample = new core_1.EventEmitter();
     }
     select2Component.prototype.ngOnChanges = function () { };
     select2Component.prototype.ngAfterContentInit = function () {
@@ -54,7 +57,7 @@ var select2Component = (function () {
                         var val = $(item).html();
                         var info = this.getInformation(val);
                         $(item).popover(info);
-                        $(item).on('shown.bs.popover', this.setLink);
+                        $(item).on('shown.bs.popover', this.setLink.bind(this));
                         this.setLink();
                     }.bind(this));
                 }.bind(this), 300);
@@ -70,13 +73,16 @@ var select2Component = (function () {
         return query;
     };
     select2Component.prototype.setLink = function () {
+        var self = this;
         setTimeout(function () {
             $('.popover a').unbind('click').on('click', function (event) {
                 event.preventDefault();
-                var link = $(this).attr('href');
-                window.open(link, '_blank');
+                var link = event.target.href;
+                self.setDocSample.emit(link);
+                // self.docService.emitNavChangeEvent(link);
+                // window.open(link, '_blank');
             });
-        }, 500);
+        }.bind(this), 500);
     };
     __decorate([
         core_1.Input(), 
@@ -103,6 +109,10 @@ var select2Component = (function () {
         __metadata('design:type', Object)
     ], select2Component.prototype, "callback", void 0);
     __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], select2Component.prototype, "setDocSample", void 0);
+    __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
     ], select2Component.prototype, "informationList", void 0);
@@ -110,10 +120,10 @@ var select2Component = (function () {
         core_1.Component({
             selector: 'select2',
             templateUrl: './app/build/select2/select2.component.html',
-            inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff"],
-            providers: [globalshare_service_1.GlobalShare]
+            inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff", "setDocSample"],
+            providers: [globalshare_service_1.GlobalShare, docService_1.DocService]
         }), 
-        __metadata('design:paramtypes', [globalshare_service_1.GlobalShare])
+        __metadata('design:paramtypes', [globalshare_service_1.GlobalShare, docService_1.DocService])
     ], select2Component);
     return select2Component;
 }());

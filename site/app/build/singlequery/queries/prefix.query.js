@@ -26,7 +26,7 @@ var PrefixQuery = (function () {
                 content: "<span class=\"description\"> Operator content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -43,9 +43,10 @@ var PrefixQuery = (function () {
         this.queryFormat = {};
     }
     PrefixQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].value) {
+                if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('value')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'value') {
@@ -64,6 +65,7 @@ var PrefixQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     PrefixQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -112,16 +114,30 @@ var PrefixQuery = (function () {
     PrefixQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    PrefixQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     PrefixQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     PrefixQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

@@ -26,7 +26,7 @@ var RangeQuery = (function () {
                 content: "<span class=\"description\"> Operator content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'boost'
         ];
         this.singleOption = {
@@ -47,6 +47,7 @@ var RangeQuery = (function () {
         this.queryFormat = {};
     }
     RangeQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['range'][this.fieldName]['from']) {
                 this.inputs.from.value = this.appliedQuery['range'][this.fieldName]['from'];
@@ -66,6 +67,7 @@ var RangeQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     RangeQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -113,16 +115,30 @@ var RangeQuery = (function () {
     RangeQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    RangeQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
     RangeQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
         this.optionRows.push(singleOption);
     };
     RangeQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

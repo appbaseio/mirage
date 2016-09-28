@@ -143,6 +143,7 @@ export class CommonQuery implements OnInit, OnChanges {
 
 	addOption() {
 		var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+		this.filterOptions();
 		this.optionRows.push(singleOption);
 	}
 
@@ -202,6 +203,7 @@ export class CommonQuery implements OnInit, OnChanges {
 	}
 	removeOption(index: Number) {
 		this.optionRows.splice(index, 1);
+		this.filterOptions();
 		this.getFormat();
 	}
 }

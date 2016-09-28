@@ -1,0 +1,6 @@
+@media screen and (max-width: 768px) {
+  #mirage-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto; } }

@@ -34,3 +34,14 @@
       padding-left: 15px;
       line-height: 30px;
       font-size: 20px; }
+
+.app-container {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 60px;
+  height: 100%; }
+  .app-container .query-main-container {
+    position: relative;
+    min-height: 100%;
+    height: auto;
+    display: block; }

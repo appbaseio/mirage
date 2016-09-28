@@ -20,11 +20,14 @@ var appbase_service_1 = require("./shared/appbase.service");
 var urlShare_1 = require("./shared/urlShare");
 var error_modal_component_1 = require("./features/modal/error-modal.component");
 var appselect_component_1 = require("./features/appselect/appselect.component");
+var docsidebar_component_1 = require("./features/docSidebar/docsidebar.component");
 var storage_service_1 = require("./shared/storage.service");
+var docService_1 = require("./shared/docService");
 var AppComponent = (function () {
-    function AppComponent(appbaseService, storageService) {
+    function AppComponent(appbaseService, storageService, docService) {
         this.appbaseService = appbaseService;
         this.storageService = storageService;
+        this.docService = docService;
         this.connected = false;
         this.initial_connect = false;
         this.detectChange = null;
@@ -51,6 +54,7 @@ var AppComponent = (function () {
         this.responseHookHelp = new editorHook_1.EditorHook({ editorId: 'responseBlock' });
         this.urlShare = new urlShare_1.UrlShare();
         this.result_time_taken = null;
+        this.version = '2.0';
         this.active = true;
         this.powers = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
@@ -63,6 +67,9 @@ var AppComponent = (function () {
         this.submitted = false;
     }
     AppComponent.prototype.onSubmit = function () { this.submitted = true; };
+    AppComponent.prototype.setDocSample = function (link) {
+        this.docLink = link;
+    };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
         this.setInitialValue();
@@ -181,12 +188,28 @@ var AppComponent = (function () {
             this.config.password = pwsplit[0];
             if (pwsplit.length > 1) {
                 this.config.host = urlsplit[0] + '://' + pwsplit[1];
+                if (urlsplit[3]) {
+                    this.config.host += ':' + urlsplit[3];
+                }
             }
             else {
                 this.config.host = URL;
             }
             var self = this;
             this.appbaseService.setAppbase(this.config);
+            this.appbaseService.getVersion().then(function (res) {
+                var data = res.json();
+                if (data && data.version && data.version.number) {
+                    var version = data.version.number;
+                    self.version = version;
+                    if (self.version.split('.')[0] !== '2') {
+                        self.errorShow({
+                            title: 'Elasticsearch Version Not Supported',
+                            message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+                        });
+                    }
+                }
+            });
             this.appbaseService.get('/_mapping').then(function (res) {
                 self.connected = true;
                 var data = res.json();
@@ -223,7 +246,12 @@ var AppComponent = (function () {
                 self.urlShare.inputs['finalUrl'] = self.finalUrl;
                 self.urlShare.createUrl();
                 setTimeout(function () {
-                    self.setLayoutResizer();
+                    if ($('body').width() > 768) {
+                        self.setLayoutResizer();
+                    }
+                    else {
+                        self.setMobileLayout();
+                    }
                     self.editorHookHelp.setValue('');
                 }, 300);
             }).catch(function (e) {
@@ -247,34 +275,48 @@ var AppComponent = (function () {
         }
         return types;
     };
-    AppComponent.prototype.newQuery = function (query) {
-        this.connected = false;
-        this.config = query.config;
-        this.appbaseService.get('/_mapping').then(function (res) {
-            var _this = this;
-            var data = res.json();
-            this.connected = true;
-            this.result = query.result;
-            this.mapping = data;
-            this.types = this.seprateType(data);
-            this.selectedTypes = query.selectedTypes;
-            setTimeout(function () { $('#setType').val(_this.selectedTypes).trigger("change"); }, 300);
-        }.bind(this));
-        this.query_info.name = query.name;
-        this.query_info.tag = query.tag;
-        this.detectChange = "check";
+    AppComponent.prototype.newQuery = function (currentQuery) {
+        var queryList = this.storageService.get('queryList');
+        if (queryList) {
+            var list = JSON.parse(queryList);
+            var queryData = list.filter(function (query) {
+                return query.name === currentQuery.name && query.tag === currentQuery.tag;
+            });
+            var query_1;
+            if (queryData.length) {
+                query_1 = queryData[0];
+                this.connected = false;
+                this.config = query_1.config;
+                this.appbaseService.get('/_mapping').then(function (res) {
+                    var _this = this;
+                    var data = res.json();
+                    this.connected = true;
+                    this.result = query_1.result;
+                    this.mapping = data;
+                    this.types = this.seprateType(data);
+                    this.selectedTypes = query_1.selectedTypes;
+                    setTimeout(function () { $('#setType').val(_this.selectedTypes).trigger("change"); }, 300);
+                }.bind(this));
+                this.query_info.name = query_1.name;
+                this.query_info.tag = query_1.tag;
+                this.detectChange = "check";
+            }
+        }
     };
-    AppComponent.prototype.deleteQuery = function (index) {
+    AppComponent.prototype.deleteQuery = function (currentQuery) {
         var confirmFlag = confirm("Do you want to delete this query?");
         if (confirmFlag) {
             this.getQueryList();
-            var selectedQuery = this.filteredQuery[index];
             this.savedQueryList.forEach(function (query, index) {
-                if (query.name === selectedQuery.name && query.tag === selectedQuery.tag) {
+                if (query.name === currentQuery.name && query.tag === currentQuery.tag) {
                     this.savedQueryList.splice(index, 1);
                 }
             }.bind(this));
-            this.filteredQuery.splice(index, 1);
+            this.filteredQuery.forEach(function (query, index) {
+                if (query.name === currentQuery.name && query.tag === currentQuery.tag) {
+                    this.filteredQuery.splice(index, 1);
+                }
+            }.bind(this));
             try {
                 this.storageService.set('queryList', JSON.stringify(this.savedQueryList));
             }
@@ -308,6 +350,7 @@ var AppComponent = (function () {
             result: this.result,
             name: this.query_info.name,
             tag: this.query_info.tag,
+            version: this.version,
             createdAt: createdAt
         };
         this.savedQueryList.push(queryData);
@@ -382,6 +425,11 @@ var AppComponent = (function () {
         setSidebar();
         $(window).on('resize', setSidebar);
     };
+    AppComponent.prototype.setMobileLayout = function () {
+        var bodyHeight = $('body').height();
+        $('#mirage-container').css('height', bodyHeight - 116);
+        $('#paneCenter, #paneEast').css('height', bodyHeight);
+    };
     AppComponent.prototype.setConfig = function (selectedConfig) {
         this.config.appname = selectedConfig.appname;
         this.config.url = selectedConfig.url;
@@ -398,10 +446,10 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: './app/app.component.html',
-            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent],
-            providers: [appbase_service_1.AppbaseService, storage_service_1.StorageService]
+            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent],
+            providers: [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService]
         }), 
-        __metadata('design:paramtypes', [appbase_service_1.AppbaseService, storage_service_1.StorageService])
+        __metadata('design:paramtypes', [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService])
     ], AppComponent);
     return AppComponent;
 }());

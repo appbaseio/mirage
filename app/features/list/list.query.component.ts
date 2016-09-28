@@ -23,12 +23,17 @@ export class ListQueryComponent implements OnInit {
 
 	ngOnInit() {}
 
-	applyQuery(queryData) {
-		this.newQuery.emit(queryData);
+	applyQuery(currentQuery) {
+		var queryData = this.savedQueryList.filter(function(query) {
+			return query.name === currentQuery.name && query.tag === currentQuery.tag;
+		});
+		if(queryData.length) {
+			this.newQuery.emit(queryData[0]);
+		}
 	}
 
-	applyDeleteQuery(index) {
-		this.deleteQuery.emit(index);
+	applyDeleteQuery(query) {
+		this.deleteQuery.emit(query);
 	}
 
 	applyClearAll() {

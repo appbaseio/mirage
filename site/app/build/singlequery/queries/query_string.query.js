@@ -34,7 +34,7 @@ var QueryStringQuery = (function () {
                 content: "<span class=\"description\"> zero_terms content </span>"
             }
         };
-        this.options = [
+        this.default_options = [
             'fields',
             'default_field',
             'use_dis_max'
@@ -56,6 +56,7 @@ var QueryStringQuery = (function () {
         this.queryFormat = {};
     }
     QueryStringQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query]) {
                 var applied = this.appliedQuery[this.current_query];
@@ -83,6 +84,7 @@ var QueryStringQuery = (function () {
         }
         catch (e) { }
         this.getFormat();
+        this.filterOptions();
     };
     QueryStringQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
@@ -98,10 +100,6 @@ var QueryStringQuery = (function () {
                 this.optionRows = [];
             }
         }
-    };
-    QueryStringQuery.prototype.addOption = function () {
-        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
-        this.optionRows.push(singleOption);
     };
     // QUERY FORMAT
     /*
@@ -141,12 +139,30 @@ var QueryStringQuery = (function () {
     QueryStringQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
+        this.filterOptions();
         setTimeout(function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    QueryStringQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    QueryStringQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
     QueryStringQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
+        this.filterOptions();
         this.getFormat();
     };
     __decorate([

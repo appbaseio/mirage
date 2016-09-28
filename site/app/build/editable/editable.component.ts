@@ -5,7 +5,7 @@ declare var $;
 @Component({
 	selector: 'editable',
 	templateUrl: './app/build/editable/editable.component.html',
-	inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff'],
+	inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff', 'setDocSample'],
 	directives: [select2Component]
 })
 
@@ -18,6 +18,7 @@ export class EditableComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() editableModal: any;
 	@Input() passWithCallback: any;
 	@Output() callback = new EventEmitter();
+	@Output() setDocSample = new EventEmitter < any >();
 
 	ngOnInit() {
 	}
@@ -53,6 +54,9 @@ export class EditableComponent implements OnInit, OnChanges, AfterViewInit {
 				this.callback.emit(this.editableModal);
 			}
 		}.bind(this), 300);
+	}
+	setDocSampleEve(link) {
+		this.setDocSample.emit(link);
 	}
 
 }

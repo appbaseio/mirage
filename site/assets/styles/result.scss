@@ -1,11 +1,40 @@
 @import "variables.scss";
 .query-result-container {
 	background: $grey-bg;
+	padding-bottom: 96px;
 	.queryRight {
 		padding: 15px 15px 15px 0;
 		background: $grey-bg;
 		border-left: 1px solid darken($grey-bg, 10%);
 		border-bottom: 1px solid darken($grey-bg, 10%);
+		height: 100%;
+		position: relative;
+		.rightRow {
+			position: absolute;
+			left: 0;
+			width: 100%;
+			margin: 0;
+			padding: 0 15px;
+			&.url-row {
+				top: 0;
+			}
+			&.run-row {
+				bottom: 0;
+				padding-bottom: 15px;
+			}
+		}
+		.codeMirror-container {
+			height: 100%;
+		    position: relative;
+		    padding: 25px 0 50px 0;
+			.CodeMirror {
+				height: 100%;
+
+			}
+		}
+	}
+	@media screen and (max-width: 768px) {
+		padding-bottom: 0;
 	}
 }
 .codemirror {
