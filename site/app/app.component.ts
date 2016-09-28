@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChange } from "@angular/core";
+import {Subscription} from 'rxjs/Subscription';
 import { NgForm }    from '@angular/forms';
 import { BuildComponent } from "./build/build.component";
 import { ResultComponent } from "./result/result.component";
@@ -12,19 +13,22 @@ import { AppbaseService } from "./shared/appbase.service";
 import { UrlShare } from "./shared/urlShare";
 import { ErrorModalComponent } from "./features/modal/error-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
+import { DocSidebarComponent } from "./features/docSidebar/docsidebar.component";
 import { StorageService } from "./shared/storage.service";
+import { DocService } from "./shared/docService";
+
 declare var $: any;
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent],
-	providers: [AppbaseService, StorageService]
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent],
+	providers: [AppbaseService, StorageService, DocService]
 })
 
 export class AppComponent implements OnInit, OnChanges {
 
-	constructor(public appbaseService: AppbaseService, public storageService: StorageService) {}
+	constructor(public appbaseService: AppbaseService, public storageService: StorageService, public docService: DocService) {}
 
 	public connected: boolean = false;
 	public initial_connect: boolean = false;
@@ -59,6 +63,8 @@ export class AppComponent implements OnInit, OnChanges {
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
 	public version: string = '2.0';
+	public docLink: string;
+	subscription:Subscription;
 	active = true;
 	powers = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
@@ -70,6 +76,10 @@ export class AppComponent implements OnInit, OnChanges {
   	};
   	submitted = false;
   	onSubmit() { this.submitted = true; }
+
+  	setDocSample(link) { 
+  		this.docLink = link; 
+  	}
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
@@ -83,6 +93,7 @@ export class AppComponent implements OnInit, OnChanges {
 		
 		this.getLocalConfig();
 		this.getQueryList();
+		
 	}
 
 	ngOnChanges(changes) {
@@ -207,8 +218,8 @@ export class AppComponent implements OnInit, OnChanges {
 					self.version = version; 
 					if(self.version.split('.')[0] !== '2') {
 						self.errorShow({
-							title: 'Elasticsearch Version Support',
-							message: 'We are only supporting version 2.x for Mirage'
+							title: 'Elasticsearch Version Not Supported',
+							message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
 						});
 					}
 				}
@@ -251,7 +262,11 @@ export class AppComponent implements OnInit, OnChanges {
 				self.urlShare.inputs['finalUrl'] = self.finalUrl;
 				self.urlShare.createUrl();
 				setTimeout(function() {
-					self.setLayoutResizer();
+					if($('body').width() > 768) {
+						self.setLayoutResizer();
+					} else {
+						self.setMobileLayout();
+					}
 					self.editorHookHelp.setValue('');
 				}, 300);
 				
@@ -277,34 +292,48 @@ export class AppComponent implements OnInit, OnChanges {
 		return types;
 	}
 
-	newQuery(query) {
-		this.connected = false;
-		this.config = query.config;
-		this.appbaseService.get('/_mapping').then(function(res) {
-			let data = res.json();
-			this.connected = true;
-			this.result = query.result;
-			this.mapping = data;
-			this.types = this.seprateType(data);
-			this.selectedTypes = query.selectedTypes;
-			setTimeout(() => { $('#setType').val(this.selectedTypes).trigger("change"); }, 300);
-		}.bind(this));	
-		this.query_info.name = query.name;
-		this.query_info.tag = query.tag;
-		this.detectChange = "check";
+	newQuery(currentQuery) {
+		let queryList = this.storageService.get('queryList');
+		if (queryList) {
+			let list = JSON.parse(queryList);	
+			let queryData = list.filter(function(query) {
+				return query.name === currentQuery.name && query.tag === currentQuery.tag;
+			});
+			let query;
+			if(queryData.length) {
+				query = queryData[0];
+				this.connected = false;
+				this.config = query.config;
+				this.appbaseService.get('/_mapping').then(function(res) {
+					let data = res.json();
+					this.connected = true;
+					this.result = query.result;
+					this.mapping = data;
+					this.types = this.seprateType(data);
+					this.selectedTypes = query.selectedTypes;
+					setTimeout(() => { $('#setType').val(this.selectedTypes).trigger("change"); }, 300);
+				}.bind(this));	
+				this.query_info.name = query.name;
+				this.query_info.tag = query.tag;
+				this.detectChange = "check";
+			}
+		}
 	}
 
-	deleteQuery(index) {
+	deleteQuery(currentQuery) {
 		var confirmFlag = confirm("Do you want to delete this query?");
 		if (confirmFlag) {
 			this.getQueryList();
-			var selectedQuery = this.filteredQuery[index];
 			this.savedQueryList.forEach(function(query: any, index: Number) {
-				if (query.name === selectedQuery.name && query.tag === selectedQuery.tag) {
+				if (query.name === currentQuery.name && query.tag === currentQuery.tag) {
 					this.savedQueryList.splice(index, 1);
 				}
 			}.bind(this));
-			this.filteredQuery.splice(index, 1);
+			this.filteredQuery.forEach(function(query: any, index: Number) {
+				if (query.name === currentQuery.name && query.tag === currentQuery.tag) {
+					this.filteredQuery.splice(index, 1);
+				}
+			}.bind(this));
 			try {
 				this.storageService.set('queryList', JSON.stringify(this.savedQueryList));
 			} catch (e) {}
@@ -420,6 +449,11 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 		setSidebar();
 		$(window).on('resize', setSidebar);
+	}
+	setMobileLayout() {
+		var bodyHeight = $('body').height();
+		$('#mirage-container').css('height', bodyHeight- 116);
+		$('#paneCenter, #paneEast').css('height', bodyHeight);
 	}
 
 	setConfig(selectedConfig: any) {

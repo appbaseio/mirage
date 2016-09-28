@@ -20,11 +20,16 @@ var ListQueryComponent = (function () {
         this.direction = false;
     }
     ListQueryComponent.prototype.ngOnInit = function () { };
-    ListQueryComponent.prototype.applyQuery = function (queryData) {
-        this.newQuery.emit(queryData);
+    ListQueryComponent.prototype.applyQuery = function (currentQuery) {
+        var queryData = this.savedQueryList.filter(function (query) {
+            return query.name === currentQuery.name && query.tag === currentQuery.tag;
+        });
+        if (queryData.length) {
+            this.newQuery.emit(queryData[0]);
+        }
     };
-    ListQueryComponent.prototype.applyDeleteQuery = function (index) {
-        this.deleteQuery.emit(index);
+    ListQueryComponent.prototype.applyDeleteQuery = function (query) {
+        this.deleteQuery.emit(query);
     };
     ListQueryComponent.prototype.applyClearAll = function () {
         this.clearAll.emit(null);
