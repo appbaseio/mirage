@@ -44,11 +44,7 @@
 		</div>
 	</form>
 	<!-- HEADER END -->
-	<footer class="text-center"> <span class="text-right pull-right powered_by">
-		  Create your ElasticSearch in cloud with&nbsp;<a href="http://appbase.io">appbase.io</a>
-		</span> <span class="pull-left github-star">
-		  <iframe src="https://ghbtns.com/github-btn.html?user=appbaseio&repo=mirage&type=star&count=true" frameBorder="0" scrolling="0" width="120px" height="20px"></iframe>
-		</span> </footer>
+	<!-- Mirage-container START -->
 	<div class="container-fluid" id="mirage-container">
 		<div class="row feature-query-container" [ngClass]="{off: !sidebar}">
 			<!-- Sidebar start -->
@@ -69,10 +65,8 @@
 				</div>
 			</div>
 			<!-- Query main container end -->
-			<!-- Doc Sidebar start -->
-			<doc-sidebar [docLink]="docLink"></doc-sidebar>
-			<!-- Doc Sidebar end -->
 		</div>
+		<!-- Result Modal START -->
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="row">
@@ -80,7 +74,20 @@
 				</div>
 			</div>
 		</div>
+		<!-- Result Modal END -->
 	</div>
+	<!-- Mirage-container END -->
+	<!-- Doc Sidebar start -->
+	<doc-sidebar [docLink]="docLink"></doc-sidebar>
+	<!-- Doc Sidebar end -->
+	<!-- Footer START -->
+	<footer class="text-center"> <span class="text-right pull-right powered_by">
+		  Create your ElasticSearch in cloud with&nbsp;<a href="http://appbase.io">appbase.io</a>
+		</span> <span class="pull-left github-star">
+		  <iframe src="https://ghbtns.com/github-btn.html?user=appbaseio&repo=mirage&type=star&count=true" frameBorder="0" scrolling="0" width="120px" height="20px"></iframe>
+		</span> </footer>
+	<!-- Footer END -->
+	
 </div>
 <div class="modal fade" id="saveQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
