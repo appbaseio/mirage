@@ -38,6 +38,7 @@ var SinglequeryComponent = (function () {
             field: 'field-select',
             query: 'query-select'
         };
+        this.setDocSample = new core_1.EventEmitter();
         this.informationList = {};
     }
     // on initialize set the query selector
@@ -117,6 +118,9 @@ var SinglequeryComponent = (function () {
             return ele.name === fieldName;
         });
     };
+    SinglequeryComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -133,6 +137,10 @@ var SinglequeryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SinglequeryComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "setDocSample", void 0);
     __decorate([
         core_1.ViewChild(match_query_1.MatchQuery), 
         __metadata('design:type', match_query_1.MatchQuery)
@@ -217,7 +225,7 @@ var SinglequeryComponent = (function () {
         core_1.Component({
             selector: 'single-query',
             templateUrl: './app/build/singlequery/singlequery.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
+            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample'],
             directives: [
                 editable_component_1.EditableComponent,
                 SinglequeryComponent,

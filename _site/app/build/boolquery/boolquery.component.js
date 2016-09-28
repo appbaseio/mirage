@@ -16,6 +16,7 @@ var BoolqueryComponent = (function () {
         this.queryList = this.queryList;
         this.removeArray = [];
         this.query = this.query;
+        this.setDocSample = new core_1.EventEmitter();
     }
     BoolqueryComponent.prototype.ngOnInit = function () {
         this.exeBuild();
@@ -60,6 +61,9 @@ var BoolqueryComponent = (function () {
     BoolqueryComponent.prototype.hide_hidden_btns = function () {
         $('.bool_query').removeClass('show_hidden');
     };
+    BoolqueryComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -76,11 +80,15 @@ var BoolqueryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], BoolqueryComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "setDocSample", void 0);
     BoolqueryComponent = __decorate([
         core_1.Component({
             selector: 'bool-query',
             templateUrl: './app/build/boolquery/boolquery.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
+            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample'],
             directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent, editable_component_1.EditableComponent]
         }), 
         __metadata('design:paramtypes', [])

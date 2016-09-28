@@ -26,7 +26,7 @@ var ResultComponent = (function () {
             backdrop: 'static'
         });
         $('#resultModal').on('hide.bs.modal', function () {
-            self.responseHookHelp.setValue('{}');
+            self.responseHookHelp.focus('{"Loading": "please wait......"}');
             var propInfo = {
                 name: 'result_time_taken',
                 value: null
@@ -42,7 +42,6 @@ var ResultComponent = (function () {
         this.appbaseService.setAppbase(this.config);
         var validate = this.checkValidQuery();
         if (validate.flag) {
-            self.responseHookHelp.setValue('{"Loading": "please wait......"}');
             $('#resultModal').modal('show');
             this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function (res) {
                 self.result.isWatching = false;
@@ -54,12 +53,10 @@ var ResultComponent = (function () {
                 self.result.output = JSON.stringify(res.json(), null, 2);
                 if ($('#resultModal').hasClass('in')) {
                     self.responseHookHelp.setValue(self.result.output);
-                    self.responseHookHelp.focus();
                 }
                 else {
                     setTimeout(function () {
                         self.responseHookHelp.setValue(self.result.output);
-                        self.responseHookHelp.focus();
                     }, 300);
                 }
             }).catch(function (data) {

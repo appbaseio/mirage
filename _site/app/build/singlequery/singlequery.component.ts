@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, AfterViewInit, ViewChild } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, AfterViewInit, ViewChild, Output, EventEmitter } from "@angular/core";
 import { select2Component } from '../select2/select2.component';
 import { EditableComponent } from '../editable/editable.component';
 import { MatchQuery } from './queries/match.query';
@@ -25,7 +25,7 @@ declare var $: any;
 @Component({
 	selector: 'single-query',
 	templateUrl: './app/build/singlequery/singlequery.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result',  'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result',  'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample'],
 	directives: [
 		EditableComponent,
 		SinglequeryComponent,
@@ -70,6 +70,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
+	@Output() setDocSample = new EventEmitter < any >();
 	
 	@ViewChild(MatchQuery) private matchQuery: MatchQuery;
 	@ViewChild(Match_phraseQuery) private match_phraseQuery: Match_phraseQuery;
@@ -176,5 +177,9 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 		return this.result.resultQuery.availableFields.filter(function(ele: any) {
 			return ele.name === fieldName;
 		});
+	}
+
+	setDocSampleEve(link) {
+		this.setDocSample.emit(link);
 	}
 }

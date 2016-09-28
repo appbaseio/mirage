@@ -8,7 +8,7 @@
 		</div>
 	</div>
 	<div class="editable-back col-xs-12 pd-0" *ngIf="editableInput == 'select2'">
-		<select2 [selectOptions]="selectOption" [querySelector]="querySelector" [selector]="selector" (callback)="callback.emit($event);" [showInfoFlag]="showInfoFlag" [informationList]="informationList"  [passWithCallback]="passWithCallback" [searchOff]="searchOff"></select2>
+		<select2 [selectOptions]="selectOption" [querySelector]="querySelector" [selector]="selector" (callback)="callback.emit($event);" [showInfoFlag]="showInfoFlag" [informationList]="informationList"  [passWithCallback]="passWithCallback" [searchOff]="searchOff" (setDocSample)="setDocSampleEve($event);"></select2>
 	</div>	
 	<div class="editable-back col-xs-12 pd-0" *ngIf="editableInput == 'select'">
 		<select class="form-control form-element" [(ngModel)]="editableModal" (change)="editable_off($event);">
