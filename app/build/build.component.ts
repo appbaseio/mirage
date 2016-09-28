@@ -8,7 +8,7 @@ declare var $: any;
 @Component({
 	selector: 'query-build',
 	templateUrl: './app/build/build.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare', 'setDocSample'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
@@ -43,6 +43,7 @@ export class BuildComponent implements OnInit {
 	@Input() urlShare: any;
 	@Output() saveQuery = new EventEmitter < any > ();
 	@Output() setProp = new EventEmitter < any > ();
+	@Output() setDocSample = new EventEmitter < any >();
 
 	ngOnInit() {
 		this.handleEditable();
@@ -219,5 +220,9 @@ export class BuildComponent implements OnInit {
 
 	setPropIn(propObj: any) {
 		this.setProp.emit(propObj);
+	}
+
+	setDocSampleEve(link) {
+		this.setDocSample.emit(link);
 	}
 }

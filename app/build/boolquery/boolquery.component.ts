@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { SinglequeryComponent } from "../singlequery/singlequery.component";
 import { EditableComponent } from '../editable/editable.component';
 declare var $: any;
@@ -6,7 +6,7 @@ declare var $: any;
 @Component({
 	selector: 'bool-query',
 	templateUrl: './app/build/boolquery/boolquery.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare'],
+	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample'],
 	directives: [BoolqueryComponent, SinglequeryComponent, EditableComponent]
 })
 
@@ -23,6 +23,7 @@ export class BoolqueryComponent implements OnInit {
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
+	@Output() setDocSample = new EventEmitter < any >();
 	
 	ngOnInit() {
 		this.exeBuild();
@@ -67,5 +68,9 @@ export class BoolqueryComponent implements OnInit {
 	}
 	hide_hidden_btns() {
 		$('.bool_query').removeClass('show_hidden');
+	}
+
+	setDocSampleEve(link) {
+		this.setDocSample.emit(link);
 	}
 }
