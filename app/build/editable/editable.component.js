@@ -13,6 +13,7 @@ var select2_component_1 = require('../select2/select2.component');
 var EditableComponent = (function () {
     function EditableComponent() {
         this.callback = new core_1.EventEmitter();
+        this.setDocSample = new core_1.EventEmitter();
     }
     EditableComponent.prototype.ngOnInit = function () {
     };
@@ -48,6 +49,9 @@ var EditableComponent = (function () {
             }
         }.bind(this), 300);
     };
+    EditableComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -80,11 +84,15 @@ var EditableComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], EditableComponent.prototype, "callback", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], EditableComponent.prototype, "setDocSample", void 0);
     EditableComponent = __decorate([
         core_1.Component({
             selector: 'editable',
             templateUrl: './app/build/editable/editable.component.html',
-            inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff'],
+            inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff', 'setDocSample'],
             directives: [select2_component_1.select2Component]
         }), 
         __metadata('design:paramtypes', [])

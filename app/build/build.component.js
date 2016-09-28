@@ -35,6 +35,7 @@ var BuildComponent = (function () {
         };
         this.saveQuery = new core_1.EventEmitter();
         this.setProp = new core_1.EventEmitter();
+        this.setDocSample = new core_1.EventEmitter();
     }
     BuildComponent.prototype.ngOnInit = function () {
         this.handleEditable();
@@ -205,6 +206,9 @@ var BuildComponent = (function () {
     BuildComponent.prototype.setPropIn = function (propObj) {
         this.setProp.emit(propObj);
     };
+    BuildComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -245,11 +249,15 @@ var BuildComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], BuildComponent.prototype, "setProp", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], BuildComponent.prototype, "setDocSample", void 0);
     BuildComponent = __decorate([
         core_1.Component({
             selector: 'query-build',
             templateUrl: './app/build/build.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare'],
+            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare', 'setDocSample'],
             directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
         }), 
         __metadata('design:paramtypes', [])
