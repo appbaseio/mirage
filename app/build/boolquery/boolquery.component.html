@@ -43,7 +43,8 @@
 				[createQuery]="createQuery"
 				[setQueryFormat]="setQueryFormat"
 				[editorHookHelp]="editorHookHelp"
-				[urlShare]="urlShare">
+				[urlShare]="urlShare"
+				(setDocSample)="setDocSampleEve($event);">
 			</single-query>
 		</form>
 	</div>
@@ -71,7 +72,8 @@
 					[createQuery]="createQuery"
 					[setQueryFormat]="setQueryFormat"
 					[editorHookHelp]="editorHookHelp"
-					[urlShare]="urlShare">
+					[urlShare]="urlShare"
+					(setDocSample)="setDocSample($event);" >
 				</bool-query>
 			</div>
 		</form>

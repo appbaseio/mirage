@@ -1,12 +1,14 @@
 import { Component, OnChanges, SimpleChange, Input, Output, AfterContentInit, EventEmitter } from "@angular/core";
 import { GlobalShare } from "../../shared/globalshare.service";
+import { DocService } from "../../shared/docService";
+
 declare var $: any;
 
 @Component({
 	selector: 'select2',
 	templateUrl: './app/build/select2/select2.component.html',
-	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff"],
-	providers: [GlobalShare]
+	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff", "setDocSample"],
+	providers: [GlobalShare, DocService]
 })
 
 export class select2Component implements OnChanges, AfterContentInit {
@@ -16,9 +18,10 @@ export class select2Component implements OnChanges, AfterContentInit {
 	@Input() passWithCallback: any;
 	@Input() searchOff: boolean;
 	@Output() callback = new EventEmitter();
+	@Output() setDocSample = new EventEmitter();
 	public select2Selector;
 	@Input() informationList;
-	constructor(private globalShare: GlobalShare) {}
+	constructor(private globalShare: GlobalShare, public docService: DocService) {}
 
 	ngOnChanges() {}
 
@@ -61,7 +64,7 @@ export class select2Component implements OnChanges, AfterContentInit {
 						var val = $(item).html();
 						var info = this.getInformation(val);
 						$(item).popover(info);
-						$(item).on('shown.bs.popover', this.setLink)
+						$(item).on('shown.bs.popover', this.setLink.bind(this))
 						this.setLink();
 					}.bind(this))
 				}.bind(this), 300);
@@ -79,13 +82,16 @@ export class select2Component implements OnChanges, AfterContentInit {
 	}
 
 	setLink() {
+		var self = this;
 		setTimeout(function() {
 			$('.popover a').unbind('click').on('click',function(event) {
 				event.preventDefault();
-				var link = $(this).attr('href');
-				window.open(link, '_blank');
+				var link = event.target.href;
+				self.setDocSample.emit(link);
+				// self.docService.emitNavChangeEvent(link);
+				// window.open(link, '_blank');
 			});
-		}, 500);
+		}.bind(this), 500);
 	}
 
 }

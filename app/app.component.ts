@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChange } from "@angular/core";
+import {Subscription} from 'rxjs/Subscription';
 import { NgForm }    from '@angular/forms';
 import { BuildComponent } from "./build/build.component";
 import { ResultComponent } from "./result/result.component";
@@ -12,19 +13,22 @@ import { AppbaseService } from "./shared/appbase.service";
 import { UrlShare } from "./shared/urlShare";
 import { ErrorModalComponent } from "./features/modal/error-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
+import { DocSidebarComponent } from "./features/docSidebar/docsidebar.component";
 import { StorageService } from "./shared/storage.service";
+import { DocService } from "./shared/docService";
+
 declare var $: any;
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent],
-	providers: [AppbaseService, StorageService]
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent],
+	providers: [AppbaseService, StorageService, DocService]
 })
 
 export class AppComponent implements OnInit, OnChanges {
 
-	constructor(public appbaseService: AppbaseService, public storageService: StorageService) {}
+	constructor(public appbaseService: AppbaseService, public storageService: StorageService, public docService: DocService) {}
 
 	public connected: boolean = false;
 	public initial_connect: boolean = false;
@@ -59,6 +63,8 @@ export class AppComponent implements OnInit, OnChanges {
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
 	public version: string = '2.0';
+	public docLink: string;
+	subscription:Subscription;
 	active = true;
 	powers = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
@@ -70,6 +76,10 @@ export class AppComponent implements OnInit, OnChanges {
   	};
   	submitted = false;
   	onSubmit() { this.submitted = true; }
+
+  	setDocSample(link) { 
+  		this.docLink = link; 
+  	}
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
@@ -83,6 +93,7 @@ export class AppComponent implements OnInit, OnChanges {
 		
 		this.getLocalConfig();
 		this.getQueryList();
+		
 	}
 
 	ngOnChanges(changes) {
