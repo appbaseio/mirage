@@ -223,17 +223,23 @@ export class AppComponent implements OnInit, OnChanges {
 			var self = this;
 			this.appbaseService.setAppbase(this.config);
 			this.appbaseService.getVersion().then(function(res) {
-				let data = res.json();
-				if(data && data.version && data.version.number) {
-					let version = data.version.number;
-					self.version = version; 
-					if(self.version.split('.')[0] !== '2') {
-						self.errorShow({
-							title: 'Elasticsearch Version Not Supported',
-							message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
-						});
+				try {
+					let data = res.json();
+					if(data && data.version && data.version.number) {
+						let version = data.version.number;
+						self.version = version; 
+						if(self.version.split('.')[0] !== '2') {
+							self.errorShow({
+								title: 'Elasticsearch Version Not Supported',
+								message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+							});
+						}
 					}
+				} catch(e) {
+					console.log(e);
 				}
+			}).catch(function(e) {
+				console.log('Not able to get the version.');
 			});
 			this.appbaseService.get('/_mapping').then(function(res) {
 				self.connected = true;
@@ -286,7 +292,8 @@ export class AppComponent implements OnInit, OnChanges {
 				let message = e.json().message ? e.json().message : '';
 				self.errorShow({
 					title: 'Authentication Error',
-					message: "It looks like your app name, username, password combination doesn\'t match. Check your url and appname and then connect it again."
+					message: `It looks like your app name, username, password combination doesn\'t match.
+					 			Check your url and appname and then connect it again.`
 				});
 			});
 		} catch(e) {
