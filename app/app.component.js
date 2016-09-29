@@ -46,6 +46,7 @@ var AppComponent = (function () {
         this.sort_by = 'createdAt';
         this.sort_direction = true;
         this.searchTerm = '';
+        this.searchByMethod = 'tag';
         this.sidebar = false;
         this.hide_url_flag = false;
         this.appsList = [];
@@ -370,11 +371,14 @@ var AppComponent = (function () {
         }.bind(this));
     };
     // Searching
-    AppComponent.prototype.searchList = function (searchTerm) {
+    AppComponent.prototype.searchList = function (obj) {
+        var searchTerm = obj.searchTerm;
+        var searchByMethod = obj.searchByMethod ? obj.searchByMethod : 'tag';
         this.searchTerm = searchTerm;
+        this.searchByMethod = searchByMethod;
         if (this.searchTerm.trim().length > 1) {
             this.filteredQuery = this.savedQueryList.filter(function (item) {
-                return item.tag.indexOf(this.searchTerm) !== -1 ? true : false;
+                return (item[this.searchByMethod] && item[this.searchByMethod].indexOf(this.searchTerm) !== -1) ? true : false;
             }.bind(this));
             if (!this.filteredQuery.length) {
                 this.filteredQuery = this.savedQueryList.filter(function (item) {

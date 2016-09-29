@@ -47,6 +47,7 @@ var AppComponent = (function () {
         this.sort_by = 'createdAt';
         this.sort_direction = true;
         this.searchTerm = '';
+        this.searchByMethod = 'tag';
         this.sidebar = false;
         this.hide_url_flag = false;
         this.appsList = [];
@@ -371,11 +372,14 @@ var AppComponent = (function () {
         }.bind(this));
     };
     // Searching
-    AppComponent.prototype.searchList = function (searchTerm) {
+    AppComponent.prototype.searchList = function (obj) {
+        var searchTerm = obj.searchTerm;
+        var searchByMethod = obj.searchByMethod ? obj.searchByMethod : 'tag';
         this.searchTerm = searchTerm;
+        this.searchByMethod = searchByMethod;
         if (this.searchTerm.trim().length > 1) {
             this.filteredQuery = this.savedQueryList.filter(function (item) {
-                return item.tag.indexOf(this.searchTerm) !== -1 ? true : false;
+                return (item[this.searchByMethod] && item[this.searchByMethod].indexOf(this.searchTerm) !== -1) ? true : false;
             }.bind(this));
             if (!this.filteredQuery.length) {
                 this.filteredQuery = this.savedQueryList.filter(function (item) {
@@ -4859,6 +4863,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var DocSidebarComponent = (function () {
     function DocSidebarComponent(sanitizer) {
         this.sanitizer = sanitizer;
+        this.setDocSample = new core_1.EventEmitter();
         this.open = false;
     }
     DocSidebarComponent.prototype.ngOnInit = function () { };
@@ -4869,17 +4874,22 @@ var DocSidebarComponent = (function () {
         }
     };
     DocSidebarComponent.prototype.close = function () {
+        this.setDocSample.emit(null);
         this.open = false;
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
     ], DocSidebarComponent.prototype, "docLink", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], DocSidebarComponent.prototype, "setDocSample", void 0);
     DocSidebarComponent = __decorate([
         core_1.Component({
             selector: 'doc-sidebar',
             templateUrl: './app/features/docSidebar/docsidebar.component.html',
-            inputs: ['docLink']
+            inputs: ['docLink', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [platform_browser_1.DomSanitizationService])
     ], DocSidebarComponent);
@@ -4925,10 +4935,14 @@ var ListQueryComponent = (function () {
         this.clearAll.emit(null);
     };
     ListQueryComponent.prototype.applySearchList = function () {
-        this.searchList.emit(this.searchTerm);
+        this.searchList.emit({
+            searchTerm: this.searchTerm,
+            searchByMethod: this.searchByMethod
+        });
     };
-    ListQueryComponent.prototype.tagApply = function (event, tag) {
+    ListQueryComponent.prototype.tagApply = function (event, tag, searchByMethod) {
         this.searchTerm = tag;
+        this.searchByMethod = searchByMethod;
         this.applySearchList();
         event.stopPropagation();
     };
