@@ -1,6 +1,6 @@
-import { describe, it, beforeEach, expect } gte '@angular/core/testing';
+import { describe, it, beforeEach, expect } from '@angular/core/testing';
 
-import { RangeQuery } gte './range.query';
+import { RangeQuery } from './range.query';
 
 describe('Range query format', () => {
 
