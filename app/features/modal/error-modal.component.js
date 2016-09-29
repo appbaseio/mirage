@@ -14,6 +14,10 @@ var ErrorModalComponent = (function () {
         this.callback = new core_1.EventEmitter();
     }
     ErrorModalComponent.prototype.ngOnInit = function () {
+        var self = this;
+        this.errorHookHelp.applyEditor({
+            lineNumbers: false
+        });
     };
     ErrorModalComponent.prototype.ngOnChanges = function () {
     };
@@ -22,6 +26,10 @@ var ErrorModalComponent = (function () {
         __metadata('design:type', Object)
     ], ErrorModalComponent.prototype, "info", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ErrorModalComponent.prototype, "errorHookHelp", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], ErrorModalComponent.prototype, "callback", void 0);
@@ -29,7 +37,7 @@ var ErrorModalComponent = (function () {
         core_1.Component({
             selector: 'error-modal',
             templateUrl: './app/features/modal/error-modal.component.html',
-            inputs: ['info', 'callback'],
+            inputs: ['info', 'callback', 'errorHookHelp'],
             directives: []
         }), 
         __metadata('design:paramtypes', [])
