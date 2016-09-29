@@ -10,7 +10,7 @@
 				<img src="assets/images/Mirage_Flat_9.png" alt="Mirage" class="img-responsive" />
 			</span>
 			<span class="tag-line">
-				An elegant query composer for Elasticsearch
+				The missing query explorer for Elasticsearch
 			</span>
 		</span>
 	</header>
@@ -19,7 +19,7 @@
 		<div class="esContainer">
 			<span class="action-btns">
 				<share-url [urlShare]="urlShare"></share-url>
-				<a class="link btn btn-default" (click)="viewData();"> <i class="fa fa-external-link"></i> View App Data </a>
+				<a class="link btn btn-default" (click)="viewData();">Data View <i class="fa fa-external-link"></i></a>
 			</span>
 			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
 				<appselect [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
@@ -87,7 +87,7 @@
 		  <iframe src="https://ghbtns.com/github-btn.html?user=appbaseio&repo=mirage&type=star&count=true" frameBorder="0" scrolling="0" width="120px" height="20px"></iframe>
 		</span> </footer>
 	<!-- Footer END -->
-	
+
 </div>
 <div class="modal fade" id="saveQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -95,7 +95,7 @@
 			<form (ngSubmit)="saveQuery()" #heroForm="ngForm">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-					<h4 class="modal-title" id="myModalLabel">Save Query</h4> 
+					<h4 class="modal-title" id="myModalLabel">Save Query</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
@@ -115,8 +115,8 @@
 				    </div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-default btn-primary" [disabled]="!heroForm.form.valid">Submit</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-default btn-primary" [disabled]="!heroForm.form.valid">Submit</button>
 				</div>
 			</form>
 		</div>
