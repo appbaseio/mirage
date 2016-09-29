@@ -68,22 +68,17 @@ export class AppComponent implements OnInit, OnChanges {
 	public version: string = '2.0';
 	public docLink: string;
 	public currentDeleteQuery: any;
-	subscription:Subscription;
 	active = true;
-	powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer'];
-  	model = {
-  		id: 18,
-  		name: 'Dr IQ', 
-  		power: this.powers[0],
-  		alterEgo: 'Chuck Overstreet'
-  	};
-  	submitted = false;
+	submitted = false;
   	public deleteItemInfo: any = {
 		title: 'Confirm Deletion',
 		message: 'Do you want to delete this query?',
 		yesText: 'Delete',
 		noText: 'Cancel'
+	};
+	public defaultApp: any = {
+		appname: '2016primaries',
+		url: 'https://Uy82NeW8e:c7d02cce-94cc-4b60-9b17-7e7325195851@scalr.api.appbase.io'
 	};
 
   	onSubmit() { this.submitted = true; }
@@ -96,20 +91,32 @@ export class AppComponent implements OnInit, OnChanges {
 		$('body').removeClass('is-loadingApp');
 		this.setInitialValue();
 		// get data from url
-		this.urlShare.decryptUrl();
-		if (this.urlShare.decryptedData.config) {
-			var config = this.urlShare.decryptedData.config;
+		let config = this.detectConfig();
+		if(config && config.url && config.appname) {
 			this.setLocalConfig(config.url, config.appname);
 		}
-		
 		this.getLocalConfig();
 		this.getQueryList();
-		
 	}
 
 	ngOnChanges(changes) {
 		var prev = changes['selectedQuery'].previousValue;
 		var current = changes['selectedQuery'].currentValue;
+	}
+
+	// detect app config, either get it from url or apply default config
+	detectConfig() {
+		let config = null;
+		let isDefault = window.location.href.indexOf('?default=true') > -1 ? true : false;
+		if(isDefault) {
+			config = this.defaultApp;
+		} else {
+			let decryptedData = this.urlShare.decryptUrl();
+			if(decryptedData.config) {
+				config = decryptedData.config;
+			}
+		}
+		return config;
 	}
 
 	//Get config from localstorage 

@@ -33,6 +33,7 @@ UrlShare.prototype.decryptUrl = function() {
         var bytes = CryptoJS.AES.decrypt(ciphertext[1], this.secret);
         this.decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     }
+    return this.decryptedData;
 }
 
 UrlShare.prototype.convertToUrl = function(type) {
