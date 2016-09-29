@@ -59,7 +59,7 @@ export class SimpleQueryStringQuery implements OnInit, OnChanges {
 	public information: any = {
 		title: 'Simple Query String',
 		content: `<span class="description">Returns matches based on SimpleQueryParser to parse its context. Simple Query String discards invalid parts of the query and never throws an exception.</span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Read more</a>`
 	};
 	public informationList: any = {
 		'fields': {

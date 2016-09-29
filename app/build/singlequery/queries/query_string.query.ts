@@ -59,7 +59,7 @@ export class QueryStringQuery implements OnInit, OnChanges {
 	public information: any = {
 		title: 'Query String',
 		content: `<span class="description">Returns matches based on a query that uses a query parser in order to parse its content.</span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-dsl-query-string-query">Documentation</a>`
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-dsl-query-string-query">Read more</a>`
 	};
 	public informationList: any = {
 		'default_field': {
