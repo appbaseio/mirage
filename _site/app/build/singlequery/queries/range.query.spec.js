@@ -8,8 +8,8 @@ testing_1.describe('Range query format', function () {
     var expectedFormat = {
         'range': {
             'age': {
-                'from': 25,
-                'to': 35
+                'gte': 25,
+                'lte': 35
             }
         }
     };
@@ -19,9 +19,9 @@ testing_1.describe('Range query format', function () {
         query.queryName = 'range';
         query.fieldName = 'age';
         query.inputs = {
-            from: {
+            gte: {
                 value: 25
-            }, to: {
+            }, lte: {
                 value: 35
             }
         };
@@ -55,9 +55,9 @@ testing_1.describe("xhr call (range)", function () {
         query.queryName = 'range';
         query.fieldName = 'age';
         query.inputs = {
-            from: {
+            gte: {
                 value: 25
-            }, to: {
+            }, lte: {
                 value: 35
             }
         };

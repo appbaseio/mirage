@@ -7,24 +7,24 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="form-group form-element query-primary-input">
 						<span class="input_with_option">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.input.value" 
+								[(ngModel)]="inputs.input.value"
 							 	placeholder="{{inputs.input.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</span>
 					</div>
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
-				</span>	
+				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -57,14 +57,14 @@ export class TermQuery implements OnInit, OnChanges {
 	public fieldName = '*';
 	public current_query = 'term';
 	public information: any = {
-		title: 'Term query',
-		content: `<span class="description"> Term query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-term-query.html">Documentation</a>`
+		title: 'Term',
+		content: `<span class="description">Returns matches with the exact term value.</span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html#query-dsl-term-query">Read more</a>`
 	};
 	public informationList: any = {
 		'boost': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
+			title: 'boost',
+			content: `<span class="description">Sets the boost value of the query, defaults to <strong>1.0</strong> </span>`
 		}
 	};
 	public default_options: any = [
@@ -159,7 +159,7 @@ export class TermQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

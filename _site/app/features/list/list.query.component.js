@@ -35,10 +35,14 @@ var ListQueryComponent = (function () {
         this.clearAll.emit(null);
     };
     ListQueryComponent.prototype.applySearchList = function () {
-        this.searchList.emit(this.searchTerm);
+        this.searchList.emit({
+            searchTerm: this.searchTerm,
+            searchByMethod: this.searchByMethod
+        });
     };
-    ListQueryComponent.prototype.tagApply = function (event, tag) {
+    ListQueryComponent.prototype.tagApply = function (event, tag, searchByMethod) {
         this.searchTerm = tag;
+        this.searchByMethod = searchByMethod;
         this.applySearchList();
         event.stopPropagation();
     };

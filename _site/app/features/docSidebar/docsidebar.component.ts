@@ -4,13 +4,14 @@ import { SafeResourceUrl, DomSanitizationService } from '@angular/platform-brows
 @Component({
 	selector: 'doc-sidebar',
 	templateUrl: './app/features/docSidebar/docsidebar.component.html',
-	inputs: ['docLink']
+	inputs: ['docLink', 'setDocSample']
 })
 
 export class DocSidebarComponent implements OnInit, OnChanges {
 	@Input() docLink;
-	 public url: SafeResourceUrl;
-	 public open: boolean = false;
+	@Output() setDocSample = new EventEmitter();
+	public url: SafeResourceUrl;
+	public open: boolean = false;
 	
 	constructor(public sanitizer: DomSanitizationService) {	}
 
@@ -24,6 +25,7 @@ export class DocSidebarComponent implements OnInit, OnChanges {
 	}
 
 	close() {
+		this.setDocSample.emit(null);
 		this.open = false;
 	}
 }

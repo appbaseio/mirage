@@ -5,7 +5,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 	template: 	`<span class="col-xs-6 pd-0">
 					<div class="form-group form-element">
 						<input type="text" class="form-control col-xs-12"
-							[(ngModel)]="inputs.input.value" 
+							[(ngModel)]="inputs.input.value"
 						 	placeholder="{{inputs.input.placeholder}}"
 						 	(keyup)="getFormat();" />
 					</div>
@@ -23,11 +23,11 @@ export class IdsQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Ids query',
-		content: `<span class="description"> Ids query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-terms-query.html">Documentation</a>`
+		title: 'Ids',
+		content: `<span class="description">Returns matches that only have the provided ids (<strong>_id</strong> field). </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-ids-query.html#query-dsl-ids-query">Read more</a>`
 	};
-	
+
 	public inputs: any = {
 		input: {
 			placeholder: 'Input',
@@ -46,7 +46,7 @@ export class IdsQuery implements OnInit, OnChanges {
 				}
 			}
 		} catch(e) {}
-		this.getFormat();	
+		this.getFormat();
 	}
 	ngOnChanges() {
 		if(this.selectedField != '') {

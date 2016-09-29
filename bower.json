@@ -1,11 +1,11 @@
 {
-  "name": "ang",
-  "description": "",
+  "name": "mirage",
+  "description": "The missing query explorer for Elasticsearch",
   "main": "index.js",
   "authors": [
     "Farhan Chauhan <farhan687@gmail.com>"
   ],
-  "license": "ISC",
+  "license": "Apache-2.0",
   "moduleType": [],
   "homepage": "",
   "private": true,

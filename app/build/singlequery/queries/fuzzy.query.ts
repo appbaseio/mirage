@@ -6,7 +6,7 @@ import { EditableComponent } from '../../editable/editable.component';
 	template: 	`<span class="col-xs-6 pd-l0">
 					<div class="form-group form-element">
 						<input type="text" class="form-control col-xs-12"
-							[(ngModel)]="inputs.input.value" 
+							[(ngModel)]="inputs.input.value"
 						 	placeholder="{{inputs.input.placeholder}}"
 						 	(keyup)="getFormat();" />
 					</div>
@@ -14,15 +14,15 @@ import { EditableComponent } from '../../editable/editable.component';
 				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -54,26 +54,26 @@ export class FuzzyQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'fuzzy query',
-		content: `<span class="description"> fuzzy query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html">Documentation</a>`
+		title: 'Fuzzy',
+		content: `<span class="description">Returns matches within the edit distance specified by the <strong>fuzziness</strong> parameter.</span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.html#query-dsl-fuzzy-query">Read more</a>`
 	};
 	public informationList: any = {
 		'boost': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
+			title: 'boost',
+			content: `<span class="description">Sets the boost value of the query, defaults to <strong>1.0</strong> </span>`
 		},
 		'fuzziness': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'fuzziness',
+			content: `<span class="description">The maximum edit distance. Defaults to AUTO.</span>`
 		},
 		'prefix_length': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'prefix_length',
+			content: `<span class="description">The number of initial characters which will not be "fuzzified". Defaults to 0.</span>`
 		},
 		'max_expansions': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'max_expansions',
+			content: `<span class="description">The maximum number of terms that the fuzzy query will expand to. Defaults to 50.</span>`
 		}
 	};
 	public default_options: any = [
@@ -88,8 +88,8 @@ export class FuzzyQuery implements OnInit, OnChanges {
 		value: ''
 	};
 	public optionRows: any = []
-	
-	
+
+
 	public inputs: any = {
 		input: {
 			placeholder: 'Input',
@@ -172,7 +172,7 @@ export class FuzzyQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

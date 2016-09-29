@@ -13,6 +13,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var DocSidebarComponent = (function () {
     function DocSidebarComponent(sanitizer) {
         this.sanitizer = sanitizer;
+        this.setDocSample = new core_1.EventEmitter();
         this.open = false;
     }
     DocSidebarComponent.prototype.ngOnInit = function () { };
@@ -23,17 +24,22 @@ var DocSidebarComponent = (function () {
         }
     };
     DocSidebarComponent.prototype.close = function () {
+        this.setDocSample.emit(null);
         this.open = false;
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
     ], DocSidebarComponent.prototype, "docLink", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], DocSidebarComponent.prototype, "setDocSample", void 0);
     DocSidebarComponent = __decorate([
         core_1.Component({
             selector: 'doc-sidebar',
             templateUrl: './app/features/docSidebar/docsidebar.component.html',
-            inputs: ['docLink']
+            inputs: ['docLink', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [platform_browser_1.DomSanitizationService])
     ], DocSidebarComponent);

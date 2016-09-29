@@ -6,7 +6,7 @@ import { EditableComponent } from '../../editable/editable.component';
 	template: 	`<span class="col-xs-6 pd-0">
 					<div class="form-group form-element">
 						<input type="text" class="form-control col-xs-12"
-							[(ngModel)]="inputs.lt.value" 
+							[(ngModel)]="inputs.lt.value"
 						 	placeholder="{{inputs.lt.placeholder}}"
 						 	(keyup)="getFormat();" />
 					</div>
@@ -14,15 +14,15 @@ import { EditableComponent } from '../../editable/editable.component';
 				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -52,16 +52,16 @@ export class LtQuery implements OnInit, OnChanges {
 	@Output() getQueryFormat = new EventEmitter<any>();
 	public queryName = '*';
 	public fieldName = '*';
-	public current_query = 'lt';	
+	public current_query = 'lt';
 	public information: any = {
-		title: 'Lt query',
-		content: `<span class="description"> Lt query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+		title: 'Less Than',
+		content: `<span class="description">Returns term values less than the specified value. </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html#query-dsl-range-query">Read more</a>`
 	};
 	public informationList: any = {
 		'boost': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'boost',
+			content: `<span class="description">Sets the boost value of the query, defaults to <strong>1.0</strong> </span>`
 		}
 	};
 	public default_options: any = [
@@ -98,7 +98,7 @@ export class LtQuery implements OnInit, OnChanges {
 			}
 		} catch(e) {}
 		this.getFormat();
-		this.filterOptions();	
+		this.filterOptions();
 	}
 
 	ngOnChanges() {
@@ -150,7 +150,7 @@ export class LtQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

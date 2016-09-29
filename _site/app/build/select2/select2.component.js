@@ -50,19 +50,28 @@ var select2Component = (function () {
             callback(field_select.val());
         }.bind(this));
         if (this.showInfoFlag) {
-            field_select.on("select2:open", function (e) {
-                setTimeout(function () {
-                    var selector = $('li.select2-results__option');
-                    selector.each(function (i, item) {
-                        var val = $(item).html();
-                        var info = this.getInformation(val);
-                        $(item).popover(info);
-                        $(item).on('shown.bs.popover', this.setLink.bind(this));
-                        this.setLink();
-                    }.bind(this));
-                }.bind(this), 300);
+            field_select.on("select2:open", function () {
+                this.setPopover.apply(this);
+                $('.select2-search__field').keyup(function () {
+                    this.setPopover.apply(this);
+                }.bind(this));
+                $('.select2-search__field').keydown(function () {
+                    this.setPopover.apply(this);
+                }.bind(this));
             }.bind(this));
         }
+    };
+    select2Component.prototype.setPopover = function () {
+        setTimeout(function () {
+            var selector = $('li.select2-results__option');
+            selector.each(function (i, item) {
+                var val = $(item).html();
+                var info = this.getInformation(val);
+                $(item).popover(info);
+                $(item).on('shown.bs.popover', this.setLink.bind(this));
+                this.setLink();
+            }.bind(this));
+        }.bind(this), 300);
     };
     select2Component.prototype.getInformation = function (query) {
         var query = this.informationList[query];

@@ -16,8 +16,8 @@ var ExistsQuery = (function () {
         this.queryName = '*';
         this.fieldName = '*';
         this.information = {
-            title: 'Exists query',
-            content: "<span class=\"description\"> Exists query content </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-exists-query.html\">Documentation</a>"
+            title: 'Exists',
+            content: "<span class=\"description\">Returns matches where the field value is not null. </span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html#query-dsl-exists-query\">Read more</a>"
         };
         this.queryFormat = {};
     }
