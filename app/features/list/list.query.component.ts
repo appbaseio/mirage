@@ -19,7 +19,7 @@ export class ListQueryComponent implements OnInit {
 	@Output() clearAll = new EventEmitter < any > ();
 	@Output() sort = new EventEmitter < any > ();
 	@Output() searchList = new EventEmitter < any > ();
-	public method: any;
+	public searchByMethod: any;
 	public direction: boolean = false;
 
 	ngOnInit() {}
@@ -44,13 +44,13 @@ export class ListQueryComponent implements OnInit {
 	applySearchList() {
 		this.searchList.emit({
 			searchTerm: this.searchTerm,
-			method: this.method
+			searchByMethod: this.searchByMethod
 		});
 	}
 
-	tagApply(event, tag, method) {
+	tagApply(event, tag, searchByMethod) {
 		this.searchTerm = tag;
-		this.method = method;
+		this.searchByMethod = searchByMethod;
 		this.applySearchList();
 		event.stopPropagation();
 	}
