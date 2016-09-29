@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public sort_by: string = 'createdAt';
 	public sort_direction: boolean = true;
 	public searchTerm: string = '';
+	public searchByMethod: string = 'tag';
 	public filteredQuery: any;
 	public finalUrl: string;
 	public sidebar: boolean = false;
@@ -392,11 +393,12 @@ export class AppComponent implements OnInit, OnChanges {
 	// Searching
 	searchList(obj: any) {
 		var searchTerm = obj.searchTerm;
-		var method = obj.method;
+		var searchByMethod = obj.searchByMethod ? obj.searchByMethod : 'tag';
 		this.searchTerm = searchTerm;
+		this.searchByMethod = searchByMethod;
 		if (this.searchTerm.trim().length > 1) {
 			this.filteredQuery = this.savedQueryList.filter(function(item) {
-				return (item[method] && item[method].indexOf(this.searchTerm) !== -1) ? true : false;
+				return (item[this.searchByMethod] && item[this.searchByMethod].indexOf(this.searchTerm) !== -1) ? true : false;
 			}.bind(this));
 
 			if (!this.filteredQuery.length) {
