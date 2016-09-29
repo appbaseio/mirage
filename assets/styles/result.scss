@@ -1,12 +1,11 @@
 @import "variables.scss";
 .query-result-container {
 	background: $grey-bg;
-	padding-bottom: 96px;
+	padding-bottom: 116px;
 	.queryRight {
 		padding: 15px 15px 15px 0;
 		background: $grey-bg;
 		border-left: 1px solid darken($grey-bg, 10%);
-		border-bottom: 1px solid darken($grey-bg, 10%);
 		height: 100%;
 		position: relative;
 		.rightRow {
@@ -20,13 +19,13 @@
 			}
 			&.run-row {
 				bottom: 0;
-				padding-bottom: 15px;
+				padding-bottom: 0;
 			}
 		}
 		.codeMirror-container {
 			height: 100%;
 		    position: relative;
-		    padding: 25px 0 50px 0;
+		    padding: 25px 0 40px 0;
 			.CodeMirror {
 				height: 100%;
 

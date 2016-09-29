@@ -41,11 +41,15 @@ export class ListQueryComponent implements OnInit {
 	}
 
 	applySearchList() {
-		this.searchList.emit(this.searchTerm);
+		this.searchList.emit({
+			searchTerm: this.searchTerm,
+			method: this.method
+		});
 	}
 
-	tagApply(event, tag) {
+	tagApply(event, tag, method) {
 		this.searchTerm = tag;
+		this.method = method;
 		this.applySearchList();
 		event.stopPropagation();
 	}
