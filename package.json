@@ -1,9 +1,9 @@
 {
   "name": "mirage",
-  "version": "0.0.1",
-  "description": "Elegant Query Composing for Elasticsearch",
+  "version": "0.1.0",
+  "description": "The missing query explorer for Elasticsearch",
   "author": "Farhan Chauhan, appbase.io",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
