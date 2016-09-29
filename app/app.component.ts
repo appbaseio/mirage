@@ -292,8 +292,8 @@ export class AppComponent implements OnInit, OnChanges {
 				let message = e.json().message ? e.json().message : '';
 				self.errorShow({
 					title: 'Authentication Error',
-					message: `It looks like your app name, username, password combination doesn\'t match.
-					 			Check your url and appname and then connect it again.`
+					message: ` It looks like your app name, username, password combination doesn\'t match.
+Check your url and appname and then connect it again.`
 				});
 			});
 		} catch(e) {
