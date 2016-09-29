@@ -7,24 +7,24 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="form-group form-element query-primary-input">
 						<span class="input_with_option">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.input.value" 
+								[(ngModel)]="inputs.input.value"
 							 	placeholder="{{inputs.input.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</span>
 					</div>
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
-				</span>		
+				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -57,17 +57,22 @@ export class Match_phase_prefixQuery implements OnInit, OnChanges {
 	public fieldName = '*';
 	public current_query: string = 'match_phrase_prefix';
 	public information: any = {
-		title: 'match_phrase_prefix query',
-		content: `<span class="description"> match_phrase_prefix query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-match-query.html#query-dsl-match-query-phrase-prefix">Documentation</a>`
+		title: 'Match Phrase with a Prefix',
+		content: `<span class="description">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase-prefix">Read more</a>`
 	};
 	public informationList: any = {
+		'analyzer': {
+			title: 'analyzer',
+			content: `<span class="description"><strong>analyzer</strong> can be set to control for the analysis process on the query text.</span>`
+		},
 		'max_expansions': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'max_expansions',
+			content: `<span class="description">The maximum number of terms that the query will expand to. Defaults to 50.</span>`
 		}
 	};
 	public default_options: any = [
+		'analyzer',
 		'max_expansions'
 	];
 	public options: any
@@ -76,7 +81,7 @@ export class Match_phase_prefixQuery implements OnInit, OnChanges {
 		value: ''
 	};
 	public optionRows: any = [];
-	
+
 	public inputs: any = {
 		input: {
 			placeholder: 'Prefix',
@@ -106,7 +111,7 @@ export class Match_phase_prefixQuery implements OnInit, OnChanges {
 			}
 		} catch(e) {}
 		this.getFormat();
-		this.filterOptions();	
+		this.filterOptions();
 	}
 
 	ngOnChanges() {
@@ -160,7 +165,7 @@ export class Match_phase_prefixQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

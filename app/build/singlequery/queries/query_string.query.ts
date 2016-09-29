@@ -7,7 +7,7 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="form-group form-element query-primary-input">
 						<span class="input_with_option">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.input.value" 
+								[(ngModel)]="inputs.input.value"
 							 	placeholder="{{inputs.input.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</span>
@@ -16,15 +16,15 @@ import { EditableComponent } from '../../editable/editable.component';
 				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -57,32 +57,32 @@ export class QueryStringQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Quer string query',
-		content: `<span class="description"> Multi-match query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+		title: 'Query String',
+		content: `<span class="description">Returns matches based on a query that uses a query parser in order to parse its content.</span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-dsl-query-string-query">Documentation</a>`
 	};
 	public informationList: any = {
-		'fields': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
-		},
 		'default_field': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'default_field',
+			content: `<span class="description">The default field for query terms if no prefix field is specified.</span>`
+		},
+		'fields': {
+			title: 'fields',
+			content: `<span class="description">Specify one or more fields separated by comma to run a multi-field query.</span>`
 		},
 		'use_dis_max': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'use_dis_max',
+			content: `<span class="description">Should the queries be combined using dis_max (set it to true), or a bool query (set it to false). Defaults to true.</span>`
 		}
 	};
 	public default_options: any = [
-		'fields',
 		'default_field',
+		'fields',
 		'use_dis_max'
 	];
 	public options: any;
 	public placeholders: any = {
-		fields: 'Comma seprated values'
+		fields: 'Comma separated values'
 	};
 	public singleOption = {
 		name: '',
@@ -115,8 +115,8 @@ export class QueryStringQuery implements OnInit, OnChanges {
 						value: other_fields
 					};
 					this.optionRows.push(obj);
-				} 
-				
+				}
+
 				for (let option in applied) {
 					if (option != 'fields' && option != 'query') {
 						var obj = {
@@ -126,7 +126,7 @@ export class QueryStringQuery implements OnInit, OnChanges {
 						this.optionRows.push(obj);
 					}
 				}
-			
+
 			}
 		} catch (e) {}
 		this.getFormat();
@@ -190,7 +190,7 @@ export class QueryStringQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;
