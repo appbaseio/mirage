@@ -107,7 +107,7 @@ export class AppComponent implements OnInit, OnChanges {
 	// detect app config, either get it from url or apply default config
 	detectConfig() {
 		let config = null;
-		let isDefault = window.location.href.indexOf('?default=true') > -1 ? true : false;
+		let isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
 		if(isDefault) {
 			config = this.defaultApp;
 		} else {
