@@ -78,7 +78,7 @@
 	</div>
 	<!-- Mirage-container END -->
 	<!-- Doc Sidebar start -->
-	<doc-sidebar [docLink]="docLink"></doc-sidebar>
+	<doc-sidebar [docLink]="docLink" (setDocSample)="setDocSample($event);"></doc-sidebar>
 	<!-- Doc Sidebar end -->
 	<!-- Footer START -->
 	<footer class="text-center"> <span class="text-right pull-right powered_by">
