@@ -208,17 +208,24 @@ var AppComponent = (function () {
             var self = this;
             this.appbaseService.setAppbase(this.config);
             this.appbaseService.getVersion().then(function (res) {
-                var data = res.json();
-                if (data && data.version && data.version.number) {
-                    var version = data.version.number;
-                    self.version = version;
-                    if (self.version.split('.')[0] !== '2') {
-                        self.errorShow({
-                            title: 'Elasticsearch Version Not Supported',
-                            message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
-                        });
+                try {
+                    var data = res.json();
+                    if (data && data.version && data.version.number) {
+                        var version = data.version.number;
+                        self.version = version;
+                        if (self.version.split('.')[0] !== '2') {
+                            self.errorShow({
+                                title: 'Elasticsearch Version Not Supported',
+                                message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+                            });
+                        }
                     }
                 }
+                catch (e) {
+                    console.log(e);
+                }
+            }).catch(function (e) {
+                console.log('Not able to get the version.');
             });
             this.appbaseService.get('/_mapping').then(function (res) {
                 self.connected = true;
@@ -269,7 +276,7 @@ var AppComponent = (function () {
                 var message = e.json().message ? e.json().message : '';
                 self.errorShow({
                     title: 'Authentication Error',
-                    message: "It looks like your app name, username, password combination doesn\'t match. Check your url and appname and then connect it again."
+                    message: " It looks like your app name, username, password combination doesn't match.\nCheck your url and appname and then connect it again."
                 });
             });
         }
@@ -1012,19 +1019,28 @@ var select2Component = (function () {
             callback(field_select.val());
         }.bind(this));
         if (this.showInfoFlag) {
-            field_select.on("select2:open", function (e) {
-                setTimeout(function () {
-                    var selector = $('li.select2-results__option');
-                    selector.each(function (i, item) {
-                        var val = $(item).html();
-                        var info = this.getInformation(val);
-                        $(item).popover(info);
-                        $(item).on('shown.bs.popover', this.setLink.bind(this));
-                        this.setLink();
-                    }.bind(this));
-                }.bind(this), 300);
+            field_select.on("select2:open", function () {
+                this.setPopover.apply(this);
+                $('.select2-search__field').keyup(function () {
+                    this.setPopover.apply(this);
+                }.bind(this));
+                $('.select2-search__field').keydown(function () {
+                    this.setPopover.apply(this);
+                }.bind(this));
             }.bind(this));
         }
+    };
+    select2Component.prototype.setPopover = function () {
+        setTimeout(function () {
+            var selector = $('li.select2-results__option');
+            selector.each(function (i, item) {
+                var val = $(item).html();
+                var info = this.getInformation(val);
+                $(item).popover(info);
+                $(item).on('shown.bs.popover', this.setLink.bind(this));
+                this.setLink();
+            }.bind(this));
+        }.bind(this), 300);
     };
     select2Component.prototype.getInformation = function (query) {
         var query = this.informationList[query];
