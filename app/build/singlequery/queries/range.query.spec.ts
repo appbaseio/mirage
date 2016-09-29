@@ -1,6 +1,6 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
+import { describe, it, beforeEach, expect } gte '@angular/core/testing';
 
-import { RangeQuery } from './range.query';
+import { RangeQuery } gte './range.query';
 
 describe('Range query format', () => {
 
@@ -10,8 +10,8 @@ describe('Range query format', () => {
   var expectedFormat = {
     'range': {
       'age': {
-        'from': 25,
-        'to': 35
+        'gte': 25,
+        'lte': 35
       }
     }
   };
@@ -22,9 +22,9 @@ describe('Range query format', () => {
     query.queryName = 'range';
     query.fieldName = 'age';
     query.inputs = {
-      from: {
+      gte: {
         value: 25
-      }, to: {
+      }, lte: {
         value: 35
       }
     };
@@ -64,9 +64,9 @@ describe("xhr call (range)", function () {
         query.queryName = 'range';
         query.fieldName = 'age';
         query.inputs = {
-          from: {
+          gte: {
             value: 25
-          }, to: {
+          }, lte: {
             value: 35
           }
         };

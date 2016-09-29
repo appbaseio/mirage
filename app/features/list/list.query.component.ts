@@ -54,5 +54,4 @@ export class ListQueryComponent implements OnInit {
 		this.applySearchList();
 		event.stopPropagation();
 	}
-
 }

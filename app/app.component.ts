@@ -12,6 +12,7 @@ import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
 import { UrlShare } from "./shared/urlShare";
 import { ErrorModalComponent } from "./features/modal/error-modal.component";
+import { ConfirmModalComponent } from "./features/confirm/confirm-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
 import { DocSidebarComponent } from "./features/docSidebar/docsidebar.component";
 import { StorageService } from "./shared/storage.service";
@@ -22,7 +23,7 @@ declare var $: any;
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent],
 	providers: [AppbaseService, StorageService, DocService]
 })
 
@@ -61,10 +62,12 @@ export class AppComponent implements OnInit, OnChanges {
 	public errorInfo: any = {};
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
+	public errorHookHelp = new EditorHook({ editorId: 'errorEditor' });
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
 	public version: string = '2.0';
 	public docLink: string;
+	public currentDeleteQuery: any;
 	subscription:Subscription;
 	active = true;
 	powers = ['Really Smart', 'Super Flexible',
@@ -76,6 +79,13 @@ export class AppComponent implements OnInit, OnChanges {
   		alterEgo: 'Chuck Overstreet'
   	};
   	submitted = false;
+  	public deleteItemInfo: any = {
+		title: 'Confirm Deletion',
+		message: 'Do you want to delete this query?',
+		yesText: 'Delete',
+		noText: 'Cancel'
+	};
+
   	onSubmit() { this.submitted = true; }
 
   	setDocSample(link) { 
@@ -273,9 +283,10 @@ export class AppComponent implements OnInit, OnChanges {
 				
 			}).catch(function(e) {
 				self.initial_connect = true;
+				let message = e.json().message ? e.json().message : '';
 				self.errorShow({
-					title: 'Disconnected',
-					message: e.json().message
+					title: 'Authentication Error',
+					message: "It looks like your app name, username, password combination doesn\'t match. Check your url and appname and then connect it again."
 				});
 			});
 		} catch(e) {
@@ -322,8 +333,12 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	deleteQuery(currentQuery) {
-		var confirmFlag = confirm("Do you want to delete this query?");
-		if (confirmFlag) {
+		this.currentDeleteQuery = currentQuery;
+		$('#confirmModal').modal('show');
+	}
+	confirmDeleteQuery(confirmFlag: any) {
+		if (confirmFlag && this.currentDeleteQuery) {
+			var currentQuery = this.currentDeleteQuery;
 			this.getQueryList();
 			this.savedQueryList.forEach(function(query: any, index: Number) {
 				if (query.name === currentQuery.name && query.tag === currentQuery.tag) {
@@ -339,6 +354,7 @@ export class AppComponent implements OnInit, OnChanges {
 				this.storageService.set('queryList', JSON.stringify(this.savedQueryList));
 			} catch (e) {}
 		}
+		this.currentDeleteQuery = null;
 	}
 
 	clearAll() {
@@ -466,8 +482,19 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	errorShow(info: any) {
+		var self = this;
 		this.errorInfo = info;
 		$('#errorModal').modal('show');
+		var message = info.message;
+		setTimeout(function() {
+			if($('#errorModal').hasClass('in')) {
+				self.errorHookHelp.setValue(message);
+			} else {
+				setTimeout(function() {
+					self.errorHookHelp.setValue(message);
+				}, 300);
+			}
+		}.bind(this), 500);
 	}
 
 	viewData() {
