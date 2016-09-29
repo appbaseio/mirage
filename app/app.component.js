@@ -93,7 +93,7 @@ var AppComponent = (function () {
     // detect app config, either get it from url or apply default config
     AppComponent.prototype.detectConfig = function () {
         var config = null;
-        var isDefault = window.location.href.indexOf('?default=true') > -1 ? true : false;
+        var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
         if (isDefault) {
             config = this.defaultApp;
         }

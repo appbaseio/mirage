@@ -94,7 +94,7 @@ var AppComponent = (function () {
     // detect app config, either get it from url or apply default config
     AppComponent.prototype.detectConfig = function () {
         var config = null;
-        var isDefault = window.location.href.indexOf('?default=true') > -1 ? true : false;
+        var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
         if (isDefault) {
             config = this.defaultApp;
         }
@@ -5931,6 +5931,9 @@ exports.UrlShare.prototype.createUrl = function () {
     console.log(inputs);
     var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(inputs), this.secret).toString();
     this.url = ciphertext;
+    if (window.location.href.indexOf('#?default=true') > -1) {
+        window.location.href = window.location.href.split('?default=true')[0];
+    }
     window.location.href = '#?input_state=' + ciphertext;
 };
 exports.UrlShare.prototype.decryptUrl = function () {
