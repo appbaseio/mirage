@@ -19,6 +19,7 @@ export class ListQueryComponent implements OnInit {
 	@Output() clearAll = new EventEmitter < any > ();
 	@Output() sort = new EventEmitter < any > ();
 	@Output() searchList = new EventEmitter < any > ();
+	public method: any;
 	public direction: boolean = false;
 
 	ngOnInit() {}
