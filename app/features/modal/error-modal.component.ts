@@ -3,7 +3,7 @@ import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter
 @Component({
 	selector: 'error-modal',
 	templateUrl: './app/features/modal/error-modal.component.html',
-	inputs: ['info', 'callback'],
+	inputs: ['info', 'callback', 'errorHookHelp'],
 	directives: []
 })
 
@@ -11,6 +11,10 @@ export class ErrorModalComponent implements OnInit, OnChanges {
 	@Input() info: any;
 	@Output() callback = new EventEmitter();
 	ngOnInit() {
+		var self = this;
+		this.errorHookHelp.applyEditor({
+			lineNumbers: false
+		});
 	}
 	ngOnChanges() {
 	}

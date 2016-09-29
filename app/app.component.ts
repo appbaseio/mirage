@@ -61,6 +61,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public errorInfo: any = {};
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
+	public errorHookHelp = new EditorHook({ editorId: 'errorEditor' });
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
 	public version: string = '2.0';
@@ -273,9 +274,10 @@ export class AppComponent implements OnInit, OnChanges {
 				
 			}).catch(function(e) {
 				self.initial_connect = true;
+				let message = e.json().message ? e.json().message : '';
 				self.errorShow({
-					title: 'Disconnected',
-					message: e.json().message
+					title: 'Authentication Error',
+					message: "It looks like your app name, username, password combination doesn\'t match. Check your url and appname and then connect it again."
 				});
 			});
 		} catch(e) {
@@ -466,8 +468,19 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	errorShow(info: any) {
+		var self = this;
 		this.errorInfo = info;
 		$('#errorModal').modal('show');
+		var message = info.message;
+		setTimeout(function() {
+			if($('#errorModal').hasClass('in')) {
+				self.errorHookHelp.setValue(message);
+			} else {
+				setTimeout(function() {
+					self.errorHookHelp.setValue(message);
+				}, 300);
+			}
+		}.bind(this), 500);
 	}
 
 	viewData() {
