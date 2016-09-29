@@ -9,6 +9,7 @@ import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter
 
 export class ErrorModalComponent implements OnInit, OnChanges {
 	@Input() info: any;
+	@Input() errorHookHelp: any;
 	@Output() callback = new EventEmitter();
 	ngOnInit() {
 		var self = this;
