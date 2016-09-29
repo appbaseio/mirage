@@ -18,7 +18,7 @@ var FuzzyQuery = (function () {
         this.fieldName = '*';
         this.information = {
             title: 'Fuzzy',
-            content: "<span class=\"description\">Returns matches within the edit distance specified by the <strong>fuzziness</strong> parameter.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Read more</a>"
+            content: "<span class=\"description\">Returns matches within the edit distance specified by the <strong>fuzziness</strong> parameter.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.html#query-dsl-fuzzy-query\">Read more</a>"
         };
         this.informationList = {
             'boost': {

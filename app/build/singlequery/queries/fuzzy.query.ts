@@ -56,7 +56,7 @@ export class FuzzyQuery implements OnInit, OnChanges {
 	public information: any = {
 		title: 'Fuzzy',
 		content: `<span class="description">Returns matches within the edit distance specified by the <strong>fuzziness</strong> parameter.</span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html">Read more</a>`
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.html#query-dsl-fuzzy-query">Read more</a>`
 	};
 	public informationList: any = {
 		'boost': {

@@ -1417,7 +1417,7 @@ var FuzzyQuery = (function () {
         this.fieldName = '*';
         this.information = {
             title: 'Fuzzy',
-            content: "<span class=\"description\">Returns matches within the edit distance specified by the <strong>fuzziness</strong> parameter.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html\">Read more</a>"
+            content: "<span class=\"description\">Returns matches within the edit distance specified by the <strong>fuzziness</strong> parameter.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.html#query-dsl-fuzzy-query\">Read more</a>"
         };
         this.informationList = {
             'boost': {
@@ -3168,7 +3168,7 @@ var QueryStringQuery = (function () {
         this.fieldName = '*';
         this.information = {
             title: 'Query String',
-            content: "<span class=\"description\">Returns matches based on a query that uses a query parser in order to parse its content.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-dsl-query-string-query\">Documentation</a>"
+            content: "<span class=\"description\">Returns matches based on a query that uses a query parser in order to parse its content.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-dsl-query-string-query\">Read more</a>"
         };
         this.informationList = {
             'default_field': {
@@ -3732,7 +3732,7 @@ var SimpleQueryStringQuery = (function () {
         this.fieldName = '*';
         this.information = {
             title: 'Simple Query String',
-            content: "<span class=\"description\">Returns matches based on SimpleQueryParser to parse its context. Simple Query String discards invalid parts of the query and never throws an exception.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html\">Documentation</a>"
+            content: "<span class=\"description\">Returns matches based on SimpleQueryParser to parse its context. Simple Query String discards invalid parts of the query and never throws an exception.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html\">Read more</a>"
         };
         this.informationList = {
             'fields': {

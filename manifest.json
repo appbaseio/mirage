@@ -1,0 +1,23 @@
+{
+    "name":"mirage",
+    "version":"0.1.0",
+    "icons":{
+        "16":"site/assets/images/icon_16.png",
+        "32":"site/assets/images/icon_32.png",
+        "48":"site/assets/images/icon_48.png",
+        "128":"site/assets/images/icon_128.png"
+    },
+    "background": {
+        "scripts": [ "chrome-specific/background.js" ]
+    },
+    "permissions": ["storage", "system.display", "<all_urls>"],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "manifest_version": 3,
+    "offline_enabled":true,
+    "browser_action": {
+        "default_icon": "site/assets/images/icon_32.png",
+        "default_title": "Mirage"
+    },
+    "description": "The missing query explorer for Elasticsearch",
+    "author": "Farhan Chauhan, appbase.io"
+}
