@@ -6,7 +6,7 @@ import { EditableComponent } from '../../editable/editable.component';
 	template: 	`<span class="col-xs-6 pd-0">
 					<div class="form-group form-element">
 						<input type="text" class="form-control col-xs-12"
-							[(ngModel)]="inputs.gt.value" 
+							[(ngModel)]="inputs.gt.value"
 						 	placeholder="{{inputs.gt.placeholder}}"
 						 	(keyup)="getFormat();" />
 					</div>
@@ -14,15 +14,15 @@ import { EditableComponent } from '../../editable/editable.component';
 				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -54,14 +54,14 @@ export class GtQuery implements OnInit, OnChanges {
 	public fieldName = '*';
 	public current_query = 'gt';
 	public information: any = {
-		title: 'Gt query',
-		content: `<span class="description"> Gt query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+		title: 'Greater Than',
+		content: `<span class="description">Returns term values greater than the specified value. </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html#query-dsl-range-query">Read more</a>`
 	};
 	public informationList: any = {
 		'boost': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'boost',
+			content: `<span class="description">Sets the boost value of the query, defaults to <strong>1.0</strong> </span>`
 		}
 	};
 	public default_options: any = [
@@ -97,7 +97,7 @@ export class GtQuery implements OnInit, OnChanges {
 				}
 			}
 		} catch(e) {}
-		this.getFormat();	
+		this.getFormat();
 	}
 
 	ngOnChanges() {
@@ -138,7 +138,7 @@ export class GtQuery implements OnInit, OnChanges {
 		};
 		queryFormat['range'][this.fieldName] = {
 			gt: this.inputs.gt.value,
-		};	
+		};
 		this.optionRows.forEach(function(singleRow: any) {
 			queryFormat['range'][this.fieldName][singleRow.name] = singleRow.value;
 		}.bind(this));
@@ -151,7 +151,7 @@ export class GtQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

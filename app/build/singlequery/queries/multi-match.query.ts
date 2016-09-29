@@ -7,24 +7,24 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="form-group form-element query-primary-input">
 						<span class="input_with_option">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.input.value" 
+								[(ngModel)]="inputs.input.value"
 							 	placeholder="{{inputs.input.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</span>
 					</div>
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
-				</span>	
+				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -57,33 +57,28 @@ export class MultiMatchQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Match query',
-		content: `<span class="description"> Multi-match query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+		title: 'Multi Match',
+		content: `<span class="description">Returns matches by doing a full-text search on multiple fields.</span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html#query-dsl-multi-match-query">Read more</a>`
 	};
 	public informationList: any = {
 		'operator': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
+			title: 'operator',
+			content: `<span class="description">The operator flag can be set to 'OR' or 'AND' to control the boolean clauses.</span>`
 		},
 		'fields': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
-		},
-		'tie_breaker': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'fields',
+			content: `<span class="description">Specify one or more fields separated by comma to run a multi-field query.</span>`
 		},
 		'type': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
-		}
+			title: 'type',
+			content: `<span class="description">There are three types of match query: boolean (default), phrase, and phrase_prefix</span>`
+		},
 	};
 	public default_options: any = [
+		'operator',
 		'fields',
-		'tie_breaker',
 		'type',
-		'operator'
 	];
 	public options: any;
 	public placeholders: any = {
@@ -120,8 +115,8 @@ export class MultiMatchQuery implements OnInit, OnChanges {
 						value: other_fields
 					};
 					this.optionRows.push(obj);
-				} 
-				
+				}
+
 				for (let option in applied) {
 					if (option != 'fields' && option != 'query') {
 						var obj = {
@@ -131,7 +126,7 @@ export class MultiMatchQuery implements OnInit, OnChanges {
 						this.optionRows.push(obj);
 					}
 				}
-			
+
 			}
 		} catch (e) {}
 		this.getFormat();
@@ -195,7 +190,7 @@ export class MultiMatchQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

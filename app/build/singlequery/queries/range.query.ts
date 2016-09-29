@@ -7,32 +7,32 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="col-xs-6 pl-0">
 						<div class="form-group form-element">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.from.value" 
+								[(ngModel)]="inputs.from.value"
 							 	placeholder="{{inputs.from.placeholder}}"
 							 	(keyup)="getFormat();" />
-						</div> 	
-					</div> 	
+						</div>
+					</div>
 					<div class="col-xs-6 pr-0">
 						<div class="form-group form-element">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.to.value" 
+								[(ngModel)]="inputs.to.value"
 							 	placeholder="{{inputs.to.placeholder}}"
 							 	(keyup)="getFormat();" />
-						</div>	 	
+						</div>
 					</div>
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
 				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -65,14 +65,14 @@ export class RangeQuery implements OnInit, OnChanges {
 	public fieldName = '*';
 	public current_query = 'range';
 	public information: any = {
-	title: 'Range query',
-	content: `<span class="description"> Range query content </span>
-				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-range-query.html">Documentation</a>`
+	title: 'Range',
+	content: `<span class="description">Returns term values within the specified range. </span>
+				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-range-query.html#query-dsl-range-query">Read more</a>`
 	};
 	public informationList: any = {
 		'boost': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
+			title: 'boost',
+			content: `<span class="description">Sets the boost value of the query, defaults to <strong>1.0</strong> </span>`
 		}
 	};
 	public default_options: any = [
@@ -88,7 +88,7 @@ export class RangeQuery implements OnInit, OnChanges {
 		from: {
 			placeholder: 'From',
 			value: ''
-		}, 
+		},
 		to: {
 			placeholder: 'To',
 			value: ''
@@ -103,7 +103,7 @@ export class RangeQuery implements OnInit, OnChanges {
 				this.inputs.from.value = this.appliedQuery['range'][this.fieldName]['from']
 			}
 			if(this.appliedQuery['range'][this.fieldName]['to']) {
-				this.inputs.to.value = this.appliedQuery['range'][this.fieldName]['to']	
+				this.inputs.to.value = this.appliedQuery['range'][this.fieldName]['to']
 			}
 			for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
 				if (option != 'from' && option != 'to') {
@@ -115,7 +115,7 @@ export class RangeQuery implements OnInit, OnChanges {
 				}
 			}
 		} catch(e) {}
-		this.getFormat();	
+		this.getFormat();
 		this.filterOptions();
 	}
 
@@ -146,7 +146,7 @@ export class RangeQuery implements OnInit, OnChanges {
 		}
 	*/
 	getFormat() {
-		if(this.queryName === 'range') {		
+		if(this.queryName === 'range') {
 			this.queryFormat = this.setFormat();
 			this.getQueryFormat.emit(this.queryFormat);
 		}
@@ -170,7 +170,7 @@ export class RangeQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

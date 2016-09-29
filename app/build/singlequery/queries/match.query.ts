@@ -7,24 +7,24 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="form-group form-element query-primary-input">
 						<span class="input_with_option">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.input.value" 
+								[(ngModel)]="inputs.input.value"
 							 	placeholder="{{inputs.input.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</span>
 					</div>
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
-				</span>	
+				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -57,34 +57,34 @@ export class MatchQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Match query',
-		content: `<span class="description"> Match query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html">Documentation</a>`
+		title: 'Match',
+		content: `<span class="description">Returns matches by doing a full-text search, is used as the <i>go to</i> query.</span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query">Read more</a>`
 	};
 	public informationList: any = {
 		'operator': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
+			title: 'operator',
+			content: `<span class="description">The operator flag can be set to 'OR' or 'AND' to control the boolean clauses.</span>`
 		},
 		'zero_terms_query': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'zero_terms_query',
+			content: `<span class="description">Accepts none (default) and all which corresponds to a match_all query.</span>`
 		},
 		'cutoff_frequency': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'cutoff_frequency',
+			content: `<span class="description">cutoff_frequency allows specifying frequency threshold where high frequency terms are moved into an optional subquery.</span>`
 		},
 		'type': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'type',
+			content: `<span class="description">There are three types of match query: boolean (default), phrase, and phrase_prefix</span>`
 		},
 		'analyzer': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'analyzer',
+			content: `<span class="description">The analyzer used to analyze each term of the query when creating composite queries.</span>`
 		},
 		'max_expansions': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'max_expansions',
+			content: `<span class="description">The maximum number of terms that the query will expand to. Defaults to 50.</span>`
 		}
 	};
 	public default_options: any = [
@@ -187,7 +187,7 @@ export class MatchQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

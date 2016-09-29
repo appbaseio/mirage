@@ -7,24 +7,24 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="form-group form-element query-primary-input">
 						<span class="input_with_option">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.input.value" 
+								[(ngModel)]="inputs.input.value"
 							 	placeholder="{{inputs.input.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</span>
 					</div>
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
-				</span>	
+				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -57,23 +57,28 @@ export class RegexpQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'regexp query',
-		content: `<span class="description"> regexp query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html">Documentation</a>`
+		title: 'Regexp',
+		content: `<span class="description">Returns matches based on regular expression term queries.</span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#query-dsl-regexp-query">Read more</a>`
 	};
 	public informationList: any = {
 		'flags': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
+			title: 'flags',
+			content: `<span class="description">Possible flags are ALL (default), ANYSTRING, COMPLEMENT, EMPTY, INTERSECTION, INTERVAL, or NONE.</span>`
 		},
 		'max_determinized_states': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'max_determinized_states',
+			content: `<span class="description">Controls the max number of determinized automaton states (defaults to 10000).</span>`
+		},
+		'boost': {
+			title: 'boost',
+			content: `<span class="description">Sets the boost value of the query, defaults to <strong>1.0</strong> </span>`
 		}
 	};
 	public default_options: any = [
 		'flags',
-		'max_determinized_states'
+		'max_determinized_states',
+		'boost'
 	];
 	public options: any;
 	public singleOption = {
@@ -81,7 +86,7 @@ export class RegexpQuery implements OnInit, OnChanges {
 		value: ''
 	};
 	public optionRows: any = [];
-	
+
 	public inputs: any = {
 		input: {
 			placeholder: 'Input',
@@ -156,7 +161,7 @@ export class RegexpQuery implements OnInit, OnChanges {
 			queryFormat[this.queryName][this.fieldName] = this.inputs.input.value;
 		}
 		return queryFormat;
-	}	
+	}
 	selectOption(input: any) {
 		input.selector.parents('.editable-pack').removeClass('on');
 		this.optionRows[input.external].name = input.val;
@@ -164,7 +169,7 @@ export class RegexpQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

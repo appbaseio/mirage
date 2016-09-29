@@ -5,18 +5,18 @@ import { EditableComponent } from '../../editable/editable.component';
 	selector: 'missing-query',
 	template: 	`<span class="col-xs-6 pd-10">
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
-				</span>	
+				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -49,18 +49,18 @@ export class MissingQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'missing query',
-		content: `<span class="description"> missing query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-missing-query.html">Documentation</a>`
+		title: 'Missing',
+		content: `<span class="description">Returns matches where the field value is null. </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-missing-query.html">Read more</a>`
 	};
 	public informationList: any = {
 		'existence': {
-			title: 'Operator',
-			content: `<span class="description"> Operator content </span>`	
+			title: 'existence',
+			content: `<span class="description">When set to false (defaults to true), matches where the field has no value will not be returned.</span>`
 		},
 		'null_value': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'null_value',
+			content: `<span class="description">When set to false (defaults to true), matches where the field has null value will not be returned.</span>`
 		}
 	};
 	public default_options: any = [
@@ -74,11 +74,11 @@ export class MissingQuery implements OnInit, OnChanges {
 	};
 	public optionRows: any = [];
 
-	
+
 	public queryFormat: any = {};
 
 	ngOnInit() {
-		this.options = JSON.parse(JSON.stringify(this.default_options));	
+		this.options = JSON.parse(JSON.stringify(this.default_options));
 		try {
 			if(this.appliedQuery[this.current_query]['field']) {
 				this.appliedQuery[this.current_query]['field'] = this.fieldName;
@@ -93,7 +93,7 @@ export class MissingQuery implements OnInit, OnChanges {
 				}
 			}
 		} catch(e) {}
-		this.getFormat();	
+		this.getFormat();
 		this.filterOptions();
 	}
 
@@ -142,7 +142,7 @@ export class MissingQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;
