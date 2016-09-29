@@ -7,32 +7,32 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="col-xs-6 pl-0">
 						<div class="form-group form-element">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.query.value" 
+								[(ngModel)]="inputs.query.value"
 							 	placeholder="{{inputs.query.placeholder}}"
 							 	(keyup)="getFormat();" />
-						</div> 	
-					</div> 	
+						</div>
+					</div>
 					<div class="col-xs-6 pr-0">
 						<div class="form-group form-element">
 							<input type="number" class="form-control col-xs-12"
-								[(ngModel)]="inputs.cutoff_frequency.value" 
+								[(ngModel)]="inputs.cutoff_frequency.value"
 							 	placeholder="{{inputs.cutoff_frequency.placeholder}}"
 							 	(keyup)="getFormat();" />
-						</div>	 	
+						</div>
 					</div>
 					<button (click)="addOption();" class="btn btn-info btn-xs add-option"> <i class="fa fa-plus"></i> </button>
 				</span>
 				<div class="col-xs-12 option-container" *ngIf="optionRows.length">
 					<div class="col-xs-12 single-option" *ngFor="let singleOption of optionRows, let i=index">
-						<div class="col-xs-6 pd-l0">			
-							<editable 
+						<div class="col-xs-6 pd-l0">
+							<editable
 								class = "additional-option-select-{{i}}"
-								[editableField]="singleOption.name" 
+								[editableField]="singleOption.name"
 								[editPlaceholder]="'--choose option--'"
-								[editableInput]="'select2'" 
-								[selectOption]="options" 
+								[editableInput]="'select2'"
+								[selectOption]="options"
 								[passWithCallback]="i"
-								[selector]="'additional-option-select'" 
+								[selector]="'additional-option-select'"
 								[querySelector]="querySelector"
 								[informationList]="informationList"
 								[showInfoFlag]="true"
@@ -64,18 +64,18 @@ export class CommonQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-	title: 'Common query',
-	content: `<span class="description"> Common query content </span>
-				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-range-query.html">Documentation</a>`
+	title: 'Common Terms',
+	content: `<span class="description">Returns common terms matches by avoiding noise from high frequency terms with a cutoff frequency parameter.</span>
+				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-common-terms-query.html#query-dsl-common-terms-query">Read more</a>`
 	};
 	public informationList: any = {
 		'minimum_should_match': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'minimum_should_match',
+			content: `<span class="description">Specify a minimum number or % of low frequency terms which must be present in matches.</span>`
 		},
 		'low_freq_operator': {
-			title: 'zero_terms',
-			content: `<span class="description"> zero_terms content </span>`	
+			title: 'low_freq_operator',
+			content: `<span class="description">Specify 'and' (defaults to 'or') to make all terms required.</span>`
 		}
 	};
 	public default_options: any = [
@@ -94,7 +94,7 @@ export class CommonQuery implements OnInit, OnChanges {
 		query: {
 			placeholder: 'Query',
 			value: ''
-		}, 
+		},
 		cutoff_frequency: {
 			placeholder: 'Cutoff frequency',
 			value: ''
@@ -109,7 +109,7 @@ export class CommonQuery implements OnInit, OnChanges {
 				this.inputs.query.value = this.appliedQuery['common'][this.fieldName]['query']
 			}
 			if(this.appliedQuery['common'][this.fieldName]['cutoff_frequency']) {
-				this.inputs.cutoff_frequency.value = this.appliedQuery['common'][this.fieldName]['cutoff_frequency']	
+				this.inputs.cutoff_frequency.value = this.appliedQuery['common'][this.fieldName]['cutoff_frequency']
 			}
 			for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
 				if (['query','cutoff_frequency'].indexOf(option) === -1) {
@@ -122,7 +122,7 @@ export class CommonQuery implements OnInit, OnChanges {
 			}
 		} catch(e) {}
 		this.filterOptions();
-		this.getFormat();	
+		this.getFormat();
 	}
 
 	ngOnChanges() {
@@ -158,7 +158,7 @@ export class CommonQuery implements OnInit, OnChanges {
 		}
 	*/
 	getFormat() {
-		if(this.queryName === 'common') {		
+		if(this.queryName === 'common') {
 			this.queryFormat = this.setFormat();
 			this.getQueryFormat.emit(this.queryFormat);
 		}
@@ -169,7 +169,7 @@ export class CommonQuery implements OnInit, OnChanges {
 		if (this.optionRows.length) {
 			queryFormat[this.queryName][this.fieldName] = {
 				query: this.inputs.query.value,
-				cutoff_frequency: this.inputs.cutoff_frequency.value		
+				cutoff_frequency: this.inputs.cutoff_frequency.value
 			};
 			this.optionRows.forEach(function(singleRow: any) {
 				queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
@@ -189,7 +189,7 @@ export class CommonQuery implements OnInit, OnChanges {
 		setTimeout(function() {
 			this.getFormat();
 		}.bind(this), 300);
-	}	
+	}
 	filterOptions() {
 		this.options = this.default_options.filter(function(opt) {
 			var flag = true;

@@ -1,11 +1,10 @@
 .query-result-container {
   background: #f7f7f7;
-  padding-bottom: 96px; }
+  padding-bottom: 116px; }
   .query-result-container .queryRight {
     padding: 15px 15px 15px 0;
     background: #f7f7f7;
     border-left: 1px solid #dedede;
-    border-bottom: 1px solid #dedede;
     height: 100%;
     position: relative; }
     .query-result-container .queryRight .rightRow {
@@ -18,11 +17,11 @@
         top: 0; }
       .query-result-container .queryRight .rightRow.run-row {
         bottom: 0;
-        padding-bottom: 15px; }
+        padding-bottom: 0; }
     .query-result-container .queryRight .codeMirror-container {
       height: 100%;
       position: relative;
-      padding: 25px 0 50px 0; }
+      padding: 25px 0 40px 0; }
       .query-result-container .queryRight .codeMirror-container .CodeMirror {
         height: 100%; }
   @media screen and (max-width: 768px) {

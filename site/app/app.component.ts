@@ -12,6 +12,7 @@ import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
 import { UrlShare } from "./shared/urlShare";
 import { ErrorModalComponent } from "./features/modal/error-modal.component";
+import { ConfirmModalComponent } from "./features/confirm/confirm-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
 import { DocSidebarComponent } from "./features/docSidebar/docsidebar.component";
 import { StorageService } from "./shared/storage.service";
@@ -22,7 +23,7 @@ declare var $: any;
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent],
 	providers: [AppbaseService, StorageService, DocService]
 })
 
@@ -52,6 +53,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public sort_by: string = 'createdAt';
 	public sort_direction: boolean = true;
 	public searchTerm: string = '';
+	public searchByMethod: string = 'tag';
 	public filteredQuery: any;
 	public finalUrl: string;
 	public sidebar: boolean = false;
@@ -60,10 +62,12 @@ export class AppComponent implements OnInit, OnChanges {
 	public errorInfo: any = {};
 	public editorHookHelp = new EditorHook({ editorId: 'editor' });
 	public responseHookHelp = new EditorHook({ editorId: 'responseBlock' });
+	public errorHookHelp = new EditorHook({ editorId: 'errorEditor' });
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
 	public version: string = '2.0';
 	public docLink: string;
+	public currentDeleteQuery: any;
 	subscription:Subscription;
 	active = true;
 	powers = ['Really Smart', 'Super Flexible',
@@ -75,6 +79,13 @@ export class AppComponent implements OnInit, OnChanges {
   		alterEgo: 'Chuck Overstreet'
   	};
   	submitted = false;
+  	public deleteItemInfo: any = {
+		title: 'Confirm Deletion',
+		message: 'Do you want to delete this query?',
+		yesText: 'Delete',
+		noText: 'Cancel'
+	};
+
   	onSubmit() { this.submitted = true; }
 
   	setDocSample(link) { 
@@ -212,17 +223,23 @@ export class AppComponent implements OnInit, OnChanges {
 			var self = this;
 			this.appbaseService.setAppbase(this.config);
 			this.appbaseService.getVersion().then(function(res) {
-				let data = res.json();
-				if(data && data.version && data.version.number) {
-					let version = data.version.number;
-					self.version = version; 
-					if(self.version.split('.')[0] !== '2') {
-						self.errorShow({
-							title: 'Elasticsearch Version Not Supported',
-							message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
-						});
+				try {
+					let data = res.json();
+					if(data && data.version && data.version.number) {
+						let version = data.version.number;
+						self.version = version; 
+						if(self.version.split('.')[0] !== '2') {
+							self.errorShow({
+								title: 'Elasticsearch Version Not Supported',
+								message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+							});
+						}
 					}
+				} catch(e) {
+					console.log(e);
 				}
+			}).catch(function(e) {
+				console.log('Not able to get the version.');
 			});
 			this.appbaseService.get('/_mapping').then(function(res) {
 				self.connected = true;
@@ -272,9 +289,11 @@ export class AppComponent implements OnInit, OnChanges {
 				
 			}).catch(function(e) {
 				self.initial_connect = true;
+				let message = e.json().message ? e.json().message : '';
 				self.errorShow({
-					title: 'Disconnected',
-					message: e.json().message
+					title: 'Authentication Error',
+					message: ` It looks like your app name, username, password combination doesn\'t match.
+Check your url and appname and then connect it again.`
 				});
 			});
 		} catch(e) {
@@ -321,8 +340,12 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	deleteQuery(currentQuery) {
-		var confirmFlag = confirm("Do you want to delete this query?");
-		if (confirmFlag) {
+		this.currentDeleteQuery = currentQuery;
+		$('#confirmModal').modal('show');
+	}
+	confirmDeleteQuery(confirmFlag: any) {
+		if (confirmFlag && this.currentDeleteQuery) {
+			var currentQuery = this.currentDeleteQuery;
 			this.getQueryList();
 			this.savedQueryList.forEach(function(query: any, index: Number) {
 				if (query.name === currentQuery.name && query.tag === currentQuery.tag) {
@@ -338,6 +361,7 @@ export class AppComponent implements OnInit, OnChanges {
 				this.storageService.set('queryList', JSON.stringify(this.savedQueryList));
 			} catch (e) {}
 		}
+		this.currentDeleteQuery = null;
 	}
 
 	clearAll() {
@@ -390,11 +414,14 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	// Searching
-	searchList(searchTerm: any) {
+	searchList(obj: any) {
+		var searchTerm = obj.searchTerm;
+		var searchByMethod = obj.searchByMethod ? obj.searchByMethod : 'tag';
 		this.searchTerm = searchTerm;
+		this.searchByMethod = searchByMethod;
 		if (this.searchTerm.trim().length > 1) {
 			this.filteredQuery = this.savedQueryList.filter(function(item) {
-				return item.tag.indexOf(this.searchTerm) !== -1 ? true : false;
+				return (item[this.searchByMethod] && item[this.searchByMethod].indexOf(this.searchTerm) !== -1) ? true : false;
 			}.bind(this));
 
 			if (!this.filteredQuery.length) {
@@ -462,8 +489,19 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	errorShow(info: any) {
+		var self = this;
 		this.errorInfo = info;
 		$('#errorModal').modal('show');
+		var message = info.message;
+		setTimeout(function() {
+			if($('#errorModal').hasClass('in')) {
+				self.errorHookHelp.setValue(message);
+			} else {
+				setTimeout(function() {
+					self.errorHookHelp.setValue(message);
+				}, 300);
+			}
+		}.bind(this), 500);
 	}
 
 	viewData() {

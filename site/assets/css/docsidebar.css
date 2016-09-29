@@ -1,13 +1,13 @@
 .doc-container {
   position: absolute;
-  width: 100%;
+  width: 35%;
   height: 100%;
   top: 0;
-  left: 0;
+  right: 0;
   display: block; }
   .doc-container .iframe-container {
     position: absolute;
-    width: 35%;
+    width: 100%;
     height: 100%;
     top: 0;
     right: 0;
@@ -21,17 +21,17 @@
       width: 100%; }
     .doc-container .iframe-container .close-iframe {
       position: absolute;
-      top: 5px;
-      left: 5px;
-      font-size: 18px;
-      line-height: 40px;
-      width: 40px;
-      height: 40px;
-      padding-top: 10px;
+      top: 14px;
+      right: 8px;
+      font-size: 14px;
+      line-height: 30px;
+      width: 30px;
+      height: 30px;
+      padding-top: 7px;
       text-align: center;
       display: inline-block;
       border-radius: 50%;
-      background: #f1f1f1;
-      color: #333;
+      background: #FCC829;
+      color: #fff;
       cursor: pointer;
       border: 1px solid #ddd; }

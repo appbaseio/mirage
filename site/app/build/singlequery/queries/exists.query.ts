@@ -17,11 +17,11 @@ export class ExistsQuery implements OnInit, OnChanges {
 	public queryName = '*';
 	public fieldName = '*';
 	public information: any = {
-		title: 'Exists query',
-		content: `<span class="description"> Exists query content </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-exists-query.html">Documentation</a>`
+		title: 'Exists',
+		content: `<span class="description">Returns matches where the field value is not null. </span>
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html#query-dsl-exists-query">Read more</a>`
 	};
-	
+
 	public queryFormat: any = {};
 
 	ngOnInit() {
@@ -30,7 +30,7 @@ export class ExistsQuery implements OnInit, OnChanges {
 				this.appliedQuery[this.current_query]['field'] = this.fieldName;
 			}
 		} catch(e) {}
-		this.getFormat();	
+		this.getFormat();
 	}
 
 	ngOnChanges() {
