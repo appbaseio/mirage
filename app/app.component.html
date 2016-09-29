@@ -122,4 +122,5 @@
 		</div>
 	</div>
 </div>
-<error-modal [info]="errorInfo"></error-modal>
+<error-modal [info]="errorInfo" [errorHookHelp]="errorHookHelp"></error-modal>
+<confirm-modal (callback)="confirmDeleteQuery($event)" [info]="deleteItemInfo"></confirm-modal>

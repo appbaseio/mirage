@@ -51,7 +51,7 @@ export class MissingQuery implements OnInit, OnChanges {
 	public information: any = {
 		title: 'Missing',
 		content: `<span class="description">Returns matches where the field value is null. </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-missing-query.html">Read more</a>`
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-missing-query.html#query-dsl-missing-query">Read more</a>`
 	};
 	public informationList: any = {
 		'existence': {

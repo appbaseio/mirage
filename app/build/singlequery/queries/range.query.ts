@@ -7,16 +7,16 @@ import { EditableComponent } from '../../editable/editable.component';
 					<div class="col-xs-6 pl-0">
 						<div class="form-group form-element">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.from.value"
-							 	placeholder="{{inputs.from.placeholder}}"
+								[(ngModel)]="inputs.gte.value"
+							 	placeholder="{{inputs.gte.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</div>
 					</div>
 					<div class="col-xs-6 pr-0">
 						<div class="form-group form-element">
 							<input type="text" class="form-control col-xs-12"
-								[(ngModel)]="inputs.to.value"
-							 	placeholder="{{inputs.to.placeholder}}"
+								[(ngModel)]="inputs.lte.value"
+							 	placeholder="{{inputs.lte.placeholder}}"
 							 	(keyup)="getFormat();" />
 						</div>
 					</div>
@@ -85,11 +85,11 @@ export class RangeQuery implements OnInit, OnChanges {
 	};
 	public optionRows: any = [];
 	public inputs: any = {
-		from: {
+		gte: {
 			placeholder: 'From',
 			value: ''
 		},
-		to: {
+		lte: {
 			placeholder: 'To',
 			value: ''
 		}
@@ -99,14 +99,14 @@ export class RangeQuery implements OnInit, OnChanges {
 	ngOnInit() {
 		this.options = JSON.parse(JSON.stringify(this.default_options));
 		try {
-			if(this.appliedQuery['range'][this.fieldName]['from']) {
-				this.inputs.from.value = this.appliedQuery['range'][this.fieldName]['from']
+			if(this.appliedQuery['range'][this.fieldName]['gte']) {
+				this.inputs.gte.value = this.appliedQuery['range'][this.fieldName]['gte']
 			}
-			if(this.appliedQuery['range'][this.fieldName]['to']) {
-				this.inputs.to.value = this.appliedQuery['range'][this.fieldName]['to']
+			if(this.appliedQuery['range'][this.fieldName]['lte']) {
+				this.inputs.lte.value = this.appliedQuery['range'][this.fieldName]['lte']
 			}
 			for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
-				if (option != 'from' && option != 'to') {
+				if (option != 'gte' && option != 'lte') {
 					var obj = {
 						name: option,
 						value: this.appliedQuery[this.current_query][this.fieldName][option]
@@ -140,7 +140,7 @@ export class RangeQuery implements OnInit, OnChanges {
 		Query Format for this query is
 		@queryName: {
 			@fieldName: {
-				from: @from_value,
+				gte: @gte_value,
 				to: @to_value
 			}
 		}
@@ -155,8 +155,8 @@ export class RangeQuery implements OnInit, OnChanges {
 		var queryFormat = {};
 		queryFormat[this.queryName] = {};
 		queryFormat[this.queryName][this.fieldName] = {
-			from: this.inputs.from.value,
-			to: this.inputs.to.value,
+			gte: this.inputs.gte.value,
+			lte: this.inputs.lte.value,
 		};
 		this.optionRows.forEach(function(singleRow: any) {
 			queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;

@@ -5,7 +5,11 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 				<h4 class="modal-title" id="myModalLabel">{{info.title}}</h4> </div>
 			<div class="modal-body">
-				{{info.message}}
+				<div class="col-xs-12 pd-r0 codeMirror-container">
+			        <div class="form-group">
+			            <textarea class="form-control m-b15" name="errorEditor" id="errorEditor" cols="30" rows="10"></textarea>
+			        </div>
+			    </div>
 			</div>
 			<div class="modal-footer">
 				<button *ngIf="info.type != 'confirmation'" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

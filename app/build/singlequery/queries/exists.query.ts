@@ -19,7 +19,7 @@ export class ExistsQuery implements OnInit, OnChanges {
 	public information: any = {
 		title: 'Exists',
 		content: `<span class="description">Returns matches where the field value is not null. </span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html">Read more</a>`
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-exists-query.html#query-dsl-exists-query">Read more</a>`
 	};
 
 	public queryFormat: any = {};
