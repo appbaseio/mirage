@@ -390,11 +390,13 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	// Searching
-	searchList(searchTerm: any) {
+	searchList(obj: any) {
+		var searchTerm = obj.searchTerm;
+		var method = obj.method;
 		this.searchTerm = searchTerm;
 		if (this.searchTerm.trim().length > 1) {
 			this.filteredQuery = this.savedQueryList.filter(function(item) {
-				return item.tag.indexOf(this.searchTerm) !== -1 ? true : false;
+				return (item[method] && item[method].indexOf(this.searchTerm) !== -1) ? true : false;
 			}.bind(this));
 
 			if (!this.filteredQuery.length) {
