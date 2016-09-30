@@ -77,10 +77,10 @@ $ npm run build_chrome_extension
 <br>
 
 ### 5. How to Contribute
-1. Fork the mirage repo
-2. Apply changes on "dev" branch
-3. npm run test
-4. Do pull request
+1. Fork the mirage repo and update in "dev" branch
+2. [Creat new query](https://github.com/appbaseio/mirage/blob/dev/addNewQuery.md)
+3. Build locally and test it
+4. Send PR
 
 <br>
 
