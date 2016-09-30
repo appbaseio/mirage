@@ -21,7 +21,6 @@ UrlShare.prototype.createUrl = function() {
         delete inputs.result.resultQuery.final;
         delete inputs.result.output;
     } catch(e) {}
-    console.log(inputs);
     var data = JSON.stringify(inputs);
     this.compress(inputs, compressCb.bind(this));
     function compressCb(error, ciphertext) {
@@ -72,34 +71,41 @@ UrlShare.prototype.dejavuLink = function() {
 }
 
 UrlShare.prototype.compress = function(jsonInput, cb) {
-    var msgpack = msgpack5();
-    var packed = msgpack.encode(jsonInput);
-    JSONURL.compress(packed, 9, function(res, error) {
-    var result = SafeEncode.buffer(res);
-      try {
-        cb(null, SafeEncode.encode(result));   
-      } catch(e) {
-        cb(e);
-      }
-    });
+    if(!jsonInput) {
+        return cb('Input should not be empty');
+    } else {
+    var packed = JSON.stringify(jsonInput);
+        JSONURL.compress(packed, 9, function(res, error) {
+          try {
+            var result = SafeEncode.buffer(res);
+            cb(null, SafeEncode.encode(result));   
+          } catch(e) {
+            cb(e);
+          }
+        });
+    }
 }
 
 UrlShare.prototype.decompress = function(compressed, cb) {
     var self = this;
-    var msgpack = msgpack5();
-    var compressBuffer = SafeEncode.buffer(compressed);
-    JSONURL.decompress(SafeEncode.decode(compressBuffer), function(res, error) {
-    var decryptedData = msgpack.decode(res);
-    try {
-        if(decryptedData) {
-            self.decryptedData = decryptedData;
-            cb(null, decryptedData);   
-        } else {
-            cb('Not found');
-        }
-      } catch(e) {
-        cb(e);
-      }
-    });
+    if(compressed) {
+        var compressBuffer = SafeEncode.buffer(compressed);
+        JSONURL.decompress(SafeEncode.decode(compressBuffer), function(res, error) {
+        var decryptedData = res;
+        try {
+            if(decryptedData) {
+                decryptedData = JSON.parse(decryptedData);
+                self.decryptedData = decryptedData;
+                cb(null, decryptedData);   
+            } else {
+                cb('Not found');
+            }
+          } catch(e) {
+            cb(e);
+          }
+        });
+    } else {
+        return cb('Empty');
+    }
 }
 
