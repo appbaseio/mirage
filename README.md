@@ -5,11 +5,11 @@
 
 ## Mirage: The missing query explorer for Elasticsearch
 
-1. **[Mirage: Intro]()**   
-2. **[Features]()**  
-3. **[Roadmap]()** 
-4. **[Build Locally]()**  
-5. **[How to contribute]()** 
+1. **[Mirage: Intro](#1-mirage-intro)**   
+2. **[Features](#2-features)**  
+3. **[Roadmap](#3-roadmap)** 
+4. **[Build Locally](#4-build-locally)**  
+5. **[How to contribute](#5-how-to-contribute)** 
 
 
 <br>
@@ -58,9 +58,11 @@ $ npm run build_es_plugin
 $ npm run build_chrome_extension
 ```
 
-![](https://avatars0.githubusercontent.com/u/139426?v=3&s=20) Proudly built with Angular 2!
-
+<br>
 
 ### 5. How to Contribute
 
 
+<br>
+
+![](https://avatars0.githubusercontent.com/u/139426?v=3&s=20) Proudly built with Angular 2!
