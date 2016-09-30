@@ -36,15 +36,16 @@ UrlShare.prototype.createUrl = function() {
 }
 
 UrlShare.prototype.decryptUrl = function(cb) {
-    var url = window.location.href.split('#?input_state=');
-    if (url.length > 1) {
-        this.decompress(url[1], cb);
-    } else {
-        // cb('Empty url');
-    }
-    // setTimeout(function() {
-    //     cb('lol');
-    // }, 1000);
+    return new Promise((resolve, reject) => {
+        var url = window.location.href.split('#?input_state=');
+        if (url.length > 1) {
+            this.decompress(url[1], function(error, data) {
+                resolve({error: error, data: data});
+            });    
+        } else {
+            resolve({error:'Empty url'});
+        }
+    });
 }
 
 UrlShare.prototype.convertToUrl = function(type) {

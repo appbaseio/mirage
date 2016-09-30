@@ -114,13 +114,14 @@ export class AppComponent implements OnInit, OnChanges {
 			config = this.defaultApp;
 			return cb(config);
 		} else {
-			this.urlShare.decryptUrl(function(error, decryptedData) {
+			this.urlShare.decryptUrl().then((data) => {
+				var decryptedData = data. data;
 				if(decryptedData && decryptedData.config) {
-					return cb(decryptedData.config);
+					cb(decryptedData.config);
 				} else {
-					return cb(null);
+					cb(null);
 				}
-			}.bind(this));
+			});
 		}
 	}
 
