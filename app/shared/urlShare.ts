@@ -38,14 +38,13 @@ UrlShare.prototype.createUrl = function() {
 UrlShare.prototype.decryptUrl = function(cb) {
     var url = window.location.href.split('#?input_state=');
     if (url.length > 1) {
-        this.decompress(url[1], decompressCb.bind(this));
-        function decompressCb(error, decryptedData) {
-            if(!error) {
-                this.decryptedData = decryptedData;
-            }
-            cb(error, decryptedData);
-        }
+        this.decompress(url[1], cb);
+    } else {
+        // cb('Empty url');
     }
+    // setTimeout(function() {
+    //     cb('lol');
+    // }, 1000);
 }
 
 UrlShare.prototype.convertToUrl = function(type) {
@@ -85,11 +84,18 @@ UrlShare.prototype.compress = function(jsonInput, cb) {
 }
 
 UrlShare.prototype.decompress = function(compressed, cb) {
+    var self = this;
     var msgpack = msgpack5();
     var compressBuffer = SafeEncode.buffer(compressed);
     JSONURL.decompress(SafeEncode.decode(compressBuffer), function(res, error) {
-      try {
-        cb(null, msgpack.decode(res));   
+    var decryptedData = msgpack.decode(res);
+    try {
+        if(decryptedData) {
+            self.decryptedData = decryptedData;
+            cb(null, decryptedData);   
+        } else {
+            cb('Not found');
+        }
       } catch(e) {
         cb(e);
       }

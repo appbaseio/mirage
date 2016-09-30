@@ -89,10 +89,10 @@ export class AppComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
-		this.setInitialValue();
 		// get data from url
 		this.detectConfig(configCb.bind(this));
 		function configCb(config) {
+			this.setInitialValue();
 			if(config && config.url && config.appname) {
 				this.setLocalConfig(config.url, config.appname);
 			}
@@ -115,12 +115,12 @@ export class AppComponent implements OnInit, OnChanges {
 			return cb(config);
 		} else {
 			this.urlShare.decryptUrl(function(error, decryptedData) {
-				if(decryptedData.config) {
+				if(decryptedData && decryptedData.config) {
 					return cb(decryptedData.config);
 				} else {
 					return cb(null);
 				}
-			});
+			}.bind(this));
 		}
 	}
 
@@ -296,7 +296,7 @@ export class AppComponent implements OnInit, OnChanges {
 					} else {
 						self.setMobileLayout();
 					}
-					self.editorHookHelp.setValue('');
+					// self.editorHookHelp.setValue('');
 				}, 300);
 				
 			}).catch(function(e) {
