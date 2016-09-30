@@ -61,7 +61,10 @@ $ npm run build_chrome_extension
 <br>
 
 ### 5. How to Contribute
-
+1. Fork the mirage repo
+2. Apply changes on "dev" branch
+3. npm run test
+4. Do pull request
 
 <br>
 
