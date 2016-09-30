@@ -91,12 +91,14 @@ export class AppComponent implements OnInit, OnChanges {
 		$('body').removeClass('is-loadingApp');
 		this.setInitialValue();
 		// get data from url
-		let config = this.detectConfig();
-		if(config && config.url && config.appname) {
-			this.setLocalConfig(config.url, config.appname);
+		this.detectConfig(configCb.bind(this));
+		function configCb(config) {
+			if(config && config.url && config.appname) {
+				this.setLocalConfig(config.url, config.appname);
+			}
+			this.getLocalConfig();
+			this.getQueryList();
 		}
-		this.getLocalConfig();
-		this.getQueryList();
 	}
 
 	ngOnChanges(changes) {
@@ -105,18 +107,21 @@ export class AppComponent implements OnInit, OnChanges {
 	}
 
 	// detect app config, either get it from url or apply default config
-	detectConfig() {
+	detectConfig(cb) {
 		let config = null;
 		let isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
 		if(isDefault) {
 			config = this.defaultApp;
+			return cb(config);
 		} else {
-			let decryptedData = this.urlShare.decryptUrl();
-			if(decryptedData.config) {
-				config = decryptedData.config;
-			}
+			this.urlShare.decryptUrl(function(error, decryptedData) {
+				if(decryptedData.config) {
+					return cb(decryptedData.config);
+				} else {
+					return cb(null);
+				}
+			});
 		}
-		return config;
 	}
 
 	//Get config from localstorage 
