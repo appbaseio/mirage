@@ -28,7 +28,23 @@ It provides the GUI building blocks for different Elasticsearch queries, and tra
 
 ### 2. Features
 
+* Mirage's GUI building blocks offer a smart way to creating queries. 
 
+![Watch Queries being built in realtime](http://i.imgur.com/9ActpEK.gif)  
+
+<br>
+
+* Mirage provides two ways to add compound query clauses, 
+  * `Add Conditions` allows adding additional clauses within the same query and  
+  * `Nested Query` allows adding a nested query clause. 
+
+![Intuitively layer complexity to your queries](http://i.imgur.com/uFpBv4e.gif)  
+
+<br>
+
+* Queries can be saved for later reuse.
+
+![Save queries for later reuse](http://i.imgur.com/NMAi5tn.gif)
 
 <br>
 
