@@ -15,6 +15,7 @@ import { ErrorModalComponent } from "./features/modal/error-modal.component";
 import { ConfirmModalComponent } from "./features/confirm/confirm-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
 import { DocSidebarComponent } from "./features/docSidebar/docsidebar.component";
+import { LearnModalComponent } from "./features/learn/learn.component";
 import { StorageService } from "./shared/storage.service";
 import { DocService } from "./shared/docService";
 
@@ -23,7 +24,7 @@ declare var $: any;
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent, LearnModalComponent],
 	providers: [AppbaseService, StorageService, DocService]
 })
 
@@ -335,9 +336,13 @@ Check your url and appname and then connect it again.`
 			if(queryData.length) {
 				query = queryData[0];
 				this.connected = false;
+				this.initial_connect = false;
 				this.config = query.config;
+				this.appbaseService.setAppbase(this.config);
 				this.appbaseService.get('/_mapping').then(function(res) {
 					let data = res.json();
+					this.finalUrl = this.config.host + '/' + this.config.appname;
+					this.setInitialValue();
 					this.connected = true;
 					this.result = query.result;
 					this.mapping = data;
@@ -392,23 +397,24 @@ Check your url and appname and then connect it again.`
 	}
 
 	// save query
-	saveQuery() {
+	saveQuery(inputQuery: any) {
 		this.getQueryList();
 		var createdAt = new Date().getTime();
-		this.savedQueryList.forEach(function(query, index) {
-			if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
-				this.savedQueryList.splice(index, 1);
-			}
-		}.bind(this));
-		var queryData = {
+		let currentQuery = {
+			name: this.query_info.name,
+			tag: this.query_info.tag,
 			config: this.config,
 			selectedTypes: this.selectedTypes,
 			result: this.result,
-			name: this.query_info.name,
-			tag: this.query_info.tag,
-			version: this.version,
-			createdAt: createdAt
+			version: this.version
 		};
+		let queryData = inputQuery ? inputQuery : currentQuery;
+		queryData.createdAt = createdAt;
+		this.savedQueryList.forEach(function(query, index) {
+			if (query.name === queryData.name && query.tag === queryData.tag) {
+				this.savedQueryList.splice(index, 1);
+			}
+		}.bind(this));
 		this.savedQueryList.push(queryData);
 		this.sort(this.savedQueryList);
 		var queryString = JSON.stringify(this.savedQueryList);
@@ -520,5 +526,9 @@ Check your url and appname and then connect it again.`
 	viewData() {
 		var dejavuLink = this.urlShare.dejavuLink();
 		window.open(dejavuLink, '_blank');
+	}
+
+	openLearn() {
+		$('#learnModal').modal('show');
 	}
 }

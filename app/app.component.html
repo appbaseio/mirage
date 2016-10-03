@@ -81,13 +81,18 @@
 	<doc-sidebar [docLink]="docLink" (setDocSample)="setDocSample($event);"></doc-sidebar>
 	<!-- Doc Sidebar end -->
 	<!-- Footer START -->
-	<footer class="text-center"> <span class="text-right pull-right powered_by">
-		  Create your ElasticSearch in cloud with&nbsp;<a href="http://appbase.io">appbase.io</a>
-		</span> <span class="pull-left github-star">
+	<footer class="text-center"> 
+		<span class="footer-center">
+			<a id="mirage-learn-link" (click)="openLearn();">New to mirage?</a>
+		</span>
+		<span class="github-star">
 		  <iframe src="https://ghbtns.com/github-btn.html?user=appbaseio&repo=mirage&type=star&count=true" frameBorder="0" scrolling="0" width="120px" height="20px"></iframe>
-		</span> </footer>
+		</span>
+		<span class="powered_by">
+		  Create your ElasticSearch in cloud with&nbsp;<a href="http://appbase.io">appbase.io</a>
+		</span>
+	</footer>
 	<!-- Footer END -->
-
 </div>
 <div class="modal fade" id="saveQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -124,3 +129,4 @@
 </div>
 <error-modal [info]="errorInfo" [errorHookHelp]="errorHookHelp"></error-modal>
 <confirm-modal (callback)="confirmDeleteQuery($event)" [info]="deleteItemInfo"></confirm-modal>
+<learn-modal (saveQuery)="saveQuery($event);" (newQuery)="newQuery($event);"></learn-modal>
