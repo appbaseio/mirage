@@ -71,6 +71,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public currentDeleteQuery: any;
 	active = true;
 	submitted = false;
+	public setLayoutFlag = false;
   	public deleteItemInfo: any = {
 		title: 'Confirm Deletion',
 		message: 'Do you want to delete this query?',
@@ -94,6 +95,7 @@ export class AppComponent implements OnInit, OnChanges {
 		this.detectConfig(configCb.bind(this));
 		function configCb(config) {
 			this.setInitialValue();
+			this.getQueryList();
 			if(config && config === 'learn') {
 				$('#learnModal').modal('show');
 				this.initial_connect = true;
@@ -102,7 +104,6 @@ export class AppComponent implements OnInit, OnChanges {
 					this.setLocalConfig(config.url, config.appname);
 				}
 				this.getLocalConfig();
-				this.getQueryList();
 			}
 		}
 	}
@@ -357,7 +358,20 @@ Check your url and appname and then connect it again.`
 					this.mapping = data;
 					this.types = this.seprateType(data);
 					this.selectedTypes = query.selectedTypes;
-					setTimeout(() => { $('#setType').val(this.selectedTypes).trigger("change"); }, 300);
+					//set input state
+					this.urlShare.inputs['config'] = this.config;
+					this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+					this.urlShare.inputs['result'] = this.result;
+					this.urlShare.inputs['finalUrl'] = this.finalUrl;
+					this.urlShare.createUrl();
+					setTimeout(() => { 
+						$('#setType').val(this.selectedTypes).trigger("change"); 
+						if($('body').width() > 768 && !this.setLayoutFlag) {
+							this.setLayoutResizer();
+						} else {
+							this.setMobileLayout();
+						}
+				}, 300);
 				}.bind(this));	
 				this.query_info.name = query.name;
 				this.query_info.tag = query.tag;
@@ -493,6 +507,7 @@ Check your url and appname and then connect it again.`
 	}
 
 	setLayoutResizer() {
+		this.setLayoutFlag = true;
 		$('body').layout({
 			east__size:	"50%",
 			center__paneSelector: "#paneCenter",
