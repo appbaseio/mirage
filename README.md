@@ -29,7 +29,7 @@ It offers a blocks based GUI for composing Elasticsearch queries and comes with 
 
 ### 2. Features
 
-* Mirage's GUI building blocks offer a smart way to creating queries. 
+* Mirage's GUI building blocks offer a smart way to creating queries. It uses the index's Elasticsearch mappings and the selected field's datatype to show only the applicable queries in the dropdown.
 
 ![Watch Queries being built in realtime](http://i.imgur.com/9ActpEK.gif)  
 
@@ -43,7 +43,7 @@ It offers a blocks based GUI for composing Elasticsearch queries and comes with 
 
 <br>
 
-* Queries can be saved for later reuse.
+* Queries can be saved for later reuse. They can also be captured and shared by copying the URL.
 
 ![Save queries for later reuse](http://i.imgur.com/NMAi5tn.gif)
 
