@@ -125,11 +125,35 @@ $ npm run build_chrome_extension
 
 Mirage is available as a hosted app and as a chrome extension.
 
-#### Use [appbaseio.github.io/mirage](http://appbaseio.github.io/mirage) website  
+#### [Use hosted app](http://appbaseio.github.io/mirage)  
 
 or  
 
-#### [Get the Chrome Extension.](https://chrome.google.com/webstore/detail/mirage/dcnlpfmnpoggchflmdnkgiepijgljoka)
+#### [Get the Chrome extension](https://chrome.google.com/webstore/detail/mirage/dcnlpfmnpoggchflmdnkgiepijgljoka)
+
+or
+
+#### Install as Elasticsearch Plugin
+
+```sh
+plugin install appbaseio/mirage
+```
+
+Note: To make sure you enable CORS settings for your ElasticSearch instance, add the following lines in the ES configuration file.
+
+```
+http.port: 9200
+http.cors.allow-origin: "http://127.0.0.1:9200"
+http.cors.enabled: true
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization
+http.cors.allow-credentials: true
+```
+
+After installing the plugin, start the elasticsearch service and visit the following URL to access it.
+
+http://127.0.0.1:9200/_plugin/mirage
+
+``Note:`` If you use Elasticsearch from a different port, the URL to access and the http.cors.allow-origin value in the configuration file would change accordingly.
 
 ---
 
