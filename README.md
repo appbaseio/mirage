@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.0--rc.4-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20)
+[![](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.0--rc.4-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a>
 
 
 ![](http://i.imgur.com/RoyFbSb.png?1)
