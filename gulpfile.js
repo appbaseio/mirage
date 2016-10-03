@@ -146,10 +146,10 @@ gulp.task('chrome_dist_dir', function() {
 });
 
 
-// To include in unit-tests.html
-gulp.task('move_jquery', function() {
+// Include dependency in dist
+gulp.task('move_js_depends', function() {
     return gulp.src(['bower_components/jquery/dist/jquery.min.js',
-        'bower_components/lzma/src/lzma_worker-min.js'])
+        'bower_components/lzma/src/lzma_worker.js'])
         .pipe(gulp.dest('dist/vendor'));
 });
 
@@ -171,7 +171,7 @@ gulp.task('build',['compact'], function() {
         .pipe(gulp.dest('dist/angular'));
 });
 
-gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery']);
+gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_js_depends']);
 
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.sassFile, ['customcss']);
