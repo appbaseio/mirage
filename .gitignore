@@ -12,3 +12,4 @@ site
 mirage-unpacked
 mirage-unpacked?
 npm-debug.log.*
+manifest.json
