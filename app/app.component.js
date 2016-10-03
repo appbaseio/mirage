@@ -82,11 +82,17 @@ var AppComponent = (function () {
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
             this.setInitialValue();
-            if (config && config.url && config.appname) {
-                this.setLocalConfig(config.url, config.appname);
+            if (config && config === 'learn') {
+                $('#learnModal').modal('show');
+                this.initial_connect = true;
             }
-            this.getLocalConfig();
-            this.getQueryList();
+            else {
+                if (config && config.url && config.appname) {
+                    this.setLocalConfig(config.url, config.appname);
+                }
+                this.getLocalConfig();
+                this.getQueryList();
+            }
         }
     };
     AppComponent.prototype.ngOnChanges = function (changes) {
@@ -97,9 +103,13 @@ var AppComponent = (function () {
     AppComponent.prototype.detectConfig = function (cb) {
         var config = null;
         var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
+        var isInputState = window.location.href.indexOf('input_state=') > -1 ? true : false;
         if (isDefault) {
             config = this.defaultApp;
             return cb(config);
+        }
+        else if (!isInputState) {
+            return cb('learn');
         }
         else {
             this.urlShare.decryptUrl().then(function (data) {
