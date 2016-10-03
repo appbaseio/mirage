@@ -99,7 +99,16 @@ footer {
   footer .powered_by {
     position: absolute;
     right: 5px; }
-    @media screen and (max-width: 768px) {
-      footer .powered_by {
+  footer .github-star {
+    position: absolute;
+    left: 5px; }
+  @media screen and (max-width: 768px) {
+    footer {
+      height: 56px; }
+      footer .powered_by, footer .github-star, footer .footer-center {
         font-size: 11px;
-        line-height: 23px; } }
+        line-height: 23px; }
+      footer .footer-center {
+        position: relative;
+        display: block;
+        width: 100%; } }

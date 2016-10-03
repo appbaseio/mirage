@@ -102,25 +102,29 @@ export class TypesComponent implements OnChanges {
 
 	setUrl(val: any) {
 		var selectedTypes = val;
-		var finalUrl = this.finalUrl.split('/');
-		var lastUrl = '';
-		finalUrl[3] = this.config.appname;
-		if (finalUrl.length > 4) {
-			finalUrl[4] = selectedTypes.join(',');
-			finalUrl[5] = '_search';
-			lastUrl = finalUrl.join('/');
+		if(!this.finalUrl) {
+			console.log('Finalurl is not present');
 		} else {
-			var typeJoin = '/' + selectedTypes.join(',');
-			if(!selectedTypes.length) {
-				typeJoin = '';
+			var finalUrl = this.finalUrl.split('/');
+			var lastUrl = '';
+			finalUrl[3] = this.config.appname;
+			if (finalUrl.length > 4) {
+				finalUrl[4] = selectedTypes.join(',');
+				finalUrl[5] = '_search';
+				lastUrl = finalUrl.join('/');
+			} else {
+				var typeJoin = '/' + selectedTypes.join(',');
+				if(!selectedTypes.length) {
+					typeJoin = '';
+				}
+				lastUrl = this.finalUrl + typeJoin + '/_search';
 			}
-			lastUrl = this.finalUrl + typeJoin + '/_search';
+			var propInfo = {
+				name: 'finalUrl',
+				value: lastUrl
+			};
+			this.setProp.emit(propInfo);
 		}
-		var propInfo = {
-			name: 'finalUrl',
-			value: lastUrl
-		};
-		this.setProp.emit(propInfo);
 		setTimeout(function() {
 			this.buildQuery.emit(null);
 		}.bind(this), 300);
