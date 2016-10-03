@@ -22,6 +22,7 @@ var error_modal_component_1 = require("./features/modal/error-modal.component");
 var confirm_modal_component_1 = require("./features/confirm/confirm-modal.component");
 var appselect_component_1 = require("./features/appselect/appselect.component");
 var docsidebar_component_1 = require("./features/docSidebar/docsidebar.component");
+var learn_component_1 = require("./features/learn/learn.component");
 var storage_service_1 = require("./shared/storage.service");
 var docService_1 = require("./shared/docService");
 var AppComponent = (function () {
@@ -320,10 +321,14 @@ var AppComponent = (function () {
             if (queryData.length) {
                 query_1 = queryData[0];
                 this.connected = false;
+                this.initial_connect = false;
                 this.config = query_1.config;
+                this.appbaseService.setAppbase(this.config);
                 this.appbaseService.get('/_mapping').then(function (res) {
                     var _this = this;
                     var data = res.json();
+                    this.finalUrl = this.config.host + '/' + this.config.appname;
+                    this.setInitialValue();
                     this.connected = true;
                     this.result = query_1.result;
                     this.mapping = data;
@@ -375,23 +380,24 @@ var AppComponent = (function () {
         this.sidebar = this.sidebar ? false : true;
     };
     // save query
-    AppComponent.prototype.saveQuery = function () {
+    AppComponent.prototype.saveQuery = function (inputQuery) {
         this.getQueryList();
         var createdAt = new Date().getTime();
-        this.savedQueryList.forEach(function (query, index) {
-            if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
-                this.savedQueryList.splice(index, 1);
-            }
-        }.bind(this));
-        var queryData = {
+        var currentQuery = {
+            name: this.query_info.name,
+            tag: this.query_info.tag,
             config: this.config,
             selectedTypes: this.selectedTypes,
             result: this.result,
-            name: this.query_info.name,
-            tag: this.query_info.tag,
-            version: this.version,
-            createdAt: createdAt
+            version: this.version
         };
+        var queryData = inputQuery ? inputQuery : currentQuery;
+        queryData.createdAt = createdAt;
+        this.savedQueryList.forEach(function (query, index) {
+            if (query.name === queryData.name && query.tag === queryData.tag) {
+                this.savedQueryList.splice(index, 1);
+            }
+        }.bind(this));
         this.savedQueryList.push(queryData);
         this.sort(this.savedQueryList);
         var queryString = JSON.stringify(this.savedQueryList);
@@ -496,11 +502,14 @@ var AppComponent = (function () {
         var dejavuLink = this.urlShare.dejavuLink();
         window.open(dejavuLink, '_blank');
     };
+    AppComponent.prototype.openLearn = function () {
+        $('#learnModal').modal('show');
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: './app/app.component.html',
-            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent],
+            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent, learn_component_1.LearnModalComponent],
             providers: [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService]
         }), 
         __metadata('design:paramtypes', [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService])
