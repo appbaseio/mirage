@@ -113,10 +113,10 @@ $ npm run build_chrome_extension
 
 ### 5. How to Contribute  
 
-1. Find a query that can be supported from the [roadmap](#3-roadmap)  
-2. Fork the mirage repo and update in "dev" branch
-3. [Create the query files](https://github.com/appbaseio/mirage/blob/dev/HOW-TO-CONTRIBUTE.md)
-4. Build locally and run `npm test`
+1. Find a query that can be supported from the [roadmap](#3-roadmap).  
+2. Fork the mirage repo and update in "dev" branch.
+3. [Create the query files](https://github.com/appbaseio/mirage/blob/dev/HOW-TO-CONTRIBUTE.md).  
+4. Build locally and run `npm test`.
 5. Submit a PR!
 
 <br>
@@ -125,12 +125,12 @@ $ npm run build_chrome_extension
 
 Mirage is available as a hosted app and as a chrome extension.
 
-#### [appbaseio.github.io/mirage](http://appbaseio.github.io/mirage) website  
+#### Use [appbaseio.github.io/mirage](http://appbaseio.github.io/mirage) website  
 
-or
+or  
 
-#### [Get the Chrome Extension](https://chrome.google.com/webstore/detail/mirage/dcnlpfmnpoggchflmdnkgiepijgljoka)
+#### [Get the Chrome Extension.](https://chrome.google.com/webstore/detail/mirage/dcnlpfmnpoggchflmdnkgiepijgljoka)
 
 ---
 
-![](https://avatars0.githubusercontent.com/u/139426?v=3&s=20) Proudly built with Angular 2!
+Proudly built with ![](https://avatars0.githubusercontent.com/u/139426?v=3&s=20)
