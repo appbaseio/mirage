@@ -126,6 +126,9 @@ $ npm run build_chrome_extension
 Mirage is available as a hosted app and as a chrome extension.
 
 #### [appbaseio.github.io/mirage](http://appbaseio.github.io/mirage) website  
+
+or
+
 #### [Get the Chrome Extension](https://chrome.google.com/webstore/detail/mirage/dcnlpfmnpoggchflmdnkgiepijgljoka)
 
 ---
