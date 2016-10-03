@@ -50,6 +50,28 @@ It provides the GUI building blocks for different Elasticsearch queries, and tra
 
 ### 3. Roadmap
 
+Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for query support.
+
+✓ indicates queries already supported.  
+➕ indicates queries we would like to support and see [contributions for](#5-how-to-contribute).  
+❌ indicates queries that can't be supported currently.
+
+| Full-text Queries      | Term Level Queries  | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
+| :--------------------: |:-------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
+| 	✓ Match               | 	✓ Term             | ➕ Nested       | ➕ GeoShape          | ➕ MoreLikeThis     | ➕ SpanTerm   |
+| 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ➕ GeoBoundingBox    | ➕ Template         | ➕ SpanMulti  |
+| 	✓ Query String        | 	✓ Range            | ➕ HasParent    | ➕ GeoDistance       | ❌ Script           | ➕ SpanFirst  |
+| 	✓ Simple Query String | 	✓ Exists           |                 | ➕ GeoDistanceRange  |                     | ➕ SpanNear   |
+| 	✓ Common Terms        | 	✓ Missing          |                 | ➕ GeoPolygon        |                     | ➕ SpanOr     |
+|                        | 	✓ Prefix           |                 | ➕ GeoHashCell       |                     | ➕ SpanNot    |
+|                        | 	✓ Wildcard         |                 |                      |                     | ➕ SpanContaining   |
+|                        | 	✓ Regexp           |                 |                      |                     | ➕ SpanWithin   |
+|                        | 	✓ Fuzzy            |                 |                      |                     |
+|                        | 	✓ Ids              |                 |                      |                     |
+|                        | ❌ Type             |                 |                      |                     |
+
+Besides broadening the query support, we would like to see Mirage support Elasticsearch v5.0.
+
 <br>
 
 ### 4. Build Locally
@@ -76,11 +98,13 @@ $ npm run build_chrome_extension
 
 <br>
 
-### 5. How to Contribute
-1. Fork the mirage repo and update in "dev" branch
-2. [Creat new query](https://github.com/appbaseio/mirage/blob/dev/addNewQuery.md)
-3. Build locally and run test
-4. Send PR
+### 5. How to Contribute  
+
+1. Find a query that can be supported from the [roadmap](#3-roadmap)  
+2. Fork the mirage repo and update in "dev" branch
+3. [Create the query files](https://github.com/appbaseio/mirage/blob/dev/HOW-TO-CONTRIBUTE.md)
+4. Build locally and run `npm test`
+5. Submit a PR!
 
 <br>
 
