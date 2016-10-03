@@ -62,6 +62,7 @@ var AppComponent = (function () {
         this.version = '2.0';
         this.active = true;
         this.submitted = false;
+        this.setLayoutFlag = false;
         this.deleteItemInfo = {
             title: 'Confirm Deletion',
             message: 'Do you want to delete this query?',
@@ -83,6 +84,7 @@ var AppComponent = (function () {
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
             this.setInitialValue();
+            this.getQueryList();
             if (config && config === 'learn') {
                 $('#learnModal').modal('show');
                 this.initial_connect = true;
@@ -92,7 +94,6 @@ var AppComponent = (function () {
                     this.setLocalConfig(config.url, config.appname);
                 }
                 this.getLocalConfig();
-                this.getQueryList();
             }
         }
     };
@@ -345,7 +346,21 @@ var AppComponent = (function () {
                     this.mapping = data;
                     this.types = this.seprateType(data);
                     this.selectedTypes = query_1.selectedTypes;
-                    setTimeout(function () { $('#setType').val(_this.selectedTypes).trigger("change"); }, 300);
+                    //set input state
+                    this.urlShare.inputs['config'] = this.config;
+                    this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+                    this.urlShare.inputs['result'] = this.result;
+                    this.urlShare.inputs['finalUrl'] = this.finalUrl;
+                    this.urlShare.createUrl();
+                    setTimeout(function () {
+                        $('#setType').val(_this.selectedTypes).trigger("change");
+                        if ($('body').width() > 768 && !_this.setLayoutFlag) {
+                            _this.setLayoutResizer();
+                        }
+                        else {
+                            _this.setMobileLayout();
+                        }
+                    }, 300);
                 }.bind(this));
                 this.query_info.name = query_1.name;
                 this.query_info.tag = query_1.tag;
@@ -472,6 +487,7 @@ var AppComponent = (function () {
         this.urlShare.createUrl();
     };
     AppComponent.prototype.setLayoutResizer = function () {
+        this.setLayoutFlag = true;
         $('body').layout({
             east__size: "50%",
             center__paneSelector: "#paneCenter",
