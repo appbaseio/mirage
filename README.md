@@ -53,7 +53,7 @@ It provides the GUI building blocks for different Elasticsearch queries, and tra
 Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for query support.
 
 ✓ indicates queries already supported.  
-➕ indicates queries we would like to support and see contributions for.  
+➕ indicates queries we would like to support and see [contributions for](#5-how-to-contribute).  
 ❌ indicates queries that can't be supported currently.
 
 | Full-text Queries      | Term Level Queries  | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
@@ -102,7 +102,7 @@ $ npm run build_chrome_extension
 
 1. Find a query that can be supported from the [roadmap](#3-roadmap)  
 2. Fork the mirage repo and update in "dev" branch
-3. [Create the query files](https://github.com/appbaseio/mirage/blob/dev/addNewQuery.md)
+3. [Create the query files](https://github.com/appbaseio/mirage/blob/dev/HOW-TO-CONTRIBUTE.md)
 4. Build locally and run `npm test`
 5. Submit a PR!
 
