@@ -10,19 +10,20 @@
 3. **[Roadmap](#3-roadmap)** 
 4. **[Build Locally](#4-build-locally)**  
 5. **[How to contribute](#5-how-to-contribute)** 
+6. **[Get Mirage](#6-get-mirage)**
 
 
 <br>
 
 ### 1. Mirage: Intro
 
-The Elasticsearch query DSL supports 150+ query APIs ranging from full-text search, numeric range filters, geolocation queries to nested and span queries. 
+The Elasticsearch query DSL supports 100+ query APIs ranging from full-text search, numeric range filters, geolocation queries to nested and span queries. 
 
 Mirage is a modern, open-source web based query explorer for Elasticsearch. 
 
 [![2-min Intro to Mirage](https://i.imgur.com/mBMBdfU.png)](https://vimeo.com/185000306)
 
-It provides the GUI building blocks for different Elasticsearch queries, and transforms them on-the-fly into the JSON query API of Elasticsearch.
+It offers a blocks based GUI for composing Elasticsearch queries and comes with an on-the-fly transformer to show the corresponding JSON query API of Elasticsearch.
 
 <br>
 
@@ -84,6 +85,14 @@ $ npm start
 
 This will start a local webserver running on port 3000 serving mirage locally.
 
+#### Tests
+
+```sh
+$ npm test
+```
+
+will fire up the jasmine tests. 
+
 #### `master` branch: Elasticsearch Plugin
 
 ```sh
@@ -107,5 +116,14 @@ $ npm run build_chrome_extension
 5. Submit a PR!
 
 <br>
+
+### 6. Get Mirage
+
+Mirage is available as a hosted app and as a chrome extension.
+
+#### [appbaseio.github.io/mirage](http://appbaseio.github.io/mirage) website  
+#### [Get the Chrome Extension](https://chrome.google.com/webstore/detail/mirage/dcnlpfmnpoggchflmdnkgiepijgljoka)
+
+---
 
 ![](https://avatars0.githubusercontent.com/u/139426?v=3&s=20) Proudly built with Angular 2!
