@@ -21,7 +21,9 @@ exports.EditorHook.prototype.applyEditor = function (settings) {
     self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 };
 exports.EditorHook.prototype.setValue = function (value) {
-    this.editor.setValue(value);
+    if (this.editor && this.editor.setValue) {
+        this.editor.setValue(value);
+    }
 };
 exports.EditorHook.prototype.focus = function (value) {
     this.editor.toTextArea();

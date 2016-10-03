@@ -59,20 +59,16 @@ var AppComponent = (function () {
         this.result_time_taken = null;
         this.version = '2.0';
         this.active = true;
-        this.powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer'];
-        this.model = {
-            id: 18,
-            name: 'Dr IQ',
-            power: this.powers[0],
-            alterEgo: 'Chuck Overstreet'
-        };
         this.submitted = false;
         this.deleteItemInfo = {
             title: 'Confirm Deletion',
             message: 'Do you want to delete this query?',
             yesText: 'Delete',
             noText: 'Cancel'
+        };
+        this.defaultApp = {
+            appname: '2016primaries',
+            url: 'https://Uy82NeW8e:c7d02cce-94cc-4b60-9b17-7e7325195851@scalr.api.appbase.io'
         };
     }
     AppComponent.prototype.onSubmit = function () { this.submitted = true; };
@@ -81,19 +77,40 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
-        this.setInitialValue();
         // get data from url
-        this.urlShare.decryptUrl();
-        if (this.urlShare.decryptedData.config) {
-            var config = this.urlShare.decryptedData.config;
-            this.setLocalConfig(config.url, config.appname);
+        this.detectConfig(configCb.bind(this));
+        function configCb(config) {
+            this.setInitialValue();
+            if (config && config.url && config.appname) {
+                this.setLocalConfig(config.url, config.appname);
+            }
+            this.getLocalConfig();
+            this.getQueryList();
         }
-        this.getLocalConfig();
-        this.getQueryList();
     };
     AppComponent.prototype.ngOnChanges = function (changes) {
         var prev = changes['selectedQuery'].previousValue;
         var current = changes['selectedQuery'].currentValue;
+    };
+    // detect app config, either get it from url or apply default config
+    AppComponent.prototype.detectConfig = function (cb) {
+        var config = null;
+        var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
+        if (isDefault) {
+            config = this.defaultApp;
+            return cb(config);
+        }
+        else {
+            this.urlShare.decryptUrl().then(function (data) {
+                var decryptedData = data.data;
+                if (decryptedData && decryptedData.config) {
+                    cb(decryptedData.config);
+                }
+                else {
+                    cb(null);
+                }
+            });
+        }
     };
     //Get config from localstorage 
     AppComponent.prototype.getLocalConfig = function () {
@@ -268,7 +285,7 @@ var AppComponent = (function () {
                     else {
                         self.setMobileLayout();
                     }
-                    self.editorHookHelp.setValue('');
+                    // self.editorHookHelp.setValue('');
                 }, 300);
             }).catch(function (e) {
                 self.initial_connect = true;
