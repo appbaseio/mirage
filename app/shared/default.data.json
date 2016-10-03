@@ -229,5 +229,88 @@
             "output": ""
         },
         "version": "2.0"
-    }]
+    }, {
+    "name": "match-query",
+    "tag": "learn-mirage",
+    "config": {
+        "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
+        "appname": "App3",
+        "username": "CnqEgei0f",
+        "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+        "host": "https://scalr.api.appbase.io"
+    },
+    "selectedTypes": [
+        "tweets"
+    ],
+    "result": {
+        "resultQuery": {
+            "type": "",
+            "result": [
+                {
+                    "boolparam": 0,
+                    "parent_id": 0,
+                    "id": 1,
+                    "internal": [
+                        {
+                            "field": {
+                                "name": "tweet",
+                                "type": "string",
+                                "index": null
+                            },
+                            "query": "0",
+                            "selectedField": "tweet",
+                            "selectedQuery": "match",
+                            "input": "",
+                            "analyzeTest": "analyzed",
+                            "type": "string",
+                            "appliedQuery": {
+                                "match": {
+                                    "tweet": "grow up"
+                                }
+                            }
+                        }
+                    ],
+                    "minimum_should_match": "",
+                    "availableQuery": [
+                        {
+                            "match": {
+                                "tweet": "grow up"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "availableFields": [
+                {
+                    "name": "age",
+                    "type": "numeric",
+                    "index": null
+                },
+                {
+                    "name": "hello",
+                    "type": "string",
+                    "index": null
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "index": null
+                },
+                {
+                    "name": "query",
+                    "index": null
+                },
+                {
+                    "name": "tweet",
+                    "type": "string",
+                    "index": null
+                }
+            ],
+            "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"match\": {\n            \"tweet\": \"grow up\"\n          }\n        }\n      ]\n    }\n  }\n}"
+        },
+        "queryId": 2,
+        "isWatching": false
+    },
+    "version": "2.0"
+}]
 }
