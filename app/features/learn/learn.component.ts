@@ -26,7 +26,7 @@ export class LearnModalComponent {
 			});
 			setTimeout(function() {
 				self.newQuery.emit(data.queries[0]);
-			}, 1000*2);
+			}, 500);
 			$('#learnModal').modal('hide');
 			$('#learnInfoModal').modal('show');
 		}).catch(function(e) {

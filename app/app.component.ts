@@ -94,11 +94,16 @@ export class AppComponent implements OnInit, OnChanges {
 		this.detectConfig(configCb.bind(this));
 		function configCb(config) {
 			this.setInitialValue();
-			if(config && config.url && config.appname) {
-				this.setLocalConfig(config.url, config.appname);
+			if(config && config === 'learn') {
+				$('#learnModal').modal('show');
+				this.initial_connect = true;
+			} else {
+				if(config && config.url && config.appname) {
+					this.setLocalConfig(config.url, config.appname);
+				}
+				this.getLocalConfig();
+				this.getQueryList();
 			}
-			this.getLocalConfig();
-			this.getQueryList();
 		}
 	}
 
@@ -111,10 +116,14 @@ export class AppComponent implements OnInit, OnChanges {
 	detectConfig(cb) {
 		let config = null;
 		let isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
+		let isInputState = window.location.href.indexOf('input_state=') > -1 ? true : false;
 		if(isDefault) {
 			config = this.defaultApp;
 			return cb(config);
-		} else {
+		} else if(!isInputState) {
+			return cb('learn');
+		}
+		else {
 			this.urlShare.decryptUrl().then((data) => {
 				var decryptedData = data. data;
 				if(decryptedData && decryptedData.config) {
