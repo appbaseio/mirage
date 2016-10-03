@@ -5093,6 +5093,25 @@ var LearnModalComponent = (function () {
         this.newQuery = new core_1.EventEmitter();
         this.queries = [];
     }
+    LearnModalComponent.prototype.ngAfterViewInit = function () {
+        $('#learnModal').on('shown.bs.modal', this.loadHunt);
+    };
+    LearnModalComponent.prototype.loadHunt = function () {
+        if (!$('.embedph').hasClass('added')) {
+            var hunt = $('<script>').attr({
+                id: "embedhunt-77987",
+                class: "embedhunt-async-script-loader"
+            });
+            $('.embedph').addClass('added').html(hunt);
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            var theUrl = '//embedhunt.com/products/77987/widget';
+            s.src = theUrl;
+            var embedder = document.getElementById('embedhunt-77987');
+            embedder.parentNode.insertBefore(s, embedder);
+        }
+    };
     LearnModalComponent.prototype.loadLearn = function () {
         var self = this;
         this.http.get('./app/shared/default.data.json').toPromise().then(function (res) {
