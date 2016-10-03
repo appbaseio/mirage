@@ -78,33 +78,40 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
-        this.setInitialValue();
         // get data from url
-        var config = this.detectConfig();
-        if (config && config.url && config.appname) {
-            this.setLocalConfig(config.url, config.appname);
+        this.detectConfig(configCb.bind(this));
+        function configCb(config) {
+            this.setInitialValue();
+            if (config && config.url && config.appname) {
+                this.setLocalConfig(config.url, config.appname);
+            }
+            this.getLocalConfig();
+            this.getQueryList();
         }
-        this.getLocalConfig();
-        this.getQueryList();
     };
     AppComponent.prototype.ngOnChanges = function (changes) {
         var prev = changes['selectedQuery'].previousValue;
         var current = changes['selectedQuery'].currentValue;
     };
     // detect app config, either get it from url or apply default config
-    AppComponent.prototype.detectConfig = function () {
+    AppComponent.prototype.detectConfig = function (cb) {
         var config = null;
         var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
         if (isDefault) {
             config = this.defaultApp;
+            return cb(config);
         }
         else {
-            var decryptedData = this.urlShare.decryptUrl();
-            if (decryptedData.config) {
-                config = decryptedData.config;
-            }
+            this.urlShare.decryptUrl().then(function (data) {
+                var decryptedData = data.data;
+                if (decryptedData && decryptedData.config) {
+                    cb(decryptedData.config);
+                }
+                else {
+                    cb(null);
+                }
+            });
         }
-        return config;
     };
     //Get config from localstorage 
     AppComponent.prototype.getLocalConfig = function () {
@@ -279,7 +286,7 @@ var AppComponent = (function () {
                     else {
                         self.setMobileLayout();
                     }
-                    self.editorHookHelp.setValue('');
+                    // self.editorHookHelp.setValue('');
                 }, 300);
             }).catch(function (e) {
                 self.initial_connect = true;
@@ -2070,18 +2077,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// Editable component which converts input or dropdown into editable ui
 var core_1 = require("@angular/core");
 var editable_component_1 = require('../../editable/editable.component');
+// Markup contains 2 parts
+// 1) primary input box: which is 3rd input box in query box, in which user will write value,
+//    addOption button is optional if query contains optional paramater then add it
+// 2) Optional parameter: It is collection of option rows, each row will contain option property name and value
 var MatchQuery = (function () {
     function MatchQuery() {
+        // Event which is listen by parent component. we will pass created query format in this event.
         this.getQueryFormat = new core_1.EventEmitter();
+        // set current query name
         this.current_query = 'match';
         this.queryName = '*';
         this.fieldName = '*';
+        // Add information of query
         this.information = {
             title: 'Match',
             content: "<span class=\"description\">Returns matches by doing a full-text search, is used as the <i>go to</i> query.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query\">Read more</a>"
         };
+        // Information about optional parameters which will be shown in popover
         this.informationList = {
             'operator': {
                 title: 'operator',
@@ -2108,6 +2124,7 @@ var MatchQuery = (function () {
                 content: "<span class=\"description\">The maximum number of terms that the query will expand to. Defaults to 50.</span>"
             }
         };
+        // list of optional parameters
         this.default_options = [
             'operator',
             'zero_terms_query',
@@ -2121,6 +2138,7 @@ var MatchQuery = (function () {
             value: ''
         };
         this.optionRows = [];
+        // specify inputs placeholder and default value
         this.inputs = {
             input: {
                 placeholder: 'Input',
@@ -2129,9 +2147,15 @@ var MatchQuery = (function () {
         };
         this.queryFormat = {};
     }
+    // Initial hook: 
+    // Logic of creating query format when loading saved query or load query from url
+    // appliedQuery contains the queries which we will get from parent component
     MatchQuery.prototype.ngOnInit = function () {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
+            // check if `match` query exists for selected field
+            // set the inputs to show existing values in markup
+            // set the optional parameter in `optionRows` if exists in query 
             if (this.appliedQuery[this.current_query][this.selectedField]) {
                 if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('query')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
@@ -2154,6 +2178,9 @@ var MatchQuery = (function () {
         this.filterOptions();
         this.getFormat();
     };
+    // onchange hook:
+    // Over here we will receive changes from parent and
+    // if the selected field or selected query is changes then update the query by calliung `getFormat`.
     MatchQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
@@ -2176,12 +2203,14 @@ var MatchQuery = (function () {
             @fieldName: @value
         }
     */
+    // This method is responsible to get query format and execute the event which will be listen in parent component
     MatchQuery.prototype.getFormat = function () {
         if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
     };
+    // Build the query format in this method 
     MatchQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
@@ -2198,6 +2227,9 @@ var MatchQuery = (function () {
         }
         return queryFormat;
     };
+    // Now below methods are related to options parameter, 
+    //so use it as it is in new query if query contains optional parametes
+    // while selecting option
     MatchQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
@@ -2206,6 +2238,7 @@ var MatchQuery = (function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    // Update the option list because duplicate option is not allowed
     MatchQuery.prototype.filterOptions = function () {
         this.options = this.default_options.filter(function (opt) {
             var flag = true;
@@ -2217,11 +2250,13 @@ var MatchQuery = (function () {
             return flag;
         }.bind(this));
     };
+    // while user click on add option button it will add new option row and update the available options
     MatchQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
         this.filterOptions();
         this.optionRows.push(singleOption);
     };
+    // while user click on remove option button it will remove the row and update the available options
     MatchQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
         this.filterOptions();
@@ -5697,7 +5732,9 @@ exports.EditorHook.prototype.applyEditor = function (settings) {
     self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 };
 exports.EditorHook.prototype.setValue = function (value) {
-    this.editor.setValue(value);
+    if (this.editor && this.editor.setValue) {
+        this.editor.setValue(value);
+    }
 };
 exports.EditorHook.prototype.focus = function (value) {
     this.editor.toTextArea();
@@ -5928,21 +5965,31 @@ exports.UrlShare.prototype.createUrl = function () {
         delete inputs.result.output;
     }
     catch (e) { }
-    console.log(inputs);
-    var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(inputs), this.secret).toString();
-    this.url = ciphertext;
-    if (window.location.href.indexOf('#?default=true') > -1) {
-        window.location.href = window.location.href.split('?default=true')[0];
+    var data = JSON.stringify(inputs);
+    this.compress(inputs, compressCb.bind(this));
+    function compressCb(error, ciphertext) {
+        if (!error) {
+            this.url = ciphertext;
+            if (window.location.href.indexOf('#?default=true') > -1) {
+                window.location.href = window.location.href.split('?default=true')[0];
+            }
+            window.location.href = '#?input_state=' + ciphertext;
+        }
     }
-    window.location.href = '#?input_state=' + ciphertext;
 };
-exports.UrlShare.prototype.decryptUrl = function () {
-    var ciphertext = window.location.href.split('#?input_state=');
-    if (ciphertext.length > 1) {
-        var bytes = CryptoJS.AES.decrypt(ciphertext[1], this.secret);
-        this.decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    }
-    return this.decryptedData;
+exports.UrlShare.prototype.decryptUrl = function (cb) {
+    var _this = this;
+    return new Promise(function (resolve, reject) {
+        var url = window.location.href.split('#?input_state=');
+        if (url.length > 1) {
+            _this.decompress(url[1], function (error, data) {
+                resolve({ error: error, data: data });
+            });
+        }
+        else {
+            resolve({ error: 'Empty url' });
+        }
+    });
 };
 exports.UrlShare.prototype.convertToUrl = function (type) {
     var ciphertext = this.url;
@@ -5964,6 +6011,48 @@ exports.UrlShare.prototype.dejavuLink = function () {
     var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(obj), 'dejvu').toString();
     var final_url = 'http://appbaseio.github.io/dejaVu/live/#?input_state=' + ciphertext;
     return final_url;
+};
+exports.UrlShare.prototype.compress = function (jsonInput, cb) {
+    if (!jsonInput) {
+        return cb('Input should not be empty');
+    }
+    else {
+        var packed = JSON.stringify(jsonInput);
+        JSONURL.compress(packed, 9, function (res, error) {
+            try {
+                var result = SafeEncode.buffer(res);
+                cb(null, SafeEncode.encode(result));
+            }
+            catch (e) {
+                cb(e);
+            }
+        });
+    }
+};
+exports.UrlShare.prototype.decompress = function (compressed, cb) {
+    var self = this;
+    if (compressed) {
+        var compressBuffer = SafeEncode.buffer(compressed);
+        JSONURL.decompress(SafeEncode.decode(compressBuffer), function (res, error) {
+            var decryptedData = res;
+            try {
+                if (decryptedData) {
+                    decryptedData = JSON.parse(decryptedData);
+                    self.decryptedData = decryptedData;
+                    cb(null, decryptedData);
+                }
+                else {
+                    cb('Not found');
+                }
+            }
+            catch (e) {
+                cb(e);
+            }
+        });
+    }
+    else {
+        return cb('Empty');
+    }
 };
 //# sourceMappingURL=urlShare.js.map
 },{}],47:[function(require,module,exports){

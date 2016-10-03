@@ -77,33 +77,40 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
-        this.setInitialValue();
         // get data from url
-        var config = this.detectConfig();
-        if (config && config.url && config.appname) {
-            this.setLocalConfig(config.url, config.appname);
+        this.detectConfig(configCb.bind(this));
+        function configCb(config) {
+            this.setInitialValue();
+            if (config && config.url && config.appname) {
+                this.setLocalConfig(config.url, config.appname);
+            }
+            this.getLocalConfig();
+            this.getQueryList();
         }
-        this.getLocalConfig();
-        this.getQueryList();
     };
     AppComponent.prototype.ngOnChanges = function (changes) {
         var prev = changes['selectedQuery'].previousValue;
         var current = changes['selectedQuery'].currentValue;
     };
     // detect app config, either get it from url or apply default config
-    AppComponent.prototype.detectConfig = function () {
+    AppComponent.prototype.detectConfig = function (cb) {
         var config = null;
         var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
         if (isDefault) {
             config = this.defaultApp;
+            return cb(config);
         }
         else {
-            var decryptedData = this.urlShare.decryptUrl();
-            if (decryptedData.config) {
-                config = decryptedData.config;
-            }
+            this.urlShare.decryptUrl().then(function (data) {
+                var decryptedData = data.data;
+                if (decryptedData && decryptedData.config) {
+                    cb(decryptedData.config);
+                }
+                else {
+                    cb(null);
+                }
+            });
         }
-        return config;
     };
     //Get config from localstorage 
     AppComponent.prototype.getLocalConfig = function () {
@@ -278,7 +285,7 @@ var AppComponent = (function () {
                     else {
                         self.setMobileLayout();
                     }
-                    self.editorHookHelp.setValue('');
+                    // self.editorHookHelp.setValue('');
                 }, 300);
             }).catch(function (e) {
                 self.initial_connect = true;
