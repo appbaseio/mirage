@@ -50,7 +50,9 @@ var files = {
             'bower_components/crypto-js/crypto-js.js',
             'assets/vendor/jquery.layout/jquery-ui.js',
             'assets/vendor/jquery.layout/jquery.layout.js',
-            'assets/vendor/jquery.simulate.js'
+            'assets/vendor/jquery.simulate.js',
+            'bower_components/lzma/src/lzma.js',
+            'assets/vendor/urlsafe-base64.bundle.js'
         ],
         custom: [
             'assets/js/helper.js'
@@ -146,7 +148,8 @@ gulp.task('chrome_dist_dir', function() {
 
 // To include in unit-tests.html
 gulp.task('move_jquery', function() {
-    return gulp.src(['bower_components/jquery/dist/jquery.min.js'])
+    return gulp.src(['bower_components/jquery/dist/jquery.min.js',
+        'bower_components/lzma/src/lzma_worker-min.js'])
         .pipe(gulp.dest('dist/vendor'));
 });
 
