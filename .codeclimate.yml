@@ -1,0 +1,12 @@
+engines:
+  tslint:
+    enabled: true
+    config: tslint.json
+ratings:
+  paths:
+    - "**.ts"
+exclude_paths:
+  - bower_components
+  - node_modules
+  - typings
+  - dist

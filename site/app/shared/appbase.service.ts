@@ -31,7 +31,7 @@ export class AppbaseService {
         var request_url = this.requestParam.url.replace(this.config.username+':'+this.config.password+'@', '');
         var request_path = request_url + path + '/';
         console.log(request_path);
-        return this.http.get(request_path, { headers: headers }).toPromise()
+        return this.http.get(request_path, { headers: headers }).toPromise();
     }
     getVersion() {
         let headers = new Headers({

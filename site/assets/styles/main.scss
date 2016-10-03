@@ -45,6 +45,9 @@
 .clearfix {
   clear: both;
 }
+a {
+  cursor: pointer;
+}
 .btn-primary {
   color: $contrast-color;
   background-color: $primary-color;

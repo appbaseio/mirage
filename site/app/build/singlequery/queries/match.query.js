@@ -8,18 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// Editable component which converts input or dropdown into editable ui
 var core_1 = require("@angular/core");
 var editable_component_1 = require('../../editable/editable.component');
+// Markup contains 2 parts
+// 1) primary input box: which is 3rd input box in query box, in which user will write value,
+//    addOption button is optional if query contains optional paramater then add it
+// 2) Optional parameter: It is collection of option rows, each row will contain option property name and value
 var MatchQuery = (function () {
     function MatchQuery() {
+        // Event which is listen by parent component. we will pass created query format in this event.
         this.getQueryFormat = new core_1.EventEmitter();
+        // set current query name
         this.current_query = 'match';
         this.queryName = '*';
         this.fieldName = '*';
+        // Add information of query
         this.information = {
             title: 'Match',
             content: "<span class=\"description\">Returns matches by doing a full-text search, is used as the <i>go to</i> query.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query\">Read more</a>"
         };
+        // Information about optional parameters which will be shown in popover
         this.informationList = {
             'operator': {
                 title: 'operator',
@@ -46,6 +55,7 @@ var MatchQuery = (function () {
                 content: "<span class=\"description\">The maximum number of terms that the query will expand to. Defaults to 50.</span>"
             }
         };
+        // list of optional parameters
         this.default_options = [
             'operator',
             'zero_terms_query',
@@ -59,6 +69,7 @@ var MatchQuery = (function () {
             value: ''
         };
         this.optionRows = [];
+        // specify inputs placeholder and default value
         this.inputs = {
             input: {
                 placeholder: 'Input',
@@ -67,9 +78,15 @@ var MatchQuery = (function () {
         };
         this.queryFormat = {};
     }
+    // Initial hook: 
+    // Logic of creating query format when loading saved query or load query from url
+    // appliedQuery contains the queries which we will get from parent component
     MatchQuery.prototype.ngOnInit = function () {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
+            // check if `match` query exists for selected field
+            // set the inputs to show existing values in markup
+            // set the optional parameter in `optionRows` if exists in query 
             if (this.appliedQuery[this.current_query][this.selectedField]) {
                 if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('query')) {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
@@ -92,6 +109,9 @@ var MatchQuery = (function () {
         this.filterOptions();
         this.getFormat();
     };
+    // onchange hook:
+    // Over here we will receive changes from parent and
+    // if the selected field or selected query is changes then update the query by calliung `getFormat`.
     MatchQuery.prototype.ngOnChanges = function () {
         if (this.selectedField != '') {
             if (this.selectedField !== this.fieldName) {
@@ -114,12 +134,14 @@ var MatchQuery = (function () {
             @fieldName: @value
         }
     */
+    // This method is responsible to get query format and execute the event which will be listen in parent component
     MatchQuery.prototype.getFormat = function () {
         if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
     };
+    // Build the query format in this method 
     MatchQuery.prototype.setFormat = function () {
         var queryFormat = {};
         queryFormat[this.queryName] = {};
@@ -136,6 +158,9 @@ var MatchQuery = (function () {
         }
         return queryFormat;
     };
+    // Now below methods are related to options parameter, 
+    //so use it as it is in new query if query contains optional parametes
+    // while selecting option
     MatchQuery.prototype.selectOption = function (input) {
         input.selector.parents('.editable-pack').removeClass('on');
         this.optionRows[input.external].name = input.val;
@@ -144,6 +169,7 @@ var MatchQuery = (function () {
             this.getFormat();
         }.bind(this), 300);
     };
+    // Update the option list because duplicate option is not allowed
     MatchQuery.prototype.filterOptions = function () {
         this.options = this.default_options.filter(function (opt) {
             var flag = true;
@@ -155,11 +181,13 @@ var MatchQuery = (function () {
             return flag;
         }.bind(this));
     };
+    // while user click on add option button it will add new option row and update the available options
     MatchQuery.prototype.addOption = function () {
         var singleOption = JSON.parse(JSON.stringify(this.singleOption));
         this.filterOptions();
         this.optionRows.push(singleOption);
     };
+    // while user click on remove option button it will remove the row and update the available options
     MatchQuery.prototype.removeOption = function (index) {
         this.optionRows.splice(index, 1);
         this.filterOptions();

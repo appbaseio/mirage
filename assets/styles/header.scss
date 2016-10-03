@@ -116,9 +116,22 @@ footer {
 	.powered_by {
 		position: absolute;
 		right: 5px;
-		@media screen and (max-width: 768px) {
+	}
+	.github-star {
+		position: absolute;
+		left: 5px;
+	}
+	@media screen and (max-width: 768px) {
+		height: 56px;
+		.powered_by, .github-star, .footer-center  {
 			font-size: 11px;
 			line-height: 23px;
+		}
+		.footer-center
+		{
+			position: relative;
+		    display: block;
+		    width: 100%;
 		}
 	}
 }

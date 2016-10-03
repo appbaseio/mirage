@@ -15,6 +15,7 @@ import { ErrorModalComponent } from "./features/modal/error-modal.component";
 import { ConfirmModalComponent } from "./features/confirm/confirm-modal.component";
 import { AppselectComponent } from "./features/appselect/appselect.component";
 import { DocSidebarComponent } from "./features/docSidebar/docsidebar.component";
+import { LearnModalComponent } from "./features/learn/learn.component";
 import { StorageService } from "./shared/storage.service";
 import { DocService } from "./shared/docService";
 
@@ -23,7 +24,7 @@ declare var $: any;
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent],
+	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent, LearnModalComponent],
 	providers: [AppbaseService, StorageService, DocService]
 })
 
@@ -68,22 +69,18 @@ export class AppComponent implements OnInit, OnChanges {
 	public version: string = '2.0';
 	public docLink: string;
 	public currentDeleteQuery: any;
-	subscription:Subscription;
 	active = true;
-	powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer'];
-  	model = {
-  		id: 18,
-  		name: 'Dr IQ', 
-  		power: this.powers[0],
-  		alterEgo: 'Chuck Overstreet'
-  	};
-  	submitted = false;
+	submitted = false;
+	public setLayoutFlag = false;
   	public deleteItemInfo: any = {
 		title: 'Confirm Deletion',
 		message: 'Do you want to delete this query?',
 		yesText: 'Delete',
 		noText: 'Cancel'
+	};
+	public defaultApp: any = {
+		appname: '2016primaries',
+		url: 'https://Uy82NeW8e:c7d02cce-94cc-4b60-9b17-7e7325195851@scalr.api.appbase.io'
 	};
 
   	onSubmit() { this.submitted = true; }
@@ -94,22 +91,49 @@ export class AppComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
-		this.setInitialValue();
 		// get data from url
-		this.urlShare.decryptUrl();
-		if (this.urlShare.decryptedData.config) {
-			var config = this.urlShare.decryptedData.config;
-			this.setLocalConfig(config.url, config.appname);
+		this.detectConfig(configCb.bind(this));
+		function configCb(config) {
+			this.setInitialValue();
+			this.getQueryList();
+			if(config && config === 'learn') {
+				$('#learnModal').modal('show');
+				this.initial_connect = true;
+			} else {
+				if(config && config.url && config.appname) {
+					this.setLocalConfig(config.url, config.appname);
+				}
+				this.getLocalConfig();
+			}
 		}
-		
-		this.getLocalConfig();
-		this.getQueryList();
-		
 	}
 
 	ngOnChanges(changes) {
 		var prev = changes['selectedQuery'].previousValue;
 		var current = changes['selectedQuery'].currentValue;
+	}
+
+	// detect app config, either get it from url or apply default config
+	detectConfig(cb) {
+		let config = null;
+		let isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
+		let isInputState = window.location.href.indexOf('input_state=') > -1 ? true : false;
+		if(isDefault) {
+			config = this.defaultApp;
+			return cb(config);
+		} else if(!isInputState) {
+			return cb('learn');
+		}
+		else {
+			this.urlShare.decryptUrl().then((data) => {
+				var decryptedData = data. data;
+				if(decryptedData && decryptedData.config) {
+					cb(decryptedData.config);
+				} else {
+					cb(null);
+				}
+			});
+		}
 	}
 
 	//Get config from localstorage 
@@ -284,7 +308,7 @@ export class AppComponent implements OnInit, OnChanges {
 					} else {
 						self.setMobileLayout();
 					}
-					self.editorHookHelp.setValue('');
+					// self.editorHookHelp.setValue('');
 				}, 300);
 				
 			}).catch(function(e) {
@@ -322,15 +346,32 @@ Check your url and appname and then connect it again.`
 			if(queryData.length) {
 				query = queryData[0];
 				this.connected = false;
+				this.initial_connect = false;
 				this.config = query.config;
+				this.appbaseService.setAppbase(this.config);
 				this.appbaseService.get('/_mapping').then(function(res) {
 					let data = res.json();
+					this.finalUrl = this.config.host + '/' + this.config.appname;
+					this.setInitialValue();
 					this.connected = true;
 					this.result = query.result;
 					this.mapping = data;
 					this.types = this.seprateType(data);
 					this.selectedTypes = query.selectedTypes;
-					setTimeout(() => { $('#setType').val(this.selectedTypes).trigger("change"); }, 300);
+					//set input state
+					this.urlShare.inputs['config'] = this.config;
+					this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+					this.urlShare.inputs['result'] = this.result;
+					this.urlShare.inputs['finalUrl'] = this.finalUrl;
+					this.urlShare.createUrl();
+					setTimeout(() => { 
+						$('#setType').val(this.selectedTypes).trigger("change"); 
+						if($('body').width() > 768 && !this.setLayoutFlag) {
+							this.setLayoutResizer();
+						} else {
+							this.setMobileLayout();
+						}
+				}, 300);
 				}.bind(this));	
 				this.query_info.name = query.name;
 				this.query_info.tag = query.tag;
@@ -379,23 +420,24 @@ Check your url and appname and then connect it again.`
 	}
 
 	// save query
-	saveQuery() {
+	saveQuery(inputQuery: any) {
 		this.getQueryList();
 		var createdAt = new Date().getTime();
-		this.savedQueryList.forEach(function(query, index) {
-			if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
-				this.savedQueryList.splice(index, 1);
-			}
-		}.bind(this));
-		var queryData = {
+		let currentQuery = {
+			name: this.query_info.name,
+			tag: this.query_info.tag,
 			config: this.config,
 			selectedTypes: this.selectedTypes,
 			result: this.result,
-			name: this.query_info.name,
-			tag: this.query_info.tag,
-			version: this.version,
-			createdAt: createdAt
+			version: this.version
 		};
+		let queryData = inputQuery ? inputQuery : currentQuery;
+		queryData.createdAt = createdAt;
+		this.savedQueryList.forEach(function(query, index) {
+			if (query.name === queryData.name && query.tag === queryData.tag) {
+				this.savedQueryList.splice(index, 1);
+			}
+		}.bind(this));
 		this.savedQueryList.push(queryData);
 		this.sort(this.savedQueryList);
 		var queryString = JSON.stringify(this.savedQueryList);
@@ -465,6 +507,7 @@ Check your url and appname and then connect it again.`
 	}
 
 	setLayoutResizer() {
+		this.setLayoutFlag = true;
 		$('body').layout({
 			east__size:	"50%",
 			center__paneSelector: "#paneCenter",
@@ -507,5 +550,9 @@ Check your url and appname and then connect it again.`
 	viewData() {
 		var dejavuLink = this.urlShare.dejavuLink();
 		window.open(dejavuLink, '_blank');
+	}
+
+	openLearn() {
+		$('#learnModal').modal('show');
 	}
 }

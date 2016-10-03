@@ -22,6 +22,7 @@ var error_modal_component_1 = require("./features/modal/error-modal.component");
 var confirm_modal_component_1 = require("./features/confirm/confirm-modal.component");
 var appselect_component_1 = require("./features/appselect/appselect.component");
 var docsidebar_component_1 = require("./features/docSidebar/docsidebar.component");
+var learn_component_1 = require("./features/learn/learn.component");
 var storage_service_1 = require("./shared/storage.service");
 var docService_1 = require("./shared/docService");
 var AppComponent = (function () {
@@ -59,20 +60,17 @@ var AppComponent = (function () {
         this.result_time_taken = null;
         this.version = '2.0';
         this.active = true;
-        this.powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer'];
-        this.model = {
-            id: 18,
-            name: 'Dr IQ',
-            power: this.powers[0],
-            alterEgo: 'Chuck Overstreet'
-        };
         this.submitted = false;
+        this.setLayoutFlag = false;
         this.deleteItemInfo = {
             title: 'Confirm Deletion',
             message: 'Do you want to delete this query?',
             yesText: 'Delete',
             noText: 'Cancel'
+        };
+        this.defaultApp = {
+            appname: '2016primaries',
+            url: 'https://Uy82NeW8e:c7d02cce-94cc-4b60-9b17-7e7325195851@scalr.api.appbase.io'
         };
     }
     AppComponent.prototype.onSubmit = function () { this.submitted = true; };
@@ -81,19 +79,50 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
-        this.setInitialValue();
         // get data from url
-        this.urlShare.decryptUrl();
-        if (this.urlShare.decryptedData.config) {
-            var config = this.urlShare.decryptedData.config;
-            this.setLocalConfig(config.url, config.appname);
+        this.detectConfig(configCb.bind(this));
+        function configCb(config) {
+            this.setInitialValue();
+            this.getQueryList();
+            if (config && config === 'learn') {
+                $('#learnModal').modal('show');
+                this.initial_connect = true;
+            }
+            else {
+                if (config && config.url && config.appname) {
+                    this.setLocalConfig(config.url, config.appname);
+                }
+                this.getLocalConfig();
+            }
         }
-        this.getLocalConfig();
-        this.getQueryList();
     };
     AppComponent.prototype.ngOnChanges = function (changes) {
         var prev = changes['selectedQuery'].previousValue;
         var current = changes['selectedQuery'].currentValue;
+    };
+    // detect app config, either get it from url or apply default config
+    AppComponent.prototype.detectConfig = function (cb) {
+        var config = null;
+        var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
+        var isInputState = window.location.href.indexOf('input_state=') > -1 ? true : false;
+        if (isDefault) {
+            config = this.defaultApp;
+            return cb(config);
+        }
+        else if (!isInputState) {
+            return cb('learn');
+        }
+        else {
+            this.urlShare.decryptUrl().then(function (data) {
+                var decryptedData = data.data;
+                if (decryptedData && decryptedData.config) {
+                    cb(decryptedData.config);
+                }
+                else {
+                    cb(null);
+                }
+            });
+        }
     };
     //Get config from localstorage 
     AppComponent.prototype.getLocalConfig = function () {
@@ -268,7 +297,7 @@ var AppComponent = (function () {
                     else {
                         self.setMobileLayout();
                     }
-                    self.editorHookHelp.setValue('');
+                    // self.editorHookHelp.setValue('');
                 }, 300);
             }).catch(function (e) {
                 self.initial_connect = true;
@@ -303,16 +332,34 @@ var AppComponent = (function () {
             if (queryData.length) {
                 query_1 = queryData[0];
                 this.connected = false;
+                this.initial_connect = false;
                 this.config = query_1.config;
+                this.appbaseService.setAppbase(this.config);
                 this.appbaseService.get('/_mapping').then(function (res) {
                     var _this = this;
                     var data = res.json();
+                    this.finalUrl = this.config.host + '/' + this.config.appname;
+                    this.setInitialValue();
                     this.connected = true;
                     this.result = query_1.result;
                     this.mapping = data;
                     this.types = this.seprateType(data);
                     this.selectedTypes = query_1.selectedTypes;
-                    setTimeout(function () { $('#setType').val(_this.selectedTypes).trigger("change"); }, 300);
+                    //set input state
+                    this.urlShare.inputs['config'] = this.config;
+                    this.urlShare.inputs['selectedTypes'] = this.selectedTypes;
+                    this.urlShare.inputs['result'] = this.result;
+                    this.urlShare.inputs['finalUrl'] = this.finalUrl;
+                    this.urlShare.createUrl();
+                    setTimeout(function () {
+                        $('#setType').val(_this.selectedTypes).trigger("change");
+                        if ($('body').width() > 768 && !_this.setLayoutFlag) {
+                            _this.setLayoutResizer();
+                        }
+                        else {
+                            _this.setMobileLayout();
+                        }
+                    }, 300);
                 }.bind(this));
                 this.query_info.name = query_1.name;
                 this.query_info.tag = query_1.tag;
@@ -358,23 +405,24 @@ var AppComponent = (function () {
         this.sidebar = this.sidebar ? false : true;
     };
     // save query
-    AppComponent.prototype.saveQuery = function () {
+    AppComponent.prototype.saveQuery = function (inputQuery) {
         this.getQueryList();
         var createdAt = new Date().getTime();
-        this.savedQueryList.forEach(function (query, index) {
-            if (query.name === this.query_info.name && query.tag === this.query_info.tag) {
-                this.savedQueryList.splice(index, 1);
-            }
-        }.bind(this));
-        var queryData = {
+        var currentQuery = {
+            name: this.query_info.name,
+            tag: this.query_info.tag,
             config: this.config,
             selectedTypes: this.selectedTypes,
             result: this.result,
-            name: this.query_info.name,
-            tag: this.query_info.tag,
-            version: this.version,
-            createdAt: createdAt
+            version: this.version
         };
+        var queryData = inputQuery ? inputQuery : currentQuery;
+        queryData.createdAt = createdAt;
+        this.savedQueryList.forEach(function (query, index) {
+            if (query.name === queryData.name && query.tag === queryData.tag) {
+                this.savedQueryList.splice(index, 1);
+            }
+        }.bind(this));
         this.savedQueryList.push(queryData);
         this.sort(this.savedQueryList);
         var queryString = JSON.stringify(this.savedQueryList);
@@ -438,6 +486,7 @@ var AppComponent = (function () {
         this.urlShare.createUrl();
     };
     AppComponent.prototype.setLayoutResizer = function () {
+        this.setLayoutFlag = true;
         $('body').layout({
             east__size: "50%",
             center__paneSelector: "#paneCenter",
@@ -479,11 +528,14 @@ var AppComponent = (function () {
         var dejavuLink = this.urlShare.dejavuLink();
         window.open(dejavuLink, '_blank');
     };
+    AppComponent.prototype.openLearn = function () {
+        $('#learnModal').modal('show');
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: './app/app.component.html',
-            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent],
+            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent, learn_component_1.LearnModalComponent],
             providers: [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService]
         }), 
         __metadata('design:paramtypes', [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService])

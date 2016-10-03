@@ -50,7 +50,9 @@ var files = {
             'bower_components/crypto-js/crypto-js.js',
             'assets/vendor/jquery.layout/jquery-ui.js',
             'assets/vendor/jquery.layout/jquery.layout.js',
-            'assets/vendor/jquery.simulate.js'
+            'assets/vendor/jquery.simulate.js',
+            'bower_components/lzma/src/lzma.js',
+            'assets/vendor/urlsafe-base64.bundle.js'
         ],
         custom: [
             'assets/js/helper.js'
@@ -144,9 +146,10 @@ gulp.task('chrome_dist_dir', function() {
 });
 
 
-// To include in unit-tests.html
-gulp.task('move_jquery', function() {
-    return gulp.src(['bower_components/jquery/dist/jquery.min.js'])
+// Include dependency in dist
+gulp.task('move_js_depends', function() {
+    return gulp.src(['bower_components/jquery/dist/jquery.min.js',
+        'bower_components/lzma/src/lzma_worker.js'])
         .pipe(gulp.dest('dist/vendor'));
 });
 
@@ -168,7 +171,7 @@ gulp.task('build',['compact'], function() {
         .pipe(gulp.dest('dist/angular'));
 });
 
-gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_jquery']);
+gulp.task('compact', ['customcss', 'vendorcss', 'vendorjs', 'customjs', 'movefonts', 'move_js_depends']);
 
 gulp.task('watchfiles', function() {
     gulp.watch(files.css.sassFile, ['customcss']);
