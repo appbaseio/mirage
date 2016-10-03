@@ -27,7 +27,6 @@ var files = {
             'node_modules/zone.js/dist/zone.js',
             'node_modules/reflect-metadata/Reflect.js',
             'node_modules/systemjs/dist/system.src.js',
-            'node_modules/msgpack5/dist/msgpack5.min.js',
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/bootstrap/dist/js/bootstrap.min.js',
             'bower_components/select2/dist/js/select2.min.js',
