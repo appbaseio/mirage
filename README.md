@@ -47,6 +47,10 @@ It offers a blocks based GUI for composing Elasticsearch queries and comes with 
 
 ![Save queries for later reuse](http://i.imgur.com/NMAi5tn.gif)
 
+* See docs for any query from within the app.
+
+![Browse docs from within Mirage](http://i.imgur.com/9bDf6ax.gif)
+
 <br>
 
 ### 3. Roadmap
