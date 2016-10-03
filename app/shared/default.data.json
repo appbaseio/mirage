@@ -1,0 +1,316 @@
+{   
+    "queries": [{
+        "config": {
+            "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
+            "appname": "App3",
+            "username": "CnqEgei0f",
+            "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+            "host": "https://scalr.api.appbase.io"
+        },
+        "selectedTypes": [
+            "tweets"
+        ],
+        "result": {
+            "resultQuery": {
+                "type": "",
+                "result": [{
+                    "boolparam": 0,
+                    "parent_id": 0,
+                    "id": 1,
+                    "internal": [{
+                        "field": {
+                            "name": "age",
+                            "type": "numeric",
+                            "index": null
+                        },
+                        "query": "1",
+                        "selectedField": "age",
+                        "selectedQuery": "range",
+                        "input": "",
+                        "analyzeTest": "analyzed",
+                        "type": "numeric",
+                        "appliedQuery": {
+                            "range": {
+                                "age": {
+                                    "gte": "15",
+                                    "lte": "30"
+                                }
+                            }
+                        }
+                    }],
+                    "minimum_should_match": "",
+                    "availableQuery": [{
+                        "range": {
+                            "age": {
+                                "gte": "15",
+                                "lte": "30"
+                            }
+                        }
+                    }]
+                }],
+                "availableFields": [{
+                    "name": "age",
+                    "type": "numeric",
+                    "index": null
+                }, {
+                    "name": "hello",
+                    "type": "string",
+                    "index": null
+                }, {
+                    "name": "name",
+                    "type": "string",
+                    "index": null
+                }, {
+                    "name": "query",
+                    "index": null
+                }, {
+                    "name": "tweet",
+                    "type": "string",
+                    "index": null
+                }],
+                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"age\": {\n              \"gte\": \"15\",\n              \"lte\": \"30\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+            },
+            "queryId": 2,
+            "isWatching": false,
+            "output": ""
+        },
+        "name": "range query",
+        "tag": "learn-mirage",
+        "version": "2.0"
+    }, {
+        "name": "gt-query",
+        "tag": "learn-mirage",
+        "config": {
+            "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
+            "appname": "App3",
+            "username": "CnqEgei0f",
+            "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+            "host": "https://scalr.api.appbase.io"
+        },
+        "selectedTypes": [
+            "tweets"
+        ],
+        "result": {
+            "resultQuery": {
+                "type": "",
+                "result": [{
+                    "boolparam": 0,
+                    "parent_id": 0,
+                    "id": 2,
+                    "internal": [{
+                        "field": {
+                            "name": "age",
+                            "type": "numeric",
+                            "index": null
+                        },
+                        "query": "2",
+                        "selectedField": "age",
+                        "selectedQuery": "gt",
+                        "input": "",
+                        "analyzeTest": "analyzed",
+                        "type": "numeric",
+                        "appliedQuery": {
+                            "range": {
+                                "age": {
+                                    "gt": "40"
+                                }
+                            }
+                        }
+                    }],
+                    "minimum_should_match": "",
+                    "availableQuery": [{
+                        "range": {
+                            "age": {
+                                "gt": "40"
+                            }
+                        }
+                    }]
+                }],
+                "availableFields": [{
+                    "name": "age",
+                    "type": "numeric",
+                    "index": null
+                }, {
+                    "name": "hello",
+                    "type": "string",
+                    "index": null
+                }, {
+                    "name": "name",
+                    "type": "string",
+                    "index": null
+                }, {
+                    "name": "query",
+                    "index": null
+                }, {
+                    "name": "tweet",
+                    "type": "string",
+                    "index": null
+                }],
+                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"age\": {\n              \"gt\": \"40\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+            },
+            "queryId": 3,
+            "isWatching": false,
+            "output": ""
+        },
+        "version": "2.0"
+    }, {
+        "name": "lt-query",
+        "tag": "learn-mirage",
+        "config": {
+            "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
+            "appname": "App3",
+            "username": "CnqEgei0f",
+            "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+            "host": "https://scalr.api.appbase.io"
+        },
+        "selectedTypes": [
+            "tweets"
+        ],
+        "result": {
+            "resultQuery": {
+                "type": "",
+                "result": [{
+                    "boolparam": 0,
+                    "parent_id": 0,
+                    "id": 2,
+                    "internal": [{
+                        "field": {
+                            "name": "age",
+                            "type": "numeric",
+                            "index": null
+                        },
+                        "query": "3",
+                        "selectedField": "age",
+                        "selectedQuery": "lt",
+                        "input": "",
+                        "analyzeTest": "analyzed",
+                        "type": "numeric",
+                        "appliedQuery": {
+                            "range": {
+                                "age": {
+                                    "lt": "20"
+                                }
+                            }
+                        }
+                    }],
+                    "minimum_should_match": "",
+                    "availableQuery": [{
+                        "range": {
+                            "age": {
+                                "lt": "20"
+                            }
+                        }
+                    }]
+                }],
+                "availableFields": [{
+                    "name": "age",
+                    "type": "numeric",
+                    "index": null
+                }, {
+                    "name": "hello",
+                    "type": "string",
+                    "index": null
+                }, {
+                    "name": "name",
+                    "type": "string",
+                    "index": null
+                }, {
+                    "name": "query",
+                    "index": null
+                }, {
+                    "name": "tweet",
+                    "type": "string",
+                    "index": null
+                }],
+                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"age\": {\n              \"lt\": \"20\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+            },
+            "queryId": 3,
+            "isWatching": false,
+            "output": ""
+        },
+        "version": "2.0"
+    }, {
+    "name": "match-query",
+    "tag": "learn-mirage",
+    "config": {
+        "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
+        "appname": "App3",
+        "username": "CnqEgei0f",
+        "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+        "host": "https://scalr.api.appbase.io"
+    },
+    "selectedTypes": [
+        "tweets"
+    ],
+    "result": {
+        "resultQuery": {
+            "type": "",
+            "result": [
+                {
+                    "boolparam": 0,
+                    "parent_id": 0,
+                    "id": 1,
+                    "internal": [
+                        {
+                            "field": {
+                                "name": "tweet",
+                                "type": "string",
+                                "index": null
+                            },
+                            "query": "0",
+                            "selectedField": "tweet",
+                            "selectedQuery": "match",
+                            "input": "",
+                            "analyzeTest": "analyzed",
+                            "type": "string",
+                            "appliedQuery": {
+                                "match": {
+                                    "tweet": "grow up"
+                                }
+                            }
+                        }
+                    ],
+                    "minimum_should_match": "",
+                    "availableQuery": [
+                        {
+                            "match": {
+                                "tweet": "grow up"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "availableFields": [
+                {
+                    "name": "age",
+                    "type": "numeric",
+                    "index": null
+                },
+                {
+                    "name": "hello",
+                    "type": "string",
+                    "index": null
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "index": null
+                },
+                {
+                    "name": "query",
+                    "index": null
+                },
+                {
+                    "name": "tweet",
+                    "type": "string",
+                    "index": null
+                }
+            ],
+            "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"match\": {\n            \"tweet\": \"grow up\"\n          }\n        }\n      ]\n    }\n  }\n}"
+        },
+        "queryId": 2,
+        "isWatching": false
+    },
+    "version": "2.0"
+}]
+}

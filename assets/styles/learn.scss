@@ -1,0 +1,17 @@
+@import "variables.scss";
+#learnModal {
+	.modal-title {
+		font-size: 20px;
+	}
+    .learn-list-contianer {
+		padding: 15px 0;
+		.learn-list {
+			padding-left: 0;
+			list-style: none;
+			font-size: 16px;
+			li {
+				margin-bottom: 10px;
+			}
+		}
+    }
+}

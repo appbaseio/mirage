@@ -44,6 +44,9 @@
 .clearfix {
   clear: both; }
 
+a {
+  cursor: pointer; }
+
 .btn-primary {
   color: #fff;
   background-color: #FCC829;
