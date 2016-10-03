@@ -1,14 +1,15 @@
-# Add new query
+# Contributing a New Query
 
 ### Steps
-1. Create a component file and spec file, and add in queries directory: https://github.com/appbaseio/mirage/tree/dev/app/build/singlequery/queries
+1. Create a component file and a spec file, and add them in the queries directory: https://github.com/appbaseio/mirage/tree/dev/app/build/singlequery/queries
 2. Import created component in singlequeryComponent and update markup to use new queyr
 3. Add the query in queryList.
 
-Let's take example of `Match` query
+Let's take the example of `Match` query here.
+
 ### Create Component file - {queryName}.component.ts
 
-Import angular core components and also mirage custom component `Editable`.
+Import angular core components and also a mirage custom component `Editable`.
 
 Editable component which converts input or dropdown into editable ui
 
@@ -16,10 +17,11 @@ Editable component which converts input or dropdown into editable ui
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, SimpleChange } from "@angular/core";
 import { EditableComponent } from '../../editable/editable.component';
 ```
-Markup contains 2 parts
-1) primary input box: which is 3rd input box in query box, in which user will write value,
+Markup contains 2 parts:  
+1) Primary input box: which is 3rd input box in query box, in which user will write value,
     addOption button is optional if query contains optional paramater then add it.
-2) Optional parameter: It is collection of option rows, each row will contain option property name and value
+2) Optional parameter: It is collection of option rows, each row will contain option property name and value  
+
 ```js
 @Component({
 	selector: 'match-query',
@@ -69,6 +71,7 @@ Markup contains 2 parts
 ```
 
 Create component and declare variables
+
 ```js
 export class MatchQuery implements OnInit, OnChanges {
 	@Input() queryList: any;
@@ -76,7 +79,6 @@ export class MatchQuery implements OnInit, OnChanges {
 	@Input() appliedQuery: any;
 	@Input() selectedQuery: string;
   ....	
-
 ```
 
 Event which is listen by parent component. we will pass created query format in this event.
@@ -98,6 +100,7 @@ public current_query: string = 'match';
 ```
 
 // List of  optional parameter  and Information about optional parameters which will be shown in popover
+
 ```js
 public default_options: any = [
 		'operator',
