@@ -3,7 +3,7 @@ declare var $: any;
 
 @Component({
 	selector: 'types',
-	templateUrl: './app/build/types/types.component.html',
+	templateUrl: './app/queryBlocks/types/types.component.html',
 	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare', 'buildQuery']
 })
 

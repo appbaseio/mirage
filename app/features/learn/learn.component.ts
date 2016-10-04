@@ -10,7 +10,7 @@ declare var $: any;
 	directives: []
 })
 
-export class LearnModalComponent  implements OnInit, AfterViewInit {
+export class LearnModalComponent  implements AfterViewInit {
 	constructor(private http: Http) {}
 
 	ngAfterViewInit() {

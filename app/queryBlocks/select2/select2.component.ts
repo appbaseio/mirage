@@ -6,7 +6,7 @@ declare var $: any;
 
 @Component({
 	selector: 'select2',
-	templateUrl: './app/build/select2/select2.component.html',
+	templateUrl: './app/queryBlocks/select2/select2.component.html',
 	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff", "setDocSample"],
 	providers: [GlobalShare, DocService]
 })
