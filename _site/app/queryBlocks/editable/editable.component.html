@@ -1,0 +1,23 @@
+<div class="editable-pack">
+	<div class="editable-front col-xs-12 pd-0" (click)="editable_on($event)">
+		<div *ngIf = "editableField != ''">
+			{{editableField}}
+		</div>
+		<div *ngIf = "editableField == ''">
+			{{editPlaceholder}}
+		</div>
+	</div>
+	<div class="editable-back col-xs-12 pd-0" *ngIf="editableInput == 'select2'">
+		<select2 [selectOptions]="selectOption" [querySelector]="querySelector" [selector]="selector" (callback)="callback.emit($event);" [showInfoFlag]="showInfoFlag" [informationList]="informationList"  [passWithCallback]="passWithCallback" [searchOff]="searchOff" (setDocSample)="setDocSampleEve($event);"></select2>
+	</div>	
+	<div class="editable-back col-xs-12 pd-0" *ngIf="editableInput == 'select'">
+		<select class="form-control form-element" [(ngModel)]="editableModal" (change)="editable_off($event);">
+			<option *ngFor="let oo of selectOption, let i=index" [value]="i">{{oo}}</option>
+		</select>
+	</div>	
+	<div class="editable-back col-xs-12 pd-0" *ngIf="editableInput == 'selectOption'">
+		<select class="form-control form-element" [(ngModel)]="editableModal" (change)="editable_off($event);">
+			<option *ngFor="let oo of selectOption, let i=index" [value]="oo">{{oo}}</option>
+		</select>
+	</div>	
+</div>
