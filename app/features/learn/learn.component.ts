@@ -10,29 +10,8 @@ declare var $: any;
 	directives: []
 })
 
-export class LearnModalComponent  implements AfterViewInit {
+export class LearnModalComponent {
 	constructor(private http: Http) {}
-
-	ngAfterViewInit() {
-		$('#learnModal').on('shown.bs.modal', this.loadHunt);
-	}
-
-	loadHunt() {
-		if(!$('.embedph').hasClass('added')) {
-			var hunt = $('<script>').attr({
-				id: "embedhunt-77987",
-				class: "embedhunt-async-script-loader"
-			});
-			$('.embedph').addClass('added').html(hunt);
-			var s = document.createElement('script');
-		    s.type = 'text/javascript';
-		    s.async = true;
-		    var theUrl = '//embedhunt.com/products/77987/widget';
-		    s.src = theUrl; 
-		    var embedder = document.getElementById('embedhunt-77987');
-		    embedder.parentNode.insertBefore(s, embedder);
-	    }
-	}
 
 	@Output() saveQuery = new EventEmitter();
 	@Output() newQuery = new EventEmitter();

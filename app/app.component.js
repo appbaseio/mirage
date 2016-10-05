@@ -9,9 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var build_component_1 = require("./build/build.component");
+var queryBlocks_component_1 = require("./queryBlocks/queryBlocks.component");
+var jsonEditor_component_1 = require("./jsonEditor/jsonEditor.component");
 var result_component_1 = require("./result/result.component");
-var run_component_1 = require("./run/run.component");
 var save_query_component_1 = require('./features/save/save.query.component');
 var list_query_component_1 = require('./features/list/list.query.component');
 var share_url_component_1 = require('./features/share/share.url.component');
@@ -535,7 +535,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: './app/app.component.html',
-            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent, learn_component_1.LearnModalComponent],
+            directives: [queryBlocks_component_1.QueryBlocksComponent, jsonEditor_component_1.JsonEditorComponent, result_component_1.ResultComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent, learn_component_1.LearnModalComponent],
             providers: [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService]
         }), 
         __metadata('design:paramtypes', [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService])

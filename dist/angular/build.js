@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var build_component_1 = require("./build/build.component");
+var queryBlocks_component_1 = require("./queryBlocks/queryBlocks.component");
+var jsonEditor_component_1 = require("./jsonEditor/jsonEditor.component");
 var result_component_1 = require("./result/result.component");
-var run_component_1 = require("./run/run.component");
 var save_query_component_1 = require('./features/save/save.query.component');
 var list_query_component_1 = require('./features/list/list.query.component');
 var share_url_component_1 = require('./features/share/share.url.component');
@@ -536,7 +536,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: './app/app.component.html',
-            directives: [build_component_1.BuildComponent, result_component_1.ResultComponent, run_component_1.RunComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent, learn_component_1.LearnModalComponent],
+            directives: [queryBlocks_component_1.QueryBlocksComponent, jsonEditor_component_1.JsonEditorComponent, result_component_1.ResultComponent, save_query_component_1.SaveQueryComponent, list_query_component_1.ListQueryComponent, share_url_component_1.ShareUrlComponent, appselect_component_1.AppselectComponent, error_modal_component_1.ErrorModalComponent, docsidebar_component_1.DocSidebarComponent, confirm_modal_component_1.ConfirmModalComponent, learn_component_1.LearnModalComponent],
             providers: [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService]
         }), 
         __metadata('design:paramtypes', [appbase_service_1.AppbaseService, storage_service_1.StorageService, docService_1.DocService])
@@ -545,7 +545,767 @@ var AppComponent = (function () {
 }());
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
-},{"./build/build.component":3,"./features/appselect/appselect.component":28,"./features/confirm/confirm-modal.component":29,"./features/docSidebar/docsidebar.component":30,"./features/learn/learn.component":31,"./features/list/list.query.component":32,"./features/modal/error-modal.component":34,"./features/save/save.query.component":35,"./features/share/share.url.component":36,"./result/result.component":37,"./run/run.component":38,"./shared/appbase.service":39,"./shared/docService":40,"./shared/editorHook":41,"./shared/storage.service":46,"./shared/urlShare":47,"@angular/core":195}],2:[function(require,module,exports){
+},{"./features/appselect/appselect.component":3,"./features/confirm/confirm-modal.component":4,"./features/docSidebar/docsidebar.component":5,"./features/learn/learn.component":6,"./features/list/list.query.component":7,"./features/modal/error-modal.component":9,"./features/save/save.query.component":10,"./features/share/share.url.component":11,"./jsonEditor/jsonEditor.component":12,"./queryBlocks/queryBlocks.component":15,"./result/result.component":38,"./shared/appbase.service":39,"./shared/docService":40,"./shared/editorHook":41,"./shared/storage.service":46,"./shared/urlShare":47,"@angular/core":195}],2:[function(require,module,exports){
+"use strict";
+var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
+var http_1 = require('@angular/http');
+var forms_1 = require('@angular/forms');
+var app_component_1 = require('./app.component');
+var core_1 = require('@angular/core');
+core_1.enableProdMode();
+platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
+    http_1.HTTP_PROVIDERS,
+    forms_1.disableDeprecatedForms(),
+    forms_1.provideForms()
+])
+    .catch(function (err) { return console.error(err); });
+//# sourceMappingURL=main.js.map
+},{"./app.component":1,"@angular/core":195,"@angular/forms":284,"@angular/http":322,"@angular/platform-browser-dynamic":343}],3:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var AppselectComponent = (function () {
+    function AppselectComponent() {
+        this.setConfig = new core_1.EventEmitter();
+        this.filteredApps = [];
+        this.appFocus = false;
+    }
+    AppselectComponent.prototype.ngOnInit = function () {
+        // this.handleInput();
+    };
+    AppselectComponent.prototype.ngOnChanges = function () {
+    };
+    AppselectComponent.prototype.handleInput = function () {
+        this.filteredApps = this.appsList.filter(function (app, index) {
+            return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1);
+        }.bind(this));
+        if (this.filteredApps.length) {
+            this.appFocus = true;
+        }
+        else {
+            this.appFocus = false;
+        }
+    };
+    AppselectComponent.prototype.focusInput = function () {
+        if (this.filteredApps.length) {
+            this.appFocus = true;
+        }
+    };
+    AppselectComponent.prototype.blurInput = function () {
+        setTimeout(function () {
+            this.appFocus = false;
+        }.bind(this), 500);
+    };
+    AppselectComponent.prototype.setApp = function (app) {
+        this.setConfig.emit(app);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], AppselectComponent.prototype, "appsList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], AppselectComponent.prototype, "config", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], AppselectComponent.prototype, "connected", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], AppselectComponent.prototype, "setConfig", void 0);
+    AppselectComponent = __decorate([
+        core_1.Component({
+            selector: 'appselect',
+            templateUrl: './app/features/appselect/appselect.component.html',
+            inputs: ['appsList', 'config', 'connected', 'setConfig'],
+            directives: []
+        }), 
+        __metadata('design:paramtypes', [])
+    ], AppselectComponent);
+    return AppselectComponent;
+}());
+exports.AppselectComponent = AppselectComponent;
+//# sourceMappingURL=appselect.component.js.map
+},{"@angular/core":195}],4:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var ConfirmModalComponent = (function () {
+    function ConfirmModalComponent() {
+        this.callback = new core_1.EventEmitter();
+    }
+    ConfirmModalComponent.prototype.ngOnInit = function () {
+    };
+    ConfirmModalComponent.prototype.ngOnChanges = function () {
+    };
+    ConfirmModalComponent.prototype.confirm = function (flag) {
+        this.callback.emit(flag);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ConfirmModalComponent.prototype, "info", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ConfirmModalComponent.prototype, "callback", void 0);
+    ConfirmModalComponent = __decorate([
+        core_1.Component({
+            selector: 'confirm-modal',
+            templateUrl: './app/features/confirm/confirm-modal.component.html',
+            inputs: ['info', 'callback'],
+            directives: []
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ConfirmModalComponent);
+    return ConfirmModalComponent;
+}());
+exports.ConfirmModalComponent = ConfirmModalComponent;
+//# sourceMappingURL=confirm-modal.component.js.map
+},{"@angular/core":195}],5:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var platform_browser_1 = require('@angular/platform-browser');
+var DocSidebarComponent = (function () {
+    function DocSidebarComponent(sanitizer) {
+        this.sanitizer = sanitizer;
+        this.setDocSample = new core_1.EventEmitter();
+        this.open = false;
+    }
+    DocSidebarComponent.prototype.ngOnInit = function () { };
+    DocSidebarComponent.prototype.ngOnChanges = function (changes) {
+        if (changes.docLink.currentValue) {
+            this.url = this.sanitizer.bypassSecurityTrustResourceUrl(changes.docLink.currentValue);
+            this.open = true;
+        }
+    };
+    DocSidebarComponent.prototype.close = function () {
+        this.setDocSample.emit(null);
+        this.open = false;
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], DocSidebarComponent.prototype, "docLink", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], DocSidebarComponent.prototype, "setDocSample", void 0);
+    DocSidebarComponent = __decorate([
+        core_1.Component({
+            selector: 'doc-sidebar',
+            templateUrl: './app/features/docSidebar/docsidebar.component.html',
+            inputs: ['docLink', 'setDocSample']
+        }), 
+        __metadata('design:paramtypes', [platform_browser_1.DomSanitizationService])
+    ], DocSidebarComponent);
+    return DocSidebarComponent;
+}());
+exports.DocSidebarComponent = DocSidebarComponent;
+//# sourceMappingURL=docsidebar.component.js.map
+},{"@angular/core":195,"@angular/platform-browser":354}],6:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require('@angular/http');
+var LearnModalComponent = (function () {
+    function LearnModalComponent(http) {
+        this.http = http;
+        this.saveQuery = new core_1.EventEmitter();
+        this.newQuery = new core_1.EventEmitter();
+        this.queries = [];
+    }
+    LearnModalComponent.prototype.loadLearn = function () {
+        var self = this;
+        this.http.get('./app/shared/default.data.json').toPromise().then(function (res) {
+            var data = res.json();
+            data.queries.forEach(function (query) {
+                self.saveQuery.emit(query);
+            });
+            setTimeout(function () {
+                self.newQuery.emit(data.queries[0]);
+            }, 500);
+            $('#learnModal').modal('hide');
+            $('#learnInfoModal').modal('show');
+        }).catch(function (e) {
+            console.log(e);
+        });
+    };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], LearnModalComponent.prototype, "saveQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], LearnModalComponent.prototype, "newQuery", void 0);
+    LearnModalComponent = __decorate([
+        core_1.Component({
+            selector: 'learn-modal',
+            templateUrl: './app/features/learn/learn.component.html',
+            inputs: ['saveQuery', 'newQuery'],
+            directives: []
+        }), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], LearnModalComponent);
+    return LearnModalComponent;
+}());
+exports.LearnModalComponent = LearnModalComponent;
+//# sourceMappingURL=learn.component.js.map
+},{"@angular/core":195,"@angular/http":322}],7:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var time_component_1 = require("./time/time.component");
+var ListQueryComponent = (function () {
+    function ListQueryComponent() {
+        this.newQuery = new core_1.EventEmitter();
+        this.deleteQuery = new core_1.EventEmitter();
+        this.clearAll = new core_1.EventEmitter();
+        this.sort = new core_1.EventEmitter();
+        this.searchList = new core_1.EventEmitter();
+        this.direction = false;
+    }
+    ListQueryComponent.prototype.ngOnInit = function () { };
+    ListQueryComponent.prototype.applyQuery = function (currentQuery) {
+        var queryData = this.savedQueryList.filter(function (query) {
+            return query.name === currentQuery.name && query.tag === currentQuery.tag;
+        });
+        if (queryData.length) {
+            this.newQuery.emit(queryData[0]);
+        }
+    };
+    ListQueryComponent.prototype.applyDeleteQuery = function (query) {
+        this.deleteQuery.emit(query);
+    };
+    ListQueryComponent.prototype.applyClearAll = function () {
+        this.clearAll.emit(null);
+    };
+    ListQueryComponent.prototype.applySearchList = function () {
+        this.searchList.emit({
+            searchTerm: this.searchTerm,
+            searchByMethod: this.searchByMethod
+        });
+    };
+    ListQueryComponent.prototype.tagApply = function (event, tag, searchByMethod) {
+        this.searchTerm = tag;
+        this.searchByMethod = searchByMethod;
+        this.applySearchList();
+        event.stopPropagation();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "savedQueryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "sort_by", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "sort_direction", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "searchTerm", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "filteredQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "newQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "deleteQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "clearAll", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "sort", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListQueryComponent.prototype, "searchList", void 0);
+    ListQueryComponent = __decorate([
+        core_1.Component({
+            selector: 'list-query',
+            templateUrl: './app/features/list/list.query.component.html',
+            inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll'],
+            directives: [time_component_1.TimeComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ListQueryComponent);
+    return ListQueryComponent;
+}());
+exports.ListQueryComponent = ListQueryComponent;
+//# sourceMappingURL=list.query.component.js.map
+},{"./time/time.component":8,"@angular/core":195}],8:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var prettyTime_1 = require("../../../shared/pipes/prettyTime");
+var TimeComponent = (function () {
+    function TimeComponent() {
+    }
+    TimeComponent.prototype.ngOnInit = function () {
+        this.setTimeInterval(false);
+    };
+    TimeComponent.prototype.ngOnChanges = function () { };
+    TimeComponent.prototype.setTimeInterval = function (flag) {
+        this.time = flag ? this.time + 1 : this.time - 1;
+        flag = flag ? false : true;
+        setTimeout(function () {
+            this.setTimeInterval(flag);
+        }.bind(this), 1000 * 60);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], TimeComponent.prototype, "time", void 0);
+    TimeComponent = __decorate([
+        core_1.Component({
+            selector: 'time-relative',
+            template: "<span class=\"query-time\">\n\t\t\t\t\t{{time | prettyTime}}\n\t\t\t\t</span>",
+            inputs: ['time'],
+            pipes: [prettyTime_1.prettyTime]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], TimeComponent);
+    return TimeComponent;
+}());
+exports.TimeComponent = TimeComponent;
+//# sourceMappingURL=time.component.js.map
+},{"../../../shared/pipes/prettyTime":44,"@angular/core":195}],9:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var ErrorModalComponent = (function () {
+    function ErrorModalComponent() {
+        this.callback = new core_1.EventEmitter();
+    }
+    ErrorModalComponent.prototype.ngOnInit = function () {
+        var self = this;
+        this.errorHookHelp.applyEditor({
+            lineNumbers: false
+        });
+    };
+    ErrorModalComponent.prototype.ngOnChanges = function () {
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ErrorModalComponent.prototype, "info", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ErrorModalComponent.prototype, "errorHookHelp", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ErrorModalComponent.prototype, "callback", void 0);
+    ErrorModalComponent = __decorate([
+        core_1.Component({
+            selector: 'error-modal',
+            templateUrl: './app/features/modal/error-modal.component.html',
+            inputs: ['info', 'callback', 'errorHookHelp'],
+            directives: []
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ErrorModalComponent);
+    return ErrorModalComponent;
+}());
+exports.ErrorModalComponent = ErrorModalComponent;
+//# sourceMappingURL=error-modal.component.js.map
+},{"@angular/core":195}],10:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var storage_service_1 = require("../../shared/storage.service");
+var SaveQueryComponent = (function () {
+    function SaveQueryComponent(storageService) {
+        this.storageService = storageService;
+        this.query_info = {
+            name: '',
+            tag: ''
+        };
+    }
+    SaveQueryComponent.prototype.openModal = function () {
+        $('#saveQueryModal').modal('show');
+    };
+    SaveQueryComponent.prototype.save = function () {
+        var queryData = {
+            mapping: this.mapping,
+            config: this.config,
+            name: this.query_info.name,
+            tag: this.query_info.tag
+        };
+        this.queryList.push(queryData);
+        try {
+            this.storageService.set('queryList', JSON.stringify(this.queryList));
+        }
+        catch (e) { }
+        console.log(this.queryList);
+    };
+    SaveQueryComponent = __decorate([
+        core_1.Component({
+            selector: 'save-query',
+            templateUrl: './app/features/save/save.query.component.html',
+            inputs: ['config', 'mapping', 'queryList'],
+            providers: [storage_service_1.StorageService]
+        }), 
+        __metadata('design:paramtypes', [storage_service_1.StorageService])
+    ], SaveQueryComponent);
+    return SaveQueryComponent;
+}());
+exports.SaveQueryComponent = SaveQueryComponent;
+//# sourceMappingURL=save.query.component.js.map
+},{"../../shared/storage.service":46,"@angular/core":195}],11:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var ShareUrlComponent = (function () {
+    function ShareUrlComponent() {
+    }
+    ShareUrlComponent.prototype.ngOnInit = function () {
+        var info = {
+            title: 'Share Url',
+            content: "<div class=\"share_content\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" value=\"\" id=\"for-share\">\n\t\t\t\t\t\t<p class=\"mt-10 success-msg\">Link is copied to clipboard!</p>\n\t\t\t\t\t</div>",
+            html: true,
+            trigger: 'click'
+        };
+        $('.share-btn').popover(info);
+        $('.share-btn').on('shown.bs.popover', function () {
+            this.shareClick();
+        }.bind(this));
+        $('.share-btn').on('hidden.bs.popover', function () {
+            $('.share_content .success-msg').hide();
+        }.bind(this));
+    };
+    ShareUrlComponent.prototype.ngOnChanges = function () {
+    };
+    ShareUrlComponent.prototype.shareClick = function () {
+        var link = this.urlShare.convertToUrl('gh-pages');
+        $('#for-share').val(link);
+        var ele = document.getElementById('for-share');
+        var succeed = this.copyToClipboard(ele);
+        if (succeed) {
+            $('.share_content .success-msg').show();
+        }
+    };
+    ShareUrlComponent.prototype.copyToClipboard = function (elem) {
+        // create hidden text element, if it doesn't already exist
+        var targetId = "_hiddenCopyText_";
+        var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+        var origSelectionStart, origSelectionEnd;
+        var target;
+        if (isInput) {
+            // can just use the original source element for the selection and copy
+            target = elem;
+            origSelectionStart = elem.selectionStart;
+            origSelectionEnd = elem.selectionEnd;
+        }
+        else {
+            // must use a temporary form element for the selection and copy
+            target = document.getElementById(targetId);
+            if (!target) {
+                target = document.createElement("textarea");
+                target.style.position = "absolute";
+                target.style.left = "-9999px";
+                target.style.top = "0";
+                target.id = targetId;
+                document.body.appendChild(target);
+            }
+            target.textContent = elem.textContent;
+        }
+        // select the content
+        var currentFocus = document.activeElement;
+        target.focus();
+        target.setSelectionRange(0, target.value.length);
+        // copy the selection
+        var succeed;
+        try {
+            succeed = document.execCommand("copy");
+        }
+        catch (e) {
+            succeed = false;
+        }
+        // restore original focus
+        if (currentFocus && typeof currentFocus.focus === "function") {
+            currentFocus.focus();
+        }
+        if (isInput) {
+            // restore prior selection
+            elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+        }
+        else {
+            // clear temporary content
+            target.textContent = "";
+        }
+        return succeed;
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ShareUrlComponent.prototype, "urlShare", void 0);
+    ShareUrlComponent = __decorate([
+        core_1.Component({
+            selector: 'share-url',
+            templateUrl: './app/features/share/share.url.component.html',
+            inputs: ['urlShare'],
+            directives: []
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ShareUrlComponent);
+    return ShareUrlComponent;
+}());
+exports.ShareUrlComponent = ShareUrlComponent;
+//# sourceMappingURL=share.url.component.js.map
+},{"@angular/core":195}],12:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var prettyJson_1 = require("../shared/pipes/prettyJson");
+var appbase_service_1 = require("../shared/appbase.service");
+var JsonEditorComponent = (function () {
+    function JsonEditorComponent(appbaseService) {
+        this.appbaseService = appbaseService;
+        this.setProp = new core_1.EventEmitter();
+        this.errorShow = new core_1.EventEmitter();
+    }
+    // Set codemirror instead of normal textarea
+    JsonEditorComponent.prototype.ngOnInit = function () {
+        var self = this;
+        this.editorHookHelp.applyEditor();
+        $('#resultModal').modal({
+            show: false,
+            backdrop: 'static'
+        });
+        $('#resultModal').on('hide.bs.modal', function () {
+            self.responseHookHelp.focus('{"Loading": "please wait......"}');
+            var propInfo = {
+                name: 'result_time_taken',
+                value: null
+            };
+            self.setProp.emit(propInfo);
+        });
+    };
+    // Validate using checkValidaQuery method
+    // if validation success then apply search query and set result in textarea using editorhook
+    // else show message
+    JsonEditorComponent.prototype.runQuery = function () {
+        var self = this;
+        this.appbaseService.setAppbase(this.config);
+        var validate = this.checkValidQuery();
+        if (validate.flag) {
+            $('#resultModal').modal('show');
+            this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function (res) {
+                self.result.isWatching = false;
+                var propInfo = {
+                    name: 'result_time_taken',
+                    value: res.json().took
+                };
+                self.setProp.emit(propInfo);
+                self.result.output = JSON.stringify(res.json(), null, 2);
+                if ($('#resultModal').hasClass('in')) {
+                    self.responseHookHelp.setValue(self.result.output);
+                }
+                else {
+                    setTimeout(function () {
+                        self.responseHookHelp.setValue(self.result.output);
+                    }, 300);
+                }
+            }).catch(function (data) {
+                $('#resultModal').modal('hide');
+                self.result.isWatching = false;
+                self.result.output = JSON.stringify(data, null, 4);
+                var obj = {
+                    title: 'Response Error',
+                    message: self.result.output
+                };
+                self.errorShow.emit(obj);
+            });
+        }
+        else {
+            var obj = {
+                title: 'Json validation',
+                message: validate.message
+            };
+            this.errorShow.emit(obj);
+        }
+    };
+    // get the textarea value using editor hook
+    // Checking if all the internal queries have field and query,
+    // Query should not contain '*' that we are setting on default
+    // If internal query is perfect then check for valid json
+    JsonEditorComponent.prototype.checkValidQuery = function () {
+        var getQuery = this.editorHookHelp.getValue();
+        getQuery = getQuery.trim();
+        var returnObj = {
+            flag: true,
+            payload: null,
+            message: null
+        };
+        this.result.resultQuery.result.forEach(function (result) {
+            result.internal.forEach(function (query) {
+                if (query.field === '' || query.query === '') {
+                    returnObj.flag = false;
+                }
+            });
+        });
+        if (returnObj.flag && getQuery && getQuery != "") {
+            try {
+                returnObj.payload = JSON.parse(getQuery);
+            }
+            catch (e) {
+                returnObj.message = "Json is not valid.";
+            }
+        }
+        else {
+            returnObj.flag = false;
+            returnObj.message = "  Please complete your query first.";
+        }
+        return returnObj;
+    };
+    JsonEditorComponent.prototype.setPropIn = function () {
+        var propInfo = {
+            name: 'finalUrl',
+            value: this.finalUrl
+        };
+        this.setProp.emit(propInfo);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "finalUrl", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "mapping", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "types", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "selectedTypes", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "setProp", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "errorShow", void 0);
+    JsonEditorComponent = __decorate([
+        core_1.Component({
+            selector: 'query-jsoneditor',
+            templateUrl: './app/jsonEditor/jsonEditor.component.html',
+            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp', 'errorShow'],
+            pipes: [prettyJson_1.prettyJson],
+            providers: [appbase_service_1.AppbaseService]
+        }), 
+        __metadata('design:paramtypes', [appbase_service_1.AppbaseService])
+    ], JsonEditorComponent);
+    return JsonEditorComponent;
+}());
+exports.JsonEditorComponent = JsonEditorComponent;
+//# sourceMappingURL=jsonEditor.component.js.map
+},{"../shared/appbase.service":39,"../shared/pipes/prettyJson":43,"@angular/core":195}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -635,7 +1395,7 @@ var BoolqueryComponent = (function () {
     BoolqueryComponent = __decorate([
         core_1.Component({
             selector: 'bool-query',
-            templateUrl: './app/build/boolquery/boolquery.component.html',
+            templateUrl: './app/queryBlocks/boolquery/boolquery.component.html',
             inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample'],
             directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent, editable_component_1.EditableComponent]
         }), 
@@ -645,276 +1405,7 @@ var BoolqueryComponent = (function () {
 }());
 exports.BoolqueryComponent = BoolqueryComponent;
 //# sourceMappingURL=boolquery.component.js.map
-},{"../editable/editable.component":4,"../singlequery/singlequery.component":25,"@angular/core":195}],3:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var boolquery_component_1 = require("./boolquery/boolquery.component");
-var queryList_1 = require("../shared/queryList");
-var types_component_1 = require("./types/types.component");
-var BuildComponent = (function () {
-    function BuildComponent() {
-        this.queryList = queryList_1.queryList;
-        this.queryFormat = {
-            internal: {
-                field: '',
-                query: '',
-                selectedField: '',
-                selectedQuery: '',
-                input: '',
-                analyzeTest: '',
-                type: ''
-            },
-            bool: {
-                boolparam: 0,
-                parent_id: 0,
-                id: 0,
-                internal: [],
-                minimum_should_match: ''
-            }
-        };
-        this.saveQuery = new core_1.EventEmitter();
-        this.setProp = new core_1.EventEmitter();
-        this.setDocSample = new core_1.EventEmitter();
-    }
-    BuildComponent.prototype.ngOnInit = function () {
-        this.handleEditable();
-    };
-    // Add the boolean query
-    // get the default format for query and internal query
-    // set the format and push into result array
-    BuildComponent.prototype.addBoolQuery = function (parent_id) {
-        if (this.selectedTypes) {
-            var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
-            var internalObj = JSON.parse(JSON.stringify(this.queryFormat.internal));
-            queryObj.internal.push(internalObj);
-            queryObj.id = this.result.queryId;
-            queryObj.parent_id = parent_id;
-            this.result.queryId += 1;
-            this.result.resultQuery.result.push(queryObj);
-            this.buildQuery();
-        }
-        else {
-            alert('Select type first.');
-        }
-    };
-    // add internal query
-    BuildComponent.prototype.addQuery = function (boolQuery) {
-        var self = this;
-        var queryObj = JSON.parse(JSON.stringify(self.queryFormat.internal));
-        boolQuery.internal.push(queryObj);
-        this.buildQuery();
-    };
-    // builquery - this function handles everything to build the query
-    BuildComponent.prototype.buildQuery = function () {
-        var self = this;
-        var results = this.result.resultQuery.result;
-        if (results.length) {
-            var finalresult = {};
-            var es_final = {
-                'query': {
-                    'bool': finalresult
-                }
-            };
-            results.forEach(function (result) {
-                result.availableQuery = self.buildInsideQuery(result);
-            });
-            results.forEach(function (result0) {
-                results.forEach(function (result1) {
-                    if (result1.parent_id == result0.id) {
-                        var current_query = {
-                            'bool': {}
-                        };
-                        var currentBool = self.queryList['boolQuery'][result1['boolparam']];
-                        current_query['bool'][currentBool] = result1.availableQuery;
-                        if (currentBool === 'should') {
-                            current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
-                        }
-                        result0.availableQuery.push(current_query);
-                    }
-                });
-            });
-            results.forEach(function (result) {
-                if (result.parent_id === 0) {
-                    var currentBool = self.queryList['boolQuery'][result['boolparam']];
-                    finalresult[currentBool] = result.availableQuery;
-                    if (currentBool === 'should') {
-                        finalresult['minimum_should_match'] = result.minimum_should_match;
-                    }
-                }
-            });
-            this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-            try {
-                this.editorHookHelp.setValue(self.result.resultQuery.final);
-            }
-            catch (e) { }
-        }
-        else {
-            if (this.selectedTypes.length) {
-                var match_all = {
-                    'query': {
-                        'match_all': {}
-                    }
-                };
-                this.result.resultQuery.final = JSON.stringify(match_all, null, 2);
-                try {
-                    this.editorHookHelp.setValue(self.result.resultQuery.final);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-            }
-        }
-        //set input state
-        try {
-            this.urlShare.inputs['result'] = this.result;
-            this.urlShare.createUrl();
-        }
-        catch (e) {
-            console.log(e);
-        }
-    };
-    BuildComponent.prototype.buildInsideQuery = function (result) {
-        var objChain = [];
-        result.internal.forEach(function (val0) {
-            var childExists = false;
-            val0.appliedQuery = this.createQuery(val0, childExists);
-        }.bind(this));
-        result.internal.forEach(function (val) {
-            objChain.push(val.appliedQuery);
-        });
-        return objChain;
-    };
-    BuildComponent.prototype.buildSubQuery = function () {
-        var result = this.result.resultQuery.result[0];
-        result.forEach(function (val0) {
-            if (val0.parent_id != 0) {
-                result.forEach(function (val1) {
-                    if (val0.parent_id == val1.id) {
-                        val1.appliedQuery['bool']['must'].push(val0.appliedQuery);
-                    }
-                }.bind(this));
-            }
-        }.bind(this));
-    };
-    // Createquery until query is selected
-    BuildComponent.prototype.createQuery = function (val, childExists) {
-        var queryParam = {
-            query: '*',
-            field: '*',
-            queryFlag: true,
-            fieldFlag: true
-        };
-        if (val.analyzeTest === '' || val.type === '' || val.query === '') {
-            queryParam.queryFlag = false;
-        }
-        if (val.field === '') {
-            queryParam.fieldFlag = false;
-        }
-        if (queryParam.queryFlag) {
-            return val.appliedQuery;
-        }
-        else {
-            if (queryParam.fieldFlag) {
-                queryParam.field = val.selectedField;
-            }
-            var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
-            return sampleobj;
-        }
-    };
-    BuildComponent.prototype.setQueryFormat = function (query, field, val) {
-        var sampleobj = {};
-        sampleobj[query] = {};
-        sampleobj[query][field] = val.input;
-        return sampleobj;
-    };
-    // handle the body click event for editable
-    // close all the select2 whene clicking outside of editable-element
-    BuildComponent.prototype.handleEditable = function () {
-        $('body').on('click', function (e) {
-            var target = $(e.target);
-            if (target.hasClass('.editable-pack') || target.parents('.editable-pack').length) { }
-            else {
-                $('.editable-pack').removeClass('on');
-            }
-        });
-    };
-    // open save query modal
-    BuildComponent.prototype.openModal = function () {
-        $('#saveQueryModal').modal('show');
-    };
-    BuildComponent.prototype.setPropIn = function (propObj) {
-        this.setProp.emit(propObj);
-    };
-    BuildComponent.prototype.setDocSampleEve = function (link) {
-        this.setDocSample.emit(link);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "mapping", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "types", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "selectedTypes", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "result", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "query_info", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "savedQueryList", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], BuildComponent.prototype, "finalUrl", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "urlShare", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "saveQuery", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "setProp", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], BuildComponent.prototype, "setDocSample", void 0);
-    BuildComponent = __decorate([
-        core_1.Component({
-            selector: 'query-build',
-            templateUrl: './app/build/build.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare', 'setDocSample'],
-            directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], BuildComponent);
-    return BuildComponent;
-}());
-exports.BuildComponent = BuildComponent;
-//# sourceMappingURL=build.component.js.map
-},{"../shared/queryList":45,"./boolquery/boolquery.component":2,"./types/types.component":26,"@angular/core":195}],4:[function(require,module,exports){
+},{"../editable/editable.component":14,"../singlequery/singlequery.component":36,"@angular/core":195}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1008,7 +1499,7 @@ var EditableComponent = (function () {
     EditableComponent = __decorate([
         core_1.Component({
             selector: 'editable',
-            templateUrl: './app/build/editable/editable.component.html',
+            templateUrl: './app/queryBlocks/editable/editable.component.html',
             inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff', 'setDocSample'],
             directives: [select2_component_1.select2Component]
         }), 
@@ -1018,7 +1509,276 @@ var EditableComponent = (function () {
 }());
 exports.EditableComponent = EditableComponent;
 //# sourceMappingURL=editable.component.js.map
-},{"../select2/select2.component":5,"@angular/core":195}],5:[function(require,module,exports){
+},{"../select2/select2.component":16,"@angular/core":195}],15:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var boolquery_component_1 = require("./boolquery/boolquery.component");
+var queryList_1 = require("../shared/queryList");
+var types_component_1 = require("./types/types.component");
+var QueryBlocksComponent = (function () {
+    function QueryBlocksComponent() {
+        this.queryList = queryList_1.queryList;
+        this.queryFormat = {
+            internal: {
+                field: '',
+                query: '',
+                selectedField: '',
+                selectedQuery: '',
+                input: '',
+                analyzeTest: '',
+                type: ''
+            },
+            bool: {
+                boolparam: 0,
+                parent_id: 0,
+                id: 0,
+                internal: [],
+                minimum_should_match: ''
+            }
+        };
+        this.saveQuery = new core_1.EventEmitter();
+        this.setProp = new core_1.EventEmitter();
+        this.setDocSample = new core_1.EventEmitter();
+    }
+    QueryBlocksComponent.prototype.ngOnInit = function () {
+        this.handleEditable();
+    };
+    // Add the boolean query
+    // get the default format for query and internal query
+    // set the format and push into result array
+    QueryBlocksComponent.prototype.addBoolQuery = function (parent_id) {
+        if (this.selectedTypes) {
+            var queryObj = JSON.parse(JSON.stringify(this.queryFormat.bool));
+            var internalObj = JSON.parse(JSON.stringify(this.queryFormat.internal));
+            queryObj.internal.push(internalObj);
+            queryObj.id = this.result.queryId;
+            queryObj.parent_id = parent_id;
+            this.result.queryId += 1;
+            this.result.resultQuery.result.push(queryObj);
+            this.buildQuery();
+        }
+        else {
+            alert('Select type first.');
+        }
+    };
+    // add internal query
+    QueryBlocksComponent.prototype.addQuery = function (boolQuery) {
+        var self = this;
+        var queryObj = JSON.parse(JSON.stringify(self.queryFormat.internal));
+        boolQuery.internal.push(queryObj);
+        this.buildQuery();
+    };
+    // builquery - this function handles everything to build the query
+    QueryBlocksComponent.prototype.buildQuery = function () {
+        var self = this;
+        var results = this.result.resultQuery.result;
+        if (results.length) {
+            var finalresult = {};
+            var es_final = {
+                'query': {
+                    'bool': finalresult
+                }
+            };
+            results.forEach(function (result) {
+                result.availableQuery = self.buildInsideQuery(result);
+            });
+            results.forEach(function (result0) {
+                results.forEach(function (result1) {
+                    if (result1.parent_id == result0.id) {
+                        var current_query = {
+                            'bool': {}
+                        };
+                        var currentBool = self.queryList['boolQuery'][result1['boolparam']];
+                        current_query['bool'][currentBool] = result1.availableQuery;
+                        if (currentBool === 'should') {
+                            current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
+                        }
+                        result0.availableQuery.push(current_query);
+                    }
+                });
+            });
+            results.forEach(function (result) {
+                if (result.parent_id === 0) {
+                    var currentBool = self.queryList['boolQuery'][result['boolparam']];
+                    finalresult[currentBool] = result.availableQuery;
+                    if (currentBool === 'should') {
+                        finalresult['minimum_should_match'] = result.minimum_should_match;
+                    }
+                }
+            });
+            this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+            try {
+                this.editorHookHelp.setValue(self.result.resultQuery.final);
+            }
+            catch (e) { }
+        }
+        else {
+            if (this.selectedTypes.length) {
+                var match_all = {
+                    'query': {
+                        'match_all': {}
+                    }
+                };
+                this.result.resultQuery.final = JSON.stringify(match_all, null, 2);
+                try {
+                    this.editorHookHelp.setValue(self.result.resultQuery.final);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+        }
+        //set input state
+        try {
+            this.urlShare.inputs['result'] = this.result;
+            this.urlShare.createUrl();
+        }
+        catch (e) {
+            console.log(e);
+        }
+    };
+    QueryBlocksComponent.prototype.buildInsideQuery = function (result) {
+        var objChain = [];
+        result.internal.forEach(function (val0) {
+            var childExists = false;
+            val0.appliedQuery = this.createQuery(val0, childExists);
+        }.bind(this));
+        result.internal.forEach(function (val) {
+            objChain.push(val.appliedQuery);
+        });
+        return objChain;
+    };
+    QueryBlocksComponent.prototype.buildSubQuery = function () {
+        var result = this.result.resultQuery.result[0];
+        result.forEach(function (val0) {
+            if (val0.parent_id != 0) {
+                result.forEach(function (val1) {
+                    if (val0.parent_id == val1.id) {
+                        val1.appliedQuery['bool']['must'].push(val0.appliedQuery);
+                    }
+                }.bind(this));
+            }
+        }.bind(this));
+    };
+    // Createquery until query is selected
+    QueryBlocksComponent.prototype.createQuery = function (val, childExists) {
+        var queryParam = {
+            query: '*',
+            field: '*',
+            queryFlag: true,
+            fieldFlag: true
+        };
+        if (val.analyzeTest === '' || val.type === '' || val.query === '') {
+            queryParam.queryFlag = false;
+        }
+        if (val.field === '') {
+            queryParam.fieldFlag = false;
+        }
+        if (queryParam.queryFlag) {
+            return val.appliedQuery;
+        }
+        else {
+            if (queryParam.fieldFlag) {
+                queryParam.field = val.selectedField;
+            }
+            var sampleobj = this.setQueryFormat(queryParam.query, queryParam.field, val);
+            return sampleobj;
+        }
+    };
+    QueryBlocksComponent.prototype.setQueryFormat = function (query, field, val) {
+        var sampleobj = {};
+        sampleobj[query] = {};
+        sampleobj[query][field] = val.input;
+        return sampleobj;
+    };
+    // handle the body click event for editable
+    // close all the select2 whene clicking outside of editable-element
+    QueryBlocksComponent.prototype.handleEditable = function () {
+        $('body').on('click', function (e) {
+            var target = $(e.target);
+            if (target.hasClass('.editable-pack') || target.parents('.editable-pack').length) { }
+            else {
+                $('.editable-pack').removeClass('on');
+            }
+        });
+    };
+    // open save query modal
+    QueryBlocksComponent.prototype.openModal = function () {
+        $('#saveQueryModal').modal('show');
+    };
+    QueryBlocksComponent.prototype.setPropIn = function (propObj) {
+        this.setProp.emit(propObj);
+    };
+    QueryBlocksComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "mapping", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "types", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "selectedTypes", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "query_info", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "savedQueryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], QueryBlocksComponent.prototype, "finalUrl", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "urlShare", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "saveQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "setProp", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "setDocSample", void 0);
+    QueryBlocksComponent = __decorate([
+        core_1.Component({
+            selector: 'query-blocks',
+            templateUrl: './app/queryBlocks/queryBlocks.component.html',
+            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare', 'setDocSample'],
+            directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], QueryBlocksComponent);
+    return QueryBlocksComponent;
+}());
+exports.QueryBlocksComponent = QueryBlocksComponent;
+//# sourceMappingURL=queryBlocks.component.js.map
+},{"../shared/queryList":45,"./boolquery/boolquery.component":13,"./types/types.component":37,"@angular/core":195}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1149,7 +1909,7 @@ var select2Component = (function () {
     select2Component = __decorate([
         core_1.Component({
             selector: 'select2',
-            templateUrl: './app/build/select2/select2.component.html',
+            templateUrl: './app/queryBlocks/select2/select2.component.html',
             inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff", "setDocSample"],
             providers: [globalshare_service_1.GlobalShare, docService_1.DocService]
         }), 
@@ -1159,7 +1919,7 @@ var select2Component = (function () {
 }());
 exports.select2Component = select2Component;
 //# sourceMappingURL=select2.component.js.map
-},{"../../shared/docService":40,"../../shared/globalshare.service":42,"@angular/core":195}],6:[function(require,module,exports){
+},{"../../shared/docService":40,"../../shared/globalshare.service":42,"@angular/core":195}],17:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1349,7 +2109,7 @@ var CommonQuery = (function () {
 }());
 exports.CommonQuery = CommonQuery;
 //# sourceMappingURL=common.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],7:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1448,7 +2208,7 @@ var ExistsQuery = (function () {
 }());
 exports.ExistsQuery = ExistsQuery;
 //# sourceMappingURL=exists.query.js.map
-},{"@angular/core":195}],8:[function(require,module,exports){
+},{"@angular/core":195}],19:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1639,7 +2399,7 @@ var FuzzyQuery = (function () {
 }());
 exports.FuzzyQuery = FuzzyQuery;
 //# sourceMappingURL=fuzzy.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],9:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1809,7 +2569,7 @@ var GtQuery = (function () {
 }());
 exports.GtQuery = GtQuery;
 //# sourceMappingURL=gt.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],10:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],21:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1932,7 +2692,7 @@ var IdsQuery = (function () {
 }());
 exports.IdsQuery = IdsQuery;
 //# sourceMappingURL=ids.query.js.map
-},{"@angular/core":195}],11:[function(require,module,exports){
+},{"@angular/core":195}],22:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2101,7 +2861,7 @@ var LtQuery = (function () {
 }());
 exports.LtQuery = LtQuery;
 //# sourceMappingURL=lt.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],12:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],23:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2330,7 +3090,7 @@ var MatchQuery = (function () {
 }());
 exports.MatchQuery = MatchQuery;
 //# sourceMappingURL=match.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],13:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],24:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2511,7 +3271,7 @@ var Match_phase_prefixQuery = (function () {
 }());
 exports.Match_phase_prefixQuery = Match_phase_prefixQuery;
 //# sourceMappingURL=match_phase_prefix.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],14:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],25:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2687,7 +3447,7 @@ var Match_phraseQuery = (function () {
 }());
 exports.Match_phraseQuery = Match_phraseQuery;
 //# sourceMappingURL=match_phrase.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],15:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],26:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2850,7 +3610,7 @@ var MissingQuery = (function () {
 }());
 exports.MissingQuery = MissingQuery;
 //# sourceMappingURL=missing.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],16:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],27:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3051,7 +3811,7 @@ var MultiMatchQuery = (function () {
 }());
 exports.MultiMatchQuery = MultiMatchQuery;
 //# sourceMappingURL=multi-match.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],17:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],28:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3227,7 +3987,7 @@ var PrefixQuery = (function () {
 }());
 exports.PrefixQuery = PrefixQuery;
 //# sourceMappingURL=prefix.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],18:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],29:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3428,7 +4188,7 @@ var QueryStringQuery = (function () {
 }());
 exports.QueryStringQuery = QueryStringQuery;
 //# sourceMappingURL=query_string.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],19:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],30:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3605,7 +4365,7 @@ var RangeQuery = (function () {
 }());
 exports.RangeQuery = RangeQuery;
 //# sourceMappingURL=range.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],20:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],31:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3791,7 +4551,7 @@ var RegexpQuery = (function () {
 }());
 exports.RegexpQuery = RegexpQuery;
 //# sourceMappingURL=regexp.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],21:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],32:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3992,7 +4752,7 @@ var SimpleQueryStringQuery = (function () {
 }());
 exports.SimpleQueryStringQuery = SimpleQueryStringQuery;
 //# sourceMappingURL=simple_query_string.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],22:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],33:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4168,7 +4928,7 @@ var TermQuery = (function () {
 }());
 exports.TermQuery = TermQuery;
 //# sourceMappingURL=term.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],23:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],34:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4281,7 +5041,7 @@ var TermsQuery = (function () {
 }());
 exports.TermsQuery = TermsQuery;
 //# sourceMappingURL=terms.query.js.map
-},{"@angular/core":195}],24:[function(require,module,exports){
+},{"@angular/core":195}],35:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4457,7 +5217,7 @@ var WildcardQuery = (function () {
 }());
 exports.WildcardQuery = WildcardQuery;
 //# sourceMappingURL=wildcard.query.js.map
-},{"../../editable/editable.component":4,"@angular/core":195}],25:[function(require,module,exports){
+},{"../../editable/editable.component":14,"@angular/core":195}],36:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4684,7 +5444,7 @@ var SinglequeryComponent = (function () {
     SinglequeryComponent = __decorate([
         core_1.Component({
             selector: 'single-query',
-            templateUrl: './app/build/singlequery/singlequery.component.html',
+            templateUrl: './app/queryBlocks/singlequery/singlequery.component.html',
             inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample'],
             directives: [
                 editable_component_1.EditableComponent,
@@ -4717,7 +5477,7 @@ var SinglequeryComponent = (function () {
 }());
 exports.SinglequeryComponent = SinglequeryComponent;
 //# sourceMappingURL=singlequery.component.js.map
-},{"../editable/editable.component":4,"../select2/select2.component":5,"./queries/common.query":6,"./queries/exists.query":7,"./queries/fuzzy.query":8,"./queries/gt.query":9,"./queries/ids.query":10,"./queries/lt.query":11,"./queries/match.query":12,"./queries/match_phase_prefix.query":13,"./queries/match_phrase.query":14,"./queries/missing.query":15,"./queries/multi-match.query":16,"./queries/prefix.query":17,"./queries/query_string.query":18,"./queries/range.query":19,"./queries/regexp.query":20,"./queries/simple_query_string.query":21,"./queries/term.query":22,"./queries/terms.query":23,"./queries/wildcard.query":24,"@angular/core":195}],26:[function(require,module,exports){
+},{"../editable/editable.component":14,"../select2/select2.component":16,"./queries/common.query":17,"./queries/exists.query":18,"./queries/fuzzy.query":19,"./queries/gt.query":20,"./queries/ids.query":21,"./queries/lt.query":22,"./queries/match.query":23,"./queries/match_phase_prefix.query":24,"./queries/match_phrase.query":25,"./queries/missing.query":26,"./queries/multi-match.query":27,"./queries/prefix.query":28,"./queries/query_string.query":29,"./queries/range.query":30,"./queries/regexp.query":31,"./queries/simple_query_string.query":32,"./queries/term.query":33,"./queries/terms.query":34,"./queries/wildcard.query":35,"@angular/core":195}],37:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4879,7 +5639,7 @@ var TypesComponent = (function () {
     TypesComponent = __decorate([
         core_1.Component({
             selector: 'types',
-            templateUrl: './app/build/types/types.component.html',
+            templateUrl: './app/queryBlocks/types/types.component.html',
             inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare', 'buildQuery']
         }), 
         __metadata('design:paramtypes', [])
@@ -4888,623 +5648,7 @@ var TypesComponent = (function () {
 }());
 exports.TypesComponent = TypesComponent;
 //# sourceMappingURL=types.component.js.map
-},{"@angular/core":195}],27:[function(require,module,exports){
-"use strict";
-var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
-var http_1 = require('@angular/http');
-var forms_1 = require('@angular/forms');
-var app_component_1 = require('./app.component');
-var core_1 = require('@angular/core');
-core_1.enableProdMode();
-platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
-    http_1.HTTP_PROVIDERS,
-    forms_1.disableDeprecatedForms(),
-    forms_1.provideForms()
-])
-    .catch(function (err) { return console.error(err); });
-//# sourceMappingURL=main.js.map
-},{"./app.component":1,"@angular/core":195,"@angular/forms":284,"@angular/http":322,"@angular/platform-browser-dynamic":343}],28:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var AppselectComponent = (function () {
-    function AppselectComponent() {
-        this.setConfig = new core_1.EventEmitter();
-        this.filteredApps = [];
-        this.appFocus = false;
-    }
-    AppselectComponent.prototype.ngOnInit = function () {
-        // this.handleInput();
-    };
-    AppselectComponent.prototype.ngOnChanges = function () {
-    };
-    AppselectComponent.prototype.handleInput = function () {
-        this.filteredApps = this.appsList.filter(function (app, index) {
-            return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1);
-        }.bind(this));
-        if (this.filteredApps.length) {
-            this.appFocus = true;
-        }
-        else {
-            this.appFocus = false;
-        }
-    };
-    AppselectComponent.prototype.focusInput = function () {
-        if (this.filteredApps.length) {
-            this.appFocus = true;
-        }
-    };
-    AppselectComponent.prototype.blurInput = function () {
-        setTimeout(function () {
-            this.appFocus = false;
-        }.bind(this), 500);
-    };
-    AppselectComponent.prototype.setApp = function (app) {
-        this.setConfig.emit(app);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], AppselectComponent.prototype, "appsList", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], AppselectComponent.prototype, "config", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], AppselectComponent.prototype, "connected", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], AppselectComponent.prototype, "setConfig", void 0);
-    AppselectComponent = __decorate([
-        core_1.Component({
-            selector: 'appselect',
-            templateUrl: './app/features/appselect/appselect.component.html',
-            inputs: ['appsList', 'config', 'connected', 'setConfig'],
-            directives: []
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppselectComponent);
-    return AppselectComponent;
-}());
-exports.AppselectComponent = AppselectComponent;
-//# sourceMappingURL=appselect.component.js.map
-},{"@angular/core":195}],29:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var ConfirmModalComponent = (function () {
-    function ConfirmModalComponent() {
-        this.callback = new core_1.EventEmitter();
-    }
-    ConfirmModalComponent.prototype.ngOnInit = function () {
-    };
-    ConfirmModalComponent.prototype.ngOnChanges = function () {
-    };
-    ConfirmModalComponent.prototype.confirm = function (flag) {
-        this.callback.emit(flag);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ConfirmModalComponent.prototype, "info", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ConfirmModalComponent.prototype, "callback", void 0);
-    ConfirmModalComponent = __decorate([
-        core_1.Component({
-            selector: 'confirm-modal',
-            templateUrl: './app/features/confirm/confirm-modal.component.html',
-            inputs: ['info', 'callback'],
-            directives: []
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ConfirmModalComponent);
-    return ConfirmModalComponent;
-}());
-exports.ConfirmModalComponent = ConfirmModalComponent;
-//# sourceMappingURL=confirm-modal.component.js.map
-},{"@angular/core":195}],30:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var platform_browser_1 = require('@angular/platform-browser');
-var DocSidebarComponent = (function () {
-    function DocSidebarComponent(sanitizer) {
-        this.sanitizer = sanitizer;
-        this.setDocSample = new core_1.EventEmitter();
-        this.open = false;
-    }
-    DocSidebarComponent.prototype.ngOnInit = function () { };
-    DocSidebarComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.docLink.currentValue) {
-            this.url = this.sanitizer.bypassSecurityTrustResourceUrl(changes.docLink.currentValue);
-            this.open = true;
-        }
-    };
-    DocSidebarComponent.prototype.close = function () {
-        this.setDocSample.emit(null);
-        this.open = false;
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], DocSidebarComponent.prototype, "docLink", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], DocSidebarComponent.prototype, "setDocSample", void 0);
-    DocSidebarComponent = __decorate([
-        core_1.Component({
-            selector: 'doc-sidebar',
-            templateUrl: './app/features/docSidebar/docsidebar.component.html',
-            inputs: ['docLink', 'setDocSample']
-        }), 
-        __metadata('design:paramtypes', [platform_browser_1.DomSanitizationService])
-    ], DocSidebarComponent);
-    return DocSidebarComponent;
-}());
-exports.DocSidebarComponent = DocSidebarComponent;
-//# sourceMappingURL=docsidebar.component.js.map
-},{"@angular/core":195,"@angular/platform-browser":354}],31:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var http_1 = require('@angular/http');
-var LearnModalComponent = (function () {
-    function LearnModalComponent(http) {
-        this.http = http;
-        this.saveQuery = new core_1.EventEmitter();
-        this.newQuery = new core_1.EventEmitter();
-        this.queries = [];
-    }
-    LearnModalComponent.prototype.ngAfterViewInit = function () {
-        $('#learnModal').on('shown.bs.modal', this.loadHunt);
-    };
-    LearnModalComponent.prototype.loadHunt = function () {
-        if (!$('.embedph').hasClass('added')) {
-            var hunt = $('<script>').attr({
-                id: "embedhunt-77987",
-                class: "embedhunt-async-script-loader"
-            });
-            $('.embedph').addClass('added').html(hunt);
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.async = true;
-            var theUrl = '//embedhunt.com/products/77987/widget';
-            s.src = theUrl;
-            var embedder = document.getElementById('embedhunt-77987');
-            embedder.parentNode.insertBefore(s, embedder);
-        }
-    };
-    LearnModalComponent.prototype.loadLearn = function () {
-        var self = this;
-        this.http.get('./app/shared/default.data.json').toPromise().then(function (res) {
-            var data = res.json();
-            data.queries.forEach(function (query) {
-                self.saveQuery.emit(query);
-            });
-            setTimeout(function () {
-                self.newQuery.emit(data.queries[0]);
-            }, 500);
-            $('#learnModal').modal('hide');
-            $('#learnInfoModal').modal('show');
-        }).catch(function (e) {
-            console.log(e);
-        });
-    };
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], LearnModalComponent.prototype, "saveQuery", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], LearnModalComponent.prototype, "newQuery", void 0);
-    LearnModalComponent = __decorate([
-        core_1.Component({
-            selector: 'learn-modal',
-            templateUrl: './app/features/learn/learn.component.html',
-            inputs: ['saveQuery', 'newQuery'],
-            directives: []
-        }), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], LearnModalComponent);
-    return LearnModalComponent;
-}());
-exports.LearnModalComponent = LearnModalComponent;
-//# sourceMappingURL=learn.component.js.map
-},{"@angular/core":195,"@angular/http":322}],32:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var time_component_1 = require("./time/time.component");
-var ListQueryComponent = (function () {
-    function ListQueryComponent() {
-        this.newQuery = new core_1.EventEmitter();
-        this.deleteQuery = new core_1.EventEmitter();
-        this.clearAll = new core_1.EventEmitter();
-        this.sort = new core_1.EventEmitter();
-        this.searchList = new core_1.EventEmitter();
-        this.direction = false;
-    }
-    ListQueryComponent.prototype.ngOnInit = function () { };
-    ListQueryComponent.prototype.applyQuery = function (currentQuery) {
-        var queryData = this.savedQueryList.filter(function (query) {
-            return query.name === currentQuery.name && query.tag === currentQuery.tag;
-        });
-        if (queryData.length) {
-            this.newQuery.emit(queryData[0]);
-        }
-    };
-    ListQueryComponent.prototype.applyDeleteQuery = function (query) {
-        this.deleteQuery.emit(query);
-    };
-    ListQueryComponent.prototype.applyClearAll = function () {
-        this.clearAll.emit(null);
-    };
-    ListQueryComponent.prototype.applySearchList = function () {
-        this.searchList.emit({
-            searchTerm: this.searchTerm,
-            searchByMethod: this.searchByMethod
-        });
-    };
-    ListQueryComponent.prototype.tagApply = function (event, tag, searchByMethod) {
-        this.searchTerm = tag;
-        this.searchByMethod = searchByMethod;
-        this.applySearchList();
-        event.stopPropagation();
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "savedQueryList", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "sort_by", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "sort_direction", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "searchTerm", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "filteredQuery", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "newQuery", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "deleteQuery", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "clearAll", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "sort", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ListQueryComponent.prototype, "searchList", void 0);
-    ListQueryComponent = __decorate([
-        core_1.Component({
-            selector: 'list-query',
-            templateUrl: './app/features/list/list.query.component.html',
-            inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll'],
-            directives: [time_component_1.TimeComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ListQueryComponent);
-    return ListQueryComponent;
-}());
-exports.ListQueryComponent = ListQueryComponent;
-//# sourceMappingURL=list.query.component.js.map
-},{"./time/time.component":33,"@angular/core":195}],33:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var prettyTime_1 = require("../../../shared/pipes/prettyTime");
-var TimeComponent = (function () {
-    function TimeComponent() {
-    }
-    TimeComponent.prototype.ngOnInit = function () {
-        this.setTimeInterval(false);
-    };
-    TimeComponent.prototype.ngOnChanges = function () { };
-    TimeComponent.prototype.setTimeInterval = function (flag) {
-        this.time = flag ? this.time + 1 : this.time - 1;
-        flag = flag ? false : true;
-        setTimeout(function () {
-            this.setTimeInterval(flag);
-        }.bind(this), 1000 * 60);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], TimeComponent.prototype, "time", void 0);
-    TimeComponent = __decorate([
-        core_1.Component({
-            selector: 'time-relative',
-            template: "<span class=\"query-time\">\n\t\t\t\t\t{{time | prettyTime}}\n\t\t\t\t</span>",
-            inputs: ['time'],
-            pipes: [prettyTime_1.prettyTime]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], TimeComponent);
-    return TimeComponent;
-}());
-exports.TimeComponent = TimeComponent;
-//# sourceMappingURL=time.component.js.map
-},{"../../../shared/pipes/prettyTime":44,"@angular/core":195}],34:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var ErrorModalComponent = (function () {
-    function ErrorModalComponent() {
-        this.callback = new core_1.EventEmitter();
-    }
-    ErrorModalComponent.prototype.ngOnInit = function () {
-        var self = this;
-        this.errorHookHelp.applyEditor({
-            lineNumbers: false
-        });
-    };
-    ErrorModalComponent.prototype.ngOnChanges = function () {
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ErrorModalComponent.prototype, "info", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ErrorModalComponent.prototype, "errorHookHelp", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ErrorModalComponent.prototype, "callback", void 0);
-    ErrorModalComponent = __decorate([
-        core_1.Component({
-            selector: 'error-modal',
-            templateUrl: './app/features/modal/error-modal.component.html',
-            inputs: ['info', 'callback', 'errorHookHelp'],
-            directives: []
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ErrorModalComponent);
-    return ErrorModalComponent;
-}());
-exports.ErrorModalComponent = ErrorModalComponent;
-//# sourceMappingURL=error-modal.component.js.map
-},{"@angular/core":195}],35:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var storage_service_1 = require("../../shared/storage.service");
-var SaveQueryComponent = (function () {
-    function SaveQueryComponent(storageService) {
-        this.storageService = storageService;
-        this.query_info = {
-            name: '',
-            tag: ''
-        };
-    }
-    SaveQueryComponent.prototype.openModal = function () {
-        $('#saveQueryModal').modal('show');
-    };
-    SaveQueryComponent.prototype.save = function () {
-        var queryData = {
-            mapping: this.mapping,
-            config: this.config,
-            name: this.query_info.name,
-            tag: this.query_info.tag
-        };
-        this.queryList.push(queryData);
-        try {
-            this.storageService.set('queryList', JSON.stringify(this.queryList));
-        }
-        catch (e) { }
-        console.log(this.queryList);
-    };
-    SaveQueryComponent = __decorate([
-        core_1.Component({
-            selector: 'save-query',
-            templateUrl: './app/features/save/save.query.component.html',
-            inputs: ['config', 'mapping', 'queryList'],
-            providers: [storage_service_1.StorageService]
-        }), 
-        __metadata('design:paramtypes', [storage_service_1.StorageService])
-    ], SaveQueryComponent);
-    return SaveQueryComponent;
-}());
-exports.SaveQueryComponent = SaveQueryComponent;
-//# sourceMappingURL=save.query.component.js.map
-},{"../../shared/storage.service":46,"@angular/core":195}],36:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var ShareUrlComponent = (function () {
-    function ShareUrlComponent() {
-    }
-    ShareUrlComponent.prototype.ngOnInit = function () {
-        var info = {
-            title: 'Share Url',
-            content: "<div class=\"share_content\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" value=\"\" id=\"for-share\">\n\t\t\t\t\t\t<p class=\"mt-10 success-msg\">Link is copied to clipboard!</p>\n\t\t\t\t\t</div>",
-            html: true,
-            trigger: 'click'
-        };
-        $('.share-btn').popover(info);
-        $('.share-btn').on('shown.bs.popover', function () {
-            this.shareClick();
-        }.bind(this));
-        $('.share-btn').on('hidden.bs.popover', function () {
-            $('.share_content .success-msg').hide();
-        }.bind(this));
-    };
-    ShareUrlComponent.prototype.ngOnChanges = function () {
-    };
-    ShareUrlComponent.prototype.shareClick = function () {
-        var link = this.urlShare.convertToUrl('gh-pages');
-        $('#for-share').val(link);
-        var ele = document.getElementById('for-share');
-        var succeed = this.copyToClipboard(ele);
-        if (succeed) {
-            $('.share_content .success-msg').show();
-        }
-    };
-    ShareUrlComponent.prototype.copyToClipboard = function (elem) {
-        // create hidden text element, if it doesn't already exist
-        var targetId = "_hiddenCopyText_";
-        var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
-        var origSelectionStart, origSelectionEnd;
-        var target;
-        if (isInput) {
-            // can just use the original source element for the selection and copy
-            target = elem;
-            origSelectionStart = elem.selectionStart;
-            origSelectionEnd = elem.selectionEnd;
-        }
-        else {
-            // must use a temporary form element for the selection and copy
-            target = document.getElementById(targetId);
-            if (!target) {
-                target = document.createElement("textarea");
-                target.style.position = "absolute";
-                target.style.left = "-9999px";
-                target.style.top = "0";
-                target.id = targetId;
-                document.body.appendChild(target);
-            }
-            target.textContent = elem.textContent;
-        }
-        // select the content
-        var currentFocus = document.activeElement;
-        target.focus();
-        target.setSelectionRange(0, target.value.length);
-        // copy the selection
-        var succeed;
-        try {
-            succeed = document.execCommand("copy");
-        }
-        catch (e) {
-            succeed = false;
-        }
-        // restore original focus
-        if (currentFocus && typeof currentFocus.focus === "function") {
-            currentFocus.focus();
-        }
-        if (isInput) {
-            // restore prior selection
-            elem.setSelectionRange(origSelectionStart, origSelectionEnd);
-        }
-        else {
-            // clear temporary content
-            target.textContent = "";
-        }
-        return succeed;
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ShareUrlComponent.prototype, "urlShare", void 0);
-    ShareUrlComponent = __decorate([
-        core_1.Component({
-            selector: 'share-url',
-            templateUrl: './app/features/share/share.url.component.html',
-            inputs: ['urlShare'],
-            directives: []
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ShareUrlComponent);
-    return ShareUrlComponent;
-}());
-exports.ShareUrlComponent = ShareUrlComponent;
-//# sourceMappingURL=share.url.component.js.map
-},{"@angular/core":195}],37:[function(require,module,exports){
+},{"@angular/core":195}],38:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5517,186 +5661,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var prettyJson_1 = require("../shared/pipes/prettyJson");
-var appbase_service_1 = require("../shared/appbase.service");
 var ResultComponent = (function () {
-    function ResultComponent(appbaseService) {
-        this.appbaseService = appbaseService;
-        this.setProp = new core_1.EventEmitter();
-        this.errorShow = new core_1.EventEmitter();
+    function ResultComponent() {
     }
-    // Set codemirror instead of normal textarea
     ResultComponent.prototype.ngOnInit = function () {
-        var self = this;
-        this.editorHookHelp.applyEditor();
-        $('#resultModal').modal({
-            show: false,
-            backdrop: 'static'
-        });
-        $('#resultModal').on('hide.bs.modal', function () {
-            self.responseHookHelp.focus('{"Loading": "please wait......"}');
-            var propInfo = {
-                name: 'result_time_taken',
-                value: null
-            };
-            self.setProp.emit(propInfo);
-        });
+        this.responseHookHelp.applyEditor({ readOnly: true });
     };
-    // Validate using checkValidaQuery method
-    // if validation success then apply search query and set result in textarea using editorhook
-    // else show message
-    ResultComponent.prototype.runQuery = function () {
-        var self = this;
-        this.appbaseService.setAppbase(this.config);
-        var validate = this.checkValidQuery();
-        if (validate.flag) {
-            $('#resultModal').modal('show');
-            this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function (res) {
-                self.result.isWatching = false;
-                var propInfo = {
-                    name: 'result_time_taken',
-                    value: res.json().took
-                };
-                self.setProp.emit(propInfo);
-                self.result.output = JSON.stringify(res.json(), null, 2);
-                if ($('#resultModal').hasClass('in')) {
-                    self.responseHookHelp.setValue(self.result.output);
-                }
-                else {
-                    setTimeout(function () {
-                        self.responseHookHelp.setValue(self.result.output);
-                    }, 300);
-                }
-            }).catch(function (data) {
-                $('#resultModal').modal('hide');
-                self.result.isWatching = false;
-                self.result.output = JSON.stringify(data, null, 4);
-                var obj = {
-                    title: 'Response Error',
-                    message: self.result.output
-                };
-                self.errorShow.emit(obj);
-            });
-        }
-        else {
-            var obj = {
-                title: 'Json validation',
-                message: validate.message
-            };
-            this.errorShow.emit(obj);
-        }
-    };
-    // get the textarea value using editor hook
-    // Checking if all the internal queries have field and query,
-    // Query should not contain '*' that we are setting on default
-    // If internal query is perfect then check for valid json
-    ResultComponent.prototype.checkValidQuery = function () {
-        var getQuery = this.editorHookHelp.getValue();
-        var returnObj = {
-            flag: true,
-            payload: null,
-            message: null
-        };
-        this.result.resultQuery.result.forEach(function (result) {
-            result.internal.forEach(function (query) {
-                if (query.field === '' || query.query === '') {
-                    returnObj.flag = false;
-                }
-            });
-        });
-        if (returnObj.flag) {
-            try {
-                returnObj.payload = JSON.parse(getQuery);
-            }
-            catch (e) {
-                returnObj.message = "Json is not valid.";
-            }
-        }
-        else {
-            returnObj.message = "Please complete your query first.";
-        }
-        return returnObj;
-    };
-    ResultComponent.prototype.setPropIn = function () {
-        var propInfo = {
-            name: 'finalUrl',
-            value: this.finalUrl
-        };
-        this.setProp.emit(propInfo);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "finalUrl", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "mapping", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "types", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "selectedTypes", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "result", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "setProp", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "errorShow", void 0);
     ResultComponent = __decorate([
         core_1.Component({
             selector: 'query-result',
             templateUrl: './app/result/result.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp', 'errorShow'],
-            pipes: [prettyJson_1.prettyJson],
-            providers: [appbase_service_1.AppbaseService]
+            inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken'],
+            pipes: [prettyJson_1.prettyJson]
         }), 
-        __metadata('design:paramtypes', [appbase_service_1.AppbaseService])
+        __metadata('design:paramtypes', [])
     ], ResultComponent);
     return ResultComponent;
 }());
 exports.ResultComponent = ResultComponent;
 //# sourceMappingURL=result.component.js.map
-},{"../shared/appbase.service":39,"../shared/pipes/prettyJson":43,"@angular/core":195}],38:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require("@angular/core");
-var prettyJson_1 = require("../shared/pipes/prettyJson");
-var RunComponent = (function () {
-    function RunComponent() {
-    }
-    RunComponent.prototype.ngOnInit = function () {
-        this.responseHookHelp.applyEditor({ readOnly: true });
-    };
-    RunComponent = __decorate([
-        core_1.Component({
-            selector: 'query-run',
-            templateUrl: './app/run/run.component.html',
-            inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken'],
-            pipes: [prettyJson_1.prettyJson]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], RunComponent);
-    return RunComponent;
-}());
-exports.RunComponent = RunComponent;
-//# sourceMappingURL=run.component.js.map
 },{"../shared/pipes/prettyJson":43,"@angular/core":195}],39:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -53523,4 +53506,4 @@ function tryCatch(fn) {
 exports.tryCatch = tryCatch;
 ;
 //# sourceMappingURL=tryCatch.js.map
-},{"./errorObject":426}]},{},[27])
+},{"./errorObject":426}]},{},[2])

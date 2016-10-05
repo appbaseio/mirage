@@ -10,149 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var prettyJson_1 = require("../shared/pipes/prettyJson");
-var appbase_service_1 = require("../shared/appbase.service");
 var ResultComponent = (function () {
-    function ResultComponent(appbaseService) {
-        this.appbaseService = appbaseService;
-        this.setProp = new core_1.EventEmitter();
-        this.errorShow = new core_1.EventEmitter();
+    function ResultComponent() {
     }
-    // Set codemirror instead of normal textarea
     ResultComponent.prototype.ngOnInit = function () {
-        var self = this;
-        this.editorHookHelp.applyEditor();
-        $('#resultModal').modal({
-            show: false,
-            backdrop: 'static'
-        });
-        $('#resultModal').on('hide.bs.modal', function () {
-            self.responseHookHelp.focus('{"Loading": "please wait......"}');
-            var propInfo = {
-                name: 'result_time_taken',
-                value: null
-            };
-            self.setProp.emit(propInfo);
-        });
+        this.responseHookHelp.applyEditor({ readOnly: true });
     };
-    // Validate using checkValidaQuery method
-    // if validation success then apply search query and set result in textarea using editorhook
-    // else show message
-    ResultComponent.prototype.runQuery = function () {
-        var self = this;
-        this.appbaseService.setAppbase(this.config);
-        var validate = this.checkValidQuery();
-        if (validate.flag) {
-            $('#resultModal').modal('show');
-            this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function (res) {
-                self.result.isWatching = false;
-                var propInfo = {
-                    name: 'result_time_taken',
-                    value: res.json().took
-                };
-                self.setProp.emit(propInfo);
-                self.result.output = JSON.stringify(res.json(), null, 2);
-                if ($('#resultModal').hasClass('in')) {
-                    self.responseHookHelp.setValue(self.result.output);
-                }
-                else {
-                    setTimeout(function () {
-                        self.responseHookHelp.setValue(self.result.output);
-                    }, 300);
-                }
-            }).catch(function (data) {
-                $('#resultModal').modal('hide');
-                self.result.isWatching = false;
-                self.result.output = JSON.stringify(data, null, 4);
-                var obj = {
-                    title: 'Response Error',
-                    message: self.result.output
-                };
-                self.errorShow.emit(obj);
-            });
-        }
-        else {
-            var obj = {
-                title: 'Json validation',
-                message: validate.message
-            };
-            this.errorShow.emit(obj);
-        }
-    };
-    // get the textarea value using editor hook
-    // Checking if all the internal queries have field and query,
-    // Query should not contain '*' that we are setting on default
-    // If internal query is perfect then check for valid json
-    ResultComponent.prototype.checkValidQuery = function () {
-        var getQuery = this.editorHookHelp.getValue();
-        var returnObj = {
-            flag: true,
-            payload: null,
-            message: null
-        };
-        this.result.resultQuery.result.forEach(function (result) {
-            result.internal.forEach(function (query) {
-                if (query.field === '' || query.query === '') {
-                    returnObj.flag = false;
-                }
-            });
-        });
-        if (returnObj.flag) {
-            try {
-                returnObj.payload = JSON.parse(getQuery);
-            }
-            catch (e) {
-                returnObj.message = "Json is not valid.";
-            }
-        }
-        else {
-            returnObj.message = "Please complete your query first.";
-        }
-        return returnObj;
-    };
-    ResultComponent.prototype.setPropIn = function () {
-        var propInfo = {
-            name: 'finalUrl',
-            value: this.finalUrl
-        };
-        this.setProp.emit(propInfo);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "finalUrl", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "mapping", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "types", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "selectedTypes", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "result", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "setProp", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ResultComponent.prototype, "errorShow", void 0);
     ResultComponent = __decorate([
         core_1.Component({
             selector: 'query-result',
             templateUrl: './app/result/result.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp', 'errorShow'],
-            pipes: [prettyJson_1.prettyJson],
-            providers: [appbase_service_1.AppbaseService]
+            inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken'],
+            pipes: [prettyJson_1.prettyJson]
         }), 
-        __metadata('design:paramtypes', [appbase_service_1.AppbaseService])
+        __metadata('design:paramtypes', [])
     ], ResultComponent);
     return ResultComponent;
 }());
