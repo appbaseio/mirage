@@ -24,7 +24,7 @@ declare var $: any;
 
 @Component({
 	selector: 'single-query',
-	templateUrl: './app/build/singlequery/singlequery.component.html',
+	templateUrl: './app/queryBlocks/singlequery/singlequery.component.html',
 	inputs: ['mapping', 'types', 'selectedTypes', 'result',  'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample'],
 	directives: [
 		EditableComponent,

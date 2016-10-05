@@ -6,13 +6,13 @@ import { TypesComponent } from "./types/types.component";
 declare var $: any;
 
 @Component({
-	selector: 'query-build',
-	templateUrl: './app/build/build.component.html',
+	selector: 'query-blocks',
+	templateUrl: './app/queryBlocks/queryBlocks.component.html',
 	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare', 'setDocSample'],
 	directives: [TypesComponent, BoolqueryComponent]
 })
 
-export class BuildComponent implements OnInit {
+export class QueryBlocksComponent implements OnInit {
 	public queryList = queryList;
 	public queryFormat: any = {
 		internal: {

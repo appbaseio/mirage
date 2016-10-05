@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { OnInit, OnChanges, Component, Input, Output, EventEmitter, AfterViewInit } from "@angular/core";
 import { Headers, Http } from '@angular/http';
 
 declare var $: any;

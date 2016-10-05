@@ -149,7 +149,8 @@ gulp.task('chrome_dist_dir', function() {
 // Include dependency in dist
 gulp.task('move_js_depends', function() {
     return gulp.src(['bower_components/jquery/dist/jquery.min.js',
-        'bower_components/lzma/src/lzma_worker.js'])
+        'bower_components/lzma/src/lzma_worker.js',
+        'assets/vendor/JSONURL.js'])
         .pipe(gulp.dest('dist/vendor'));
 });
 
