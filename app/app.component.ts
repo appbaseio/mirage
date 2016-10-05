@@ -1,9 +1,9 @@
 import { Component, OnInit, OnChanges, SimpleChange } from "@angular/core";
 import {Subscription} from 'rxjs/Subscription';
 import { NgForm }    from '@angular/forms';
-import { BuildComponent } from "./build/build.component";
+import { QueryBlocksComponent } from "./queryBlocks/queryBlocks.component";
+import { JsonEditorComponent } from "./jsonEditor/jsonEditor.component";
 import { ResultComponent } from "./result/result.component";
-import { RunComponent } from "./run/run.component";
 import { SaveQueryComponent } from './features/save/save.query.component';
 import { ListQueryComponent } from './features/list/list.query.component';
 import { ShareUrlComponent } from './features/share/share.url.component';
@@ -24,7 +24,7 @@ declare var $: any;
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [BuildComponent, ResultComponent, RunComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent, LearnModalComponent],
+	directives: [QueryBlocksComponent, JsonEditorComponent, ResultComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent, LearnModalComponent],
 	providers: [AppbaseService, StorageService, DocService]
 })
 
