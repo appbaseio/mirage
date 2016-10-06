@@ -20,7 +20,11 @@ export class AppbaseService {
         this.config.username = config.username;
         this.config.password = config.password;
         this.requestParam.pureurl = config.url;
-        this.requestParam.url = config.url + '/' + config.appname;
+        if(config.appname) {
+            this.requestParam.url = config.url + '/' + config.appname;
+        } else {
+            this.requestParam.url = config.url;
+        }
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
     }
     get(path: string) {
