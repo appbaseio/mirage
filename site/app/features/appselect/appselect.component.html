@@ -1,7 +1,0 @@
-<div class="autocomplete form-element header-element">
-    <input class="search form-control" type="text" [(ngModel)]="config.appname" name="appname" placeholder="Appname (aka index) goes here" [readonly]="connected ? true : false"
-     (keyup)="handleInput()" (focus)="focusInput()" (blur)="blurInput()" />
-    <ul id="setApp" class="autolist setApp col-xs-12" [ngClass]="{show: appFocus, hide: !appFocus}" name="apps">
-        <li (click)="setApp(app)" *ngFor="let app of filteredApps">{{app.appname}}</li>
-    </ul>
-</div>

@@ -9,6 +9,7 @@ app/**/**/*.js.map
 dist
 typings
 _site
+site
 mirage-unpacked
 mirage-unpacked?
 mirage.zip
