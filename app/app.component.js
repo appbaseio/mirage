@@ -280,101 +280,101 @@ var AppComponent = (function () {
     AppComponent.prototype.connect = function (clearFlag) {
         this.connected = false;
         this.initial_connect = false;
-        console.log(this.config);
-        try {
-            var APPNAME = this.config.appname;
-            var URL = this.config.url;
-            var urlsplit = URL.split(':');
-            var pwsplit = urlsplit[2].split('@');
-            this.config.username = urlsplit[1].replace('//', '');
-            this.config.password = pwsplit[0];
-            if (pwsplit.length > 1) {
-                this.config.host = urlsplit[0] + '://' + pwsplit[1];
-                if (urlsplit[3]) {
-                    this.config.host += ':' + urlsplit[3];
-                }
-            }
-            else {
-                this.config.host = URL;
-            }
-            var self = this;
+        var self = this;
+        var APPNAME = this.config.appname;
+        var URL = this.config.url;
+        var filteredConfig = this.appbaseService.filterurl(URL);
+        console.log(this.config, filteredConfig);
+        if (!filteredConfig) {
+            console.log('Not able to filter url', URL);
+        }
+        else {
+            this.config.username = filteredConfig.username;
+            this.config.password = filteredConfig.password;
+            this.config.host = filteredConfig.url;
             this.appbaseService.setAppbase(this.config);
-            this.appbaseService.getVersion().then(function (res) {
-                try {
-                    var data = res.json();
-                    if (data && data.version && data.version.number) {
-                        var version = data.version.number;
-                        self.version = version;
-                        if (self.version.split('.')[0] !== '2') {
-                            self.errorShow({
-                                title: 'Elasticsearch Version Not Supported',
-                                message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
-                            });
-                        }
-                    }
-                }
-                catch (e) {
-                    console.log(e);
-                }
-            }).catch(function (e) {
-                console.log('Not able to get the version.');
-            });
-            this.appbaseService.get('/_mapping').then(function (res) {
-                self.connected = true;
+            this.getVersion();
+            this.getMappings(clearFlag);
+        }
+    };
+    // get version of elasticsearch
+    AppComponent.prototype.getVersion = function () {
+        var self = this;
+        this.appbaseService.getVersion().then(function (res) {
+            try {
                 var data = res.json();
-                self.setInitialValue();
-                self.finalUrl = self.config.host + '/' + self.config.appname;
-                self.mapping = data;
-                self.types = self.seprateType(data);
-                self.setLocalConfig(self.config.url, self.config.appname);
-                self.detectChange += "done";
-                if (!clearFlag) {
-                    var decryptedData = self.urlShare.decryptedData;
-                    if (decryptedData.mapping) {
-                        self.mapping = decryptedData.mapping;
-                    }
-                    if (decryptedData.types) {
-                        self.types = decryptedData.types;
-                    }
-                    if (decryptedData.selectedTypes) {
-                        self.selectedTypes = decryptedData.selectedTypes;
-                        self.detectChange = "check";
-                        setTimeout(function () { $('#setType').val(self.selectedTypes).trigger("change"); }, 300);
-                    }
-                    if (decryptedData.result) {
-                        self.result = decryptedData.result;
-                    }
-                    if (decryptedData.finalUrl) {
-                        self.finalUrl = decryptedData.finalUrl;
+                if (data && data.version && data.version.number) {
+                    var version = data.version.number;
+                    self.version = version;
+                    if (self.version.split('.')[0] !== '2') {
+                        self.errorShow({
+                            title: 'Elasticsearch Version Not Supported',
+                            message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+                        });
                     }
                 }
-                //set input state
-                self.urlShare.inputs['config'] = self.config;
-                self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
-                self.urlShare.inputs['result'] = self.result;
-                self.urlShare.inputs['finalUrl'] = self.finalUrl;
-                self.urlShare.createUrl();
-                setTimeout(function () {
-                    if ($('body').width() > 768) {
-                        self.setLayoutResizer();
-                    }
-                    else {
-                        self.setMobileLayout();
-                    }
-                    // self.editorHookHelp.setValue('');
-                }, 300);
-            }).catch(function (e) {
-                self.initial_connect = true;
-                var message = e.json().message ? e.json().message : '';
-                self.errorShow({
-                    title: 'Authentication Error',
-                    message: " It looks like your app name, username, password combination doesn't match.\nCheck your url and appname and then connect it again."
-                });
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }).catch(function (e) {
+            console.log('Not able to get the version.');
+        });
+    };
+    // get mappings
+    AppComponent.prototype.getMappings = function (clearFlag) {
+        var self = this;
+        this.appbaseService.get('/_mapping').then(function (res) {
+            self.connected = true;
+            var data = res.json();
+            self.setInitialValue();
+            self.finalUrl = self.config.host + '/' + self.config.appname;
+            self.mapping = data;
+            self.types = self.seprateType(data);
+            self.setLocalConfig(self.config.url, self.config.appname);
+            self.detectChange += "done";
+            if (!clearFlag) {
+                var decryptedData = self.urlShare.decryptedData;
+                if (decryptedData.mapping) {
+                    self.mapping = decryptedData.mapping;
+                }
+                if (decryptedData.types) {
+                    self.types = decryptedData.types;
+                }
+                if (decryptedData.selectedTypes) {
+                    self.selectedTypes = decryptedData.selectedTypes;
+                    self.detectChange = "check";
+                    setTimeout(function () { $('#setType').val(self.selectedTypes).trigger("change"); }, 300);
+                }
+                if (decryptedData.result) {
+                    self.result = decryptedData.result;
+                }
+                if (decryptedData.finalUrl) {
+                    self.finalUrl = decryptedData.finalUrl;
+                }
+            }
+            //set input state
+            self.urlShare.inputs['config'] = self.config;
+            self.urlShare.inputs['selectedTypes'] = self.selectedTypes;
+            self.urlShare.inputs['result'] = self.result;
+            self.urlShare.inputs['finalUrl'] = self.finalUrl;
+            self.urlShare.createUrl();
+            setTimeout(function () {
+                if ($('body').width() > 768) {
+                    self.setLayoutResizer();
+                }
+                else {
+                    self.setMobileLayout();
+                }
+                // self.editorHookHelp.setValue('');
+            }, 300);
+        }).catch(function (e) {
+            self.initial_connect = true;
+            self.errorShow({
+                title: 'Authentication Error',
+                message: " It looks like your app name, username, password combination doesn't match.\nCheck your url and appname and then connect it again."
             });
-        }
-        catch (e) {
-            this.initial_connect = true;
-        }
+        });
     };
     // Seprate the types from mapping	
     AppComponent.prototype.seprateType = function (mappingObj) {
