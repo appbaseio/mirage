@@ -84,3 +84,6 @@ a {
 .popover {
   z-index: 99999;
   min-width: 350px; }
+
+.disableClick {
+  pointer-events: none; }
