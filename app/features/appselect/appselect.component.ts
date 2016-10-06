@@ -52,5 +52,6 @@ export class AppselectComponent implements OnInit, OnChanges {
     }
     setApp(app: any) {
     	this.setConfig.emit(app);
+    	this.onAppSelectChange.emit(app.appname);
     }
 }

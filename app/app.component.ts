@@ -150,13 +150,13 @@ export class AppComponent implements OnInit, OnChanges {
 	// get indices
 	getIndices() {
 		var es_host = document.URL.split('/_plugin/')[0];
-        var getIndices = appbaseService.getIndices(es_host);
+        var getIndices = this.appbaseService.getIndices(es_host);
         getIndices.then(function(res) {
 			try {
 				let data = res.json();
 				let historicApps = this.getAppsList();
 				var indices = [];
-                for(indice in data.indices) {
+                for(let indice in data.indices) {
                     if(historicApps && historicApps.length) {
                         historicApps.forEach(function(old_app, index) {
                             if(old_app.appname === indice) {
@@ -183,7 +183,6 @@ export class AppComponent implements OnInit, OnChanges {
                 	this.config.url = historicApps[0].url;
                 }
             	this.storageService.set('mirage-appsList', JSON.stringify(historicApps));
-            	var getIndices = appbaseService.getIndices(es_host);
             	this.getAppsList();
 			} catch(e) {
 				console.log(e);
