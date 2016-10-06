@@ -26,8 +26,13 @@ var AppbaseService = (function () {
     AppbaseService.prototype.setAppbase = function (config) {
         this.config.username = config.username;
         this.config.password = config.password;
-        this.requestParam.pureUrl = config.url;
-        this.requestParam.url = config.url + '/' + config.appname;
+        this.requestParam.pureurl = config.url;
+        if (config.appname) {
+            this.requestParam.url = config.url + '/' + config.appname;
+        }
+        else {
+            this.requestParam.url = config.url;
+        }
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
     };
     AppbaseService.prototype.get = function (path) {
@@ -45,7 +50,7 @@ var AppbaseService = (function () {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': this.requestParam.auth
         });
-        var request_url = this.requestParam.pureUrl.replace(this.config.username + ':' + this.config.password + '@', '');
+        var request_url = this.requestParam.pureurl.replace(this.config.username + ':' + this.config.password + '@', '');
         var request_path = request_url + '/';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
@@ -58,7 +63,7 @@ var AppbaseService = (function () {
         });
         return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise();
     };
-    AppbaseService.prototype.postUrl = function (url, data) {
+    AppbaseService.prototype.posturl = function (url, data) {
         var requestData = JSON.stringify(data);
         var headers = new http_1.Headers({
             'Content-Type': 'application/json;charset=UTF-8',
@@ -82,6 +87,43 @@ var AppbaseService = (function () {
     };
     AppbaseService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
+    };
+    AppbaseService.prototype.getIndices = function (url) {
+        var temp_config = this.filterurl(url);
+        this.setAppbase(temp_config);
+        return this.get('/_stats/indices');
+    };
+    AppbaseService.prototype.filterurl = function (url) {
+        if (url) {
+            var obj = {
+                username: 'test',
+                password: 'test',
+                url: url
+            };
+            var urlsplit = url.split(':');
+            var pwsplit = urlsplit[2].split('@');
+            try {
+                obj.username = urlsplit[1].replace('//', '');
+                obj.password = pwsplit[0];
+                var httpPrefix = url.split('://');
+                if (url.indexOf('@') !== -1) {
+                    obj.url = httpPrefix[0] + '://' + pwsplit[1];
+                    if (urlsplit[3]) {
+                        obj.url += ':' + urlsplit[3];
+                    }
+                }
+                else {
+                    obj.url = url;
+                }
+            }
+            catch (e) {
+                console.log(e);
+            }
+            return obj;
+        }
+        else {
+            return null;
+        }
     };
     AppbaseService = __decorate([
         core_1.Injectable(), 

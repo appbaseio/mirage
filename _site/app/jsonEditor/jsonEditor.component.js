@@ -43,7 +43,7 @@ var JsonEditorComponent = (function () {
         var validate = this.checkValidQuery();
         if (validate.flag) {
             $('#resultModal').modal('show');
-            this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function (res) {
+            this.appbaseService.posturl(self.finalUrl, validate.payload).then(function (res) {
                 self.result.isWatching = false;
                 var propInfo = {
                     name: 'result_time_taken',

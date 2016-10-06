@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnChanges {
 
 	constructor(public appbaseService: AppbaseService, public storageService: StorageService, public docService: DocService) {}
 
-	public BRANCH = 'dev';
+	public BRANCH = 'master';
 	public connected: boolean = false;
 	public initial_connect: boolean = false;
 	public mapping: any;

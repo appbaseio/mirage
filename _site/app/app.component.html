@@ -15,31 +15,32 @@
 		</span>
 	</header>
 	<!-- HEADER START -->
-	<form class="col-xs-12 init-ES" id="init-ES">
+	<form class="col-xs-12 init-ES" id="init-ES" (ngSubmit)="connectHandle()" #initEs="ngForm">
 		<div class="esContainer">
 			<span class="action-btns">
 				<share-url [urlShare]="urlShare"></share-url>
-				<a class="link btn btn-default" (click)="viewData();">Data View <i class="fa fa-external-link-square"></i></a>
+				<button  [disabled]="!(initEs.form.valid && appSelected)" class="link btn btn-default" (click)="viewData();">Data View <i class="fa fa-external-link-square"></i></button>
 			</span>
 			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
-				<appselect [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
+				<appselect (onAppSelectChange)="onAppSelectChange($event);" [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
 			</div>
 			<div class="form-group m-0 col-xs-8 pr-5">
 				<div class="url-container form-element header-element">
-					<input type="text" [(ngModel)]="config.url" class="form-control" name="url" [readonly]="connected ? true : false" placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" /> <span class="hide-url" [ngClass]="{expand: hide_url_flag, collapse: !hide_url_flag}">
+					<input type="text" [(ngModel)]="config.url" required class="form-control" name="url" [readonly]="connected ? true : false" placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" /> <span class="hide-url" [ngClass]="{expand: hide_url_flag, collapse: !hide_url_flag}">
 						<a class="btn btn-default" (click)="hideUrl();">
 							<span [hidden]="hide_url_flag" class="fa fa-eye"></span> <span [hidden]="!hide_url_flag" class="fa fa-eye-slash"></span> </a>
 					</span>
 				</div>
 			</div>
 			<div class="submit-btn-container">
-				<a (click)="connectHandle()" class="btn btn-default submit-btn"> <span *ngIf="!connected">
+				<button [disabled]="!(initEs.form.valid && appSelected)" class="btn btn-default submit-btn"> <span *ngIf="!connected">
 						<i class="fa fa-play"></i>
 						Connect
 					</span> <span *ngIf="connected">
 						<i class="fa fa-pause"></i>
 						Disconnect
-					</span> </a>
+					</span> 
+				</button>
 			</div>
 		</div>
 	</form>
