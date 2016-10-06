@@ -19,7 +19,7 @@ export class AppbaseService {
     setAppbase(config: any) {
         this.config.username = config.username;
         this.config.password = config.password;
-        this.requestParam.pureUrl = config.url;
+        this.requestParam.pureurl = config.url;
         this.requestParam.url = config.url + '/' + config.appname;
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
     }
@@ -38,7 +38,7 @@ export class AppbaseService {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': this.requestParam.auth
         });
-        var request_url = this.requestParam.pureUrl.replace(this.config.username+':'+this.config.password+'@', '');
+        var request_url = this.requestParam.pureurl.replace(this.config.username+':'+this.config.password+'@', '');
         var request_path = request_url + '/';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise()
@@ -51,7 +51,7 @@ export class AppbaseService {
         });
         return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise()
     }
-    postUrl(url: string, data: any) {
+    posturl(url: string, data: any) {
         let requestData = JSON.stringify(data);
         let headers = new Headers({
             'Content-Type': 'application/json;charset=UTF-8',
@@ -76,5 +76,38 @@ export class AppbaseService {
     public handleError(error: any) {
         console.error('An error occurred', error);
     }
-
+    getIndices(url: string) {
+        var temp_config = this.filterurl(url);
+        this.setAppbase(temp_config);
+        return this.get('/_stats/indices');
+    }
+    filterurl(url: string) {
+        if (url) {
+            var obj = {
+                username: 'test',
+                password: 'test',
+                url: url
+            };
+            var urlsplit = url.split(':');
+            var pwsplit = urlsplit[2].split('@');
+            try {
+                obj.username = urlsplit[1].replace('//', '');
+                obj.password = pwsplit[0];
+                var httpPrefix = url.split('://');
+                if(url.indexOf('@') !== -1) {
+                    obj.url = httpPrefix[0] + '://' + pwsplit[1];
+                    if(urlsplit[3]) {
+                        obj.url += ':'+urlsplit[3];
+                    }
+                } else {
+                    obj.url = url;
+                }
+            } catch(e) {
+                console.log(e);
+            }
+            return obj;
+        } else {
+            return null;
+        }
+    }
 }

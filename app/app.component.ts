@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, OnChanges {
 
 	constructor(public appbaseService: AppbaseService, public storageService: StorageService, public docService: DocService) {}
 
+	public BRANCH = 'dev';
 	public connected: boolean = false;
 	public initial_connect: boolean = false;
 	public mapping: any;
@@ -98,6 +99,9 @@ export class AppComponent implements OnInit, OnChanges {
 			this.setInitialValue();
 			this.getQueryList();
 			this.getAppsList();
+			if(this.BRANCH === 'master') {
+				this.EsSpecific();	
+			}
 			if(config && config === 'learn') {
 				$('#learnModal').modal('show');
 				this.initial_connect = true;
@@ -138,6 +142,57 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 	}
 
+	// for Master branch
+	EsSpecific() {
+		this.getIndices();
+	}
+
+	// get indices
+	getIndices() {
+		var es_host = document.URL.split('/_plugin/')[0];
+        var getIndices = appbaseService.getIndices(es_host);
+        getIndices.then(function(res) {
+			try {
+				let data = res.json();
+				let historicApps = this.getAppsList();
+				var indices = [];
+                for(indice in data.indices) {
+                    if(historicApps && historicApps.length) {
+                        historicApps.forEach(function(old_app, index) {
+                            if(old_app.appname === indice) {
+                                historicApps.splice(index, 1);
+                            }
+                        })
+                    }
+                    var obj = {
+                        appname: indice,
+                        url: es_host
+                    };
+                    indices.push(indice);
+                    historicApps.push(obj);
+                }
+                // default app is no app found
+                if(!historicApps.length) {
+                    var obj = {
+                        appname: 'sampleapp',
+                        url: es_host
+                    };
+                    historicApps.push(obj);
+                }
+                if(!this.config.url) {
+                	this.config.url = historicApps[0].url;
+                }
+            	this.storageService.set('mirage-appsList', JSON.stringify(historicApps));
+            	var getIndices = appbaseService.getIndices(es_host);
+            	this.getAppsList();
+			} catch(e) {
+				console.log(e);
+			}
+		}.bind(this)).catch(function(e) {
+			console.log('Not able to get the version.');
+		});
+	}
+
 	//Get config from localstorage 
 	getLocalConfig() {
 		var url = this.storageService.get('mirage-url');
@@ -162,6 +217,7 @@ export class AppComponent implements OnInit, OnChanges {
 				this.appsList = [];
 			}
 		}
+		return this.appsList;
 	}
 
 	// get query list from local storage
