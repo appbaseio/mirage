@@ -97,6 +97,7 @@ export class AppComponent implements OnInit, OnChanges {
 		function configCb(config) {
 			this.setInitialValue();
 			this.getQueryList();
+			this.getAppsList();
 			if(config && config === 'learn') {
 				$('#learnModal').modal('show');
 				this.initial_connect = true;
@@ -141,7 +142,7 @@ export class AppComponent implements OnInit, OnChanges {
 	getLocalConfig() {
 		var url = this.storageService.get('mirage-url');
 		var appname = this.storageService.get('mirage-appname');
-		var appsList = this.storageService.get('mirage-appsList');
+		this.getAppsList();
 		if (url != null) {
 			this.config.url = url;
 			this.config.appname = appname;
@@ -149,6 +150,11 @@ export class AppComponent implements OnInit, OnChanges {
 		} else {
 			this.initial_connect = true;
 		}
+	}
+
+	// get appsList from storage
+	getAppsList() {
+		var appsList = this.storageService.get('mirage-appsList');
 		if(appsList) {
 			try {
 				this.appsList = JSON.parse(appsList);

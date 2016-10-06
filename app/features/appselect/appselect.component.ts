@@ -24,9 +24,7 @@ export class AppselectComponent implements OnInit, OnChanges {
 		this.onAppSelectChange.emit(this.config.appname);
 	}
 	handleInput() {	
-        this.filteredApps = this.appsList.filter(function(app, index) {
-           return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1)
-        }.bind(this));
+		this.filteredApps = this.getFilterApp();
         if(this.filteredApps.length) {
 			this.appFocus = true;        
 		} else {
@@ -34,8 +32,14 @@ export class AppselectComponent implements OnInit, OnChanges {
 		}
 		this.onAppSelectChange.emit(this.config.appname);
 	}
+	getFilterApp() {
+		return this.appsList.filter(function(app, index) {
+           return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1)
+        }.bind(this));
+	}
 	focusInput() {
-		if(this.filteredApps.length) {
+		this.filteredApps = this.getFilterApp();
+        if(this.filteredApps.length) {
 			this.appFocus = true;        
 		}
 		this.onAppSelectChange.emit(this.config.appname);
