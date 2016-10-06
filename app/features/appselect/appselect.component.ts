@@ -3,7 +3,7 @@ import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter
 @Component({
 	selector: 'appselect',
 	templateUrl: './app/features/appselect/appselect.component.html',
-	inputs: ['appsList', 'config', 'connected', 'setConfig'],
+	inputs: ['appsList', 'config', 'connected', 'setConfig', 'onAppSelectChange'],
 	directives: []
 })
 
@@ -11,15 +11,17 @@ export class AppselectComponent implements OnInit, OnChanges {
 	@Input() appsList: any;
 	@Input() config: any;
 	@Input() connected: boolean;
+	@Output() onAppSelectChange = new EventEmitter();
 	@Output() setConfig = new EventEmitter();
 	public filteredApps: any = [];
 	public appFocus: boolean = false;
 
 	ngOnInit() {
 		// this.handleInput();
+		this.onAppSelectChange.emit(this.config.appname);
 	}
 	ngOnChanges() {
-
+		this.onAppSelectChange.emit(this.config.appname);
 	}
 	handleInput() {	
         this.filteredApps = this.appsList.filter(function(app, index) {
@@ -30,16 +32,19 @@ export class AppselectComponent implements OnInit, OnChanges {
 		} else {
 			this.appFocus = false;
 		}
+		this.onAppSelectChange.emit(this.config.appname);
 	}
 	focusInput() {
 		if(this.filteredApps.length) {
 			this.appFocus = true;        
 		}
+		this.onAppSelectChange.emit(this.config.appname);
     }
     blurInput() { 
     	setTimeout(function() {
 			this.appFocus = false; 
 		}.bind(this), 500);  
+		this.onAppSelectChange.emit(this.config.appname);
     }
     setApp(app: any) {
     	this.setConfig.emit(app);

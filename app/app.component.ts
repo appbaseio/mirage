@@ -82,6 +82,7 @@ export class AppComponent implements OnInit, OnChanges {
 		appname: '2016primaries',
 		url: 'https://Uy82NeW8e:c7d02cce-94cc-4b60-9b17-7e7325195851@scalr.api.appbase.io'
 	};
+	public appSelected: boolean = false;
 
   	onSubmit() { this.submitted = true; }
 
@@ -554,5 +555,9 @@ Check your url and appname and then connect it again.`
 
 	openLearn() {
 		$('#learnModal').modal('show');
+	}
+
+	onAppSelectChange(appInput: any) {
+		this.appSelected = appInput.trim() ? true : false;
 	}
 }
