@@ -87,7 +87,7 @@ $ bower install
 $ npm start
 ```
 
-This will start a local webserver running on port 3000 serving mirage locally.
+This will start a local webserver running on port 3030 serving mirage locally.
 
 #### Tests
 
