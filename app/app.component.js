@@ -30,6 +30,7 @@ var AppComponent = (function () {
         this.appbaseService = appbaseService;
         this.storageService = storageService;
         this.docService = docService;
+        this.BRANCH = 'dev';
         this.connected = false;
         this.initial_connect = false;
         this.detectChange = null;
@@ -72,6 +73,7 @@ var AppComponent = (function () {
             appname: '2016primaries',
             url: 'https://Uy82NeW8e:c7d02cce-94cc-4b60-9b17-7e7325195851@scalr.api.appbase.io'
         };
+        this.appSelected = false;
     }
     AppComponent.prototype.onSubmit = function () { this.submitted = true; };
     AppComponent.prototype.setDocSample = function (link) {
@@ -84,6 +86,10 @@ var AppComponent = (function () {
         function configCb(config) {
             this.setInitialValue();
             this.getQueryList();
+            this.getAppsList();
+            if (this.BRANCH === 'master') {
+                this.EsSpecific();
+            }
             if (config && config === 'learn') {
                 $('#learnModal').modal('show');
                 this.initial_connect = true;
@@ -124,11 +130,64 @@ var AppComponent = (function () {
             });
         }
     };
+    // for Master branch
+    AppComponent.prototype.EsSpecific = function () {
+        this.getIndices();
+    };
+    // get indices
+    AppComponent.prototype.getIndices = function () {
+        var es_host = document.URL.split('/_plugin/')[0];
+        var getIndices = this.appbaseService.getIndices(es_host);
+        getIndices.then(function (res) {
+            try {
+                var data = res.json();
+                var historicApps_1 = this.getAppsList();
+                var indices = [];
+                var _loop_1 = function(indice) {
+                    if (historicApps_1 && historicApps_1.length) {
+                        historicApps_1.forEach(function (old_app, index) {
+                            if (old_app.appname === indice) {
+                                historicApps_1.splice(index, 1);
+                            }
+                        });
+                    }
+                    obj = {
+                        appname: indice,
+                        url: es_host
+                    };
+                    indices.push(indice);
+                    historicApps_1.push(obj);
+                };
+                var obj;
+                for (var indice in data.indices) {
+                    _loop_1(indice);
+                }
+                // default app is no app found
+                if (!historicApps_1.length) {
+                    var obj = {
+                        appname: 'sampleapp',
+                        url: es_host
+                    };
+                    historicApps_1.push(obj);
+                }
+                if (!this.config.url) {
+                    this.config.url = historicApps_1[0].url;
+                }
+                this.storageService.set('mirage-appsList', JSON.stringify(historicApps_1));
+                this.getAppsList();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }.bind(this)).catch(function (e) {
+            console.log('Not able to get the version.');
+        });
+    };
     //Get config from localstorage 
     AppComponent.prototype.getLocalConfig = function () {
         var url = this.storageService.get('mirage-url');
         var appname = this.storageService.get('mirage-appname');
-        var appsList = this.storageService.get('mirage-appsList');
+        this.getAppsList();
         if (url != null) {
             this.config.url = url;
             this.config.appname = appname;
@@ -137,6 +196,10 @@ var AppComponent = (function () {
         else {
             this.initial_connect = true;
         }
+    };
+    // get appsList from storage
+    AppComponent.prototype.getAppsList = function () {
+        var appsList = this.storageService.get('mirage-appsList');
         if (appsList) {
             try {
                 this.appsList = JSON.parse(appsList);
@@ -145,6 +208,7 @@ var AppComponent = (function () {
                 this.appsList = [];
             }
         }
+        return this.appsList;
     };
     // get query list from local storage
     AppComponent.prototype.getQueryList = function () {
@@ -530,6 +594,9 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.openLearn = function () {
         $('#learnModal').modal('show');
+    };
+    AppComponent.prototype.onAppSelectChange = function (appInput) {
+        this.appSelected = appInput.trim() ? true : false;
     };
     AppComponent = __decorate([
         core_1.Component({

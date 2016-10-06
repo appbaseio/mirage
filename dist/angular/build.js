@@ -31,6 +31,7 @@ var AppComponent = (function () {
         this.appbaseService = appbaseService;
         this.storageService = storageService;
         this.docService = docService;
+        this.BRANCH = 'dev';
         this.connected = false;
         this.initial_connect = false;
         this.detectChange = null;
@@ -73,6 +74,7 @@ var AppComponent = (function () {
             appname: '2016primaries',
             url: 'https://Uy82NeW8e:c7d02cce-94cc-4b60-9b17-7e7325195851@scalr.api.appbase.io'
         };
+        this.appSelected = false;
     }
     AppComponent.prototype.onSubmit = function () { this.submitted = true; };
     AppComponent.prototype.setDocSample = function (link) {
@@ -85,6 +87,10 @@ var AppComponent = (function () {
         function configCb(config) {
             this.setInitialValue();
             this.getQueryList();
+            this.getAppsList();
+            if (this.BRANCH === 'master') {
+                this.EsSpecific();
+            }
             if (config && config === 'learn') {
                 $('#learnModal').modal('show');
                 this.initial_connect = true;
@@ -125,11 +131,64 @@ var AppComponent = (function () {
             });
         }
     };
+    // for Master branch
+    AppComponent.prototype.EsSpecific = function () {
+        this.getIndices();
+    };
+    // get indices
+    AppComponent.prototype.getIndices = function () {
+        var es_host = document.URL.split('/_plugin/')[0];
+        var getIndices = this.appbaseService.getIndices(es_host);
+        getIndices.then(function (res) {
+            try {
+                var data = res.json();
+                var historicApps_1 = this.getAppsList();
+                var indices = [];
+                var _loop_1 = function(indice) {
+                    if (historicApps_1 && historicApps_1.length) {
+                        historicApps_1.forEach(function (old_app, index) {
+                            if (old_app.appname === indice) {
+                                historicApps_1.splice(index, 1);
+                            }
+                        });
+                    }
+                    obj = {
+                        appname: indice,
+                        url: es_host
+                    };
+                    indices.push(indice);
+                    historicApps_1.push(obj);
+                };
+                var obj;
+                for (var indice in data.indices) {
+                    _loop_1(indice);
+                }
+                // default app is no app found
+                if (!historicApps_1.length) {
+                    var obj = {
+                        appname: 'sampleapp',
+                        url: es_host
+                    };
+                    historicApps_1.push(obj);
+                }
+                if (!this.config.url) {
+                    this.config.url = historicApps_1[0].url;
+                }
+                this.storageService.set('mirage-appsList', JSON.stringify(historicApps_1));
+                this.getAppsList();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }.bind(this)).catch(function (e) {
+            console.log('Not able to get the version.');
+        });
+    };
     //Get config from localstorage 
     AppComponent.prototype.getLocalConfig = function () {
         var url = this.storageService.get('mirage-url');
         var appname = this.storageService.get('mirage-appname');
-        var appsList = this.storageService.get('mirage-appsList');
+        this.getAppsList();
         if (url != null) {
             this.config.url = url;
             this.config.appname = appname;
@@ -138,6 +197,10 @@ var AppComponent = (function () {
         else {
             this.initial_connect = true;
         }
+    };
+    // get appsList from storage
+    AppComponent.prototype.getAppsList = function () {
+        var appsList = this.storageService.get('mirage-appsList');
         if (appsList) {
             try {
                 this.appsList = JSON.parse(appsList);
@@ -146,6 +209,7 @@ var AppComponent = (function () {
                 this.appsList = [];
             }
         }
+        return this.appsList;
     };
     // get query list from local storage
     AppComponent.prototype.getQueryList = function () {
@@ -532,6 +596,9 @@ var AppComponent = (function () {
     AppComponent.prototype.openLearn = function () {
         $('#learnModal').modal('show');
     };
+    AppComponent.prototype.onAppSelectChange = function (appInput) {
+        this.appSelected = appInput.trim() ? true : false;
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
@@ -574,38 +641,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var AppselectComponent = (function () {
     function AppselectComponent() {
+        this.onAppSelectChange = new core_1.EventEmitter();
         this.setConfig = new core_1.EventEmitter();
         this.filteredApps = [];
         this.appFocus = false;
     }
     AppselectComponent.prototype.ngOnInit = function () {
         // this.handleInput();
+        this.onAppSelectChange.emit(this.config.appname);
     };
     AppselectComponent.prototype.ngOnChanges = function () {
+        this.onAppSelectChange.emit(this.config.appname);
     };
     AppselectComponent.prototype.handleInput = function () {
-        this.filteredApps = this.appsList.filter(function (app, index) {
-            return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1);
-        }.bind(this));
+        this.filteredApps = this.getFilterApp();
         if (this.filteredApps.length) {
             this.appFocus = true;
         }
         else {
             this.appFocus = false;
         }
+        this.onAppSelectChange.emit(this.config.appname);
+    };
+    AppselectComponent.prototype.getFilterApp = function () {
+        return this.appsList.filter(function (app, index) {
+            return this.config.appname === '' || (this.config.appname !== '' && app.appname.toUpperCase().indexOf(this.config.appname.toUpperCase()) !== -1);
+        }.bind(this));
     };
     AppselectComponent.prototype.focusInput = function () {
+        this.filteredApps = this.getFilterApp();
         if (this.filteredApps.length) {
             this.appFocus = true;
         }
+        this.onAppSelectChange.emit(this.config.appname);
     };
     AppselectComponent.prototype.blurInput = function () {
         setTimeout(function () {
             this.appFocus = false;
         }.bind(this), 500);
+        this.onAppSelectChange.emit(this.config.appname);
     };
     AppselectComponent.prototype.setApp = function (app) {
         this.setConfig.emit(app);
+        this.onAppSelectChange.emit(app.appname);
     };
     __decorate([
         core_1.Input(), 
@@ -622,12 +700,16 @@ var AppselectComponent = (function () {
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
+    ], AppselectComponent.prototype, "onAppSelectChange", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
     ], AppselectComponent.prototype, "setConfig", void 0);
     AppselectComponent = __decorate([
         core_1.Component({
             selector: 'appselect',
             templateUrl: './app/features/appselect/appselect.component.html',
-            inputs: ['appsList', 'config', 'connected', 'setConfig'],
+            inputs: ['appsList', 'config', 'connected', 'setConfig', 'onAppSelectChange'],
             directives: []
         }), 
         __metadata('design:paramtypes', [])
@@ -1188,7 +1270,7 @@ var JsonEditorComponent = (function () {
         var validate = this.checkValidQuery();
         if (validate.flag) {
             $('#resultModal').modal('show');
-            this.appbaseService.postUrl(self.finalUrl, validate.payload).then(function (res) {
+            this.appbaseService.posturl(self.finalUrl, validate.payload).then(function (res) {
                 self.result.isWatching = false;
                 var propInfo = {
                     name: 'result_time_taken',
@@ -5709,8 +5791,13 @@ var AppbaseService = (function () {
     AppbaseService.prototype.setAppbase = function (config) {
         this.config.username = config.username;
         this.config.password = config.password;
-        this.requestParam.pureUrl = config.url;
-        this.requestParam.url = config.url + '/' + config.appname;
+        this.requestParam.pureurl = config.url;
+        if (config.appname) {
+            this.requestParam.url = config.url + '/' + config.appname;
+        }
+        else {
+            this.requestParam.url = config.url;
+        }
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
     };
     AppbaseService.prototype.get = function (path) {
@@ -5728,7 +5815,7 @@ var AppbaseService = (function () {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': this.requestParam.auth
         });
-        var request_url = this.requestParam.pureUrl.replace(this.config.username + ':' + this.config.password + '@', '');
+        var request_url = this.requestParam.pureurl.replace(this.config.username + ':' + this.config.password + '@', '');
         var request_path = request_url + '/';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
@@ -5741,7 +5828,7 @@ var AppbaseService = (function () {
         });
         return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise();
     };
-    AppbaseService.prototype.postUrl = function (url, data) {
+    AppbaseService.prototype.posturl = function (url, data) {
         var requestData = JSON.stringify(data);
         var headers = new http_1.Headers({
             'Content-Type': 'application/json;charset=UTF-8',
@@ -5765,6 +5852,43 @@ var AppbaseService = (function () {
     };
     AppbaseService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
+    };
+    AppbaseService.prototype.getIndices = function (url) {
+        var temp_config = this.filterurl(url);
+        this.setAppbase(temp_config);
+        return this.get('/_stats/indices');
+    };
+    AppbaseService.prototype.filterurl = function (url) {
+        if (url) {
+            var obj = {
+                username: 'test',
+                password: 'test',
+                url: url
+            };
+            var urlsplit = url.split(':');
+            var pwsplit = urlsplit[2].split('@');
+            try {
+                obj.username = urlsplit[1].replace('//', '');
+                obj.password = pwsplit[0];
+                var httpPrefix = url.split('://');
+                if (url.indexOf('@') !== -1) {
+                    obj.url = httpPrefix[0] + '://' + pwsplit[1];
+                    if (urlsplit[3]) {
+                        obj.url += ':' + urlsplit[3];
+                    }
+                }
+                else {
+                    obj.url = url;
+                }
+            }
+            catch (e) {
+                console.log(e);
+            }
+            return obj;
+        }
+        else {
+            return null;
+        }
     };
     AppbaseService = __decorate([
         core_1.Injectable(), 
