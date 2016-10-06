@@ -101,19 +101,18 @@ var AppbaseService = (function () {
                 url: url
             };
             var urlsplit = url.split(':');
-            var pwsplit = urlsplit[2].split('@');
             try {
                 obj.username = urlsplit[1].replace('//', '');
-                obj.password = pwsplit[0];
                 var httpPrefix = url.split('://');
-                if (url.indexOf('@') !== -1) {
-                    obj.url = httpPrefix[0] + '://' + pwsplit[1];
-                    if (urlsplit[3]) {
-                        obj.url += ':' + urlsplit[3];
+                if (urlsplit[2]) {
+                    var pwsplit = urlsplit[2].split('@');
+                    obj.password = pwsplit[0];
+                    if (url.indexOf('@') !== -1) {
+                        obj.url = httpPrefix[0] + '://' + pwsplit[1];
+                        if (urlsplit[3]) {
+                            obj.url += ':' + urlsplit[3];
+                        }
                     }
-                }
-                else {
-                    obj.url = url;
                 }
             }
             catch (e) {
