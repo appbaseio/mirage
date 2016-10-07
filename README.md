@@ -10,7 +10,7 @@
 3. **[Roadmap](#3-roadmap)** 
 4. **[Build Locally](#4-build-locally)**  
 5. **[How to contribute](#5-how-to-contribute)** 
-6. **[Get Mirage](#6-get-mirage)**
+6. **[Get Mirage](#6-get-mirage)**  
 
 
 <br>
@@ -154,6 +154,8 @@ After installing the plugin, start the elasticsearch service and visit the follo
 http://127.0.0.1:9200/_plugin/mirage
 
 ``Note:`` If you use Elasticsearch from a different port, the URL to access and the http.cors.allow-origin value in the configuration file would change accordingly.
+
+Mirage can be used along with ⊞ [DejaVu](https://github.com/appbaseio/dejaVu) to browse data and perform CRUD operations inside an Elasticsearch index.
 
 ---
 
