@@ -11,6 +11,10 @@
 4. **[Build Locally](#4-build-locally)**  
 5. **[How to contribute](#5-how-to-contribute)** 
 6. **[Get Mirage](#6-get-mirage)**  
+  a. [Hosted App](#use-hosted-app)  
+  b. [Chrome Extension](#get-the-chrome-extension)  
+  c. [Appbase.io](#appbaseio-dashboard)  
+  d. [Elasticsearch Plugin](#install-as-elasticsearch-plugin) 
 
 
 <br>
