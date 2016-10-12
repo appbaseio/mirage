@@ -10,7 +10,7 @@
 3. **[Roadmap](#3-roadmap)** 
 4. **[Build Locally](#4-build-locally)**  
 5. **[How to contribute](#5-how-to-contribute)** 
-6. **[Get Mirage](#6-get-mirage)**
+6. **[Get Mirage](#6-get-mirage)**  
 
 
 <br>
@@ -133,6 +133,14 @@ or
 
 or
 
+#### [appbase.io dashboard](https://appbase.io/scalr/apps)
+
+Every app in appbase.io has a query explorer view, which uses mirage.
+
+![Mirage Gif](https://uploads.intercomcdn.com/i/o/11609686/0425a4651aab31dde481fa6c/Mirage_Gif.gif)
+
+or
+
 #### Install as Elasticsearch Plugin
 
 ```sh
@@ -143,7 +151,7 @@ Note: To make sure you enable CORS settings for your ElasticSearch instance, add
 
 ```
 http.port: 9200
-http.cors.allow-origin: "http://127.0.0.1:9200"
+http.cors.allow-origin: "*"
 http.cors.enabled: true
 http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization
 http.cors.allow-credentials: true
@@ -154,6 +162,8 @@ After installing the plugin, start the elasticsearch service and visit the follo
 http://127.0.0.1:9200/_plugin/mirage
 
 ``Note:`` If you use Elasticsearch from a different port, the URL to access and the http.cors.allow-origin value in the configuration file would change accordingly.
+
+Mirage can be used along with ⊞ [DejaVu](https://github.com/appbaseio/dejaVu) to browse data and perform CRUD operations inside an Elasticsearch index.
 
 ---
 
