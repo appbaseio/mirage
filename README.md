@@ -133,6 +133,14 @@ or
 
 or
 
+#### [appbase.io dashboard](https://appbase.io/scalr/apps)
+
+Every app in appbase.io has a query explorer view, which uses mirage.
+
+![Mirage Gif](https://uploads.intercomcdn.com/i/o/11609686/0425a4651aab31dde481fa6c/Mirage_Gif.gif)
+
+or
+
 #### Install as Elasticsearch Plugin
 
 ```sh
