@@ -6106,7 +6106,7 @@ exports.queryList = {
         'must',
         'must_not',
         'should',
-        'should_not'
+        'filter'
     ],
     information: {
         "match": {
