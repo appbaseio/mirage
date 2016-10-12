@@ -290,7 +290,21 @@
 			>
 		</common-query>
 	</div>
-	<!-- ids query end -->
+	<!-- common query end -->
 	
+	<!-- geo_distance query start -->
+	<div [hidden]="query.selectedQuery != 'geo_distance'" class="row">
+		<geo-distance-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</geo-distance-query>
+	</div>
+	<!-- geo_distance query end -->
+
 	<!-- load the slector for selected query -->
 </div>
