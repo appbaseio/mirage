@@ -44,6 +44,9 @@ export var queryList = {
 			'range',
 			'gt',
 			'lt'
+		],
+		geo_point: [
+			'geo_distance'
 		]
 	},
 	boolQuery: [

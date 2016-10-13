@@ -93,7 +93,7 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
             content: `<span class="description">Optional name field to identify the query</span>`
         },
         'ignore_malformed': {
-            title: '_name',
+            title: 'ignore_malformed',
             content: `<span class="description">Set to true to accept geo points with invalid latitude or longitude (default is false).</span>`
         }
     };
@@ -112,15 +112,15 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     public inputs: any = {
         lat: {
             placeholder: 'Latitude',
-            value: ''
+            value: '*'
         },
         lon: {
             placeholder: 'Longitude',
-            value: ''
+            value: '*'
         },
         distance: {
             placeholder: 'Distance (with unit)',
-            value: '200km'
+            value: '*'
         }
     };
     public queryFormat: any = {};
@@ -179,7 +179,7 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
         queryFormat[this.queryName] = {
             distance: this.inputs.distance.value,
         };
-        queryFormat[this.queryName]['pin.location'] = {
+        queryFormat[this.queryName][this.fieldName] = {
             lat: this.inputs.lat.value,
             lon: this.inputs.lon.value
         };
