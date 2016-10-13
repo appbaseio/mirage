@@ -43,6 +43,7 @@ import { RegexpQuery } from './queryBlocks/singlequery/queries/regexp.query';
 import { FuzzyQuery } from './queryBlocks/singlequery/queries/fuzzy.query';
 import { IdsQuery } from './queryBlocks/singlequery/queries/ids.query';
 import { CommonQuery } from './queryBlocks/singlequery/queries/common.query';
+import { GeoDistanceQuery } from './queryBlocks/singlequery/queries/geodistance.query';
 // Pipes
 import { prettyJson } from "./shared/pipes/prettyJson";
 import { prettyTime } from "./shared/pipes/prettyTime";
@@ -74,30 +75,31 @@ import { TimeComponent } from "./features/list/time/time.component";
   	EditableComponent,
   	select2Component,
   	EditableComponent,
-	SinglequeryComponent,
-	select2Component,
-	MatchQuery,
-	Match_phraseQuery,
-	Match_phase_prefixQuery,
-	RangeQuery,
-	GtQuery,
-	LtQuery,
-	TermQuery,
-	TermsQuery,
-	ExistsQuery,
-	MultiMatchQuery,
-	QueryStringQuery,
-	SimpleQueryStringQuery,
-	MissingQuery,
-	PrefixQuery,
-	WildcardQuery,
-	RegexpQuery,
-	FuzzyQuery,
-	IdsQuery,
-	CommonQuery,
-	prettyJson,
-	TimeComponent,
-	prettyTime
+  	SinglequeryComponent,
+  	select2Component,
+  	MatchQuery,
+  	Match_phraseQuery,
+  	Match_phase_prefixQuery,
+  	RangeQuery,
+  	GtQuery,
+  	LtQuery,
+  	TermQuery,
+  	TermsQuery,
+  	ExistsQuery,
+  	MultiMatchQuery,
+  	QueryStringQuery,
+  	SimpleQueryStringQuery,
+  	MissingQuery,
+  	PrefixQuery,
+  	WildcardQuery,
+  	RegexpQuery,
+  	FuzzyQuery,
+  	IdsQuery,
+    GeoDistanceQuery,
+  	CommonQuery,
+  	prettyJson,
+  	TimeComponent,
+  	prettyTime
   ],
   bootstrap: [ AppComponent ]
 })

@@ -18,7 +18,7 @@ import { RegexpQuery } from './queries/regexp.query';
 import { FuzzyQuery } from './queries/fuzzy.query';
 import { IdsQuery } from './queries/ids.query';
 import { CommonQuery } from './queries/common.query';
-
+import { GeoDistanceQuery } from './queries/geodistance.query';
 declare var $: any;
 
 @Component({
@@ -67,6 +67,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(FuzzyQuery) private fuzzyQuery: FuzzyQuery;
 	@ViewChild(IdsQuery) private idsQuery: IdsQuery;
 	@ViewChild(CommonQuery) private commonQuery: CommonQuery;
+	@ViewChild(GeoDistanceQuery) private geoDistanceQuery: GeoDistanceQuery;
 	
 	public informationList: any = {};
 
@@ -107,7 +108,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'regexp': this.regexpQuery.information,
 			'fuzzy': this.fuzzyQuery.information,
 			'ids': this.idsQuery.information,
-			'common': this.commonQuery.information
+			'common': this.commonQuery.information,
+			'geo_distance': this.geoDistanceQuery.information,
 		};
 	}
 

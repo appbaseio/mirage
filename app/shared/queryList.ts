@@ -27,6 +27,9 @@ export var queryList = {
 			'missing',
 			'ids',
 			'common'
+		],
+		geo_point: [
+			'geo_distance'
 		]
 	},
 	not_analyzed: {
@@ -41,13 +44,16 @@ export var queryList = {
 			'range',
 			'gt',
 			'lt'
-		]	
+		],
+		geo_point: [
+			'geo_distance'
+		]
 	},
 	boolQuery: [
 		'must',
 		'must_not',
 		'should',
-		'should_not'
+		'filter'
 	],
 	information: {
 		"match": {
