@@ -14,7 +14,7 @@
   <script src="./node_modules/zone.js/dist/zone.js"></script>
   <script src="./node_modules/reflect-metadata/Reflect.js"></script>
   <script src="./node_modules/systemjs/dist/system.src.js"></script>
-  <script src="./node_modules/angular2/bundles/testing.dev.js"></script>
+  <script src="./node_modules/@angular/core/bundles/core-testing.umd.js"></script>
   <script>
     var packages = {
       'app': { main: 'main.js',  defaultExtension: 'js' },
@@ -29,8 +29,6 @@
       '@angular/http',
       '@angular/platform-browser',
       '@angular/platform-browser-dynamic',
-      '@angular/router',
-      '@angular/router-deprecated',
       '@angular/testing',
       '@angular/upgrade',
     ];
@@ -51,24 +49,24 @@
     System.config(config);
 
     Promise.all([
-      System.import('app/build/singlequery/queries/match.query.spec'),
-      System.import('app/build/singlequery/queries/match_phrase.query.spec'),
-      System.import('app/build/singlequery/queries/term.query.spec'),
-      System.import('app/build/singlequery/queries/terms.query.spec'),
-      System.import('app/build/singlequery/queries/exists.query.spec'),
-      System.import('app/build/singlequery/queries/missing.query.spec'),
-      System.import('app/build/singlequery/queries/multi-match.query.spec'),
-      System.import('app/build/singlequery/queries/query_string.query.spec'),
-      System.import('app/build/singlequery/queries/simple_query_string.query.spec'),
-      System.import('app/build/singlequery/queries/prefix.query.spec'),
-      System.import('app/build/singlequery/queries/wildcard.query.spec'),
-      System.import('app/build/singlequery/queries/regexp.query.spec'),
-      System.import('app/build/singlequery/queries/fuzzy.query.spec'),
-      System.import('app/build/singlequery/queries/range.query.spec'),
-      System.import('app/build/singlequery/queries/lt.query.spec'),
-      System.import('app/build/singlequery/queries/gt.query.spec'),
-      System.import('app/build/singlequery/queries/ids.query.spec'),
-      System.import('app/build/singlequery/queries/common.query.spec')
+      System.import('app/queryBlocks/singlequery/queries/match.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/match_phrase.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/term.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/terms.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/exists.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/missing.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/multi-match.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/query_string.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/simple_query_string.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/prefix.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/wildcard.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/regexp.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/fuzzy.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/range.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/lt.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/gt.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/ids.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/common.query.spec')
     ])
     .then(window.onload)
     .catch(console.error.bind(console));

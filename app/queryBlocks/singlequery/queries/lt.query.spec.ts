@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { LtQuery } from './lt.query';
 
 describe('Lt query format', () => {

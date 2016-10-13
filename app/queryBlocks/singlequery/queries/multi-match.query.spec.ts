@@ -1,4 +1,3 @@
-import {describe, it, beforeEach, expect} from '@angular/core/testing';
 import { MultiMatchQuery } from './multi-match.query';
 
 describe('Match query format', () => {

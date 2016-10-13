@@ -4,7 +4,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 @Component({
 	selector: 'doc-sidebar',
 	templateUrl: './app/features/docSidebar/docsidebar.component.html',
-	inputs: ['docLink', 'setDocSample']
+	inputs: ['setDocSample']
 })
 
 export class DocSidebarComponent implements OnInit, OnChanges {

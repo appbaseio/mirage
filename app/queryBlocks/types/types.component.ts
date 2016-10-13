@@ -4,7 +4,7 @@ declare var $: any;
 @Component({
 	selector: 'types',
 	templateUrl: './app/queryBlocks/types/types.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare', 'buildQuery']
+	inputs: ['detectChange', 'setProp', 'buildQuery']
 })
 
 export class TypesComponent implements OnChanges {

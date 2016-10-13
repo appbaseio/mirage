@@ -3,7 +3,7 @@ import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter
 @Component({
 	selector: 'confirm-modal',
 	templateUrl: './app/features/confirm/confirm-modal.component.html',
-	inputs: ['info', 'callback']
+	inputs: ['callback']
 })
 
 export class ConfirmModalComponent implements OnInit, OnChanges {

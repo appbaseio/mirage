@@ -1,6 +1,4 @@
 import { Component, OnInit, OnChanges, Input, AfterViewInit, ViewChild, Output, EventEmitter } from "@angular/core";
-import { select2Component } from '../select2/select2.component';
-import { EditableComponent } from '../editable/editable.component';
 import { MatchQuery } from './queries/match.query';
 import { Match_phraseQuery } from './queries/match_phrase.query';
 import { Match_phase_prefixQuery } from './queries/match_phase_prefix.query';
@@ -20,36 +18,13 @@ import { RegexpQuery } from './queries/regexp.query';
 import { FuzzyQuery } from './queries/fuzzy.query';
 import { IdsQuery } from './queries/ids.query';
 import { CommonQuery } from './queries/common.query';
+
 declare var $: any;
 
 @Component({
 	selector: 'single-query',
 	templateUrl: './app/queryBlocks/singlequery/singlequery.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result',  'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample'],
-	directives: [
-		EditableComponent,
-		SinglequeryComponent,
-		select2Component,
-		MatchQuery,
-		Match_phraseQuery,
-		Match_phase_prefixQuery,
-		RangeQuery,
-		GtQuery,
-		LtQuery,
-		TermQuery,
-		TermsQuery,
-		ExistsQuery,
-		MultiMatchQuery,
-		QueryStringQuery,
-		SimpleQueryStringQuery,
-		MissingQuery,
-		PrefixQuery,
-		WildcardQuery,
-		RegexpQuery,
-		FuzzyQuery,
-		IdsQuery,
-		CommonQuery
-	]
+	inputs: ['config', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample']
 })
 
 export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
@@ -70,6 +45,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
+	@Input() query: any;
 	@Output() setDocSample = new EventEmitter < any >();
 	
 	@ViewChild(MatchQuery) private matchQuery: MatchQuery;
@@ -93,7 +69,6 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(CommonQuery) private commonQuery: CommonQuery;
 	
 	public informationList: any = {};
-	@Input() query: any;
 
 	// on initialize set the query selector
 	ngOnInit() {

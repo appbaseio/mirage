@@ -1,15 +1,11 @@
 import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
-import { NgForm } from "@angular/common";
-import { BoolqueryComponent } from "./boolquery/boolquery.component";
 import { queryList } from "../shared/queryList";
-import { TypesComponent } from "./types/types.component";
 declare var $: any;
 
 @Component({
 	selector: 'query-blocks',
 	templateUrl: './app/queryBlocks/queryBlocks.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare', 'setDocSample'],
-	directives: [TypesComponent, BoolqueryComponent]
+	inputs: ['config', 'detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
 })
 
 export class QueryBlocksComponent implements OnInit {

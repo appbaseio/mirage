@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
-import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
 	selector: 'lt-query',
@@ -40,8 +39,7 @@ import { EditableComponent } from '../../editable/editable.component';
 						</button>
 					</div>
 				</div>`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat', 'querySelector'],
-	directives: [EditableComponent]
+	inputs: ['getQueryFormat', 'querySelector']
 })
 
 export class LtQuery implements OnInit, OnChanges {
