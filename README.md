@@ -152,10 +152,10 @@ plugin install appbaseio/mirage
 ```
 
 Note: To make sure you enable CORS settings for your ElasticSearch instance, add the following lines in the ES configuration file.
-
+Alert: Elasticsearch has [CORS issue](https://github.com/elastic/elasticsearch/issues/20905) on Version 2.3.0
 ```
 http.port: 9200
-http.cors.allow-origin: "*"
+http.cors.allow-origin: "/.*/"
 http.cors.enabled: true
 http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization
 http.cors.allow-credentials: true
