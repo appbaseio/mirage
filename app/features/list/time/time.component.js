@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var prettyTime_1 = require("../../../shared/pipes/prettyTime");
 var TimeComponent = (function () {
     function TimeComponent() {
     }
@@ -31,9 +30,7 @@ var TimeComponent = (function () {
     TimeComponent = __decorate([
         core_1.Component({
             selector: 'time-relative',
-            template: "<span class=\"query-time\">\n\t\t\t\t\t{{time | prettyTime}}\n\t\t\t\t</span>",
-            inputs: ['time'],
-            pipes: [prettyTime_1.prettyTime]
+            template: "<span class=\"query-time\">\n\t\t\t\t\t{{time | prettyTime}}\n\t\t\t\t</span>"
         }), 
         __metadata('design:paramtypes', [])
     ], TimeComponent);

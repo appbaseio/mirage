@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var time_component_1 = require("./time/time.component");
 var ListQueryComponent = (function () {
     function ListQueryComponent() {
         this.newQuery = new core_1.EventEmitter();
@@ -90,8 +89,7 @@ var ListQueryComponent = (function () {
         core_1.Component({
             selector: 'list-query',
             templateUrl: './app/features/list/list.query.component.html',
-            inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll'],
-            directives: [time_component_1.TimeComponent]
+            inputs: ['newQuery', 'deleteQuery', 'clearAll', 'searchByMethod']
         }), 
         __metadata('design:paramtypes', [])
     ], ListQueryComponent);

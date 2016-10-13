@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var prettyJson_1 = require("../shared/pipes/prettyJson");
 var ResultComponent = (function () {
     function ResultComponent() {
     }
@@ -20,8 +19,7 @@ var ResultComponent = (function () {
         core_1.Component({
             selector: 'query-result',
             templateUrl: './app/result/result.component.html',
-            inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken'],
-            pipes: [prettyJson_1.prettyJson]
+            inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken', 'types', 'selectedTypes', 'result', 'config', 'responseHookHelp', 'result_time_taken']
         }), 
         __metadata('design:paramtypes', [])
     ], ResultComponent);

@@ -37,8 +37,7 @@ var ErrorModalComponent = (function () {
         core_1.Component({
             selector: 'error-modal',
             templateUrl: './app/features/modal/error-modal.component.html',
-            inputs: ['info', 'callback', 'errorHookHelp'],
-            directives: []
+            inputs: ['callback']
         }), 
         __metadata('design:paramtypes', [])
     ], ErrorModalComponent);

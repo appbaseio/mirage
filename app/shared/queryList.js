@@ -28,6 +28,9 @@ exports.queryList = {
             'missing',
             'ids',
             'common'
+        ],
+        geo_point: [
+            'geo_distance'
         ]
     },
     not_analyzed: {
@@ -42,6 +45,9 @@ exports.queryList = {
             'range',
             'gt',
             'lt'
+        ],
+        geo_point: [
+            'geo_distance'
         ]
     },
     boolQuery: [
