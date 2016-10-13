@@ -4,7 +4,7 @@ declare var $: any;
 @Component({
 	selector: 'types',
 	templateUrl: './app/queryBlocks/types/types.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare', 'buildQuery']
+	inputs: ['detectChange', 'setProp', 'buildQuery']
 })
 
 export class TypesComponent implements OnChanges {
@@ -57,12 +57,22 @@ export class TypesComponent implements OnChanges {
 		var propInfo: any;
 		if (val && val.length) {
 			val.forEach(function(type: any) {
+				let mapObjWithFields = {};
 				var mapObj = this.mapping[this.config.appname].mappings[type].properties;
-				for (var field in mapObj) {
-					var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
+				for (let field in mapObj) {
+					mapObjWithFields[field] = mapObj[field];
+					if(mapObj[field].fields) {
+						for (let sub in mapObj[field].fields) {
+							let subname = field+'.'+sub;
+							mapObjWithFields[subname] = mapObj[field].fields[sub];
+						}		
+					}
+				}
+				for (var field in mapObjWithFields) {
+					var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
 					var obj = {
 						name: field,
-						type: mapObj[field]['type'],
+						type: mapObjWithFields[field]['type'],
 						index: index
 					}
 					switch (obj.type) {

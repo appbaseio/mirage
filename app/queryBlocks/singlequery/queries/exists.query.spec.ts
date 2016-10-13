@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { ExistsQuery } from './exists.query';
 
 describe('exists query format', () => {

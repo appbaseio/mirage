@@ -3,9 +3,7 @@ declare var $: any;
 
 @Component({
 	selector: 'share-url',
-	templateUrl: './app/features/share/share.url.component.html',
-	inputs: ['urlShare'],
-	directives: []
+	templateUrl: './app/features/share/share.url.component.html'
 })
 
 export class ShareUrlComponent implements OnInit, OnChanges {

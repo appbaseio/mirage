@@ -1,30 +1,46 @@
-import { MultiMatchQuery } from './multi-match.query';
+import {GeoDistanceQuery} from './geodistance.query';
 
-describe('Match query format', () => {
+describe('geo_distance query format', () => {
     // Set initial things
     // set expected query format
-    var query: MultiMatchQuery;
+    var query: GeoDistanceQuery;
     var expectedFormat = {
-        'multi_match': {
-            'query': 'test_foobar',
-            'fields': ['name']
+        'geo_distance': {
+            'distance': '100km',
+            'location': {
+                'lat': '10',
+                'lon': '10'
+            }
         }
     };
     var expectedFormatWithOption = {
-        'multi_match': {
-            'query': 'test_foobar',
-            'fields': ['name', 'gender', 'eyeColor']
+        'geo_distance': {
+            'distance': '100km',
+            'location': {
+                'lat': '10',
+                'lon': '10'
+            },
+            "distance_type": "arc",
+            "optimize_bbox": "none",
+            "_name": "place",
+            "ignore_malformed": "true"
         }
     };
 
     // instantiate query component and set the input fields 
     beforeEach(function() {
-        query = new MultiMatchQuery();
-        query.queryName = 'multi_match';
-        query.fieldName = 'name';
+        query = new GeoDistanceQuery();
+        query.queryName = 'geo_distance';
+        query.fieldName = 'location';
         query.inputs = {
-            input: {
-                value: 'test_foobar'
+            lat: {
+                value: '10'
+            },
+            lon: {
+                value: '10'
+            },
+            distance: {
+                value: '100km'
             }
         };
     });
@@ -37,7 +53,7 @@ describe('Match query format', () => {
         }
         return true;
     }
-    
+
     // Test to check if queryformat is valid json
     it('is valid json', () => {
         var format = query.setFormat();
@@ -51,30 +67,44 @@ describe('Match query format', () => {
         expect(format).toEqual(expectedFormat);
     });
 
-
     // Test to check if result of setformat is equal to expected query format with option.
     it('Is setformat matches with expected query format when pass options with query', () => {
         query.optionRows = [{
-            name: 'fields',
-            value: 'gender,eyeColor'
+            name: 'distance_type',
+            value: 'arc'
+        }, {
+            name: 'optimize_bbox',
+            value: 'none'
+        }, {
+            name: '_name',
+            value: 'place'
+        }, {
+            name: 'ignore_malformed',
+            value: 'true'
         }];
         var format = query.setFormat();
         expect(format).toEqual(expectedFormatWithOption);
     });
-})
+});
 
 declare var $;
-describe("xhr test (multi_match)", function () {
+describe("xhr test (geo_distance)", function () {
     var returnedJSON: any = {};
     var status = 0;
 
     beforeEach(function (done) {
-        var query = new MultiMatchQuery();
-        query.queryName = 'multi_match';
-        query.fieldName = 'name';
+        var query = new GeoDistanceQuery();
+        query.queryName = 'geo_distance';
+        query.fieldName = 'place';
         query.inputs = {
-            input: {
-                value: 'test_foobar'
+            lat: {
+                value: '10'
+            },
+            lon: {
+                value: '10'
+            },
+            distance: {
+                value: '100km'
             }
         };
         var config = {
@@ -83,7 +113,7 @@ describe("xhr test (multi_match)", function () {
             username: 'wvCmyBy3D',
             password: '7a7078e0-0204-4ccf-9715-c720f24754f2'
         };
-        var url = 'https://scalr.api.appbase.io/mirage_test/test/_search';
+        var url = 'https://scalr.api.appbase.io/mirage_test/geo/_search';
         var query_data = query.setFormat();
         var request_data = {
             "query": {

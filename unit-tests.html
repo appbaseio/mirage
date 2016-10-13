@@ -14,7 +14,6 @@
   <script src="./node_modules/zone.js/dist/zone.js"></script>
   <script src="./node_modules/reflect-metadata/Reflect.js"></script>
   <script src="./node_modules/systemjs/dist/system.src.js"></script>
-  <script src="./node_modules/angular2/bundles/testing.dev.js"></script>
   <script>
     var packages = {
       'app': { main: 'main.js',  defaultExtension: 'js' },
@@ -22,53 +21,60 @@
       'angular2-in-memory-web-api': { defaultExtension: 'js' },
     };
 
-    var packageNames = [
-      '@angular/common',
-      '@angular/compiler',
-      '@angular/core',
-      '@angular/http',
-      '@angular/platform-browser',
-      '@angular/platform-browser-dynamic',
-      '@angular/router',
-      '@angular/router-deprecated',
-      '@angular/testing',
-      '@angular/upgrade',
-    ];
-
-    packageNames.forEach(function(pkgName) {
-      packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
-    });
-
     var config = {
       map: {
-        '@angular': 'node_modules/@angular',
-        'rxjs': 'node_modules/rxjs',
-        'main': 'main.js'
-      },
+      // our app is within the app folder
+      app: 'app',
+
+      // angular bundles
+      '@angular/core': './node_modules/@angular/core/bundles/core.umd.js',
+      '@angular/common': './node_modules/@angular/common/bundles/common.umd.js',
+      '@angular/compiler': './node_modules/@angular/compiler/bundles/compiler.umd.js',
+      '@angular/platform-browser': './node_modules/@angular/platform-browser/bundles/platform-browser.umd.js',
+      '@angular/platform-browser-dynamic': './node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+      '@angular/http': './node_modules/@angular/http/bundles/http.umd.js',
+      '@angular/router': './node_modules/@angular/router/bundles/router.umd.js',
+      '@angular/forms': './node_modules/@angular/forms/bundles/forms.umd.js',
+
+      // angular testing umd bundles
+      '@angular/core/testing': './node_modules/@angular/core/bundles/core-testing.umd.js',
+      '@angular/common/testing': './node_modules/@angular/common/bundles/common-testing.umd.js',
+      '@angular/compiler/testing': './node_modules/@angular/compiler/bundles/compiler-testing.umd.js',
+      '@angular/platform-browser/testing': './node_modules/@angular/platform-browser/bundles/platform-browser-testing.umd.js',
+      '@angular/platform-browser-dynamic/testing': './node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
+      '@angular/http/testing': './node_modules/@angular/http/bundles/http-testing.umd.js',
+      '@angular/router/testing': './node_modules/@angular/router/bundles/router-testing.umd.js',
+      '@angular/forms/testing': './node_modules/@angular/forms/bundles/forms-testing.umd.js',
+
+      // other libraries
+      'rxjs': './node_modules/rxjs',
+      'angular2-in-memory-web-api': './node_modules/angular2-in-memory-web-api',
+    },
       packages: packages
     }
 
     System.config(config);
 
     Promise.all([
-      System.import('app/build/singlequery/queries/match.query.spec'),
-      System.import('app/build/singlequery/queries/match_phrase.query.spec'),
-      System.import('app/build/singlequery/queries/term.query.spec'),
-      System.import('app/build/singlequery/queries/terms.query.spec'),
-      System.import('app/build/singlequery/queries/exists.query.spec'),
-      System.import('app/build/singlequery/queries/missing.query.spec'),
-      System.import('app/build/singlequery/queries/multi-match.query.spec'),
-      System.import('app/build/singlequery/queries/query_string.query.spec'),
-      System.import('app/build/singlequery/queries/simple_query_string.query.spec'),
-      System.import('app/build/singlequery/queries/prefix.query.spec'),
-      System.import('app/build/singlequery/queries/wildcard.query.spec'),
-      System.import('app/build/singlequery/queries/regexp.query.spec'),
-      System.import('app/build/singlequery/queries/fuzzy.query.spec'),
-      System.import('app/build/singlequery/queries/range.query.spec'),
-      System.import('app/build/singlequery/queries/lt.query.spec'),
-      System.import('app/build/singlequery/queries/gt.query.spec'),
-      System.import('app/build/singlequery/queries/ids.query.spec'),
-      System.import('app/build/singlequery/queries/common.query.spec')
+      System.import('app/queryBlocks/singlequery/queries/match.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/match_phrase.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/term.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/terms.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/exists.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/missing.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/multi-match.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/query_string.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/simple_query_string.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/prefix.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/wildcard.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/regexp.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/fuzzy.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/range.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/lt.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/gt.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/ids.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/common.query.spec'),
+      System.import('app/queryBlocks/singlequery/queries/geodistance.query.spec')
     ])
     .then(window.onload)
     .catch(console.error.bind(console));

@@ -4,7 +4,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 	selector: 'exists-query',
 	template: 	`<span class="col-xs-6 pd-0">
 				</span>`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
+	inputs: ['getQueryFormat', 'querySelector']
 })
 
 export class ExistsQuery implements OnInit, OnChanges {

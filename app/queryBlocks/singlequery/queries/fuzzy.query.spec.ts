@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { FuzzyQuery } from './fuzzy.query';
 
 describe('Prefix query format', () => {

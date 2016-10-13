@@ -6,8 +6,7 @@ declare var $: any;
 @Component({
 	selector: 'learn-modal',
 	templateUrl: './app/features/learn/learn.component.html',
-	inputs: ['saveQuery', 'newQuery'],
-	directives: []
+	inputs: ['saveQuery', 'newQuery']
 })
 
 export class LearnModalComponent {

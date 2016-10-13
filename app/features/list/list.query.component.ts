@@ -1,11 +1,9 @@
 import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter } from "@angular/core";
-import { TimeComponent } from "./time/time.component";
 
 @Component({
 	selector: 'list-query',
 	templateUrl: './app/features/list/list.query.component.html',
-	inputs: ['savedQueryList', 'newQuery', 'deleteQuery', 'clearAll'],
-	directives: [TimeComponent]
+	inputs: ['newQuery', 'deleteQuery', 'clearAll', 'searchByMethod']
 })
 
 export class ListQueryComponent implements OnInit {
