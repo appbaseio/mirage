@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { TermQuery } from './term.query';
 
 describe('Term query format', () => {

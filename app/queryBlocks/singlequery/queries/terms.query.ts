@@ -10,7 +10,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 						 	(keyup)="getFormat();" />
 					</div>
 				</span>`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField','getQueryFormat']
+	inputs: ['getQueryFormat', 'querySelector']
 })
 
 export class TermsQuery implements OnInit, OnChanges {

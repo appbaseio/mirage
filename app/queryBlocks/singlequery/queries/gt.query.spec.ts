@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { GtQuery } from './gt.query';
 
 describe('Gt query format', () => {

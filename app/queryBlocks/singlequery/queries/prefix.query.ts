@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
-import { EditableComponent } from '../../editable/editable.component';
 
 @Component({
 	selector: 'prefix-query',
@@ -43,8 +42,7 @@ import { EditableComponent } from '../../editable/editable.component';
 					</div>
 				</div>
 				`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat', 'querySelector'],
-	directives: [EditableComponent]
+	inputs: [ 'getQueryFormat', 'querySelector']
 })
 
 export class PrefixQuery implements OnInit, OnChanges {

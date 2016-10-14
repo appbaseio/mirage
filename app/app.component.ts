@@ -1,30 +1,18 @@
 import { Component, OnInit, OnChanges, SimpleChange } from "@angular/core";
 import {Subscription} from 'rxjs/Subscription';
 import { NgForm }    from '@angular/forms';
-import { QueryBlocksComponent } from "./queryBlocks/queryBlocks.component";
-import { JsonEditorComponent } from "./jsonEditor/jsonEditor.component";
-import { ResultComponent } from "./result/result.component";
-import { SaveQueryComponent } from './features/save/save.query.component';
-import { ListQueryComponent } from './features/list/list.query.component';
-import { ShareUrlComponent } from './features/share/share.url.component';
-import { Config } from "./shared/config";
-import { EditorHook } from "./shared/editorHook";
 import { AppbaseService } from "./shared/appbase.service";
-import { UrlShare } from "./shared/urlShare";
-import { ErrorModalComponent } from "./features/modal/error-modal.component";
-import { ConfirmModalComponent } from "./features/confirm/confirm-modal.component";
-import { AppselectComponent } from "./features/appselect/appselect.component";
-import { DocSidebarComponent } from "./features/docSidebar/docsidebar.component";
-import { LearnModalComponent } from "./features/learn/learn.component";
 import { StorageService } from "./shared/storage.service";
 import { DocService } from "./shared/docService";
+import { Config } from "./shared/config";
+import { EditorHook } from "./shared/editorHook";
+import { UrlShare } from "./shared/urlShare";
 
 declare var $: any;
 
 @Component({
 	selector: 'my-app',
 	templateUrl: './app/app.component.html',
-	directives: [QueryBlocksComponent, JsonEditorComponent, ResultComponent, SaveQueryComponent, ListQueryComponent, ShareUrlComponent, AppselectComponent, ErrorModalComponent, DocSidebarComponent, ConfirmModalComponent, LearnModalComponent],
 	providers: [AppbaseService, StorageService, DocService]
 })
 

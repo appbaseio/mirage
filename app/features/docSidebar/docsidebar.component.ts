@@ -1,10 +1,10 @@
 import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter } from "@angular/core";
-import { SafeResourceUrl, DomSanitizationService } from '@angular/platform-browser';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
 	selector: 'doc-sidebar',
 	templateUrl: './app/features/docSidebar/docsidebar.component.html',
-	inputs: ['docLink', 'setDocSample']
+	inputs: ['setDocSample']
 })
 
 export class DocSidebarComponent implements OnInit, OnChanges {
@@ -13,7 +13,7 @@ export class DocSidebarComponent implements OnInit, OnChanges {
 	public url: SafeResourceUrl;
 	public open: boolean = false;
 	
-	constructor(public sanitizer: DomSanitizationService) {	}
+	constructor(public sanitizer: DomSanitizer) {	}
 
 	ngOnInit() {}
 

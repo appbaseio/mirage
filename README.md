@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.0--rc.4-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a>
+[![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a>
 
 
 ![](http://i.imgur.com/RoyFbSb.png?1)
@@ -11,6 +11,10 @@
 4. **[Build Locally](#4-build-locally)**  
 5. **[How to contribute](#5-how-to-contribute)** 
 6. **[Get Mirage](#6-get-mirage)**  
+  a. [Hosted App](#use-hosted-app)  
+  b. [Chrome Extension](#get-the-chrome-extension)  
+  c. [Appbase.io](#appbaseio-dashboard)  
+  d. [Elasticsearch Plugin](#install-as-elasticsearch-plugin) 
 
 
 <br>
@@ -148,10 +152,10 @@ plugin install appbaseio/mirage
 ```
 
 Note: To make sure you enable CORS settings for your ElasticSearch instance, add the following lines in the ES configuration file.
-
+Alert: Elasticsearch has [CORS issue](https://github.com/elastic/elasticsearch/issues/20905) on Version 2.3.0
 ```
 http.port: 9200
-http.cors.allow-origin: "*"
+http.cors.allow-origin: "/.*/"
 http.cors.enabled: true
 http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization
 http.cors.allow-credentials: true
