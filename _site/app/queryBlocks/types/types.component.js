@@ -47,12 +47,22 @@ var TypesComponent = (function () {
         var propInfo;
         if (val && val.length) {
             val.forEach(function (type) {
+                var mapObjWithFields = {};
                 var mapObj = this.mapping[this.config.appname].mappings[type].properties;
-                for (var field in mapObj) {
-                    var index = typeof mapObj[field]['index'] != 'undefined' ? mapObj[field]['index'] : null;
+                for (var field_1 in mapObj) {
+                    mapObjWithFields[field_1] = mapObj[field_1];
+                    if (mapObj[field_1].fields) {
+                        for (var sub in mapObj[field_1].fields) {
+                            var subname = field_1 + '.' + sub;
+                            mapObjWithFields[subname] = mapObj[field_1].fields[sub];
+                        }
+                    }
+                }
+                for (var field in mapObjWithFields) {
+                    var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
                     var obj = {
                         name: field,
-                        type: mapObj[field]['type'],
+                        type: mapObjWithFields[field]['type'],
                         index: index
                     };
                     switch (obj.type) {
@@ -160,7 +170,7 @@ var TypesComponent = (function () {
         core_1.Component({
             selector: 'types',
             templateUrl: './app/queryBlocks/types/types.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'finalUrl', 'setProp', 'urlShare', 'buildQuery']
+            inputs: ['detectChange', 'setProp', 'buildQuery']
         }), 
         __metadata('design:paramtypes', [])
     ], TypesComponent);

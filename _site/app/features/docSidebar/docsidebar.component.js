@@ -39,9 +39,9 @@ var DocSidebarComponent = (function () {
         core_1.Component({
             selector: 'doc-sidebar',
             templateUrl: './app/features/docSidebar/docsidebar.component.html',
-            inputs: ['docLink', 'setDocSample']
+            inputs: ['setDocSample']
         }), 
-        __metadata('design:paramtypes', [platform_browser_1.DomSanitizationService])
+        __metadata('design:paramtypes', [platform_browser_1.DomSanitizer])
     ], DocSidebarComponent);
     return DocSidebarComponent;
 }());

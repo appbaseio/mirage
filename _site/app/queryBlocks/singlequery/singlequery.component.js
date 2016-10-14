@@ -9,8 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var select2_component_1 = require('../select2/select2.component');
-var editable_component_1 = require('../editable/editable.component');
 var match_query_1 = require('./queries/match.query');
 var match_phrase_query_1 = require('./queries/match_phrase.query');
 var match_phase_prefix_query_1 = require('./queries/match_phase_prefix.query');
@@ -30,6 +28,7 @@ var regexp_query_1 = require('./queries/regexp.query');
 var fuzzy_query_1 = require('./queries/fuzzy.query');
 var ids_query_1 = require('./queries/ids.query');
 var common_query_1 = require('./queries/common.query');
+var geodistance_query_1 = require('./queries/geodistance.query');
 var SinglequeryComponent = (function () {
     function SinglequeryComponent() {
         this.queryList = this.queryList;
@@ -77,7 +76,8 @@ var SinglequeryComponent = (function () {
             'regexp': this.regexpQuery.information,
             'fuzzy': this.fuzzyQuery.information,
             'ids': this.idsQuery.information,
-            'common': this.commonQuery.information
+            'common': this.commonQuery.information,
+            'geo_distance': this.geoDistanceQuery.information,
         };
     };
     SinglequeryComponent.prototype.getQueryFormat = function (outputQuery) {
@@ -137,6 +137,10 @@ var SinglequeryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SinglequeryComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "query", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -218,38 +222,14 @@ var SinglequeryComponent = (function () {
         __metadata('design:type', common_query_1.CommonQuery)
     ], SinglequeryComponent.prototype, "commonQuery", void 0);
     __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], SinglequeryComponent.prototype, "query", void 0);
+        core_1.ViewChild(geodistance_query_1.GeoDistanceQuery), 
+        __metadata('design:type', geodistance_query_1.GeoDistanceQuery)
+    ], SinglequeryComponent.prototype, "geoDistanceQuery", void 0);
     SinglequeryComponent = __decorate([
         core_1.Component({
             selector: 'single-query',
             templateUrl: './app/queryBlocks/singlequery/singlequery.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample'],
-            directives: [
-                editable_component_1.EditableComponent,
-                SinglequeryComponent,
-                select2_component_1.select2Component,
-                match_query_1.MatchQuery,
-                match_phrase_query_1.Match_phraseQuery,
-                match_phase_prefix_query_1.Match_phase_prefixQuery,
-                range_query_1.RangeQuery,
-                gt_query_1.GtQuery,
-                lt_query_1.LtQuery,
-                term_query_1.TermQuery,
-                terms_query_1.TermsQuery,
-                exists_query_1.ExistsQuery,
-                multi_match_query_1.MultiMatchQuery,
-                query_string_query_1.QueryStringQuery,
-                simple_query_string_query_1.SimpleQueryStringQuery,
-                missing_query_1.MissingQuery,
-                prefix_query_1.PrefixQuery,
-                wildcard_query_1.WildcardQuery,
-                regexp_query_1.RegexpQuery,
-                fuzzy_query_1.FuzzyQuery,
-                ids_query_1.IdsQuery,
-                common_query_1.CommonQuery
-            ]
+            inputs: ['config', 'queryList', 'addQuery', 'internal', 'internalIndex', 'queryIndex', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocLink', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [])
     ], SinglequeryComponent);

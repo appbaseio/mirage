@@ -45,8 +45,7 @@ var LearnModalComponent = (function () {
         core_1.Component({
             selector: 'learn-modal',
             templateUrl: './app/features/learn/learn.component.html',
-            inputs: ['saveQuery', 'newQuery'],
-            directives: []
+            inputs: ['saveQuery', 'newQuery']
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], LearnModalComponent);

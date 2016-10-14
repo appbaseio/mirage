@@ -9,9 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var boolquery_component_1 = require("./boolquery/boolquery.component");
 var queryList_1 = require("../shared/queryList");
-var types_component_1 = require("./types/types.component");
 var QueryBlocksComponent = (function () {
     function QueryBlocksComponent() {
         this.queryList = queryList_1.queryList;
@@ -257,8 +255,7 @@ var QueryBlocksComponent = (function () {
         core_1.Component({
             selector: 'query-blocks',
             templateUrl: './app/queryBlocks/queryBlocks.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'detectChange', 'editorHookHelp', 'savedQueryList', "query_info", 'saveQuery', 'finalUrl', 'setProp', 'urlShare', 'setDocSample'],
-            directives: [types_component_1.TypesComponent, boolquery_component_1.BoolqueryComponent]
+            inputs: ['config', 'detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [])
     ], QueryBlocksComponent);

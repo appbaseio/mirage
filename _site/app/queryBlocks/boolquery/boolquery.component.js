@@ -9,8 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var singlequery_component_1 = require("../singlequery/singlequery.component");
-var editable_component_1 = require('../editable/editable.component');
 var BoolqueryComponent = (function () {
     function BoolqueryComponent() {
         this.queryList = this.queryList;
@@ -88,8 +86,7 @@ var BoolqueryComponent = (function () {
         core_1.Component({
             selector: 'bool-query',
             templateUrl: './app/queryBlocks/boolquery/boolquery.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample'],
-            directives: [BoolqueryComponent, singlequery_component_1.SinglequeryComponent, editable_component_1.EditableComponent]
+            inputs: ['config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [])
     ], BoolqueryComponent);

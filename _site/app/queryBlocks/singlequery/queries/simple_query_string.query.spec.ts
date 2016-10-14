@@ -1,4 +1,3 @@
-import {describe, it, beforeEach, expect} from '@angular/core/testing';
 import {SimpleQueryStringQuery} from './simple_query_string.query';
 
 describe('Query string format', () => {

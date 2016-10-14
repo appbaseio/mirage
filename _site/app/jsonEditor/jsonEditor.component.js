@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var prettyJson_1 = require("../shared/pipes/prettyJson");
 var appbase_service_1 = require("../shared/appbase.service");
 var JsonEditorComponent = (function () {
     function JsonEditorComponent(appbaseService) {
@@ -150,8 +149,7 @@ var JsonEditorComponent = (function () {
         core_1.Component({
             selector: 'query-jsoneditor',
             templateUrl: './app/jsonEditor/jsonEditor.component.html',
-            inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp', 'errorShow'],
-            pipes: [prettyJson_1.prettyJson],
+            inputs: ['config', 'editorHookHelp', 'responseHookHelp', 'setProp', 'errorShow'],
             providers: [appbase_service_1.AppbaseService]
         }), 
         __metadata('design:paramtypes', [appbase_service_1.AppbaseService])

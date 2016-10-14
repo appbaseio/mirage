@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var select2_component_1 = require('../select2/select2.component');
 var EditableComponent = (function () {
     function EditableComponent() {
         this.callback = new core_1.EventEmitter();
@@ -92,8 +91,7 @@ var EditableComponent = (function () {
         core_1.Component({
             selector: 'editable',
             templateUrl: './app/queryBlocks/editable/editable.component.html',
-            inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff', 'setDocSample'],
-            directives: [select2_component_1.select2Component]
+            inputs: ['editPlaceholder', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'searchOff', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [])
     ], EditableComponent);

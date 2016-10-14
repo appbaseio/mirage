@@ -112,7 +112,7 @@ var IdsQuery = (function () {
         core_1.Component({
             selector: 'ids-query',
             template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t\t<div class=\"form-group form-element\">\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control col-xs-12\"\n\t\t\t\t\t\t\t[(ngModel)]=\"inputs.input.value\"\n\t\t\t\t\t\t \tplaceholder=\"{{inputs.input.placeholder}}\"\n\t\t\t\t\t\t \t(keyup)=\"getFormat();\" />\n\t\t\t\t\t</div>\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat', 'selectedTypes']
+            inputs: ['getQueryFormat', 'querySelector']
         }), 
         __metadata('design:paramtypes', [])
     ], IdsQuery);

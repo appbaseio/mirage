@@ -32,8 +32,7 @@ var ConfirmModalComponent = (function () {
         core_1.Component({
             selector: 'confirm-modal',
             templateUrl: './app/features/confirm/confirm-modal.component.html',
-            inputs: ['info', 'callback'],
-            directives: []
+            inputs: ['callback']
         }), 
         __metadata('design:paramtypes', [])
     ], ConfirmModalComponent);

@@ -96,9 +96,7 @@ var ShareUrlComponent = (function () {
     ShareUrlComponent = __decorate([
         core_1.Component({
             selector: 'share-url',
-            templateUrl: './app/features/share/share.url.component.html',
-            inputs: ['urlShare'],
-            directives: []
+            templateUrl: './app/features/share/share.url.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], ShareUrlComponent);

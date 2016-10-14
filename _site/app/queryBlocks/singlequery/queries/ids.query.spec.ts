@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { IdsQuery } from './ids.query';
 
 describe('ids query format', () => {

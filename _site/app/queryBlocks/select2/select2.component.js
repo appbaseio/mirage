@@ -114,6 +114,10 @@ var select2Component = (function () {
         __metadata('design:type', Boolean)
     ], select2Component.prototype, "searchOff", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], select2Component.prototype, "informationList", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], select2Component.prototype, "callback", void 0);
@@ -121,15 +125,11 @@ var select2Component = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], select2Component.prototype, "setDocSample", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], select2Component.prototype, "informationList", void 0);
     select2Component = __decorate([
         core_1.Component({
             selector: 'select2',
             templateUrl: './app/queryBlocks/select2/select2.component.html',
-            inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff", "setDocSample"],
+            inputs: ["selectModal", "selectOptions", "setDocSample"],
             providers: [globalshare_service_1.GlobalShare, docService_1.DocService]
         }), 
         __metadata('design:paramtypes', [globalshare_service_1.GlobalShare, docService_1.DocService])

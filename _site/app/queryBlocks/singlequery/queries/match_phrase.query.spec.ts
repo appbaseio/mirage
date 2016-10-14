@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { Match_phraseQuery } from './match_phrase.query';
 
 describe('Match_phrase query format', () => {

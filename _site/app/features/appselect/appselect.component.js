@@ -79,8 +79,7 @@ var AppselectComponent = (function () {
         core_1.Component({
             selector: 'appselect',
             templateUrl: './app/features/appselect/appselect.component.html',
-            inputs: ['appsList', 'config', 'connected', 'setConfig', 'onAppSelectChange'],
-            directives: []
+            inputs: ['setConfig', 'onAppSelectChange']
         }), 
         __metadata('design:paramtypes', [])
     ], AppselectComponent);

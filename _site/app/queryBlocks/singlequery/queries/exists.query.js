@@ -88,7 +88,7 @@ var ExistsQuery = (function () {
         core_1.Component({
             selector: 'exists-query',
             template: "<span class=\"col-xs-6 pd-0\">\n\t\t\t\t</span>",
-            inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat']
+            inputs: ['getQueryFormat', 'querySelector']
         }), 
         __metadata('design:paramtypes', [])
     ], ExistsQuery);

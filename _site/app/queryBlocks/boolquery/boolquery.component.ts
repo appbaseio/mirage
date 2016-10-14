@@ -1,13 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { SinglequeryComponent } from "../singlequery/singlequery.component";
-import { EditableComponent } from '../editable/editable.component';
 declare var $: any;
 
 @Component({
 	selector: 'bool-query',
 	templateUrl: './app/queryBlocks/boolquery/boolquery.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample'],
-	directives: [BoolqueryComponent, SinglequeryComponent, EditableComponent]
+	inputs: ['config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample']
 })
 
 export class BoolqueryComponent implements OnInit {

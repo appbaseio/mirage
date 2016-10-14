@@ -1,7 +1,6 @@
 "use strict";
-var testing_1 = require('@angular/core/testing');
 var fuzzy_query_1 = require('./fuzzy.query');
-testing_1.describe('Prefix query format', function () {
+describe('Prefix query format', function () {
     // Set initial things
     // set expected query format
     var query;
@@ -11,7 +10,7 @@ testing_1.describe('Prefix query format', function () {
         }
     };
     // instantiate query component and set the input fields 
-    testing_1.beforeEach(function () {
+    beforeEach(function () {
         query = new fuzzy_query_1.FuzzyQuery();
         query.queryName = 'fuzzy';
         query.fieldName = 'name';
@@ -31,21 +30,21 @@ testing_1.describe('Prefix query format', function () {
         return true;
     }
     // Test to check if queryformat is valid json
-    testing_1.it('is valid json', function () {
+    it('is valid json', function () {
         var format = query.setFormat();
         var validJson = isValidJson(JSON.stringify(format));
-        testing_1.expect(validJson).toEqual(true);
+        expect(validJson).toEqual(true);
     });
     // Test to check if result of setformat is equal to expected query format.
-    testing_1.it('Is setformat matches with expected query format', function () {
+    it('Is setformat matches with expected query format', function () {
         var format = query.setFormat();
-        testing_1.expect(format).toEqual(expectedFormat);
+        expect(format).toEqual(expectedFormat);
     });
 });
-testing_1.describe("xhr call (fuzzy)", function () {
+describe("xhr call (fuzzy)", function () {
     var returnedJSON = {};
     var status = 0;
-    testing_1.beforeEach(function (done) {
+    beforeEach(function (done) {
         var query = new fuzzy_query_1.FuzzyQuery();
         query.queryName = 'fuzzy';
         query.fieldName = 'name';
@@ -93,11 +92,11 @@ testing_1.describe("xhr call (fuzzy)", function () {
             }
         });
     });
-    testing_1.it("Should have returned JSON and Should have atleast 1 record", function () {
-        testing_1.expect(returnedJSON).not.toEqual({});
-        testing_1.expect(returnedJSON).not.toBeUndefined();
-        testing_1.expect(status).toEqual(200);
-        testing_1.expect(returnedJSON.hits.hits.length).toBeGreaterThan(0);
+    it("Should have returned JSON and Should have atleast 1 record", function () {
+        expect(returnedJSON).not.toEqual({});
+        expect(returnedJSON).not.toBeUndefined();
+        expect(status).toEqual(200);
+        expect(returnedJSON.hits.hits.length).toBeGreaterThan(0);
     });
 });
 //# sourceMappingURL=fuzzy.query.spec.js.map

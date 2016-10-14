@@ -7,7 +7,7 @@ declare var $: any;
 @Component({
 	selector: 'select2',
 	templateUrl: './app/queryBlocks/select2/select2.component.html',
-	inputs: ["selectModal", "selectOptions", "querySelector", "selector", "showInfoFlag", "informationList", "passWithCallback", "searchOff", "setDocSample"],
+	inputs: ["selectModal", "selectOptions", "setDocSample"],
 	providers: [GlobalShare, DocService]
 })
 
@@ -17,10 +17,10 @@ export class select2Component implements OnChanges, AfterContentInit {
 	@Input() showInfoFlag;
 	@Input() passWithCallback: any;
 	@Input() searchOff: boolean;
+	@Input() informationList;
 	@Output() callback = new EventEmitter();
 	@Output() setDocSample = new EventEmitter();
 	public select2Selector;
-	@Input() informationList;
 	constructor(private globalShare: GlobalShare, public docService: DocService) {}
 
 	ngOnChanges() {}

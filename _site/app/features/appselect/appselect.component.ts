@@ -3,8 +3,7 @@ import { Component, OnInit, OnChanges, SimpleChange, Input, Output, EventEmitter
 @Component({
 	selector: 'appselect',
 	templateUrl: './app/features/appselect/appselect.component.html',
-	inputs: ['appsList', 'config', 'connected', 'setConfig', 'onAppSelectChange'],
-	directives: []
+	inputs: ['setConfig', 'onAppSelectChange']
 })
 
 export class AppselectComponent implements OnInit, OnChanges {

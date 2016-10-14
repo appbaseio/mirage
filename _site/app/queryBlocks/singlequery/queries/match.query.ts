@@ -1,6 +1,5 @@
 // Editable component which converts input or dropdown into editable ui
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, SimpleChange } from "@angular/core";
-import { EditableComponent } from '../../editable/editable.component';
 
 // Markup contains 2 parts
 // 1) primary input box: which is 3rd input box in query box, in which user will write value,
@@ -48,8 +47,7 @@ import { EditableComponent } from '../../editable/editable.component';
 					</div>
 				</div>
 				`,
-	inputs: ['appliedQuery', 'queryList', 'selectedQuery', 'selectedField', 'getQueryFormat', 'querySelector'],
-	directives: [EditableComponent]
+	inputs: ['getQueryFormat', 'querySelector']
 })
 
 export class MatchQuery implements OnInit, OnChanges {
