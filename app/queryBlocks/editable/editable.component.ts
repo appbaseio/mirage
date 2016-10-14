@@ -1,12 +1,11 @@
 import { Component, OnInit, OnChanges, Input, AfterViewInit, ViewChild, Output, EventEmitter } from "@angular/core";
-import { select2Component } from '../select2/select2.component';
+
 declare var $;
 
 @Component({
 	selector: 'editable',
 	templateUrl: './app/queryBlocks/editable/editable.component.html',
-	inputs: ['editableField', 'editPlaceholder', 'editableInput', 'editableModal', 'result', 'querySelector', 'selector', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'passWithCallback', 'searchOff', 'setDocSample'],
-	directives: [select2Component]
+	inputs: ['editPlaceholder', 'callback', 'selectOption', 'informationList', 'showInfoFlag', 'searchOff', 'setDocSample']
 })
 
 export class EditableComponent implements OnInit, OnChanges, AfterViewInit {	

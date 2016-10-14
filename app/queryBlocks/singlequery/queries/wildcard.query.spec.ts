@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { WildcardQuery } from './wildcard.query';
 
 describe('Prefix query format', () => {

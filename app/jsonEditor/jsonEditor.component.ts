@@ -1,13 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { prettyJson } from "../shared/pipes/prettyJson";
 import { AppbaseService } from "../shared/appbase.service";
 declare var $;
 
 @Component({
 	selector: 'query-jsoneditor',
 	templateUrl: './app/jsonEditor/jsonEditor.component.html',
-	inputs: ['mapping', 'types', 'selectedTypes', 'result', 'config', 'editorHookHelp', 'responseHookHelp', 'finalUrl', 'setProp', 'errorShow'],
-	pipes: [prettyJson],
+	inputs: ['config', 'editorHookHelp', 'responseHookHelp', 'setProp', 'errorShow'],
 	providers: [AppbaseService]
 })
 

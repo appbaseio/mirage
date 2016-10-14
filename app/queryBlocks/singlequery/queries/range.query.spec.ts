@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { RangeQuery } from './range.query';
 
 describe('Range query format', () => {

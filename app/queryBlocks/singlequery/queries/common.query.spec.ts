@@ -1,5 +1,3 @@
-import { describe, it, beforeEach, expect } from '@angular/core/testing';
-
 import { CommonQuery } from './common.query';
 
 describe('Common query format', () => {
