@@ -1,4 +1,4 @@
-# [Angular 2.0](https://github.com/appbaseio/mirage/releases/tag/v0.2.0) (2016-10-14)
+# [Mirage v0.2.0](https://github.com/appbaseio/mirage/releases/tag/v0.2.0) (2016-10-14)
 
 ### Features
 
