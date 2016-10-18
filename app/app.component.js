@@ -361,7 +361,7 @@ var AppComponent = (function () {
             self.initial_connect = true;
             self.errorShow({
                 title: 'Authentication Error',
-                message: " It looks like your app name, username, password combination doesn't match.\nCheck your url and appname and then connect it again."
+                message: "It looks like your app name, username, password combination doesn't match. Check your url and appname and then connect it again."
             });
         });
     };
@@ -371,6 +371,12 @@ var AppComponent = (function () {
         var types = [];
         for (var type in mapObj) {
             types.push(type);
+        }
+        if (!types.length) {
+            this.errorShow({
+                title: 'Type does not exist.',
+                message: this.config.appname + ' does not contain any type mapping. You should *first* create a type mapping to perform query operations.'
+            });
         }
         return types;
     };
@@ -566,7 +572,9 @@ var AppComponent = (function () {
         this.errorInfo = info;
         $('#errorModal').modal('show');
         var message = info.message;
+        self.errorHookHelp.focus(message);
         setTimeout(function () {
+            self.errorHookHelp.focus(message);
             if ($('#errorModal').hasClass('in')) {
                 self.errorHookHelp.setValue(message);
             }
