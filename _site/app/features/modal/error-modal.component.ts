@@ -13,7 +13,8 @@ export class ErrorModalComponent implements OnInit, OnChanges {
 	ngOnInit() {
 		var self = this;
 		this.errorHookHelp.applyEditor({
-			lineNumbers: false
+			lineNumbers: false,
+			lineWrapping: true
 		});
 	}
 	ngOnChanges() {

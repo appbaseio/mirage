@@ -16,7 +16,8 @@ var ErrorModalComponent = (function () {
     ErrorModalComponent.prototype.ngOnInit = function () {
         var self = this;
         this.errorHookHelp.applyEditor({
-            lineNumbers: false
+            lineNumbers: false,
+            lineWrapping: true
         });
     };
     ErrorModalComponent.prototype.ngOnChanges = function () {
