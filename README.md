@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a>
+[![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a> [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md)
 
 
 ![](http://i.imgur.com/RoyFbSb.png?1)
@@ -11,7 +11,7 @@
 4. **[Build Locally](#4-build-locally)**  
 5. **[How to contribute](#5-how-to-contribute)** 
 6. **[Get Mirage](#6-get-mirage)**  
-  a. [Hosted App](#use-hosted-app)  
+  a. [Hosted](#use-hosted-app)  
   b. [Chrome Extension](#get-the-chrome-extension)  
   c. [Appbase.io](#appbaseio-dashboard)  
   d. [Elasticsearch Plugin](#install-as-elasticsearch-plugin) 
@@ -67,9 +67,9 @@ Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for
 
 | Full-text Queries      | Term Level Queries  | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
 | :--------------------: |:-------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
-| 	✓ Match               | 	✓ Term             | ➕ Nested       | ➕ GeoShape          | ➕ MoreLikeThis     | ➕ SpanTerm   |
+| 	✓ Match               | 	✓ Term             | ➕ Nested       | ✓ GeoDistance         | ➕ MoreLikeThis     | ➕ SpanTerm   |
 | 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ➕ GeoBoundingBox    | ➕ Template         | ➕ SpanMulti  |
-| 	✓ Query String        | 	✓ Range            | ➕ HasParent    | ➕ GeoDistance       | ❌ Script           | ➕ SpanFirst  |
+| 	✓ Query String        | 	✓ Range            | ➕ HasParent    |  ➕ GeoShape       | ❌ Script           | ➕ SpanFirst  |
 | 	✓ Simple Query String | 	✓ Exists           |                 | ➕ GeoDistanceRange  |                     | ➕ SpanNear   |
 | 	✓ Common Terms        | 	✓ Missing          |                 | ➕ GeoPolygon        |                     | ➕ SpanOr     |
 |                        | 	✓ Prefix           |                 | ➕ GeoHashCell       |                     | ➕ SpanNot    |
@@ -151,8 +151,8 @@ or
 plugin install appbaseio/mirage
 ```
 
-Note: To make sure you enable CORS settings for your ElasticSearch instance, add the following lines in the ES configuration file.
-Alert: Elasticsearch has [CORS issue](https://github.com/elastic/elasticsearch/issues/20905) on Version 2.3.0
+``Note:`` Elasticsearch has a [CORS header issue](https://github.com/elastic/elasticsearch/issues/17483) with v2.3.0, use v2.3.2 and above.
+
 ```
 http.port: 9200
 http.cors.allow-origin: "/.*/"
