@@ -385,6 +385,12 @@ Check your url and appname and then connect it again.`
 		for (var type in mapObj) {
 			types.push(type);
 		}
+		if(!types.length) {
+			this.errorShow({
+				title: 'Type not exists.',
+				message: '    '+this.config.appname+' does not contain any type, You should create a type to perform query operations'
+			});
+		}
 		return types;
 	}
 
