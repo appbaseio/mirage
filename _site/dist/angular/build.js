@@ -373,6 +373,12 @@ var AppComponent = (function () {
         for (var type in mapObj) {
             types.push(type);
         }
+        if (!types.length) {
+            this.errorShow({
+                title: 'Type not exists.',
+                message: '    ' + this.config.appname + ' does not contain any type, You should create a type to perform query operations'
+            });
+        }
         return types;
     };
     AppComponent.prototype.newQuery = function (currentQuery) {
