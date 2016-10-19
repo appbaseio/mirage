@@ -29,7 +29,8 @@ export var queryList = {
 			'common'
 		],
 		geo_point: [
-			'geo_distance'
+			'geo_distance',
+			'geo_bounding_box'
 		]
 	},
 	not_analyzed: {
@@ -46,7 +47,8 @@ export var queryList = {
 			'lt'
 		],
 		geo_point: [
-			'geo_distance'
+			'geo_distance',
+			'geo_bounding_box'
 		]
 	},
 	boolQuery: [

@@ -44,6 +44,7 @@ import { FuzzyQuery } from './queryBlocks/singlequery/queries/fuzzy.query';
 import { IdsQuery } from './queryBlocks/singlequery/queries/ids.query';
 import { CommonQuery } from './queryBlocks/singlequery/queries/common.query';
 import { GeoDistanceQuery } from './queryBlocks/singlequery/queries/geodistance.query';
+import { GeoBoundingBoxQuery } from './queryBlocks/singlequery/queries/geoboundingbox.query';
 // Pipes
 import { prettyJson } from "./shared/pipes/prettyJson";
 import { prettyTime } from "./shared/pipes/prettyTime";
@@ -96,6 +97,7 @@ import { TimeComponent } from "./features/list/time/time.component";
   	FuzzyQuery,
   	IdsQuery,
     GeoDistanceQuery,
+    GeoBoundingBoxQuery,
   	CommonQuery,
   	prettyJson,
   	TimeComponent,
