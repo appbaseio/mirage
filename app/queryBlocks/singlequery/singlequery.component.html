@@ -320,5 +320,19 @@
 	</div>
 	<!-- geo_bounding_box query end -->
 
+	<!-- geo_distance_range query start -->
+	<div [hidden]="query.selectedQuery != 'geo_distance_range'" class="row">
+		<geo-distance-range-query
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</geo-distance-range-query>
+	</div>
+	<!-- geo_distance_range query end -->
+
 	<!-- load the slector for selected query -->
 </div>

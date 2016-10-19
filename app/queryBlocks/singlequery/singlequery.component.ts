@@ -20,6 +20,7 @@ import { IdsQuery } from './queries/ids.query';
 import { CommonQuery } from './queries/common.query';
 import { GeoDistanceQuery } from './queries/geodistance.query';
 import { GeoBoundingBoxQuery } from './queries/geoboundingbox.query';
+import { GeoDistanceRangeQuery } from './queries/geodistancerange.query';
 declare var $: any;
 
 @Component({
@@ -70,6 +71,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(CommonQuery) private commonQuery: CommonQuery;
 	@ViewChild(GeoDistanceQuery) private geoDistanceQuery: GeoDistanceQuery;
 	@ViewChild(GeoBoundingBoxQuery) private geoBoundingBoxQuery: GeoBoundingBoxQuery;
+	@ViewChild(GeoDistanceRangeQuery) private geoDistanceRangeQuery: GeoDistanceRangeQuery;
 	
 	public informationList: any = {};
 
@@ -112,7 +114,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'ids': this.idsQuery.information,
 			'common': this.commonQuery.information,
 			'geo_distance': this.geoDistanceQuery.information,
-			'geo_bounding_box': this.geoBoundingBoxQuery.information
+			'geo_bounding_box': this.geoBoundingBoxQuery.information,
+			'geo_distance_range': this.geoDistanceRangeQuery.information
 		};
 	}
 

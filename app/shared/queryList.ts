@@ -30,7 +30,8 @@ export var queryList = {
 		],
 		geo_point: [
 			'geo_distance',
-			'geo_bounding_box'
+			'geo_bounding_box',
+			'geo_distance_range'
 		]
 	},
 	not_analyzed: {
@@ -48,7 +49,8 @@ export var queryList = {
 		],
 		geo_point: [
 			'geo_distance',
-			'geo_bounding_box'
+			'geo_bounding_box',
+			'geo_distance_range'
 		]
 	},
 	boolQuery: [
