@@ -98,7 +98,6 @@ export class GeoDistanceRangeQuery implements OnInit, OnChanges {
                         name: option,
                         value: this.appliedQuery[this.current_query][this.fieldName][option]
                     };
-                    this.optionRows.push(obj);
                 }
             }
         } catch(e) {}
@@ -115,7 +114,6 @@ export class GeoDistanceRangeQuery implements OnInit, OnChanges {
         if(this.selectedQuery != '') {
             if(this.selectedQuery !== this.queryName) {
                 this.queryName = this.selectedQuery;
-                this.optionRows = [];
                 this.getFormat();
             }
         }

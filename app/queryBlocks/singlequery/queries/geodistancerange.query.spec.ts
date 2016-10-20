@@ -7,7 +7,7 @@ describe('geo_distance_range query format', () => {
     var expectedFormat = {
         'geo_distance_range': {
             'from': '0km',
-            'to': '1000km'
+            'to': '1000km',
             'location': {
                 'lat': '10',
                 'lon': '10'
@@ -17,7 +17,7 @@ describe('geo_distance_range query format', () => {
     var expectedFormatWithOption = {
         'geo_distance_range': {
             'from': '0km',
-            'to': '1000km'
+            'to': '1000km',
             'location': {
                 'lat': '10',
                 'lon': '10'

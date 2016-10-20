@@ -115,7 +115,7 @@ export class GeoBoundingBoxQuery implements OnInit, OnChanges {
         top_left_lon: {
             placeholder: 'Top_left Longitude',
             value: ''
-        }
+        },
         bottom_right_lat: {
             placeholder: 'Bottom_right Latitude',
             value: ''

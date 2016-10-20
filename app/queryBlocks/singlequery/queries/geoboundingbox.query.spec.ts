@@ -29,7 +29,7 @@ describe('geo_bounding_box query format', () => {
                     "lat" : "9.01",
                     "lon" : "11"
                   }
-            }
+            },
             "_name": "place",
             "ignore_malformed": "true"
         }
