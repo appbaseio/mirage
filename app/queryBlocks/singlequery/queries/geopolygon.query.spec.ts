@@ -8,14 +8,14 @@ describe('geo_polygon query format', () => {
         'geo_polygon': {
             'location': {
                 "points" : [{
-                    "lat" : "10.73",
-                    "lon" : "9"
+                    "lat" : "5",
+                    "lon" : "5"
                 }, {
-                    "lat" : "9.01",
-                    "lon" : "11"
+                    "lat" : "15",
+                    "lon" : "10"
                 }, {
-                    "lat" : "8.01",
-                    "lon" : "12"
+                    "lat" : "10",
+                    "lon" : "15"
                 }]
             }
         }
@@ -24,14 +24,14 @@ describe('geo_polygon query format', () => {
         'geo_polygon': {
             'location': {
                 "points" : [{
-                    "lat" : "10.73",
-                    "lon" : "9"
+                    "lat" : "5",
+                    "lon" : "5"
                 }, {
-                    "lat" : "9.01",
-                    "lon" : "11"
+                    "lat" : "15",
+                    "lon" : "10"
                 }, {
-                    "lat" : "8.01",
-                    "lon" : "12"
+                    "lat" : "10",
+                    "lon" : "15"
                 }]
             },
             "_name": "place",
@@ -46,22 +46,22 @@ describe('geo_polygon query format', () => {
         query.fieldName = 'location';
         query.inputs = {
             point1_lat: {
-                value: '10.73'
+                value: '5'
             },
             point1_lon: {
-                value: '9'
+                value: '5'
             },
             point2_lat: {
-                value: '9.01'
+                value: '15'
             },
             point2_lon: {
-                value: '11'
+                value: '10'
             },
             point3_lat: {
-                value: '8.01'
+                value: '10'
             },
             point3_lon: {
-                value: '12'
+                value: '15'
             }
         };
     });
@@ -113,22 +113,22 @@ describe("xhr test (geo_polygon)", function () {
         query.fieldName = 'place';
         query.inputs = {
             point1_lat: {
-                value: '10.73'
+                value: '5'
             },
             point1_lon: {
-                value: '9'
+                value: '5'
             },
             point2_lat: {
-                value: '9.01'
+                value: '15'
             },
             point2_lon: {
-                value: '11'
+                value: '10'
             },
             point3_lat: {
-                value: '8.01'
+                value: '10'
             },
             point3_lon: {
-                value: '12'
+                value: '15'
             }
         };
         var config = {
