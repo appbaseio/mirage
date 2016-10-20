@@ -334,5 +334,19 @@
 	</div>
 	<!-- geo_distance_range query end -->
 
+	<!-- geo_polygon query start -->
+	<div [hidden]="query.selectedQuery != 'geo_polygon'" class="row">
+		<geo-polygon-query
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</geo-polygon-query>
+	</div>
+	<!-- geo_polygon query end -->
+
 	<!-- load the slector for selected query -->
 </div>

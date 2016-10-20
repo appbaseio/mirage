@@ -21,6 +21,7 @@ import { CommonQuery } from './queries/common.query';
 import { GeoDistanceQuery } from './queries/geodistance.query';
 import { GeoBoundingBoxQuery } from './queries/geoboundingbox.query';
 import { GeoDistanceRangeQuery } from './queries/geodistancerange.query';
+import { GeoPolygonQuery } from './queries/geopolygon.query';
 declare var $: any;
 
 @Component({
@@ -72,6 +73,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(GeoDistanceQuery) private geoDistanceQuery: GeoDistanceQuery;
 	@ViewChild(GeoBoundingBoxQuery) private geoBoundingBoxQuery: GeoBoundingBoxQuery;
 	@ViewChild(GeoDistanceRangeQuery) private geoDistanceRangeQuery: GeoDistanceRangeQuery;
+	@ViewChild(GeoPolygonQuery) private geoPolygonQuery: GeoPolygonQuery;
 	
 	public informationList: any = {};
 
@@ -115,7 +117,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'common': this.commonQuery.information,
 			'geo_distance': this.geoDistanceQuery.information,
 			'geo_bounding_box': this.geoBoundingBoxQuery.information,
-			'geo_distance_range': this.geoDistanceRangeQuery.information
+			'geo_distance_range': this.geoDistanceRangeQuery.information,
+			'geo_polygon': this.geoPolygonQuery.information
 		};
 	}
 
