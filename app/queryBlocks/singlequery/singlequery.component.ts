@@ -22,6 +22,7 @@ import { GeoDistanceQuery } from './queries/geodistance.query';
 import { GeoBoundingBoxQuery } from './queries/geoboundingbox.query';
 import { GeoDistanceRangeQuery } from './queries/geodistancerange.query';
 import { GeoPolygonQuery } from './queries/geopolygon.query';
+import { GeoHashCellQuery } from './queries/geohashcell.query';
 declare var $: any;
 
 @Component({
@@ -74,6 +75,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(GeoBoundingBoxQuery) private geoBoundingBoxQuery: GeoBoundingBoxQuery;
 	@ViewChild(GeoDistanceRangeQuery) private geoDistanceRangeQuery: GeoDistanceRangeQuery;
 	@ViewChild(GeoPolygonQuery) private geoPolygonQuery: GeoPolygonQuery;
+	@ViewChild(GeoHashCellQuery) private geoHashCellQuery: GeoHashCellQuery;
 	
 	public informationList: any = {};
 
@@ -118,7 +120,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'geo_distance': this.geoDistanceQuery.information,
 			'geo_bounding_box': this.geoBoundingBoxQuery.information,
 			'geo_distance_range': this.geoDistanceRangeQuery.information,
-			'geo_polygon': this.geoPolygonQuery.information
+			'geo_polygon': this.geoPolygonQuery.information,
+			'geohash_cell': this.geoHashCellQuery.information
 		};
 	}
 

@@ -348,5 +348,19 @@
 	</div>
 	<!-- geo_polygon query end -->
 
+	<!-- geohash_cell query start -->
+	<div [hidden]="query.selectedQuery != 'geohash_cell'" class="row">
+		<geohash-cell-query
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</geohash-cell-query>
+	</div>
+	<!-- geohash_cell query end -->
+
 	<!-- load the slector for selected query -->
 </div>

@@ -32,7 +32,8 @@ export var queryList = {
 			'geo_distance',
 			'geo_bounding_box',
 			'geo_distance_range',
-			'geo_polygon'
+			'geo_polygon',
+			'geohash_cell'
 		]
 	},
 	not_analyzed: {
@@ -52,7 +53,8 @@ export var queryList = {
 			'geo_distance',
 			'geo_bounding_box',
 			'geo_distance_range',
-			'geo_polygon'
+			'geo_polygon',
+			'geohash_cell'
 		]
 	},
 	boolQuery: [
