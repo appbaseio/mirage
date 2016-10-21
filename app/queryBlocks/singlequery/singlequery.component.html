@@ -8,7 +8,8 @@
 	<editable class="col-xs-3 pd-l0 field-select" [editableField]="query.selectedField" [editPlaceholder]="'field'" [editableInput]="'select2'" [result]="result" [selectOption]="result.resultQuery.availableFields" [querySelector]="querySelector"  [selector]="selector.field" (callback)="analyzeTest($event)"></editable>
 	<!-- field part end -->
 	<!-- query part start -->
-	<div class="col-xs-3 pd-l0"  *ngIf="query.analyzeTest != '' && ( query.field.type == 'string' || query.field.type == 'date' || query.field.type == 'numeric' || query.field.type == 'geo_point')">
+	<div class="col-xs-3 pd-l0"  
+		*ngIf="query.analyzeTest != '' && (queryList.allowedDataTypes.indexOf(query.field.type) > -1)">
 		<editable class="query-select" 
 			[editableField]="query.selectedQuery" 
 			[editPlaceholder]="'query'" 
@@ -361,6 +362,20 @@
 		</geohash-cell-query>
 	</div>
 	<!-- geohash_cell query end -->
+
+	<!-- geo_shape query start -->
+	<div [hidden]="query.selectedQuery != 'geo_shape'" class="row">
+		<geo-shape-query
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</geo-shape-query>
+	</div>
+	<!-- geo_shape query end -->
 
 	<!-- load the slector for selected query -->
 </div>
