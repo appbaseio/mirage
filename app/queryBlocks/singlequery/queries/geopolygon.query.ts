@@ -163,10 +163,10 @@ export class GeoPolygonQuery implements OnInit, OnChanges {
                 this.inputs.point2_lon.value = this.appliedQuery[this.current_query][this.fieldName]['points'][1]['lon'];
             }
             if(this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lat']) {
-                this.inputs.point2_lat.value = this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lat'];
+                this.inputs.point3_lat.value = this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lat'];
             }
             if(this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lon']) {
-                this.inputs.point2_lon.value = this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lon'];
+                this.inputs.point3_lon.value = this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lon'];
             }
             for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
                 if (option != 'points') {
