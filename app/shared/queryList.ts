@@ -29,7 +29,14 @@ export var queryList = {
 			'common'
 		],
 		geo_point: [
-			'geo_distance'
+			'geo_distance',
+			'geo_bounding_box',
+			'geo_distance_range',
+			'geo_polygon',
+			'geohash_cell'
+		],
+		geo_shape: [
+			'geo_shape'
 		]
 	},
 	not_analyzed: {
@@ -46,7 +53,11 @@ export var queryList = {
 			'lt'
 		],
 		geo_point: [
-			'geo_distance'
+			'geo_distance',
+			'geo_bounding_box',
+			'geo_distance_range',
+			'geo_polygon',
+			'geohash_cell'
 		]
 	},
 	boolQuery: [
@@ -55,30 +66,11 @@ export var queryList = {
 		'should',
 		'filter'
 	],
-	information: {
-		"match": {
-			"title": "match",
-			"content": "match query content"
-		},
-		"match_phrase": {
-			"title": "match_phrase",
-			"content": "match query content"
-		},
-		"match-phase-prefix": {
-			"title": "match-phase-prefix",
-			"content": "match query content"
-		},
-		"range": {
-			"title": "range",
-			"content": "match query content"
-		},
-		"gt": {
-			"title": "gt",
-			"content": "match query content"
-		},
-		"lt": {
-			"title": "lt",
-			"content": "match query content"
-		}
-	}
+	allowedDataTypes: [
+		'string',
+		'date',
+		'numeric',
+		'geo_point',
+		'geo_shape'
+	]
 };

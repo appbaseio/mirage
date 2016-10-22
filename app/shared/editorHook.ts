@@ -19,8 +19,7 @@ EditorHook.prototype.applyEditor = function(settings) {
         foldGutter: true,
         gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     };
-    var options = settings ? jQuery.extend(settings, defaultOptions) : defaultOptions;
-
+    var options = settings ? jQuery.extend(defaultOptions, settings) : defaultOptions;
     self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 }
 
