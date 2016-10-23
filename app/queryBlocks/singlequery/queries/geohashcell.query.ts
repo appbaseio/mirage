@@ -71,13 +71,14 @@ export class GeoHashCellQuery implements OnInit, OnChanges {
     public current_query = 'geohash_cell';
     public information: any = {
         title: 'Geohash Cell Query',
-        content: `<span class="description">The geohash_cell query provides access to a hierarchy of geohashes. By defining a geohash cell, only geopoints within this cell will match this filter.</span>
-                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geohash-cell-query.html">Read more</a>`
+        content: `<span class="description">Returns geo_point matches in proximity of the specified geohash cell.<br><br>
+				A geohash cell is defined by setting additional properties to the geo_point mapping type.</span>
+                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geohash-cell-query.html#query-dsl-geohash-cell-query">Read more</a>`
     };
     public informationList: any = {
         'neighbors': {
             title: 'neighbors',
-            content: `<span class="description">option of the filter offers the possibility to filter cells next to the given cell.</span>`
+            content: `<span class="description">When set to <strong>true</strong>, it returns matches next to the specified geohash cell.</span>`
         }
     };
     public default_options: any = [
@@ -146,14 +147,14 @@ export class GeoHashCellQuery implements OnInit, OnChanges {
             }
         }
     }
-    
+
     getFormat() {
         if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
     }
-    
+
     setFormat() {
         var queryFormat = {
             [this.queryName]: {

@@ -79,21 +79,21 @@ export class GeoBoundingBoxQuery implements OnInit, OnChanges {
     public current_query = 'geo_bounding_box';
     public information: any = {
         title: 'Geo Bounding Box Query',
-        content: `<span class="description">Filters hits based on a point location using a bounding box.</span>
-                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-bounding-box-query.html">Read more</a>`
+        content: `<span class="description">Returns matches within a bounding box area. Specified with <i>top left</i> and <i>bottom right</i> (lat, long) values.</span>
+                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-bounding-box-query.html#query-dsl-geo-bounding-box-query">Read more</a>`
     };
     public informationList: any = {
         '_name': {
             title: '_name',
-            content: `<span class="description">Optional name field to identify the query</span>`
+            content: `<span class="description">Optional name field to identify the query.</span>`
         },
         'ignore_malformed': {
             title: 'ignore_malformed',
-            content: `<span class="description">Set to true to accept geo points with invalid latitude or longitude (default is false).</span>`
+            content: `<span class="description">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is false).</span>`
         },
         'type': {
             title: 'type',
-            content: `<span class="description">Set to one of indexed or memory to defines whether this filter will be executed in memory or indexed.</span>`
+            content: `<span class="description">Set to <strong>memory</strong> if the query will be executed in memory, otherwise set to <strong>indexed</strong>.</span>`
         }
     };
     public default_options: any = [
@@ -109,19 +109,19 @@ export class GeoBoundingBoxQuery implements OnInit, OnChanges {
     public optionRows: any = [];
     public inputs: any = {
         top_left_lat: {
-            placeholder: 'Top_left Latitude',
+            placeholder: 'TL_latitude',
             value: ''
         },
         top_left_lon: {
-            placeholder: 'Top_left Longitude',
+            placeholder: 'TL_longitude',
             value: ''
         },
         bottom_right_lat: {
-            placeholder: 'Bottom_right Latitude',
+            placeholder: 'BR_latitude',
             value: ''
         },
         bottom_right_lon: {
-            placeholder: 'Bottom_right Longitude',
+            placeholder: 'BR_longitude',
             value: ''
         }
     };
@@ -171,14 +171,14 @@ export class GeoBoundingBoxQuery implements OnInit, OnChanges {
             }
         }
     }
-    
+
     getFormat() {
         if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
     }
-    
+
     setFormat() {
         var queryFormat = {
             [this.queryName]: {

@@ -63,13 +63,13 @@ export class GeoShapeQuery implements OnInit, OnChanges {
     public current_query = 'geo_shape';
     public information: any = {
         title: 'Geo Shape Query',
-        content: `<span class="description">query uses the same grid square representation as the geo_shape mapping to find documents that have a shape that intersects with the query shape.</span>
-                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-shape-query.html">Read more</a>`
+        content: `<span class="description">Return matches that have a shape that relates with the query shape. A relation can be an intersection, subset, superset, or a disjoint.</span>
+                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-shape-query.html#query-dsl-geo-shape-query">Read more</a>`
     };
     public informationList: any = {
         'relation': {
             title: 'relation',
-            content: `<span class="description">mapping parameter determines which spatial relation operators may be used at search time.</span>`
+            content: `<span class="description">Defines the relation to match for, can be one of <strong>intersects</strong>, <strong>disjoint</strong>, <strong>within</strong> or <strong>contains</strong>.</span>`
         }
     };
     public default_options: any = [
@@ -87,7 +87,7 @@ export class GeoShapeQuery implements OnInit, OnChanges {
             value: ''
         },
         coordinates: {
-            placeholder: 'Pass array.',
+            placeholder: 'Pass an Array',
             value: ''
         }
     };
@@ -131,14 +131,14 @@ export class GeoShapeQuery implements OnInit, OnChanges {
             }
         }
     }
-    
+
     getFormat() {
         if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
     }
-    
+
     setFormat() {
         var coordinates =  this.inputs.coordinates.value;
         try {

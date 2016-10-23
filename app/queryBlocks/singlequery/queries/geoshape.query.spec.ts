@@ -20,13 +20,13 @@ describe('geo_shape query format', () => {
                 "shape" : {
                     "type" : "Point",
                     "coordinates" : [25, 25]
-                }
+                },
                 "relation": "within"
-            }       
+            }
         }
     };
 
-    // instantiate query component and set the input fields 
+    // instantiate query component and set the input fields
     beforeEach(function() {
         query = new GeoShapeQuery();
         query.queryName = 'geo_shape';

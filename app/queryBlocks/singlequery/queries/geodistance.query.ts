@@ -74,25 +74,23 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
         content: `<span class="description">Returns matches within a specific distance from a geo-point field.</span>
                     <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-query.html#query-dsl-geo-distance-query">Read more</a>`
     };
-    public informationList: any = {
+		public informationList: any = {
         'distance_type': {
             title: 'distance_type',
-            content: `<span class="description">How to compute the distance. Can either be sloppy_arc (default), arc
-                        (slightly more precise but significantly slower) or plane (faster, but inaccurate on long distances and close to the poles).</span>`
+            content: `<span class="description">How to compute the distance. Can either be <strong>sloppy_arc</strong> (default), <strong>arc</strong>
+                        (slightly more precise but significantly slower) or <strong>plane</strong> (faster, but inaccurate on long distances and close to the poles).</span>`
         },
         'optimize_bbox': {
             title: 'optimize_bbox',
-            content: `<span class="description">Whether to use the optimization of first running a bounding box check before the distance check.
-                        Defaults to memory which will do in memory checks. Can also have values of indexed to use indexed value check
-                        (make sure the geo_point type index lat lon in this case), or none which disables bounding box optimization.</span>`
+            content: `<span class="description">Defaults to <strong>memory</strong> which will do in memory bounding box checks before the distance check. Can also have values of <strong>indexed</strong> to use indexed value check, or <strong>none</strong> which disables bounding box optimization.</span>`
         },
         '_name': {
             title: '_name',
-            content: `<span class="description">Optional name field to identify the query</span>`
+            content: `<span class="description">Optional name field to identify the query.</span>`
         },
         'ignore_malformed': {
             title: 'ignore_malformed',
-            content: `<span class="description">Set to true to accept geo points with invalid latitude or longitude (default is false).</span>`
+            content: `<span class="description">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is <strong>false</strong>).</span>`
         }
     };
     public default_options: any = [
@@ -166,7 +164,7 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     }
 
     getFormat() {
-        if (this.queryName === 'geo_distance') {
+        if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }

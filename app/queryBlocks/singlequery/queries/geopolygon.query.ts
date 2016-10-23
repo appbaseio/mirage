@@ -96,17 +96,17 @@ export class GeoPolygonQuery implements OnInit, OnChanges {
     public current_query = 'geo_polygon';
     public information: any = {
         title: 'Geo Polygon Query',
-        content: `<span class="description">A query allowing to include hits that only fall within a polygon of points.</span>
-                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-polygon-query.html">Read more</a>`
+        content: `<span class="description">Return matches that fall within a specified polygon shape.</span>
+                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-polygon-query.html#query-dsl-geo-polygon-query">Read more</a>`
     };
     public informationList: any = {
         '_name': {
             title: '_name',
-            content: `<span class="description">Optional name field to identify the query</span>`
+            content: `<span class="description">Optional name field to identify the query.</span>`
         },
         'ignore_malformed': {
             title: 'ignore_malformed',
-            content: `<span class="description">Set to true to accept geo points with invalid latitude or longitude (default is false).</span>`
+            content: `<span class="description">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is false).</span>`
         }
     };
     public default_options: any = [
@@ -197,14 +197,14 @@ export class GeoPolygonQuery implements OnInit, OnChanges {
             }
         }
     }
-    
+
     getFormat() {
         if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
     }
-    
+
     setFormat() {
         var queryFormat = {
             [this.queryName]: {
