@@ -91,6 +91,7 @@
 			color: $grey-font;
 			border-bottom: 1px dashed;
 			cursor: pointer;
+			overflow: hidden;
 			&:hover {
 				color: $primary-font-color;
 			}

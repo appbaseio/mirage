@@ -1,29 +1,21 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-    selector: 'geo-distance-query',
+    selector: 'geo-shape-query',
     template:   `<span class="col-xs-6 pd-0">
                     <div class="col-xs-6 pl-0">
                         <div class="form-group form-element">
                             <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.lat.value"
-                                placeholder="{{inputs.lat.placeholder}}"
+                                [(ngModel)]="inputs.type.value"
+                                placeholder="{{inputs.type.placeholder}}"
                                 (keyup)="getFormat();" />
                         </div>
                     </div>
                     <div class="col-xs-6 pr-0">
                         <div class="form-group form-element">
                             <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.lon.value"
-                                placeholder="{{inputs.lon.placeholder}}"
-                                (keyup)="getFormat();" />
-                        </div>
-                    </div>
-                    <div class="col-xs-6 pl-0">
-                        <div class="form-group form-element">
-                            <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.distance.value"
-                                placeholder="{{inputs.distance.placeholder}}"
+                                [(ngModel)]="inputs.coordinates.value"
+                                placeholder="{{inputs.coordinates.placeholder}}"
                                 (keyup)="getFormat();" />
                         </div>
                     </div>
@@ -60,7 +52,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
     inputs: ['getQueryFormat', 'querySelector']
 })
 
-export class GeoDistanceQuery implements OnInit, OnChanges {
+export class GeoShapeQuery implements OnInit, OnChanges {
     @Input() queryList;
     @Input() selectedField;
     @Input() appliedQuery;
@@ -68,36 +60,20 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     @Output() getQueryFormat = new EventEmitter<any>();
     public queryName = '*';
     public fieldName = '*';
-    public current_query = 'geo_distance';
+    public current_query = 'geo_shape';
     public information: any = {
-        title: 'Geo Distance Query',
-        content: `<span class="description">Returns matches within a specific distance from a geo-point field.</span>
-                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-query.html#query-dsl-geo-distance-query">Read more</a>`
+        title: 'Geo Shape Query',
+        content: `<span class="description">Return matches that have a shape that relates with the query shape. A relation can be an intersection, subset, superset, or a disjoint.</span>
+                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-shape-query.html#query-dsl-geo-shape-query">Read more</a>`
     };
-		public informationList: any = {
-        'distance_type': {
-            title: 'distance_type',
-            content: `<span class="description">How to compute the distance. Can either be <strong>sloppy_arc</strong> (default), <strong>arc</strong>
-                        (slightly more precise but significantly slower) or <strong>plane</strong> (faster, but inaccurate on long distances and close to the poles).</span>`
-        },
-        'optimize_bbox': {
-            title: 'optimize_bbox',
-            content: `<span class="description">Defaults to <strong>memory</strong> which will do in memory bounding box checks before the distance check. Can also have values of <strong>indexed</strong> to use indexed value check, or <strong>none</strong> which disables bounding box optimization.</span>`
-        },
-        '_name': {
-            title: '_name',
-            content: `<span class="description">Optional name field to identify the query.</span>`
-        },
-        'ignore_malformed': {
-            title: 'ignore_malformed',
-            content: `<span class="description">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is <strong>false</strong>).</span>`
+    public informationList: any = {
+        'relation': {
+            title: 'relation',
+            content: `<span class="description">Defines the relation to match for, can be one of <strong>intersects</strong>, <strong>disjoint</strong>, <strong>within</strong> or <strong>contains</strong>.</span>`
         }
     };
     public default_options: any = [
-        'distance_type',
-        'optimize_bbox',
-        '_name',
-        'ignore_malformed'
+        'relation'
     ];
     public options: any;
     public singleOption = {
@@ -106,16 +82,12 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     };
     public optionRows: any = [];
     public inputs: any = {
-        lat: {
-            placeholder: 'Latitude',
+        type: {
+            placeholder: 'Type',
             value: ''
         },
-        lon: {
-            placeholder: 'Longitude',
-            value: ''
-        },
-        distance: {
-            placeholder: 'Distance (with unit)',
+        coordinates: {
+            placeholder: 'Pass an Array',
             value: ''
         }
     };
@@ -124,17 +96,14 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     ngOnInit() {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
-            if(this.appliedQuery[this.current_query][this.fieldName]['lat']) {
-                this.inputs.lat.value = this.appliedQuery[this.current_query][this.fieldName]['lat'];
+            if(this.appliedQuery[this.current_query][this.fieldName]['shape']['type']) {
+                this.inputs.type.value = this.appliedQuery[this.current_query][this.fieldName]['shape']['type'];
             }
-            if(this.appliedQuery[this.current_query][this.fieldName]['lon']) {
-                this.inputs.lon.value = this.appliedQuery[this.current_query][this.fieldName]['lon'];
-            }
-            if(this.appliedQuery[this.current_query][this.fieldName]['distance']) {
-                this.inputs.distance.value = this.appliedQuery[this.current_query][this.fieldName]['distance'];
+            if(this.appliedQuery[this.current_query][this.fieldName]['shape']['coordinates']) {
+                this.inputs.coordinates.value = this.appliedQuery[this.current_query][this.fieldName]['shape']['coordinates'];
             }
             for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
-                if (option != 'lat' && option != 'lon' && option != 'distance') {
+                if (option != 'shape') {
                     var obj = {
                         name: option,
                         value: this.appliedQuery[this.current_query][this.fieldName][option]
@@ -171,16 +140,22 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     }
 
     setFormat() {
-        var queryFormat = {};
-        queryFormat[this.queryName] = {
-            distance: this.inputs.distance.value,
-        };
-        queryFormat[this.queryName][this.fieldName] = {
-            lat: this.inputs.lat.value,
-            lon: this.inputs.lon.value
+        var coordinates =  this.inputs.coordinates.value;
+        try {
+            coordinates = JSON.parse(coordinates);
+        } catch(e) {}
+        var queryFormat = {
+            [this.queryName]: {
+                [this.fieldName]: {
+                    shape: {
+                        type: this.inputs.type.value,
+                        coordinates: coordinates
+                    }
+                }
+            }
         };
         this.optionRows.forEach(function(singleRow: any) {
-            queryFormat[this.queryName][singleRow.name] = singleRow.value;
+            queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
         }.bind(this));
         return queryFormat;
     }

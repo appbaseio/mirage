@@ -1,9 +1,9 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-    selector: 'geo-distance-query',
+    selector: 'geohash-cell-query',
     template:   `<span class="col-xs-6 pd-0">
-                    <div class="col-xs-6 pl-0">
+                    <div class="col-xs-4 pl-0">
                         <div class="form-group form-element">
                             <input type="text" class="form-control col-xs-12"
                                 [(ngModel)]="inputs.lat.value"
@@ -11,7 +11,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
                                 (keyup)="getFormat();" />
                         </div>
                     </div>
-                    <div class="col-xs-6 pr-0">
+                    <div class="col-xs-4 pr-0">
                         <div class="form-group form-element">
                             <input type="text" class="form-control col-xs-12"
                                 [(ngModel)]="inputs.lon.value"
@@ -19,11 +19,11 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
                                 (keyup)="getFormat();" />
                         </div>
                     </div>
-                    <div class="col-xs-6 pl-0">
+                    <div class="col-xs-4 pl-0">
                         <div class="form-group form-element">
                             <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.distance.value"
-                                placeholder="{{inputs.distance.placeholder}}"
+                                [(ngModel)]="inputs.precision.value"
+                                placeholder="{{inputs.precision.placeholder}}"
                                 (keyup)="getFormat();" />
                         </div>
                     </div>
@@ -60,7 +60,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
     inputs: ['getQueryFormat', 'querySelector']
 })
 
-export class GeoDistanceQuery implements OnInit, OnChanges {
+export class GeoHashCellQuery implements OnInit, OnChanges {
     @Input() queryList;
     @Input() selectedField;
     @Input() appliedQuery;
@@ -68,36 +68,21 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     @Output() getQueryFormat = new EventEmitter<any>();
     public queryName = '*';
     public fieldName = '*';
-    public current_query = 'geo_distance';
+    public current_query = 'geohash_cell';
     public information: any = {
-        title: 'Geo Distance Query',
-        content: `<span class="description">Returns matches within a specific distance from a geo-point field.</span>
-                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-query.html#query-dsl-geo-distance-query">Read more</a>`
+        title: 'Geohash Cell Query',
+        content: `<span class="description">Returns geo_point matches in proximity of the specified geohash cell.<br><br>
+				A geohash cell is defined by setting additional properties to the geo_point mapping type.</span>
+                    <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geohash-cell-query.html#query-dsl-geohash-cell-query">Read more</a>`
     };
-		public informationList: any = {
-        'distance_type': {
-            title: 'distance_type',
-            content: `<span class="description">How to compute the distance. Can either be <strong>sloppy_arc</strong> (default), <strong>arc</strong>
-                        (slightly more precise but significantly slower) or <strong>plane</strong> (faster, but inaccurate on long distances and close to the poles).</span>`
-        },
-        'optimize_bbox': {
-            title: 'optimize_bbox',
-            content: `<span class="description">Defaults to <strong>memory</strong> which will do in memory bounding box checks before the distance check. Can also have values of <strong>indexed</strong> to use indexed value check, or <strong>none</strong> which disables bounding box optimization.</span>`
-        },
-        '_name': {
-            title: '_name',
-            content: `<span class="description">Optional name field to identify the query.</span>`
-        },
-        'ignore_malformed': {
-            title: 'ignore_malformed',
-            content: `<span class="description">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is <strong>false</strong>).</span>`
+    public informationList: any = {
+        'neighbors': {
+            title: 'neighbors',
+            content: `<span class="description">When set to <strong>true</strong>, it returns matches next to the specified geohash cell.</span>`
         }
     };
     public default_options: any = [
-        'distance_type',
-        'optimize_bbox',
-        '_name',
-        'ignore_malformed'
+        'neighbors'
     ];
     public options: any;
     public singleOption = {
@@ -114,8 +99,8 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
             placeholder: 'Longitude',
             value: ''
         },
-        distance: {
-            placeholder: 'Distance (with unit)',
+        precision: {
+            placeholder: 'Precision',
             value: ''
         }
     };
@@ -130,11 +115,11 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
             if(this.appliedQuery[this.current_query][this.fieldName]['lon']) {
                 this.inputs.lon.value = this.appliedQuery[this.current_query][this.fieldName]['lon'];
             }
-            if(this.appliedQuery[this.current_query][this.fieldName]['distance']) {
-                this.inputs.distance.value = this.appliedQuery[this.current_query][this.fieldName]['distance'];
+            if(this.appliedQuery[this.current_query]['precision']) {
+                this.inputs.precision.value = this.appliedQuery[this.current_query]['precision'];
             }
             for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
-                if (option != 'lat' && option != 'lon' && option != 'distance') {
+                if (option != 'lat' && option != 'lon') {
                     var obj = {
                         name: option,
                         value: this.appliedQuery[this.current_query][this.fieldName][option]
@@ -171,13 +156,14 @@ export class GeoDistanceQuery implements OnInit, OnChanges {
     }
 
     setFormat() {
-        var queryFormat = {};
-        queryFormat[this.queryName] = {
-            distance: this.inputs.distance.value,
-        };
-        queryFormat[this.queryName][this.fieldName] = {
-            lat: this.inputs.lat.value,
-            lon: this.inputs.lon.value
+        var queryFormat = {
+            [this.queryName]: {
+                [this.fieldName]: {
+                    lat: this.inputs.lat.value,
+                    lon: this.inputs.lon.value
+                },
+                precision: this.inputs.precision.value
+            }
         };
         this.optionRows.forEach(function(singleRow: any) {
             queryFormat[this.queryName][singleRow.name] = singleRow.value;
