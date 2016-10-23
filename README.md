@@ -65,19 +65,19 @@ Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for
 ➕ indicates queries we would like to support and see [contributions for](#5-how-to-contribute).  
 ❌ indicates queries that can't be supported currently.
 
-| Full-text Queries      | Term Level Queries  | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
-| :--------------------: |:-------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
-| 	✓ Match               | 	✓ Term             | ➕ Nested       | ✓ GeoDistance         | ➕ MoreLikeThis     | ➕ SpanTerm   |
-| 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ➕ GeoBoundingBox    | ➕ Template         | ➕ SpanMulti  |
-| 	✓ Query String        | 	✓ Range            | ➕ HasParent    |  ➕ GeoShape       | ❌ Script           | ➕ SpanFirst  |
-| 	✓ Simple Query String | 	✓ Exists           |                 | ➕ GeoDistanceRange  |                     | ➕ SpanNear   |
-| 	✓ Common Terms        | 	✓ Missing          |                 | ➕ GeoPolygon        |                     | ➕ SpanOr     |
-|                        | 	✓ Prefix           |                 | ➕ GeoHashCell       |                     | ➕ SpanNot    |
-|                        | 	✓ Wildcard         |                 |                      |                     | ➕ SpanContaining   |
-|                        | 	✓ Regexp           |                 |                      |                     | ➕ SpanWithin   |
-|                        | 	✓ Fuzzy            |                 |                      |                     |
-|                        | 	✓ Ids              |                 |                      |                     |
-|                        | ❌ Type             |                 |                      |                     |
+| Full-text Queries      | Term Level Queries    | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
+| :--------------------: |:---------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
+| 	✓ Match               | 	✓ Term             | ➕ Nested       | ✓ GeoDistance        | ➕ MoreLikeThis     | ➕ SpanTerm   |
+| 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ✓ GeoBoundingBox     | ➕ Template         | ➕ SpanMulti  |
+| 	✓ Query String        | 	✓ Range            | ➕ HasParent    |  ✓ GeoShape          | ❌ Script           | ➕ SpanFirst  |
+| 	✓ Simple Query String | 	✓ Exists           |                 | ✓ GeoDistanceRange   |                     | ➕ SpanNear   |
+| 	✓ Common Terms        | 	✓ Missing          |                 | ✓ GeoPolygon         |                     | ➕ SpanOr     |
+|                         | 	✓ Prefix           |                 | ✓ GeoHashCell        |                     | ➕ SpanNot    |
+|                         | 	✓ Wildcard         |                 |                      |                     | ➕ SpanContaining |
+|                         | 	✓ Regexp           |                 |                      |                     | ➕ SpanWithin |
+|                         | 	✓ Fuzzy            |                 |                      |                     |
+|                         | 	✓ Ids              |                 |                      |                     |
+|                         | ❌ Type              |                 |                      |                     |
 
 Besides broadening the query support, we would like to see Mirage support Elasticsearch v5.0.
 
