@@ -1,6 +1,6 @@
 {
     "name":"mirage",
-    "version":"0.2.0",
+    "version":"0.3.0",
     "icons":{
         "16":"site/assets/images/icon_16.png",
         "32":"site/assets/images/icon_32.png",
@@ -18,6 +18,6 @@
         "default_icon": "site/assets/images/icon_32.png",
         "default_title": "Mirage"
     },
-    "description": "The missing query explorer for Elasticsearch",
+    "description": "🔎 GUI for Elasticsearch Queries",
     "author": "Farhan Chauhan, appbase.io"
 }
