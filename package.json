@@ -1,7 +1,7 @@
 {
   "name": "mirage",
   "version": "0.2.0",
-  "description": "The missing query explorer for Elasticsearch",
+  "description": "🔎 GUI for Elasticsearch Queries",
   "author": "Farhan Chauhan, appbase.io",
   "license": "Apache-2.0",
   "main": "index.js",
