@@ -3,52 +3,11 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angu
 @Component({
     selector: 'geo-polygon-query',
     template:   `<span class="col-xs-6 pd-0">
-                    <div class="col-xs-3 pl-0">
+                    <div class="col-xs-12 pl-0">
                         <div class="form-group form-element">
                             <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.point1_lat.value"
-                                placeholder="{{inputs.point1_lat.placeholder}}"
-                                (keyup)="getFormat();" />
-                        </div>
-                    </div>
-                    <div class="col-xs-3 pr-0">
-                        <div class="form-group form-element">
-                            <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.point1_lon.value"
-                                placeholder="{{inputs.point1_lon.placeholder}}"
-                                (keyup)="getFormat();" />
-                        </div>
-                    </div>
-                     <div class="col-xs-3 pl-0">
-                        <div class="form-group form-element">
-                            <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.point2_lat.value"
-                                placeholder="{{inputs.point2_lat.placeholder}}"
-                                (keyup)="getFormat();" />
-                        </div>
-                    </div>
-                    <div class="col-xs-3 pr-0">
-                        <div class="form-group form-element">
-                            <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.point2_lon.value"
-                                placeholder="{{inputs.point2_lon.placeholder}}"
-                                (keyup)="getFormat();" />
-                        </div>
-                    </div>
-
-                     <div class="col-xs-3 pl-0">
-                        <div class="form-group form-element">
-                            <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.point3_lat.value"
-                                placeholder="{{inputs.point3_lat.placeholder}}"
-                                (keyup)="getFormat();" />
-                        </div>
-                    </div>
-                    <div class="col-xs-3 pr-0">
-                        <div class="form-group form-element">
-                            <input type="text" class="form-control col-xs-12"
-                                [(ngModel)]="inputs.point3_lon.value"
-                                placeholder="{{inputs.point3_lon.placeholder}}"
+                                [(ngModel)]="inputs.points.value"
+                                placeholder="{{inputs.points.placeholder}}"
                                 (keyup)="getFormat();" />
                         </div>
                     </div>
@@ -120,28 +79,8 @@ export class GeoPolygonQuery implements OnInit, OnChanges {
     };
     public optionRows: any = [];
     public inputs: any = {
-        point1_lat: {
-            placeholder: 'point1 Latitude',
-            value: ''
-        },
-        point1_lon: {
-            placeholder: 'point1 Longitude',
-            value: ''
-        },
-        point2_lat: {
-            placeholder: 'point2 Latitude',
-            value: ''
-        },
-        point2_lon: {
-            placeholder: 'point2 Longitude',
-            value: ''
-        },
-        point3_lat: {
-            placeholder: 'point3 Latitude',
-            value: ''
-        },
-        point3_lon: {
-            placeholder: 'point3 Longitude',
+        points: {
+            placeholder: 'points',
             value: ''
         }
     };
@@ -150,23 +89,8 @@ export class GeoPolygonQuery implements OnInit, OnChanges {
     ngOnInit() {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
-            if(this.appliedQuery[this.current_query][this.fieldName]['points'][0]['lat']) {
-                this.inputs.point1_lat.value = this.appliedQuery[this.current_query][this.fieldName]['points'][0]['lat'];
-            }
-            if(this.appliedQuery[this.current_query][this.fieldName]['points'][0]['lon']) {
-                this.inputs.point1_lon.value = this.appliedQuery[this.current_query][this.fieldName]['points'][0]['lon'];
-            }
-            if(this.appliedQuery[this.current_query][this.fieldName]['points'][1]['lat']) {
-                this.inputs.point2_lat.value = this.appliedQuery[this.current_query][this.fieldName]['points'][1]['lat'];
-            }
-            if(this.appliedQuery[this.current_query][this.fieldName]['points'][1]['lon']) {
-                this.inputs.point2_lon.value = this.appliedQuery[this.current_query][this.fieldName]['points'][1]['lon'];
-            }
-            if(this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lat']) {
-                this.inputs.point3_lat.value = this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lat'];
-            }
-            if(this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lon']) {
-                this.inputs.point3_lon.value = this.appliedQuery[this.current_query][this.fieldName]['points'][2]['lon'];
+            if(this.appliedQuery[this.current_query][this.fieldName]['points']) {
+                this.inputs.points.value = this.appliedQuery[this.current_query][this.fieldName]['points'];
             }
             for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
                 if (option != 'points') {
@@ -206,19 +130,14 @@ export class GeoPolygonQuery implements OnInit, OnChanges {
     }
 
     setFormat() {
+        var points =  this.inputs.points.value;
+        try {
+            points = JSON.parse(points);
+        } catch(e) {}
         var queryFormat = {
             [this.queryName]: {
                 [this.fieldName]: {
-                    points: [{
-                        lat: this.inputs.point1_lat.value,
-                        lon: this.inputs.point1_lon.value
-                    }, {
-                        lat: this.inputs.point2_lat.value,
-                        lon: this.inputs.point2_lon.value
-                    }, {
-                        lat: this.inputs.point3_lat.value,
-                        lon: this.inputs.point3_lon.value
-                    }]
+                    points: points
                 }
             }
         };
