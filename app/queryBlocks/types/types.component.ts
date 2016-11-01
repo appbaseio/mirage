@@ -67,6 +67,12 @@ export class TypesComponent implements OnChanges {
 							mapObjWithFields[subname] = mapObj[field].fields[sub];
 						}		
 					}
+					if(mapObj[field].properties) {
+						for (let sub in mapObj[field].properties) {
+							let subname = field+'.'+sub;
+							mapObjWithFields[subname] = mapObj[field].properties[sub];
+						}		
+					}
 				}
 				for (var field in mapObjWithFields) {
 					var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;

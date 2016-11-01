@@ -19,7 +19,15 @@
 				<div class="form-group form-element">
 					<input type="text" class="form-control" placeholder="Minimum should match" [(ngModel)] = "query.minimum_should_match"  (keyup)="exeBuild();" />
 				</div>
-			</div>	
+			</div>
+			<div class="col-xs-6" *ngIf="queryList.boolQuery[query.boolparam] == 'nested'">
+				<div class="form-group form-element">
+					<input type="text" class="form-control" placeholder="path" [(ngModel)] = "query.path"  (keyup)="exeBuild();" />
+				</div>
+				<div class="form-group form-element">
+					<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="internvalQuery">
