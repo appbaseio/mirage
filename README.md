@@ -3,27 +3,27 @@
 
 ![](http://i.imgur.com/RoyFbSb.png?1)
 
-## Mirage: The missing query explorer for Elasticsearch
+## Mirage: 🔎 GUI for Elasticsearch Queries
 
 1. **[Mirage: Intro](#1-mirage-intro)**   
 2. **[Features](#2-features)**  
-3. **[Roadmap](#3-roadmap)** 
+3. **[Roadmap](#3-roadmap)**
 4. **[Build Locally](#4-build-locally)**  
-5. **[How to contribute](#5-how-to-contribute)** 
+5. **[How to contribute](#5-how-to-contribute)**
 6. **[Get Mirage](#6-get-mirage)**  
   a. [Hosted](#use-hosted-app)  
   b. [Chrome Extension](#get-the-chrome-extension)  
   c. [Appbase.io](#appbaseio-dashboard)  
-  d. [Elasticsearch Plugin](#install-as-elasticsearch-plugin) 
+  d. [Elasticsearch Plugin](#install-as-elasticsearch-plugin)
 
 
 <br>
 
 ### 1. Mirage: Intro
 
-The Elasticsearch query DSL supports 100+ query APIs ranging from full-text search, numeric range filters, geolocation queries to nested and span queries. 
+The Elasticsearch query DSL supports 100+ query APIs ranging from full-text search, numeric range filters, geolocation queries to nested and span queries.
 
-Mirage is a modern, open-source web based query explorer for Elasticsearch. 
+Mirage is a modern, open-source web based query explorer for Elasticsearch.
 
 [![2-min Intro to Mirage](https://i.imgur.com/mBMBdfU.png)](https://vimeo.com/185000306)
 
@@ -39,9 +39,9 @@ It offers a blocks based GUI for composing Elasticsearch queries and comes with 
 
 <br>
 
-* Mirage provides two ways to add compound query clauses, 
+* Mirage provides two ways to add compound query clauses,
   * `Add Conditions` allows adding additional clauses within the same query and  
-  * `Nested Query` allows adding a nested query clause. 
+  * `Nested Query` allows adding a nested query clause.
 
 ![Intuitively layer complexity to your queries](http://i.imgur.com/uFpBv4e.gif)  
 
@@ -65,19 +65,19 @@ Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for
 ➕ indicates queries we would like to support and see [contributions for](#5-how-to-contribute).  
 ❌ indicates queries that can't be supported currently.
 
-| Full-text Queries      | Term Level Queries  | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
-| :--------------------: |:-------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
-| 	✓ Match               | 	✓ Term             | ➕ Nested       | ✓ GeoDistance         | ➕ MoreLikeThis     | ➕ SpanTerm   |
-| 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ➕ GeoBoundingBox    | ➕ Template         | ➕ SpanMulti  |
-| 	✓ Query String        | 	✓ Range            | ➕ HasParent    |  ➕ GeoShape       | ❌ Script           | ➕ SpanFirst  |
-| 	✓ Simple Query String | 	✓ Exists           |                 | ➕ GeoDistanceRange  |                     | ➕ SpanNear   |
-| 	✓ Common Terms        | 	✓ Missing          |                 | ➕ GeoPolygon        |                     | ➕ SpanOr     |
-|                        | 	✓ Prefix           |                 | ➕ GeoHashCell       |                     | ➕ SpanNot    |
-|                        | 	✓ Wildcard         |                 |                      |                     | ➕ SpanContaining   |
-|                        | 	✓ Regexp           |                 |                      |                     | ➕ SpanWithin   |
-|                        | 	✓ Fuzzy            |                 |                      |                     |
-|                        | 	✓ Ids              |                 |                      |                     |
-|                        | ❌ Type             |                 |                      |                     |
+| Full-text Queries      | Term Level Queries    | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
+| :--------------------: |:---------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
+| 	✓ Match               | 	✓ Term             | ➕ Nested       | ✓ GeoDistance        | ➕ MoreLikeThis     | ➕ SpanTerm   |
+| 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ✓ GeoBoundingBox     | ➕ Template         | ➕ SpanMulti  |
+| 	✓ Query String        | 	✓ Range            | ➕ HasParent    |  ✓ GeoShape          | ❌ Script           | ➕ SpanFirst  |
+| 	✓ Simple Query String | 	✓ Exists           |                 | ✓ GeoDistanceRange   |                     | ➕ SpanNear   |
+| 	✓ Common Terms        | 	✓ Missing          |                 | ✓ GeoPolygon         |                     | ➕ SpanOr     |
+|                         | 	✓ Prefix           |                 | ✓ GeoHashCell        |                     | ➕ SpanNot    |
+|                         | 	✓ Wildcard         |                 |                      |                     | ➕ SpanContaining |
+|                         | 	✓ Regexp           |                 |                      |                     | ➕ SpanWithin |
+|                         | 	✓ Fuzzy            |                 |                      |                     |
+|                         | 	✓ Ids              |                 |                      |                     |
+|                         | ❌ Type              |                 |                      |                     |
 
 Besides broadening the query support, we would like to see Mirage support Elasticsearch v5.0.
 
@@ -86,7 +86,7 @@ Besides broadening the query support, we would like to see Mirage support Elasti
 ### 4. Build Locally
 
 ```sh
-$ npm install 
+$ npm install
 $ bower install
 $ npm start
 ```
@@ -99,7 +99,7 @@ This will start a local webserver running on port 3030 serving mirage locally.
 $ npm test
 ```
 
-will fire up the jasmine tests. 
+will fire up the jasmine tests.
 
 #### `master` branch: Elasticsearch Plugin
 

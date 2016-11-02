@@ -1,6 +1,6 @@
 {
   "name": "mirage",
-  "description": "The missing query explorer for Elasticsearch",
+  "description": "🔎 GUI for Elasticsearch Queries",
   "main": "index.js",
   "authors": [
     "Farhan Chauhan <farhan687@gmail.com>"

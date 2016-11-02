@@ -25,7 +25,9 @@ export class QueryBlocksComponent implements OnInit {
 			parent_id: 0,
 			id: 0,
 			internal: [],
-			minimum_should_match: ''
+			minimum_should_match: '',
+			path: '',
+			score_mode: ''
 		}
 	};
 	public editorHookHelp: any;
@@ -76,9 +78,10 @@ export class QueryBlocksComponent implements OnInit {
 	buildQuery() {
 		var self = this;
 		var results = this.result.resultQuery.result;
+		var es_final = {};
 		if(results.length) {
 			var finalresult = {};
-			var es_final = {
+			es_final = {
 				'query': {
 					'bool': finalresult
 				}
@@ -86,6 +89,7 @@ export class QueryBlocksComponent implements OnInit {
 			results.forEach(function(result) {
 				result.availableQuery = self.buildInsideQuery(result);
 			});
+			var isBoolPresent = true;
 
 			results.forEach(function(result0) {
 				results.forEach(function(result1) {
@@ -98,6 +102,11 @@ export class QueryBlocksComponent implements OnInit {
 						if (currentBool === 'should') {
 							current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
 						}
+						if (currentBool === 'nested') {
+							current_query['bool']['nested']['path'] = result1.path;
+							current_query['bool']['nested']['score_mode'] = result1.score_mode;
+							isBoolPresent = false;
+						}
 						result0.availableQuery.push(current_query);
 					}
 				});
@@ -105,12 +114,31 @@ export class QueryBlocksComponent implements OnInit {
 			results.forEach(function(result) {
 				if (result.parent_id === 0) {
 					var currentBool = self.queryList['boolQuery'][result['boolparam']];
-					finalresult[currentBool] = result.availableQuery;
+					if(currentBool !== 'nested') {
+						finalresult[currentBool] = result.availableQuery;
+					} else {
+						finalresult[currentBool] = {
+							path: result.path,
+							score_mode: result.score_mode,
+							query: {
+								bool: {
+									must: result.availableQuery
+								}
+							}
+						};
+
+						isBoolPresent = false;
+					}
 					if (currentBool === 'should') {
 						finalresult['minimum_should_match'] = result.minimum_should_match;
 					}
 				}
 			});
+
+			if (!isBoolPresent) {
+				es_final['query'] = es_final['query']['bool'];
+			}
+
 			this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
 			try {
 				this.editorHookHelp.setValue(self.result.resultQuery.final);

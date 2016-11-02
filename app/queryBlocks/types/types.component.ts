@@ -67,6 +67,12 @@ export class TypesComponent implements OnChanges {
 							mapObjWithFields[subname] = mapObj[field].fields[sub];
 						}		
 					}
+					if(mapObj[field].properties) {
+						for (let sub in mapObj[field].properties) {
+							let subname = field+'.'+sub;
+							mapObjWithFields[subname] = mapObj[field].properties[sub];
+						}		
+					}
 				}
 				for (var field in mapObjWithFields) {
 					var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
@@ -83,6 +89,10 @@ export class TypesComponent implements OnChanges {
 						case 'double':
 						case 'float':
 							obj.type = 'numeric';
+							break;
+						case 'text':
+						case 'keyword':
+							obj.type = 'string';
 							break;
 					}
 					availableFields.push(obj);

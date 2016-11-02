@@ -74,7 +74,8 @@
       display: inline-block;
       color: #828282;
       border-bottom: 1px dashed;
-      cursor: pointer; }
+      cursor: pointer;
+      overflow: hidden; }
       .single_query .editable-pack .editable-front:hover {
         color: #555; }
     .single_query .editable-pack .editable-back {
