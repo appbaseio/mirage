@@ -90,6 +90,10 @@ export class TypesComponent implements OnChanges {
 						case 'float':
 							obj.type = 'numeric';
 							break;
+						case 'text':
+						case 'keyword':
+							obj.type = 'string';
+							break;
 					}
 					availableFields.push(obj);
 				}

@@ -69,6 +69,8 @@ export var queryList = {
 	],
 	allowedDataTypes: [
 		'string',
+		'text',
+		'keyword',
 		'date',
 		'numeric',
 		'geo_point',
