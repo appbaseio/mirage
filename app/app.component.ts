@@ -304,10 +304,10 @@ export class AppComponent implements OnInit, OnChanges {
 				if(data && data.version && data.version.number) {
 					let version = data.version.number;
 					self.version = version; 
-					if(self.version.split('.')[0] !== '2') {
+					if(!(self.version.split('.')[0] === '2' || self.version.split('.')[0] === '5')) {
 						self.errorShow({
 							title: 'Elasticsearch Version Not Supported',
-							message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+							message: 'Mirage only supports v2.x or v5.x of Elasticsearch Query DSL'
 						});
 					}
 				}

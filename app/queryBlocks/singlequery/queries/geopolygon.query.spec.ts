@@ -7,32 +7,14 @@ describe('geo_polygon query format', () => {
     var expectedFormat = {
         'geo_polygon': {
             'location': {
-                "points" : [{
-                    "lat" : "5",
-                    "lon" : "5"
-                }, {
-                    "lat" : "15",
-                    "lon" : "10"
-                }, {
-                    "lat" : "10",
-                    "lon" : "15"
-                }]
+                "points" : [[5,5], [15,10], [10, 15]]
             }
         }
     };
     var expectedFormatWithOption = {
         'geo_polygon': {
             'location': {
-                "points" : [{
-                    "lat" : "5",
-                    "lon" : "5"
-                }, {
-                    "lat" : "15",
-                    "lon" : "10"
-                }, {
-                    "lat" : "10",
-                    "lon" : "15"
-                }]
+                "points" : [[5,5], [15,10], [10, 15]]
             },
             "_name": "place",
             "ignore_malformed": "true"
@@ -45,23 +27,8 @@ describe('geo_polygon query format', () => {
         query.queryName = 'geo_polygon';
         query.fieldName = 'location';
         query.inputs = {
-            point1_lat: {
-                value: '5'
-            },
-            point1_lon: {
-                value: '5'
-            },
-            point2_lat: {
-                value: '15'
-            },
-            point2_lon: {
-                value: '10'
-            },
-            point3_lat: {
-                value: '10'
-            },
-            point3_lon: {
-                value: '15'
+            points: {
+                value: [[5,5], [15,10], [10, 15]]
             }
         };
     });
@@ -112,23 +79,8 @@ describe("xhr test (geo_polygon)", function () {
         query.queryName = 'geo_polygon';
         query.fieldName = 'place';
         query.inputs = {
-            point1_lat: {
-                value: '5'
-            },
-            point1_lon: {
-                value: '5'
-            },
-            point2_lat: {
-                value: '15'
-            },
-            point2_lon: {
-                value: '10'
-            },
-            point3_lat: {
-                value: '10'
-            },
-            point3_lon: {
-                value: '15'
+            points: {
+                value: [[5,5], [15,10], [10, 15]]
             }
         };
         var config = {
