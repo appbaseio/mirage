@@ -63,7 +63,7 @@ exports.UrlShare.prototype.dejavuLink = function () {
         selectedType: this.inputs.selectedTypes
     };
     var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(obj), 'dejvu').toString();
-    var final_url = 'http://appbaseio.github.io/dejaVu/live/#?input_state=' + ciphertext;
+    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state=' + ciphertext;
     return final_url;
 };
 exports.UrlShare.prototype.compress = function (jsonInput, cb) {
