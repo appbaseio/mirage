@@ -9,7 +9,7 @@ declare var $: any;
 })
 
 export class QueryBlocksComponent implements OnInit {
-	public queryList: any = JSON.parse(JSON.stringify(queryList));
+	public queryList: any = queryList;
 	public queryFormat: any = {
 		internal: {
 			field: '',
@@ -91,7 +91,7 @@ export class QueryBlocksComponent implements OnInit {
 			let mapObjWithFields = {};
 			mapObj = this.mapping[this.config.appname].mappings[type].properties;
 		});
-		
+
 		for (let obj in mapObj) {
 			if (mapObj[obj].type === 'nested') {
 				qList.push('nested');

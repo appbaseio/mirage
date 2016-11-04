@@ -10,7 +10,7 @@
 				<i class="fa fa-plus"></i> Nested query
 			</button>
 			<div class="col-xs-6">
-				<editable [editPlaceholder]="must"  [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
+				<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
 				<!-- <select class="form-control form-element" [(ngModel)]="query.boolparam" (change)="exeBuild();">
 					<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo}}</option>
 				</select> -->
