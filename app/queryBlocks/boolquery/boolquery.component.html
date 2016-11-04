@@ -10,7 +10,7 @@
 				<i class="fa fa-plus"></i> Nested query
 			</button>
 			<div class="col-xs-6">
-				<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
+				<editable [editPlaceholder]="must"  [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
 				<!-- <select class="form-control form-element" [(ngModel)]="query.boolparam" (change)="exeBuild();">
 					<option *ngFor="let oo of queryList.boolQuery, let i=index" [value]="i">{{oo}}</option>
 				</select> -->
@@ -21,6 +21,12 @@
 				</div>
 			</div>
 			<div class="col-xs-6" *ngIf="queryList.boolQuery[query.boolparam] == 'nested'">
+				<div class="form-group form-element">
+					<input type="text" class="form-control" placeholder="bool query" [(ngModel)] = "query.nestedBool"  (keyup)="exeBuild();" />
+				</div>
+				<div class="form-group form-element" *ngIf="query.nestedBool == 'should'">
+					<input type="text" class="form-control" placeholder="Minimum should match" [(ngModel)] = "query.minimum_should_match"  (keyup)="exeBuild();" />
+				</div>
 				<div class="form-group form-element">
 					<input type="text" class="form-control" placeholder="path" [(ngModel)] = "query.path"  (keyup)="exeBuild();" />
 				</div>
@@ -52,6 +58,7 @@
 				[setQueryFormat]="setQueryFormat"
 				[editorHookHelp]="editorHookHelp"
 				[urlShare]="urlShare"
+				[boolQueryName]="queryList.boolQuery[query.boolparam]"
 				(setDocSample)="setDocSampleEve($event);">
 			</single-query>
 		</form>

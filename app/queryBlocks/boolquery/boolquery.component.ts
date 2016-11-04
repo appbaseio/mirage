@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 declare var $: any;
 
 @Component({
@@ -7,7 +7,7 @@ declare var $: any;
 	inputs: ['config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample']
 })
 
-export class BoolqueryComponent implements OnInit {
+export class BoolqueryComponent implements OnInit, OnChanges {
 	public config: Object;
 	public queryList: any = this.queryList;
 	public addQuery: any;
@@ -24,6 +24,12 @@ export class BoolqueryComponent implements OnInit {
 	
 	ngOnInit() {
 		this.exeBuild();
+	}
+
+	ngOnChanges() {
+		if (this.query.boolparam >= this.queryList.boolQuery.length) {
+			this.query.boolparam = 0;
+		}
 	}
 
 	addSubQuery(id: number) {

@@ -5,11 +5,11 @@ declare var $: any;
 @Component({
 	selector: 'query-blocks',
 	templateUrl: './app/queryBlocks/queryBlocks.component.html',
-	inputs: ['config', 'detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
+	inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
 })
 
 export class QueryBlocksComponent implements OnInit {
-	public queryList = queryList;
+	public queryList: any = JSON.parse(JSON.stringify(queryList));
 	public queryFormat: any = {
 		internal: {
 			field: '',
@@ -25,6 +25,7 @@ export class QueryBlocksComponent implements OnInit {
 			parent_id: 0,
 			id: 0,
 			internal: [],
+			nestedBool: '',
 			minimum_should_match: '',
 			path: '',
 			score_mode: ''
@@ -39,6 +40,7 @@ export class QueryBlocksComponent implements OnInit {
 	@Input() savedQueryList: any;
 	@Input() finalUrl: string;
 	@Input() urlShare: any;
+	@Input() config: any;
 	@Output() saveQuery = new EventEmitter < any > ();
 	@Output() setProp = new EventEmitter < any > ();
 	@Output() setDocSample = new EventEmitter < any >();
@@ -79,6 +81,24 @@ export class QueryBlocksComponent implements OnInit {
 		var self = this;
 		var results = this.result.resultQuery.result;
 		var es_final = {};
+		
+		var mapObj;
+		var qList = this.queryList.boolQuery;
+		this.queryList.boolQuery = qList.filter(e => e !== 'nested');
+		qList = this.queryList.boolQuery;
+
+		this.selectedTypes.forEach((type: any) => {
+			let mapObjWithFields = {};
+			mapObj = this.mapping[this.config.appname].mappings[type].properties;
+		});
+		
+		for (let obj in mapObj) {
+			if (mapObj[obj].type === 'nested') {
+				qList.push('nested');
+				break;
+			}
+		}
+
 		if(results.length) {
 			var finalresult = {};
 			es_final = {
@@ -114,20 +134,20 @@ export class QueryBlocksComponent implements OnInit {
 			results.forEach(function(result) {
 				if (result.parent_id === 0) {
 					var currentBool = self.queryList['boolQuery'][result['boolparam']];
-					if(currentBool !== 'nested') {
-						finalresult[currentBool] = result.availableQuery;
-					} else {
+					if(currentBool === 'nested') {
 						finalresult[currentBool] = {
 							path: result.path,
 							score_mode: result.score_mode,
 							query: {
 								bool: {
-									must: result.availableQuery
+									[result.nestedBool]: result.availableQuery
 								}
 							}
 						};
 
 						isBoolPresent = false;
+					} else {
+						finalresult[currentBool] = result.availableQuery;
 					}
 					if (currentBool === 'should') {
 						finalresult['minimum_should_match'] = result.minimum_should_match;
