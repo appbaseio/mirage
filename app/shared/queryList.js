@@ -65,8 +65,7 @@ exports.queryList = {
         'must',
         'must_not',
         'should',
-        'filter',
-        'nested'
+        'filter'
     ],
     allowedDataTypes: [
         'string',

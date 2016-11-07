@@ -1513,10 +1513,15 @@ var BoolqueryComponent = (function () {
         this.queryList = this.queryList;
         this.removeArray = [];
         this.query = this.query;
+        this.setJoiningQuery = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
     }
     BoolqueryComponent.prototype.ngOnInit = function () {
+        this.allFields = this.result.resultQuery.availableFields;
         this.exeBuild();
+    };
+    BoolqueryComponent.prototype.ngOnChanges = function () {
+        this.allFields = this.result.resultQuery.availableFields;
     };
     BoolqueryComponent.prototype.addSubQuery = function (id) {
         this.addBoolQuery(id);
@@ -1550,6 +1555,14 @@ var BoolqueryComponent = (function () {
         this.query.boolparam = boolVal;
         this.exeBuild();
     };
+    BoolqueryComponent.prototype.joiningQueryChange = function (val) {
+        this.joiningQueryParam = val;
+        this.setJoiningQuery.emit({
+            param: val,
+            allFields: this.allFields
+        });
+        this.exeBuild();
+    };
     BoolqueryComponent.prototype.show_hidden_btns = function (event) {
         $('.bool_query').removeClass('show_hidden');
         $(event.currentTarget).addClass('show_hidden');
@@ -1577,6 +1590,18 @@ var BoolqueryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], BoolqueryComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "joiningQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "joiningQueryParam", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "setJoiningQuery", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -1731,6 +1756,8 @@ var QueryBlocksComponent = (function () {
                 score_mode: ''
             }
         };
+        this.joiningQuery = [''];
+        this.joiningQueryParam = 0;
         this.saveQuery = new core_1.EventEmitter();
         this.setProp = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
@@ -1765,9 +1792,22 @@ var QueryBlocksComponent = (function () {
     };
     // builquery - this function handles everything to build the query
     QueryBlocksComponent.prototype.buildQuery = function () {
+        var _this = this;
         var self = this;
         var results = this.result.resultQuery.result;
         var es_final = {};
+        this.joiningQuery = [''];
+        this.selectedTypes.map(function (type) {
+            var fields = _this.mapping[_this.config.appname].mappings[type].properties;
+            for (var item in fields) {
+                if (fields[item].type === 'nested') {
+                    if (_this.joiningQuery.indexOf('nested') < 0) {
+                        _this.joiningQuery.push('nested');
+                    }
+                    break;
+                }
+            }
+        });
         if (results.length) {
             var finalresult = {};
             es_final = {
@@ -1790,7 +1830,7 @@ var QueryBlocksComponent = (function () {
                         if (currentBool === 'should') {
                             current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
                         }
-                        if (currentBool === 'nested') {
+                        if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
                             current_query['bool']['nested']['path'] = result1.path;
                             current_query['bool']['nested']['score_mode'] = result1.score_mode;
                             isBoolPresent = false;
@@ -1802,25 +1842,27 @@ var QueryBlocksComponent = (function () {
             results.forEach(function (result) {
                 if (result.parent_id === 0) {
                     var currentBool = self.queryList['boolQuery'][result['boolparam']];
-                    if (currentBool !== 'nested') {
-                        finalresult[currentBool] = result.availableQuery;
-                    }
-                    else {
-                        finalresult[currentBool] = {
+                    if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
+                        finalresult['nested'] = {
                             path: result.path,
                             score_mode: result.score_mode,
                             query: {
-                                bool: {
-                                    must: result.availableQuery
-                                }
+                                bool: (_a = {},
+                                    _a[currentBool] = result.availableQuery,
+                                    _a
+                                )
                             }
                         };
                         isBoolPresent = false;
+                    }
+                    else {
+                        finalresult[currentBool] = result.availableQuery;
                     }
                     if (currentBool === 'should') {
                         finalresult['minimum_should_match'] = result.minimum_should_match;
                     }
                 }
+                var _a;
             });
             if (!isBoolPresent) {
                 es_final['query'] = es_final['query']['bool'];
@@ -1931,6 +1973,11 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.setDocSampleEve = function (link) {
         this.setDocSample.emit(link);
     };
+    QueryBlocksComponent.prototype.setJoiningQueryEve = function (obj) {
+        this.joiningQueryParam = obj.param;
+        this.result.resultQuery.availableFields = obj.allFields;
+        this.buildQuery();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -1964,6 +2011,10 @@ var QueryBlocksComponent = (function () {
         __metadata('design:type', Object)
     ], QueryBlocksComponent.prototype, "urlShare", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "config", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], QueryBlocksComponent.prototype, "saveQuery", void 0);
@@ -1979,7 +2030,7 @@ var QueryBlocksComponent = (function () {
         core_1.Component({
             selector: 'query-blocks',
             templateUrl: './app/queryBlocks/queryBlocks.component.html',
-            inputs: ['config', 'detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
+            inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [])
     ], QueryBlocksComponent);
@@ -6559,18 +6610,21 @@ var SinglequeryComponent = (function () {
     // on initialize set the query selector
     SinglequeryComponent.prototype.ngOnInit = function () {
         this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
+        this.allFields = this.result.resultQuery.availableFields.slice();
     };
     SinglequeryComponent.prototype.ngOnChanges = function () {
+        var _this = this;
+        this.allFields = this.result.resultQuery.availableFields.slice();
         this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
         setTimeout(function () {
-            if (this.query.selectedField) {
-                console.log(this.result.resultQuery.availableFields);
-                var isFieldExists = this.getField(this.query.selectedField);
+            _this.result.resultQuery.availableFields = _this.checkAvailableFields();
+            if (_this.query.selectedField) {
+                var isFieldExists = _this.getField(_this.query.selectedField);
                 if (!isFieldExists.length) {
-                    this.removeQuery();
+                    _this.removeQuery();
                 }
             }
-        }.bind(this), 300);
+        }, 300);
     };
     SinglequeryComponent.prototype.ngAfterViewInit = function () {
         this.informationList = {
@@ -6601,9 +6655,27 @@ var SinglequeryComponent = (function () {
             'geo_shape': this.geoShapeQuery.information
         };
     };
+    SinglequeryComponent.prototype.checkAvailableFields = function () {
+        var _this = this;
+        var fields = this.allFields;
+        if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
+            var mapObj = {};
+            this.selectedTypes.forEach(function (type) {
+                Object.assign(mapObj, _this.mapping[_this.config.appname].mappings[type].properties);
+            });
+            var _loop_1 = function(obj) {
+                if (mapObj[obj].type === 'nested') {
+                    fields = fields.filter(function (field) { return (field.name.indexOf(obj + ".") > -1); });
+                }
+            };
+            for (var obj in mapObj) {
+                _loop_1(obj);
+            }
+        }
+        return fields;
+    };
     SinglequeryComponent.prototype.getQueryFormat = function (outputQuery) {
         this.query.appliedQuery = outputQuery;
-        console.log(this.query.appliedQuery);
         this.buildQuery();
     };
     // delete query
@@ -6662,6 +6734,18 @@ var SinglequeryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SinglequeryComponent.prototype, "query", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SinglequeryComponent.prototype, "boolQueryName", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "joiningQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "joiningQueryParam", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -7360,8 +7444,7 @@ exports.queryList = {
         'must',
         'must_not',
         'should',
-        'filter',
-        'nested'
+        'filter'
     ],
     allowedDataTypes: [
         'string',
@@ -7419,6 +7502,10 @@ exports.UrlShare.prototype.setInputs = function (inputs) {
     this.createUrl();
 };
 exports.UrlShare.prototype.createUrl = function () {
+    if (this.inputs && this.inputs.config) {
+        this.inputs.appname = this.inputs.config.appname;
+        this.inputs.url = this.inputs.config.url;
+    }
     var inputs = JSON.parse(JSON.stringify(this.inputs));
     try {
         delete inputs.result.resultQuery.final;
@@ -7443,6 +7530,16 @@ exports.UrlShare.prototype.decryptUrl = function (cb) {
         var url = window.location.href.split('#?input_state=');
         if (url.length > 1) {
             _this.decompress(url[1], function (error, data) {
+                if (data && data.appname && data.url) {
+                    data.config = {
+                        appname: data.appname,
+                        url: data.url
+                    };
+                }
+                if (data && data.config) {
+                    data.appname = data.config.appname;
+                    data.url = data.config.url;
+                }
                 resolve({ error: error, data: data });
             });
         }
