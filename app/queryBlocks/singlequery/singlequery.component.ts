@@ -88,11 +88,11 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	// on initialize set the query selector
 	ngOnInit() {
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
-		this.allFields = this.result.resultQuery.availableFields;
+		this.allFields = this.result.resultQuery.availableFields.slice();
 	}
 	
 	ngOnChanges() {
-		this.allFields = this.result.resultQuery.availableFields;
+		this.allFields = this.result.resultQuery.availableFields.slice();
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
 		setTimeout(() => {
 			this.result.resultQuery.availableFields = this.checkAvailableFields();
@@ -138,9 +138,9 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	checkAvailableFields() {
 		var fields = this.allFields;
 		if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
-			var mapObj;
+			var mapObj = {};
 			this.selectedTypes.forEach((type: any) => {
-				mapObj = this.mapping[this.config.appname].mappings[type].properties;
+				Object.assign(mapObj, this.mapping[this.config.appname].mappings[type].properties);
 			});
 			for (let obj in mapObj) {
 				if (mapObj[obj].type === 'nested') {

@@ -89,7 +89,9 @@ export class QueryBlocksComponent implements OnInit {
 			let fields = this.mapping[this.config.appname].mappings[type].properties;
 			for (let item in fields) {
 				if (fields[item].type === 'nested') {
-					this.joiningQuery.push('nested');
+					if (this.joiningQuery.indexOf('nested') < 0) {
+						this.joiningQuery.push('nested');
+					}
 					break;
 				}
 			}
@@ -266,8 +268,9 @@ export class QueryBlocksComponent implements OnInit {
 		this.setDocSample.emit(link);
 	}
 
-	setJoiningQueryEve(param) {
-		this.joiningQueryParam = param;
+	setJoiningQueryEve(obj) {
+		this.joiningQueryParam = obj.param;
+		this.result.resultQuery.availableFields = obj.allFields;
 		this.buildQuery();
 	}
 }

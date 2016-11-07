@@ -22,17 +22,22 @@
 			</div>
 		</div>
 	</div>
-	<div class="row s-12 nested-container" *ngIf="(joiningQuery.length > 1)" style="padding-left: 15px">
-		<div class="col-xs-4 form-group form-element">
-			<!-- <input type="text" class="form-control" placeholder="bool query" [(ngModel)] = "query.nestedBool"  (keyup)="exeBuild();" /> -->
-			<editable [editableField]="joiningQuery[joiningQueryParam]" [editableModal]="joiningQuery" [editPlaceholder]="'select-joining-query'" [editableInput]="'select'" [selectOption]="joiningQuery" (callback)="joiningQueryChange($event)"></editable> 
-		</div>
-		<div *ngIf="joiningQuery[joiningQueryParam] == 'nested'">
+	<div class="row s-12" *ngIf="(joiningQuery.length > 1)">
+		<div class="checkbox">
+			<input id="cb-1" type="checkbox" [(ngModel)]="showJoiningQuery" (change)="joiningQueryChange(0)" autocomplete="off">
+            <label for="cb-1">Add Joining Query</label>
+        </div>
+		<div class="nested-container" *ngIf="showJoiningQuery" style="padding-left: 15px">
 			<div class="col-xs-4 form-group form-element">
-				<input type="text" class="form-control" placeholder="path" [(ngModel)] = "query.path"  (keyup)="exeBuild();" />
+				<editable [editableField]="joiningQuery[joiningQueryParam]" [editableModal]="joiningQuery" [editPlaceholder]="'select-joining-query'" [editableInput]="'select'" [selectOption]="joiningQuery" (callback)="joiningQueryChange($event)"></editable> 
 			</div>
-			<div class="col-xs-4 form-group form-element">
-				<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
+			<div *ngIf="joiningQuery[joiningQueryParam] == 'nested'">
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="path" [(ngModel)] = "query.path"  (keyup)="exeBuild();" />
+				</div>
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
+				</div>
 			</div>
 		</div>
 	</div>
