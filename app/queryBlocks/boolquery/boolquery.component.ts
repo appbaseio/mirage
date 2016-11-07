@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 declare var $: any;
 
 @Component({
@@ -7,7 +7,7 @@ declare var $: any;
 	inputs: ['config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample']
 })
 
-export class BoolqueryComponent implements OnInit, OnChanges {
+export class BoolqueryComponent implements OnInit {
 	public config: Object;
 	public queryList: any = this.queryList;
 	public addQuery: any;
@@ -20,16 +20,13 @@ export class BoolqueryComponent implements OnInit, OnChanges {
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
+	@Input() joiningQuery: any;
+	@Input() joiningQueryParam: any;
+	@Output() setJoiningQuery = new EventEmitter < any >();
 	@Output() setDocSample = new EventEmitter < any >();
 	
 	ngOnInit() {
 		this.exeBuild();
-	}
-
-	ngOnChanges() {
-		if (this.query.boolparam >= this.queryList.boolQuery.length) {
-			this.query.boolparam = 0;
-		}
 	}
 
 	addSubQuery(id: number) {
@@ -62,6 +59,11 @@ export class BoolqueryComponent implements OnInit, OnChanges {
 	}
 	booleanChange(boolVal: any) {
 		this.query.boolparam = boolVal;
+		this.exeBuild();
+	}
+	joiningQueryChange(val: any) {
+		this.joiningQueryParam = val;
+		this.setJoiningQuery.emit(val);
 		this.exeBuild();
 	}
 	show_hidden_btns(event: any) {

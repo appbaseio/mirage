@@ -53,6 +53,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() result: any;
 	@Input() query: any;
 	@Input() boolQueryName: string;
+	@Input() joiningQuery: any;
+	@Input() joiningQueryParam: any;
 	@Output() setDocSample = new EventEmitter < any >();
 	
 	@ViewChild(MatchQuery) private matchQuery: MatchQuery;
@@ -90,11 +92,11 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 	
 	ngOnChanges() {
+		this.allFields = this.result.resultQuery.availableFields;
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
 		setTimeout(() => {
 			this.result.resultQuery.availableFields = this.checkAvailableFields();
 			if(this.query.selectedField) {
-				console.log(this.result.resultQuery.availableFields);
 				var isFieldExists = this.getField(this.query.selectedField);
 				if(!isFieldExists.length) {
 					this.removeQuery();
@@ -135,19 +137,14 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 
 	checkAvailableFields() {
 		var fields = this.allFields;
-		if (this.boolQueryName == 'nested') {
+		if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
 			var mapObj;
 			this.selectedTypes.forEach((type: any) => {
-				let mapObjWithFields = {};
 				mapObj = this.mapping[this.config.appname].mappings[type].properties;
 			});
 			for (let obj in mapObj) {
 				if (mapObj[obj].type === 'nested') {
-					fields = fields.filter(field => {
-						if (field.name.indexOf(obj + ".") > -1) {
-							return field;
-						}
-					});
+					fields = fields.filter(field => (field.name.indexOf(obj + ".") > -1));
 				}
 			}
 		}
@@ -156,7 +153,6 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 
 	getQueryFormat(outputQuery) {
 		this.query.appliedQuery = outputQuery;
-		console.log(this.query.appliedQuery);
 		this.buildQuery();
 	}
 

@@ -7,7 +7,7 @@
 	<div class="row m-b15 nested-first">
 		<div class="col-xs-12 nested-container">
 			<button (click)="addSubQuery(query.id)" class="btn btn-default nested-query">
-				<i class="fa fa-plus"></i> Nested query
+				<i class="fa fa-plus"></i> Compound query
 			</button>
 			<div class="col-xs-6">
 				<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
@@ -20,19 +20,19 @@
 					<input type="text" class="form-control" placeholder="Minimum should match" [(ngModel)] = "query.minimum_should_match"  (keyup)="exeBuild();" />
 				</div>
 			</div>
-			<div class="col-xs-6" *ngIf="queryList.boolQuery[query.boolparam] == 'nested'">
-				<div class="form-group form-element">
-					<input type="text" class="form-control" placeholder="bool query" [(ngModel)] = "query.nestedBool"  (keyup)="exeBuild();" />
-				</div>
-				<div class="form-group form-element" *ngIf="query.nestedBool == 'should'">
-					<input type="text" class="form-control" placeholder="Minimum should match" [(ngModel)] = "query.minimum_should_match"  (keyup)="exeBuild();" />
-				</div>
-				<div class="form-group form-element">
-					<input type="text" class="form-control" placeholder="path" [(ngModel)] = "query.path"  (keyup)="exeBuild();" />
-				</div>
-				<div class="form-group form-element">
-					<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
-				</div>
+		</div>
+	</div>
+	<div class="row s-12 nested-container" *ngIf="(joiningQuery.length > 1)" style="padding-left: 15px">
+		<div class="col-xs-4 form-group form-element">
+			<!-- <input type="text" class="form-control" placeholder="bool query" [(ngModel)] = "query.nestedBool"  (keyup)="exeBuild();" /> -->
+			<editable [editableField]="joiningQuery[joiningQueryParam]" [editableModal]="joiningQuery" [editPlaceholder]="'select-joining-query'" [editableInput]="'select'" [selectOption]="joiningQuery" (callback)="joiningQueryChange($event)"></editable> 
+		</div>
+		<div *ngIf="joiningQuery[joiningQueryParam] == 'nested'">
+			<div class="col-xs-4 form-group form-element">
+				<input type="text" class="form-control" placeholder="path" [(ngModel)] = "query.path"  (keyup)="exeBuild();" />
+			</div>
+			<div class="col-xs-4 form-group form-element">
+				<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
 			</div>
 		</div>
 	</div>
@@ -59,6 +59,8 @@
 				[editorHookHelp]="editorHookHelp"
 				[urlShare]="urlShare"
 				[boolQueryName]="queryList.boolQuery[query.boolparam]"
+				[joiningQuery]="joiningQuery"
+				[joiningQueryParam]="joiningQueryParam"
 				(setDocSample)="setDocSampleEve($event);">
 			</single-query>
 		</form>
@@ -88,6 +90,8 @@
 					[setQueryFormat]="setQueryFormat"
 					[editorHookHelp]="editorHookHelp"
 					[urlShare]="urlShare"
+					[joiningQuery]="joiningQuery"
+					[joiningQueryParam]="joiningQueryParam"
 					(setDocSample)="setDocSample($event);" >
 				</bool-query>
 			</div>

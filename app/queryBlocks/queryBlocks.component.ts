@@ -25,13 +25,14 @@ export class QueryBlocksComponent implements OnInit {
 			parent_id: 0,
 			id: 0,
 			internal: [],
-			nestedBool: '',
 			minimum_should_match: '',
 			path: '',
 			score_mode: ''
 		}
 	};
 	public editorHookHelp: any;
+	public joiningQuery: any = [''];
+	public joiningQueryParam: any = 0;
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
@@ -82,22 +83,17 @@ export class QueryBlocksComponent implements OnInit {
 		var results = this.result.resultQuery.result;
 		var es_final = {};
 		
-		var mapObj;
-		var qList = this.queryList.boolQuery;
-		this.queryList.boolQuery = qList.filter(e => e !== 'nested');
-		qList = this.queryList.boolQuery;
+		this.joiningQuery = [''];
 
-		this.selectedTypes.forEach((type: any) => {
-			let mapObjWithFields = {};
-			mapObj = this.mapping[this.config.appname].mappings[type].properties;
-		});
-
-		for (let obj in mapObj) {
-			if (mapObj[obj].type === 'nested') {
-				qList.push('nested');
-				break;
+		this.selectedTypes.map((type: any) => {
+			let fields = this.mapping[this.config.appname].mappings[type].properties;
+			for (let item in fields) {
+				if (fields[item].type === 'nested') {
+					this.joiningQuery.push('nested');
+					break;
+				}
 			}
-		}
+		});
 
 		if(results.length) {
 			var finalresult = {};
@@ -122,7 +118,7 @@ export class QueryBlocksComponent implements OnInit {
 						if (currentBool === 'should') {
 							current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
 						}
-						if (currentBool === 'nested') {
+						if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
 							current_query['bool']['nested']['path'] = result1.path;
 							current_query['bool']['nested']['score_mode'] = result1.score_mode;
 							isBoolPresent = false;
@@ -134,13 +130,13 @@ export class QueryBlocksComponent implements OnInit {
 			results.forEach(function(result) {
 				if (result.parent_id === 0) {
 					var currentBool = self.queryList['boolQuery'][result['boolparam']];
-					if(currentBool === 'nested') {
-						finalresult[currentBool] = {
+					if(self.joiningQuery[self.joiningQueryParam] === 'nested') {
+						finalresult['nested'] = {
 							path: result.path,
 							score_mode: result.score_mode,
 							query: {
 								bool: {
-									[result.nestedBool]: result.availableQuery
+									[currentBool]: result.availableQuery
 								}
 							}
 						};
@@ -268,5 +264,10 @@ export class QueryBlocksComponent implements OnInit {
 
 	setDocSampleEve(link) {
 		this.setDocSample.emit(link);
+	}
+
+	setJoiningQueryEve(param) {
+		this.joiningQueryParam = param;
+		this.buildQuery();
 	}
 }
