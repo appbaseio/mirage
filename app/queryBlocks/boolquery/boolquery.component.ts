@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 declare var $: any;
 
 @Component({
@@ -7,7 +7,7 @@ declare var $: any;
 	inputs: ['config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample']
 })
 
-export class BoolqueryComponent implements OnInit {
+export class BoolqueryComponent implements OnInit, OnChanges {
 	public config: Object;
 	public queryList: any = this.queryList;
 	public addQuery: any;
@@ -16,14 +16,23 @@ export class BoolqueryComponent implements OnInit {
 	public removeArray: any = [];
 	public query: any = this.query;
 	public buildQuery: any;
+	public allFields: any;
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
+	@Input() joiningQuery: any;
+	@Input() joiningQueryParam: any;
+	@Output() setJoiningQuery = new EventEmitter < any >();
 	@Output() setDocSample = new EventEmitter < any >();
 	
 	ngOnInit() {
+		this.allFields = this.result.resultQuery.availableFields;
 		this.exeBuild();
+	}
+
+	ngOnChanges() {
+		this.allFields = this.result.resultQuery.availableFields;
 	}
 
 	addSubQuery(id: number) {
@@ -58,6 +67,14 @@ export class BoolqueryComponent implements OnInit {
 		this.query.boolparam = boolVal;
 		this.exeBuild();
 	}
+	joiningQueryChange(val: any) {
+		this.joiningQueryParam = val;
+		this.setJoiningQuery.emit({
+			param: val,
+			allFields: this.allFields
+		});
+		this.exeBuild();
+	}
 	show_hidden_btns(event: any) {
 		$('.bool_query').removeClass('show_hidden');
 		$(event.currentTarget).addClass('show_hidden');
@@ -66,7 +83,6 @@ export class BoolqueryComponent implements OnInit {
 	hide_hidden_btns() {
 		$('.bool_query').removeClass('show_hidden');
 	}
-
 	setDocSampleEve(link) {
 		this.setDocSample.emit(link);
 	}

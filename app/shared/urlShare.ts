@@ -16,6 +16,10 @@ UrlShare.prototype.setInputs = function(inputs: any) {
 }
 
 UrlShare.prototype.createUrl = function() {
+    if(this.inputs && this.inputs.config) {
+        this.inputs.appname = this.inputs.config.appname;
+        this.inputs.url = this.inputs.config.url;
+    }
     var inputs = JSON.parse(JSON.stringify(this.inputs));
     try {
         delete inputs.result.resultQuery.final;
@@ -39,6 +43,15 @@ UrlShare.prototype.decryptUrl = function(cb) {
         var url = window.location.href.split('#?input_state=');
         if (url.length > 1) {
             this.decompress(url[1], function(error, data) {
+                if(data && data.appname && data.url) {
+                    data.config = {
+                        appname: data.appname,
+                        url: data.url
+                    };
+                } if(data && data.config) {
+                    data.appname = data.config.appname;
+                    data.url = data.config.url;
+                }
                 resolve({error: error, data: data});
             });    
         } else {
