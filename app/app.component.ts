@@ -60,6 +60,8 @@ export class AppComponent implements OnInit, OnChanges {
 	public currentDeleteQuery: any;
 	active = true;
 	submitted = false;
+	public queryParams: any;
+	public allowHF: boolean;
 	public setLayoutFlag = false;
   	public deleteItemInfo: any = {
 		title: 'Confirm Deletion',
@@ -81,6 +83,8 @@ export class AppComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
+		this.queryParams = this.urlShare.getQueryParameters();
+        this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
 		// get data from url
 		this.detectConfig(configCb.bind(this));
 		function configCb(config) {
