@@ -20,6 +20,9 @@ UrlShare.prototype.createUrl = function() {
         this.inputs.appname = this.inputs.config.appname;
         this.inputs.url = this.inputs.config.url;
     }
+    if(this.inputs.selectedTypes) {
+        this.inputs.selectedType = this.inputs.selectedTypes;
+    }
     var inputs = JSON.parse(JSON.stringify(this.inputs));
     try {
         delete inputs.result.resultQuery.final;
@@ -77,13 +80,7 @@ UrlShare.prototype.convertToUrl = function(type) {
 }
 
 UrlShare.prototype.dejavuLink = function() {
-    var obj = {
-        url: this.inputs.config.url,
-        appname: this.inputs.config.appname,
-        selectedType: this.inputs.selectedTypes
-    };
-    var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(obj), 'dejvu').toString();
-    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state='+ciphertext;
+    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state='+this.url;
     return final_url;
 }
 
