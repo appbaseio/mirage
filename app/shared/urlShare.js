@@ -17,6 +17,9 @@ exports.UrlShare.prototype.createUrl = function () {
         this.inputs.appname = this.inputs.config.appname;
         this.inputs.url = this.inputs.config.url;
     }
+    if (this.inputs.selectedTypes) {
+        this.inputs.selectedType = this.inputs.selectedTypes;
+    }
     var inputs = JSON.parse(JSON.stringify(this.inputs));
     try {
         delete inputs.result.resultQuery.final;
@@ -31,16 +34,20 @@ exports.UrlShare.prototype.createUrl = function () {
             if (window.location.href.indexOf('#?default=true') > -1) {
                 window.location.href = window.location.href.split('?default=true')[0];
             }
-            window.location.href = '#?input_state=' + ciphertext;
+            var finalUrl = '#?input_state=' + ciphertext;
+            if (this.queryParams && this.queryParams.hf) {
+                finalUrl += '&hf=' + this.queryParams.hf;
+            }
+            window.location.href = finalUrl;
         }
     }
 };
 exports.UrlShare.prototype.decryptUrl = function (cb) {
     var _this = this;
     return new Promise(function (resolve, reject) {
-        var url = window.location.href.split('#?input_state=');
-        if (url.length > 1) {
-            _this.decompress(url[1], function (error, data) {
+        _this.queryParams = _this.getQueryParameters();
+        if (_this.queryParams.input_state) {
+            _this.decompress(_this.queryParams.input_state, function (error, data) {
                 if (data && data.appname && data.url) {
                     data.config = {
                         appname: data.appname,
@@ -71,13 +78,7 @@ exports.UrlShare.prototype.convertToUrl = function (type) {
     return final_url;
 };
 exports.UrlShare.prototype.dejavuLink = function () {
-    var obj = {
-        url: this.inputs.config.url,
-        appname: this.inputs.config.appname,
-        selectedType: this.inputs.selectedTypes
-    };
-    var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(obj), 'dejvu').toString();
-    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state=' + ciphertext;
+    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state=' + this.url;
     return final_url;
 };
 exports.UrlShare.prototype.compress = function (jsonInput, cb) {
@@ -120,6 +121,15 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
     }
     else {
         return cb('Empty');
+    }
+};
+exports.UrlShare.prototype.getQueryParameters = function (str) {
+    var hash = window.location.hash.split('#');
+    if (hash.length > 1) {
+        return (str || hash[1]).replace(/(^\?)/, '').split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1], this; }.bind({}))[0];
+    }
+    else {
+        return null;
     }
 };
 //# sourceMappingURL=urlShare.js.map

@@ -70,6 +70,8 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
+        this.queryParams = this.urlShare.getQueryParameters();
+        this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
         // get data from url
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
