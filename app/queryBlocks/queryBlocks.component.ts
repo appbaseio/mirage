@@ -53,7 +53,6 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 
 	ngOnChanges() {
 		this.joiningQuery = this.result.joiningQuery;
-		debugger
 	}
 
 
