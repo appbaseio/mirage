@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output } from "@angular/core";
 import { queryList } from "../shared/queryList";
 declare var $: any;
 
@@ -8,7 +8,7 @@ declare var $: any;
 	inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
 })
 
-export class QueryBlocksComponent implements OnInit {
+export class QueryBlocksComponent implements OnInit, OnChanges {
 	public queryList: any = queryList;
 	public queryFormat: any = {
 		internal: {
@@ -48,6 +48,12 @@ export class QueryBlocksComponent implements OnInit {
 
 	ngOnInit() {
 		this.handleEditable();
+		this.joiningQuery = this.result.joiningQuery;
+	}
+
+	ngOnChanges() {
+		this.joiningQuery = this.result.joiningQuery;
+		debugger
 	}
 
 
@@ -82,20 +88,6 @@ export class QueryBlocksComponent implements OnInit {
 		var self = this;
 		var results = this.result.resultQuery.result;
 		var es_final = {};
-		
-		this.joiningQuery = [''];
-
-		this.selectedTypes.map((type: any) => {
-			let fields = this.mapping[this.config.appname].mappings[type].properties;
-			for (let item in fields) {
-				if (fields[item].type === 'nested') {
-					if (this.joiningQuery.indexOf('nested') < 0) {
-						this.joiningQuery.push('nested');
-					}
-					break;
-				}
-			}
-		});
 
 		if(results.length) {
 			var finalresult = {};

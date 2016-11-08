@@ -55,6 +55,8 @@ export class TypesComponent implements OnChanges {
 		//this.mapping.resultQuery.result = [];
 		var availableFields: any = [];
 		var propInfo: any;
+		this.result.joiningQuery = [''];
+
 		if (val && val.length) {
 			val.forEach(function(type: any) {
 				let mapObjWithFields = {};
@@ -72,6 +74,11 @@ export class TypesComponent implements OnChanges {
 							let subname = field+'.'+sub;
 							mapObjWithFields[subname] = mapObj[field].properties[sub];
 						}		
+					}
+					if (mapObj[field].type === 'nested') {
+						if (this.result.joiningQuery.indexOf('nested') < 0) {
+							this.result.joiningQuery.push('nested');
+						}
 					}
 				}
 				for (var field in mapObjWithFields) {
@@ -107,7 +114,8 @@ export class TypesComponent implements OnChanges {
 		} else {
 			propInfo = {
 				name: 'selectedTypes',
-				value: []
+				value: [],
+				joiningQuery: []
 			};
 			this.setProp.emit(propInfo);
 			this.setUrl([]);
@@ -115,7 +123,8 @@ export class TypesComponent implements OnChanges {
 
 		propInfo = {
 			name: 'availableFields',
-			value: availableFields
+			value: availableFields,
+			joiningQuery: this.joiningQuery
 		};
 		this.setProp.emit(propInfo);
 	}
