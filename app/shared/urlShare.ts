@@ -33,16 +33,20 @@ UrlShare.prototype.createUrl = function() {
             if(window.location.href.indexOf('#?default=true') > -1) {
                 window.location.href = window.location.href.split('?default=true')[0];
             }
-            window.location.href = '#?input_state=' + ciphertext;
+            let finalUrl = '#?input_state=' + ciphertext;
+            if(this.queryParams && this.queryParams.hf) {
+                finalUrl += '&hf='+this.queryParams.hf
+            }
+            window.location.href = finalUrl;
         }
     }
 }
 
 UrlShare.prototype.decryptUrl = function(cb) {
     return new Promise((resolve, reject) => {
-        var url = window.location.href.split('#?input_state=');
-        if (url.length > 1) {
-            this.decompress(url[1], function(error, data) {
+        this.queryParams = this.getQueryParameters();
+        if (this.queryParams.input_state) {
+        this.decompress(this.queryParams.input_state, function(error, data) {
                 if(data && data.appname && data.url) {
                     data.config = {
                         appname: data.appname,
@@ -119,6 +123,15 @@ UrlShare.prototype.decompress = function(compressed, cb) {
         });
     } else {
         return cb('Empty');
+    }
+}
+
+UrlShare.prototype.getQueryParameters = function(str) {
+    let hash = window.location.hash.split('#');
+    if(hash.length > 1) {
+      return (str || hash[1]).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
+    } else {
+      return null;
     }
 }
 
