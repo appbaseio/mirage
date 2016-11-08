@@ -28,6 +28,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			minimum_should_match: '',
 			path: '',
 			type: '',
+			parent_type: '',
 			score_mode: ''
 		}
 	};
@@ -141,6 +142,16 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 								has_child: {
 									type: result.type,
 									score_mode: result.score_mode,
+									query: result.availableQuery
+								}
+							}
+						};
+						isBoolPresent = false;
+					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+						finalresult['bool'] = {
+							[currentBool]: {
+								has_parent: {
+									parent_type: result.parent_type,
 									query: result.availableQuery
 								}
 							}

@@ -132,6 +132,7 @@ export class TypesComponent implements OnChanges {
 				if (val.indexOf(allMappings[type]['_parent'].type) > -1) {
 					if (this.result.joiningQuery.indexOf('has_child') < 0) {
 						this.result.joiningQuery.push('has_child');
+						this.result.joiningQuery.push('has_parent');
 					}
 				}
 			}
