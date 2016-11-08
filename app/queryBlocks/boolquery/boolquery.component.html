@@ -39,6 +39,14 @@
 					<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
 				</div>
 			</div>
+			<div *ngIf="joiningQuery[joiningQueryParam] == 'has_child'">
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="type" [(ngModel)] = "query.type"  (keyup)="exeBuild();" />
+				</div>
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="internvalQuery">

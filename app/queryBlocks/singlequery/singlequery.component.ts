@@ -137,14 +137,46 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 
 	checkAvailableFields() {
 		var fields = this.allFields;
+		var allMappings = this.mapping[this.config.appname].mappings;
 		if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
 			var mapObj = {};
 			this.selectedTypes.forEach((type: any) => {
-				Object.assign(mapObj, this.mapping[this.config.appname].mappings[type].properties);
+				Object.assign(mapObj, allMappings[type].properties);
 			});
 			for (let obj in mapObj) {
 				if (mapObj[obj].type === 'nested') {
 					fields = fields.filter(field => (field.name.indexOf(obj + ".") > -1));
+				}
+			}
+		}
+		if (this.joiningQuery[this.joiningQueryParam] == 'has_child') {
+			fields = [];
+			for (let type in allMappings) {
+				if (allMappings[type].hasOwnProperty('_parent')) {
+					let fieldObj = allMappings[type].properties;
+					for (let field in fieldObj) {
+						let index = typeof fieldObj[field]['index'] != 'undefined' ? fieldObj[field]['index'] : null;
+						let obj = {
+							name: field,
+							type: fieldObj[field]['type'],
+							index: index
+						}
+						switch (obj.type) {
+							case 'long':
+							case 'integer':
+							case 'short':
+							case 'byte':
+							case 'double':
+							case 'float':
+								obj.type = 'numeric';
+								break;
+							case 'text':
+							case 'keyword':
+								obj.type = 'string';
+								break;
+						}
+						fields.push(obj);
+					}
 				}
 			}
 		}

@@ -55,12 +55,13 @@ export class TypesComponent implements OnChanges {
 		//this.mapping.resultQuery.result = [];
 		var availableFields: any = [];
 		var propInfo: any;
+		var allMappings = this.mapping[this.config.appname].mappings;
 		this.result.joiningQuery = [''];
 
 		if (val && val.length) {
 			val.forEach(function(type: any) {
 				let mapObjWithFields = {};
-				var mapObj = this.mapping[this.config.appname].mappings[type].properties;
+				var mapObj = allMappings[type].properties;
 				for (let field in mapObj) {
 					mapObjWithFields[field] = mapObj[field];
 					if(mapObj[field].fields) {
@@ -114,8 +115,7 @@ export class TypesComponent implements OnChanges {
 		} else {
 			propInfo = {
 				name: 'selectedTypes',
-				value: [],
-				joiningQuery: []
+				value: []
 			};
 			this.setProp.emit(propInfo);
 			this.setUrl([]);
@@ -123,10 +123,19 @@ export class TypesComponent implements OnChanges {
 
 		propInfo = {
 			name: 'availableFields',
-			value: availableFields,
-			joiningQuery: this.joiningQuery
+			value: availableFields
 		};
 		this.setProp.emit(propInfo);
+
+		for (let type in allMappings) {
+			if (allMappings[type].hasOwnProperty('_parent')) {
+				if (val.indexOf(allMappings[type]['_parent'].type) > -1) {
+					if (this.result.joiningQuery.indexOf('has_child') < 0) {
+						this.result.joiningQuery.push('has_child');
+					}
+				}
+			}
+		}
 	}
 
 	setUrl(val: any) {

@@ -27,6 +27,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			internal: [],
 			minimum_should_match: '',
 			path: '',
+			type: '',
 			score_mode: ''
 		}
 	};
@@ -133,7 +134,17 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 								}
 							}
 						};
-
+						isBoolPresent = false;
+					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+						finalresult['bool'] = {
+							[currentBool]: {
+								has_child: {
+									type: result.type,
+									score_mode: result.score_mode,
+									query: result.availableQuery
+								}
+							}
+						};
 						isBoolPresent = false;
 					} else {
 						finalresult[currentBool] = result.availableQuery;
