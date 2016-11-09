@@ -377,5 +377,19 @@
 	</div>
 	<!-- geo_shape query end -->
 
+	<!-- span_term query start -->
+	<div [hidden]="query.selectedQuery != 'span_term'" class="row">
+		<span-term-query 
+			[appliedQuery]="query.appliedQuery"
+			[queryList]="queryList"
+			[selectedQuery]="query.selectedQuery"
+			[selectedField]="query.selectedField"
+			[querySelector]="querySelector" 
+			(getQueryFormat)="getQueryFormat($event);"
+			>
+		</span-term-query>
+	</div>
+	<!-- span_term query end -->
+
 	<!-- load the slector for selected query -->
 </div>
