@@ -90,19 +90,15 @@ export class SpanTermQuery implements OnInit, OnChanges {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
-                if (this.appliedQuery[this.current_query][this.fieldName].hasOwnProperty('query')) {
-                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
-                    for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
-                    if (option != 'query') {
+                this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                for (let option in this.appliedQuery[this.current_query][this.fieldName]) {
+                    if (option != 'value') {
                         var obj = {
                             name: option,
                             value: this.appliedQuery[this.current_query][this.fieldName][option]
                         };
                         this.optionRows.push(obj);
                     }
-                }
-                } else {
-                    this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName];
                 }
             }
         } catch (e) {}
