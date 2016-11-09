@@ -17,7 +17,8 @@ export var queryList = {
 			'match_phrase_prefix',
 			'ids',
 			'common',
-			'span_term'
+			'span_term',
+			'span_first'
 		],
 		numeric: [
 			'match',

@@ -50,6 +50,7 @@ import { GeoPolygonQuery } from './queryBlocks/singlequery/queries/geopolygon.qu
 import { GeoHashCellQuery } from './queryBlocks/singlequery/queries/geohashcell.query';
 import { GeoShapeQuery } from './queryBlocks/singlequery/queries/geoshape.query';
 import { SpanTermQuery } from './queryBlocks/singlequery/queries/span_term.query';
+import { SpanFirstQuery } from './queryBlocks/singlequery/queries/span_first.query';
 // Pipes
 import { prettyJson } from "./shared/pipes/prettyJson";
 import { prettyTime } from "./shared/pipes/prettyTime";
@@ -108,7 +109,8 @@ import { TimeComponent } from "./features/list/time/time.component";
     GeoHashCellQuery,
     GeoShapeQuery,
     CommonQuery,
-  	SpanTermQuery,
+    SpanTermQuery,
+  	SpanFirstQuery,
   	prettyJson,
   	TimeComponent,
   	prettyTime

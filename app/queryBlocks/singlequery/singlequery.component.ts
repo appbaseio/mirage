@@ -25,6 +25,7 @@ import { GeoPolygonQuery } from './queries/geopolygon.query';
 import { GeoHashCellQuery } from './queries/geohashcell.query';
 import { GeoShapeQuery } from './queries/geoshape.query';
 import { SpanTermQuery } from './queries/span_term.query';
+import { SpanFirstQuery } from './queries/span_first.query';
 declare var $: any;
 
 @Component({
@@ -84,6 +85,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(GeoHashCellQuery) private geoHashCellQuery: GeoHashCellQuery;
 	@ViewChild(GeoShapeQuery) private geoShapeQuery: GeoShapeQuery;
 	@ViewChild(SpanTermQuery) private spanTermQuery: SpanTermQuery;
+	@ViewChild(SpanFirstQuery) private spanFirstQuery: SpanFirstQuery;
 	
 	public informationList: any = {};
 
@@ -134,7 +136,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'geo_polygon': this.geoPolygonQuery.information,
 			'geohash_cell': this.geoHashCellQuery.information,
 			'geo_shape': this.geoShapeQuery.information,
-			'span_term': this.spanTermQuery.information
+			'span_term': this.spanTermQuery.information,
+			'span_first': this.spanFirstQuery.information
 		};
 	}
 
