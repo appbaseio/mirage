@@ -29,7 +29,17 @@
         </div>
 		<div class="nested-container" *ngIf="showJoiningQuery" style="padding-left: 15px">
 			<div class="col-xs-4 form-group form-element">
-				<editable [editableField]="joiningQuery[joiningQueryParam]" [editableModal]="joiningQuery" [editPlaceholder]="'select-joining-query'" [editableInput]="'select'" [selectOption]="joiningQuery" (callback)="joiningQueryChange($event)"></editable> 
+				<editable 
+					class="select-joining-query"
+					[editableField]="joiningQuery[joiningQueryParam]"
+					[editPlaceholder]="'select-joining-query'"
+					[editableInput]="'select2'"
+					[selectOption]="joiningQuery"
+					[selector]="'select-joining-query'"
+					[informationList]="informationList"
+					[showInfoFlag]="true"
+					[searchOff]="true"
+					(callback)="joiningQueryChange($event)"></editable>
 			</div>
 			<div *ngIf="joiningQuery[joiningQueryParam] == 'nested'">
 				<div class="col-xs-4 form-group form-element">

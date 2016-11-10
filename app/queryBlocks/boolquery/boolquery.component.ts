@@ -17,6 +17,23 @@ export class BoolqueryComponent implements OnInit, OnChanges {
 	public query: any = this.query;
 	public buildQuery: any;
 	public allFields: any;
+	public informationList: any = {
+		'nested': {
+			title: 'nested',
+			content: `<span class="description">Nested query allows to query nested objects / docs. The query is executed against the nested objects / docs as if they were indexed as separate docs and resulting in the root parent doc.</span>
+				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html#query-dsl-nested-query">Read more</a>`
+		},
+		'has_child': {
+			title: 'has_child',
+			content: `<span class="description">The has_child filter accepts a query and the child type to run against, and results in parent documents that have child docs matching the query.</span>
+				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-child-query.html#query-dsl-has-child-query">Read more</a>`
+		},
+		'has_parent': {
+			title: 'has_parent',
+			content: `<span class="description">The has_parent query accepts a query and a parent type. The query is executed in the parent document space, which is specified by the parent type. This query returns child documents which associated parents have matched.</span>
+				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-parent-query.html#query-dsl-has-parent-query">Read more</a>`
+		}
+	};
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
@@ -68,6 +85,9 @@ export class BoolqueryComponent implements OnInit, OnChanges {
 		this.exeBuild();
 	}
 	joiningQueryChange(val: any) {
+		if (val.val) {
+			val = this.joiningQuery.indexOf(val.val);
+		}
 		this.joiningQueryParam = val;
 		this.setJoiningQuery.emit({
 			param: val,
