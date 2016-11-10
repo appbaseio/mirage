@@ -60,7 +60,7 @@ describe('SpanTerm query format', () => {
         query.optionRows = [{
             name: 'boost',
             value: '2'
-        };
+        }];
         var format = query.setFormat();
         expect(format).toEqual(expectedFormatWithOption);
     });
