@@ -39,6 +39,7 @@
 					[informationList]="informationList"
 					[showInfoFlag]="true"
 					[searchOff]="true"
+					(setDocSample)="setDocSampleEve($event);"
 					(callback)="joiningQueryChange($event)"></editable>
 			</div>
 			<div *ngIf="joiningQuery[joiningQueryParam] == 'nested'">
@@ -60,6 +61,14 @@
 			<div *ngIf="joiningQuery[joiningQueryParam] == 'has_parent'">
 				<div class="col-xs-4 form-group form-element">
 					<input type="text" class="form-control" placeholder="parent type" [(ngModel)] = "query.parent_type"  (keyup)="exeBuild();" />
+				</div>
+			</div>
+			<div *ngIf="joiningQuery[joiningQueryParam] == 'parent_id'">
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="type" [(ngModel)] = "query.type"  (keyup)="exeBuild();" />
+				</div>
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="id" [(ngModel)] = "query.xid"  (keyup)="exeBuild();" />
 				</div>
 			</div>
 		</div>
