@@ -126,7 +126,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			results.forEach(function(result) {
 				if (result.parent_id === 0) {
 					var currentBool = self.queryList['boolQuery'][result['boolparam']];
-					if(self.joiningQuery[self.joiningQueryParam] === 'nested') {
+					if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'nested') {
 						finalresult['nested'] = {
 							path: result.path,
 							score_mode: result.score_mode,
@@ -137,7 +137,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 							}
 						};
 						isBoolPresent = false;
-					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_child') {
 						finalresult[currentBool] = {
 							has_child: {
 								type: result.type,
@@ -145,14 +145,14 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 								query: result.availableQuery
 							}
 						};
-					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
 						finalresult[currentBool] = {
 							has_parent: {
 								parent_type: result.parent_type,
 								query: result.availableQuery
 							}
 						};
-					} else if(self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
 						finalresult[currentBool] = {
 							parent_id: {
 								type: result.type,

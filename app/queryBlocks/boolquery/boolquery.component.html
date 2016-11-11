@@ -22,7 +22,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row s-12" *ngIf="(joiningQuery.length > 1)">
+	<div class="row s-12" *ngIf="(joiningQuery && joiningQuery.length > 1)">
 		<div class="checkbox">
 			<input id="cb-1" type="checkbox" [(ngModel)]="showJoiningQuery" (change)="joiningQueryChange(0)" autocomplete="off">
             <label for="cb-1">Add Joining Query</label>
