@@ -39,6 +39,7 @@
 					[informationList]="informationList"
 					[showInfoFlag]="true"
 					[searchOff]="true"
+					(setDocSample)="setDocSampleEve($event);"
 					(callback)="joiningQueryChange($event)"></editable>
 			</div>
 			<div *ngIf="joiningQuery[joiningQueryParam] == 'nested'">
