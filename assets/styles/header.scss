@@ -61,59 +61,6 @@ footer {
 		}
 	}
 }
-/*.header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 9;
-	background: $grey-bg;
-	border-bottom: 0;
-	padding: 6px;
-	max-height: 40px;
-	margin: 0 auto;
-	.header-container {
-		display: inline-block;
-		.img-container {
-			max-width: 170px;
-			display: inline-block;
-			float: left;
-			padding: 5px;
-			left: 10px;
-		}
-		.tag-line {
-			padding-left: 15px;
-			line-height: 30px;
-			font-size: 20px;
-		}
-	}
-	@media screen and (max-width: 768px) {
-		.header-container {
-			.img-container {
-				max-width: 120px;
-			}
-			.tag-line {
-				padding-left: 15px;
-				line-height: 30px;
-				font-size: 14px;
-			}
-		}
-	}
-	@media screen and (max-width: 500px) { 
-		.header-container {
-			height: 30px;
-			.tag-line {
-				display: none;
-			}
-		}
-	}
-}*/
-.applogin-component {
-	position: relative;
-    height: 100%;
-    padding-top: 60px;
-    padding-bottom: 36px;
-}
 .header {
 	position: absolute;
 	top: 0;
