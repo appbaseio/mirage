@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output } from "@angular/core";
 import { queryList } from "../shared/queryList";
 declare var $: any;
 
@@ -8,7 +8,7 @@ declare var $: any;
 	inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
 })
 
-export class QueryBlocksComponent implements OnInit {
+export class QueryBlocksComponent implements OnInit, OnChanges {
 	public queryList: any = queryList;
 	public queryFormat: any = {
 		internal: {
@@ -27,6 +27,9 @@ export class QueryBlocksComponent implements OnInit {
 			internal: [],
 			minimum_should_match: '',
 			path: '',
+			type: '',
+			xid: 0,
+			parent_type: '',
 			score_mode: ''
 		}
 	};
@@ -48,6 +51,11 @@ export class QueryBlocksComponent implements OnInit {
 
 	ngOnInit() {
 		this.handleEditable();
+		this.joiningQuery = this.result.joiningQuery;
+	}
+
+	ngOnChanges() {
+		this.joiningQuery = this.result.joiningQuery;
 	}
 
 
@@ -82,20 +90,6 @@ export class QueryBlocksComponent implements OnInit {
 		var self = this;
 		var results = this.result.resultQuery.result;
 		var es_final = {};
-		
-		this.joiningQuery = [''];
-
-		this.selectedTypes.map((type: any) => {
-			let fields = this.mapping[this.config.appname].mappings[type].properties;
-			for (let item in fields) {
-				if (fields[item].type === 'nested') {
-					if (this.joiningQuery.indexOf('nested') < 0) {
-						this.joiningQuery.push('nested');
-					}
-					break;
-				}
-			}
-		});
 
 		if(results.length) {
 			var finalresult = {};
@@ -132,7 +126,7 @@ export class QueryBlocksComponent implements OnInit {
 			results.forEach(function(result) {
 				if (result.parent_id === 0) {
 					var currentBool = self.queryList['boolQuery'][result['boolparam']];
-					if(self.joiningQuery[self.joiningQueryParam] === 'nested') {
+					if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'nested') {
 						finalresult['nested'] = {
 							path: result.path,
 							score_mode: result.score_mode,
@@ -142,9 +136,30 @@ export class QueryBlocksComponent implements OnInit {
 								}
 							}
 						};
-
 						isBoolPresent = false;
-					} else {
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+						finalresult[currentBool] = {
+							has_child: {
+								type: result.type,
+								score_mode: result.score_mode,
+								query: result.availableQuery
+							}
+						};
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+						finalresult[currentBool] = {
+							has_parent: {
+								parent_type: result.parent_type,
+								query: result.availableQuery
+							}
+						};
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+						finalresult[currentBool] = {
+							parent_id: {
+								type: result.type,
+								id: result.xid
+							}
+						};
+					}else {
 						finalresult[currentBool] = result.availableQuery;
 					}
 					if (currentBool === 'should') {

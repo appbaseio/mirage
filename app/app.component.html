@@ -4,96 +4,99 @@
 	</div>
 </section>
 <div class="app-container" [ngClass]="{'without-hf': !allowHF}">
-	<header class="header text-center" *ngIf="allowHF">
-		<span class="header-container">
-			<span class="img-container">
-				<img src="assets/images/Mirage_Flat_9.png" alt="Mirage" class="img-responsive" />
-			</span>
-			<span class="tag-line">
-				🔎 GUI for Elasticsearch Queries
-			</span>
-		</span>
-	</header>
 	<!-- HEADER START -->
-	<form class="col-xs-12 init-ES" id="init-ES"  *ngIf="allowHF" (ngSubmit)="connectHandle()" #initEs="ngForm">
-		<div class="esContainer">
-			<span class="action-btns">
-				<share-url [urlShare]="urlShare"></share-url>
-				<a [ngClass] ="{disableClick: !(initEs.form.valid && appSelected)}" class="link btn btn-default" (click)="viewData();">Data View <i class="fa fa-external-link-square"></i></a>
-			</span>
-			<div class="form-group m-0 col-xs-4 pd-0 pr-5">
-				<appselect (onAppSelectChange)="onAppSelectChange($event);" [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
-			</div>
-			<div class="form-group m-0 col-xs-8 pr-5">
-				<div class="url-container form-element header-element">
-					<input type="text" [(ngModel)]="config.url" required class="form-control" name="url" [readonly]="connected ? true : false" placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" /> <span class="hide-url" [ngClass]="{expand: hide_url_flag, collapse: !hide_url_flag}">
-						<a class="btn btn-default" (click)="hideUrl();">
-							<span [hidden]="hide_url_flag" class="fa fa-eye"></span> <span [hidden]="!hide_url_flag" class="fa fa-eye-slash"></span> </a>
-					</span>
-				</div>
-			</div>
-			<div class="submit-btn-container">
-				<button [disabled]="!(initEs.form.valid && appSelected)" class="btn btn-default submit-btn"> <span *ngIf="!connected">
-						<i class="fa fa-play"></i>
-						Connect
-					</span> <span *ngIf="connected">
-						<i class="fa fa-pause"></i>
-						Disconnect
-					</span>
-				</button>
-			</div>
+	<header class="header text-center" *ngIf="allowHF">
+		<span class="img-container">
+			<img src="assets/images/Mirage_Flat_9.png" alt="Mirage" class="img-responsive" />
+		</span>
+		<div class="tag-line">
+			🔎 GUI for Elasticsearch Queries
 		</div>
-	</form>
+		<subscribe-modal *ngIf="BRANCH !== 'master'"></subscribe-modal>
+	</header>
 	<!-- HEADER END -->
-	<!-- Mirage-container START -->
-	<div class="container-fluid" id="mirage-container">
-		<div class="row feature-query-container" [ngClass]="{off: !sidebar}">
-			<!-- Sidebar start -->
-			<div class="features-section">
-				<a (click)="sidebarToggle();" class="btn btn-default sidebar-toggle"> <i class="fa fa-chevron-left sidebar-close"></i> <i class="fa fa-chevron-right sidebar-open"></i> </a>
-				<div class="feature-section-container col-xs-12 pd-0">
-					<list-query [savedQueryList]="savedQueryList" [sort_by]="sort_by" [sort_direction]="sort_direction" [searchTerm]="searchTerm" [searchByMethod]="searchByMethod" [filteredQuery]="filteredQuery" (newQuery)="newQuery($event);" (deleteQuery)="deleteQuery($event)" (clearAll)="clearAll($event);" (sort)="sort($event);" (searchList)="searchList($event);"></list-query>
+	<div class="applogin-component">
+		<!-- APPLOGIN START -->
+		<form class="col-xs-12 init-ES" id="init-ES"  *ngIf="allowHF" (ngSubmit)="connectHandle()" #initEs="ngForm">
+			<div class="esContainer">
+				<span class="action-btns">
+					<share-url [urlShare]="urlShare"></share-url>
+					<a [ngClass] ="{disableClick: !(initEs.form.valid && appSelected)}" class="link btn btn-default" (click)="viewData();">Data View <i class="fa fa-external-link-square"></i></a>
+				</span>
+				<div class="form-group m-0 col-xs-4 pd-0 pr-5">
+					<appselect (onAppSelectChange)="onAppSelectChange($event);" [appsList]="appsList" [config]="config" [connected]="connected" (setConfig)="setConfig($event);"></appselect>
+				</div>
+				<div class="form-group m-0 col-xs-8 pr-5">
+					<div class="url-container form-element header-element">
+						<input type="text" [(ngModel)]="config.url" required class="form-control" name="url" [readonly]="connected ? true : false" placeholder="ElasticSearch Cluster URL: https://username:password@scalr.api.appbase.io" /> <span class="hide-url" [ngClass]="{expand: hide_url_flag, collapse: !hide_url_flag}">
+							<a class="btn btn-default" (click)="hideUrl();">
+								<span [hidden]="hide_url_flag" class="fa fa-eye"></span> <span [hidden]="!hide_url_flag" class="fa fa-eye-slash"></span> </a>
+						</span>
+					</div>
+				</div>
+				<div class="submit-btn-container">
+					<button [disabled]="!(initEs.form.valid && appSelected)" class="btn btn-default submit-btn"> <span *ngIf="!connected">
+							<i class="fa fa-play"></i>
+							Connect
+						</span> <span *ngIf="connected">
+							<i class="fa fa-pause"></i>
+							Disconnect
+						</span>
+					</button>
 				</div>
 			</div>
-			<!-- Sidebar end -->
-			<!-- Query main container start -->
-			<div class="col-xs-12 query-main-container" id="content">
-				<div class="col-xs-12 col-md-6 query-build ui-layout-center" id="paneCenter">
-					<query-blocks *ngIf="connected" [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setProp)="setProp($event)" [urlShare]="urlShare" (setDocSample)="setDocSample($event);"></query-blocks>
+		</form>
+		<!-- APPLOGIN END -->
+		<!-- Mirage-container START -->
+		<div class="container-fluid" id="mirage-container">
+			<div class="row feature-query-container" [ngClass]="{off: !sidebar}">
+				<!-- Sidebar start -->
+				<div class="features-section">
+					<a (click)="sidebarToggle();" class="btn btn-default sidebar-toggle"> <i class="fa fa-chevron-left sidebar-close"></i> <i class="fa fa-chevron-right sidebar-open"></i> </a>
+					<div class="feature-section-container col-xs-12 pd-0">
+						<list-query [savedQueryList]="savedQueryList" [sort_by]="sort_by" [sort_direction]="sort_direction" [searchTerm]="searchTerm" [searchByMethod]="searchByMethod" [filteredQuery]="filteredQuery" (newQuery)="newQuery($event);" (deleteQuery)="deleteQuery($event)" (clearAll)="clearAll($event);" (sort)="sort($event);" (searchList)="searchList($event);"></list-query>
+					</div>
 				</div>
-				<div class="col-xs-12 col-md-6 ui-layout-east query-result-container" [ngClass]="{layoutApplied: setLayoutFlag}" id="paneEast">
-					<query-jsoneditor *ngIf="connected" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl" (errorShow)="errorShow($event);" (setProp)="setProp($event)"></query-jsoneditor>
+				<!-- Sidebar end -->
+				<!-- Query main container start -->
+				<div class="col-xs-12 query-main-container" id="content">
+					<div class="col-xs-12 col-md-6 query-build ui-layout-center" id="paneCenter">
+						<query-blocks *ngIf="connected" [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setProp)="setProp($event)" [urlShare]="urlShare" (setDocSample)="setDocSample($event);"></query-blocks>
+					</div>
+					<div class="col-xs-12 col-md-6 ui-layout-east query-result-container" [ngClass]="{layoutApplied: setLayoutFlag}" id="paneEast">
+						<query-jsoneditor *ngIf="connected" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl" (errorShow)="errorShow($event);" (setProp)="setProp($event)"></query-jsoneditor>
+					</div>
+				</div>
+				<!-- Query main container end -->
+			</div>
+			<!-- Result Modal START -->
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="row">
+						<query-result [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [responseHookHelp]="responseHookHelp" [result_time_taken]="result_time_taken"></query-result>
+					</div>
 				</div>
 			</div>
-			<!-- Query main container end -->
+			<!-- Result Modal END -->
 		</div>
-		<!-- Result Modal START -->
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="row">
-					<query-result [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [responseHookHelp]="responseHookHelp" [result_time_taken]="result_time_taken"></query-result>
-				</div>
-			</div>
-		</div>
-		<!-- Result Modal END -->
+		<!-- Mirage-container END -->
+		<!-- Doc Sidebar start -->
+		<doc-sidebar [docLink]="docLink" (setDocSample)="setDocSample($event);"></doc-sidebar>
+		<!-- Doc Sidebar end -->
+		<!-- Footer START -->
+		<footer class="text-center" *ngIf="allowHF">
+			<span class="footer-center">
+				<a id="mirage-learn-link" (click)="openLearn();">New to mirage?</a>
+			</span>
+			<span class="github-star">
+			  <iframe src="https://ghbtns.com/github-btn.html?user=appbaseio&repo=mirage&type=star&count=true" frameBorder="0" scrolling="0" width="120px" height="20px"></iframe>
+			</span>
+			<span class="powered_by">
+			  Create your Elasticsearch in cloud with&nbsp;<a href="http://appbase.io">appbase.io</a>
+			</span>
+		</footer>
+		<!-- Footer END -->
 	</div>
-	<!-- Mirage-container END -->
-	<!-- Doc Sidebar start -->
-	<doc-sidebar [docLink]="docLink" (setDocSample)="setDocSample($event);"></doc-sidebar>
-	<!-- Doc Sidebar end -->
-	<!-- Footer START -->
-	<footer class="text-center" *ngIf="allowHF">
-		<span class="footer-center">
-			<a id="mirage-learn-link" (click)="openLearn();">New to mirage?</a>
-		</span>
-		<span class="github-star">
-		  <iframe src="https://ghbtns.com/github-btn.html?user=appbaseio&repo=mirage&type=star&count=true" frameBorder="0" scrolling="0" width="120px" height="20px"></iframe>
-		</span>
-		<span class="powered_by">
-		  Create your Elasticsearch in cloud with&nbsp;<a href="http://appbase.io">appbase.io</a>
-		</span>
-	</footer>
-	<!-- Footer END -->
 </div>
 <div class="modal fade" id="saveQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">

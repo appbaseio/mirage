@@ -77,6 +77,10 @@ a {
     border-color: $secondary-color;
   }
 }
+.btn {
+  border-radius: 0;
+  border: 0;
+}
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

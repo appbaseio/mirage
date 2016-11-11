@@ -570,6 +570,7 @@ export class AppComponent implements OnInit, OnChanges {
 
 	setLayoutResizer() {
 		this.setLayoutFlag = true;
+		var self = this;
 		$('body').layout({
 			east__size:	"50%",
 			center__paneSelector: "#paneCenter",
@@ -578,6 +579,13 @@ export class AppComponent implements OnInit, OnChanges {
 		function setSidebar() {
 			var windowHeight = $(window).height();
 			$('.features-section').css('height', windowHeight);
+			if(self.allowHF) {
+				var bodyHeight = $('body').height();
+				setTimeout(()=>{
+					$('#mirage-container').css('height', bodyHeight- 166);
+					$('#paneCenter, #paneEast').css('height', bodyHeight- 166);
+				}, 300);
+			}
 		}
 		setSidebar();
 		$(window).on('resize', setSidebar);

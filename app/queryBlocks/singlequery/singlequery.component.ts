@@ -24,6 +24,8 @@ import { GeoDistanceRangeQuery } from './queries/geodistancerange.query';
 import { GeoPolygonQuery } from './queries/geopolygon.query';
 import { GeoHashCellQuery } from './queries/geohashcell.query';
 import { GeoShapeQuery } from './queries/geoshape.query';
+import { SpanTermQuery } from './queries/span_term.query';
+import { SpanFirstQuery } from './queries/span_first.query';
 declare var $: any;
 
 @Component({
@@ -53,7 +55,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() result: any;
 	@Input() query: any;
 	@Input() boolQueryName: string;
-	@Input() joiningQuery: any;
+	@Input() joiningQuery: any = [''];
 	@Input() joiningQueryParam: any;
 	@Output() setDocSample = new EventEmitter < any >();
 	
@@ -82,6 +84,8 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(GeoPolygonQuery) private geoPolygonQuery: GeoPolygonQuery;
 	@ViewChild(GeoHashCellQuery) private geoHashCellQuery: GeoHashCellQuery;
 	@ViewChild(GeoShapeQuery) private geoShapeQuery: GeoShapeQuery;
+	@ViewChild(SpanTermQuery) private spanTermQuery: SpanTermQuery;
+	@ViewChild(SpanFirstQuery) private spanFirstQuery: SpanFirstQuery;
 	
 	public informationList: any = {};
 
@@ -131,20 +135,54 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'geo_distance_range': this.geoDistanceRangeQuery.information,
 			'geo_polygon': this.geoPolygonQuery.information,
 			'geohash_cell': this.geoHashCellQuery.information,
-			'geo_shape': this.geoShapeQuery.information
+			'geo_shape': this.geoShapeQuery.information,
+			'span_term': this.spanTermQuery.information,
+			'span_first': this.spanFirstQuery.information
 		};
 	}
 
 	checkAvailableFields() {
 		var fields = this.allFields;
+		var allMappings = this.mapping[this.config.appname].mappings;
 		if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
 			var mapObj = {};
 			this.selectedTypes.forEach((type: any) => {
-				Object.assign(mapObj, this.mapping[this.config.appname].mappings[type].properties);
+				Object.assign(mapObj, allMappings[type].properties);
 			});
 			for (let obj in mapObj) {
 				if (mapObj[obj].type === 'nested') {
 					fields = fields.filter(field => (field.name.indexOf(obj + ".") > -1));
+				}
+			}
+		}
+		if (this.joiningQuery[this.joiningQueryParam] == 'has_child') {
+			fields = [];
+			for (let type in allMappings) {
+				if (allMappings[type].hasOwnProperty('_parent')) {
+					let fieldObj = allMappings[type].properties;
+					for (let field in fieldObj) {
+						let index = typeof fieldObj[field]['index'] != 'undefined' ? fieldObj[field]['index'] : null;
+						let obj = {
+							name: field,
+							type: fieldObj[field]['type'],
+							index: index
+						}
+						switch (obj.type) {
+							case 'long':
+							case 'integer':
+							case 'short':
+							case 'byte':
+							case 'double':
+							case 'float':
+								obj.type = 'numeric';
+								break;
+							case 'text':
+							case 'keyword':
+								obj.type = 'string';
+								break;
+						}
+						fields.push(obj);
+					}
 				}
 			}
 		}

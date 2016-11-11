@@ -1,0 +1,39 @@
+<!-- Learn Modal START -->
+<a title="Subscribe to updates" class="subscribe" href="javascript:void;" (click)="open()">
+  <!-- <i class="fa" [ngClass]="{fa-envelope-o: !profile}"></i> -->
+  <i class="fa"  [ngClass] ="{'fa-envelope-o': !(profile), 'fa-check': (profile)}" ></i>
+</a>
+<auth-operation (updateStatus)="updateStatus($event);"></auth-operation>
+<div class="modal fade modal-info" id="subscribeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                <h4 class="modal-title" id="myModalLabel">Be in the know about major updates!</h4> </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 single-option">
+                                <label class="radio-inline">
+                                    <input type="radio" [(ngModel)]="subscribeOption" onChange="subscribeOptionChange();" value={{options.option1.value}} /> {{options.option1.text}}
+                                </label>
+                            </div>
+                            <div class="col-xs-12 single-option">
+                                <label class="radio-inline">
+                                    <input type="radio" [(ngModel)]="subscribeOption" onChange="subscribeOptionChange();" value={{options.option2.value}} /> {{options.option2.text}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <button class="btn btn-primary" (click)="subscribe();">
+                        <i class="fa fa-github"></i> Subscribe with Github
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Learn Modal END -->
