@@ -1,7 +1,7 @@
 .init-ES,
 footer {
   position: absolute;
-  top: 40px;
+  top: 0px;
   left: 0;
   width: 100%;
   z-index: 6;
@@ -26,6 +26,11 @@ footer {
     position: absolute;
     right: 5px;
     width: 125px; }
+
+.init-ES {
+  padding: 15px 130px 15px 165px;
+  border-bottom: 1px solid #dedede;
+  margin: 0; }
 
 .share_content .share_content {
   display: none; }
@@ -97,6 +102,12 @@ footer {
 		}
 	}
 }*/
+.applogin-component {
+  position: relative;
+  height: 100%;
+  padding-top: 60px;
+  padding-bottom: 36px; }
+
 .header {
   position: absolute;
   top: 0;
@@ -111,7 +122,8 @@ footer {
   position: absolute;
   height: auto;
   background: #fff;
-  border-bottom: 2px solid #ccc; }
+  border-bottom: 2px solid #ccc;
+  height: 88px; }
   .header .img-container {
     margin-top: 10px;
     margin-bottom: 10px; }
