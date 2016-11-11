@@ -55,10 +55,13 @@ export class TypesComponent implements OnChanges {
 		//this.mapping.resultQuery.result = [];
 		var availableFields: any = [];
 		var propInfo: any;
+		var allMappings = this.mapping[this.config.appname].mappings;
+		this.result.joiningQuery = [''];
+
 		if (val && val.length) {
 			val.forEach(function(type: any) {
 				let mapObjWithFields = {};
-				var mapObj = this.mapping[this.config.appname].mappings[type].properties;
+				var mapObj = allMappings[type].properties;
 				for (let field in mapObj) {
 					mapObjWithFields[field] = mapObj[field];
 					if(mapObj[field].fields) {
@@ -66,6 +69,17 @@ export class TypesComponent implements OnChanges {
 							let subname = field+'.'+sub;
 							mapObjWithFields[subname] = mapObj[field].fields[sub];
 						}		
+					}
+					if(mapObj[field].properties) {
+						for (let sub in mapObj[field].properties) {
+							let subname = field+'.'+sub;
+							mapObjWithFields[subname] = mapObj[field].properties[sub];
+						}		
+					}
+					if (mapObj[field].type === 'nested') {
+						if (this.result.joiningQuery.indexOf('nested') < 0) {
+							this.result.joiningQuery.push('nested');
+						}
 					}
 				}
 				for (var field in mapObjWithFields) {
@@ -83,6 +97,10 @@ export class TypesComponent implements OnChanges {
 						case 'double':
 						case 'float':
 							obj.type = 'numeric';
+							break;
+						case 'text':
+						case 'keyword':
+							obj.type = 'string';
 							break;
 					}
 					availableFields.push(obj);
@@ -108,6 +126,18 @@ export class TypesComponent implements OnChanges {
 			value: availableFields
 		};
 		this.setProp.emit(propInfo);
+
+		for (let type in allMappings) {
+			if (allMappings[type].hasOwnProperty('_parent')) {
+				if (val.indexOf(allMappings[type]['_parent'].type) > -1) {
+					if (this.result.joiningQuery.indexOf('has_child') < 0) {
+						this.result.joiningQuery.push('has_child');
+						this.result.joiningQuery.push('has_parent');
+						this.result.joiningQuery.push('parent_id');
+					}
+				}
+			}
+		}
 	}
 
 	setUrl(val: any) {

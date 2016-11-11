@@ -16,7 +16,9 @@ export var queryList = {
 			'simple_query_string',
 			'match_phrase_prefix',
 			'ids',
-			'common'
+			'common',
+			'span_term',
+			'span_first'
 		],
 		numeric: [
 			'match',
@@ -68,6 +70,8 @@ export var queryList = {
 	],
 	allowedDataTypes: [
 		'string',
+		'text',
+		'keyword',
 		'date',
 		'numeric',
 		'geo_point',

@@ -2,7 +2,7 @@
 .init-ES,
 footer {
 	position: absolute;
-	top: 40px;
+	top: 0px;
 	left: 0;
 	width: 100%;
 	z-index: 6;
@@ -27,6 +27,11 @@ footer {
 		right: 5px;
 		width: 125px;
 	}
+}
+.init-ES {
+	padding: 15px 130px 15px 165px;
+    border-bottom: 1px solid #dedede;
+    margin: 0;
 }
 .share_content {
 	.share_content {
@@ -64,34 +69,45 @@ footer {
 	z-index: 9;
 	background: $grey-bg;
 	border-bottom: 0;
-	padding: 6px;
-	max-height: 40px;
+	padding: 0;
+	max-height: 100px;
 	margin: 0 auto;
-	.header-container {
-		display: inline-block;
-		.img-container {
-			max-width: 170px;
-			display: inline-block;
-			float: left;
-			padding: 5px;
-			left: 10px;
-		}
-		.tag-line {
-			padding-left: 15px;
-			line-height: 30px;
-			font-size: 20px;
+	position: absolute;
+    height: auto;
+    background: #fff;
+    border-bottom: 2px solid #ccc;
+    height: 88px;
+	.img-container {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		img {
+			max-width: 200px;
+			margin: 15px auto;
 		}
 	}
+	.tag-line {
+		line-height: 22px;
+		font-size: 20px;
+		margin-bottom: 10px;
+		font-weight: lighter;
+	}
+	.subscribe {
+		position: absolute;
+		right: 15px;
+	    top: 15px;
+	    width: 50px;
+	    height: 50px;
+	    line-height: 50px;
+	    font-size: 24px;
+	    color: $primary-font-color;
+	    img {
+	    	border-radius: 50%;
+	    }
+	}
 	@media screen and (max-width: 768px) {
-		.header-container {
-			.img-container {
-				max-width: 120px;
-			}
-			.tag-line {
-				padding-left: 15px;
-				line-height: 30px;
-				font-size: 14px;
-			}
+		.tag-line {
+			line-height: 16px;
+			font-size: 14px;
 		}
 	}
 	@media screen and (max-width: 500px) { 
@@ -100,6 +116,15 @@ footer {
 			.tag-line {
 				display: none;
 			}
+		}
+	}
+}
+#subscribeModal {
+	.modal-content {
+		padding-bottom: 45px;
+		.single-option {
+			text-align: left;
+			margin-bottom: 5px;
 		}
 	}
 }

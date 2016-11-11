@@ -42,13 +42,31 @@
 }
 .app-container {
 	position: relative;
-	padding-top: 80px;
-	padding-bottom: 60px;
+	padding-top: 88px;
+	padding-bottom: 0;
 	height: 100%;
+	.applogin-component {
+		position: relative;
+	    height: 100%;
+	    padding-top: 60px;
+	    padding-bottom: 36px;
+	}
 	.query-main-container {
 		position: relative;
 		min-height: 100%;
 		height: auto;
 		display: block;
+	}
+	&.without-hf {
+		padding: 0;
+		.applogin-component {
+			position: relative;
+		    height: 100%;
+		    padding-top: 0;
+		    padding-bottom: 0;
+		}
+		.query-result-container.layoutApplied {
+			padding-bottom: 15px;
+		}
 	}
 }
