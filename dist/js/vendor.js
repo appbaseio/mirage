@@ -21,6 +21,15 @@ return la.apply(Ga(this),arguments)},map:function map(a){return Ba(Ga(this),a,ar
     (factory());
 }(this, (function () { 'use strict';
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
 var Zone$1 = (function (global) {
     if (global.Zone) {
         throw new Error('Zone already loaded.');
@@ -31,37 +40,46 @@ var Zone$1 = (function (global) {
             this._parent = parent;
             this._name = zoneSpec ? zoneSpec.name || 'unnamed' : '<root>';
             this._properties = zoneSpec && zoneSpec.properties || {};
-            this._zoneDelegate = new ZoneDelegate(this, this._parent && this._parent._zoneDelegate, zoneSpec);
+            this._zoneDelegate =
+                new ZoneDelegate(this, this._parent && this._parent._zoneDelegate, zoneSpec);
         }
         Zone.assertZonePatched = function () {
             if (global.Promise !== ZoneAwarePromise) {
-                throw new Error("Zone.js has detected that ZoneAwarePromise `(window|global).Promise` " +
-                    "has been overwritten.\n" +
-                    "Most likely cause is that a Promise polyfill has been loaded " +
-                    "after Zone.js (Polyfilling Promise api is not necessary when zone.js is loaded. " +
-                    "If you must load one, do so before loading zone.js.)");
+                throw new Error('Zone.js has detected that ZoneAwarePromise `(window|global).Promise` ' +
+                    'has been overwritten.\n' +
+                    'Most likely cause is that a Promise polyfill has been loaded ' +
+                    'after Zone.js (Polyfilling Promise api is not necessary when zone.js is loaded. ' +
+                    'If you must load one, do so before loading zone.js.)');
             }
         };
         Object.defineProperty(Zone, "current", {
-            get: function () { return _currentZone; },
+            get: function () {
+                return _currentZone;
+            },
             enumerable: true,
             configurable: true
         });
         
         Object.defineProperty(Zone, "currentTask", {
-            get: function () { return _currentTask; },
+            get: function () {
+                return _currentTask;
+            },
             enumerable: true,
             configurable: true
         });
         
         Object.defineProperty(Zone.prototype, "parent", {
-            get: function () { return this._parent; },
+            get: function () {
+                return this._parent;
+            },
             enumerable: true,
             configurable: true
         });
         
         Object.defineProperty(Zone.prototype, "name", {
-            get: function () { return this._name; },
+            get: function () {
+                return this._name;
+            },
             enumerable: true,
             configurable: true
         });
@@ -132,8 +150,8 @@ var Zone$1 = (function (global) {
         Zone.prototype.runTask = function (task, applyThis, applyArgs) {
             task.runCount++;
             if (task.zone != this)
-                throw new Error('A task can only be run in the zone which created it! (Creation: ' +
-                    task.zone.name + '; Execution: ' + this.name + ')');
+                throw new Error('A task can only be run in the zone which created it! (Creation: ' + task.zone.name +
+                    '; Execution: ' + this.name + ')');
             var previousTask = _currentTask;
             _currentTask = task;
             var oldZone = _currentZone;
@@ -182,40 +200,51 @@ var Zone$1 = (function (global) {
             this._parentDelegate = parentDelegate;
             this._forkZS = zoneSpec && (zoneSpec && zoneSpec.onFork ? zoneSpec : parentDelegate._forkZS);
             this._forkDlgt = zoneSpec && (zoneSpec.onFork ? parentDelegate : parentDelegate._forkDlgt);
-            this._interceptZS = zoneSpec && (zoneSpec.onIntercept ? zoneSpec : parentDelegate._interceptZS);
-            this._interceptDlgt = zoneSpec && (zoneSpec.onIntercept ? parentDelegate : parentDelegate._interceptDlgt);
+            this._interceptZS =
+                zoneSpec && (zoneSpec.onIntercept ? zoneSpec : parentDelegate._interceptZS);
+            this._interceptDlgt =
+                zoneSpec && (zoneSpec.onIntercept ? parentDelegate : parentDelegate._interceptDlgt);
             this._invokeZS = zoneSpec && (zoneSpec.onInvoke ? zoneSpec : parentDelegate._invokeZS);
-            this._invokeDlgt = zoneSpec && (zoneSpec.onInvoke ? parentDelegate : parentDelegate._invokeDlgt);
-            this._handleErrorZS = zoneSpec && (zoneSpec.onHandleError ? zoneSpec : parentDelegate._handleErrorZS);
-            this._handleErrorDlgt = zoneSpec && (zoneSpec.onHandleError ? parentDelegate : parentDelegate._handleErrorDlgt);
-            this._scheduleTaskZS = zoneSpec && (zoneSpec.onScheduleTask ? zoneSpec : parentDelegate._scheduleTaskZS);
-            this._scheduleTaskDlgt = zoneSpec && (zoneSpec.onScheduleTask ? parentDelegate : parentDelegate._scheduleTaskDlgt);
-            this._invokeTaskZS = zoneSpec && (zoneSpec.onInvokeTask ? zoneSpec : parentDelegate._invokeTaskZS);
-            this._invokeTaskDlgt = zoneSpec && (zoneSpec.onInvokeTask ? parentDelegate : parentDelegate._invokeTaskDlgt);
-            this._cancelTaskZS = zoneSpec && (zoneSpec.onCancelTask ? zoneSpec : parentDelegate._cancelTaskZS);
-            this._cancelTaskDlgt = zoneSpec && (zoneSpec.onCancelTask ? parentDelegate : parentDelegate._cancelTaskDlgt);
+            this._invokeDlgt =
+                zoneSpec && (zoneSpec.onInvoke ? parentDelegate : parentDelegate._invokeDlgt);
+            this._handleErrorZS =
+                zoneSpec && (zoneSpec.onHandleError ? zoneSpec : parentDelegate._handleErrorZS);
+            this._handleErrorDlgt =
+                zoneSpec && (zoneSpec.onHandleError ? parentDelegate : parentDelegate._handleErrorDlgt);
+            this._scheduleTaskZS =
+                zoneSpec && (zoneSpec.onScheduleTask ? zoneSpec : parentDelegate._scheduleTaskZS);
+            this._scheduleTaskDlgt =
+                zoneSpec && (zoneSpec.onScheduleTask ? parentDelegate : parentDelegate._scheduleTaskDlgt);
+            this._invokeTaskZS =
+                zoneSpec && (zoneSpec.onInvokeTask ? zoneSpec : parentDelegate._invokeTaskZS);
+            this._invokeTaskDlgt =
+                zoneSpec && (zoneSpec.onInvokeTask ? parentDelegate : parentDelegate._invokeTaskDlgt);
+            this._cancelTaskZS =
+                zoneSpec && (zoneSpec.onCancelTask ? zoneSpec : parentDelegate._cancelTaskZS);
+            this._cancelTaskDlgt =
+                zoneSpec && (zoneSpec.onCancelTask ? parentDelegate : parentDelegate._cancelTaskDlgt);
             this._hasTaskZS = zoneSpec && (zoneSpec.onHasTask ? zoneSpec : parentDelegate._hasTaskZS);
-            this._hasTaskDlgt = zoneSpec && (zoneSpec.onHasTask ? parentDelegate : parentDelegate._hasTaskDlgt);
+            this._hasTaskDlgt =
+                zoneSpec && (zoneSpec.onHasTask ? parentDelegate : parentDelegate._hasTaskDlgt);
         }
         ZoneDelegate.prototype.fork = function (targetZone, zoneSpec) {
-            return this._forkZS
-                ? this._forkZS.onFork(this._forkDlgt, this.zone, targetZone, zoneSpec)
-                : new Zone(targetZone, zoneSpec);
+            return this._forkZS ? this._forkZS.onFork(this._forkDlgt, this.zone, targetZone, zoneSpec) :
+                new Zone(targetZone, zoneSpec);
         };
         ZoneDelegate.prototype.intercept = function (targetZone, callback, source) {
-            return this._interceptZS
-                ? this._interceptZS.onIntercept(this._interceptDlgt, this.zone, targetZone, callback, source)
-                : callback;
+            return this._interceptZS ?
+                this._interceptZS.onIntercept(this._interceptDlgt, this.zone, targetZone, callback, source) :
+                callback;
         };
         ZoneDelegate.prototype.invoke = function (targetZone, callback, applyThis, applyArgs, source) {
-            return this._invokeZS
-                ? this._invokeZS.onInvoke(this._invokeDlgt, this.zone, targetZone, callback, applyThis, applyArgs, source)
-                : callback.apply(applyThis, applyArgs);
+            return this._invokeZS ?
+                this._invokeZS.onInvoke(this._invokeDlgt, this.zone, targetZone, callback, applyThis, applyArgs, source) :
+                callback.apply(applyThis, applyArgs);
         };
         ZoneDelegate.prototype.handleError = function (targetZone, error) {
-            return this._handleErrorZS
-                ? this._handleErrorZS.onHandleError(this._handleErrorDlgt, this.zone, targetZone, error)
-                : true;
+            return this._handleErrorZS ?
+                this._handleErrorZS.onHandleError(this._handleErrorDlgt, this.zone, targetZone, error) :
+                true;
         };
         ZoneDelegate.prototype.scheduleTask = function (targetZone, task) {
             try {
@@ -241,12 +270,13 @@ var Zone$1 = (function (global) {
         };
         ZoneDelegate.prototype.invokeTask = function (targetZone, task, applyThis, applyArgs) {
             try {
-                return this._invokeTaskZS
-                    ? this._invokeTaskZS.onInvokeTask(this._invokeTaskDlgt, this.zone, targetZone, task, applyThis, applyArgs)
-                    : task.callback.apply(applyThis, applyArgs);
+                return this._invokeTaskZS ?
+                    this._invokeTaskZS.onInvokeTask(this._invokeTaskDlgt, this.zone, targetZone, task, applyThis, applyArgs) :
+                    task.callback.apply(applyThis, applyArgs);
             }
             finally {
-                if (targetZone == this.zone && (task.type != 'eventTask') && !(task.data && task.data.isPeriodic)) {
+                if (targetZone == this.zone && (task.type != 'eventTask') &&
+                    !(task.data && task.data.isPeriodic)) {
                     this._updateTaskCount(task.type, -1);
                 }
             }
@@ -269,7 +299,8 @@ var Zone$1 = (function (global) {
             return value;
         };
         ZoneDelegate.prototype.hasTask = function (targetZone, isEmpty) {
-            return this._hasTaskZS && this._hasTaskZS.onHasTask(this._hasTaskDlgt, this.zone, targetZone, isEmpty);
+            return this._hasTaskZS &&
+                this._hasTaskZS.onHasTask(this._hasTaskDlgt, this.zone, targetZone, isEmpty);
         };
         ZoneDelegate.prototype._updateTaskCount = function (type, count) {
             var counts = this._taskCounts;
@@ -326,12 +357,14 @@ var Zone$1 = (function (global) {
                 return this.data.handleId;
             }
             else {
-                return this.toString();
+                return Object.prototype.toString.call(this);
             }
         };
         return ZoneTask;
     }());
-    function __symbol__(name) { return '__zone_symbol__' + name; }
+    function __symbol__(name) {
+        return '__zone_symbol__' + name;
+    }
     
     var symbolSetTimeout = __symbol__('setTimeout');
     var symbolPromise = __symbol__('Promise');
@@ -386,7 +419,9 @@ var Zone$1 = (function (global) {
                 var _loop_1 = function() {
                     var uncaughtPromiseError = _uncaughtPromiseErrors.shift();
                     try {
-                        uncaughtPromiseError.zone.runGuarded(function () { throw uncaughtPromiseError; });
+                        uncaughtPromiseError.zone.runGuarded(function () {
+                            throw uncaughtPromiseError;
+                        });
                     }
                     catch (e) {
                         consoleError(e);
@@ -402,8 +437,12 @@ var Zone$1 = (function (global) {
     function isThenable(value) {
         return value && value.then;
     }
-    function forwardResolution(value) { return value; }
-    function forwardRejection(rejection) { return ZoneAwarePromise.reject(rejection); }
+    function forwardResolution(value) {
+        return value;
+    }
+    function forwardRejection(rejection) {
+        return ZoneAwarePromise.reject(rejection);
+    }
     var symbolState = __symbol__('state');
     var symbolValue = __symbol__('value');
     var source = 'Promise.then';
@@ -436,7 +475,8 @@ var Zone$1 = (function (global) {
                 if (queue.length == 0 && state == REJECTED) {
                     promise[symbolState] = REJECTED_NO_CATCH;
                     try {
-                        throw new Error("Uncaught (in promise): " + value);
+                        throw new Error('Uncaught (in promise): ' + value +
+                            (value && value.stack ? '\n' + value.stack : ''));
                     }
                     catch (e) {
                         var error_1 = e;
@@ -500,9 +540,16 @@ var Zone$1 = (function (global) {
         ZoneAwarePromise.race = function (values) {
             var resolve;
             var reject;
-            var promise = new this(function (res, rej) { resolve = res; reject = rej; });
-            function onResolve(value) { promise && (promise = null || resolve(value)); }
-            function onReject(error) { promise && (promise = null || reject(error)); }
+            var promise = new this(function (res, rej) {
+                _a = [res, rej], resolve = _a[0], reject = _a[1];
+                var _a;
+            });
+            function onResolve(value) {
+                promise && (promise = null || resolve(value));
+            }
+            function onReject(error) {
+                promise && (promise = null || reject(error));
+            }
             for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
                 var value = values_1[_i];
                 if (!isThenable(value)) {
@@ -515,7 +562,10 @@ var Zone$1 = (function (global) {
         ZoneAwarePromise.all = function (values) {
             var resolve;
             var reject;
-            var promise = new this(function (res, rej) { resolve = res; reject = rej; });
+            var promise = new this(function (res, rej) {
+                resolve = res;
+                reject = rej;
+            });
             var count = 0;
             var resolvedValues = [];
             for (var _i = 0, values_2 = values; _i < values_2.length; _i++) {
@@ -562,13 +612,14 @@ var Zone$1 = (function (global) {
     global.Promise = ZoneAwarePromise;
     function patchThen(NativePromise) {
         var NativePromiseProtototype = NativePromise.prototype;
-        var NativePromiseThen = NativePromiseProtototype[__symbol__('then')]
-            = NativePromiseProtototype.then;
+        var NativePromiseThen = NativePromiseProtototype[__symbol__('then')] =
+            NativePromiseProtototype.then;
         NativePromiseProtototype.then = function (onResolve, onReject) {
             var nativePromise = this;
             return new ZoneAwarePromise(function (resolve, reject) {
                 NativePromiseThen.call(nativePromise, resolve, reject);
-            }).then(onResolve, onReject);
+            })
+                .then(onResolve, onReject);
         };
     }
     if (NativePromise) {
@@ -585,7 +636,8 @@ var Zone$1 = (function (global) {
             }
             // ignore output to prevent error;
             fetchPromise.then(function () { return null; }, function () { return null; });
-            if (fetchPromise.constructor != NativePromise) {
+            if (fetchPromise.constructor != NativePromise &&
+                fetchPromise.constructor != ZoneAwarePromise) {
                 patchThen(fetchPromise.constructor);
             }
         }
@@ -596,9 +648,11 @@ var Zone$1 = (function (global) {
 })(typeof window === 'object' && window || typeof self === 'object' && self || global);
 
 /**
- * Suppress closure compiler errors about unknown 'process' variable
- * @fileoverview
- * @suppress {undefinedVars}
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 var zoneSymbol = Zone['__symbol__'];
 var _global$1 = typeof window === 'object' && window || typeof self === 'object' && self || global;
@@ -633,10 +687,7 @@ var isWebWorker = (typeof WorkerGlobalScope !== 'undefined' && self instanceof W
 var isNode = (typeof process !== 'undefined' && {}.toString.call(process) === '[object process]');
 var isBrowser = !isNode && !isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
 function patchProperty(obj, prop) {
-    var desc = Object.getOwnPropertyDescriptor(obj, prop) || {
-        enumerable: true,
-        configurable: true
-    };
+    var desc = Object.getOwnPropertyDescriptor(obj, prop) || { enumerable: true, configurable: true };
     // A property descriptor cannot have getter/setter and be writable
     // deleting the writable and value properties avoids this error:
     //
@@ -665,7 +716,8 @@ function patchProperty(obj, prop) {
             this[_prop] = null;
         }
     };
-    // The getter would return undefined for unassigned properties but the default value of an unassigned property is null
+    // The getter would return undefined for unassigned properties but the default value of an
+    // unassigned property is null
     desc.get = function () {
         return this[_prop] || null;
     };
@@ -699,9 +751,7 @@ function findExistingRegisteredTask(target, handler, name, capture, remove) {
         for (var i = 0; i < eventTasks.length; i++) {
             var eventTask = eventTasks[i];
             var data = eventTask.data;
-            if (data.handler === handler
-                && data.useCapturing === capture
-                && data.eventName === name) {
+            if (data.handler === handler && data.useCapturing === capture && data.eventName === name) {
                 if (remove) {
                     eventTasks.splice(i, 1);
                 }
@@ -754,13 +804,14 @@ function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, al
             // In cross site contexts (such as WebDriver frameworks like Selenium),
             // accessing the handler object here will cause an exception to be thrown which
             // will fail tests prematurely.
-            validZoneHandler = handler && handler.toString() === "[object FunctionWrapper]";
+            validZoneHandler = handler && handler.toString() === '[object FunctionWrapper]';
         }
         catch (e) {
             // Returning nothing here is fine, because objects in a cross-site context are unusable
             return;
         }
-        // Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
+        // Ignore special listeners of IE11 & Edge dev tools, see
+        // https://github.com/angular/zone.js/issues/150
         if (!delegate || validZoneHandler) {
             return target[addFnSymbol](eventName, handler, useCapturing);
         }
@@ -841,7 +892,8 @@ function patchClass(className) {
             case 4:
                 this[originalInstanceKey] = new OriginalClass(a[0], a[1], a[2], a[3]);
                 break;
-            default: throw new Error('Arg list too long.');
+            default:
+                throw new Error('Arg list too long.');
         }
     };
     var instance = new OriginalClass(function () { });
@@ -893,7 +945,7 @@ function createNamedFn(name, delegate) {
 }
 function patchMethod(target, name, patchFn) {
     var proto = target;
-    while (proto && !proto.hasOwnProperty(name)) {
+    while (proto && Object.getOwnPropertyNames(proto).indexOf(name) === -1) {
         proto = Object.getPrototypeOf(proto);
     }
     if (!proto && target[name]) {
@@ -909,36 +961,90 @@ function patchMethod(target, name, patchFn) {
     return delegate;
 }
 
-var WTF_ISSUE_555 = 'Anchor,Area,Audio,BR,Base,BaseFont,Body,Button,Canvas,Content,DList,Directory,Div,Embed,FieldSet,Font,Form,Frame,FrameSet,HR,Head,Heading,Html,IFrame,Image,Input,Keygen,LI,Label,Legend,Link,Map,Marquee,Media,Menu,Meta,Meter,Mod,OList,Object,OptGroup,Option,Output,Paragraph,Pre,Progress,Quote,Script,Select,Source,Span,Style,TableCaption,TableCell,TableCol,Table,TableRow,TableSection,TextArea,Title,Track,UList,Unknown,Video';
-var NO_EVENT_TARGET = 'ApplicationCache,EventSource,FileReader,InputMethodContext,MediaController,MessagePort,Node,Performance,SVGElementInstance,SharedWorker,TextTrack,TextTrackCue,TextTrackList,WebKitNamedFlow,Window,Worker,WorkerGlobalScope,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload,IDBRequest,IDBOpenDBRequest,IDBDatabase,IDBTransaction,IDBCursor,DBIndex'.split(',');
-var EVENT_TARGET = 'EventTarget';
-function eventTargetPatch(_global) {
-    var apis = [];
-    var isWtf = _global['wtf'];
-    if (isWtf) {
-        // Workaround for: https://github.com/google/tracing-framework/issues/555
-        apis = WTF_ISSUE_555.split(',').map(function (v) { return 'HTML' + v + 'Element'; }).concat(NO_EVENT_TARGET);
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+function patchTimer(window, setName, cancelName, nameSuffix) {
+    var setNative = null;
+    var clearNative = null;
+    setName += nameSuffix;
+    cancelName += nameSuffix;
+    var tasksByHandleId = {};
+    function scheduleTask(task) {
+        var data = task.data;
+        data.args[0] = function () {
+            task.invoke.apply(this, arguments);
+            delete tasksByHandleId[data.handleId];
+        };
+        data.handleId = setNative.apply(window, data.args);
+        tasksByHandleId[data.handleId] = task;
+        return task;
     }
-    else if (_global[EVENT_TARGET]) {
-        apis.push(EVENT_TARGET);
+    function clearTask(task) {
+        delete tasksByHandleId[task.data.handleId];
+        return clearNative(task.data.handleId);
     }
-    else {
-        // Note: EventTarget is not available in all browsers,
-        // if it's not available, we instead patch the APIs in the IDL that inherit from EventTarget
-        apis = NO_EVENT_TARGET;
-    }
-    for (var i = 0; i < apis.length; i++) {
-        var type = _global[apis[i]];
-        patchEventTargetMethods(type && type.prototype);
-    }
+    setNative =
+        patchMethod(window, setName, function (delegate) { return function (self, args) {
+            if (typeof args[0] === 'function') {
+                var zone = Zone.current;
+                var options = {
+                    handleId: null,
+                    isPeriodic: nameSuffix === 'Interval',
+                    delay: (nameSuffix === 'Timeout' || nameSuffix === 'Interval') ? args[1] || 0 : null,
+                    args: args
+                };
+                var task = zone.scheduleMacroTask(setName, args[0], options, scheduleTask, clearTask);
+                if (!task) {
+                    return task;
+                }
+                // Node.js must additionally support the ref and unref functions.
+                var handle = task.data.handleId;
+                if (handle.ref && handle.unref) {
+                    task.ref = handle.ref.bind(handle);
+                    task.unref = handle.unref.bind(handle);
+                }
+                return task;
+            }
+            else {
+                // cause an error by calling it directly.
+                return delegate.apply(window, args);
+            }
+        }; });
+    clearNative =
+        patchMethod(window, cancelName, function (delegate) { return function (self, args) {
+            var task = typeof args[0] === 'number' ? tasksByHandleId[args[0]] : args[0];
+            if (task && typeof task.type === 'string') {
+                if (task.cancelFn && task.data.isPeriodic || task.runCount === 0) {
+                    // Do not cancel already canceled functions
+                    task.zone.cancelTask(task);
+                }
+            }
+            else {
+                // cause an error by calling it directly.
+                delegate.apply(window, args);
+            }
+        }; });
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /*
  * This is necessary for Chrome and Chrome mobile, to enable
  * things like redefining `createdCallback` on an element.
  */
 var _defineProperty = Object[zoneSymbol('defineProperty')] = Object.defineProperty;
-var _getOwnPropertyDescriptor = Object[zoneSymbol('getOwnPropertyDescriptor')] = Object.getOwnPropertyDescriptor;
+var _getOwnPropertyDescriptor = Object[zoneSymbol('getOwnPropertyDescriptor')] =
+    Object.getOwnPropertyDescriptor;
 var _create = Object.create;
 var unconfigurablesKey = zoneSymbol('unconfigurables');
 function propertyPatch() {
@@ -1000,7 +1106,8 @@ function _tryDefineProperty(obj, prop, desc, originalConfigurableFlag) {
     }
     catch (e) {
         if (desc.configurable) {
-            // In case of errors, when the configurable flag was likely set by rewriteDescriptor(), let's retry with the original flag value
+            // In case of errors, when the configurable flag was likely set by rewriteDescriptor(), let's
+            // retry with the original flag value
             if (typeof originalConfigurableFlag == 'undefined') {
                 delete desc.configurable;
             }
@@ -1027,40 +1134,45 @@ function _tryDefineProperty(obj, prop, desc, originalConfigurableFlag) {
     }
 }
 
-function registerElementPatch(_global) {
-    if (!isBrowser || !('registerElement' in _global.document)) {
-        return;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var WTF_ISSUE_555 = 'Anchor,Area,Audio,BR,Base,BaseFont,Body,Button,Canvas,Content,DList,Directory,Div,Embed,FieldSet,Font,Form,Frame,FrameSet,HR,Head,Heading,Html,IFrame,Image,Input,Keygen,LI,Label,Legend,Link,Map,Marquee,Media,Menu,Meta,Meter,Mod,OList,Object,OptGroup,Option,Output,Paragraph,Pre,Progress,Quote,Script,Select,Source,Span,Style,TableCaption,TableCell,TableCol,Table,TableRow,TableSection,TextArea,Title,Track,UList,Unknown,Video';
+var NO_EVENT_TARGET = 'ApplicationCache,EventSource,FileReader,InputMethodContext,MediaController,MessagePort,Node,Performance,SVGElementInstance,SharedWorker,TextTrack,TextTrackCue,TextTrackList,WebKitNamedFlow,Window,Worker,WorkerGlobalScope,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload,IDBRequest,IDBOpenDBRequest,IDBDatabase,IDBTransaction,IDBCursor,DBIndex'
+    .split(',');
+var EVENT_TARGET = 'EventTarget';
+function eventTargetPatch(_global) {
+    var apis = [];
+    var isWtf = _global['wtf'];
+    if (isWtf) {
+        // Workaround for: https://github.com/google/tracing-framework/issues/555
+        apis = WTF_ISSUE_555.split(',').map(function (v) { return 'HTML' + v + 'Element'; }).concat(NO_EVENT_TARGET);
     }
-    var _registerElement = document.registerElement;
-    var callbacks = [
-        'createdCallback',
-        'attachedCallback',
-        'detachedCallback',
-        'attributeChangedCallback'
-    ];
-    document.registerElement = function (name, opts) {
-        if (opts && opts.prototype) {
-            callbacks.forEach(function (callback) {
-                var source = 'Document.registerElement::' + callback;
-                if (opts.prototype.hasOwnProperty(callback)) {
-                    var descriptor = Object.getOwnPropertyDescriptor(opts.prototype, callback);
-                    if (descriptor && descriptor.value) {
-                        descriptor.value = Zone.current.wrap(descriptor.value, source);
-                        _redefineProperty(opts.prototype, callback, descriptor);
-                    }
-                    else {
-                        opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
-                    }
-                }
-                else if (opts.prototype[callback]) {
-                    opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
-                }
-            });
-        }
-        return _registerElement.apply(document, [name, opts]);
-    };
+    else if (_global[EVENT_TARGET]) {
+        apis.push(EVENT_TARGET);
+    }
+    else {
+        // Note: EventTarget is not available in all browsers,
+        // if it's not available, we instead patch the APIs in the IDL that inherit from EventTarget
+        apis = NO_EVENT_TARGET;
+    }
+    for (var i = 0; i < apis.length; i++) {
+        var type = _global[apis[i]];
+        patchEventTargetMethods(type && type.prototype);
+    }
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 // we have to patch the instance since the proto is non-configurable
 function apply(_global) {
     var WS = _global.WebSocket;
@@ -1094,7 +1206,15 @@ function apply(_global) {
     }
 }
 
-var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'.split(' ');
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'
+    .split(' ');
 function propertyDescriptorPatch(_global) {
     if (isNode) {
         return;
@@ -1128,8 +1248,8 @@ function propertyDescriptorPatch(_global) {
     }
 }
 function canPatchViaPropertyDescriptor() {
-    if (isBrowser && !Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'onclick')
-        && typeof Element !== 'undefined') {
+    if (isBrowser && !Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'onclick') &&
+        typeof Element !== 'undefined') {
         // WebKit https://bugs.webkit.org/show_bug.cgi?id=134364
         // IDL interface attributes are not configurable
         var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'onclick');
@@ -1155,7 +1275,7 @@ function patchViaCapturingAllTheEvents() {
     var _loop_1 = function(i) {
         var property = eventNames[i];
         var onproperty = 'on' + property;
-        document.addEventListener(property, function (event) {
+        self.addEventListener(property, function (event) {
             var elt = event.target, bound, source;
             if (elt) {
                 source = elt.constructor['name'] + '.' + onproperty;
@@ -1179,61 +1299,49 @@ function patchViaCapturingAllTheEvents() {
     
 }
 
-function patchTimer(window, setName, cancelName, nameSuffix) {
-    var setNative = null;
-    var clearNative = null;
-    setName += nameSuffix;
-    cancelName += nameSuffix;
-    function scheduleTask(task) {
-        var data = task.data;
-        data.args[0] = task.invoke;
-        data.handleId = setNative.apply(window, data.args);
-        return task;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+function registerElementPatch(_global) {
+    if (!isBrowser || !('registerElement' in _global.document)) {
+        return;
     }
-    function clearTask(task) {
-        return clearNative(task.data.handleId);
-    }
-    setNative = patchMethod(window, setName, function (delegate) { return function (self, args) {
-        if (typeof args[0] === 'function') {
-            var zone = Zone.current;
-            var options = {
-                handleId: null,
-                isPeriodic: nameSuffix === 'Interval',
-                delay: (nameSuffix === 'Timeout' || nameSuffix === 'Interval') ? args[1] || 0 : null,
-                args: args
-            };
-            var task = zone.scheduleMacroTask(setName, args[0], options, scheduleTask, clearTask);
-            if (!task) {
-                return task;
-            }
-            // Node.js must additionally support the ref and unref functions.
-            var handle = task.data.handleId;
-            if (handle.ref && handle.unref) {
-                task.ref = handle.ref.bind(handle);
-                task.unref = handle.unref.bind(handle);
-            }
-            return task;
+    var _registerElement = document.registerElement;
+    var callbacks = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
+    document.registerElement = function (name, opts) {
+        if (opts && opts.prototype) {
+            callbacks.forEach(function (callback) {
+                var source = 'Document.registerElement::' + callback;
+                if (opts.prototype.hasOwnProperty(callback)) {
+                    var descriptor = Object.getOwnPropertyDescriptor(opts.prototype, callback);
+                    if (descriptor && descriptor.value) {
+                        descriptor.value = Zone.current.wrap(descriptor.value, source);
+                        _redefineProperty(opts.prototype, callback, descriptor);
+                    }
+                    else {
+                        opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
+                    }
+                }
+                else if (opts.prototype[callback]) {
+                    opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
+                }
+            });
         }
-        else {
-            // cause an error by calling it directly.
-            return delegate.apply(window, args);
-        }
-    }; });
-    clearNative = patchMethod(window, cancelName, function (delegate) { return function (self, args) {
-        var task = args[0];
-        if (task && typeof task.type === 'string') {
-            if (task.cancelFn && task.data.isPeriodic || task.runCount === 0) {
-                // Do not cancel already canceled functions
-                task.zone.cancelTask(task);
-            }
-        }
-        else {
-            // cause an error by calling it directly.
-            delegate.apply(window, args);
-        }
-    }; });
+        return _registerElement.apply(document, [name, opts]);
+    };
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var set = 'set';
 var clear = 'clear';
 var blockingMethods = ['alert', 'prompt', 'confirm'];
@@ -1284,8 +1392,7 @@ function patchXHR(window) {
         sendNative.apply(data.target, data.args);
         return task;
     }
-    function placeholderCallback() {
-    }
+    function placeholderCallback() { }
     function clearTask(task) {
         var data = task.data;
         // Note - ideally, we would call data.target.removeEventListener here, but it's too late
@@ -1304,13 +1411,7 @@ function patchXHR(window) {
             return sendNative.apply(self, args);
         }
         else {
-            var options = {
-                target: self,
-                isPeriodic: false,
-                delay: null,
-                args: args,
-                aborted: false
-            };
+            var options = { target: self, isPeriodic: false, delay: null, args: args, aborted: false };
             return zone.scheduleMacroTask('XMLHttpRequest.send', placeholderCallback, options, scheduleTask, clearTask);
         }
     }; });
@@ -1323,15 +1424,13 @@ function patchXHR(window) {
             }
             task.zone.cancelTask(task);
         }
-        // Otherwise, we are trying to abort an XHR which has not yet been sent, so there is no task to cancel. Do nothing.
+        // Otherwise, we are trying to abort an XHR which has not yet been sent, so there is no task
+        // to cancel. Do nothing.
     }; });
 }
 /// GEO_LOCATION
 if (_global['navigator'] && _global['navigator'].geolocation) {
-    patchPrototype(_global['navigator'].geolocation, [
-        'getCurrentPosition',
-        'watchPosition'
-    ]);
+    patchPrototype(_global['navigator'].geolocation, ['getCurrentPosition', 'watchPosition']);
 }
 
 })));
@@ -20055,6 +20154,25 @@ a.version="2.15.2",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	 * CryptoJS core components.
 	 */
 	var CryptoJS = CryptoJS || (function (Math, undefined) {
+	    /*
+	     * Local polyfil of Object.create
+	     */
+	    var create = Object.create || (function () {
+	        function F() {};
+
+	        return function (obj) {
+	            var subtype;
+
+	            F.prototype = obj;
+
+	            subtype = new F();
+
+	            F.prototype = null;
+
+	            return subtype;
+	        };
+	    }())
+
 	    /**
 	     * CryptoJS namespace.
 	     */
@@ -20069,7 +20187,7 @@ a.version="2.15.2",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	     * Base object for prototypal inheritance.
 	     */
 	    var Base = C_lib.Base = (function () {
-	        function F() {}
+
 
 	        return {
 	            /**
@@ -20092,8 +20210,7 @@ a.version="2.15.2",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	             */
 	            extend: function (overrides) {
 	                // Spawn
-	                F.prototype = this;
-	                var subtype = new F();
+	                var subtype = create(this);
 
 	                // Augment
 	                if (overrides) {
@@ -20850,34 +20967,45 @@ a.version="2.15.2",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	            // Shortcuts
 	            var base64StrLength = base64Str.length;
 	            var map = this._map;
+	            var reverseMap = this._reverseMap;
+
+	            if (!reverseMap) {
+	                    reverseMap = this._reverseMap = [];
+	                    for (var j = 0; j < map.length; j++) {
+	                        reverseMap[map.charCodeAt(j)] = j;
+	                    }
+	            }
 
 	            // Ignore padding
 	            var paddingChar = map.charAt(64);
 	            if (paddingChar) {
 	                var paddingIndex = base64Str.indexOf(paddingChar);
-	                if (paddingIndex != -1) {
+	                if (paddingIndex !== -1) {
 	                    base64StrLength = paddingIndex;
 	                }
 	            }
 
 	            // Convert
-	            var words = [];
-	            var nBytes = 0;
-	            for (var i = 0; i < base64StrLength; i++) {
-	                if (i % 4) {
-	                    var bits1 = map.indexOf(base64Str.charAt(i - 1)) << ((i % 4) * 2);
-	                    var bits2 = map.indexOf(base64Str.charAt(i)) >>> (6 - (i % 4) * 2);
-	                    var bitsCombined = bits1 | bits2;
-	                    words[nBytes >>> 2] |= (bitsCombined) << (24 - (nBytes % 4) * 8);
-	                    nBytes++;
-	                }
-	            }
+	            return parseLoop(base64Str, base64StrLength, reverseMap);
 
-	            return WordArray.create(words, nBytes);
 	        },
 
 	        _map: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
 	    };
+
+	    function parseLoop(base64Str, base64StrLength, reverseMap) {
+	      var words = [];
+	      var nBytes = 0;
+	      for (var i = 0; i < base64StrLength; i++) {
+	          if (i % 4) {
+	              var bits1 = reverseMap[base64Str.charCodeAt(i - 1)] << ((i % 4) * 2);
+	              var bits2 = reverseMap[base64Str.charCodeAt(i)] >>> (6 - (i % 4) * 2);
+	              words[nBytes >>> 2] |= (bits1 | bits2) << (24 - (nBytes % 4) * 8);
+	              nBytes++;
+	          }
+	      }
+	      return WordArray.create(words, nBytes);
+	    }
 	}());
 
 
@@ -24467,13 +24595,18 @@ a.version="2.15.2",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	     */
 	    var AES = C_algo.AES = BlockCipher.extend({
 	        _doReset: function () {
+	            // Skip reset of nRounds has been set before and key did not change
+	            if (this._nRounds && this._keyPriorReset === this._key) {
+	                return;
+	            }
+
 	            // Shortcuts
-	            var key = this._key;
+	            var key = this._keyPriorReset = this._key;
 	            var keyWords = key.words;
 	            var keySize = key.sigBytes / 4;
 
 	            // Compute number of rounds
-	            var nRounds = this._nRounds = keySize + 6
+	            var nRounds = this._nRounds = keySize + 6;
 
 	            // Compute number of key schedule rows
 	            var ksRows = (nRounds + 1) * 4;
@@ -49339,3 +49472,6 @@ SafeEncode = {
 };
 }).call(this,require("buffer").Buffer)
 },{"buffer":2}]},{},[5]);
+
+!function a(b,c,d){function e(g,h){if(!c[g]){if(!b[g]){var i="function"==typeof require&&require;if(!h&&i)return i(g,!0);if(f)return f(g,!0);throw new Error("Cannot find module '"+g+"'")}var j=c[g]={exports:{}};b[g][0].call(j.exports,function(a){var c=b[g][1][a];return e(c?c:a)},j,j.exports,a,b,c,d)}return c[g].exports}for(var f="function"==typeof require&&require,g=0;g<d.length;g++)e(d[g]);return e}({1:[function(a,b,c){function d(){var a,b=-1,c=navigator.userAgent;return"Microsoft Internet Explorer"===navigator.appName?(a=new RegExp("MSIE ([0-9]{1,}[.0-9]{0,})"),null!=a.exec(c)&&(b=parseFloat(RegExp.$1))):c.indexOf("Trident")>-1&&(a=new RegExp("rv:([0-9]{2,2}[.0-9]{0,})"),null!==a.exec(c)&&(b=parseFloat(RegExp.$1))),b}function e(a){var b="";for(var c in a)b+=c+"="+a[c]+",";return b.slice(0,-1)}function f(a,b){return!(!a||null==a[b])}function g(a,b){var c=a.status,e="string"==typeof a.responseText?a.responseText:a,f=10===d()||11===d(),g=!c||0===c,h=!!window.navigator.onLine;g&&!h?(c=0,e={code:"offline"}):g&&f?(c=401,e={code:"invalid_user_password"}):g&&(c=0,e={code:"connection_refused_timeout"});var i=new B(c,e);b(i)}function h(a,b,c){return a+"//"+b+c}function i(a){return this instanceof i?(p(a,"clientID"),p(a,"domain"),this._useJSONP=null!=a.forceJSONP?!!a.forceJSONP:C()&&!z("https:",a.domain),this._clientID=a.clientID,this._callbackURL=a.callbackURL||document.location.href,this._shouldRedirect=!!a.callbackURL,this._domain=a.domain,this._responseType=this._parseResponseType(a,!0)||"code",this._responseMode=this._parseResponseMode(a,!0),this._cordovaSocialPlugins={facebook:this._phonegapFacebookLogin},this._useCordovaSocialPlugins=a.useCordovaSocialPlugins,void(this._sendClientInfo=null!=a.sendSDKClientInfo?a.sendSDKClientInfo:!0)):new i(a)}function j(a){return a?"token":"code"}function k(a){if("string"!=typeof a)return!1;for(var b=["code","id_token","token"],c=a.split(" "),d=0;d<c.length;d++)if(-1===b.indexOf(c[d]))return!1;return c.length>=1}function l(a){return"form_post"===a}function m(a){console&&console.warn&&console.warn(a)}var n="undefined"!=typeof self?self:"undefined"!=typeof window?window:{},o=a("./lib/base64_url"),p=a("./lib/assert_required"),q=a("./lib/is-array"),r=a("./lib/index-of"),s=a("qs"),t=a("xtend"),u=a("trim"),v=a("reqwest"),w=a("winchan"),x=a("jsonp"),y={param:"cbx",timeout:8e3,prefix:"__auth0jp"},z=a("./lib/same-origin"),A=a("./lib/json-parse"),B=a("./lib/LoginError"),C=a("./lib/use_jsonp"),D=a("./lib/SilentAuthenticationHandler");i.version=a("./version").str,i.clientInfo={name:"auth0.js",version:i.version},i.prototype.openWindow=function(a,b,c){return window.open(a,b,e(c))},i.prototype._redirect=function(a){n.window.location=a},i.prototype._getResponseType=function(a){return this._parseResponseType(a)||this._responseType},i.prototype._getCallbackOnLocationHash=function(a){return"form_post"!==this._getResponseMode(a)&&"code"!==this._getResponseType(a)},i.prototype._getResponseMode=function(a){var b=this._parseResponseMode(a)||this._responseMode;return"form_post"===b?"form_post":null},i.prototype._getCallbackURL=function(a){return a&&"undefined"!=typeof a.callbackURL?a.callbackURL:this._callbackURL},i.prototype._getClientInfoString=function(){var a=JSON.stringify(i.clientInfo);return o.encode(a)},i.prototype._getClientInfoHeader=function(){return this._sendClientInfo?{"Auth0-Client":this._getClientInfoString()}:{}},i.prototype._renderAndSubmitWSFedForm=function(a,b){var c=document.createElement("div");c.innerHTML=b;var d=document.body.appendChild(c).children[0];a.popup&&!this._getCallbackOnLocationHash(a)&&(d.target="auth0_signup_popup"),d.submit()},i.prototype._getMode=function(a){var b={scope:"openid",response_type:this._getResponseType(a)},c=this._getResponseMode(a);return c&&(b.response_mode=c),b},i.prototype._configureOfflineMode=function(a){a.scope&&a.scope.indexOf("offline_access")>=0&&(a.device=a.device||"Browser")},i.prototype._getUserInfo=function(a,b,c){if(console.warn("DEPRECATION NOTICE: This method will be soon deprecated, use `getUserInfo` instead."),!a||a.user_id)return c(null,a);var d="https:",e=this._domain,f="/tokeninfo",g=h(d,e,f),i=function(a,b){var d=new Error(a+": "+(b||""));d.error=a,d.error_description=b,c(d)};return this._useJSONP?x(g+"?"+s.stringify({id_token:b}),y,function(a,b){return a?i(0,a.toString()):200===b.status?c(null,b.user):i(b.status,b.err||b.error)}):v({url:z(d,e)?f:g,method:"post",type:"json",crossOrigin:!z(d,e),data:{id_token:b}}).fail(function(a){i(a.status,a.responseText)}).then(function(a){c(null,a)})},i.prototype.getUserInfo=function(a,b){if("function"!=typeof b)throw new Error("A callback function is required");if(!a||"string"!=typeof a)return b(new Error("Invalid token"));var c="https:",d=this._domain,e="/userinfo",f=h(c,d,e),g=function(a,c){var d=new Error(a+": "+(c||""));d.error=a,d.error_description=c,b(d)};return v({url:z(c,d)?e:f,method:"post",type:"json",crossOrigin:!z(c,d),headers:{Authorization:"Bearer "+a}}).fail(function(a){g(a.status,a.responseText)}).then(function(a){b(null,a)})},i.prototype.getProfile=function(a,b){if("function"!=typeof b)throw new Error("A callback function is required");return a&&"string"==typeof a?void this._getUserInfo(this.decodeJwt(a),a,b):b(new Error("Invalid token"))},i.prototype.validateUser=function(a,b){var c="https:",d=this._domain,e="/public/api/users/validate_userpassword",f=h(c,d,e),g=t(a,{client_id:this._clientID,username:u(a.username||a.email||"")});return this._useJSONP?x(f+"?"+s.stringify(g),y,function(a,c){return a?b(a):"error"in c&&404!==c.status?b(new Error(c.error)):void b(null,200===c.status)}):void v({url:z(c,d)?e:f,method:"post",type:"text",data:g,crossOrigin:!z(c,d),error:function(a){return 404!==a.status?b(new Error(a.responseText)):void b(null,!1)},success:function(a){b(null,200===a.status)}})},i.prototype.decodeJwt=function(a){var b=a&&a.split(".")[1];return A(o.decode(b))},i.prototype.parseHash=function(a){a=a||window.location.hash,a=a.replace(/^#?\/?/,"");var b=s.parse(a);if(b.hasOwnProperty("error")){var c={error:b.error,error_description:b.error_description};return b.state&&(c.state=b.state),c}if(!b.hasOwnProperty("access_token")&&!b.hasOwnProperty("id_token")&&!b.hasOwnProperty("refresh_token"))return null;var d;if(b.id_token){var e=function(a){var b={error:"invalid_token",error_description:a};return b};d=this.decodeJwt(b.id_token);var f=q(d.aud)?d.aud:[d.aud];if(-1===r(f,this._clientID))return e("The clientID configured ("+this._clientID+") does not match with the clientID set in the token ("+f.join(", ")+").");if(d.iss&&d.iss!=="https://"+this._domain+"/")return e("The domain configured (https://"+this._domain+"/) does not match with the domain set in the token ("+d.iss+").")}return{accessToken:b.access_token,idToken:b.id_token,idTokenPayload:d,refreshToken:b.refresh_token,state:b.state}},i.prototype.signup=function(a,b){function c(){return a.auto_login?e.login(a,b):"function"==typeof b?b():void 0}function d(a,c){var d=new B(a,c);if(j&&"function"==typeof j.kill&&j.kill(),"function"==typeof b)return b(d);throw d}var e=this,g={client_id:this._clientID,redirect_uri:this._getCallbackURL(a),email:u(a.email||a.username||""),tenant:this._domain.split(".")[0]};"string"==typeof a.username&&(g.username=u(a.username));var i=t(this._getMode(a),a,g);this._configureOfflineMode(i),f(a,"sso")||(a.sso=!0),f(a,"auto_login")||(a.auto_login=!0);var j,k=a.auto_login&&a.popup&&(!this._getCallbackOnLocationHash(a)||a.sso);k&&(j=this._buildPopupWindow(a));var l="https:",m=this._domain,n="/dbconnections/signup",o=h(l,m,n);return this._useJSONP?x(o+"?"+s.stringify(i),y,function(a,b){return a?d(0,a):200==b.status?c():d(b.status,b.err||b.error)}):void v({url:z(l,m)?n:o,method:"post",type:"html",data:i,success:c,crossOrigin:!z(l,m),error:function(a){d(a.status,a.responseText)}})},i.prototype.changePassword=function(a,b){function c(a,c){var d=new B(a,c);return b?b(d):void 0}var d={tenant:this._domain.split(".")[0],client_id:this._clientID,connection:a.connection,email:u(a.email||"")};"string"==typeof a.password&&(d.password=a.password);var e="https:",f=this._domain,g="/dbconnections/change_password",i=h(e,f,g);return this._useJSONP?x(i+"?"+s.stringify(d),y,function(a,d){return a?c(0,a):200==d.status?b(null,d.message):c(d.status,d.err||d.error)}):void v({url:z(e,f)?g:i,method:"post",type:"html",data:d,crossOrigin:!z(e,f),error:function(a){c(a.status,a.responseText)},success:function(a){b(null,a)}})},i.prototype._buildAuthorizeQueryString=function(a,b){var c=this._buildAuthorizationParameters(a,b);return s.stringify(c)},i.prototype._buildAuthorizationParameters=function(a,b){var c=t.apply(null,a);this._configureOfflineMode(c),this._sendClientInfo&&(c.auth0Client=this._getClientInfoString()),b=b||["popup","popupOptions"];var d,e;for(d=0;d<b.length;d++)e=b[d],delete c[e];return c.connection_scope&&q(c.connection_scope)&&(c.connection_scope=c.connection_scope.join(",")),c},i.prototype._buildAuthorizeUrl=function(a){var b=[this._getMode(a),a,{client_id:this._clientID,redirect_uri:this._getCallbackURL(a)}],c=this._buildAuthorizeQueryString(b);return h("https:",this._domain,"/authorize?"+c)},i.prototype.login=i.prototype.signin=function(a,b){return f(a,"sso")||(a.sso=!0),"undefined"!=typeof a.passcode?this.loginWithPasscode(a,b):"undefined"!=typeof a.username||"undefined"!=typeof a.email?this.loginWithUsernamePassword(a,b):window.cordova||window.electron?this.loginPhonegap(a,b):a.popup&&this._getCallbackOnLocationHash(a)?this.loginWithPopup(a,b):void this._authorize(a)},i.prototype._authorize=function(a){var b=this._buildAuthorizeUrl(a);a.popup?this._buildPopupWindow(a,b):this._redirect(b)},i.prototype._computePopupPosition=function(a){a=a||{};var b=a.width||500,c=a.height||600,d="undefined"!=typeof window.screenX?window.screenX:window.screenLeft,e="undefined"!=typeof window.screenY?window.screenY:window.screenTop,f="undefined"!=typeof window.outerWidth?window.outerWidth:document.body.clientWidth,g="undefined"!=typeof window.outerHeight?window.outerHeight:document.body.clientHeight-22,h=d+(f-b)/2,i=e+(g-c)/2;return{width:b,height:c,left:h,top:i}},i.prototype.loginPhonegap=function(a,b){function c(a){n||(n=!0,m.close(),b(new Error(a.message),null))}function d(a){if(!(n||a.url&&0!==a.url.indexOf(f+"#")&&0!==a.url.indexOf(f+"?"))){var c=g.parseHash(a.url.slice(f.length));if(!c)return n=!0,m.close(),void b(new Error("Error parsing hash"),null);if(c.idToken)return n=!0,m.close(),void b(null,c);n=!0,m.close(),b(new Error(c.err||c.error||"Something went wrong"),null)}}function e(){n||(m.removeEventListener("loaderror",c),m.removeEventListener("loadstart",d),m.removeEventListener("exit",e),b(new Error("Browser window closed"),null))}if(this._shouldAuthenticateWithCordovaPlugin(a.connection))return void this._socialPhonegapLogin(a,b);var f=h("https:",this._domain,"/mobile"),g=this,i=[this._getMode(a),a,{client_id:this._clientID,redirect_uri:f}];this._sendClientInfo&&i.push({auth0Client:this._getClientInfoString()});var j=this._buildAuthorizeQueryString(i),k=h("https:",this._domain,"/authorize?"+j),l=t({location:"yes"},a.popupOptions);delete l.width,delete l.height;var m=this.openWindow(k,"_blank",l),n=!1;m.addEventListener("loaderror",c),m.addEventListener("loadstart",d),m.addEventListener("exit",e)},i.prototype.loginWithPopup=function(a,b){var c=this;if(!b)throw new Error("popup mode should receive a mandatory callback");var d=[this._getMode(a),a,{client_id:this._clientID,owp:!0}];this._sendClientInfo&&d.push({auth0Client:this._getClientInfoString()});var f=this._buildAuthorizeQueryString(d),g=h("https:",this._domain,"/authorize?"+f),i=this._computePopupPosition(a.popupOptions),j=t(i,a.popupOptions),k=w.open({url:g,relay_url:"https://"+this._domain+"/relay.html",window_features:e(j)},function(a,d){return c._current_popup=null,a?b(new B(a),null,null,null,null,null):d?d.access_token||d.id_token?b(null,c._prepareResult(d)):d.err?b(new B(d.err.status,d.err.details||d.err),null,null,null,null,null):d.error?b(new B(d.status,d.details||d),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null)});k.focus()},i.prototype._shouldAuthenticateWithCordovaPlugin=function(a){var b=this._cordovaSocialPlugins[a];return this._useCordovaSocialPlugins&&!!b},i.prototype._socialPhonegapLogin=function(a,b){var c=this._cordovaSocialPlugins[a.connection],d=this;c(a.connection_scope,function(c,e,f){if(c)return void b(c,null,null,null,null);var g=t({access_token:e},a,f);d.loginWithSocialAccessToken(g,b)})},i.prototype._phonegapFacebookLogin=function(a,b){if(!window.facebookConnectPlugin||!window.facebookConnectPlugin.login)return void b(new Error("missing plugin phonegap-facebook-plugin"),null,null);var c;c=a&&q(a)?a:a?[a]:["public_profile"],window.facebookConnectPlugin.login(c,function(a){b(null,a.authResponse.accessToken,{})},function(a){b(new Error(a),null,null)})},i.prototype.loginWithUsernamePasswordAndSSO=function(a,b){var c=this,d=this._computePopupPosition(a.popupOptions),f=t(d,a.popupOptions),g={url:"https://"+this._domain+"/sso_dbconnection_popup/"+this._clientID,relay_url:"https://"+this._domain+"/relay.html",window_features:e(f),popup:this._current_popup,params:{domain:this._domain,clientID:this._clientID,options:{username:u(a.username||a.email||""),password:a.password,connection:a.connection,state:a.state,scope:a.scope}}};a._csrf&&(g.params.options._csrf=a._csrf),a.device&&(g.params.options.device=a.device);var h=w.open(g,function(a,d){return c._current_popup=null,a?b(new B(a),null,null,null,null,null):d?d.id_token?b(null,c._prepareResult(d)):d.err?b(new B(d.err.status,d.err.details||d.err),null,null,null,null,null):d.error?b(new B(d.status,d.details||d),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null)});h.focus()},i.prototype.loginWithResourceOwner=function(a,b){var c=this,d=t(this._getMode(a),a,{client_id:this._clientID,username:u(a.username||a.email||""),grant_type:"password"});this._configureOfflineMode(d);var e="https:",f=this._domain,i="/oauth/ro",j=h(e,f,i);return this._sendClientInfo&&this._useJSONP&&(d.auth0Client=this._getClientInfoString()),this._useJSONP?x(j+"?"+s.stringify(d),y,function(a,d){if(a)return b(a);if("error"in d){var e=new B(d.status,d.error);return b(e)}b(null,c._prepareResult(d))}):void v({url:z(e,f)?i:j,method:"post",type:"json",data:d,headers:this._getClientInfoHeader(),crossOrigin:!z(e,f),success:function(a){b(null,c._prepareResult(a))},error:function(a){g(a,b)}})},i.prototype.loginWithSocialAccessToken=function(a,b){var c=this,d=this._buildAuthorizationParameters([{scope:"openid"},a,{client_id:this._clientID}]),e="https:",f=this._domain,i="/oauth/access_token",j=h(e,f,i);return this._useJSONP?x(j+"?"+s.stringify(d),y,function(a,d){if(a)return b(a);if("error"in d){var e=new B(d.status,d.error);return b(e)}b(null,c._prepareResult(d))}):void v({url:z(e,f)?i:j,method:"post",type:"json",data:d,headers:this._getClientInfoHeader(),crossOrigin:!z(e,f),success:function(a){b(null,c._prepareResult(a))},error:function(a){g(a,b)}})},i.prototype._buildPopupWindow=function(a,b){if(this._current_popup&&!this._current_popup.closed)return this._current_popup;b=b||"about:blank";var c=this,d={width:500,height:600},f=t(d,a.popupOptions||{}),g=e(f);if(this._current_popup=window.open(b,"auth0_signup_popup",g),!this._current_popup)throw new Error("Popup window cannot not been created. Disable popup blocker or make sure to call Auth0 login or singup on an UI event.");return this._current_popup.kill=function(){this.close(),c._current_popup=null},this._current_popup},i.prototype.loginWithUsernamePassword=function(a,b){function c(a){if(b)return b(a);throw a}if(b&&b.length>1&&(!a.sso||window.cordova))return this.loginWithResourceOwner(a,b);var d,e=this;if(a.popup&&!this._getCallbackOnLocationHash(a)&&(d=this._buildPopupWindow(a)),b&&b.length>1&&a.sso)return this.loginWithUsernamePasswordAndSSO(a,b);var f=t(this._getMode(a),a,{client_id:this._clientID,redirect_uri:this._getCallbackURL(a),username:u(a.username||a.email||""),tenant:this._domain.split(".")[0]});this._configureOfflineMode(f);var i="https:",j=this._domain,k="/usernamepassword/login",l=h(i,j,k);return this._useJSONP?x(l+"?"+s.stringify(f),y,function(c,f){if(c)return d&&d.kill&&d.kill(),b(c);if("error"in f){d&&d.kill&&d.kill();var g=new B(f.status,f.error);return b(g)}e._renderAndSubmitWSFedForm(a,f.form)}):void v({url:z(i,j)?k:l,method:"post",type:"html",data:f,headers:this._getClientInfoHeader(),crossOrigin:!z(i,j),success:function(b){e._renderAndSubmitWSFedForm(a,b)},error:function(a){d&&d.kill&&d.kill(),g(a,c)}})},i.prototype.loginWithPasscode=function(a,b){if(null==a.email&&null==a.phoneNumber)throw new Error("email or phoneNumber is required for authentication");if(null==a.passcode)throw new Error("passcode is required for authentication");if(a.connection=null==a.email?"sms":"email",!this._shouldRedirect)return a=t(a,{username:null==a.email?a.phoneNumber:a.email,password:a.passcode,sso:!1}),delete a.email,delete a.phoneNumber,delete a.passcode,this.loginWithResourceOwner(a,b);var c={connection:a.connection};a.phoneNumber&&(a.phone_number=a.phoneNumber,delete a.phoneNumber,c.phone_number=a.phone_number),a.email&&(c.email=a.email),a.verification_code=a.passcode,delete a.passcode,c.verification_code=a.verification_code;var d=this;this._verify(c,function(c){return c?b(c):void d._verify_redirect(a)})},i.prototype._verify=function(a,b){var c="https:",d=this._domain,e="/passwordless/verify",f=h(c,d,e),g=a;return this._useJSONP?(this._sendClientInfo&&(g.auth0Client=this._getClientInfoString()),x(f+"?"+s.stringify(g),y,function(a,c){return a?b(new Error("0: "+a.toString())):200===c.status?b(null,!0):b({status:c.status})})):v({url:z(c,d)?e:f,method:"post",headers:this._getClientInfoHeader(),crossOrigin:!z(c,d),data:g}).fail(function(a){try{b(JSON.parse(a.responseText))}catch(c){var d=new Error(a.status+"("+a.statusText+"): "+a.responseText);d.statusCode=a.status,d.error=a.statusText,d.message=a.responseText,b(d)}}).then(function(a){b(null,a)})},i.prototype._verify_redirect=function(a){var b=[this._getMode(a),a,{client_id:this._clientID,redirect_uri:this._getCallbackURL(a)}],c=this._buildAuthorizeQueryString(b),d=h("https:",this._domain,"/passwordless/verify_redirect?"+c);this._redirect(d)},i.prototype.renewIdToken=function(a,b){this.getDelegationToken({id_token:a,scope:"passthrough",api:"auth0"},b)},i.prototype.refreshToken=function(a,b){this.getDelegationToken({refresh_token:a,scope:"passthrough",api:"auth0"},b)},i.prototype.getDelegationToken=function(a,b){if(a=a||{},!a.id_token&&!a.refresh_token)throw new Error("You must send either an id_token or a refresh_token to get a delegation token.");var c=t({grant_type:"urn:ietf:params:oauth:grant-type:jwt-bearer",client_id:this._clientID,target:a.targetClientId||this._clientID,api_type:a.api},a);delete c.hasOwnProperty,delete c.targetClientId,delete c.api;var e="https:",f=this._domain,g="/delegation",i=h(e,f,g);return this._useJSONP?x(i+"?"+s.stringify(c),y,function(a,c){if(a)return b(a);if("error"in c){var d=new B(c.status,c.error_description||c.error);return b(d)}b(null,c)}):void v({url:z(e,f)?g:i,method:"post",type:"json",data:c,crossOrigin:!z(e,f),success:function(a){b(null,a)},error:function(a){try{b(JSON.parse(a.responseText))}catch(c){var e=a,f=10===d()||11===d(),g=!e.status||0===e.status;g&&!window.navigator.onLine?(e={},e.status=0,e.responseText={code:"offline"}):g&&f?(e={},e.status=401,e.responseText={code:"invalid_operation"}):g?(e={},e.status=0,e.responseText={code:"connection_refused_timeout"}):e.responseText=a,b(new B(e.status,e.responseText))}}})},i.prototype.silentAuthentication=function(a,b){var c=a.usePostMessage||!1;delete a.usePostMessage,a=t(a,{prompt:"none"});var d=new D(this,this._buildAuthorizeUrl(a));d.login(b,c)},i.prototype.logout=function(a,b){var c="/logout";b=b||{},"v2"==b.version&&(c="/v2"+c);var d=h("https:",this._domain,c);a&&(d+="?"+s.stringify(a)),this._redirect(d)},i.prototype.getSSOData=function(a,b){"function"==typeof a&&(b=a,a=!1);var c={sso:!1};if(this._useJSONP){var d=new Error("The SSO data can't be obtained using JSONP");return void setTimeout(function(){b(d,c)},0)}var e="https:",f=this._domain,g="/user/ssodata",i=h(e,f,g),j=z(e,f),k={};return a&&(k={ldaps:1,client_id:this._clientID}),v({url:j?g:i,method:"get",type:"json",data:k,crossOrigin:!j,withCredentials:!j,timeout:3e3}).fail(function(a){var d=new Error("There was an error in the request that obtains the user's SSO data.");d.cause=a,b(d,c)}).then(function(a){b(null,a)})},i.prototype.getConnections=function(a){return x("https://"+this._domain+"/public/api/"+this._clientID+"/connections",y,a)},i.prototype.startPasswordless=function(a,b){if("object"!=typeof a)throw new Error("An options object is required");if("function"!=typeof b)throw new Error("A callback function is required");if(!a.email&&!a.phoneNumber)throw new Error("An `email` or a `phoneNumber` is required.");var c="https:",d=this._domain,e="/passwordless/start",f=h(c,d,e),g={client_id:this._clientID};return a.email?(g.email=a.email,g.connection="email",a.authParams&&(g.authParams=a.authParams),a.send&&"link"!==a.send||(g.authParams||(g.authParams={}),g.authParams.redirect_uri=a.callbackURL||this._callbackURL,g.authParams.response_type=this._getResponseType(a)),a.send&&(g.send=a.send)):(g.phone_number=a.phoneNumber,g.connection="sms"),this._useJSONP?(this._sendClientInfo&&(g.auth0Client=this._getClientInfoString()),x(f+"?"+s.stringify(g),y,function(a,c){return a?b(new Error("0: "+a.toString())):200===c.status?b(null,!0):b(c.err||c.error)})):v({url:z(c,d)?e:f,method:"post",type:"json",headers:this._getClientInfoHeader(),crossOrigin:!z(c,d),data:g}).fail(function(a){try{b(JSON.parse(a.responseText))}catch(c){var d=new Error(a.status+"("+a.statusText+"): "+a.responseText);d.statusCode=a.status,d.error=a.statusText,d.message=a.responseText,b(d)}}).then(function(a){b(null,a)})},i.prototype.requestMagicLink=function(a,b){return this.startPasswordless(a,b)},i.prototype.requestEmailCode=function(a,b){return a.send="code",this.startPasswordless(a,b)},i.prototype.verifyEmailCode=function(a,b){return a.passcode=a.code,delete a.code,this.login(a,b)},i.prototype.requestSMSCode=function(a,b){return this.startPasswordless(a,b)},i.prototype.verifySMSCode=function(a,b){return a.passcode=a.code,delete a.code,this.login(a,b)},i.prototype.getUserCountry=function(a){var b="https:",c=this._domain,d="/user/geoloc/country",e=h(b,c,d);if(this._useJSONP){var f=new Error("The user's country can't be obtained using JSONP");return void setTimeout(function(){a(f)},0)}v({url:z(b,c)?d:e,method:"get",type:"json",headers:this._getClientInfoHeader(),crossOrigin:!z(b,c),success:function(b){a(null,b.country_code)},error:function(b){var c=new Error("There was an error in the request that obtains the user's country");c.cause=b,a(c)}})},i.prototype._prepareResult=function(a){if(a&&"object"==typeof a){var b=a.id_token?this.decodeJwt(a.id_token):void 0;return{accessToken:a.access_token,idToken:a.id_token,idTokenPayload:a.profile||b,refreshToken:a.refresh_token,state:a.state}}},i.prototype._parseResponseType=function(a,b){a||(a={}),b&&!this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&(this._providedCallbackOnLocationHash=!0),b&&!this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseType")&&(this._providedResponseOptions=!0),!this._providedCallbackOnLocationHash&&!this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&a.hasOwnProperty("responseType")&&m("The responseType option will be ignored. Both callbackOnLocationHash and responseType options were provided and they can't be used together."),this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseType")&&m("The responseType option will be ignored. The callbackOnLocationHash option was provided to the constructor and they can't be mixed."),this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&m("The callbackOnLocationHash option will be ignored. The responseType option was provided to the constructor and they can't be mixed."),this._providedCallbackOnLocationHash||a.hasOwnProperty("callbackOnLocationHash")||!a.responseType||k(a.responseType)||m('The responseType option will be ignored. Its valid values are "code", "id_token", "token" or any combination of them.');var c=void 0;return this._providedResponseOptions||null==a.callbackOnLocationHash||(c=j(a.callbackOnLocationHash)),!this._providedCallbackOnLocationHash&&!a.hasOwnProperty("callbackOnLocationHash")&&a.responseType&&k(a.responseType)&&(c=a.responseType),c},i.prototype._parseResponseMode=function(a,b){a||(a={}),b&&!this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseMode")&&(this._providedResponseOptions=!0),this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseMode")&&m("The responseMode option will be ignored. The callbackOnLocationHash option was provided to the constructor and they can't be mixed."),!this._providedCallbackOnLocationHash&&!this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&a.hasOwnProperty("responseMode")&&m("The responseMode option will be ignored. Both callbackOnLocationHash and responseMode options were provided and they can't be used together.");var c=void 0;return this._providedCallbackOnLocationHash||!a.responseMode||l(a.responseMode)||m('The responseMode option will be ignored. Its only valid value is "form_post".'),!this._providedCallbackOnLocationHash&&l(a.responseMode)&&(c=a.responseMode),c},b.exports=i},{"./lib/LoginError":3,"./lib/SilentAuthenticationHandler":4,"./lib/assert_required":5,"./lib/base64_url":6,"./lib/index-of":7,"./lib/is-array":8,"./lib/json-parse":9,"./lib/same-origin":10,"./lib/use_jsonp":11,"./version":34,jsonp:15,qs:20,reqwest:24,trim:25,winchan:26,xtend:28}],2:[function(a,b,c){var d=function(a){this.auth0=a.auth0,this.url=a.url,this.callback=a.callback,this.timeout=a.timeout||6e4,this.timeoutCallback=a.timeoutCallback||null,this.usePostMessage=a.usePostMessage||!1,this.iframe=null,this.timeoutHandle=null,this._destroyTimeout=null,this.transientMessageEventListener=null,this.transientEventListener=null};d.prototype.init=function(a){this.iframe=document.createElement("iframe"),this.iframe.style.display="none",this.iframe.src=this.url;var b=this;this.usePostMessage?(this.transientMessageEventListener=function(a){b.messageEventListener(a)},window.addEventListener("message",this.transientMessageEventListener,!1)):(this.transientEventListener=function(){b.loadEventListener()},this.iframe.addEventListener("load",this.transientEventListener,!1)),document.body.appendChild(this.iframe),this.timeoutHandle=setTimeout(function(){b.timeoutHandler()},this.timeout)},d.prototype.messageEventListener=function(a){this.callbackHandler(a.data),this.destroy()},d.prototype.loadEventListener=function(){var a=this.auth0.parseHash(this.iframe.contentWindow.location.hash);a&&(this.callbackHandler(a),this.destroy())},d.prototype.callbackHandler=function(a){var b=null;a.error&&(b=a,a=null),this.callback(b,a)},d.prototype.timeoutHandler=function(){this.timeoutCallback&&this.timeoutCallback(),this.destroy()},d.prototype.destroy=function(){var a=this;this.timeoutHandle&&clearTimeout(this.timeoutHandle),this._destroyTimeout=setTimeout(function(){a.usePostMessage?window.removeEventListener("message",a.transientMessageEventListener,!1):a.iframe.removeEventListener("load",a.transientEventListener,!1),document.body.removeChild(a.iframe)},0)},b.exports=d},{}],3:[function(a,b,c){function d(a,b){var c;if("string"==typeof b)try{c=e(b)}catch(d){c={message:b}}else c=b||{description:"server error"};c.code||(c.code=c.error),"unauthorized"===c.code&&(a=401);var f=c.description||c.message||c.error;"PasswordStrengthError"===c.name&&(f="Password is not strong enough.");var g=Error.call(this,f);return g.status=a,g.name=c.code,g.code=c.code,g.details=c,0===a&&(g.code&&"offline"===g.code||(g.code="Unknown",g.message="Unknown error.")),g}var e=a("./json-parse");b.exports=d,Object&&Object.create&&(d.prototype=Object.create(Error.prototype,{constructor:{value:d}}))},{"./json-parse":9}],4:[function(a,b,c){var d=a("./IframeHandler"),e=function(a,b,c){this.auth0=a,this.authenticationUrl=b,this.timeout=c||6e4,this.handler=null};e.prototype.timeoutCallback=function(){console.error("Timeout during silent authentication.")},e.prototype.login=function(a,b){this.handler=new d({auth0:this.auth0,url:this.authenticationUrl,callback:a,timeout:this.timeout,timeoutCallback:this.timeoutCallback,usePostMessage:b||!1}),this.handler.init()},b.exports=e},{"./IframeHandler":2}],5:[function(a,b,c){function d(a,b){if(!a[b])throw new Error(b+" is required.")}b.exports=d},{}],6:[function(a,b,c){function d(a){return f.btoa(a).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}function e(a){return a+=Array(5-a.length%4).join("="),a=a.replace(/\-/g,"+").replace(/\_/g,"/"),f.atob(a)}var f=a("Base64");b.exports={encode:d,decode:e}},{Base64:12}],7:[function(a,b,c){function d(a,b,c){return a.indexOf(b,c)}function e(a,b,c){var d;if(null==a)throw new TypeError('"array" is null or not defined');var e=Object(a),f=e.length>>>0;if(0===f)return-1;var g=+c||0;if(Math.abs(g)===1/0&&(g=0),g>=f)return-1;for(d=Math.max(g>=0?g:f-Math.abs(g),0);f>d;){if(d in e&&e[d]===b)return d;d++}return-1}b.exports=Array.prototype.indexOf?d:e},{}],8:[function(a,b,c){function d(a){return"[object Array]"===e.call(a)}var e=Object.prototype.toString;b.exports=null!=Array.isArray?Array.isArray:d},{}],9:[function(a,b,c){b.exports="undefined"==typeof JSON?a("json-fallback").parse:JSON.parse},{"json-fallback":14}],10:[function(a,b,c){function d(a,b,c){var d=window.location.protocol,e=window.location.hostname,f=window.location.port;return c=c||"",d===a&&e===b&&f===c}b.exports=d},{}],11:[function(a,b,c){function d(){var a=window.XMLHttpRequest?new XMLHttpRequest:null;return a&&"withCredentials"in a?!1:!0}b.exports=d},{}],12:[function(a,b,c){!function(){var a="undefined"!=typeof c?c:this,b="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",d=function(){try{document.createElement("$")}catch(a){return a}}();a.btoa||(a.btoa=function(a){for(var c,e,f=0,g=b,h="";a.charAt(0|f)||(g="=",f%1);h+=g.charAt(63&c>>8-f%1*8)){if(e=a.charCodeAt(f+=.75),e>255)throw d;c=c<<8|e}return h}),a.atob||(a.atob=function(a){if(a=a.replace(/=+$/,""),a.length%4==1)throw d;for(var c,e,f=0,g=0,h="";e=a.charAt(g++);~e&&(c=f%4?64*c+e:e,f++%4)?h+=String.fromCharCode(255&c>>(-2*f&6)):0)e=b.indexOf(e);return h})}()},{}],13:[function(a,b,c){},{}],14:[function(require,module,exports){var JSON={};!function(){"use strict";function f(a){return 10>a?"0"+a:a}function quote(a){return escapable.lastIndex=0,escapable.test(a)?'"'+a.replace(escapable,function(a){var b=meta[a];return"string"==typeof b?b:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function str(a,b){var c,d,e,f,g,h=gap,i=b[a];switch(i&&"object"==typeof i&&"function"==typeof i.toJSON&&(i=i.toJSON(a)),"function"==typeof rep&&(i=rep.call(b,a,i)),typeof i){case"string":return quote(i);case"number":return isFinite(i)?String(i):"null";case"boolean":case"null":return String(i);case"object":if(!i)return"null";if(gap+=indent,g=[],"[object Array]"===Object.prototype.toString.apply(i)){for(f=i.length,c=0;f>c;c+=1)g[c]=str(c,i)||"null";return e=0===g.length?"[]":gap?"[\n"+gap+g.join(",\n"+gap)+"\n"+h+"]":"["+g.join(",")+"]",gap=h,e}if(rep&&"object"==typeof rep)for(f=rep.length,c=0;f>c;c+=1)"string"==typeof rep[c]&&(d=rep[c],e=str(d,i),e&&g.push(quote(d)+(gap?": ":":")+e));else for(d in i)Object.prototype.hasOwnProperty.call(i,d)&&(e=str(d,i),e&&g.push(quote(d)+(gap?": ":":")+e));return e=0===g.length?"{}":gap?"{\n"+gap+g.join(",\n"+gap)+"\n"+h+"}":"{"+g.join(",")+"}",gap=h,e}}"function"!=typeof Date.prototype.toJSON&&(Date.prototype.toJSON=function(a){
+return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(a){return this.valueOf()});var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={"\b":"\\b","	":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},rep;"function"!=typeof JSON.stringify&&(JSON.stringify=function(a,b,c){var d;if(gap="",indent="","number"==typeof c)for(d=0;c>d;d+=1)indent+=" ";else"string"==typeof c&&(indent=c);if(rep=b,b&&"function"!=typeof b&&("object"!=typeof b||"number"!=typeof b.length))throw new Error("JSON.stringify");return str("",{"":a})}),"function"!=typeof JSON.parse&&(JSON.parse=function(text,reviver){function walk(a,b){var c,d,e=a[b];if(e&&"object"==typeof e)for(c in e)Object.prototype.hasOwnProperty.call(e,c)&&(d=walk(e,c),void 0!==d?e[c]=d:delete e[c]);return reviver.call(a,b,e)}var j;if(text=String(text),cx.lastIndex=0,cx.test(text)&&(text=text.replace(cx,function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})),/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,"")))return j=eval("("+text+")"),"function"==typeof reviver?walk({"":j},""):j;throw new SyntaxError("JSON.parse")})}(),module.exports=JSON},{}],15:[function(a,b,c){function d(){}function e(a,b,c){function e(){h.parentNode.removeChild(h),window[o]=d}"function"==typeof b&&(c=b,b={}),b||(b={});var h,i,j=b.prefix||"__jp",k=b.param||"callback",l=null!=b.timeout?b.timeout:6e4,m=encodeURIComponent,n=document.getElementsByTagName("script")[0]||document.head,o=j+g++;l&&(i=setTimeout(function(){e(),c&&c(new Error("Timeout"))},l)),window[o]=function(a){f("jsonp got",a),i&&clearTimeout(i),e(),c&&c(null,a)},a+=(~a.indexOf("?")?"&":"?")+k+"="+m(o),a=a.replace("?&","?"),f('jsonp req "%s"',a),h=document.createElement("script"),h.src=a,n.parentNode.insertBefore(h,n)}var f=a("debug")("jsonp");b.exports=e;var g=0},{debug:16}],16:[function(a,b,c){function d(){return"WebkitAppearance"in document.documentElement.style||window.console&&(console.firebug||console.exception&&console.table)||navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/)&&parseInt(RegExp.$1,10)>=31}function e(){var a=arguments,b=this.useColors;if(a[0]=(b?"%c":"")+this.namespace+(b?" %c":" ")+a[0]+(b?"%c ":" ")+"+"+c.humanize(this.diff),!b)return a;var d="color: "+this.color;a=[a[0],d,"color: inherit"].concat(Array.prototype.slice.call(a,1));var e=0,f=0;return a[0].replace(/%[a-z%]/g,function(a){"%%"!==a&&(e++,"%c"===a&&(f=e))}),a.splice(f,0,d),a}function f(){return"object"==typeof console&&console.log&&Function.prototype.apply.call(console.log,console,arguments)}function g(a){try{null==a?c.storage.removeItem("debug"):c.storage.debug=a}catch(b){}}function h(){var a;try{a=c.storage.debug}catch(b){}return a}function i(){try{return window.localStorage}catch(a){}}c=b.exports=a("./debug"),c.log=f,c.formatArgs=e,c.save=g,c.load=h,c.useColors=d,c.storage="undefined"!=typeof chrome&&"undefined"!=typeof chrome.storage?chrome.storage.local:i(),c.colors=["lightseagreen","forestgreen","goldenrod","dodgerblue","darkorchid","crimson"],c.formatters.j=function(a){return JSON.stringify(a)},c.enable(h())},{"./debug":17}],17:[function(a,b,c){function d(){return c.colors[k++%c.colors.length]}function e(a){function b(){}function e(){var a=e,b=+new Date,f=b-(j||b);a.diff=f,a.prev=j,a.curr=b,j=b,null==a.useColors&&(a.useColors=c.useColors()),null==a.color&&a.useColors&&(a.color=d());var g=Array.prototype.slice.call(arguments);g[0]=c.coerce(g[0]),"string"!=typeof g[0]&&(g=["%o"].concat(g));var h=0;g[0]=g[0].replace(/%([a-z%])/g,function(b,d){if("%%"===b)return b;h++;var e=c.formatters[d];if("function"==typeof e){var f=g[h];b=e.call(a,f),g.splice(h,1),h--}return b}),"function"==typeof c.formatArgs&&(g=c.formatArgs.apply(a,g));var i=e.log||c.log||console.log.bind(console);i.apply(a,g)}b.enabled=!1,e.enabled=!0;var f=c.enabled(a)?e:b;return f.namespace=a,f}function f(a){c.save(a);for(var b=(a||"").split(/[\s,]+/),d=b.length,e=0;d>e;e++)b[e]&&(a=b[e].replace(/\*/g,".*?"),"-"===a[0]?c.skips.push(new RegExp("^"+a.substr(1)+"$")):c.names.push(new RegExp("^"+a+"$")))}function g(){c.enable("")}function h(a){var b,d;for(b=0,d=c.skips.length;d>b;b++)if(c.skips[b].test(a))return!1;for(b=0,d=c.names.length;d>b;b++)if(c.names[b].test(a))return!0;return!1}function i(a){return a instanceof Error?a.stack||a.message:a}c=b.exports=e,c.coerce=i,c.disable=g,c.enable=f,c.enabled=h,c.humanize=a("ms"),c.names=[],c.skips=[],c.formatters={};var j,k=0},{ms:18}],18:[function(a,b,c){function d(a){if(a=""+a,!(a.length>1e4)){var b=/^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(a);if(b){var c=parseFloat(b[1]),d=(b[2]||"ms").toLowerCase();switch(d){case"years":case"year":case"yrs":case"yr":case"y":return c*l;case"days":case"day":case"d":return c*k;case"hours":case"hour":case"hrs":case"hr":case"h":return c*j;case"minutes":case"minute":case"mins":case"min":case"m":return c*i;case"seconds":case"second":case"secs":case"sec":case"s":return c*h;case"milliseconds":case"millisecond":case"msecs":case"msec":case"ms":return c}}}}function e(a){return a>=k?Math.round(a/k)+"d":a>=j?Math.round(a/j)+"h":a>=i?Math.round(a/i)+"m":a>=h?Math.round(a/h)+"s":a+"ms"}function f(a){return g(a,k,"day")||g(a,j,"hour")||g(a,i,"minute")||g(a,h,"second")||a+" ms"}function g(a,b,c){return b>a?void 0:1.5*b>a?Math.floor(a/b)+" "+c:Math.ceil(a/b)+" "+c+"s"}var h=1e3,i=60*h,j=60*i,k=24*j,l=365.25*k;b.exports=function(a,b){return b=b||{},"string"==typeof a?d(a):b["long"]?f(a):e(a)}},{}],19:[function(a,b,c){"use strict";var d=String.prototype.replace,e=/%20/g;b.exports={"default":"RFC3986",formatters:{RFC1738:function(a){return d.call(a,e,"+")},RFC3986:function(a){return a}},RFC1738:"RFC1738",RFC3986:"RFC3986"}},{}],20:[function(a,b,c){"use strict";var d=a("./stringify"),e=a("./parse"),f=a("./formats");b.exports={formats:f,parse:e,stringify:d}},{"./formats":19,"./parse":21,"./stringify":22}],21:[function(a,b,c){"use strict";var d=a("./utils"),e=Object.prototype.hasOwnProperty,f={allowDots:!1,allowPrototypes:!1,arrayLimit:20,decoder:d.decode,delimiter:"&",depth:5,parameterLimit:1e3,plainObjects:!1,strictNullHandling:!1},g=function(a,b){for(var c={},d=a.split(b.delimiter,b.parameterLimit===1/0?void 0:b.parameterLimit),f=0;f<d.length;++f){var g,h,i=d[f],j=-1===i.indexOf("]=")?i.indexOf("="):i.indexOf("]=")+1;-1===j?(g=b.decoder(i),h=b.strictNullHandling?null:""):(g=b.decoder(i.slice(0,j)),h=b.decoder(i.slice(j+1))),e.call(c,g)?c[g]=[].concat(c[g]).concat(h):c[g]=h}return c},h=function j(a,b,c){if(!a.length)return b;var d,e=a.shift();if("[]"===e)d=[],d=d.concat(j(a,b,c));else{d=c.plainObjects?Object.create(null):{};var f="["===e[0]&&"]"===e[e.length-1]?e.slice(1,e.length-1):e,g=parseInt(f,10);!isNaN(g)&&e!==f&&String(g)===f&&g>=0&&c.parseArrays&&g<=c.arrayLimit?(d=[],d[g]=j(a,b,c)):d[f]=j(a,b,c)}return d},i=function(a,b,c){if(a){var d=c.allowDots?a.replace(/\.([^\.\[]+)/g,"[$1]"):a,f=/^([^\[\]]*)/,g=/(\[[^\[\]]*\])/g,i=f.exec(d),j=[];if(i[1]){if(!c.plainObjects&&e.call(Object.prototype,i[1])&&!c.allowPrototypes)return;j.push(i[1])}for(var k=0;null!==(i=g.exec(d))&&k<c.depth;)k+=1,(c.plainObjects||!e.call(Object.prototype,i[1].replace(/\[|\]/g,""))||c.allowPrototypes)&&j.push(i[1]);return i&&j.push("["+d.slice(i.index)+"]"),h(j,b,c)}};b.exports=function(a,b){var c=b||{};if(null!==c.decoder&&void 0!==c.decoder&&"function"!=typeof c.decoder)throw new TypeError("Decoder has to be a function.");if(c.delimiter="string"==typeof c.delimiter||d.isRegExp(c.delimiter)?c.delimiter:f.delimiter,c.depth="number"==typeof c.depth?c.depth:f.depth,c.arrayLimit="number"==typeof c.arrayLimit?c.arrayLimit:f.arrayLimit,c.parseArrays=c.parseArrays!==!1,c.decoder="function"==typeof c.decoder?c.decoder:f.decoder,c.allowDots="boolean"==typeof c.allowDots?c.allowDots:f.allowDots,c.plainObjects="boolean"==typeof c.plainObjects?c.plainObjects:f.plainObjects,c.allowPrototypes="boolean"==typeof c.allowPrototypes?c.allowPrototypes:f.allowPrototypes,c.parameterLimit="number"==typeof c.parameterLimit?c.parameterLimit:f.parameterLimit,c.strictNullHandling="boolean"==typeof c.strictNullHandling?c.strictNullHandling:f.strictNullHandling,""===a||null===a||"undefined"==typeof a)return c.plainObjects?Object.create(null):{};for(var e="string"==typeof a?g(a,c):a,h=c.plainObjects?Object.create(null):{},j=Object.keys(e),k=0;k<j.length;++k){var l=j[k],m=i(l,e[l],c);h=d.merge(h,m,c)}return d.compact(h)}},{"./utils":23}],22:[function(a,b,c){"use strict";var d=a("./utils"),e=a("./formats"),f={brackets:function(a){return a+"[]"},indices:function(a,b){return a+"["+b+"]"},repeat:function(a){return a}},g=Date.prototype.toISOString,h={delimiter:"&",encode:!0,encoder:d.encode,serializeDate:function(a){return g.call(a)},skipNulls:!1,strictNullHandling:!1},i=function j(a,b,c,e,f,g,h,i,k,l,m){var n=a;if("function"==typeof h)n=h(b,n);else if(n instanceof Date)n=l(n);else if(null===n){if(e)return g?g(b):b;n=""}if("string"==typeof n||"number"==typeof n||"boolean"==typeof n||d.isBuffer(n))return g?[m(g(b))+"="+m(g(n))]:[m(b)+"="+m(String(n))];var o=[];if("undefined"==typeof n)return o;var p;if(Array.isArray(h))p=h;else{var q=Object.keys(n);p=i?q.sort(i):q}for(var r=0;r<p.length;++r){var s=p[r];f&&null===n[s]||(o=Array.isArray(n)?o.concat(j(n[s],c(b,s),c,e,f,g,h,i,k,l,m)):o.concat(j(n[s],b+(k?"."+s:"["+s+"]"),c,e,f,g,h,i,k,l,m)))}return o};b.exports=function(a,b){var c=a,d=b||{},g="undefined"==typeof d.delimiter?h.delimiter:d.delimiter,j="boolean"==typeof d.strictNullHandling?d.strictNullHandling:h.strictNullHandling,k="boolean"==typeof d.skipNulls?d.skipNulls:h.skipNulls,l="boolean"==typeof d.encode?d.encode:h.encode,m=l?"function"==typeof d.encoder?d.encoder:h.encoder:null,n="function"==typeof d.sort?d.sort:null,o="undefined"==typeof d.allowDots?!1:d.allowDots,p="function"==typeof d.serializeDate?d.serializeDate:h.serializeDate;if("undefined"==typeof d.format)d.format=e["default"];else if(!Object.prototype.hasOwnProperty.call(e.formatters,d.format))throw new TypeError("Unknown format option provided.");var q,r,s=e.formatters[d.format];if(null!==d.encoder&&void 0!==d.encoder&&"function"!=typeof d.encoder)throw new TypeError("Encoder has to be a function.");"function"==typeof d.filter?(r=d.filter,c=r("",c)):Array.isArray(d.filter)&&(r=d.filter,q=r);var t=[];if("object"!=typeof c||null===c)return"";var u;u=d.arrayFormat in f?d.arrayFormat:"indices"in d?d.indices?"indices":"repeat":"indices";var v=f[u];q||(q=Object.keys(c)),n&&q.sort(n);for(var w=0;w<q.length;++w){var x=q[w];k&&null===c[x]||(t=t.concat(i(c[x],x,v,j,k,m,r,n,o,p,s)))}return t.join(g)}},{"./formats":19,"./utils":23}],23:[function(a,b,c){"use strict";var d=Object.prototype.hasOwnProperty,e=function(){for(var a=[],b=0;256>b;++b)a.push("%"+((16>b?"0":"")+b.toString(16)).toUpperCase());return a}();c.arrayToObject=function(a,b){for(var c=b&&b.plainObjects?Object.create(null):{},d=0;d<a.length;++d)"undefined"!=typeof a[d]&&(c[d]=a[d]);return c},c.merge=function(a,b,e){if(!b)return a;if("object"!=typeof b){if(Array.isArray(a))a.push(b);else{if("object"!=typeof a)return[a,b];a[b]=!0}return a}if("object"!=typeof a)return[a].concat(b);var f=a;return Array.isArray(a)&&!Array.isArray(b)&&(f=c.arrayToObject(a,e)),Array.isArray(a)&&Array.isArray(b)?(b.forEach(function(b,f){d.call(a,f)?a[f]&&"object"==typeof a[f]?a[f]=c.merge(a[f],b,e):a.push(b):a[f]=b}),a):Object.keys(b).reduce(function(a,d){var f=b[d];return Object.prototype.hasOwnProperty.call(a,d)?a[d]=c.merge(a[d],f,e):a[d]=f,a},f)},c.decode=function(a){try{return decodeURIComponent(a.replace(/\+/g," "))}catch(b){return a}},c.encode=function(a){if(0===a.length)return a;for(var b="string"==typeof a?a:String(a),c="",d=0;d<b.length;++d){var f=b.charCodeAt(d);45===f||46===f||95===f||126===f||f>=48&&57>=f||f>=65&&90>=f||f>=97&&122>=f?c+=b.charAt(d):128>f?c+=e[f]:2048>f?c+=e[192|f>>6]+e[128|63&f]:55296>f||f>=57344?c+=e[224|f>>12]+e[128|f>>6&63]+e[128|63&f]:(d+=1,f=65536+((1023&f)<<10|1023&b.charCodeAt(d)),c+=e[240|f>>18]+e[128|f>>12&63]+e[128|f>>6&63]+e[128|63&f])}return c},c.compact=function(a,b){if("object"!=typeof a||null===a)return a;var d=b||[],e=d.indexOf(a);if(-1!==e)return d[e];if(d.push(a),Array.isArray(a)){for(var f=[],g=0;g<a.length;++g)a[g]&&"object"==typeof a[g]?f.push(c.compact(a[g],d)):"undefined"!=typeof a[g]&&f.push(a[g]);return f}var h=Object.keys(a);return h.forEach(function(b){a[b]=c.compact(a[b],d)}),a},c.isRegExp=function(a){return"[object RegExp]"===Object.prototype.toString.call(a)},c.isBuffer=function(a){return null===a||"undefined"==typeof a?!1:!!(a.constructor&&a.constructor.isBuffer&&a.constructor.isBuffer(a))}},{}],24:[function(require,module,exports){!function(a,b,c){"undefined"!=typeof module&&module.exports?module.exports=c():"function"==typeof define&&define.amd?define(c):b[a]=c()}("reqwest",this,function(){function succeed(a){var b=protocolRe.exec(a.url);return b=b&&b[1]||context.location.protocol,httpsRe.test(b)?twoHundo.test(a.request.status):!!a.request.response}function handleReadyState(a,b,c){return function(){return a._aborted?c(a.request):a._timedOut?c(a.request,"Request is aborted: timeout"):void(a.request&&4==a.request[readyState]&&(a.request.onreadystatechange=noop,succeed(a)?b(a.request):c(a.request)))}}function setHeaders(a,b){var c,d=b.headers||{};d.Accept=d.Accept||defaultHeaders.accept[b.type]||defaultHeaders.accept["*"];var e="undefined"!=typeof FormData&&b.data instanceof FormData;b.crossOrigin||d[requestedWith]||(d[requestedWith]=defaultHeaders.requestedWith),d[contentType]||e||(d[contentType]=b.contentType||defaultHeaders.contentType);for(c in d)d.hasOwnProperty(c)&&"setRequestHeader"in a&&a.setRequestHeader(c,d[c])}function setCredentials(a,b){"undefined"!=typeof b.withCredentials&&"undefined"!=typeof a.withCredentials&&(a.withCredentials=!!b.withCredentials)}function generalCallback(a){lastValue=a}function urlappend(a,b){return a+(/\?/.test(a)?"&":"?")+b}function handleJsonp(a,b,c,d){var e=uniqid++,f=a.jsonpCallback||"callback",g=a.jsonpCallbackName||reqwest.getcallbackPrefix(e),h=new RegExp("((^|\\?|&)"+f+")=([^&]+)"),i=d.match(h),j=doc.createElement("script"),k=0,l=-1!==navigator.userAgent.indexOf("MSIE 10.0");return i?"?"===i[3]?d=d.replace(h,"$1="+g):g=i[3]:d=urlappend(d,f+"="+g),context[g]=generalCallback,j.type="text/javascript",j.src=d,j.async=!0,"undefined"==typeof j.onreadystatechange||l||(j.htmlFor=j.id="_reqwest_"+e),j.onload=j.onreadystatechange=function(){return j[readyState]&&"complete"!==j[readyState]&&"loaded"!==j[readyState]||k?!1:(j.onload=j.onreadystatechange=null,j.onclick&&j.onclick(),b(lastValue),lastValue=void 0,head.removeChild(j),void(k=1))},head.appendChild(j),{abort:function(){j.onload=j.onreadystatechange=null,c({},"Request is aborted: timeout",{}),lastValue=void 0,head.removeChild(j),k=1}}}function getRequest(a,b){var c,d=this.o,e=(d.method||"GET").toUpperCase(),f="string"==typeof d?d:d.url,g=d.processData!==!1&&d.data&&"string"!=typeof d.data?reqwest.toQueryString(d.data):d.data||null,h=!1;return"jsonp"!=d.type&&"GET"!=e||!g||(f=urlappend(f,g),g=null),"jsonp"==d.type?handleJsonp(d,a,b,f):(c=d.xhr&&d.xhr(d)||xhr(d),c.open(e,f,d.async===!1?!1:!0),setHeaders(c,d),setCredentials(c,d),context[xDomainRequest]&&c instanceof context[xDomainRequest]?(c.onload=a,c.onerror=b,c.onprogress=function(){},h=!0):c.onreadystatechange=handleReadyState(this,a,b),d.before&&d.before(c),h?setTimeout(function(){c.send(g)},200):c.send(g),c)}function Reqwest(a,b){this.o=a,this.fn=b,init.apply(this,arguments)}function setType(a){return null===a?void 0:a.match("json")?"json":a.match("javascript")?"js":a.match("text")?"html":a.match("xml")?"xml":void 0}function init(o,fn){function complete(a){for(o.timeout&&clearTimeout(self.timeout),self.timeout=null;self._completeHandlers.length>0;)self._completeHandlers.shift()(a)}function success(resp){var type=o.type||resp&&setType(resp.getResponseHeader("Content-Type"));resp="jsonp"!==type?self.request:resp;var filteredResponse=globalSetupOptions.dataFilter(resp.responseText,type),r=filteredResponse;try{resp.responseText=r}catch(e){}if(r)switch(type){case"json":try{resp=context.JSON?context.JSON.parse(r):eval("("+r+")")}catch(err){return error(resp,"Could not parse JSON in response",err)}break;case"js":resp=eval(r);break;case"html":resp=r;break;case"xml":resp=resp.responseXML&&resp.responseXML.parseError&&resp.responseXML.parseError.errorCode&&resp.responseXML.parseError.reason?null:resp.responseXML}for(self._responseArgs.resp=resp,self._fulfilled=!0,fn(resp),self._successHandler(resp);self._fulfillmentHandlers.length>0;)resp=self._fulfillmentHandlers.shift()(resp);complete(resp)}function timedOut(){self._timedOut=!0,self.request.abort()}function error(a,b,c){for(a=self.request,self._responseArgs.resp=a,self._responseArgs.msg=b,self._responseArgs.t=c,self._erred=!0;self._errorHandlers.length>0;)self._errorHandlers.shift()(a,b,c);complete(a)}this.url="string"==typeof o?o:o.url,this.timeout=null,this._fulfilled=!1,this._successHandler=function(){},this._fulfillmentHandlers=[],this._errorHandlers=[],this._completeHandlers=[],this._erred=!1,this._responseArgs={};var self=this;fn=fn||function(){},o.timeout&&(this.timeout=setTimeout(function(){timedOut()},o.timeout)),o.success&&(this._successHandler=function(){o.success.apply(o,arguments)}),o.error&&this._errorHandlers.push(function(){o.error.apply(o,arguments)}),o.complete&&this._completeHandlers.push(function(){o.complete.apply(o,arguments)}),this.request=getRequest.call(this,success,error)}function reqwest(a,b){return new Reqwest(a,b)}function normalize(a){return a?a.replace(/\r?\n/g,"\r\n"):""}function serial(a,b){var c,d,e,f,g=a.name,h=a.tagName.toLowerCase(),i=function(a){a&&!a.disabled&&b(g,normalize(a.attributes.value&&a.attributes.value.specified?a.value:a.text))};if(!a.disabled&&g)switch(h){case"input":/reset|button|image|file/i.test(a.type)||(c=/checkbox/i.test(a.type),d=/radio/i.test(a.type),e=a.value,(!(c||d)||a.checked)&&b(g,normalize(c&&""===e?"on":e)));break;case"textarea":b(g,normalize(a.value));break;case"select":if("select-one"===a.type.toLowerCase())i(a.selectedIndex>=0?a.options[a.selectedIndex]:null);else for(f=0;a.length&&f<a.length;f++)a.options[f].selected&&i(a.options[f])}}function eachFormElement(){var a,b,c=this,d=function(a,b){var d,e,f;for(d=0;d<b.length;d++)for(f=a[byTag](b[d]),e=0;e<f.length;e++)serial(f[e],c)};for(b=0;b<arguments.length;b++)a=arguments[b],/input|select|textarea/i.test(a.tagName)&&serial(a,c),d(a,["input","select","textarea"])}function serializeQueryString(){return reqwest.toQueryString(reqwest.serializeArray.apply(null,arguments))}function serializeHash(){var a={};return eachFormElement.apply(function(b,c){b in a?(a[b]&&!isArray(a[b])&&(a[b]=[a[b]]),a[b].push(c)):a[b]=c},arguments),a}function buildParams(a,b,c,d){var e,f,g,h=/\[\]$/;if(isArray(b))for(f=0;b&&f<b.length;f++)g=b[f],c||h.test(a)?d(a,g):buildParams(a+"["+("object"==typeof g?f:"")+"]",g,c,d);else if(b&&"[object Object]"===b.toString())for(e in b)buildParams(a+"["+e+"]",b[e],c,d);else d(a,b)}var context=this;if("window"in context)var doc=document,byTag="getElementsByTagName",head=doc[byTag]("head")[0];else{var XHR2;try{XHR2=require("xhr2")}catch(ex){throw new Error("Peer dependency `xhr2` required! Please npm install xhr2")}}var httpsRe=/^http/,protocolRe=/(^\w+):\/\//,twoHundo=/^(20\d|1223)$/,readyState="readyState",contentType="Content-Type",requestedWith="X-Requested-With",uniqid=0,callbackPrefix="reqwest_"+ +new Date,lastValue,xmlHttpRequest="XMLHttpRequest",xDomainRequest="XDomainRequest",noop=function(){},isArray="function"==typeof Array.isArray?Array.isArray:function(a){return a instanceof Array},defaultHeaders={contentType:"application/x-www-form-urlencoded",requestedWith:xmlHttpRequest,accept:{"*":"text/javascript, text/html, application/xml, text/xml, */*",xml:"application/xml, text/xml",html:"text/html",text:"text/plain",json:"application/json, text/javascript",js:"application/javascript, text/javascript"}},xhr=function(a){if(a.crossOrigin===!0){var b=context[xmlHttpRequest]?new XMLHttpRequest:null;if(b&&"withCredentials"in b)return b;if(context[xDomainRequest])return new XDomainRequest;throw new Error("Browser does not support cross-origin requests")}return context[xmlHttpRequest]?new XMLHttpRequest:XHR2?new XHR2:new ActiveXObject("Microsoft.XMLHTTP")},globalSetupOptions={dataFilter:function(a){return a}};return Reqwest.prototype={abort:function(){this._aborted=!0,this.request.abort()},retry:function(){init.call(this,this.o,this.fn)},then:function(a,b){return a=a||function(){},b=b||function(){},this._fulfilled?this._responseArgs.resp=a(this._responseArgs.resp):this._erred?b(this._responseArgs.resp,this._responseArgs.msg,this._responseArgs.t):(this._fulfillmentHandlers.push(a),this._errorHandlers.push(b)),this},always:function(a){return this._fulfilled||this._erred?a(this._responseArgs.resp):this._completeHandlers.push(a),this},fail:function(a){return this._erred?a(this._responseArgs.resp,this._responseArgs.msg,this._responseArgs.t):this._errorHandlers.push(a),this},"catch":function(a){return this.fail(a)}},reqwest.serializeArray=function(){var a=[];return eachFormElement.apply(function(b,c){a.push({name:b,value:c})},arguments),a},reqwest.serialize=function(){if(0===arguments.length)return"";var a,b,c=Array.prototype.slice.call(arguments,0);return a=c.pop(),a&&a.nodeType&&c.push(a)&&(a=null),a&&(a=a.type),b="map"==a?serializeHash:"array"==a?reqwest.serializeArray:serializeQueryString,b.apply(null,c)},reqwest.toQueryString=function(a,b){var c,d,e=b||!1,f=[],g=encodeURIComponent,h=function(a,b){b="function"==typeof b?b():null==b?"":b,f[f.length]=g(a)+"="+g(b)};if(isArray(a))for(d=0;a&&d<a.length;d++)h(a[d].name,a[d].value);else for(c in a)a.hasOwnProperty(c)&&buildParams(c,a[c],e,h);return f.join("&").replace(/%20/g,"+")},reqwest.getcallbackPrefix=function(){return callbackPrefix},reqwest.compat=function(a,b){return a&&(a.type&&(a.method=a.type)&&delete a.type,a.dataType&&(a.type=a.dataType),a.jsonpCallback&&(a.jsonpCallbackName=a.jsonpCallback)&&delete a.jsonpCallback,a.jsonp&&(a.jsonpCallback=a.jsonp)),new Reqwest(a,b)},reqwest.ajaxSetup=function(a){a=a||{};for(var b in a)globalSetupOptions[b]=a[b]},reqwest})},{xhr2:13}],25:[function(a,b,c){function d(a){return a.replace(/^\s*|\s*$/g,"")}c=b.exports=d,c.left=function(a){return a.replace(/^\s*/,"")},c.right=function(a){return a.replace(/\s*$/,"")}},{}],26:[function(a,b,c){var d=function(){function a(a,b,c){a.attachEvent?a.attachEvent("on"+b,c):a.addEventListener&&a.addEventListener(b,c,!1)}function b(a,b,c){a.detachEvent?a.detachEvent("on"+b,c):a.removeEventListener&&a.removeEventListener(b,c,!1)}function c(){if("undefined"==typeof navigator)return!1;var a=-1,b=navigator.userAgent;if("Microsoft Internet Explorer"===navigator.appName){var c=new RegExp("MSIE ([0-9]{1,}[.0-9]{0,})");null!=c.exec(b)&&(a=parseFloat(RegExp.$1))}else if(b.indexOf("Trident")>-1){var c=new RegExp("rv:([0-9]{2,2}[.0-9]{0,})");null!==c.exec(b)&&(a=parseFloat(RegExp.$1))}return a>=8}function d(){try{var a=navigator.userAgent;return-1!=a.indexOf("Fennec/")||-1!=a.indexOf("Firefox/")&&-1!=a.indexOf("Android")}catch(b){}return!1}function e(){return"undefined"!=typeof window&&window.JSON&&window.JSON.stringify&&window.JSON.parse&&window.postMessage}function f(a){/^https?:\/\//.test(a)||(a=window.location.href);var b=/^(https?:\/\/[\-_a-zA-Z\.0-9:]+)/.exec(a);return b?b[1]:a}function g(){for(var a=(window.location,window.opener.frames),b=a.length-1;b>=0;b--)try{if(a[b].location.protocol===window.location.protocol&&a[b].location.host===window.location.host&&a[b].name===h)return a[b]}catch(c){}}var h="__winchan_relay_frame",i="die",j=c();return e()?{open:function(c,e){function g(){if(m&&document.body.removeChild(m),m=void 0,q&&(q=clearInterval(q)),b(window,"message",k),b(window,"unload",g),p)try{p.close()}catch(a){o.postMessage(i,n)}p=o=void 0}function k(a){if(a.origin===n)try{var b=JSON.parse(a.data);"ready"===b.a?o.postMessage(r,n):"error"===b.a?(g(),e&&(e(b.d),e=null)):"response"===b.a&&(g(),e&&(e(null,b.d),e=null))}catch(c){}}if(!e)throw"missing required callback argument";var l;c.url||(l="missing required 'url' parameter"),c.relay_url||(l="missing required 'relay_url' parameter"),l&&setTimeout(function(){e(l)},0),c.window_name||(c.window_name=null),(!c.window_features||d())&&(c.window_features=void 0);var m,n=f(c.url);if(n!==f(c.relay_url))return setTimeout(function(){e("invalid arguments: origin of url and relay_url must match")},0);var o;j&&(m=document.createElement("iframe"),m.setAttribute("src",c.relay_url),m.style.display="none",m.setAttribute("name",h),document.body.appendChild(m),o=m.contentWindow);var p=c.popup||window.open(c.url,c.window_name,c.window_features);c.popup&&(p.location.href=c.url),o||(o=p);var q=setInterval(function(){p&&p.closed&&(g(),e&&(e("User closed the popup window"),e=null))},500),r=JSON.stringify({a:"request",d:c.params});return a(window,"unload",g),a(window,"message",k),{close:g,focus:function(){if(p)try{p.focus()}catch(a){}}}},onOpen:function(c){function d(a){a=JSON.stringify(a),j?k.doPost(a,h):k.postMessage(a,h)}function e(a){var f;try{f=JSON.parse(a.data)}catch(g){}f&&"request"===f.a&&(b(window,"message",e),h=a.origin,c&&setTimeout(function(){c(h,f.d,function(a){c=void 0,d({a:"response",d:a})})},0))}function f(a){if(a.data===i)try{window.close()}catch(b){}}var h="*",k=j?g():window.opener;if(!k)throw"can't find relay frame";a(j?k:window,"message",e),a(j?k:window,"message",f);try{d({a:"ready"})}catch(l){a(k,"load",function(a){d({a:"ready"})})}var m=function(){try{b(j?k:window,"message",f)}catch(a){}c&&d({a:"error",d:"client closed window"}),c=void 0;try{window.close()}catch(e){}};return a(window,"unload",m),{detach:function(){b(window,"unload",m)}}}}:{open:function(a,b,c,d){setTimeout(function(){d("unsupported browser")},0)},onOpen:function(a){setTimeout(function(){a("unsupported browser")},0)}}}();"undefined"!=typeof b&&b.exports&&(b.exports=d)},{}],27:[function(a,b,c){function d(a){return null!==a&&("object"==typeof a||"function"==typeof a)}b.exports=d},{}],28:[function(a,b,c){function d(){for(var a={},b=0;b<arguments.length;b++){var c=arguments[b];if(f(c))for(var d=e(c),g=0;g<d.length;g++){var h=d[g];a[h]=c[h]}}return a}var e=a("object-keys"),f=a("./has-keys");b.exports=d},{"./has-keys":27,"object-keys":30}],29:[function(a,b,c){var d=Object.prototype.hasOwnProperty,e=Object.prototype.toString,f=function(a){var b="function"==typeof a&&!(a instanceof RegExp)||"[object Function]"===e.call(a);return b||"undefined"==typeof window||(b=a===window.setTimeout||a===window.alert||a===window.confirm||a===window.prompt),b};b.exports=function(a,b){if(!f(b))throw new TypeError("iterator must be a function");var c,e,g="string"==typeof a,h=a.length,i=arguments.length>2?arguments[2]:null;if(h===+h)for(c=0;h>c;c++)null===i?b(g?a.charAt(c):a[c],c,a):b.call(i,g?a.charAt(c):a[c],c,a);else for(e in a)d.call(a,e)&&(null===i?b(a[e],e,a):b.call(i,a[e],e,a))}},{}],30:[function(a,b,c){b.exports=Object.keys||a("./shim")},{"./shim":32}],31:[function(a,b,c){var d=Object.prototype.toString;b.exports=function e(a){var b=d.call(a),e="[object Arguments]"===b;return e||(e="[object Array]"!==b&&null!==a&&"object"==typeof a&&"number"==typeof a.length&&a.length>=0&&"[object Function]"===d.call(a.callee)),e}},{}],32:[function(a,b,c){!function(){"use strict";var c,d=Object.prototype.hasOwnProperty,e=Object.prototype.toString,f=a("./foreach"),g=a("./isArguments"),h=!{toString:null}.propertyIsEnumerable("toString"),i=function(){}.propertyIsEnumerable("prototype"),j=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"];c=function(a){var b=null!==a&&"object"==typeof a,c="[object Function]"===e.call(a),k=g(a),l=[];if(!b&&!c&&!k)throw new TypeError("Object.keys called on a non-object");if(k)f(a,function(a){l.push(a)});else{var m,n=i&&c;for(m in a)n&&"prototype"===m||!d.call(a,m)||l.push(m)}if(h){var o=a.constructor,p=o&&o.prototype===a;f(j,function(b){p&&"constructor"===b||!d.call(a,b)||l.push(b)})}return l},b.exports=c}()},{"./foreach":29,"./isArguments":31}],33:[function(a,b,c){var d="undefined"!=typeof self?self:"undefined"!=typeof window?window:{},e=a("./index");"function"==typeof d.window.define&&d.window.define.amd?d.window.define("auth0",function(){return e}):d.window&&(d.window.Auth0=e)},{"./index":1}],34:[function(a,b,c){b.exports={str:"7.4.0"}},{}]},{},[33]);
