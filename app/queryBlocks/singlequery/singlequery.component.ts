@@ -55,7 +55,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() result: any;
 	@Input() query: any;
 	@Input() boolQueryName: string;
-	@Input() joiningQuery: any;
+	@Input() joiningQuery: any = [''];
 	@Input() joiningQueryParam: any;
 	@Output() setDocSample = new EventEmitter < any >();
 	

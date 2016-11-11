@@ -581,8 +581,10 @@ export class AppComponent implements OnInit, OnChanges {
 			$('.features-section').css('height', windowHeight);
 			if(self.allowHF) {
 				var bodyHeight = $('body').height();
-				$('#mirage-container').css('height', bodyHeight- 166);
-				$('#paneCenter, #paneEast').css('height', bodyHeight- 166);
+				setTimeout(()=>{
+					$('#mirage-container').css('height', bodyHeight- 166);
+					$('#paneCenter, #paneEast').css('height', bodyHeight- 166);
+				}, 300);
 			}
 		}
 		setSidebar();

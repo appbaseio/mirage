@@ -43,7 +43,7 @@ export class BoolqueryComponent implements OnInit, OnChanges {
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
-	@Input() joiningQuery: any;
+	@Input() joiningQuery: any = [''];
 	@Input() joiningQueryParam: any;
 	@Output() setJoiningQuery = new EventEmitter < any >();
 	@Output() setDocSample = new EventEmitter < any >();
