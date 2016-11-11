@@ -14,6 +14,7 @@ export class AuthOperation implements OnInit {
     public auth0: any;
     public serverAddress: string = 'https://ossauth.appbase.io';
     public token: any;
+    public access_token_applied: boolean = false;
 
     constructor(private http: Http, public storageService: StorageService) {
     }
@@ -26,7 +27,21 @@ export class AuthOperation implements OnInit {
         };
         this.auth0 = new Auth0(authConfig);
         // check if already logged in
+        this.init.call(this);
+    }
+    init() {
+        var self = this;
         this.parseHash.call(this);
+        var parseHash = this.parseHash.bind(this);
+        setTimeout(function() {
+        console.log('hash watching Activated!');
+        window.onhashchange = function() {
+          if(!self.access_token_applied && location.hash.indexOf('access_token') > -1) {
+            console.log('access_token found!');
+            parseHash();
+          }
+        }
+        }, 300);
     }
     isTokenExpired(token) {
         var decoded = this.auth0.decodeJwt(token);
@@ -48,6 +63,7 @@ export class AuthOperation implements OnInit {
     show_logged_in(token) {
         this.token = token;
         if (window.location.hash.indexOf('access_token') > -1) {
+            this.access_token_applied = true;
             this.restoreStates();
         } else {
             this.getUserProfile();

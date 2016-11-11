@@ -12,7 +12,7 @@
 		<div class="tag-line">
 			🔎 GUI for Elasticsearch Queries
 		</div>
-		<subscribe-modal></subscribe-modal>
+		<subscribe-modal *ngIf="BRANCH !== 'master'"></subscribe-modal>
 	</header>
 	<!-- HEADER END -->
 	<div class="applogin-component">
