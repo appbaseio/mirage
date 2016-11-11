@@ -10,7 +10,10 @@
     "background": {
         "scripts": [ "chrome-specific/background.js" ]
     },
-    "permissions": ["storage", "system.display", "<all_urls>"],
+    "web_accessible_resources": [
+        "site/index.html"
+    ],
+    "permissions": ["storage", "system.display", "<all_urls>", "https://appbaseio.auth0.com/*"],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "manifest_version": 2,
     "offline_enabled":true,
