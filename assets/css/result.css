@@ -1,6 +1,6 @@
 .query-result-container.layoutApplied {
   background: #f7f7f7;
-  padding-bottom: 116px; }
+  /*padding-bottom: 116px;*/ }
   .query-result-container.layoutApplied .queryRight {
     padding: 15px 15px 15px 0;
     background: #f7f7f7;
