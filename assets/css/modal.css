@@ -1,3 +1,20 @@
+.modal-backdrop {
+  display: none; }
+
+.modal.in:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+  opacity: 0.3; }
+
+.modal.in .modal-dialog {
+  z-index: 1045; }
+
 .modal .modal-content {
   background: #fff;
   border-radius: 4px;

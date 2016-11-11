@@ -5,15 +5,15 @@
 </section>
 <div class="app-container" [ngClass]="{'without-hf': !allowHF}">
 	<header class="header text-center" *ngIf="allowHF">
-		<span class="header-container">
-			<span class="img-container">
-				<img src="assets/images/Mirage_Flat_9.png" alt="Mirage" class="img-responsive" />
-			</span>
-			<span class="tag-line">
-				🔎 GUI for Elasticsearch Queries
-			</span>
+		<span class="img-container">
+			<img src="assets/images/Mirage_Flat_9.png" alt="Mirage" class="img-responsive" />
 		</span>
+		<div class="tag-line">
+			🔎 GUI for Elasticsearch Queries
+		</div>
+		<subscribe-modal></subscribe-modal>
 	</header>
+
 	<!-- HEADER START -->
 	<form class="col-xs-12 init-ES" id="init-ES"  *ngIf="allowHF" (ngSubmit)="connectHandle()" #initEs="ngForm">
 		<div class="esContainer">

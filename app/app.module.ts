@@ -23,6 +23,9 @@ import { SinglequeryComponent } from "./queryBlocks/singlequery/singlequery.comp
 import { EditableComponent } from './queryBlocks/editable/editable.component';
 // editable
 import { select2Component } from './queryBlocks/select2/select2.component';
+// subscribe modal
+import { SubscribeModalComponent } from './features/subscribe/subscribe.component';
+import { AuthOperation } from './features/subscribe/AuthOperation';
 // singlequery
 import { MatchQuery } from './queryBlocks/singlequery/queries/match.query';
 import { Match_phraseQuery } from './queryBlocks/singlequery/queries/match_phrase.query';
@@ -81,6 +84,8 @@ import { TimeComponent } from "./features/list/time/time.component";
   	SinglequeryComponent, 
   	EditableComponent,
   	select2Component,
+    SubscribeModalComponent,
+    AuthOperation,
   	EditableComponent,
   	SinglequeryComponent,
   	select2Component,
