@@ -71,6 +71,8 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
+        this.queryParams = this.urlShare.getQueryParameters();
+        this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
         // get data from url
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
@@ -296,10 +298,10 @@ var AppComponent = (function () {
                 if (data && data.version && data.version.number) {
                     var version = data.version.number;
                     self.version = version;
-                    if (self.version.split('.')[0] !== '2') {
+                    if (!(self.version.split('.')[0] === '2' || self.version.split('.')[0] === '5')) {
                         self.errorShow({
                             title: 'Elasticsearch Version Not Supported',
-                            message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+                            message: 'Mirage only supports v2.x or v5.x of Elasticsearch Query DSL'
                         });
                     }
                 }
@@ -547,6 +549,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.setLayoutResizer = function () {
         this.setLayoutFlag = true;
+        var self = this;
         $('body').layout({
             east__size: "50%",
             center__paneSelector: "#paneCenter",
@@ -555,6 +558,13 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
+            if (self.allowHF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 166);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 166);
+                }, 300);
+            }
         }
         setSidebar();
         $(window).on('resize', setSidebar);
@@ -608,7 +618,7 @@ var AppComponent = (function () {
 }());
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
-},{"./shared/appbase.service":41,"./shared/docService":42,"./shared/editorHook":43,"./shared/storage.service":48,"./shared/urlShare":49,"@angular/core":52}],2:[function(require,module,exports){
+},{"./shared/appbase.service":50,"./shared/docService":51,"./shared/editorHook":52,"./shared/storage.service":57,"./shared/urlShare":58,"@angular/core":61}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -643,6 +653,9 @@ var singlequery_component_1 = require("./queryBlocks/singlequery/singlequery.com
 var editable_component_1 = require('./queryBlocks/editable/editable.component');
 // editable
 var select2_component_1 = require('./queryBlocks/select2/select2.component');
+// subscribe modal
+var subscribe_component_1 = require('./features/subscribe/subscribe.component');
+var AuthOperation_1 = require('./features/subscribe/AuthOperation');
 // singlequery
 var match_query_1 = require('./queryBlocks/singlequery/queries/match.query');
 var match_phrase_query_1 = require('./queryBlocks/singlequery/queries/match_phrase.query');
@@ -664,6 +677,13 @@ var fuzzy_query_1 = require('./queryBlocks/singlequery/queries/fuzzy.query');
 var ids_query_1 = require('./queryBlocks/singlequery/queries/ids.query');
 var common_query_1 = require('./queryBlocks/singlequery/queries/common.query');
 var geodistance_query_1 = require('./queryBlocks/singlequery/queries/geodistance.query');
+var geoboundingbox_query_1 = require('./queryBlocks/singlequery/queries/geoboundingbox.query');
+var geodistancerange_query_1 = require('./queryBlocks/singlequery/queries/geodistancerange.query');
+var geopolygon_query_1 = require('./queryBlocks/singlequery/queries/geopolygon.query');
+var geohashcell_query_1 = require('./queryBlocks/singlequery/queries/geohashcell.query');
+var geoshape_query_1 = require('./queryBlocks/singlequery/queries/geoshape.query');
+var span_term_query_1 = require('./queryBlocks/singlequery/queries/span_term.query');
+var span_first_query_1 = require('./queryBlocks/singlequery/queries/span_first.query');
 // Pipes
 var prettyJson_1 = require("./shared/pipes/prettyJson");
 var prettyTime_1 = require("./shared/pipes/prettyTime");
@@ -697,6 +717,8 @@ var AppModule = (function () {
                 singlequery_component_1.SinglequeryComponent,
                 editable_component_1.EditableComponent,
                 select2_component_1.select2Component,
+                subscribe_component_1.SubscribeModalComponent,
+                AuthOperation_1.AuthOperation,
                 editable_component_1.EditableComponent,
                 singlequery_component_1.SinglequeryComponent,
                 select2_component_1.select2Component,
@@ -719,7 +741,14 @@ var AppModule = (function () {
                 fuzzy_query_1.FuzzyQuery,
                 ids_query_1.IdsQuery,
                 geodistance_query_1.GeoDistanceQuery,
+                geoboundingbox_query_1.GeoBoundingBoxQuery,
+                geodistancerange_query_1.GeoDistanceRangeQuery,
+                geopolygon_query_1.GeoPolygonQuery,
+                geohashcell_query_1.GeoHashCellQuery,
+                geoshape_query_1.GeoShapeQuery,
                 common_query_1.CommonQuery,
+                span_term_query_1.SpanTermQuery,
+                span_first_query_1.SpanFirstQuery,
                 prettyJson_1.prettyJson,
                 time_component_1.TimeComponent,
                 prettyTime_1.prettyTime
@@ -732,13 +761,13 @@ var AppModule = (function () {
 }());
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map
-},{"./app.component":1,"./features/appselect/appselect.component":4,"./features/confirm/confirm-modal.component":5,"./features/docSidebar/docsidebar.component":6,"./features/learn/learn.component":7,"./features/list/list.query.component":8,"./features/list/time/time.component":9,"./features/modal/error-modal.component":10,"./features/save/save.query.component":11,"./features/share/share.url.component":12,"./jsonEditor/jsonEditor.component":13,"./queryBlocks/boolquery/boolquery.component":14,"./queryBlocks/editable/editable.component":15,"./queryBlocks/queryBlocks.component":16,"./queryBlocks/select2/select2.component":17,"./queryBlocks/singlequery/queries/common.query":18,"./queryBlocks/singlequery/queries/exists.query":19,"./queryBlocks/singlequery/queries/fuzzy.query":20,"./queryBlocks/singlequery/queries/geodistance.query":21,"./queryBlocks/singlequery/queries/gt.query":22,"./queryBlocks/singlequery/queries/ids.query":23,"./queryBlocks/singlequery/queries/lt.query":24,"./queryBlocks/singlequery/queries/match.query":25,"./queryBlocks/singlequery/queries/match_phase_prefix.query":26,"./queryBlocks/singlequery/queries/match_phrase.query":27,"./queryBlocks/singlequery/queries/missing.query":28,"./queryBlocks/singlequery/queries/multi-match.query":29,"./queryBlocks/singlequery/queries/prefix.query":30,"./queryBlocks/singlequery/queries/query_string.query":31,"./queryBlocks/singlequery/queries/range.query":32,"./queryBlocks/singlequery/queries/regexp.query":33,"./queryBlocks/singlequery/queries/simple_query_string.query":34,"./queryBlocks/singlequery/queries/term.query":35,"./queryBlocks/singlequery/queries/terms.query":36,"./queryBlocks/singlequery/queries/wildcard.query":37,"./queryBlocks/singlequery/singlequery.component":38,"./queryBlocks/types/types.component":39,"./result/result.component":40,"./shared/pipes/prettyJson":45,"./shared/pipes/prettyTime":46,"@angular/core":52,"@angular/forms":53,"@angular/http":54,"@angular/platform-browser":56}],3:[function(require,module,exports){
+},{"./app.component":1,"./features/appselect/appselect.component":4,"./features/confirm/confirm-modal.component":5,"./features/docSidebar/docsidebar.component":6,"./features/learn/learn.component":7,"./features/list/list.query.component":8,"./features/list/time/time.component":9,"./features/modal/error-modal.component":10,"./features/save/save.query.component":11,"./features/share/share.url.component":12,"./features/subscribe/AuthOperation":13,"./features/subscribe/subscribe.component":14,"./jsonEditor/jsonEditor.component":15,"./queryBlocks/boolquery/boolquery.component":16,"./queryBlocks/editable/editable.component":17,"./queryBlocks/queryBlocks.component":18,"./queryBlocks/select2/select2.component":19,"./queryBlocks/singlequery/queries/common.query":20,"./queryBlocks/singlequery/queries/exists.query":21,"./queryBlocks/singlequery/queries/fuzzy.query":22,"./queryBlocks/singlequery/queries/geoboundingbox.query":23,"./queryBlocks/singlequery/queries/geodistance.query":24,"./queryBlocks/singlequery/queries/geodistancerange.query":25,"./queryBlocks/singlequery/queries/geohashcell.query":26,"./queryBlocks/singlequery/queries/geopolygon.query":27,"./queryBlocks/singlequery/queries/geoshape.query":28,"./queryBlocks/singlequery/queries/gt.query":29,"./queryBlocks/singlequery/queries/ids.query":30,"./queryBlocks/singlequery/queries/lt.query":31,"./queryBlocks/singlequery/queries/match.query":32,"./queryBlocks/singlequery/queries/match_phase_prefix.query":33,"./queryBlocks/singlequery/queries/match_phrase.query":34,"./queryBlocks/singlequery/queries/missing.query":35,"./queryBlocks/singlequery/queries/multi-match.query":36,"./queryBlocks/singlequery/queries/prefix.query":37,"./queryBlocks/singlequery/queries/query_string.query":38,"./queryBlocks/singlequery/queries/range.query":39,"./queryBlocks/singlequery/queries/regexp.query":40,"./queryBlocks/singlequery/queries/simple_query_string.query":41,"./queryBlocks/singlequery/queries/span_first.query":42,"./queryBlocks/singlequery/queries/span_term.query":43,"./queryBlocks/singlequery/queries/term.query":44,"./queryBlocks/singlequery/queries/terms.query":45,"./queryBlocks/singlequery/queries/wildcard.query":46,"./queryBlocks/singlequery/singlequery.component":47,"./queryBlocks/types/types.component":48,"./result/result.component":49,"./shared/pipes/prettyJson":54,"./shared/pipes/prettyTime":55,"@angular/core":61,"@angular/forms":62,"@angular/http":63,"@angular/platform-browser":65}],3:[function(require,module,exports){
 "use strict";
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var app_module_1 = require('./app.module');
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 //# sourceMappingURL=main.js.map
-},{"./app.module":2,"@angular/platform-browser-dynamic":55}],4:[function(require,module,exports){
+},{"./app.module":2,"@angular/platform-browser-dynamic":64}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -828,7 +857,7 @@ var AppselectComponent = (function () {
 }());
 exports.AppselectComponent = AppselectComponent;
 //# sourceMappingURL=appselect.component.js.map
-},{"@angular/core":52}],5:[function(require,module,exports){
+},{"@angular/core":61}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -871,7 +900,7 @@ var ConfirmModalComponent = (function () {
 }());
 exports.ConfirmModalComponent = ConfirmModalComponent;
 //# sourceMappingURL=confirm-modal.component.js.map
-},{"@angular/core":52}],6:[function(require,module,exports){
+},{"@angular/core":61}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -921,7 +950,7 @@ var DocSidebarComponent = (function () {
 }());
 exports.DocSidebarComponent = DocSidebarComponent;
 //# sourceMappingURL=docsidebar.component.js.map
-},{"@angular/core":52,"@angular/platform-browser":56}],7:[function(require,module,exports){
+},{"@angular/core":61,"@angular/platform-browser":65}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -977,7 +1006,7 @@ var LearnModalComponent = (function () {
 }());
 exports.LearnModalComponent = LearnModalComponent;
 //# sourceMappingURL=learn.component.js.map
-},{"@angular/core":52,"@angular/http":54}],8:[function(require,module,exports){
+},{"@angular/core":61,"@angular/http":63}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1077,7 +1106,7 @@ var ListQueryComponent = (function () {
 }());
 exports.ListQueryComponent = ListQueryComponent;
 //# sourceMappingURL=list.query.component.js.map
-},{"@angular/core":52}],9:[function(require,module,exports){
+},{"@angular/core":61}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1118,7 +1147,7 @@ var TimeComponent = (function () {
 }());
 exports.TimeComponent = TimeComponent;
 //# sourceMappingURL=time.component.js.map
-},{"@angular/core":52}],10:[function(require,module,exports){
+},{"@angular/core":61}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1167,7 +1196,7 @@ var ErrorModalComponent = (function () {
 }());
 exports.ErrorModalComponent = ErrorModalComponent;
 //# sourceMappingURL=error-modal.component.js.map
-},{"@angular/core":52}],11:[function(require,module,exports){
+},{"@angular/core":61}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1218,7 +1247,7 @@ var SaveQueryComponent = (function () {
 }());
 exports.SaveQueryComponent = SaveQueryComponent;
 //# sourceMappingURL=save.query.component.js.map
-},{"../../shared/storage.service":48,"@angular/core":52}],12:[function(require,module,exports){
+},{"../../shared/storage.service":57,"@angular/core":61}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1325,7 +1354,209 @@ var ShareUrlComponent = (function () {
 }());
 exports.ShareUrlComponent = ShareUrlComponent;
 //# sourceMappingURL=share.url.component.js.map
-},{"@angular/core":52}],13:[function(require,module,exports){
+},{"@angular/core":61}],13:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require('@angular/http');
+var storage_service_1 = require("../../shared/storage.service");
+var AuthOperation = (function () {
+    function AuthOperation(http, storageService) {
+        this.http = http;
+        this.storageService = storageService;
+        this.updateStatus = new core_1.EventEmitter();
+        this.serverAddress = 'https://ossauth.appbase.io';
+        this.access_token_applied = false;
+    }
+    AuthOperation.prototype.ngOnInit = function () {
+        var authConfig = {
+            domain: 'appbaseio.auth0.com',
+            clientID: 'tCy6GxnrsyKec3UxXCuYLhU6XWFCMgRD',
+            callbackURL: location.href,
+            callbackOnLocationHash: true
+        };
+        this.auth0 = new Auth0(authConfig);
+        // check if already logged in
+        this.init.call(this);
+    };
+    AuthOperation.prototype.init = function () {
+        var self = this;
+        this.parseHash.call(this);
+        var parseHash = this.parseHash.bind(this);
+        setTimeout(function () {
+            console.log('hash watching Activated!');
+            window.onhashchange = function () {
+                if (!self.access_token_applied && location.hash.indexOf('access_token') > -1) {
+                    console.log('access_token found!');
+                    parseHash();
+                }
+            };
+        }, 300);
+    };
+    AuthOperation.prototype.isTokenExpired = function (token) {
+        var decoded = this.auth0.decodeJwt(token);
+        var now = (new Date()).getTime() / 1000;
+        return decoded.exp < now;
+    };
+    AuthOperation.prototype.login = function (subscribeOption) {
+        var savedState = window.location.hash;
+        this.storageService.set('subscribeOption', subscribeOption);
+        if (savedState.indexOf('access_token') < 0) {
+            this.storageService.set('savedState', savedState);
+        }
+        this.auth0.login({
+            connection: 'github'
+        }, function (err) {
+            if (err)
+                console.log("something went wrong: " + err.message);
+        });
+    };
+    AuthOperation.prototype.show_logged_in = function (token) {
+        this.token = token;
+        if (window.location.hash.indexOf('access_token') > -1) {
+            this.access_token_applied = true;
+            this.restoreStates();
+        }
+        else {
+            this.getUserProfile();
+        }
+    };
+    AuthOperation.prototype.show_sign_in = function () { };
+    AuthOperation.prototype.restoreStates = function () {
+        var domain = location.href.split('#')[0];
+        var savedState = this.storageService.get('savedState');
+        var finalPath = domain;
+        if (savedState && savedState.indexOf('access_token') < 0) {
+            finalPath += savedState;
+        }
+        else {
+            finalPath += '#';
+        }
+        window.location.href = finalPath;
+        location.reload();
+    };
+    AuthOperation.prototype.getUserProfile = function () {
+        var url = this.serverAddress + '/api/getUserProfile';
+        var subscribeOption = this.storageService.get('subscribeOption') && this.storageService.get('subscribeOption') !== 'null' ? this.storageService.get('subscribeOption') : null;
+        var request = {
+            token: this.storageService.get('mirage_id_token'),
+            origin_app: 'MIRAGE',
+            email_preference: subscribeOption
+        };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(request)
+        })
+            .done(function (res) {
+            this.storageService.set('subscribeOption', null);
+            this.updateStatus.emit({ 'profile': res.message });
+        }.bind(this))
+            .fail(function (err) {
+            console.error(err);
+        });
+    };
+    AuthOperation.prototype.parseHash = function () {
+        var token = this.storageService.get('mirage_id_token');
+        if (token !== null && !this.isTokenExpired(token)) {
+            this.show_logged_in(token);
+        }
+        else {
+            var result = this.auth0.parseHash(window.location.hash);
+            if (result && result.idToken) {
+                this.storageService.set('mirage_id_token', result.idToken);
+                this.show_logged_in(result.idToken);
+            }
+            else if (result && result.error) {
+                console.log('error: ' + result.error);
+                this.show_sign_in();
+            }
+            else {
+                this.show_sign_in();
+            }
+        }
+    };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], AuthOperation.prototype, "updateStatus", void 0);
+    AuthOperation = __decorate([
+        core_1.Component({
+            selector: 'auth-operation',
+            template: ''
+        }), 
+        __metadata('design:paramtypes', [http_1.Http, storage_service_1.StorageService])
+    ], AuthOperation);
+    return AuthOperation;
+}());
+exports.AuthOperation = AuthOperation;
+//# sourceMappingURL=AuthOperation.js.map
+},{"../../shared/storage.service":57,"@angular/core":61,"@angular/http":63}],14:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require('@angular/http');
+var AuthOperation_1 = require('./AuthOperation');
+var SubscribeModalComponent = (function () {
+    function SubscribeModalComponent(http) {
+        this.http = http;
+        this.options = {
+            option1: {
+                value: 'major',
+                text: 'New MIRAGE releases'
+            },
+            option2: {
+                value: 'all',
+                text: 'Limited major updates'
+            }
+        };
+        this.subscribeOption = "major";
+        this.profile = null;
+        this.updateStatus = this.updateStatus.bind(this);
+    }
+    SubscribeModalComponent.prototype.open = function () {
+        $('#subscribeModal').modal('show');
+    };
+    SubscribeModalComponent.prototype.updateStatus = function (info) {
+        this.profile = info.profile;
+    };
+    SubscribeModalComponent.prototype.subscribe = function () {
+        this.authOperation.login(this.subscribeOption);
+    };
+    __decorate([
+        core_1.ViewChild(AuthOperation_1.AuthOperation), 
+        __metadata('design:type', AuthOperation_1.AuthOperation)
+    ], SubscribeModalComponent.prototype, "authOperation", void 0);
+    SubscribeModalComponent = __decorate([
+        core_1.Component({
+            selector: 'subscribe-modal',
+            templateUrl: './app/features/subscribe/subscribe.component.html'
+        }), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], SubscribeModalComponent);
+    return SubscribeModalComponent;
+}());
+exports.SubscribeModalComponent = SubscribeModalComponent;
+//# sourceMappingURL=subscribe.component.js.map
+},{"./AuthOperation":13,"@angular/core":61,"@angular/http":63}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1486,7 +1717,7 @@ var JsonEditorComponent = (function () {
 }());
 exports.JsonEditorComponent = JsonEditorComponent;
 //# sourceMappingURL=jsonEditor.component.js.map
-},{"../shared/appbase.service":41,"@angular/core":52}],14:[function(require,module,exports){
+},{"../shared/appbase.service":50,"@angular/core":61}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1503,10 +1734,34 @@ var BoolqueryComponent = (function () {
         this.queryList = this.queryList;
         this.removeArray = [];
         this.query = this.query;
+        this.informationList = {
+            'nested': {
+                title: 'nested',
+                content: "<span class=\"description\">Nested query allows you to run a query against the nested documents and filter parent docs by those that have at least one nested document matching the query.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html#query-dsl-nested-query\">Read more</a>"
+            },
+            'has_child': {
+                title: 'has_child',
+                content: "<span class=\"description\">has_child filter accepts a query and the child type to run against, and results in parent documents that have child docs matching the query.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-child-query.html#query-dsl-has-child-query\">Read more</a>"
+            },
+            'has_parent': {
+                title: 'has_parent',
+                content: "<span class=\"description\">has_parent query accepts a query and a parent type. The query is executed in the parent document space, which is specified by the parent type, and returns child documents which associated parents have matched.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-parent-query.html#query-dsl-has-parent-query\">Read more</a>"
+            },
+            'parent_id': {
+                title: 'parent_id',
+                content: "<span class=\"description\">parent_id query can be used to find child documents which belong to a particular parent. </span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/5.0/query-dsl-parent-id-query.html#query-dsl-parent-id-query\">Read more</a>"
+            }
+        };
+        this.joiningQuery = [''];
+        this.setJoiningQuery = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
     }
     BoolqueryComponent.prototype.ngOnInit = function () {
+        this.allFields = this.result.resultQuery.availableFields;
         this.exeBuild();
+    };
+    BoolqueryComponent.prototype.ngOnChanges = function () {
+        this.allFields = this.result.resultQuery.availableFields;
     };
     BoolqueryComponent.prototype.addSubQuery = function (id) {
         this.addBoolQuery(id);
@@ -1540,6 +1795,17 @@ var BoolqueryComponent = (function () {
         this.query.boolparam = boolVal;
         this.exeBuild();
     };
+    BoolqueryComponent.prototype.joiningQueryChange = function (val) {
+        if (val.val) {
+            val = this.joiningQuery.indexOf(val.val);
+        }
+        this.joiningQueryParam = val;
+        this.setJoiningQuery.emit({
+            param: val,
+            allFields: this.allFields
+        });
+        this.exeBuild();
+    };
     BoolqueryComponent.prototype.show_hidden_btns = function (event) {
         $('.bool_query').removeClass('show_hidden');
         $(event.currentTarget).addClass('show_hidden');
@@ -1568,6 +1834,18 @@ var BoolqueryComponent = (function () {
         __metadata('design:type', Object)
     ], BoolqueryComponent.prototype, "result", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "joiningQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "joiningQueryParam", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "setJoiningQuery", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], BoolqueryComponent.prototype, "setDocSample", void 0);
@@ -1583,7 +1861,7 @@ var BoolqueryComponent = (function () {
 }());
 exports.BoolqueryComponent = BoolqueryComponent;
 //# sourceMappingURL=boolquery.component.js.map
-},{"@angular/core":52}],15:[function(require,module,exports){
+},{"@angular/core":61}],17:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1685,7 +1963,7 @@ var EditableComponent = (function () {
 }());
 exports.EditableComponent = EditableComponent;
 //# sourceMappingURL=editable.component.js.map
-},{"@angular/core":52}],16:[function(require,module,exports){
+},{"@angular/core":61}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1716,15 +1994,26 @@ var QueryBlocksComponent = (function () {
                 parent_id: 0,
                 id: 0,
                 internal: [],
-                minimum_should_match: ''
+                minimum_should_match: '',
+                path: '',
+                type: '',
+                xid: 0,
+                parent_type: '',
+                score_mode: ''
             }
         };
+        this.joiningQuery = [''];
+        this.joiningQueryParam = 0;
         this.saveQuery = new core_1.EventEmitter();
         this.setProp = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
     }
     QueryBlocksComponent.prototype.ngOnInit = function () {
         this.handleEditable();
+        this.joiningQuery = this.result.joiningQuery;
+    };
+    QueryBlocksComponent.prototype.ngOnChanges = function () {
+        this.joiningQuery = this.result.joiningQuery;
     };
     // Add the boolean query
     // get the default format for query and internal query
@@ -1755,9 +2044,10 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.buildQuery = function () {
         var self = this;
         var results = this.result.resultQuery.result;
+        var es_final = {};
         if (results.length) {
             var finalresult = {};
-            var es_final = {
+            es_final = {
                 'query': {
                     'bool': finalresult
                 }
@@ -1765,6 +2055,7 @@ var QueryBlocksComponent = (function () {
             results.forEach(function (result) {
                 result.availableQuery = self.buildInsideQuery(result);
             });
+            var isBoolPresent = true;
             results.forEach(function (result0) {
                 results.forEach(function (result1) {
                     if (result1.parent_id == result0.id) {
@@ -1776,6 +2067,11 @@ var QueryBlocksComponent = (function () {
                         if (currentBool === 'should') {
                             current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
                         }
+                        if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
+                            current_query['bool']['nested']['path'] = result1.path;
+                            current_query['bool']['nested']['score_mode'] = result1.score_mode;
+                            isBoolPresent = false;
+                        }
                         result0.availableQuery.push(current_query);
                     }
                 });
@@ -1783,12 +2079,56 @@ var QueryBlocksComponent = (function () {
             results.forEach(function (result) {
                 if (result.parent_id === 0) {
                     var currentBool = self.queryList['boolQuery'][result['boolparam']];
-                    finalresult[currentBool] = result.availableQuery;
+                    if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'nested') {
+                        finalresult['nested'] = {
+                            path: result.path,
+                            score_mode: result.score_mode,
+                            query: {
+                                bool: (_a = {},
+                                    _a[currentBool] = result.availableQuery,
+                                    _a
+                                )
+                            }
+                        };
+                        isBoolPresent = false;
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+                        finalresult[currentBool] = {
+                            has_child: {
+                                type: result.type,
+                                score_mode: result.score_mode,
+                                query: result.availableQuery
+                            }
+                        };
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+                        finalresult[currentBool] = {
+                            has_parent: {
+                                parent_type: result.parent_type,
+                                query: result.availableQuery
+                            }
+                        };
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+                        finalresult[currentBool] = {
+                            parent_id: {
+                                type: result.type,
+                                id: result.xid
+                            }
+                        };
+                    }
+                    else {
+                        finalresult[currentBool] = result.availableQuery;
+                    }
                     if (currentBool === 'should') {
                         finalresult['minimum_should_match'] = result.minimum_should_match;
                     }
                 }
+                var _a;
             });
+            if (!isBoolPresent) {
+                es_final['query'] = es_final['query']['bool'];
+            }
             this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
             try {
                 this.editorHookHelp.setValue(self.result.resultQuery.final);
@@ -1895,6 +2235,11 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.setDocSampleEve = function (link) {
         this.setDocSample.emit(link);
     };
+    QueryBlocksComponent.prototype.setJoiningQueryEve = function (obj) {
+        this.joiningQueryParam = obj.param;
+        this.result.resultQuery.availableFields = obj.allFields;
+        this.buildQuery();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -1928,6 +2273,10 @@ var QueryBlocksComponent = (function () {
         __metadata('design:type', Object)
     ], QueryBlocksComponent.prototype, "urlShare", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "config", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], QueryBlocksComponent.prototype, "saveQuery", void 0);
@@ -1943,7 +2292,7 @@ var QueryBlocksComponent = (function () {
         core_1.Component({
             selector: 'query-blocks',
             templateUrl: './app/queryBlocks/queryBlocks.component.html',
-            inputs: ['config', 'detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
+            inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [])
     ], QueryBlocksComponent);
@@ -1951,7 +2300,7 @@ var QueryBlocksComponent = (function () {
 }());
 exports.QueryBlocksComponent = QueryBlocksComponent;
 //# sourceMappingURL=queryBlocks.component.js.map
-},{"../shared/queryList":47,"@angular/core":52}],17:[function(require,module,exports){
+},{"../shared/queryList":56,"@angular/core":61}],19:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1976,7 +2325,13 @@ var select2Component = (function () {
     select2Component.prototype.ngAfterContentInit = function () {
         console.log(this.informationList);
         setTimeout(function () {
-            var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            var select2Selector;
+            if (this.querySelector && this.selector) {
+                select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            }
+            else {
+                select2Selector = $('.' + this.selector).find('select');
+            }
             if (typeof this.passWithCallback != 'undefined') {
                 select2Selector = $(this.querySelector).find('.' + this.selector + '-' + this.passWithCallback).find('select');
             }
@@ -2092,7 +2447,7 @@ var select2Component = (function () {
 }());
 exports.select2Component = select2Component;
 //# sourceMappingURL=select2.component.js.map
-},{"../../shared/docService":42,"../../shared/globalshare.service":44,"@angular/core":52}],18:[function(require,module,exports){
+},{"../../shared/docService":51,"../../shared/globalshare.service":53,"@angular/core":61}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2280,7 +2635,7 @@ var CommonQuery = (function () {
 }());
 exports.CommonQuery = CommonQuery;
 //# sourceMappingURL=common.query.js.map
-},{"@angular/core":52}],19:[function(require,module,exports){
+},{"@angular/core":61}],21:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2379,7 +2734,7 @@ var ExistsQuery = (function () {
 }());
 exports.ExistsQuery = ExistsQuery;
 //# sourceMappingURL=exists.query.js.map
-},{"@angular/core":52}],20:[function(require,module,exports){
+},{"@angular/core":61}],22:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2568,7 +2923,207 @@ var FuzzyQuery = (function () {
 }());
 exports.FuzzyQuery = FuzzyQuery;
 //# sourceMappingURL=fuzzy.query.js.map
-},{"@angular/core":52}],21:[function(require,module,exports){
+},{"@angular/core":61}],23:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var GeoBoundingBoxQuery = (function () {
+    function GeoBoundingBoxQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'geo_bounding_box';
+        this.information = {
+            title: 'Geo Bounding Box Query',
+            content: "<span class=\"description\">Returns matches within a bounding box area. Specified with <i>top left</i> and <i>bottom right</i> (lat, long) values.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-bounding-box-query.html#query-dsl-geo-bounding-box-query\">Read more</a>"
+        };
+        this.informationList = {
+            '_name': {
+                title: '_name',
+                content: "<span class=\"description\">Optional name field to identify the query.</span>"
+            },
+            'ignore_malformed': {
+                title: 'ignore_malformed',
+                content: "<span class=\"description\">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is false).</span>"
+            },
+            'type': {
+                title: 'type',
+                content: "<span class=\"description\">Set to <strong>memory</strong> if the query will be executed in memory, otherwise set to <strong>indexed</strong>.</span>"
+            }
+        };
+        this.default_options = [
+            '_name',
+            'ignore_malformed',
+            'type'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            top_left_lat: {
+                placeholder: 'TL_latitude',
+                value: ''
+            },
+            top_left_lon: {
+                placeholder: 'TL_longitude',
+                value: ''
+            },
+            bottom_right_lat: {
+                placeholder: 'BR_latitude',
+                value: ''
+            },
+            bottom_right_lon: {
+                placeholder: 'BR_longitude',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    GeoBoundingBoxQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query][this.fieldName]['top_left']['lat']) {
+                this.inputs.top_left_lat.value = this.appliedQuery[this.current_query][this.fieldName]['top_left']['lat'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['top_left']['lon']) {
+                this.inputs.top_left_lon.value = this.appliedQuery[this.current_query][this.fieldName]['top_left']['lon'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['bottom_right']['lat']) {
+                this.inputs.bottom_right_lat.value = this.appliedQuery[this.current_query][this.fieldName]['bottom_right']['lat'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['bottom_right']['lon']) {
+                this.inputs.bottom_right_lon.value = this.appliedQuery[this.current_query][this.fieldName]['bottom_right']['lon'];
+            }
+            for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                if (option != 'top_left' && option != 'bottom_right') {
+                    var obj = {
+                        name: option,
+                        value: this.appliedQuery[this.current_query][this.fieldName][option]
+                    };
+                    this.optionRows.push(obj);
+                }
+            }
+        }
+        catch (e) { }
+        this.filterOptions();
+        this.getFormat();
+    };
+    GeoBoundingBoxQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.optionRows = [];
+                this.getFormat();
+            }
+        }
+    };
+    GeoBoundingBoxQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    GeoBoundingBoxQuery.prototype.setFormat = function () {
+        var queryFormat = (_a = {},
+            _a[this.queryName] = (_b = {},
+                _b[this.fieldName] = {
+                    top_left: {
+                        lat: this.inputs.top_left_lat.value,
+                        lon: this.inputs.top_left_lon.value
+                    },
+                    bottom_right: {
+                        lat: this.inputs.bottom_right_lat.value,
+                        lon: this.inputs.bottom_right_lon.value
+                    }
+                },
+                _b
+            ),
+            _a
+        );
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat[this.queryName][singleRow.name] = singleRow.value;
+        }.bind(this));
+        return queryFormat;
+        var _a, _b;
+    };
+    GeoBoundingBoxQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    GeoBoundingBoxQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    GeoBoundingBoxQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    GeoBoundingBoxQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoBoundingBoxQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoBoundingBoxQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoBoundingBoxQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoBoundingBoxQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], GeoBoundingBoxQuery.prototype, "getQueryFormat", void 0);
+    GeoBoundingBoxQuery = __decorate([
+        core_1.Component({
+            selector: 'geo-bounding-box-query',
+            template: "<span class=\"col-xs-6 pd-0\">\n                    <div class=\"col-xs-3 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.top_left_lat.value\"\n                                placeholder=\"{{inputs.top_left_lat.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-3 pr-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.top_left_lon.value\"\n                                placeholder=\"{{inputs.top_left_lon.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                     <div class=\"col-xs-3 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.bottom_right_lat.value\"\n                                placeholder=\"{{inputs.bottom_right_lat.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-3 pr-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.bottom_right_lon.value\"\n                                placeholder=\"{{inputs.bottom_right_lon.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], GeoBoundingBoxQuery);
+    return GeoBoundingBoxQuery;
+}());
+exports.GeoBoundingBoxQuery = GeoBoundingBoxQuery;
+//# sourceMappingURL=geoboundingbox.query.js.map
+},{"@angular/core":61}],24:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2588,24 +3143,24 @@ var GeoDistanceQuery = (function () {
         this.current_query = 'geo_distance';
         this.information = {
             title: 'Geo Distance Query',
-            content: "<span class=\"description\">Filters documents that include only hits that exists within a specific distance from a geo point.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-query.html\">Read more</a>"
+            content: "<span class=\"description\">Returns matches within a specific distance from a geo-point field.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-query.html#query-dsl-geo-distance-query\">Read more</a>"
         };
         this.informationList = {
             'distance_type': {
                 title: 'distance_type',
-                content: "<span class=\"description\">How to compute the distance. Can either be sloppy_arc (default), arc \n                        (slightly more precise but significantly slower) or plane (faster, but inaccurate on long distances and close to the poles).</span>"
+                content: "<span class=\"description\">How to compute the distance. Can either be <strong>sloppy_arc</strong> (default), <strong>arc</strong>\n                        (slightly more precise but significantly slower) or <strong>plane</strong> (faster, but inaccurate on long distances and close to the poles).</span>"
             },
             'optimize_bbox': {
                 title: 'optimize_bbox',
-                content: "<span class=\"description\">Whether to use the optimization of first running a bounding box check before the distance check. \n                        Defaults to memory which will do in memory checks. Can also have values of indexed to use indexed value check \n                        (make sure the geo_point type index lat lon in this case), or none which disables bounding box optimization.</span>"
+                content: "<span class=\"description\">Defaults to <strong>memory</strong> which will do in memory bounding box checks before the distance check. Can also have values of <strong>indexed</strong> to use indexed value check, or <strong>none</strong> which disables bounding box optimization.</span>"
             },
             '_name': {
                 title: '_name',
-                content: "<span class=\"description\">Optional name field to identify the query</span>"
+                content: "<span class=\"description\">Optional name field to identify the query.</span>"
             },
             'ignore_malformed': {
                 title: 'ignore_malformed',
-                content: "<span class=\"description\">Set to true to accept geo points with invalid latitude or longitude (default is false).</span>"
+                content: "<span class=\"description\">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is <strong>false</strong>).</span>"
             }
         };
         this.default_options = [
@@ -2677,7 +3232,7 @@ var GeoDistanceQuery = (function () {
         }
     };
     GeoDistanceQuery.prototype.getFormat = function () {
-        if (this.queryName === 'geo_distance') {
+        if (this.queryName === this.current_query) {
             this.queryFormat = this.setFormat();
             this.getQueryFormat.emit(this.queryFormat);
         }
@@ -2757,7 +3312,732 @@ var GeoDistanceQuery = (function () {
 }());
 exports.GeoDistanceQuery = GeoDistanceQuery;
 //# sourceMappingURL=geodistance.query.js.map
-},{"@angular/core":52}],22:[function(require,module,exports){
+},{"@angular/core":61}],25:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var GeoDistanceRangeQuery = (function () {
+    function GeoDistanceRangeQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'geo_distance_range';
+        this.information = {
+            title: 'Geo Distance Range Query',
+            content: "<span class=\"description\">Filters documents that exists within a range from a specific geo point.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-distance-range-query.html#query-dsl-geo-distance-range-query\">Read more</a>"
+        };
+        this.informationList = {
+            'distance_type': {
+                title: 'distance_type',
+                content: "<span class=\"description\">How to compute the distance. Can either be <strong>sloppy_arc</strong> (default), <strong>arc</strong>\n                        (slightly more precise but significantly slower) or <strong>plane</strong> (faster, but inaccurate on long distances and close to the poles).</span>"
+            },
+            'optimize_bbox': {
+                title: 'optimize_bbox',
+                content: "<span class=\"description\">Defaults to <strong>memory</strong> which will do in memory bounding box checks before the distance check. Can also have values of <strong>indexed</strong> to use indexed value check, or <strong>none</strong> which disables bounding box optimization.</span>"
+            },
+            '_name': {
+                title: '_name',
+                content: "<span class=\"description\">Optional name field to identify the query.</span>"
+            },
+            'ignore_malformed': {
+                title: 'ignore_malformed',
+                content: "<span class=\"description\">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is <strong>false</strong>).</span>"
+            }
+        };
+        this.default_options = [
+            'distance_type',
+            'optimize_bbox',
+            '_name',
+            'ignore_malformed'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            lat: {
+                placeholder: 'Latitude',
+                value: ''
+            },
+            lon: {
+                placeholder: 'Longitude',
+                value: ''
+            },
+            from: {
+                placeholder: 'From (with unit)',
+                value: ''
+            },
+            to: {
+                placeholder: 'To (with unit)',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    GeoDistanceRangeQuery.prototype.ngOnInit = function () {
+        try {
+            if (this.appliedQuery[this.current_query][this.fieldName]['lat']) {
+                this.inputs.lat.value = this.appliedQuery[this.current_query][this.fieldName]['lat'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['lon']) {
+                this.inputs.lon.value = this.appliedQuery[this.current_query][this.fieldName]['lon'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['from']) {
+                this.inputs.from.value = this.appliedQuery[this.current_query][this.fieldName]['from'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['to']) {
+                this.inputs.to.value = this.appliedQuery[this.current_query][this.fieldName]['to'];
+            }
+            for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                if (option != 'lat' && option != 'lon' && option != 'from' && option != 'to') {
+                    var obj = {
+                        name: option,
+                        value: this.appliedQuery[this.current_query][this.fieldName][option]
+                    };
+                }
+            }
+        }
+        catch (e) { }
+        this.getFormat();
+    };
+    GeoDistanceRangeQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.optionRows = [];
+                this.getFormat();
+            }
+        }
+    };
+    GeoDistanceRangeQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    GeoDistanceRangeQuery.prototype.setFormat = function () {
+        var queryFormat = (_a = {},
+            _a[this.queryName] = (_b = {},
+                _b[this.fieldName] = {
+                    lat: this.inputs.lat.value,
+                    lon: this.inputs.lon.value
+                },
+                _b.from = this.inputs.from.value,
+                _b.to = this.inputs.to.value,
+                _b
+            ),
+            _a
+        );
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat[this.queryName][singleRow.name] = singleRow.value;
+        }.bind(this));
+        return queryFormat;
+        var _a, _b;
+    };
+    GeoDistanceRangeQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    GeoDistanceRangeQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    GeoDistanceRangeQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    GeoDistanceRangeQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoDistanceRangeQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoDistanceRangeQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoDistanceRangeQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoDistanceRangeQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], GeoDistanceRangeQuery.prototype, "getQueryFormat", void 0);
+    GeoDistanceRangeQuery = __decorate([
+        core_1.Component({
+            selector: 'geo-distance-range-query',
+            template: "<span class=\"col-xs-6 pd-0\">\n                    <div class=\"col-xs-6 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.from.value\"\n                                placeholder=\"{{inputs.from.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-6 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.to.value\"\n                                placeholder=\"{{inputs.to.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-6 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.lat.value\"\n                                placeholder=\"{{inputs.lat.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-6 pr-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.lon.value\"\n                                placeholder=\"{{inputs.lon.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n\t\t\t\t\t\t\t\t\t\t<button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n\t\t\t\t\t\t\t\t<div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], GeoDistanceRangeQuery);
+    return GeoDistanceRangeQuery;
+}());
+exports.GeoDistanceRangeQuery = GeoDistanceRangeQuery;
+//# sourceMappingURL=geodistancerange.query.js.map
+},{"@angular/core":61}],26:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var GeoHashCellQuery = (function () {
+    function GeoHashCellQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'geohash_cell';
+        this.information = {
+            title: 'Geohash Cell Query',
+            content: "<span class=\"description\">Returns geo_point matches in proximity of the specified geohash cell.<br><br>\n\t\t\t\tA geohash cell is defined by setting additional properties to the geo_point mapping type.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geohash-cell-query.html#query-dsl-geohash-cell-query\">Read more</a>"
+        };
+        this.informationList = {
+            'neighbors': {
+                title: 'neighbors',
+                content: "<span class=\"description\">When set to <strong>true</strong>, it returns matches next to the specified geohash cell.</span>"
+            }
+        };
+        this.default_options = [
+            'neighbors'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            lat: {
+                placeholder: 'Latitude',
+                value: ''
+            },
+            lon: {
+                placeholder: 'Longitude',
+                value: ''
+            },
+            precision: {
+                placeholder: 'Precision',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    GeoHashCellQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query][this.fieldName]['lat']) {
+                this.inputs.lat.value = this.appliedQuery[this.current_query][this.fieldName]['lat'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['lon']) {
+                this.inputs.lon.value = this.appliedQuery[this.current_query][this.fieldName]['lon'];
+            }
+            if (this.appliedQuery[this.current_query]['precision']) {
+                this.inputs.precision.value = this.appliedQuery[this.current_query]['precision'];
+            }
+            for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                if (option != 'lat' && option != 'lon') {
+                    var obj = {
+                        name: option,
+                        value: this.appliedQuery[this.current_query][this.fieldName][option]
+                    };
+                    this.optionRows.push(obj);
+                }
+            }
+        }
+        catch (e) { }
+        this.filterOptions();
+        this.getFormat();
+    };
+    GeoHashCellQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.optionRows = [];
+                this.getFormat();
+            }
+        }
+    };
+    GeoHashCellQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    GeoHashCellQuery.prototype.setFormat = function () {
+        var queryFormat = (_a = {},
+            _a[this.queryName] = (_b = {},
+                _b[this.fieldName] = {
+                    lat: this.inputs.lat.value,
+                    lon: this.inputs.lon.value
+                },
+                _b.precision = this.inputs.precision.value,
+                _b
+            ),
+            _a
+        );
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat[this.queryName][singleRow.name] = singleRow.value;
+        }.bind(this));
+        return queryFormat;
+        var _a, _b;
+    };
+    GeoHashCellQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    GeoHashCellQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    GeoHashCellQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    GeoHashCellQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoHashCellQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoHashCellQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoHashCellQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoHashCellQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], GeoHashCellQuery.prototype, "getQueryFormat", void 0);
+    GeoHashCellQuery = __decorate([
+        core_1.Component({
+            selector: 'geohash-cell-query',
+            template: "<span class=\"col-xs-6 pd-0\">\n                    <div class=\"col-xs-4 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.lat.value\"\n                                placeholder=\"{{inputs.lat.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-4 pr-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.lon.value\"\n                                placeholder=\"{{inputs.lon.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-4 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.precision.value\"\n                                placeholder=\"{{inputs.precision.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], GeoHashCellQuery);
+    return GeoHashCellQuery;
+}());
+exports.GeoHashCellQuery = GeoHashCellQuery;
+//# sourceMappingURL=geohashcell.query.js.map
+},{"@angular/core":61}],27:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var GeoPolygonQuery = (function () {
+    function GeoPolygonQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'geo_polygon';
+        this.information = {
+            title: 'Geo Polygon Query',
+            content: "<span class=\"description\">Return matches that fall within a specified polygon shape.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-polygon-query.html#query-dsl-geo-polygon-query\">Read more</a>"
+        };
+        this.informationList = {
+            '_name': {
+                title: '_name',
+                content: "<span class=\"description\">Optional name field to identify the query.</span>"
+            },
+            'ignore_malformed': {
+                title: 'ignore_malformed',
+                content: "<span class=\"description\">Set to <strong>true</strong> to accept geo points with invalid latitude or longitude (default is false).</span>"
+            }
+        };
+        this.default_options = [
+            '_name',
+            'ignore_malformed'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            points: {
+                placeholder: 'points',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    GeoPolygonQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query][this.fieldName]['points']) {
+                this.inputs.points.value = this.appliedQuery[this.current_query][this.fieldName]['points'];
+            }
+            for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                if (option != 'points') {
+                    var obj = {
+                        name: option,
+                        value: this.appliedQuery[this.current_query][this.fieldName][option]
+                    };
+                    this.optionRows.push(obj);
+                }
+            }
+        }
+        catch (e) { }
+        this.filterOptions();
+        this.getFormat();
+    };
+    GeoPolygonQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.optionRows = [];
+                this.getFormat();
+            }
+        }
+    };
+    GeoPolygonQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    GeoPolygonQuery.prototype.setFormat = function () {
+        var points = this.inputs.points.value;
+        try {
+            points = JSON.parse(points);
+        }
+        catch (e) { }
+        var queryFormat = (_a = {},
+            _a[this.queryName] = (_b = {},
+                _b[this.fieldName] = {
+                    points: points
+                },
+                _b
+            ),
+            _a
+        );
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat[this.queryName][singleRow.name] = singleRow.value;
+        }.bind(this));
+        return queryFormat;
+        var _a, _b;
+    };
+    GeoPolygonQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    GeoPolygonQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    GeoPolygonQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    GeoPolygonQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoPolygonQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoPolygonQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoPolygonQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoPolygonQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], GeoPolygonQuery.prototype, "getQueryFormat", void 0);
+    GeoPolygonQuery = __decorate([
+        core_1.Component({
+            selector: 'geo-polygon-query',
+            template: "<span class=\"col-xs-6 pd-0\">\n                    <div class=\"col-xs-12 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.points.value\"\n                                placeholder=\"{{inputs.points.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], GeoPolygonQuery);
+    return GeoPolygonQuery;
+}());
+exports.GeoPolygonQuery = GeoPolygonQuery;
+//# sourceMappingURL=geopolygon.query.js.map
+},{"@angular/core":61}],28:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var GeoShapeQuery = (function () {
+    function GeoShapeQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'geo_shape';
+        this.information = {
+            title: 'Geo Shape Query',
+            content: "<span class=\"description\">Return matches that have a shape that relates with the query shape. A relation can be an intersection, subset, superset, or a disjoint.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-geo-shape-query.html#query-dsl-geo-shape-query\">Read more</a>"
+        };
+        this.informationList = {
+            'relation': {
+                title: 'relation',
+                content: "<span class=\"description\">Defines the relation to match for, can be one of <strong>intersects</strong>, <strong>disjoint</strong>, <strong>within</strong> or <strong>contains</strong>.</span>"
+            }
+        };
+        this.default_options = [
+            'relation'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            type: {
+                placeholder: 'Type',
+                value: ''
+            },
+            coordinates: {
+                placeholder: 'Pass an Array',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    GeoShapeQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query][this.fieldName]['shape']['type']) {
+                this.inputs.type.value = this.appliedQuery[this.current_query][this.fieldName]['shape']['type'];
+            }
+            if (this.appliedQuery[this.current_query][this.fieldName]['shape']['coordinates']) {
+                this.inputs.coordinates.value = this.appliedQuery[this.current_query][this.fieldName]['shape']['coordinates'];
+            }
+            for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                if (option != 'shape') {
+                    var obj = {
+                        name: option,
+                        value: this.appliedQuery[this.current_query][this.fieldName][option]
+                    };
+                    this.optionRows.push(obj);
+                }
+            }
+        }
+        catch (e) { }
+        this.filterOptions();
+        this.getFormat();
+    };
+    GeoShapeQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.optionRows = [];
+                this.getFormat();
+            }
+        }
+    };
+    GeoShapeQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    GeoShapeQuery.prototype.setFormat = function () {
+        var coordinates = this.inputs.coordinates.value;
+        try {
+            coordinates = JSON.parse(coordinates);
+        }
+        catch (e) { }
+        var queryFormat = (_a = {},
+            _a[this.queryName] = (_b = {},
+                _b[this.fieldName] = {
+                    shape: {
+                        type: this.inputs.type.value,
+                        coordinates: coordinates
+                    }
+                },
+                _b
+            ),
+            _a
+        );
+        this.optionRows.forEach(function (singleRow) {
+            queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+        }.bind(this));
+        return queryFormat;
+        var _a, _b;
+    };
+    GeoShapeQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    GeoShapeQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    GeoShapeQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    GeoShapeQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoShapeQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoShapeQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoShapeQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], GeoShapeQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], GeoShapeQuery.prototype, "getQueryFormat", void 0);
+    GeoShapeQuery = __decorate([
+        core_1.Component({
+            selector: 'geo-shape-query',
+            template: "<span class=\"col-xs-6 pd-0\">\n                    <div class=\"col-xs-6 pl-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.type.value\"\n                                placeholder=\"{{inputs.type.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <div class=\"col-xs-6 pr-0\">\n                        <div class=\"form-group form-element\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.coordinates.value\"\n                                placeholder=\"{{inputs.coordinates.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </div>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], GeoShapeQuery);
+    return GeoShapeQuery;
+}());
+exports.GeoShapeQuery = GeoShapeQuery;
+//# sourceMappingURL=geoshape.query.js.map
+},{"@angular/core":61}],29:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2925,7 +4205,7 @@ var GtQuery = (function () {
 }());
 exports.GtQuery = GtQuery;
 //# sourceMappingURL=gt.query.js.map
-},{"@angular/core":52}],23:[function(require,module,exports){
+},{"@angular/core":61}],30:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3048,7 +4328,7 @@ var IdsQuery = (function () {
 }());
 exports.IdsQuery = IdsQuery;
 //# sourceMappingURL=ids.query.js.map
-},{"@angular/core":52}],24:[function(require,module,exports){
+},{"@angular/core":61}],31:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3215,7 +4495,7 @@ var LtQuery = (function () {
 }());
 exports.LtQuery = LtQuery;
 //# sourceMappingURL=lt.query.js.map
-},{"@angular/core":52}],25:[function(require,module,exports){
+},{"@angular/core":61}],32:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3442,7 +4722,7 @@ var MatchQuery = (function () {
 }());
 exports.MatchQuery = MatchQuery;
 //# sourceMappingURL=match.query.js.map
-},{"@angular/core":52}],26:[function(require,module,exports){
+},{"@angular/core":61}],33:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3462,7 +4742,7 @@ var Match_phase_prefixQuery = (function () {
         this.current_query = 'match_phrase_prefix';
         this.information = {
             title: 'Match Phrase with a Prefix',
-            content: "<span class=\"description\">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase-prefix\">Read more</a>"
+            content: "<span class=\"description\">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase-prefix.html#query-dsl-match-query-phrase-prefix\">Read more</a>"
         };
         this.informationList = {
             'analyzer': {
@@ -3621,7 +4901,7 @@ var Match_phase_prefixQuery = (function () {
 }());
 exports.Match_phase_prefixQuery = Match_phase_prefixQuery;
 //# sourceMappingURL=match_phase_prefix.query.js.map
-},{"@angular/core":52}],27:[function(require,module,exports){
+},{"@angular/core":61}],34:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3641,7 +4921,7 @@ var Match_phraseQuery = (function () {
         this.current_query = 'match_phrase';
         this.information = {
             title: 'Match Phrase',
-            content: "<span class=\"description\">Returns matches by interpreting the query as a phrase.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase\">Read more</a>"
+            content: "<span class=\"description\">Returns matches by interpreting the query as a phrase.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase.html#query-dsl-match-query-phrase\">Read more</a>"
         };
         this.informationList = {
             'analyzer': {
@@ -3795,7 +5075,7 @@ var Match_phraseQuery = (function () {
 }());
 exports.Match_phraseQuery = Match_phraseQuery;
 //# sourceMappingURL=match_phrase.query.js.map
-},{"@angular/core":52}],28:[function(require,module,exports){
+},{"@angular/core":61}],35:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3956,7 +5236,7 @@ var MissingQuery = (function () {
 }());
 exports.MissingQuery = MissingQuery;
 //# sourceMappingURL=missing.query.js.map
-},{"@angular/core":52}],29:[function(require,module,exports){
+},{"@angular/core":61}],36:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4155,7 +5435,7 @@ var MultiMatchQuery = (function () {
 }());
 exports.MultiMatchQuery = MultiMatchQuery;
 //# sourceMappingURL=multi-match.query.js.map
-},{"@angular/core":52}],30:[function(require,module,exports){
+},{"@angular/core":61}],37:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4329,7 +5609,7 @@ var PrefixQuery = (function () {
 }());
 exports.PrefixQuery = PrefixQuery;
 //# sourceMappingURL=prefix.query.js.map
-},{"@angular/core":52}],31:[function(require,module,exports){
+},{"@angular/core":61}],38:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4528,7 +5808,7 @@ var QueryStringQuery = (function () {
 }());
 exports.QueryStringQuery = QueryStringQuery;
 //# sourceMappingURL=query_string.query.js.map
-},{"@angular/core":52}],32:[function(require,module,exports){
+},{"@angular/core":61}],39:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4703,7 +5983,7 @@ var RangeQuery = (function () {
 }());
 exports.RangeQuery = RangeQuery;
 //# sourceMappingURL=range.query.js.map
-},{"@angular/core":52}],33:[function(require,module,exports){
+},{"@angular/core":61}],40:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4887,7 +6167,7 @@ var RegexpQuery = (function () {
 }());
 exports.RegexpQuery = RegexpQuery;
 //# sourceMappingURL=regexp.query.js.map
-},{"@angular/core":52}],34:[function(require,module,exports){
+},{"@angular/core":61}],41:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5086,7 +6366,344 @@ var SimpleQueryStringQuery = (function () {
 }());
 exports.SimpleQueryStringQuery = SimpleQueryStringQuery;
 //# sourceMappingURL=simple_query_string.query.js.map
-},{"@angular/core":52}],35:[function(require,module,exports){
+},{"@angular/core":61}],42:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var SpanFirstQuery = (function () {
+    function SpanFirstQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'span_first';
+        this.information = {
+            title: 'Span First',
+            content: "<span class=\"description\">Matches spans near the beginning of a field. The span first query maps to Lucene SpanFirstQuery.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-first-query.html#query-dsl-span-first-query\">Read more</a>"
+        };
+        this.informationList = {
+            'boost': {
+                title: 'boost',
+                content: "<span class=\"description\">Sets the boost value of the query, defaults to <strong>1.0</strong></span>"
+            }
+        };
+        this.default_options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            input: {
+                placeholder: 'Input',
+                value: ''
+            },
+            end: {
+                placeholder: 'End',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    SpanFirstQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query]['match']['span_term'][this.selectedField]) {
+                this.inputs.input.value = this.appliedQuery[this.current_query]['match']['span_term'][this.fieldName].value;
+                this.inputs.end.value = this.appliedQuery[this.current_query].end;
+                for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                    if (option != 'value') {
+                        var obj = {
+                            name: option,
+                            value: this.appliedQuery[this.current_query][this.fieldName][option]
+                        };
+                        this.optionRows.push(obj);
+                    }
+                }
+            }
+        }
+        catch (e) { }
+        this.getFormat();
+        this.filterOptions();
+    };
+    SpanFirstQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.getFormat();
+            }
+        }
+    };
+    SpanFirstQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    SpanFirstQuery.prototype.setFormat = function () {
+        var queryFormat = {};
+        queryFormat[this.queryName] = {
+            'match': {
+                'span_term': (_a = {},
+                    _a[this.fieldName] = {},
+                    _a
+                )
+            }
+        };
+        if (this.optionRows.length) {
+            queryFormat[this.queryName]['match']['span_term'][this.fieldName]['value'] = this.inputs.input.value;
+            queryFormat[this.queryName]['end'] = this.inputs.end.value;
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName]['match']['span_term'][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName]['match']['span_term'][this.fieldName]['value'] = this.inputs.input.value;
+            queryFormat[this.queryName]['end'] = this.inputs.end.value;
+        }
+        return queryFormat;
+        var _a;
+    };
+    SpanFirstQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    SpanFirstQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    SpanFirstQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    SpanFirstQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "getQueryFormat", void 0);
+    SpanFirstQuery = __decorate([
+        core_1.Component({
+            selector: 'span-first-query',
+            template: "<span class=\"col-xs-6 pd-10\">\n                    <div class=\"form-group form-element query-primary-input\">\n                        <span class=\"input_with_option\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.input.value\"\n                                placeholder=\"{{inputs.input.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </span>\n                    </div>\n                    <div class=\"form-group form-element query-primary-input\">\n                        <span class=\"input_with_option\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.end.value\"\n                                placeholder=\"{{inputs.end.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </span>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SpanFirstQuery);
+    return SpanFirstQuery;
+}());
+exports.SpanFirstQuery = SpanFirstQuery;
+//# sourceMappingURL=span_first.query.js.map
+},{"@angular/core":61}],43:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var SpanTermQuery = (function () {
+    function SpanTermQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'span_term';
+        this.information = {
+            title: 'Span Term',
+            content: "<span class=\"description\">Matches spans containing a term. The span term query maps to Lucene SpanTermQuery.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-term-query.html#query-dsl-span-term-query\">Read more</a>"
+        };
+        this.informationList = {
+            'boost': {
+                title: 'boost',
+                content: "<span class=\"description\">Sets the boost value of the query, defaults to <strong>1.0</strong></span>"
+            }
+        };
+        this.default_options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            input: {
+                placeholder: 'Input',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    SpanTermQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query][this.selectedField]) {
+                this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                    if (option != 'value') {
+                        var obj = {
+                            name: option,
+                            value: this.appliedQuery[this.current_query][this.fieldName][option]
+                        };
+                        this.optionRows.push(obj);
+                    }
+                }
+            }
+        }
+        catch (e) { }
+        this.getFormat();
+        this.filterOptions();
+    };
+    SpanTermQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.getFormat();
+            }
+        }
+    };
+    SpanTermQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    SpanTermQuery.prototype.setFormat = function () {
+        var queryFormat = {};
+        queryFormat[this.queryName] = (_a = {},
+            _a[this.fieldName] = {},
+            _a
+        );
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName]['value'] = this.inputs.input.value;
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName]['value'] = this.inputs.input.value;
+        }
+        return queryFormat;
+        var _a;
+    };
+    SpanTermQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    SpanTermQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    SpanTermQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    SpanTermQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "getQueryFormat", void 0);
+    SpanTermQuery = __decorate([
+        core_1.Component({
+            selector: 'span-term-query',
+            template: "<span class=\"col-xs-6 pd-10\">\n                    <div class=\"form-group form-element query-primary-input\">\n                        <span class=\"input_with_option\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.input.value\"\n                                placeholder=\"{{inputs.input.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </span>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SpanTermQuery);
+    return SpanTermQuery;
+}());
+exports.SpanTermQuery = SpanTermQuery;
+//# sourceMappingURL=span_term.query.js.map
+},{"@angular/core":61}],44:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5260,7 +6877,7 @@ var TermQuery = (function () {
 }());
 exports.TermQuery = TermQuery;
 //# sourceMappingURL=term.query.js.map
-},{"@angular/core":52}],36:[function(require,module,exports){
+},{"@angular/core":61}],45:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5373,7 +6990,7 @@ var TermsQuery = (function () {
 }());
 exports.TermsQuery = TermsQuery;
 //# sourceMappingURL=terms.query.js.map
-},{"@angular/core":52}],37:[function(require,module,exports){
+},{"@angular/core":61}],46:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5547,7 +7164,7 @@ var WildcardQuery = (function () {
 }());
 exports.WildcardQuery = WildcardQuery;
 //# sourceMappingURL=wildcard.query.js.map
-},{"@angular/core":52}],38:[function(require,module,exports){
+},{"@angular/core":61}],47:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5579,6 +7196,13 @@ var fuzzy_query_1 = require('./queries/fuzzy.query');
 var ids_query_1 = require('./queries/ids.query');
 var common_query_1 = require('./queries/common.query');
 var geodistance_query_1 = require('./queries/geodistance.query');
+var geoboundingbox_query_1 = require('./queries/geoboundingbox.query');
+var geodistancerange_query_1 = require('./queries/geodistancerange.query');
+var geopolygon_query_1 = require('./queries/geopolygon.query');
+var geohashcell_query_1 = require('./queries/geohashcell.query');
+var geoshape_query_1 = require('./queries/geoshape.query');
+var span_term_query_1 = require('./queries/span_term.query');
+var span_first_query_1 = require('./queries/span_first.query');
 var SinglequeryComponent = (function () {
     function SinglequeryComponent() {
         this.queryList = this.queryList;
@@ -5587,24 +7211,28 @@ var SinglequeryComponent = (function () {
             field: 'field-select',
             query: 'query-select'
         };
+        this.joiningQuery = [''];
         this.setDocSample = new core_1.EventEmitter();
         this.informationList = {};
     }
     // on initialize set the query selector
     SinglequeryComponent.prototype.ngOnInit = function () {
         this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
+        this.allFields = this.result.resultQuery.availableFields.slice();
     };
     SinglequeryComponent.prototype.ngOnChanges = function () {
+        var _this = this;
+        this.allFields = this.result.resultQuery.availableFields.slice();
         this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
         setTimeout(function () {
-            if (this.query.selectedField) {
-                console.log(this.result.resultQuery.availableFields);
-                var isFieldExists = this.getField(this.query.selectedField);
+            _this.result.resultQuery.availableFields = _this.checkAvailableFields();
+            if (_this.query.selectedField) {
+                var isFieldExists = _this.getField(_this.query.selectedField);
                 if (!isFieldExists.length) {
-                    this.removeQuery();
+                    _this.removeQuery();
                 }
             }
-        }.bind(this), 300);
+        }, 300);
     };
     SinglequeryComponent.prototype.ngAfterViewInit = function () {
         this.informationList = {
@@ -5628,11 +7256,67 @@ var SinglequeryComponent = (function () {
             'ids': this.idsQuery.information,
             'common': this.commonQuery.information,
             'geo_distance': this.geoDistanceQuery.information,
+            'geo_bounding_box': this.geoBoundingBoxQuery.information,
+            'geo_distance_range': this.geoDistanceRangeQuery.information,
+            'geo_polygon': this.geoPolygonQuery.information,
+            'geohash_cell': this.geoHashCellQuery.information,
+            'geo_shape': this.geoShapeQuery.information,
+            'span_term': this.spanTermQuery.information,
+            'span_first': this.spanFirstQuery.information
         };
+    };
+    SinglequeryComponent.prototype.checkAvailableFields = function () {
+        var fields = this.allFields;
+        var allMappings = this.mapping[this.config.appname].mappings;
+        if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
+            var mapObj = {};
+            this.selectedTypes.forEach(function (type) {
+                Object.assign(mapObj, allMappings[type].properties);
+            });
+            var _loop_1 = function(obj) {
+                if (mapObj[obj].type === 'nested') {
+                    fields = fields.filter(function (field) { return (field.name.indexOf(obj + ".") > -1); });
+                }
+            };
+            for (var obj in mapObj) {
+                _loop_1(obj);
+            }
+        }
+        if (this.joiningQuery[this.joiningQueryParam] == 'has_child') {
+            fields = [];
+            for (var type in allMappings) {
+                if (allMappings[type].hasOwnProperty('_parent')) {
+                    var fieldObj = allMappings[type].properties;
+                    for (var field in fieldObj) {
+                        var index = typeof fieldObj[field]['index'] != 'undefined' ? fieldObj[field]['index'] : null;
+                        var obj = {
+                            name: field,
+                            type: fieldObj[field]['type'],
+                            index: index
+                        };
+                        switch (obj.type) {
+                            case 'long':
+                            case 'integer':
+                            case 'short':
+                            case 'byte':
+                            case 'double':
+                            case 'float':
+                                obj.type = 'numeric';
+                                break;
+                            case 'text':
+                            case 'keyword':
+                                obj.type = 'string';
+                                break;
+                        }
+                        fields.push(obj);
+                    }
+                }
+            }
+        }
+        return fields;
     };
     SinglequeryComponent.prototype.getQueryFormat = function (outputQuery) {
         this.query.appliedQuery = outputQuery;
-        console.log(this.query.appliedQuery);
         this.buildQuery();
     };
     // delete query
@@ -5691,6 +7375,18 @@ var SinglequeryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SinglequeryComponent.prototype, "query", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SinglequeryComponent.prototype, "boolQueryName", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "joiningQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "joiningQueryParam", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -5775,6 +7471,34 @@ var SinglequeryComponent = (function () {
         core_1.ViewChild(geodistance_query_1.GeoDistanceQuery), 
         __metadata('design:type', geodistance_query_1.GeoDistanceQuery)
     ], SinglequeryComponent.prototype, "geoDistanceQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geoboundingbox_query_1.GeoBoundingBoxQuery), 
+        __metadata('design:type', geoboundingbox_query_1.GeoBoundingBoxQuery)
+    ], SinglequeryComponent.prototype, "geoBoundingBoxQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geodistancerange_query_1.GeoDistanceRangeQuery), 
+        __metadata('design:type', geodistancerange_query_1.GeoDistanceRangeQuery)
+    ], SinglequeryComponent.prototype, "geoDistanceRangeQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geopolygon_query_1.GeoPolygonQuery), 
+        __metadata('design:type', geopolygon_query_1.GeoPolygonQuery)
+    ], SinglequeryComponent.prototype, "geoPolygonQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geohashcell_query_1.GeoHashCellQuery), 
+        __metadata('design:type', geohashcell_query_1.GeoHashCellQuery)
+    ], SinglequeryComponent.prototype, "geoHashCellQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geoshape_query_1.GeoShapeQuery), 
+        __metadata('design:type', geoshape_query_1.GeoShapeQuery)
+    ], SinglequeryComponent.prototype, "geoShapeQuery", void 0);
+    __decorate([
+        core_1.ViewChild(span_term_query_1.SpanTermQuery), 
+        __metadata('design:type', span_term_query_1.SpanTermQuery)
+    ], SinglequeryComponent.prototype, "spanTermQuery", void 0);
+    __decorate([
+        core_1.ViewChild(span_first_query_1.SpanFirstQuery), 
+        __metadata('design:type', span_first_query_1.SpanFirstQuery)
+    ], SinglequeryComponent.prototype, "spanFirstQuery", void 0);
     SinglequeryComponent = __decorate([
         core_1.Component({
             selector: 'single-query',
@@ -5787,7 +7511,7 @@ var SinglequeryComponent = (function () {
 }());
 exports.SinglequeryComponent = SinglequeryComponent;
 //# sourceMappingURL=singlequery.component.js.map
-},{"./queries/common.query":18,"./queries/exists.query":19,"./queries/fuzzy.query":20,"./queries/geodistance.query":21,"./queries/gt.query":22,"./queries/ids.query":23,"./queries/lt.query":24,"./queries/match.query":25,"./queries/match_phase_prefix.query":26,"./queries/match_phrase.query":27,"./queries/missing.query":28,"./queries/multi-match.query":29,"./queries/prefix.query":30,"./queries/query_string.query":31,"./queries/range.query":32,"./queries/regexp.query":33,"./queries/simple_query_string.query":34,"./queries/term.query":35,"./queries/terms.query":36,"./queries/wildcard.query":37,"@angular/core":52}],39:[function(require,module,exports){
+},{"./queries/common.query":20,"./queries/exists.query":21,"./queries/fuzzy.query":22,"./queries/geoboundingbox.query":23,"./queries/geodistance.query":24,"./queries/geodistancerange.query":25,"./queries/geohashcell.query":26,"./queries/geopolygon.query":27,"./queries/geoshape.query":28,"./queries/gt.query":29,"./queries/ids.query":30,"./queries/lt.query":31,"./queries/match.query":32,"./queries/match_phase_prefix.query":33,"./queries/match_phrase.query":34,"./queries/missing.query":35,"./queries/multi-match.query":36,"./queries/prefix.query":37,"./queries/query_string.query":38,"./queries/range.query":39,"./queries/regexp.query":40,"./queries/simple_query_string.query":41,"./queries/span_first.query":42,"./queries/span_term.query":43,"./queries/term.query":44,"./queries/terms.query":45,"./queries/wildcard.query":46,"@angular/core":61}],48:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5835,16 +7559,29 @@ var TypesComponent = (function () {
         //this.mapping.resultQuery.result = [];
         var availableFields = [];
         var propInfo;
+        var allMappings = this.mapping[this.config.appname].mappings;
+        this.result.joiningQuery = [''];
         if (val && val.length) {
             val.forEach(function (type) {
                 var mapObjWithFields = {};
-                var mapObj = this.mapping[this.config.appname].mappings[type].properties;
+                var mapObj = allMappings[type].properties;
                 for (var field_1 in mapObj) {
                     mapObjWithFields[field_1] = mapObj[field_1];
                     if (mapObj[field_1].fields) {
                         for (var sub in mapObj[field_1].fields) {
                             var subname = field_1 + '.' + sub;
                             mapObjWithFields[subname] = mapObj[field_1].fields[sub];
+                        }
+                    }
+                    if (mapObj[field_1].properties) {
+                        for (var sub in mapObj[field_1].properties) {
+                            var subname = field_1 + '.' + sub;
+                            mapObjWithFields[subname] = mapObj[field_1].properties[sub];
+                        }
+                    }
+                    if (mapObj[field_1].type === 'nested') {
+                        if (this.result.joiningQuery.indexOf('nested') < 0) {
+                            this.result.joiningQuery.push('nested');
                         }
                     }
                 }
@@ -5863,6 +7600,10 @@ var TypesComponent = (function () {
                         case 'double':
                         case 'float':
                             obj.type = 'numeric';
+                            break;
+                        case 'text':
+                        case 'keyword':
+                            obj.type = 'string';
                             break;
                     }
                     availableFields.push(obj);
@@ -5888,6 +7629,17 @@ var TypesComponent = (function () {
             value: availableFields
         };
         this.setProp.emit(propInfo);
+        for (var type in allMappings) {
+            if (allMappings[type].hasOwnProperty('_parent')) {
+                if (val.indexOf(allMappings[type]['_parent'].type) > -1) {
+                    if (this.result.joiningQuery.indexOf('has_child') < 0) {
+                        this.result.joiningQuery.push('has_child');
+                        this.result.joiningQuery.push('has_parent');
+                        this.result.joiningQuery.push('parent_id');
+                    }
+                }
+            }
+        }
     };
     TypesComponent.prototype.setUrl = function (val) {
         var selectedTypes = val;
@@ -5968,7 +7720,7 @@ var TypesComponent = (function () {
 }());
 exports.TypesComponent = TypesComponent;
 //# sourceMappingURL=types.component.js.map
-},{"@angular/core":52}],40:[function(require,module,exports){
+},{"@angular/core":61}],49:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5998,7 +7750,7 @@ var ResultComponent = (function () {
 }());
 exports.ResultComponent = ResultComponent;
 //# sourceMappingURL=result.component.js.map
-},{"@angular/core":52}],41:[function(require,module,exports){
+},{"@angular/core":61}],50:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6133,7 +7885,7 @@ var AppbaseService = (function () {
 }());
 exports.AppbaseService = AppbaseService;
 //# sourceMappingURL=appbase.service.js.map
-},{"@angular/core":52,"@angular/http":54,"rxjs/add/operator/toPromise":64}],42:[function(require,module,exports){
+},{"@angular/core":61,"@angular/http":63,"rxjs/add/operator/toPromise":73}],51:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6166,7 +7918,7 @@ var DocService = (function () {
 }());
 exports.DocService = DocService;
 //# sourceMappingURL=docService.js.map
-},{"@angular/core":52,"rxjs/BehaviorSubject":57}],43:[function(require,module,exports){
+},{"@angular/core":61,"rxjs/BehaviorSubject":66}],52:[function(require,module,exports){
 "use strict";
 exports.EditorHook = function (config) {
     this.editorId = config.editorId;
@@ -6206,7 +7958,7 @@ exports.EditorHook.prototype.getInstance = function () {
     return this.editor;
 };
 //# sourceMappingURL=editorHook.js.map
-},{}],44:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6239,7 +7991,7 @@ var GlobalShare = (function () {
 }());
 exports.GlobalShare = GlobalShare;
 //# sourceMappingURL=globalshare.service.js.map
-},{"@angular/core":52}],45:[function(require,module,exports){
+},{"@angular/core":61}],54:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6265,7 +8017,7 @@ var prettyJson = (function () {
 }());
 exports.prettyJson = prettyJson;
 //# sourceMappingURL=prettyJson.js.map
-},{"@angular/core":52}],46:[function(require,module,exports){
+},{"@angular/core":61}],55:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6291,7 +8043,7 @@ var prettyTime = (function () {
 }());
 exports.prettyTime = prettyTime;
 //# sourceMappingURL=prettyTime.js.map
-},{"@angular/core":52}],47:[function(require,module,exports){
+},{"@angular/core":61}],56:[function(require,module,exports){
 "use strict";
 exports.queryList = {
     analyzed: {
@@ -6311,7 +8063,9 @@ exports.queryList = {
             'simple_query_string',
             'match_phrase_prefix',
             'ids',
-            'common'
+            'common',
+            'span_term',
+            'span_first'
         ],
         numeric: [
             'match',
@@ -6324,7 +8078,14 @@ exports.queryList = {
             'common'
         ],
         geo_point: [
-            'geo_distance'
+            'geo_distance',
+            'geo_distance_range',
+            'geo_bounding_box',
+            'geo_polygon',
+            'geohash_cell'
+        ],
+        geo_shape: [
+            'geo_shape'
         ]
     },
     not_analyzed: {
@@ -6341,7 +8102,11 @@ exports.queryList = {
             'lt'
         ],
         geo_point: [
-            'geo_distance'
+            'geo_distance',
+            'geo_bounding_box',
+            'geo_distance_range',
+            'geo_polygon',
+            'geohash_cell'
         ]
     },
     boolQuery: [
@@ -6350,35 +8115,18 @@ exports.queryList = {
         'should',
         'filter'
     ],
-    information: {
-        "match": {
-            "title": "match",
-            "content": "match query content"
-        },
-        "match_phrase": {
-            "title": "match_phrase",
-            "content": "match query content"
-        },
-        "match-phase-prefix": {
-            "title": "match-phase-prefix",
-            "content": "match query content"
-        },
-        "range": {
-            "title": "range",
-            "content": "match query content"
-        },
-        "gt": {
-            "title": "gt",
-            "content": "match query content"
-        },
-        "lt": {
-            "title": "lt",
-            "content": "match query content"
-        }
-    }
+    allowedDataTypes: [
+        'string',
+        'text',
+        'keyword',
+        'date',
+        'numeric',
+        'geo_point',
+        'geo_shape'
+    ]
 };
 //# sourceMappingURL=queryList.js.map
-},{}],48:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6407,7 +8155,7 @@ var StorageService = (function () {
 }());
 exports.StorageService = StorageService;
 //# sourceMappingURL=storage.service.js.map
-},{"@angular/core":52}],49:[function(require,module,exports){
+},{"@angular/core":61}],58:[function(require,module,exports){
 "use strict";
 exports.UrlShare = function () {
     this.secret = 'e';
@@ -6423,6 +8171,13 @@ exports.UrlShare.prototype.setInputs = function (inputs) {
     this.createUrl();
 };
 exports.UrlShare.prototype.createUrl = function () {
+    if (this.inputs && this.inputs.config) {
+        this.inputs.appname = this.inputs.config.appname;
+        this.inputs.url = this.inputs.config.url;
+    }
+    if (this.inputs.selectedTypes) {
+        this.inputs.selectedType = this.inputs.selectedTypes;
+    }
     var inputs = JSON.parse(JSON.stringify(this.inputs));
     try {
         delete inputs.result.resultQuery.final;
@@ -6437,16 +8192,30 @@ exports.UrlShare.prototype.createUrl = function () {
             if (window.location.href.indexOf('#?default=true') > -1) {
                 window.location.href = window.location.href.split('?default=true')[0];
             }
-            window.location.href = '#?input_state=' + ciphertext;
+            var finalUrl = '#?input_state=' + ciphertext;
+            if (this.queryParams && this.queryParams.hf) {
+                finalUrl += '&hf=' + this.queryParams.hf;
+            }
+            window.location.href = finalUrl;
         }
     }
 };
 exports.UrlShare.prototype.decryptUrl = function (cb) {
     var _this = this;
     return new Promise(function (resolve, reject) {
-        var url = window.location.href.split('#?input_state=');
-        if (url.length > 1) {
-            _this.decompress(url[1], function (error, data) {
+        _this.queryParams = _this.getQueryParameters();
+        if (_this.queryParams.input_state) {
+            _this.decompress(_this.queryParams.input_state, function (error, data) {
+                if (data && data.appname && data.url) {
+                    data.config = {
+                        appname: data.appname,
+                        url: data.url
+                    };
+                }
+                if (data && data.config) {
+                    data.appname = data.config.appname;
+                    data.url = data.config.url;
+                }
                 resolve({ error: error, data: data });
             });
         }
@@ -6467,13 +8236,7 @@ exports.UrlShare.prototype.convertToUrl = function (type) {
     return final_url;
 };
 exports.UrlShare.prototype.dejavuLink = function () {
-    var obj = {
-        url: this.inputs.config.url,
-        appname: this.inputs.config.appname,
-        selectedType: this.inputs.selectedTypes
-    };
-    var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(obj), 'dejvu').toString();
-    var final_url = 'http://appbaseio.github.io/dejaVu/live/#?input_state=' + ciphertext;
+    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state=' + this.url;
     return final_url;
 };
 exports.UrlShare.prototype.compress = function (jsonInput, cb) {
@@ -6518,8 +8281,17 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
         return cb('Empty');
     }
 };
+exports.UrlShare.prototype.getQueryParameters = function (str) {
+    var hash = window.location.hash.split('#');
+    if (hash.length > 1) {
+        return (str || hash[1]).replace(/(^\?)/, '').split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1], this; }.bind({}))[0];
+    }
+    else {
+        return null;
+    }
+};
 //# sourceMappingURL=urlShare.js.map
-},{}],50:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -9646,7 +11418,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":52}],51:[function(require,module,exports){
+},{"@angular/core":61}],60:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -27247,7 +29019,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":52}],52:[function(require,module,exports){
+},{"@angular/core":61}],61:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -37087,7 +38859,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"rxjs/Observable":58,"rxjs/Subject":60}],53:[function(require,module,exports){
+},{"rxjs/Observable":67,"rxjs/Subject":69}],62:[function(require,module,exports){
 /**
  * @license Angular v2.0.2
  * (c) 2010-2016 Google, Inc. https://angular.io/
@@ -41763,7 +43535,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
 
 }));
 
-},{"@angular/core":52,"rxjs/Observable":58,"rxjs/Subject":60,"rxjs/observable/fromPromise":66,"rxjs/operator/toPromise":67}],54:[function(require,module,exports){
+},{"@angular/core":61,"rxjs/Observable":67,"rxjs/Subject":69,"rxjs/observable/fromPromise":75,"rxjs/operator/toPromise":76}],63:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -43768,7 +45540,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":52,"@angular/platform-browser":56,"rxjs/Observable":58}],55:[function(require,module,exports){
+},{"@angular/core":61,"@angular/platform-browser":65,"rxjs/Observable":67}],64:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -43978,7 +45750,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/compiler":51,"@angular/core":52,"@angular/platform-browser":56}],56:[function(require,module,exports){
+},{"@angular/compiler":60,"@angular/core":61,"@angular/platform-browser":65}],65:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -46880,7 +48652,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/common":50,"@angular/core":52}],57:[function(require,module,exports){
+},{"@angular/common":59,"@angular/core":61}],66:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -46935,7 +48707,7 @@ var BehaviorSubject = (function (_super) {
 }(Subject_1.Subject));
 exports.BehaviorSubject = BehaviorSubject;
 //# sourceMappingURL=BehaviorSubject.js.map
-},{"./Subject":60,"./util/ObjectUnsubscribedError":70,"./util/throwError":77}],58:[function(require,module,exports){
+},{"./Subject":69,"./util/ObjectUnsubscribedError":79,"./util/throwError":86}],67:[function(require,module,exports){
 "use strict";
 var root_1 = require('./util/root');
 var observable_1 = require('./symbol/observable');
@@ -47071,7 +48843,7 @@ var Observable = (function () {
 }());
 exports.Observable = Observable;
 //# sourceMappingURL=Observable.js.map
-},{"./symbol/observable":68,"./util/root":76,"./util/toSubscriber":78}],59:[function(require,module,exports){
+},{"./symbol/observable":77,"./util/root":85,"./util/toSubscriber":87}],68:[function(require,module,exports){
 "use strict";
 exports.empty = {
     isUnsubscribed: true,
@@ -47080,7 +48852,7 @@ exports.empty = {
     complete: function () { }
 };
 //# sourceMappingURL=Observer.js.map
-},{}],60:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -47287,7 +49059,7 @@ var SubjectObservable = (function (_super) {
     return SubjectObservable;
 }(Observable_1.Observable));
 //# sourceMappingURL=Subject.js.map
-},{"./Observable":58,"./SubjectSubscription":61,"./Subscriber":62,"./Subscription":63,"./symbol/rxSubscriber":69,"./util/ObjectUnsubscribedError":70,"./util/throwError":77}],61:[function(require,module,exports){
+},{"./Observable":67,"./SubjectSubscription":70,"./Subscriber":71,"./Subscription":72,"./symbol/rxSubscriber":78,"./util/ObjectUnsubscribedError":79,"./util/throwError":86}],70:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -47328,7 +49100,7 @@ var SubjectSubscription = (function (_super) {
 }(Subscription_1.Subscription));
 exports.SubjectSubscription = SubjectSubscription;
 //# sourceMappingURL=SubjectSubscription.js.map
-},{"./Subscription":63}],62:[function(require,module,exports){
+},{"./Subscription":72}],71:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -47580,7 +49352,7 @@ var SafeSubscriber = (function (_super) {
     return SafeSubscriber;
 }(Subscriber));
 //# sourceMappingURL=Subscriber.js.map
-},{"./Observer":59,"./Subscription":63,"./symbol/rxSubscriber":69,"./util/isFunction":74}],63:[function(require,module,exports){
+},{"./Observer":68,"./Subscription":72,"./symbol/rxSubscriber":78,"./util/isFunction":83}],72:[function(require,module,exports){
 "use strict";
 var isArray_1 = require('./util/isArray');
 var isObject_1 = require('./util/isObject');
@@ -47731,13 +49503,13 @@ var Subscription = (function () {
 }());
 exports.Subscription = Subscription;
 //# sourceMappingURL=Subscription.js.map
-},{"./util/UnsubscriptionError":71,"./util/errorObject":72,"./util/isArray":73,"./util/isFunction":74,"./util/isObject":75,"./util/tryCatch":79}],64:[function(require,module,exports){
+},{"./util/UnsubscriptionError":80,"./util/errorObject":81,"./util/isArray":82,"./util/isFunction":83,"./util/isObject":84,"./util/tryCatch":88}],73:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var toPromise_1 = require('../../operator/toPromise');
 Observable_1.Observable.prototype.toPromise = toPromise_1.toPromise;
 //# sourceMappingURL=toPromise.js.map
-},{"../../Observable":58,"../../operator/toPromise":67}],65:[function(require,module,exports){
+},{"../../Observable":67,"../../operator/toPromise":76}],74:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -47843,12 +49615,12 @@ function dispatchError(arg) {
     }
 }
 //# sourceMappingURL=PromiseObservable.js.map
-},{"../Observable":58,"../util/root":76}],66:[function(require,module,exports){
+},{"../Observable":67,"../util/root":85}],75:[function(require,module,exports){
 "use strict";
 var PromiseObservable_1 = require('./PromiseObservable');
 exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 //# sourceMappingURL=fromPromise.js.map
-},{"./PromiseObservable":65}],67:[function(require,module,exports){
+},{"./PromiseObservable":74}],76:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 /**
@@ -47877,7 +49649,7 @@ function toPromise(PromiseCtor) {
 }
 exports.toPromise = toPromise;
 //# sourceMappingURL=toPromise.js.map
-},{"../util/root":76}],68:[function(require,module,exports){
+},{"../util/root":85}],77:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 var Symbol = root_1.root.Symbol;
@@ -47899,14 +49671,14 @@ else {
     exports.$$observable = '@@observable';
 }
 //# sourceMappingURL=observable.js.map
-},{"../util/root":76}],69:[function(require,module,exports){
+},{"../util/root":85}],78:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 var Symbol = root_1.root.Symbol;
 exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
     Symbol.for('rxSubscriber') : '@@rxSubscriber';
 //# sourceMappingURL=rxSubscriber.js.map
-},{"../util/root":76}],70:[function(require,module,exports){
+},{"../util/root":85}],79:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -47932,7 +49704,7 @@ var ObjectUnsubscribedError = (function (_super) {
 }(Error));
 exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 //# sourceMappingURL=ObjectUnsubscribedError.js.map
-},{}],71:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -47955,30 +49727,30 @@ var UnsubscriptionError = (function (_super) {
 }(Error));
 exports.UnsubscriptionError = UnsubscriptionError;
 //# sourceMappingURL=UnsubscriptionError.js.map
-},{}],72:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 "use strict";
 // typeof any so that it we don't have to cast when comparing a result to the error object
 exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
-},{}],73:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 "use strict";
 exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 //# sourceMappingURL=isArray.js.map
-},{}],74:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 "use strict";
 function isFunction(x) {
     return typeof x === 'function';
 }
 exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
-},{}],75:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 "use strict";
 function isObject(x) {
     return x != null && typeof x === 'object';
 }
 exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
-},{}],76:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 (function (global){
 "use strict";
 var objectTypes = {
@@ -47999,12 +49771,12 @@ if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === fre
 }
 //# sourceMappingURL=root.js.map
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],77:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 "use strict";
 function throwError(e) { throw e; }
 exports.throwError = throwError;
 //# sourceMappingURL=throwError.js.map
-},{}],78:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 "use strict";
 var Subscriber_1 = require('../Subscriber');
 var rxSubscriber_1 = require('../symbol/rxSubscriber');
@@ -48021,7 +49793,7 @@ function toSubscriber(nextOrObserver, error, complete) {
 }
 exports.toSubscriber = toSubscriber;
 //# sourceMappingURL=toSubscriber.js.map
-},{"../Subscriber":62,"../symbol/rxSubscriber":69}],79:[function(require,module,exports){
+},{"../Subscriber":71,"../symbol/rxSubscriber":78}],88:[function(require,module,exports){
 "use strict";
 var errorObject_1 = require('./errorObject');
 var tryCatchTarget;
@@ -48041,4 +49813,4 @@ function tryCatch(fn) {
 exports.tryCatch = tryCatch;
 ;
 //# sourceMappingURL=tryCatch.js.map
-},{"./errorObject":72}]},{},[3])
+},{"./errorObject":81}]},{},[3])

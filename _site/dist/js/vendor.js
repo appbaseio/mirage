@@ -21,6 +21,15 @@ return la.apply(Ga(this),arguments)},map:function map(a){return Ba(Ga(this),a,ar
     (factory());
 }(this, (function () { 'use strict';
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
 var Zone$1 = (function (global) {
     if (global.Zone) {
         throw new Error('Zone already loaded.');
@@ -31,37 +40,46 @@ var Zone$1 = (function (global) {
             this._parent = parent;
             this._name = zoneSpec ? zoneSpec.name || 'unnamed' : '<root>';
             this._properties = zoneSpec && zoneSpec.properties || {};
-            this._zoneDelegate = new ZoneDelegate(this, this._parent && this._parent._zoneDelegate, zoneSpec);
+            this._zoneDelegate =
+                new ZoneDelegate(this, this._parent && this._parent._zoneDelegate, zoneSpec);
         }
         Zone.assertZonePatched = function () {
             if (global.Promise !== ZoneAwarePromise) {
-                throw new Error("Zone.js has detected that ZoneAwarePromise `(window|global).Promise` " +
-                    "has been overwritten.\n" +
-                    "Most likely cause is that a Promise polyfill has been loaded " +
-                    "after Zone.js (Polyfilling Promise api is not necessary when zone.js is loaded. " +
-                    "If you must load one, do so before loading zone.js.)");
+                throw new Error('Zone.js has detected that ZoneAwarePromise `(window|global).Promise` ' +
+                    'has been overwritten.\n' +
+                    'Most likely cause is that a Promise polyfill has been loaded ' +
+                    'after Zone.js (Polyfilling Promise api is not necessary when zone.js is loaded. ' +
+                    'If you must load one, do so before loading zone.js.)');
             }
         };
         Object.defineProperty(Zone, "current", {
-            get: function () { return _currentZone; },
+            get: function () {
+                return _currentZone;
+            },
             enumerable: true,
             configurable: true
         });
         
         Object.defineProperty(Zone, "currentTask", {
-            get: function () { return _currentTask; },
+            get: function () {
+                return _currentTask;
+            },
             enumerable: true,
             configurable: true
         });
         
         Object.defineProperty(Zone.prototype, "parent", {
-            get: function () { return this._parent; },
+            get: function () {
+                return this._parent;
+            },
             enumerable: true,
             configurable: true
         });
         
         Object.defineProperty(Zone.prototype, "name", {
-            get: function () { return this._name; },
+            get: function () {
+                return this._name;
+            },
             enumerable: true,
             configurable: true
         });
@@ -132,8 +150,8 @@ var Zone$1 = (function (global) {
         Zone.prototype.runTask = function (task, applyThis, applyArgs) {
             task.runCount++;
             if (task.zone != this)
-                throw new Error('A task can only be run in the zone which created it! (Creation: ' +
-                    task.zone.name + '; Execution: ' + this.name + ')');
+                throw new Error('A task can only be run in the zone which created it! (Creation: ' + task.zone.name +
+                    '; Execution: ' + this.name + ')');
             var previousTask = _currentTask;
             _currentTask = task;
             var oldZone = _currentZone;
@@ -182,40 +200,51 @@ var Zone$1 = (function (global) {
             this._parentDelegate = parentDelegate;
             this._forkZS = zoneSpec && (zoneSpec && zoneSpec.onFork ? zoneSpec : parentDelegate._forkZS);
             this._forkDlgt = zoneSpec && (zoneSpec.onFork ? parentDelegate : parentDelegate._forkDlgt);
-            this._interceptZS = zoneSpec && (zoneSpec.onIntercept ? zoneSpec : parentDelegate._interceptZS);
-            this._interceptDlgt = zoneSpec && (zoneSpec.onIntercept ? parentDelegate : parentDelegate._interceptDlgt);
+            this._interceptZS =
+                zoneSpec && (zoneSpec.onIntercept ? zoneSpec : parentDelegate._interceptZS);
+            this._interceptDlgt =
+                zoneSpec && (zoneSpec.onIntercept ? parentDelegate : parentDelegate._interceptDlgt);
             this._invokeZS = zoneSpec && (zoneSpec.onInvoke ? zoneSpec : parentDelegate._invokeZS);
-            this._invokeDlgt = zoneSpec && (zoneSpec.onInvoke ? parentDelegate : parentDelegate._invokeDlgt);
-            this._handleErrorZS = zoneSpec && (zoneSpec.onHandleError ? zoneSpec : parentDelegate._handleErrorZS);
-            this._handleErrorDlgt = zoneSpec && (zoneSpec.onHandleError ? parentDelegate : parentDelegate._handleErrorDlgt);
-            this._scheduleTaskZS = zoneSpec && (zoneSpec.onScheduleTask ? zoneSpec : parentDelegate._scheduleTaskZS);
-            this._scheduleTaskDlgt = zoneSpec && (zoneSpec.onScheduleTask ? parentDelegate : parentDelegate._scheduleTaskDlgt);
-            this._invokeTaskZS = zoneSpec && (zoneSpec.onInvokeTask ? zoneSpec : parentDelegate._invokeTaskZS);
-            this._invokeTaskDlgt = zoneSpec && (zoneSpec.onInvokeTask ? parentDelegate : parentDelegate._invokeTaskDlgt);
-            this._cancelTaskZS = zoneSpec && (zoneSpec.onCancelTask ? zoneSpec : parentDelegate._cancelTaskZS);
-            this._cancelTaskDlgt = zoneSpec && (zoneSpec.onCancelTask ? parentDelegate : parentDelegate._cancelTaskDlgt);
+            this._invokeDlgt =
+                zoneSpec && (zoneSpec.onInvoke ? parentDelegate : parentDelegate._invokeDlgt);
+            this._handleErrorZS =
+                zoneSpec && (zoneSpec.onHandleError ? zoneSpec : parentDelegate._handleErrorZS);
+            this._handleErrorDlgt =
+                zoneSpec && (zoneSpec.onHandleError ? parentDelegate : parentDelegate._handleErrorDlgt);
+            this._scheduleTaskZS =
+                zoneSpec && (zoneSpec.onScheduleTask ? zoneSpec : parentDelegate._scheduleTaskZS);
+            this._scheduleTaskDlgt =
+                zoneSpec && (zoneSpec.onScheduleTask ? parentDelegate : parentDelegate._scheduleTaskDlgt);
+            this._invokeTaskZS =
+                zoneSpec && (zoneSpec.onInvokeTask ? zoneSpec : parentDelegate._invokeTaskZS);
+            this._invokeTaskDlgt =
+                zoneSpec && (zoneSpec.onInvokeTask ? parentDelegate : parentDelegate._invokeTaskDlgt);
+            this._cancelTaskZS =
+                zoneSpec && (zoneSpec.onCancelTask ? zoneSpec : parentDelegate._cancelTaskZS);
+            this._cancelTaskDlgt =
+                zoneSpec && (zoneSpec.onCancelTask ? parentDelegate : parentDelegate._cancelTaskDlgt);
             this._hasTaskZS = zoneSpec && (zoneSpec.onHasTask ? zoneSpec : parentDelegate._hasTaskZS);
-            this._hasTaskDlgt = zoneSpec && (zoneSpec.onHasTask ? parentDelegate : parentDelegate._hasTaskDlgt);
+            this._hasTaskDlgt =
+                zoneSpec && (zoneSpec.onHasTask ? parentDelegate : parentDelegate._hasTaskDlgt);
         }
         ZoneDelegate.prototype.fork = function (targetZone, zoneSpec) {
-            return this._forkZS
-                ? this._forkZS.onFork(this._forkDlgt, this.zone, targetZone, zoneSpec)
-                : new Zone(targetZone, zoneSpec);
+            return this._forkZS ? this._forkZS.onFork(this._forkDlgt, this.zone, targetZone, zoneSpec) :
+                new Zone(targetZone, zoneSpec);
         };
         ZoneDelegate.prototype.intercept = function (targetZone, callback, source) {
-            return this._interceptZS
-                ? this._interceptZS.onIntercept(this._interceptDlgt, this.zone, targetZone, callback, source)
-                : callback;
+            return this._interceptZS ?
+                this._interceptZS.onIntercept(this._interceptDlgt, this.zone, targetZone, callback, source) :
+                callback;
         };
         ZoneDelegate.prototype.invoke = function (targetZone, callback, applyThis, applyArgs, source) {
-            return this._invokeZS
-                ? this._invokeZS.onInvoke(this._invokeDlgt, this.zone, targetZone, callback, applyThis, applyArgs, source)
-                : callback.apply(applyThis, applyArgs);
+            return this._invokeZS ?
+                this._invokeZS.onInvoke(this._invokeDlgt, this.zone, targetZone, callback, applyThis, applyArgs, source) :
+                callback.apply(applyThis, applyArgs);
         };
         ZoneDelegate.prototype.handleError = function (targetZone, error) {
-            return this._handleErrorZS
-                ? this._handleErrorZS.onHandleError(this._handleErrorDlgt, this.zone, targetZone, error)
-                : true;
+            return this._handleErrorZS ?
+                this._handleErrorZS.onHandleError(this._handleErrorDlgt, this.zone, targetZone, error) :
+                true;
         };
         ZoneDelegate.prototype.scheduleTask = function (targetZone, task) {
             try {
@@ -241,12 +270,13 @@ var Zone$1 = (function (global) {
         };
         ZoneDelegate.prototype.invokeTask = function (targetZone, task, applyThis, applyArgs) {
             try {
-                return this._invokeTaskZS
-                    ? this._invokeTaskZS.onInvokeTask(this._invokeTaskDlgt, this.zone, targetZone, task, applyThis, applyArgs)
-                    : task.callback.apply(applyThis, applyArgs);
+                return this._invokeTaskZS ?
+                    this._invokeTaskZS.onInvokeTask(this._invokeTaskDlgt, this.zone, targetZone, task, applyThis, applyArgs) :
+                    task.callback.apply(applyThis, applyArgs);
             }
             finally {
-                if (targetZone == this.zone && (task.type != 'eventTask') && !(task.data && task.data.isPeriodic)) {
+                if (targetZone == this.zone && (task.type != 'eventTask') &&
+                    !(task.data && task.data.isPeriodic)) {
                     this._updateTaskCount(task.type, -1);
                 }
             }
@@ -269,7 +299,8 @@ var Zone$1 = (function (global) {
             return value;
         };
         ZoneDelegate.prototype.hasTask = function (targetZone, isEmpty) {
-            return this._hasTaskZS && this._hasTaskZS.onHasTask(this._hasTaskDlgt, this.zone, targetZone, isEmpty);
+            return this._hasTaskZS &&
+                this._hasTaskZS.onHasTask(this._hasTaskDlgt, this.zone, targetZone, isEmpty);
         };
         ZoneDelegate.prototype._updateTaskCount = function (type, count) {
             var counts = this._taskCounts;
@@ -326,12 +357,14 @@ var Zone$1 = (function (global) {
                 return this.data.handleId;
             }
             else {
-                return this.toString();
+                return Object.prototype.toString.call(this);
             }
         };
         return ZoneTask;
     }());
-    function __symbol__(name) { return '__zone_symbol__' + name; }
+    function __symbol__(name) {
+        return '__zone_symbol__' + name;
+    }
     
     var symbolSetTimeout = __symbol__('setTimeout');
     var symbolPromise = __symbol__('Promise');
@@ -386,7 +419,9 @@ var Zone$1 = (function (global) {
                 var _loop_1 = function() {
                     var uncaughtPromiseError = _uncaughtPromiseErrors.shift();
                     try {
-                        uncaughtPromiseError.zone.runGuarded(function () { throw uncaughtPromiseError; });
+                        uncaughtPromiseError.zone.runGuarded(function () {
+                            throw uncaughtPromiseError;
+                        });
                     }
                     catch (e) {
                         consoleError(e);
@@ -402,8 +437,12 @@ var Zone$1 = (function (global) {
     function isThenable(value) {
         return value && value.then;
     }
-    function forwardResolution(value) { return value; }
-    function forwardRejection(rejection) { return ZoneAwarePromise.reject(rejection); }
+    function forwardResolution(value) {
+        return value;
+    }
+    function forwardRejection(rejection) {
+        return ZoneAwarePromise.reject(rejection);
+    }
     var symbolState = __symbol__('state');
     var symbolValue = __symbol__('value');
     var source = 'Promise.then';
@@ -436,7 +475,8 @@ var Zone$1 = (function (global) {
                 if (queue.length == 0 && state == REJECTED) {
                     promise[symbolState] = REJECTED_NO_CATCH;
                     try {
-                        throw new Error("Uncaught (in promise): " + value);
+                        throw new Error('Uncaught (in promise): ' + value +
+                            (value && value.stack ? '\n' + value.stack : ''));
                     }
                     catch (e) {
                         var error_1 = e;
@@ -500,9 +540,16 @@ var Zone$1 = (function (global) {
         ZoneAwarePromise.race = function (values) {
             var resolve;
             var reject;
-            var promise = new this(function (res, rej) { resolve = res; reject = rej; });
-            function onResolve(value) { promise && (promise = null || resolve(value)); }
-            function onReject(error) { promise && (promise = null || reject(error)); }
+            var promise = new this(function (res, rej) {
+                _a = [res, rej], resolve = _a[0], reject = _a[1];
+                var _a;
+            });
+            function onResolve(value) {
+                promise && (promise = null || resolve(value));
+            }
+            function onReject(error) {
+                promise && (promise = null || reject(error));
+            }
             for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
                 var value = values_1[_i];
                 if (!isThenable(value)) {
@@ -515,7 +562,10 @@ var Zone$1 = (function (global) {
         ZoneAwarePromise.all = function (values) {
             var resolve;
             var reject;
-            var promise = new this(function (res, rej) { resolve = res; reject = rej; });
+            var promise = new this(function (res, rej) {
+                resolve = res;
+                reject = rej;
+            });
             var count = 0;
             var resolvedValues = [];
             for (var _i = 0, values_2 = values; _i < values_2.length; _i++) {
@@ -562,13 +612,14 @@ var Zone$1 = (function (global) {
     global.Promise = ZoneAwarePromise;
     function patchThen(NativePromise) {
         var NativePromiseProtototype = NativePromise.prototype;
-        var NativePromiseThen = NativePromiseProtototype[__symbol__('then')]
-            = NativePromiseProtototype.then;
+        var NativePromiseThen = NativePromiseProtototype[__symbol__('then')] =
+            NativePromiseProtototype.then;
         NativePromiseProtototype.then = function (onResolve, onReject) {
             var nativePromise = this;
             return new ZoneAwarePromise(function (resolve, reject) {
                 NativePromiseThen.call(nativePromise, resolve, reject);
-            }).then(onResolve, onReject);
+            })
+                .then(onResolve, onReject);
         };
     }
     if (NativePromise) {
@@ -585,7 +636,8 @@ var Zone$1 = (function (global) {
             }
             // ignore output to prevent error;
             fetchPromise.then(function () { return null; }, function () { return null; });
-            if (fetchPromise.constructor != NativePromise) {
+            if (fetchPromise.constructor != NativePromise &&
+                fetchPromise.constructor != ZoneAwarePromise) {
                 patchThen(fetchPromise.constructor);
             }
         }
@@ -596,9 +648,11 @@ var Zone$1 = (function (global) {
 })(typeof window === 'object' && window || typeof self === 'object' && self || global);
 
 /**
- * Suppress closure compiler errors about unknown 'process' variable
- * @fileoverview
- * @suppress {undefinedVars}
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 var zoneSymbol = Zone['__symbol__'];
 var _global$1 = typeof window === 'object' && window || typeof self === 'object' && self || global;
@@ -633,10 +687,7 @@ var isWebWorker = (typeof WorkerGlobalScope !== 'undefined' && self instanceof W
 var isNode = (typeof process !== 'undefined' && {}.toString.call(process) === '[object process]');
 var isBrowser = !isNode && !isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
 function patchProperty(obj, prop) {
-    var desc = Object.getOwnPropertyDescriptor(obj, prop) || {
-        enumerable: true,
-        configurable: true
-    };
+    var desc = Object.getOwnPropertyDescriptor(obj, prop) || { enumerable: true, configurable: true };
     // A property descriptor cannot have getter/setter and be writable
     // deleting the writable and value properties avoids this error:
     //
@@ -665,7 +716,8 @@ function patchProperty(obj, prop) {
             this[_prop] = null;
         }
     };
-    // The getter would return undefined for unassigned properties but the default value of an unassigned property is null
+    // The getter would return undefined for unassigned properties but the default value of an
+    // unassigned property is null
     desc.get = function () {
         return this[_prop] || null;
     };
@@ -699,9 +751,7 @@ function findExistingRegisteredTask(target, handler, name, capture, remove) {
         for (var i = 0; i < eventTasks.length; i++) {
             var eventTask = eventTasks[i];
             var data = eventTask.data;
-            if (data.handler === handler
-                && data.useCapturing === capture
-                && data.eventName === name) {
+            if (data.handler === handler && data.useCapturing === capture && data.eventName === name) {
                 if (remove) {
                     eventTasks.splice(i, 1);
                 }
@@ -754,13 +804,14 @@ function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, al
             // In cross site contexts (such as WebDriver frameworks like Selenium),
             // accessing the handler object here will cause an exception to be thrown which
             // will fail tests prematurely.
-            validZoneHandler = handler && handler.toString() === "[object FunctionWrapper]";
+            validZoneHandler = handler && handler.toString() === '[object FunctionWrapper]';
         }
         catch (e) {
             // Returning nothing here is fine, because objects in a cross-site context are unusable
             return;
         }
-        // Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
+        // Ignore special listeners of IE11 & Edge dev tools, see
+        // https://github.com/angular/zone.js/issues/150
         if (!delegate || validZoneHandler) {
             return target[addFnSymbol](eventName, handler, useCapturing);
         }
@@ -841,7 +892,8 @@ function patchClass(className) {
             case 4:
                 this[originalInstanceKey] = new OriginalClass(a[0], a[1], a[2], a[3]);
                 break;
-            default: throw new Error('Arg list too long.');
+            default:
+                throw new Error('Arg list too long.');
         }
     };
     var instance = new OriginalClass(function () { });
@@ -893,7 +945,7 @@ function createNamedFn(name, delegate) {
 }
 function patchMethod(target, name, patchFn) {
     var proto = target;
-    while (proto && !proto.hasOwnProperty(name)) {
+    while (proto && Object.getOwnPropertyNames(proto).indexOf(name) === -1) {
         proto = Object.getPrototypeOf(proto);
     }
     if (!proto && target[name]) {
@@ -909,36 +961,90 @@ function patchMethod(target, name, patchFn) {
     return delegate;
 }
 
-var WTF_ISSUE_555 = 'Anchor,Area,Audio,BR,Base,BaseFont,Body,Button,Canvas,Content,DList,Directory,Div,Embed,FieldSet,Font,Form,Frame,FrameSet,HR,Head,Heading,Html,IFrame,Image,Input,Keygen,LI,Label,Legend,Link,Map,Marquee,Media,Menu,Meta,Meter,Mod,OList,Object,OptGroup,Option,Output,Paragraph,Pre,Progress,Quote,Script,Select,Source,Span,Style,TableCaption,TableCell,TableCol,Table,TableRow,TableSection,TextArea,Title,Track,UList,Unknown,Video';
-var NO_EVENT_TARGET = 'ApplicationCache,EventSource,FileReader,InputMethodContext,MediaController,MessagePort,Node,Performance,SVGElementInstance,SharedWorker,TextTrack,TextTrackCue,TextTrackList,WebKitNamedFlow,Window,Worker,WorkerGlobalScope,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload,IDBRequest,IDBOpenDBRequest,IDBDatabase,IDBTransaction,IDBCursor,DBIndex'.split(',');
-var EVENT_TARGET = 'EventTarget';
-function eventTargetPatch(_global) {
-    var apis = [];
-    var isWtf = _global['wtf'];
-    if (isWtf) {
-        // Workaround for: https://github.com/google/tracing-framework/issues/555
-        apis = WTF_ISSUE_555.split(',').map(function (v) { return 'HTML' + v + 'Element'; }).concat(NO_EVENT_TARGET);
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+function patchTimer(window, setName, cancelName, nameSuffix) {
+    var setNative = null;
+    var clearNative = null;
+    setName += nameSuffix;
+    cancelName += nameSuffix;
+    var tasksByHandleId = {};
+    function scheduleTask(task) {
+        var data = task.data;
+        data.args[0] = function () {
+            task.invoke.apply(this, arguments);
+            delete tasksByHandleId[data.handleId];
+        };
+        data.handleId = setNative.apply(window, data.args);
+        tasksByHandleId[data.handleId] = task;
+        return task;
     }
-    else if (_global[EVENT_TARGET]) {
-        apis.push(EVENT_TARGET);
+    function clearTask(task) {
+        delete tasksByHandleId[task.data.handleId];
+        return clearNative(task.data.handleId);
     }
-    else {
-        // Note: EventTarget is not available in all browsers,
-        // if it's not available, we instead patch the APIs in the IDL that inherit from EventTarget
-        apis = NO_EVENT_TARGET;
-    }
-    for (var i = 0; i < apis.length; i++) {
-        var type = _global[apis[i]];
-        patchEventTargetMethods(type && type.prototype);
-    }
+    setNative =
+        patchMethod(window, setName, function (delegate) { return function (self, args) {
+            if (typeof args[0] === 'function') {
+                var zone = Zone.current;
+                var options = {
+                    handleId: null,
+                    isPeriodic: nameSuffix === 'Interval',
+                    delay: (nameSuffix === 'Timeout' || nameSuffix === 'Interval') ? args[1] || 0 : null,
+                    args: args
+                };
+                var task = zone.scheduleMacroTask(setName, args[0], options, scheduleTask, clearTask);
+                if (!task) {
+                    return task;
+                }
+                // Node.js must additionally support the ref and unref functions.
+                var handle = task.data.handleId;
+                if (handle.ref && handle.unref) {
+                    task.ref = handle.ref.bind(handle);
+                    task.unref = handle.unref.bind(handle);
+                }
+                return task;
+            }
+            else {
+                // cause an error by calling it directly.
+                return delegate.apply(window, args);
+            }
+        }; });
+    clearNative =
+        patchMethod(window, cancelName, function (delegate) { return function (self, args) {
+            var task = typeof args[0] === 'number' ? tasksByHandleId[args[0]] : args[0];
+            if (task && typeof task.type === 'string') {
+                if (task.cancelFn && task.data.isPeriodic || task.runCount === 0) {
+                    // Do not cancel already canceled functions
+                    task.zone.cancelTask(task);
+                }
+            }
+            else {
+                // cause an error by calling it directly.
+                delegate.apply(window, args);
+            }
+        }; });
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /*
  * This is necessary for Chrome and Chrome mobile, to enable
  * things like redefining `createdCallback` on an element.
  */
 var _defineProperty = Object[zoneSymbol('defineProperty')] = Object.defineProperty;
-var _getOwnPropertyDescriptor = Object[zoneSymbol('getOwnPropertyDescriptor')] = Object.getOwnPropertyDescriptor;
+var _getOwnPropertyDescriptor = Object[zoneSymbol('getOwnPropertyDescriptor')] =
+    Object.getOwnPropertyDescriptor;
 var _create = Object.create;
 var unconfigurablesKey = zoneSymbol('unconfigurables');
 function propertyPatch() {
@@ -1000,7 +1106,8 @@ function _tryDefineProperty(obj, prop, desc, originalConfigurableFlag) {
     }
     catch (e) {
         if (desc.configurable) {
-            // In case of errors, when the configurable flag was likely set by rewriteDescriptor(), let's retry with the original flag value
+            // In case of errors, when the configurable flag was likely set by rewriteDescriptor(), let's
+            // retry with the original flag value
             if (typeof originalConfigurableFlag == 'undefined') {
                 delete desc.configurable;
             }
@@ -1027,40 +1134,45 @@ function _tryDefineProperty(obj, prop, desc, originalConfigurableFlag) {
     }
 }
 
-function registerElementPatch(_global) {
-    if (!isBrowser || !('registerElement' in _global.document)) {
-        return;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var WTF_ISSUE_555 = 'Anchor,Area,Audio,BR,Base,BaseFont,Body,Button,Canvas,Content,DList,Directory,Div,Embed,FieldSet,Font,Form,Frame,FrameSet,HR,Head,Heading,Html,IFrame,Image,Input,Keygen,LI,Label,Legend,Link,Map,Marquee,Media,Menu,Meta,Meter,Mod,OList,Object,OptGroup,Option,Output,Paragraph,Pre,Progress,Quote,Script,Select,Source,Span,Style,TableCaption,TableCell,TableCol,Table,TableRow,TableSection,TextArea,Title,Track,UList,Unknown,Video';
+var NO_EVENT_TARGET = 'ApplicationCache,EventSource,FileReader,InputMethodContext,MediaController,MessagePort,Node,Performance,SVGElementInstance,SharedWorker,TextTrack,TextTrackCue,TextTrackList,WebKitNamedFlow,Window,Worker,WorkerGlobalScope,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload,IDBRequest,IDBOpenDBRequest,IDBDatabase,IDBTransaction,IDBCursor,DBIndex'
+    .split(',');
+var EVENT_TARGET = 'EventTarget';
+function eventTargetPatch(_global) {
+    var apis = [];
+    var isWtf = _global['wtf'];
+    if (isWtf) {
+        // Workaround for: https://github.com/google/tracing-framework/issues/555
+        apis = WTF_ISSUE_555.split(',').map(function (v) { return 'HTML' + v + 'Element'; }).concat(NO_EVENT_TARGET);
     }
-    var _registerElement = document.registerElement;
-    var callbacks = [
-        'createdCallback',
-        'attachedCallback',
-        'detachedCallback',
-        'attributeChangedCallback'
-    ];
-    document.registerElement = function (name, opts) {
-        if (opts && opts.prototype) {
-            callbacks.forEach(function (callback) {
-                var source = 'Document.registerElement::' + callback;
-                if (opts.prototype.hasOwnProperty(callback)) {
-                    var descriptor = Object.getOwnPropertyDescriptor(opts.prototype, callback);
-                    if (descriptor && descriptor.value) {
-                        descriptor.value = Zone.current.wrap(descriptor.value, source);
-                        _redefineProperty(opts.prototype, callback, descriptor);
-                    }
-                    else {
-                        opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
-                    }
-                }
-                else if (opts.prototype[callback]) {
-                    opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
-                }
-            });
-        }
-        return _registerElement.apply(document, [name, opts]);
-    };
+    else if (_global[EVENT_TARGET]) {
+        apis.push(EVENT_TARGET);
+    }
+    else {
+        // Note: EventTarget is not available in all browsers,
+        // if it's not available, we instead patch the APIs in the IDL that inherit from EventTarget
+        apis = NO_EVENT_TARGET;
+    }
+    for (var i = 0; i < apis.length; i++) {
+        var type = _global[apis[i]];
+        patchEventTargetMethods(type && type.prototype);
+    }
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 // we have to patch the instance since the proto is non-configurable
 function apply(_global) {
     var WS = _global.WebSocket;
@@ -1094,7 +1206,15 @@ function apply(_global) {
     }
 }
 
-var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'.split(' ');
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'
+    .split(' ');
 function propertyDescriptorPatch(_global) {
     if (isNode) {
         return;
@@ -1128,8 +1248,8 @@ function propertyDescriptorPatch(_global) {
     }
 }
 function canPatchViaPropertyDescriptor() {
-    if (isBrowser && !Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'onclick')
-        && typeof Element !== 'undefined') {
+    if (isBrowser && !Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'onclick') &&
+        typeof Element !== 'undefined') {
         // WebKit https://bugs.webkit.org/show_bug.cgi?id=134364
         // IDL interface attributes are not configurable
         var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'onclick');
@@ -1155,7 +1275,7 @@ function patchViaCapturingAllTheEvents() {
     var _loop_1 = function(i) {
         var property = eventNames[i];
         var onproperty = 'on' + property;
-        document.addEventListener(property, function (event) {
+        self.addEventListener(property, function (event) {
             var elt = event.target, bound, source;
             if (elt) {
                 source = elt.constructor['name'] + '.' + onproperty;
@@ -1179,61 +1299,49 @@ function patchViaCapturingAllTheEvents() {
     
 }
 
-function patchTimer(window, setName, cancelName, nameSuffix) {
-    var setNative = null;
-    var clearNative = null;
-    setName += nameSuffix;
-    cancelName += nameSuffix;
-    function scheduleTask(task) {
-        var data = task.data;
-        data.args[0] = task.invoke;
-        data.handleId = setNative.apply(window, data.args);
-        return task;
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+function registerElementPatch(_global) {
+    if (!isBrowser || !('registerElement' in _global.document)) {
+        return;
     }
-    function clearTask(task) {
-        return clearNative(task.data.handleId);
-    }
-    setNative = patchMethod(window, setName, function (delegate) { return function (self, args) {
-        if (typeof args[0] === 'function') {
-            var zone = Zone.current;
-            var options = {
-                handleId: null,
-                isPeriodic: nameSuffix === 'Interval',
-                delay: (nameSuffix === 'Timeout' || nameSuffix === 'Interval') ? args[1] || 0 : null,
-                args: args
-            };
-            var task = zone.scheduleMacroTask(setName, args[0], options, scheduleTask, clearTask);
-            if (!task) {
-                return task;
-            }
-            // Node.js must additionally support the ref and unref functions.
-            var handle = task.data.handleId;
-            if (handle.ref && handle.unref) {
-                task.ref = handle.ref.bind(handle);
-                task.unref = handle.unref.bind(handle);
-            }
-            return task;
+    var _registerElement = document.registerElement;
+    var callbacks = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
+    document.registerElement = function (name, opts) {
+        if (opts && opts.prototype) {
+            callbacks.forEach(function (callback) {
+                var source = 'Document.registerElement::' + callback;
+                if (opts.prototype.hasOwnProperty(callback)) {
+                    var descriptor = Object.getOwnPropertyDescriptor(opts.prototype, callback);
+                    if (descriptor && descriptor.value) {
+                        descriptor.value = Zone.current.wrap(descriptor.value, source);
+                        _redefineProperty(opts.prototype, callback, descriptor);
+                    }
+                    else {
+                        opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
+                    }
+                }
+                else if (opts.prototype[callback]) {
+                    opts.prototype[callback] = Zone.current.wrap(opts.prototype[callback], source);
+                }
+            });
         }
-        else {
-            // cause an error by calling it directly.
-            return delegate.apply(window, args);
-        }
-    }; });
-    clearNative = patchMethod(window, cancelName, function (delegate) { return function (self, args) {
-        var task = args[0];
-        if (task && typeof task.type === 'string') {
-            if (task.cancelFn && task.data.isPeriodic || task.runCount === 0) {
-                // Do not cancel already canceled functions
-                task.zone.cancelTask(task);
-            }
-        }
-        else {
-            // cause an error by calling it directly.
-            delegate.apply(window, args);
-        }
-    }; });
+        return _registerElement.apply(document, [name, opts]);
+    };
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var set = 'set';
 var clear = 'clear';
 var blockingMethods = ['alert', 'prompt', 'confirm'];
@@ -1284,8 +1392,7 @@ function patchXHR(window) {
         sendNative.apply(data.target, data.args);
         return task;
     }
-    function placeholderCallback() {
-    }
+    function placeholderCallback() { }
     function clearTask(task) {
         var data = task.data;
         // Note - ideally, we would call data.target.removeEventListener here, but it's too late
@@ -1304,13 +1411,7 @@ function patchXHR(window) {
             return sendNative.apply(self, args);
         }
         else {
-            var options = {
-                target: self,
-                isPeriodic: false,
-                delay: null,
-                args: args,
-                aborted: false
-            };
+            var options = { target: self, isPeriodic: false, delay: null, args: args, aborted: false };
             return zone.scheduleMacroTask('XMLHttpRequest.send', placeholderCallback, options, scheduleTask, clearTask);
         }
     }; });
@@ -1323,15 +1424,13 @@ function patchXHR(window) {
             }
             task.zone.cancelTask(task);
         }
-        // Otherwise, we are trying to abort an XHR which has not yet been sent, so there is no task to cancel. Do nothing.
+        // Otherwise, we are trying to abort an XHR which has not yet been sent, so there is no task
+        // to cancel. Do nothing.
     }; });
 }
 /// GEO_LOCATION
 if (_global['navigator'] && _global['navigator'].geolocation) {
-    patchPrototype(_global['navigator'].geolocation, [
-        'getCurrentPosition',
-        'watchPosition'
-    ]);
+    patchPrototype(_global['navigator'].geolocation, ['getCurrentPosition', 'watchPosition']);
 }
 
 })));
@@ -19489,7 +19588,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 });
 
 //! moment.js
-//! version : 2.15.1
+//! version : 2.15.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -19505,9 +19604,12 @@ return!1;return!0}function f(a){return a instanceof Date||"[object Date]"===Obje
 // We need to deep clone this object.
 return{empty:!1,unusedTokens:[],unusedInput:[],overflow:-2,charsLeftOver:0,nullInput:!1,invalidMonth:null,invalidFormat:!1,userInvalidated:!1,iso:!1,parsedDateParts:[],meridiem:null}}function l(a){return null==a._pf&&(a._pf=k()),a._pf}function m(a){if(null==a._isValid){var b=l(a),c=nd.call(b.parsedDateParts,function(a){return null!=a}),d=!isNaN(a._d.getTime())&&b.overflow<0&&!b.empty&&!b.invalidMonth&&!b.invalidWeekday&&!b.nullInput&&!b.invalidFormat&&!b.userInvalidated&&(!b.meridiem||b.meridiem&&c);if(a._strict&&(d=d&&0===b.charsLeftOver&&0===b.unusedTokens.length&&void 0===b.bigHour),null!=Object.isFrozen&&Object.isFrozen(a))return d;a._isValid=d}return a._isValid}function n(a){var b=j(NaN);return null!=a?i(l(b),a):l(b).userInvalidated=!0,b}function o(a){return void 0===a}function p(a,b){var c,d,e;if(o(b._isAMomentObject)||(a._isAMomentObject=b._isAMomentObject),o(b._i)||(a._i=b._i),o(b._f)||(a._f=b._f),o(b._l)||(a._l=b._l),o(b._strict)||(a._strict=b._strict),o(b._tzm)||(a._tzm=b._tzm),o(b._isUTC)||(a._isUTC=b._isUTC),o(b._offset)||(a._offset=b._offset),o(b._pf)||(a._pf=l(b)),o(b._locale)||(a._locale=b._locale),od.length>0)for(c in od)d=od[c],e=b[d],o(e)||(a[d]=e);return a}
 // Moment prototype object
-function q(b){p(this,b),this._d=new Date(null!=b._d?b._d.getTime():NaN),pd===!1&&(pd=!0,a.updateOffset(this),pd=!1)}function r(a){return a instanceof q||null!=a&&null!=a._isAMomentObject}function s(a){return 0>a?Math.ceil(a)||0:Math.floor(a)}function t(a){var b=+a,c=0;return 0!==b&&isFinite(b)&&(c=s(b)),c}
+function q(b){p(this,b),this._d=new Date(null!=b._d?b._d.getTime():NaN),
+// Prevent infinite loop in case updateOffset creates new moment
+// objects.
+pd===!1&&(pd=!0,a.updateOffset(this),pd=!1)}function r(a){return a instanceof q||null!=a&&null!=a._isAMomentObject}function s(a){return a<0?Math.ceil(a)||0:Math.floor(a)}function t(a){var b=+a,c=0;return 0!==b&&isFinite(b)&&(c=s(b)),c}
 // compare two arrays, return the number of differences
-function u(a,b,c){var d,e=Math.min(a.length,b.length),f=Math.abs(a.length-b.length),g=0;for(d=0;e>d;d++)(c&&a[d]!==b[d]||!c&&t(a[d])!==t(b[d]))&&g++;return g+f}function v(b){a.suppressDeprecationWarnings===!1&&"undefined"!=typeof console&&console.warn&&console.warn("Deprecation warning: "+b)}function w(b,c){var d=!0;return i(function(){if(null!=a.deprecationHandler&&a.deprecationHandler(null,b),d){for(var e,f=[],g=0;g<arguments.length;g++){if(e="","object"==typeof arguments[g]){e+="\n["+g+"] ";for(var h in arguments[0])e+=h+": "+arguments[0][h]+", ";e=e.slice(0,-2)}else e=arguments[g];f.push(e)}v(b+"\nArguments: "+Array.prototype.slice.call(f).join("")+"\n"+(new Error).stack),d=!1}return c.apply(this,arguments)},c)}function x(b,c){null!=a.deprecationHandler&&a.deprecationHandler(b,c),qd[b]||(v(c),qd[b]=!0)}function y(a){return a instanceof Function||"[object Function]"===Object.prototype.toString.call(a)}function z(a){var b,c;for(c in a)b=a[c],y(b)?this[c]=b:this["_"+c]=b;this._config=a,
+function u(a,b,c){var d,e=Math.min(a.length,b.length),f=Math.abs(a.length-b.length),g=0;for(d=0;d<e;d++)(c&&a[d]!==b[d]||!c&&t(a[d])!==t(b[d]))&&g++;return g+f}function v(b){a.suppressDeprecationWarnings===!1&&"undefined"!=typeof console&&console.warn&&console.warn("Deprecation warning: "+b)}function w(b,c){var d=!0;return i(function(){if(null!=a.deprecationHandler&&a.deprecationHandler(null,b),d){for(var e,f=[],g=0;g<arguments.length;g++){if(e="","object"==typeof arguments[g]){e+="\n["+g+"] ";for(var h in arguments[0])e+=h+": "+arguments[0][h]+", ";e=e.slice(0,-2)}else e=arguments[g];f.push(e)}v(b+"\nArguments: "+Array.prototype.slice.call(f).join("")+"\n"+(new Error).stack),d=!1}return c.apply(this,arguments)},c)}function x(b,c){null!=a.deprecationHandler&&a.deprecationHandler(b,c),qd[b]||(v(c),qd[b]=!0)}function y(a){return a instanceof Function||"[object Function]"===Object.prototype.toString.call(a)}function z(a){var b,c;for(c in a)b=a[c],y(b)?this[c]=b:this["_"+c]=b;this._config=a,
 // Lenient ordinal parsing accepts just a number in addition to
 // number + (possibly) stuff coming from _ordinalParseLenient.
 this._ordinalParseLenient=new RegExp(this._ordinalParse.source+"|"+/\d{1,2}/.source)}function A(a,b){var c,e=i({},a);for(c in b)h(b,c)&&(d(a[c])&&d(b[c])?(e[c]={},i(e[c],a[c]),i(e[c],b[c])):null!=b[c]?e[c]=b[c]:delete e[c]);for(c in a)h(a,c)&&!h(b,c)&&d(a[c])&&(
@@ -19519,62 +19621,70 @@ function Q(a){return a=J(a),y(this[a])?this[a]():this}function R(a,b){if("object
 // padded:   ['MM', 2]
 // ordinal:  'Mo'
 // callback: function () { this.month() + 1 }
-function T(a,b,c,d){var e=d;"string"==typeof d&&(e=function(){return this[d]()}),a&&(Ed[a]=e),b&&(Ed[b[0]]=function(){return S(e.apply(this,arguments),b[1],b[2])}),c&&(Ed[c]=function(){return this.localeData().ordinal(e.apply(this,arguments),a)})}function U(a){return a.match(/\[[\s\S]/)?a.replace(/^\[|\]$/g,""):a.replace(/\\/g,"")}function V(a){var b,c,d=a.match(Bd);for(b=0,c=d.length;c>b;b++)Ed[d[b]]?d[b]=Ed[d[b]]:d[b]=U(d[b]);return function(b){var e,f="";for(e=0;c>e;e++)f+=d[e]instanceof Function?d[e].call(b,a):d[e];return f}}
+function T(a,b,c,d){var e=d;"string"==typeof d&&(e=function(){return this[d]()}),a&&(Ed[a]=e),b&&(Ed[b[0]]=function(){return S(e.apply(this,arguments),b[1],b[2])}),c&&(Ed[c]=function(){return this.localeData().ordinal(e.apply(this,arguments),a)})}function U(a){return a.match(/\[[\s\S]/)?a.replace(/^\[|\]$/g,""):a.replace(/\\/g,"")}function V(a){var b,c,d=a.match(Bd);for(b=0,c=d.length;b<c;b++)Ed[d[b]]?d[b]=Ed[d[b]]:d[b]=U(d[b]);return function(b){var e,f="";for(e=0;e<c;e++)f+=d[e]instanceof Function?d[e].call(b,a):d[e];return f}}
 // format date using native date object
 function W(a,b){return a.isValid()?(b=X(b,a.localeData()),Dd[b]=Dd[b]||V(b),Dd[b](a)):a.localeData().invalidDate()}function X(a,b){function c(a){return b.longDateFormat(a)||a}var d=5;for(Cd.lastIndex=0;d>=0&&Cd.test(a);)a=a.replace(Cd,c),Cd.lastIndex=0,d-=1;return a}function Y(a,b,c){Wd[a]=y(b)?b:function(a,d){return a&&c?c:b}}function Z(a,b){return h(Wd,a)?Wd[a](b._strict,b._locale):new RegExp($(a))}
 // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
 function $(a){return _(a.replace("\\","").replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,function(a,b,c,d,e){return b||c||d||e}))}function _(a){return a.replace(/[-\/\\^$*+?.()|[\]{}]/g,"\\$&")}function aa(a,b){var c,d=b;for("string"==typeof a&&(a=[a]),"number"==typeof b&&(d=function(a,c){c[b]=t(a)}),c=0;c<a.length;c++)Xd[a[c]]=d}function ba(a,b){aa(a,function(a,c,d,e){d._w=d._w||{},b(a,d._w,d,e)})}function ca(a,b,c){null!=b&&h(Xd,a)&&Xd[a](b,c._a,c,a)}function da(a,b){return new Date(Date.UTC(a,b+1,0)).getUTCDate()}function ea(a,b){return a?c(this._months)?this._months[a.month()]:this._months[(this._months.isFormat||fe).test(b)?"format":"standalone"][a.month()]:this._months}function fa(a,b){return a?c(this._monthsShort)?this._monthsShort[a.month()]:this._monthsShort[fe.test(b)?"format":"standalone"][a.month()]:this._monthsShort}function ga(a,b,c){var d,e,f,g=a.toLocaleLowerCase();if(!this._monthsParse)for(
 // this is not used
-this._monthsParse=[],this._longMonthsParse=[],this._shortMonthsParse=[],d=0;12>d;++d)f=j([2e3,d]),this._shortMonthsParse[d]=this.monthsShort(f,"").toLocaleLowerCase(),this._longMonthsParse[d]=this.months(f,"").toLocaleLowerCase();return c?"MMM"===b?(e=sd.call(this._shortMonthsParse,g),-1!==e?e:null):(e=sd.call(this._longMonthsParse,g),-1!==e?e:null):"MMM"===b?(e=sd.call(this._shortMonthsParse,g),-1!==e?e:(e=sd.call(this._longMonthsParse,g),-1!==e?e:null)):(e=sd.call(this._longMonthsParse,g),-1!==e?e:(e=sd.call(this._shortMonthsParse,g),-1!==e?e:null))}function ha(a,b,c){var d,e,f;if(this._monthsParseExact)return ga.call(this,a,b,c);
+this._monthsParse=[],this._longMonthsParse=[],this._shortMonthsParse=[],d=0;d<12;++d)f=j([2e3,d]),this._shortMonthsParse[d]=this.monthsShort(f,"").toLocaleLowerCase(),this._longMonthsParse[d]=this.months(f,"").toLocaleLowerCase();return c?"MMM"===b?(e=sd.call(this._shortMonthsParse,g),e!==-1?e:null):(e=sd.call(this._longMonthsParse,g),e!==-1?e:null):"MMM"===b?(e=sd.call(this._shortMonthsParse,g),e!==-1?e:(e=sd.call(this._longMonthsParse,g),e!==-1?e:null)):(e=sd.call(this._longMonthsParse,g),e!==-1?e:(e=sd.call(this._shortMonthsParse,g),e!==-1?e:null))}function ha(a,b,c){var d,e,f;if(this._monthsParseExact)return ga.call(this,a,b,c);
 // TODO: add sorting
 // Sorting makes sure if one month (or abbr) is a prefix of another
 // see sorting in computeMonthsParse
-for(this._monthsParse||(this._monthsParse=[],this._longMonthsParse=[],this._shortMonthsParse=[]),d=0;12>d;d++){
+for(this._monthsParse||(this._monthsParse=[],this._longMonthsParse=[],this._shortMonthsParse=[]),d=0;d<12;d++){
 // test the regex
-if(e=j([2e3,d]),c&&!this._longMonthsParse[d]&&(this._longMonthsParse[d]=new RegExp("^"+this.months(e,"").replace(".","")+"$","i"),this._shortMonthsParse[d]=new RegExp("^"+this.monthsShort(e,"").replace(".","")+"$","i")),c||this._monthsParse[d]||(f="^"+this.months(e,"")+"|^"+this.monthsShort(e,""),this._monthsParse[d]=new RegExp(f.replace(".",""),"i")),c&&"MMMM"===b&&this._longMonthsParse[d].test(a))return d;if(c&&"MMM"===b&&this._shortMonthsParse[d].test(a))return d;if(!c&&this._monthsParse[d].test(a))return d}}
+if(
+// make the regex if we don't have it already
+e=j([2e3,d]),c&&!this._longMonthsParse[d]&&(this._longMonthsParse[d]=new RegExp("^"+this.months(e,"").replace(".","")+"$","i"),this._shortMonthsParse[d]=new RegExp("^"+this.monthsShort(e,"").replace(".","")+"$","i")),c||this._monthsParse[d]||(f="^"+this.months(e,"")+"|^"+this.monthsShort(e,""),this._monthsParse[d]=new RegExp(f.replace(".",""),"i")),c&&"MMMM"===b&&this._longMonthsParse[d].test(a))return d;if(c&&"MMM"===b&&this._shortMonthsParse[d].test(a))return d;if(!c&&this._monthsParse[d].test(a))return d}}
 // MOMENTS
 function ia(a,b){var c;if(!a.isValid())
 // No op
 return a;if("string"==typeof b)if(/^\d+$/.test(b))b=t(b);else
 // TODO: Another silent failure?
-if(b=a.localeData().monthsParse(b),"number"!=typeof b)return a;return c=Math.min(a.date(),da(a.year(),b)),a._d["set"+(a._isUTC?"UTC":"")+"Month"](b,c),a}function ja(b){return null!=b?(ia(this,b),a.updateOffset(this,!0),this):O(this,"Month")}function ka(){return da(this.year(),this.month())}function la(a){return this._monthsParseExact?(h(this,"_monthsRegex")||na.call(this),a?this._monthsShortStrictRegex:this._monthsShortRegex):(h(this,"_monthsShortRegex")||(this._monthsShortRegex=ie),this._monthsShortStrictRegex&&a?this._monthsShortStrictRegex:this._monthsShortRegex)}function ma(a){return this._monthsParseExact?(h(this,"_monthsRegex")||na.call(this),a?this._monthsStrictRegex:this._monthsRegex):(h(this,"_monthsRegex")||(this._monthsRegex=je),this._monthsStrictRegex&&a?this._monthsStrictRegex:this._monthsRegex)}function na(){function a(a,b){return b.length-a.length}var b,c,d=[],e=[],f=[];for(b=0;12>b;b++)c=j([2e3,b]),d.push(this.monthsShort(c,"")),e.push(this.months(c,"")),f.push(this.months(c,"")),f.push(this.monthsShort(c,""));for(
+if(b=a.localeData().monthsParse(b),"number"!=typeof b)return a;return c=Math.min(a.date(),da(a.year(),b)),a._d["set"+(a._isUTC?"UTC":"")+"Month"](b,c),a}function ja(b){return null!=b?(ia(this,b),a.updateOffset(this,!0),this):O(this,"Month")}function ka(){return da(this.year(),this.month())}function la(a){return this._monthsParseExact?(h(this,"_monthsRegex")||na.call(this),a?this._monthsShortStrictRegex:this._monthsShortRegex):(h(this,"_monthsShortRegex")||(this._monthsShortRegex=ie),this._monthsShortStrictRegex&&a?this._monthsShortStrictRegex:this._monthsShortRegex)}function ma(a){return this._monthsParseExact?(h(this,"_monthsRegex")||na.call(this),a?this._monthsStrictRegex:this._monthsRegex):(h(this,"_monthsRegex")||(this._monthsRegex=je),this._monthsStrictRegex&&a?this._monthsStrictRegex:this._monthsRegex)}function na(){function a(a,b){return b.length-a.length}var b,c,d=[],e=[],f=[];for(b=0;b<12;b++)
+// make the regex if we don't have it already
+c=j([2e3,b]),d.push(this.monthsShort(c,"")),e.push(this.months(c,"")),f.push(this.months(c,"")),f.push(this.monthsShort(c,""));for(
 // Sorting makes sure if one month (or abbr) is a prefix of another it
 // will match the longer piece.
-d.sort(a),e.sort(a),f.sort(a),b=0;12>b;b++)d[b]=_(d[b]),e[b]=_(e[b]);for(b=0;24>b;b++)f[b]=_(f[b]);this._monthsRegex=new RegExp("^("+f.join("|")+")","i"),this._monthsShortRegex=this._monthsRegex,this._monthsStrictRegex=new RegExp("^("+e.join("|")+")","i"),this._monthsShortStrictRegex=new RegExp("^("+d.join("|")+")","i")}
+d.sort(a),e.sort(a),f.sort(a),b=0;b<12;b++)d[b]=_(d[b]),e[b]=_(e[b]);for(b=0;b<24;b++)f[b]=_(f[b]);this._monthsRegex=new RegExp("^("+f.join("|")+")","i"),this._monthsShortRegex=this._monthsRegex,this._monthsStrictRegex=new RegExp("^("+e.join("|")+")","i"),this._monthsShortStrictRegex=new RegExp("^("+d.join("|")+")","i")}
 // HELPERS
 function oa(a){return pa(a)?366:365}function pa(a){return a%4===0&&a%100!==0||a%400===0}function qa(){return pa(this.year())}function ra(a,b,c,d,e,f,g){
 //can't just apply() to create a date:
 //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
 var h=new Date(a,b,c,d,e,f,g);
 //the date constructor remaps years 0-99 to 1900-1999
-return 100>a&&a>=0&&isFinite(h.getFullYear())&&h.setFullYear(a),h}function sa(a){var b=new Date(Date.UTC.apply(null,arguments));
+return a<100&&a>=0&&isFinite(h.getFullYear())&&h.setFullYear(a),h}function sa(a){var b=new Date(Date.UTC.apply(null,arguments));
 //the Date.UTC function remaps years 0-99 to 1900-1999
-return 100>a&&a>=0&&isFinite(b.getUTCFullYear())&&b.setUTCFullYear(a),b}
+return a<100&&a>=0&&isFinite(b.getUTCFullYear())&&b.setUTCFullYear(a),b}
 // start-of-first-week - start-of-year
 function ta(a,b,c){var// first-week day -- which january is always in the first week (4 for iso, 1 for other)
 d=7+b-c,
 // first-week day local weekday -- which local weekday is fwd
 e=(7+sa(a,0,d).getUTCDay()-b)%7;return-e+d-1}
 //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-function ua(a,b,c,d,e){var f,g,h=(7+c-d)%7,i=ta(a,d,e),j=1+7*(b-1)+h+i;return 0>=j?(f=a-1,g=oa(f)+j):j>oa(a)?(f=a+1,g=j-oa(a)):(f=a,g=j),{year:f,dayOfYear:g}}function va(a,b,c){var d,e,f=ta(a.year(),b,c),g=Math.floor((a.dayOfYear()-f-1)/7)+1;return 1>g?(e=a.year()-1,d=g+wa(e,b,c)):g>wa(a.year(),b,c)?(d=g-wa(a.year(),b,c),e=a.year()+1):(e=a.year(),d=g),{week:d,year:e}}function wa(a,b,c){var d=ta(a,b,c),e=ta(a+1,b,c);return(oa(a)-d+e)/7}
+function ua(a,b,c,d,e){var f,g,h=(7+c-d)%7,i=ta(a,d,e),j=1+7*(b-1)+h+i;return j<=0?(f=a-1,g=oa(f)+j):j>oa(a)?(f=a+1,g=j-oa(a)):(f=a,g=j),{year:f,dayOfYear:g}}function va(a,b,c){var d,e,f=ta(a.year(),b,c),g=Math.floor((a.dayOfYear()-f-1)/7)+1;return g<1?(e=a.year()-1,d=g+wa(e,b,c)):g>wa(a.year(),b,c)?(d=g-wa(a.year(),b,c),e=a.year()+1):(e=a.year(),d=g),{week:d,year:e}}function wa(a,b,c){var d=ta(a,b,c),e=ta(a+1,b,c);return(oa(a)-d+e)/7}
 // HELPERS
 // LOCALES
 function xa(a){return va(a,this._week.dow,this._week.doy).week}function ya(){return this._week.dow}function za(){return this._week.doy}
 // MOMENTS
 function Aa(a){var b=this.localeData().week(this);return null==a?b:this.add(7*(a-b),"d")}function Ba(a){var b=va(this,1,4).week;return null==a?b:this.add(7*(a-b),"d")}
 // HELPERS
-function Ca(a,b){return"string"!=typeof a?a:isNaN(a)?(a=b.weekdaysParse(a),"number"==typeof a?a:null):parseInt(a,10)}function Da(a,b){return"string"==typeof a?b.weekdaysParse(a)%7||7:isNaN(a)?null:a}function Ea(a,b){return a?c(this._weekdays)?this._weekdays[a.day()]:this._weekdays[this._weekdays.isFormat.test(b)?"format":"standalone"][a.day()]:this._weekdays}function Fa(a){return a?this._weekdaysShort[a.day()]:this._weekdaysShort}function Ga(a){return a?this._weekdaysMin[a.day()]:this._weekdaysMin}function Ha(a,b,c){var d,e,f,g=a.toLocaleLowerCase();if(!this._weekdaysParse)for(this._weekdaysParse=[],this._shortWeekdaysParse=[],this._minWeekdaysParse=[],d=0;7>d;++d)f=j([2e3,1]).day(d),this._minWeekdaysParse[d]=this.weekdaysMin(f,"").toLocaleLowerCase(),this._shortWeekdaysParse[d]=this.weekdaysShort(f,"").toLocaleLowerCase(),this._weekdaysParse[d]=this.weekdays(f,"").toLocaleLowerCase();return c?"dddd"===b?(e=sd.call(this._weekdaysParse,g),-1!==e?e:null):"ddd"===b?(e=sd.call(this._shortWeekdaysParse,g),-1!==e?e:null):(e=sd.call(this._minWeekdaysParse,g),-1!==e?e:null):"dddd"===b?(e=sd.call(this._weekdaysParse,g),-1!==e?e:(e=sd.call(this._shortWeekdaysParse,g),-1!==e?e:(e=sd.call(this._minWeekdaysParse,g),-1!==e?e:null))):"ddd"===b?(e=sd.call(this._shortWeekdaysParse,g),-1!==e?e:(e=sd.call(this._weekdaysParse,g),-1!==e?e:(e=sd.call(this._minWeekdaysParse,g),-1!==e?e:null))):(e=sd.call(this._minWeekdaysParse,g),-1!==e?e:(e=sd.call(this._weekdaysParse,g),-1!==e?e:(e=sd.call(this._shortWeekdaysParse,g),-1!==e?e:null)))}function Ia(a,b,c){var d,e,f;if(this._weekdaysParseExact)return Ha.call(this,a,b,c);for(this._weekdaysParse||(this._weekdaysParse=[],this._minWeekdaysParse=[],this._shortWeekdaysParse=[],this._fullWeekdaysParse=[]),d=0;7>d;d++){
+function Ca(a,b){return"string"!=typeof a?a:isNaN(a)?(a=b.weekdaysParse(a),"number"==typeof a?a:null):parseInt(a,10)}function Da(a,b){return"string"==typeof a?b.weekdaysParse(a)%7||7:isNaN(a)?null:a}function Ea(a,b){return a?c(this._weekdays)?this._weekdays[a.day()]:this._weekdays[this._weekdays.isFormat.test(b)?"format":"standalone"][a.day()]:this._weekdays}function Fa(a){return a?this._weekdaysShort[a.day()]:this._weekdaysShort}function Ga(a){return a?this._weekdaysMin[a.day()]:this._weekdaysMin}function Ha(a,b,c){var d,e,f,g=a.toLocaleLowerCase();if(!this._weekdaysParse)for(this._weekdaysParse=[],this._shortWeekdaysParse=[],this._minWeekdaysParse=[],d=0;d<7;++d)f=j([2e3,1]).day(d),this._minWeekdaysParse[d]=this.weekdaysMin(f,"").toLocaleLowerCase(),this._shortWeekdaysParse[d]=this.weekdaysShort(f,"").toLocaleLowerCase(),this._weekdaysParse[d]=this.weekdays(f,"").toLocaleLowerCase();return c?"dddd"===b?(e=sd.call(this._weekdaysParse,g),e!==-1?e:null):"ddd"===b?(e=sd.call(this._shortWeekdaysParse,g),e!==-1?e:null):(e=sd.call(this._minWeekdaysParse,g),e!==-1?e:null):"dddd"===b?(e=sd.call(this._weekdaysParse,g),e!==-1?e:(e=sd.call(this._shortWeekdaysParse,g),e!==-1?e:(e=sd.call(this._minWeekdaysParse,g),e!==-1?e:null))):"ddd"===b?(e=sd.call(this._shortWeekdaysParse,g),e!==-1?e:(e=sd.call(this._weekdaysParse,g),e!==-1?e:(e=sd.call(this._minWeekdaysParse,g),e!==-1?e:null))):(e=sd.call(this._minWeekdaysParse,g),e!==-1?e:(e=sd.call(this._weekdaysParse,g),e!==-1?e:(e=sd.call(this._shortWeekdaysParse,g),e!==-1?e:null)))}function Ia(a,b,c){var d,e,f;if(this._weekdaysParseExact)return Ha.call(this,a,b,c);for(this._weekdaysParse||(this._weekdaysParse=[],this._minWeekdaysParse=[],this._shortWeekdaysParse=[],this._fullWeekdaysParse=[]),d=0;d<7;d++){
 // test the regex
-if(e=j([2e3,1]).day(d),c&&!this._fullWeekdaysParse[d]&&(this._fullWeekdaysParse[d]=new RegExp("^"+this.weekdays(e,"").replace(".",".?")+"$","i"),this._shortWeekdaysParse[d]=new RegExp("^"+this.weekdaysShort(e,"").replace(".",".?")+"$","i"),this._minWeekdaysParse[d]=new RegExp("^"+this.weekdaysMin(e,"").replace(".",".?")+"$","i")),this._weekdaysParse[d]||(f="^"+this.weekdays(e,"")+"|^"+this.weekdaysShort(e,"")+"|^"+this.weekdaysMin(e,""),this._weekdaysParse[d]=new RegExp(f.replace(".",""),"i")),c&&"dddd"===b&&this._fullWeekdaysParse[d].test(a))return d;if(c&&"ddd"===b&&this._shortWeekdaysParse[d].test(a))return d;if(c&&"dd"===b&&this._minWeekdaysParse[d].test(a))return d;if(!c&&this._weekdaysParse[d].test(a))return d}}
+if(
+// make the regex if we don't have it already
+e=j([2e3,1]).day(d),c&&!this._fullWeekdaysParse[d]&&(this._fullWeekdaysParse[d]=new RegExp("^"+this.weekdays(e,"").replace(".",".?")+"$","i"),this._shortWeekdaysParse[d]=new RegExp("^"+this.weekdaysShort(e,"").replace(".",".?")+"$","i"),this._minWeekdaysParse[d]=new RegExp("^"+this.weekdaysMin(e,"").replace(".",".?")+"$","i")),this._weekdaysParse[d]||(f="^"+this.weekdays(e,"")+"|^"+this.weekdaysShort(e,"")+"|^"+this.weekdaysMin(e,""),this._weekdaysParse[d]=new RegExp(f.replace(".",""),"i")),c&&"dddd"===b&&this._fullWeekdaysParse[d].test(a))return d;if(c&&"ddd"===b&&this._shortWeekdaysParse[d].test(a))return d;if(c&&"dd"===b&&this._minWeekdaysParse[d].test(a))return d;if(!c&&this._weekdaysParse[d].test(a))return d}}
 // MOMENTS
 function Ja(a){if(!this.isValid())return null!=a?this:NaN;var b=this._isUTC?this._d.getUTCDay():this._d.getDay();return null!=a?(a=Ca(a,this.localeData()),this.add(a-b,"d")):b}function Ka(a){if(!this.isValid())return null!=a?this:NaN;var b=(this.day()+7-this.localeData()._week.dow)%7;return null==a?b:this.add(a-b,"d")}function La(a){if(!this.isValid())return null!=a?this:NaN;
 // behaves the same as moment#day except
 // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
 // as a setter, sunday should belong to the previous week.
-if(null!=a){var b=Da(a,this.localeData());return this.day(this.day()%7?b:b-7)}return this.day()||7}function Ma(a){return this._weekdaysParseExact?(h(this,"_weekdaysRegex")||Pa.call(this),a?this._weekdaysStrictRegex:this._weekdaysRegex):(h(this,"_weekdaysRegex")||(this._weekdaysRegex=pe),this._weekdaysStrictRegex&&a?this._weekdaysStrictRegex:this._weekdaysRegex)}function Na(a){return this._weekdaysParseExact?(h(this,"_weekdaysRegex")||Pa.call(this),a?this._weekdaysShortStrictRegex:this._weekdaysShortRegex):(h(this,"_weekdaysShortRegex")||(this._weekdaysShortRegex=qe),this._weekdaysShortStrictRegex&&a?this._weekdaysShortStrictRegex:this._weekdaysShortRegex)}function Oa(a){return this._weekdaysParseExact?(h(this,"_weekdaysRegex")||Pa.call(this),a?this._weekdaysMinStrictRegex:this._weekdaysMinRegex):(h(this,"_weekdaysMinRegex")||(this._weekdaysMinRegex=re),this._weekdaysMinStrictRegex&&a?this._weekdaysMinStrictRegex:this._weekdaysMinRegex)}function Pa(){function a(a,b){return b.length-a.length}var b,c,d,e,f,g=[],h=[],i=[],k=[];for(b=0;7>b;b++)c=j([2e3,1]).day(b),d=this.weekdaysMin(c,""),e=this.weekdaysShort(c,""),f=this.weekdays(c,""),g.push(d),h.push(e),i.push(f),k.push(d),k.push(e),k.push(f);for(
+if(null!=a){var b=Da(a,this.localeData());return this.day(this.day()%7?b:b-7)}return this.day()||7}function Ma(a){return this._weekdaysParseExact?(h(this,"_weekdaysRegex")||Pa.call(this),a?this._weekdaysStrictRegex:this._weekdaysRegex):(h(this,"_weekdaysRegex")||(this._weekdaysRegex=pe),this._weekdaysStrictRegex&&a?this._weekdaysStrictRegex:this._weekdaysRegex)}function Na(a){return this._weekdaysParseExact?(h(this,"_weekdaysRegex")||Pa.call(this),a?this._weekdaysShortStrictRegex:this._weekdaysShortRegex):(h(this,"_weekdaysShortRegex")||(this._weekdaysShortRegex=qe),this._weekdaysShortStrictRegex&&a?this._weekdaysShortStrictRegex:this._weekdaysShortRegex)}function Oa(a){return this._weekdaysParseExact?(h(this,"_weekdaysRegex")||Pa.call(this),a?this._weekdaysMinStrictRegex:this._weekdaysMinRegex):(h(this,"_weekdaysMinRegex")||(this._weekdaysMinRegex=re),this._weekdaysMinStrictRegex&&a?this._weekdaysMinStrictRegex:this._weekdaysMinRegex)}function Pa(){function a(a,b){return b.length-a.length}var b,c,d,e,f,g=[],h=[],i=[],k=[];for(b=0;b<7;b++)
+// make the regex if we don't have it already
+c=j([2e3,1]).day(b),d=this.weekdaysMin(c,""),e=this.weekdaysShort(c,""),f=this.weekdays(c,""),g.push(d),h.push(e),i.push(f),k.push(d),k.push(e),k.push(f);for(
 // Sorting makes sure if one weekday (or abbr) is a prefix of another it
 // will match the longer piece.
-g.sort(a),h.sort(a),i.sort(a),k.sort(a),b=0;7>b;b++)h[b]=_(h[b]),i[b]=_(i[b]),k[b]=_(k[b]);this._weekdaysRegex=new RegExp("^("+k.join("|")+")","i"),this._weekdaysShortRegex=this._weekdaysRegex,this._weekdaysMinRegex=this._weekdaysRegex,this._weekdaysStrictRegex=new RegExp("^("+i.join("|")+")","i"),this._weekdaysShortStrictRegex=new RegExp("^("+h.join("|")+")","i"),this._weekdaysMinStrictRegex=new RegExp("^("+g.join("|")+")","i")}
+g.sort(a),h.sort(a),i.sort(a),k.sort(a),b=0;b<7;b++)h[b]=_(h[b]),i[b]=_(i[b]),k[b]=_(k[b]);this._weekdaysRegex=new RegExp("^("+k.join("|")+")","i"),this._weekdaysShortRegex=this._weekdaysRegex,this._weekdaysMinRegex=this._weekdaysRegex,this._weekdaysStrictRegex=new RegExp("^("+i.join("|")+")","i"),this._weekdaysShortStrictRegex=new RegExp("^("+h.join("|")+")","i"),this._weekdaysMinStrictRegex=new RegExp("^("+g.join("|")+")","i")}
 // FORMATTING
 function Qa(){return this.hours()%12||12}function Ra(){return this.hours()||24}function Sa(a,b){T(a,0,0,function(){return this.localeData().meridiem(this.hours(),this.minutes(),b)})}
 // PARSING
@@ -19594,7 +19704,7 @@ break;b--}f++}return null}function Ya(a){var b=null;
 if(!we[a]&&"undefined"!=typeof module&&module&&module.exports)try{b=se._abbr,require("./locale/"+a),
 // because defineLocale currently also sets the global locale, we
 // want to undo that for lazy loaded locales
-Za(b)}catch(c){}return we[a]}
+Za(b)}catch(a){}return we[a]}
 // This function will load locale and then set the global locale.  If
 // no arguments are passed in, it will simply return the current global
 // locale key.
@@ -19613,9 +19723,11 @@ Za(a)}else
 // pass null for config to unupdate, useful for tests
 null!=we[a]&&(null!=we[a].parentLocale?we[a]=we[a].parentLocale:null!=we[a]&&delete we[a]);return we[a]}
 // returns locale data
-function ab(a){var b;if(a&&a._locale&&a._locale._abbr&&(a=a._locale._abbr),!a)return se;if(!c(a)){if(b=Ya(a))return b;a=[a]}return Xa(a)}function bb(){return rd(we)}function cb(a){var b,c=a._a;return c&&-2===l(a).overflow&&(b=c[Zd]<0||c[Zd]>11?Zd:c[$d]<1||c[$d]>da(c[Yd],c[Zd])?$d:c[_d]<0||c[_d]>24||24===c[_d]&&(0!==c[ae]||0!==c[be]||0!==c[ce])?_d:c[ae]<0||c[ae]>59?ae:c[be]<0||c[be]>59?be:c[ce]<0||c[ce]>999?ce:-1,l(a)._overflowDayOfYear&&(Yd>b||b>$d)&&(b=$d),l(a)._overflowWeeks&&-1===b&&(b=de),l(a)._overflowWeekday&&-1===b&&(b=ee),l(a).overflow=b),a}
+function ab(a){var b;if(a&&a._locale&&a._locale._abbr&&(a=a._locale._abbr),!a)return se;if(!c(a)){if(
+//short-circuit everything else
+b=Ya(a))return b;a=[a]}return Xa(a)}function bb(){return rd(we)}function cb(a){var b,c=a._a;return c&&l(a).overflow===-2&&(b=c[Zd]<0||c[Zd]>11?Zd:c[$d]<1||c[$d]>da(c[Yd],c[Zd])?$d:c[_d]<0||c[_d]>24||24===c[_d]&&(0!==c[ae]||0!==c[be]||0!==c[ce])?_d:c[ae]<0||c[ae]>59?ae:c[be]<0||c[be]>59?be:c[ce]<0||c[ce]>999?ce:-1,l(a)._overflowDayOfYear&&(b<Yd||b>$d)&&(b=$d),l(a)._overflowWeeks&&b===-1&&(b=de),l(a)._overflowWeekday&&b===-1&&(b=ee),l(a).overflow=b),a}
 // date from iso format
-function db(a){var b,c,d,e,f,g,h=a._i,i=xe.exec(h)||ye.exec(h);if(i){for(l(a).iso=!0,b=0,c=Ae.length;c>b;b++)if(Ae[b][1].exec(i[1])){e=Ae[b][0],d=Ae[b][2]!==!1;break}if(null==e)return void(a._isValid=!1);if(i[3]){for(b=0,c=Be.length;c>b;b++)if(Be[b][1].exec(i[3])){
+function db(a){var b,c,d,e,f,g,h=a._i,i=xe.exec(h)||ye.exec(h);if(i){for(l(a).iso=!0,b=0,c=Ae.length;b<c;b++)if(Ae[b][1].exec(i[1])){e=Ae[b][0],d=Ae[b][2]!==!1;break}if(null==e)return void(a._isValid=!1);if(i[3]){for(b=0,c=Be.length;b<c;b++)if(Be[b][1].exec(i[3])){
 // match[2] should be 'T' or space
 f=(i[2]||" ")+Be[b][0];break}if(null==f)return void(a._isValid=!1)}if(!d&&null!=f)return void(a._isValid=!1);if(i[4]){if(!ze.exec(i[4]))return void(a._isValid=!1);g="Z"}a._f=e+(f||"")+(g||""),jb(a)}else a._isValid=!1}
 // date from iso format or fallback
@@ -19634,20 +19746,40 @@ function hb(a){var b,c,d,e,f=[];if(!a._d){
 // * if day of month is given, default month and year
 // * if month is given, default only year
 // * if year is given, don't default anything
-for(d=gb(a),a._w&&null==a._a[$d]&&null==a._a[Zd]&&ib(a),a._dayOfYear&&(e=fb(a._a[Yd],d[Yd]),a._dayOfYear>oa(e)&&(l(a)._overflowDayOfYear=!0),c=sa(e,0,a._dayOfYear),a._a[Zd]=c.getUTCMonth(),a._a[$d]=c.getUTCDate()),b=0;3>b&&null==a._a[b];++b)a._a[b]=f[b]=d[b];
+for(d=gb(a),
+//compute day of the year from weeks and weekdays
+a._w&&null==a._a[$d]&&null==a._a[Zd]&&ib(a),
+//if the day of the year is set, figure out what it is
+a._dayOfYear&&(e=fb(a._a[Yd],d[Yd]),a._dayOfYear>oa(e)&&(l(a)._overflowDayOfYear=!0),c=sa(e,0,a._dayOfYear),a._a[Zd]=c.getUTCMonth(),a._a[$d]=c.getUTCDate()),b=0;b<3&&null==a._a[b];++b)a._a[b]=f[b]=d[b];
 // Zero out whatever was not defaulted, including time
-for(;7>b;b++)a._a[b]=f[b]=null==a._a[b]?2===b?1:0:a._a[b];
+for(;b<7;b++)a._a[b]=f[b]=null==a._a[b]?2===b?1:0:a._a[b];
 // Check for 24:00:00.000
 24===a._a[_d]&&0===a._a[ae]&&0===a._a[be]&&0===a._a[ce]&&(a._nextDay=!0,a._a[_d]=0),a._d=(a._useUTC?sa:ra).apply(null,f),
 // Apply timezone offset from input. The actual utcOffset can be changed
 // with parseZone.
-null!=a._tzm&&a._d.setUTCMinutes(a._d.getUTCMinutes()-a._tzm),a._nextDay&&(a._a[_d]=24)}}function ib(a){var b,c,d,e,f,g,h,i;b=a._w,null!=b.GG||null!=b.W||null!=b.E?(f=1,g=4,c=fb(b.GG,a._a[Yd],va(rb(),1,4).year),d=fb(b.W,1),e=fb(b.E,1),(1>e||e>7)&&(i=!0)):(f=a._locale._week.dow,g=a._locale._week.doy,c=fb(b.gg,a._a[Yd],va(rb(),f,g).year),d=fb(b.w,1),null!=b.d?(e=b.d,(0>e||e>6)&&(i=!0)):null!=b.e?(e=b.e+f,(b.e<0||b.e>6)&&(i=!0)):e=f),1>d||d>wa(c,f,g)?l(a)._overflowWeeks=!0:null!=i?l(a)._overflowWeekday=!0:(h=ua(c,d,e,f,g),a._a[Yd]=h.year,a._dayOfYear=h.dayOfYear)}
+null!=a._tzm&&a._d.setUTCMinutes(a._d.getUTCMinutes()-a._tzm),a._nextDay&&(a._a[_d]=24)}}function ib(a){var b,c,d,e,f,g,h,i;b=a._w,null!=b.GG||null!=b.W||null!=b.E?(f=1,g=4,
+// TODO: We need to take the current isoWeekYear, but that depends on
+// how we interpret now (local, utc, fixed offset). So create
+// a now version of current config (take local/utc/offset flags, and
+// create now).
+c=fb(b.GG,a._a[Yd],va(rb(),1,4).year),d=fb(b.W,1),e=fb(b.E,1),(e<1||e>7)&&(i=!0)):(f=a._locale._week.dow,g=a._locale._week.doy,c=fb(b.gg,a._a[Yd],va(rb(),f,g).year),d=fb(b.w,1),null!=b.d?(
+// weekday -- low day numbers are considered next week
+e=b.d,(e<0||e>6)&&(i=!0)):null!=b.e?(
+// local weekday -- counting starts from begining of week
+e=b.e+f,(b.e<0||b.e>6)&&(i=!0)):
+// default to begining of week
+e=f),d<1||d>wa(c,f,g)?l(a)._overflowWeeks=!0:null!=i?l(a)._overflowWeekday=!0:(h=ua(c,d,e,f,g),a._a[Yd]=h.year,a._dayOfYear=h.dayOfYear)}
 // date from string and format string
 function jb(b){
 // TODO: Move this to another part of the creation flow to prevent circular deps
 if(b._f===a.ISO_8601)return void db(b);b._a=[],l(b).empty=!0;
 // This array is used to make a Date, either with `new Date` or `Date.UTC`
-var c,d,e,f,g,h=""+b._i,i=h.length,j=0;for(e=X(b._f,b._locale).match(Bd)||[],c=0;c<e.length;c++)f=e[c],d=(h.match(Z(f,b))||[])[0],d&&(g=h.substr(0,h.indexOf(d)),g.length>0&&l(b).unusedInput.push(g),h=h.slice(h.indexOf(d)+d.length),j+=d.length),Ed[f]?(d?l(b).empty=!1:l(b).unusedTokens.push(f),ca(f,d,b)):b._strict&&!d&&l(b).unusedTokens.push(f);
+var c,d,e,f,g,h=""+b._i,i=h.length,j=0;for(e=X(b._f,b._locale).match(Bd)||[],c=0;c<e.length;c++)f=e[c],d=(h.match(Z(f,b))||[])[0],
+// console.log('token', token, 'parsedInput', parsedInput,
+//         'regex', getParseRegexForToken(token, config));
+d&&(g=h.substr(0,h.indexOf(d)),g.length>0&&l(b).unusedInput.push(g),h=h.slice(h.indexOf(d)+d.length),j+=d.length),
+// don't parse if it's not a known token
+Ed[f]?(d?l(b).empty=!1:l(b).unusedTokens.push(f),ca(f,d,b)):b._strict&&!d&&l(b).unusedTokens.push(f);
 // add remaining unparsed input length to the string
 l(b).charsLeftOver=i-j,h.length>0&&l(b).unusedInput.push(h),
 // clear _12h flag if hour is <= 12
@@ -19655,9 +19787,13 @@ b._a[_d]<=12&&l(b).bigHour===!0&&b._a[_d]>0&&(l(b).bigHour=void 0),l(b).parsedDa
 // handle meridiem
 b._a[_d]=kb(b._locale,b._a[_d],b._meridiem),hb(b),cb(b)}function kb(a,b,c){var d;
 // Fallback
-return null==c?b:null!=a.meridiemHour?a.meridiemHour(b,c):null!=a.isPM?(d=a.isPM(c),d&&12>b&&(b+=12),d||12!==b||(b=0),b):b}
+return null==c?b:null!=a.meridiemHour?a.meridiemHour(b,c):null!=a.isPM?(d=a.isPM(c),d&&b<12&&(b+=12),d||12!==b||(b=0),b):b}
 // date from string and array of format strings
-function lb(a){var b,c,d,e,f;if(0===a._f.length)return l(a).invalidFormat=!0,void(a._d=new Date(NaN));for(e=0;e<a._f.length;e++)f=0,b=p({},a),null!=a._useUTC&&(b._useUTC=a._useUTC),b._f=a._f[e],jb(b),m(b)&&(f+=l(b).charsLeftOver,f+=10*l(b).unusedTokens.length,l(b).score=f,(null==d||d>f)&&(d=f,c=b));i(a,c||b)}function mb(a){if(!a._d){var b=K(a._i);a._a=g([b.year,b.month,b.day||b.date,b.hour,b.minute,b.second,b.millisecond],function(a){return a&&parseInt(a,10)}),hb(a)}}function nb(a){var b=new q(cb(ob(a)));
+function lb(a){var b,c,d,e,f;if(0===a._f.length)return l(a).invalidFormat=!0,void(a._d=new Date(NaN));for(e=0;e<a._f.length;e++)f=0,b=p({},a),null!=a._useUTC&&(b._useUTC=a._useUTC),b._f=a._f[e],jb(b),m(b)&&(
+// if there is any input that was not parsed add a penalty for that format
+f+=l(b).charsLeftOver,
+//or tokens
+f+=10*l(b).unusedTokens.length,l(b).score=f,(null==d||f<d)&&(d=f,c=b));i(a,c||b)}function mb(a){if(!a._d){var b=K(a._i);a._a=g([b.year,b.month,b.day||b.date,b.hour,b.minute,b.second,b.millisecond],function(a){return a&&parseInt(a,10)}),hb(a)}}function nb(a){var b=new q(cb(ob(a)));
 // Adding is smart enough around DST
 return b._nextDay&&(b.add(1,"d"),b._nextDay=void 0),b}function ob(a){var b=a._i,d=a._f;return a._locale=a._locale||ab(a._l),null===b||void 0===d&&""===b?n({nullInput:!0}):("string"==typeof b&&(a._i=b=a._locale.preparse(b)),r(b)?new q(cb(b)):(c(d)?lb(a):f(b)?a._d=b:d?jb(a):pb(a),m(a)||(a._d=null),a))}function pb(b){var d=b._i;void 0===d?b._d=new Date(a.now()):f(d)?b._d=new Date(d.valueOf()):"string"==typeof d?eb(b):c(d)?(b._a=g(d.slice(0),function(a){return parseInt(a,10)}),hb(b)):"object"==typeof d?mb(b):"number"==typeof d?
 // from milliseconds
@@ -19683,9 +19819,9 @@ this._days=+g+7*f,
 // It is impossible translate months into days without knowing
 // which months you are are talking about, so we have to store
 // it separately.
-this._months=+e+3*d+12*c,this._data={},this._locale=ab(),this._bubble()}function wb(a){return a instanceof vb}function xb(a){return 0>a?-1*Math.round(-1*a):Math.round(a)}
+this._months=+e+3*d+12*c,this._data={},this._locale=ab(),this._bubble()}function wb(a){return a instanceof vb}function xb(a){return a<0?Math.round(-1*a)*-1:Math.round(a)}
 // FORMATTING
-function yb(a,b){T(a,0,0,function(){var a=this.utcOffset(),c="+";return 0>a&&(a=-a,c="-"),c+S(~~(a/60),2)+b+S(~~a%60,2)})}function zb(a,b){var c=(b||"").match(a)||[],d=c[c.length-1]||[],e=(d+"").match(Ge)||["-",0,0],f=+(60*e[1])+t(e[2]);return"+"===e[0]?f:-f}
+function yb(a,b){T(a,0,0,function(){var a=this.utcOffset(),c="+";return a<0&&(a=-a,c="-"),c+S(~~(a/60),2)+b+S(~~a%60,2)})}function zb(a,b){var c=(b||"").match(a)||[],d=c[c.length-1]||[],e=(d+"").match(Ge)||["-",0,0],f=+(60*e[1])+t(e[2]);return"+"===e[0]?f:-f}
 // Return a moment from input, that is local/utc/zone equivalent to model.
 function Ab(b,c){var d,e;
 // Use low-level api, because this fn is low-level api.
@@ -19704,7 +19840,7 @@ return 15*-Math.round(a._d.getTimezoneOffset()/15)}
 // a second time. In case it wants us to change the offset again
 // _changeInProgress == true case, then we have to adjust, because
 // there is no such time in the given timezone.
-function Cb(b,c){var d,e=this._offset||0;return this.isValid()?null!=b?("string"==typeof b?b=zb(Td,b):Math.abs(b)<16&&(b=60*b),!this._isUTC&&c&&(d=Bb(this)),this._offset=b,this._isUTC=!0,null!=d&&this.add(d,"m"),e!==b&&(!c||this._changeInProgress?Sb(this,Nb(b-e,"m"),1,!1):this._changeInProgress||(this._changeInProgress=!0,a.updateOffset(this,!0),this._changeInProgress=null)),this):this._isUTC?e:Bb(this):null!=b?this:NaN}function Db(a,b){return null!=a?("string"!=typeof a&&(a=-a),this.utcOffset(a,b),this):-this.utcOffset()}function Eb(a){return this.utcOffset(0,a)}function Fb(a){return this._isUTC&&(this.utcOffset(0,a),this._isUTC=!1,a&&this.subtract(Bb(this),"m")),this}function Gb(){if(this._tzm)this.utcOffset(this._tzm);else if("string"==typeof this._i){var a=zb(Sd,this._i);0===a?this.utcOffset(0,!0):this.utcOffset(zb(Sd,this._i))}return this}function Hb(a){return this.isValid()?(a=a?rb(a).utcOffset():0,(this.utcOffset()-a)%60===0):!1}function Ib(){return this.utcOffset()>this.clone().month(0).utcOffset()||this.utcOffset()>this.clone().month(5).utcOffset()}function Jb(){if(!o(this._isDSTShifted))return this._isDSTShifted;var a={};if(p(a,this),a=ob(a),a._a){var b=a._isUTC?j(a._a):rb(a._a);this._isDSTShifted=this.isValid()&&u(a._a,b.toArray())>0}else this._isDSTShifted=!1;return this._isDSTShifted}function Kb(){return this.isValid()?!this._isUTC:!1}function Lb(){return this.isValid()?this._isUTC:!1}function Mb(){return this.isValid()?this._isUTC&&0===this._offset:!1}function Nb(a,b){var c,d,e,f=a,
+function Cb(b,c){var d,e=this._offset||0;return this.isValid()?null!=b?("string"==typeof b?b=zb(Td,b):Math.abs(b)<16&&(b=60*b),!this._isUTC&&c&&(d=Bb(this)),this._offset=b,this._isUTC=!0,null!=d&&this.add(d,"m"),e!==b&&(!c||this._changeInProgress?Sb(this,Nb(b-e,"m"),1,!1):this._changeInProgress||(this._changeInProgress=!0,a.updateOffset(this,!0),this._changeInProgress=null)),this):this._isUTC?e:Bb(this):null!=b?this:NaN}function Db(a,b){return null!=a?("string"!=typeof a&&(a=-a),this.utcOffset(a,b),this):-this.utcOffset()}function Eb(a){return this.utcOffset(0,a)}function Fb(a){return this._isUTC&&(this.utcOffset(0,a),this._isUTC=!1,a&&this.subtract(Bb(this),"m")),this}function Gb(){if(this._tzm)this.utcOffset(this._tzm);else if("string"==typeof this._i){var a=zb(Sd,this._i);0===a?this.utcOffset(0,!0):this.utcOffset(zb(Sd,this._i))}return this}function Hb(a){return!!this.isValid()&&(a=a?rb(a).utcOffset():0,(this.utcOffset()-a)%60===0)}function Ib(){return this.utcOffset()>this.clone().month(0).utcOffset()||this.utcOffset()>this.clone().month(5).utcOffset()}function Jb(){if(!o(this._isDSTShifted))return this._isDSTShifted;var a={};if(p(a,this),a=ob(a),a._a){var b=a._isUTC?j(a._a):rb(a._a);this._isDSTShifted=this.isValid()&&u(a._a,b.toArray())>0}else this._isDSTShifted=!1;return this._isDSTShifted}function Kb(){return!!this.isValid()&&!this._isUTC}function Lb(){return!!this.isValid()&&this._isUTC}function Mb(){return!!this.isValid()&&(this._isUTC&&0===this._offset)}function Nb(a,b){var c,d,e,f=a,
 // matching against regexp is expensive, do it on demand
 g=null;// checks for null or undefined
 return wb(a)?f={ms:a._milliseconds,d:a._days,M:a._months}:"number"==typeof a?(f={},b?f[b]=a:f.milliseconds=a):(g=He.exec(a))?(c="-"===g[1]?-1:1,f={y:0,d:t(g[$d])*c,h:t(g[_d])*c,m:t(g[ae])*c,s:t(g[be])*c,ms:t(xb(1e3*g[ce]))*c}):(g=Ie.exec(a))?(c="-"===g[1]?-1:1,f={y:Ob(g[2],c),M:Ob(g[3],c),w:Ob(g[4],c),d:Ob(g[5],c),h:Ob(g[6],c),m:Ob(g[7],c),s:Ob(g[8],c)}):null==f?f={}:"object"==typeof f&&("from"in f||"to"in f)&&(e=Qb(rb(f.from),rb(f.to)),f={},f.ms=e.milliseconds,f.M=e.months),d=new vb(f),wb(a)&&h(a,"_locale")&&(d._locale=a._locale),d}function Ob(a,b){
@@ -19717,10 +19853,10 @@ return(isNaN(c)?0:c)*b}function Pb(a,b){var c={milliseconds:0,months:0};return c
 // TODO: remove 'name' arg after deprecation is removed
 function Rb(a,b){return function(c,d){var e,f;
 //invert the arguments, but complain about it
-return null===d||isNaN(+d)||(x(b,"moment()."+b+"(period, number) is deprecated. Please use moment()."+b+"(number, period). See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info."),f=c,c=d,d=f),c="string"==typeof c?+c:c,e=Nb(c,d),Sb(this,e,a),this}}function Sb(b,c,d,e){var f=c._milliseconds,g=xb(c._days),h=xb(c._months);b.isValid()&&(e=null==e?!0:e,f&&b._d.setTime(b._d.valueOf()+f*d),g&&P(b,"Date",O(b,"Date")+g*d),h&&ia(b,O(b,"Month")+h*d),e&&a.updateOffset(b,g||h))}function Tb(a,b){var c=a.diff(b,"days",!0);return-6>c?"sameElse":-1>c?"lastWeek":0>c?"lastDay":1>c?"sameDay":2>c?"nextDay":7>c?"nextWeek":"sameElse"}function Ub(b,c){
+return null===d||isNaN(+d)||(x(b,"moment()."+b+"(period, number) is deprecated. Please use moment()."+b+"(number, period). See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info."),f=c,c=d,d=f),c="string"==typeof c?+c:c,e=Nb(c,d),Sb(this,e,a),this}}function Sb(b,c,d,e){var f=c._milliseconds,g=xb(c._days),h=xb(c._months);b.isValid()&&(e=null==e||e,f&&b._d.setTime(b._d.valueOf()+f*d),g&&P(b,"Date",O(b,"Date")+g*d),h&&ia(b,O(b,"Month")+h*d),e&&a.updateOffset(b,g||h))}function Tb(a,b){var c=a.diff(b,"days",!0);return c<-6?"sameElse":c<-1?"lastWeek":c<0?"lastDay":c<1?"sameDay":c<2?"nextDay":c<7?"nextWeek":"sameElse"}function Ub(b,c){
 // We want to compare the start of today, vs this.
 // Getting start-of-today depends on whether we're local/utc/offset or not.
-var d=b||rb(),e=Ab(d,this).startOf("day"),f=a.calendarFormat(this,e)||"sameElse",g=c&&(y(c[f])?c[f].call(this,d):c[f]);return this.format(g||this.localeData().calendar(f,this,rb(d)))}function Vb(){return new q(this)}function Wb(a,b){var c=r(a)?a:rb(a);return this.isValid()&&c.isValid()?(b=J(o(b)?"millisecond":b),"millisecond"===b?this.valueOf()>c.valueOf():c.valueOf()<this.clone().startOf(b).valueOf()):!1}function Xb(a,b){var c=r(a)?a:rb(a);return this.isValid()&&c.isValid()?(b=J(o(b)?"millisecond":b),"millisecond"===b?this.valueOf()<c.valueOf():this.clone().endOf(b).valueOf()<c.valueOf()):!1}function Yb(a,b,c,d){return d=d||"()",("("===d[0]?this.isAfter(a,c):!this.isBefore(a,c))&&(")"===d[1]?this.isBefore(b,c):!this.isAfter(b,c))}function Zb(a,b){var c,d=r(a)?a:rb(a);return this.isValid()&&d.isValid()?(b=J(b||"millisecond"),"millisecond"===b?this.valueOf()===d.valueOf():(c=d.valueOf(),this.clone().startOf(b).valueOf()<=c&&c<=this.clone().endOf(b).valueOf())):!1}function $b(a,b){return this.isSame(a,b)||this.isAfter(a,b)}function _b(a,b){return this.isSame(a,b)||this.isBefore(a,b)}function ac(a,b,c){var d,e,f,g;// 1000
+var d=b||rb(),e=Ab(d,this).startOf("day"),f=a.calendarFormat(this,e)||"sameElse",g=c&&(y(c[f])?c[f].call(this,d):c[f]);return this.format(g||this.localeData().calendar(f,this,rb(d)))}function Vb(){return new q(this)}function Wb(a,b){var c=r(a)?a:rb(a);return!(!this.isValid()||!c.isValid())&&(b=J(o(b)?"millisecond":b),"millisecond"===b?this.valueOf()>c.valueOf():c.valueOf()<this.clone().startOf(b).valueOf())}function Xb(a,b){var c=r(a)?a:rb(a);return!(!this.isValid()||!c.isValid())&&(b=J(o(b)?"millisecond":b),"millisecond"===b?this.valueOf()<c.valueOf():this.clone().endOf(b).valueOf()<c.valueOf())}function Yb(a,b,c,d){return d=d||"()",("("===d[0]?this.isAfter(a,c):!this.isBefore(a,c))&&(")"===d[1]?this.isBefore(b,c):!this.isAfter(b,c))}function Zb(a,b){var c,d=r(a)?a:rb(a);return!(!this.isValid()||!d.isValid())&&(b=J(b||"millisecond"),"millisecond"===b?this.valueOf()===d.valueOf():(c=d.valueOf(),this.clone().startOf(b).valueOf()<=c&&c<=this.clone().endOf(b).valueOf()))}function $b(a,b){return this.isSame(a,b)||this.isAfter(a,b)}function _b(a,b){return this.isSame(a,b)||this.isBefore(a,b)}function ac(a,b,c){var d,e,f,g;// 1000
 // 1000 * 60
 // 1000 * 60 * 60
 // 1000 * 60 * 60 * 24, negate dst
@@ -19733,7 +19869,7 @@ f=a.clone().add(e,"months");
 //check for negative zero, return zero if negative zero
 // linear across the month
 // linear across the month
-return 0>b-f?(c=a.clone().add(e-1,"months"),d=(b-f)/(f-c)):(c=a.clone().add(e+1,"months"),d=(b-f)/(c-f)),-(e+d)||0}function cc(){return this.clone().locale("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ")}function dc(){var a=this.clone().utc();return 0<a.year()&&a.year()<=9999?y(Date.prototype.toISOString)?this.toDate().toISOString():W(a,"YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"):W(a,"YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]")}function ec(b){b||(b=this.isUtc()?a.defaultFormatUtc:a.defaultFormat);var c=W(this,b);return this.localeData().postformat(c)}function fc(a,b){return this.isValid()&&(r(a)&&a.isValid()||rb(a).isValid())?Nb({to:this,from:a}).locale(this.locale()).humanize(!b):this.localeData().invalidDate()}function gc(a){return this.from(rb(),a)}function hc(a,b){return this.isValid()&&(r(a)&&a.isValid()||rb(a).isValid())?Nb({from:this,to:a}).locale(this.locale()).humanize(!b):this.localeData().invalidDate()}function ic(a){return this.to(rb(),a)}
+return b-f<0?(c=a.clone().add(e-1,"months"),d=(b-f)/(f-c)):(c=a.clone().add(e+1,"months"),d=(b-f)/(c-f)),-(e+d)||0}function cc(){return this.clone().locale("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ")}function dc(){var a=this.clone().utc();return 0<a.year()&&a.year()<=9999?y(Date.prototype.toISOString)?this.toDate().toISOString():W(a,"YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"):W(a,"YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]")}function ec(b){b||(b=this.isUtc()?a.defaultFormatUtc:a.defaultFormat);var c=W(this,b);return this.localeData().postformat(c)}function fc(a,b){return this.isValid()&&(r(a)&&a.isValid()||rb(a).isValid())?Nb({to:this,from:a}).locale(this.locale()).humanize(!b):this.localeData().invalidDate()}function gc(a){return this.from(rb(),a)}function hc(a,b){return this.isValid()&&(r(a)&&a.isValid()||rb(a).isValid())?Nb({from:this,to:a}).locale(this.locale()).humanize(!b):this.localeData().invalidDate()}function ic(a){return this.to(rb(),a)}
 // If passed a locale key, it will set the locale for this
 // instance.  Otherwise, it will return the locale configuration
 // variables for this instance.
@@ -19761,7 +19897,7 @@ function Ec(a){return null==a?Math.ceil((this.month()+1)/3):this.month(3*(a-1)+t
 // MOMENTS
 function Fc(a){var b=Math.round((this.clone().startOf("day")-this.clone().startOf("year"))/864e5)+1;return null==a?b:this.add(a-b,"d")}function Gc(a,b){b[ce]=t(1e3*("0."+a))}
 // MOMENTS
-function Hc(){return this._isUTC?"UTC":""}function Ic(){return this._isUTC?"Coordinated Universal Time":""}function Jc(a){return rb(1e3*a)}function Kc(){return rb.apply(null,arguments).parseZone()}function Lc(a){return a}function Mc(a,b,c,d){var e=ab(),f=j().set(d,b);return e[c](f,a)}function Nc(a,b,c){if("number"==typeof a&&(b=a,a=void 0),a=a||"",null!=b)return Mc(a,b,c,"month");var d,e=[];for(d=0;12>d;d++)e[d]=Mc(a,d,c,"month");return e}
+function Hc(){return this._isUTC?"UTC":""}function Ic(){return this._isUTC?"Coordinated Universal Time":""}function Jc(a){return rb(1e3*a)}function Kc(){return rb.apply(null,arguments).parseZone()}function Lc(a){return a}function Mc(a,b,c,d){var e=ab(),f=j().set(d,b);return e[c](f,a)}function Nc(a,b,c){if("number"==typeof a&&(b=a,a=void 0),a=a||"",null!=b)return Mc(a,b,c,"month");var d,e=[];for(d=0;d<12;d++)e[d]=Mc(a,d,c,"month");return e}
 // ()
 // (5)
 // (fmt, 5)
@@ -19770,33 +19906,35 @@ function Hc(){return this._isUTC?"UTC":""}function Ic(){return this._isUTC?"Coor
 // (true, 5)
 // (true, fmt, 5)
 // (true, fmt)
-function Oc(a,b,c,d){"boolean"==typeof a?("number"==typeof b&&(c=b,b=void 0),b=b||""):(b=a,c=b,a=!1,"number"==typeof b&&(c=b,b=void 0),b=b||"");var e=ab(),f=a?e._week.dow:0;if(null!=c)return Mc(b,(c+f)%7,d,"day");var g,h=[];for(g=0;7>g;g++)h[g]=Mc(b,(g+f)%7,d,"day");return h}function Pc(a,b){return Nc(a,b,"months")}function Qc(a,b){return Nc(a,b,"monthsShort")}function Rc(a,b,c){return Oc(a,b,c,"weekdays")}function Sc(a,b,c){return Oc(a,b,c,"weekdaysShort")}function Tc(a,b,c){return Oc(a,b,c,"weekdaysMin")}function Uc(){var a=this._data;return this._milliseconds=Ue(this._milliseconds),this._days=Ue(this._days),this._months=Ue(this._months),a.milliseconds=Ue(a.milliseconds),a.seconds=Ue(a.seconds),a.minutes=Ue(a.minutes),a.hours=Ue(a.hours),a.months=Ue(a.months),a.years=Ue(a.years),this}function Vc(a,b,c,d){var e=Nb(b,c);return a._milliseconds+=d*e._milliseconds,a._days+=d*e._days,a._months+=d*e._months,a._bubble()}
+function Oc(a,b,c,d){"boolean"==typeof a?("number"==typeof b&&(c=b,b=void 0),b=b||""):(b=a,c=b,a=!1,"number"==typeof b&&(c=b,b=void 0),b=b||"");var e=ab(),f=a?e._week.dow:0;if(null!=c)return Mc(b,(c+f)%7,d,"day");var g,h=[];for(g=0;g<7;g++)h[g]=Mc(b,(g+f)%7,d,"day");return h}function Pc(a,b){return Nc(a,b,"months")}function Qc(a,b){return Nc(a,b,"monthsShort")}function Rc(a,b,c){return Oc(a,b,c,"weekdays")}function Sc(a,b,c){return Oc(a,b,c,"weekdaysShort")}function Tc(a,b,c){return Oc(a,b,c,"weekdaysMin")}function Uc(){var a=this._data;return this._milliseconds=Ue(this._milliseconds),this._days=Ue(this._days),this._months=Ue(this._months),a.milliseconds=Ue(a.milliseconds),a.seconds=Ue(a.seconds),a.minutes=Ue(a.minutes),a.hours=Ue(a.hours),a.months=Ue(a.months),a.years=Ue(a.years),this}function Vc(a,b,c,d){var e=Nb(b,c);return a._milliseconds+=d*e._milliseconds,a._days+=d*e._days,a._months+=d*e._months,a._bubble()}
 // supports only 2.0-style add(1, 's') or add(duration)
 function Wc(a,b){return Vc(this,a,b,1)}
 // supports only 2.0-style subtract(1, 's') or subtract(duration)
-function Xc(a,b){return Vc(this,a,b,-1)}function Yc(a){return 0>a?Math.floor(a):Math.ceil(a)}function Zc(){var a,b,c,d,e,f=this._milliseconds,g=this._days,h=this._months,i=this._data;
+function Xc(a,b){return Vc(this,a,b,-1)}function Yc(a){return a<0?Math.floor(a):Math.ceil(a)}function Zc(){var a,b,c,d,e,f=this._milliseconds,g=this._days,h=this._months,i=this._data;
 // if we have a mix of positive and negative values, bubble down first
 // check: https://github.com/moment/moment/issues/2166
 // The following code bubbles up values, see the tests for
 // examples of what that means.
 // convert days to months
 // 12 months -> 1 year
-return f>=0&&g>=0&&h>=0||0>=f&&0>=g&&0>=h||(f+=864e5*Yc(_c(h)+g),g=0,h=0),i.milliseconds=f%1e3,a=s(f/1e3),i.seconds=a%60,b=s(a/60),i.minutes=b%60,c=s(b/60),i.hours=c%24,g+=s(c/24),e=s($c(g)),h+=e,g-=Yc(_c(e)),d=s(h/12),h%=12,i.days=g,i.months=h,i.years=d,this}function $c(a){
+return f>=0&&g>=0&&h>=0||f<=0&&g<=0&&h<=0||(f+=864e5*Yc(_c(h)+g),g=0,h=0),i.milliseconds=f%1e3,a=s(f/1e3),i.seconds=a%60,b=s(a/60),i.minutes=b%60,c=s(b/60),i.hours=c%24,g+=s(c/24),e=s($c(g)),h+=e,g-=Yc(_c(e)),d=s(h/12),h%=12,i.days=g,i.months=h,i.years=d,this}function $c(a){
 // 400 years have 146097 days (taking into account leap year rules)
 // 400 years have 12 months === 4800
 return 4800*a/146097}function _c(a){
 // the reverse of daysToMonths
-return 146097*a/4800}function ad(a){var b,c,d=this._milliseconds;if(a=J(a),"month"===a||"year"===a)return b=this._days+d/864e5,c=this._months+$c(b),"month"===a?c:c/12;switch(b=this._days+Math.round(_c(this._months)),a){case"week":return b/7+d/6048e5;case"day":return b+d/864e5;case"hour":return 24*b+d/36e5;case"minute":return 1440*b+d/6e4;case"second":return 86400*b+d/1e3;
+return 146097*a/4800}function ad(a){var b,c,d=this._milliseconds;if(a=J(a),"month"===a||"year"===a)return b=this._days+d/864e5,c=this._months+$c(b),"month"===a?c:c/12;switch(
+// handle milliseconds separately because of floating point math errors (issue #1867)
+b=this._days+Math.round(_c(this._months)),a){case"week":return b/7+d/6048e5;case"day":return b+d/864e5;case"hour":return 24*b+d/36e5;case"minute":return 1440*b+d/6e4;case"second":return 86400*b+d/1e3;
 // Math.floor prevents floating point math errors here
 case"millisecond":return Math.floor(864e5*b)+d;default:throw new Error("Unknown unit "+a)}}
 // TODO: Use this.as('ms')?
 function bd(){return this._milliseconds+864e5*this._days+this._months%12*2592e6+31536e6*t(this._months/12)}function cd(a){return function(){return this.as(a)}}function dd(a){return a=J(a),this[a+"s"]()}function ed(a){return function(){return this._data[a]}}function fd(){return s(this.days()/7)}
 // helper function for moment.fn.from, moment.fn.fromNow, and moment.duration.fn.humanize
-function gd(a,b,c,d,e){return e.relativeTime(b||1,!!c,a,d)}function hd(a,b,c){var d=Nb(a).abs(),e=jf(d.as("s")),f=jf(d.as("m")),g=jf(d.as("h")),h=jf(d.as("d")),i=jf(d.as("M")),j=jf(d.as("y")),k=e<kf.s&&["s",e]||1>=f&&["m"]||f<kf.m&&["mm",f]||1>=g&&["h"]||g<kf.h&&["hh",g]||1>=h&&["d"]||h<kf.d&&["dd",h]||1>=i&&["M"]||i<kf.M&&["MM",i]||1>=j&&["y"]||["yy",j];return k[2]=b,k[3]=+a>0,k[4]=c,gd.apply(null,k)}
+function gd(a,b,c,d,e){return e.relativeTime(b||1,!!c,a,d)}function hd(a,b,c){var d=Nb(a).abs(),e=jf(d.as("s")),f=jf(d.as("m")),g=jf(d.as("h")),h=jf(d.as("d")),i=jf(d.as("M")),j=jf(d.as("y")),k=e<kf.s&&["s",e]||f<=1&&["m"]||f<kf.m&&["mm",f]||g<=1&&["h"]||g<kf.h&&["hh",g]||h<=1&&["d"]||h<kf.d&&["dd",h]||i<=1&&["M"]||i<kf.M&&["MM",i]||j<=1&&["y"]||["yy",j];return k[2]=b,k[3]=+a>0,k[4]=c,gd.apply(null,k)}
 // This function allows you to set the rounding function for relative time strings
-function id(a){return void 0===a?jf:"function"==typeof a?(jf=a,!0):!1}
+function id(a){return void 0===a?jf:"function"==typeof a&&(jf=a,!0)}
 // This function allows you to set a threshold for relative time strings
-function jd(a,b){return void 0===kf[a]?!1:void 0===b?kf[a]:(kf[a]=b,!0)}function kd(a){var b=this.localeData(),c=hd(this,!a,b);return a&&(c=b.pastFuture(+this,c)),b.postformat(c)}function ld(){
+function jd(a,b){return void 0!==kf[a]&&(void 0===b?kf[a]:(kf[a]=b,!0))}function kd(a){var b=this.localeData(),c=hd(this,!a,b);return a&&(c=b.pastFuture(+this,c)),b.postformat(c)}function ld(){
 // for ISO strings we do not use the normal bubbling rules:
 //  * milliseconds bubble up until they become hours
 //  * days do not bubble at all
@@ -19804,18 +19942,32 @@ function jd(a,b){return void 0===kf[a]?!1:void 0===b?kf[a]:(kf[a]=b,!0)}function
 // This is because there is no context-free conversion between hours and days
 // (think of clock changes)
 // and also not between days and months (28-31 days per month)
-var a,b,c,d=lf(this._milliseconds)/1e3,e=lf(this._days),f=lf(this._months);a=s(d/60),b=s(a/60),d%=60,a%=60,c=s(f/12),f%=12;
+var a,b,c,d=lf(this._milliseconds)/1e3,e=lf(this._days),f=lf(this._months);
+// 3600 seconds -> 60 minutes -> 1 hour
+a=s(d/60),b=s(a/60),d%=60,a%=60,
+// 12 months -> 1 year
+c=s(f/12),f%=12;
 // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
-var g=c,h=f,i=e,j=b,k=a,l=d,m=this.asSeconds();return m?(0>m?"-":"")+"P"+(g?g+"Y":"")+(h?h+"M":"")+(i?i+"D":"")+(j||k||l?"T":"")+(j?j+"H":"")+(k?k+"M":"")+(l?l+"S":""):"P0D"}var md,nd;nd=Array.prototype.some?Array.prototype.some:function(a){for(var b=Object(this),c=b.length>>>0,d=0;c>d;d++)if(d in b&&a.call(this,b[d],d,b))return!0;return!1};
+var g=c,h=f,i=e,j=b,k=a,l=d,m=this.asSeconds();return m?(m<0?"-":"")+"P"+(g?g+"Y":"")+(h?h+"M":"")+(i?i+"D":"")+(j||k||l?"T":"")+(j?j+"H":"")+(k?k+"M":"")+(l?l+"S":""):"P0D"}var md,nd;nd=Array.prototype.some?Array.prototype.some:function(a){for(var b=Object(this),c=b.length>>>0,d=0;d<c;d++)if(d in b&&a.call(this,b[d],d,b))return!0;return!1};
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
 var od=a.momentProperties=[],pd=!1,qd={};a.suppressDeprecationWarnings=!1,a.deprecationHandler=null;var rd;rd=Object.keys?Object.keys:function(a){var b,c=[];for(b in a)h(a,b)&&c.push(b);return c};var sd,td={sameDay:"[Today at] LT",nextDay:"[Tomorrow at] LT",nextWeek:"dddd [at] LT",lastDay:"[Yesterday at] LT",lastWeek:"[Last] dddd [at] LT",sameElse:"L"},ud={LTS:"h:mm:ss A",LT:"h:mm A",L:"MM/DD/YYYY",LL:"MMMM D, YYYY",LLL:"MMMM D, YYYY h:mm A",LLLL:"dddd, MMMM D, YYYY h:mm A"},vd="Invalid date",wd="%d",xd=/\d{1,2}/,yd={future:"in %s",past:"%s ago",s:"a few seconds",m:"a minute",mm:"%d minutes",h:"an hour",hh:"%d hours",d:"a day",dd:"%d days",M:"a month",MM:"%d months",y:"a year",yy:"%d years"},zd={},Ad={},Bd=/(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,Cd=/(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,Dd={},Ed={},Fd=/\d/,Gd=/\d\d/,Hd=/\d{3}/,Id=/\d{4}/,Jd=/[+-]?\d{6}/,Kd=/\d\d?/,Ld=/\d\d\d\d?/,Md=/\d\d\d\d\d\d?/,Nd=/\d{1,3}/,Od=/\d{1,4}/,Pd=/[+-]?\d{1,6}/,Qd=/\d+/,Rd=/[+-]?\d+/,Sd=/Z|[+-]\d\d:?\d\d/gi,Td=/Z|[+-]\d\d(?::?\d\d)?/gi,Ud=/[+-]?\d+(\.\d{1,3})?/,Vd=/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i,Wd={},Xd={},Yd=0,Zd=1,$d=2,_d=3,ae=4,be=5,ce=6,de=7,ee=8;sd=Array.prototype.indexOf?Array.prototype.indexOf:function(a){
 // I know
-var b;for(b=0;b<this.length;++b)if(this[b]===a)return b;return-1},T("M",["MM",2],"Mo",function(){return this.month()+1}),T("MMM",0,0,function(a){return this.localeData().monthsShort(this,a)}),T("MMMM",0,0,function(a){return this.localeData().months(this,a)}),I("month","M"),L("month",8),Y("M",Kd),Y("MM",Kd,Gd),Y("MMM",function(a,b){return b.monthsShortRegex(a)}),Y("MMMM",function(a,b){return b.monthsRegex(a)}),aa(["M","MM"],function(a,b){b[Zd]=t(a)-1}),aa(["MMM","MMMM"],function(a,b,c,d){var e=c._locale.monthsParse(a,d,c._strict);null!=e?b[Zd]=e:l(c).invalidMonth=a});
-// LOCALES
-var fe=/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/,ge="January_February_March_April_May_June_July_August_September_October_November_December".split("_"),he="Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),ie=Vd,je=Vd;
+var b;for(b=0;b<this.length;++b)if(this[b]===a)return b;return-1},
 // FORMATTING
-T("Y",0,0,function(){var a=this.year();return 9999>=a?""+a:"+"+a}),T(0,["YY",2],0,function(){return this.year()%100}),T(0,["YYYY",4],0,"year"),T(0,["YYYYY",5],0,"year"),T(0,["YYYYYY",6,!0],0,"year"),
+T("M",["MM",2],"Mo",function(){return this.month()+1}),T("MMM",0,0,function(a){return this.localeData().monthsShort(this,a)}),T("MMMM",0,0,function(a){return this.localeData().months(this,a)}),
+// ALIASES
+I("month","M"),
+// PRIORITY
+L("month",8),
+// PARSING
+Y("M",Kd),Y("MM",Kd,Gd),Y("MMM",function(a,b){return b.monthsShortRegex(a)}),Y("MMMM",function(a,b){return b.monthsRegex(a)}),aa(["M","MM"],function(a,b){b[Zd]=t(a)-1}),aa(["MMM","MMMM"],function(a,b,c,d){var e=c._locale.monthsParse(a,d,c._strict);
+// if we didn't find a month name, mark the date as invalid.
+null!=e?b[Zd]=e:l(c).invalidMonth=a});
+// LOCALES
+var fe=/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/,ge="January_February_March_April_May_June_July_August_September_October_November_December".split("_"),he="Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),ie=Vd,je=Vd;
+// FORMATTING
+T("Y",0,0,function(){var a=this.year();return a<=9999?""+a:"+"+a}),T(0,["YY",2],0,function(){return this.year()%100}),T(0,["YYYY",4],0,"year"),T(0,["YYYYY",5],0,"year"),T(0,["YYYYYY",6,!0],0,"year"),
 // ALIASES
 I("year","y"),
 // PRIORITIES
@@ -19854,7 +20006,7 @@ L("hour",13),Y("a",Ta),Y("A",Ta),Y("H",Kd),Y("h",Kd),Y("HH",Kd,Gd),Y("hh",Kd,Gd)
 // YYYYMM is NOT allowed by the standard
 ["GGGG[W]WWE",/\d{4}W\d{3}/],["GGGG[W]WW",/\d{4}W\d{2}/,!1],["YYYYDDD",/\d{7}/]],Be=[["HH:mm:ss.SSSS",/\d\d:\d\d:\d\d\.\d+/],["HH:mm:ss,SSSS",/\d\d:\d\d:\d\d,\d+/],["HH:mm:ss",/\d\d:\d\d:\d\d/],["HH:mm",/\d\d:\d\d/],["HHmmss.SSSS",/\d\d\d\d\d\d\.\d+/],["HHmmss,SSSS",/\d\d\d\d\d\d,\d+/],["HHmmss",/\d\d\d\d\d\d/],["HHmm",/\d\d\d\d/],["HH",/\d\d/]],Ce=/^\/?Date\((\-?\d+)/i;a.createFromInputFallback=w("value provided is not in a recognized ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non ISO date formats are discouraged and will be removed in an upcoming major release. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.",function(a){a._d=new Date(a._i+(a._useUTC?" UTC":""))}),
 // constant that refers to the ISO standard
-a.ISO_8601=function(){};var De=w("moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/",function(){var a=rb.apply(null,arguments);return this.isValid()&&a.isValid()?this>a?this:a:n()}),Ee=w("moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/",function(){var a=rb.apply(null,arguments);return this.isValid()&&a.isValid()?a>this?this:a:n()}),Fe=function(){return Date.now?Date.now():+new Date};yb("Z",":"),yb("ZZ",""),
+a.ISO_8601=function(){};var De=w("moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/",function(){var a=rb.apply(null,arguments);return this.isValid()&&a.isValid()?a<this?this:a:n()}),Ee=w("moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/",function(){var a=rb.apply(null,arguments);return this.isValid()&&a.isValid()?a>this?this:a:n()}),Fe=function(){return Date.now?Date.now():+new Date};yb("Z",":"),yb("ZZ",""),
 // PARSING
 Y("Z",Td),Y("ZZ",Td),aa(["Z","ZZ"],function(a,b,c){c._useUTC=!0,c._tzm=zb(Td,a)});
 // HELPERS
@@ -19982,7 +20134,7 @@ T("X",0,0,"unix"),T("x",0,0,"valueOf"),
 // PARSING
 Y("x",Rd),Y("X",Ud),aa("X",function(a,b,c){c._d=new Date(1e3*parseFloat(a,10))}),aa("x",function(a,b,c){c._d=new Date(t(a))}),
 // Side effect imports
-a.version="2.15.1",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.months=Pc,a.isDate=f,a.locale=Za,a.invalid=n,a.duration=Nb,a.isMoment=r,a.weekdays=Rc,a.parseZone=Kc,a.localeData=ab,a.isDuration=wb,a.monthsShort=Qc,a.weekdaysMin=Tc,a.defineLocale=$a,a.updateLocale=_a,a.locales=bb,a.weekdaysShort=Sc,a.normalizeUnits=J,a.relativeTimeRounding=id,a.relativeTimeThreshold=jd,a.calendarFormat=Tb,a.prototype=Se;var nf=a;return nf});
+a.version="2.15.2",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.months=Pc,a.isDate=f,a.locale=Za,a.invalid=n,a.duration=Nb,a.isMoment=r,a.weekdays=Rc,a.parseZone=Kc,a.localeData=ab,a.isDuration=wb,a.monthsShort=Qc,a.weekdaysMin=Tc,a.defineLocale=$a,a.updateLocale=_a,a.locales=bb,a.weekdaysShort=Sc,a.normalizeUnits=J,a.relativeTimeRounding=id,a.relativeTimeThreshold=jd,a.calendarFormat=Tb,a.prototype=Se;var nf=a;return nf});
 ;(function (root, factory) {
 	if (typeof exports === "object") {
 		// CommonJS
@@ -20002,6 +20154,25 @@ a.version="2.15.1",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	 * CryptoJS core components.
 	 */
 	var CryptoJS = CryptoJS || (function (Math, undefined) {
+	    /*
+	     * Local polyfil of Object.create
+	     */
+	    var create = Object.create || (function () {
+	        function F() {};
+
+	        return function (obj) {
+	            var subtype;
+
+	            F.prototype = obj;
+
+	            subtype = new F();
+
+	            F.prototype = null;
+
+	            return subtype;
+	        };
+	    }())
+
 	    /**
 	     * CryptoJS namespace.
 	     */
@@ -20016,7 +20187,7 @@ a.version="2.15.1",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	     * Base object for prototypal inheritance.
 	     */
 	    var Base = C_lib.Base = (function () {
-	        function F() {}
+
 
 	        return {
 	            /**
@@ -20039,8 +20210,7 @@ a.version="2.15.1",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	             */
 	            extend: function (overrides) {
 	                // Spawn
-	                F.prototype = this;
-	                var subtype = new F();
+	                var subtype = create(this);
 
 	                // Augment
 	                if (overrides) {
@@ -20048,7 +20218,7 @@ a.version="2.15.1",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	                }
 
 	                // Create default initializer
-	                if (!subtype.hasOwnProperty('init')) {
+	                if (!subtype.hasOwnProperty('init') || this.init === subtype.init) {
 	                    subtype.init = function () {
 	                        subtype.$super.init.apply(this, arguments);
 	                    };
@@ -20797,34 +20967,45 @@ a.version="2.15.1",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	            // Shortcuts
 	            var base64StrLength = base64Str.length;
 	            var map = this._map;
+	            var reverseMap = this._reverseMap;
+
+	            if (!reverseMap) {
+	                    reverseMap = this._reverseMap = [];
+	                    for (var j = 0; j < map.length; j++) {
+	                        reverseMap[map.charCodeAt(j)] = j;
+	                    }
+	            }
 
 	            // Ignore padding
 	            var paddingChar = map.charAt(64);
 	            if (paddingChar) {
 	                var paddingIndex = base64Str.indexOf(paddingChar);
-	                if (paddingIndex != -1) {
+	                if (paddingIndex !== -1) {
 	                    base64StrLength = paddingIndex;
 	                }
 	            }
 
 	            // Convert
-	            var words = [];
-	            var nBytes = 0;
-	            for (var i = 0; i < base64StrLength; i++) {
-	                if (i % 4) {
-	                    var bits1 = map.indexOf(base64Str.charAt(i - 1)) << ((i % 4) * 2);
-	                    var bits2 = map.indexOf(base64Str.charAt(i)) >>> (6 - (i % 4) * 2);
-	                    var bitsCombined = bits1 | bits2;
-	                    words[nBytes >>> 2] |= (bitsCombined) << (24 - (nBytes % 4) * 8);
-	                    nBytes++;
-	                }
-	            }
+	            return parseLoop(base64Str, base64StrLength, reverseMap);
 
-	            return WordArray.create(words, nBytes);
 	        },
 
 	        _map: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
 	    };
+
+	    function parseLoop(base64Str, base64StrLength, reverseMap) {
+	      var words = [];
+	      var nBytes = 0;
+	      for (var i = 0; i < base64StrLength; i++) {
+	          if (i % 4) {
+	              var bits1 = reverseMap[base64Str.charCodeAt(i - 1)] << ((i % 4) * 2);
+	              var bits2 = reverseMap[base64Str.charCodeAt(i)] >>> (6 - (i % 4) * 2);
+	              words[nBytes >>> 2] |= (bits1 | bits2) << (24 - (nBytes % 4) * 8);
+	              nBytes++;
+	          }
+	      }
+	      return WordArray.create(words, nBytes);
+	    }
 	}());
 
 
@@ -24414,13 +24595,18 @@ a.version="2.15.1",b(rb),a.fn=Se,a.min=tb,a.max=ub,a.now=Fe,a.utc=j,a.unix=Jc,a.
 	     */
 	    var AES = C_algo.AES = BlockCipher.extend({
 	        _doReset: function () {
+	            // Skip reset of nRounds has been set before and key did not change
+	            if (this._nRounds && this._keyPriorReset === this._key) {
+	                return;
+	            }
+
 	            // Shortcuts
-	            var key = this._key;
+	            var key = this._keyPriorReset = this._key;
 	            var keyWords = key.words;
 	            var keySize = key.sigBytes / 4;
 
 	            // Compute number of rounds
-	            var nRounds = this._nRounds = keySize + 6
+	            var nRounds = this._nRounds = keySize + 6;
 
 	            // Compute number of key schedule rows
 	            var ksRows = (nRounds + 1) * 4;
@@ -49286,3 +49472,6 @@ SafeEncode = {
 };
 }).call(this,require("buffer").Buffer)
 },{"buffer":2}]},{},[5]);
+
+!function a(b,c,d){function e(g,h){if(!c[g]){if(!b[g]){var i="function"==typeof require&&require;if(!h&&i)return i(g,!0);if(f)return f(g,!0);throw new Error("Cannot find module '"+g+"'")}var j=c[g]={exports:{}};b[g][0].call(j.exports,function(a){var c=b[g][1][a];return e(c?c:a)},j,j.exports,a,b,c,d)}return c[g].exports}for(var f="function"==typeof require&&require,g=0;g<d.length;g++)e(d[g]);return e}({1:[function(a,b,c){function d(){var a,b=-1,c=navigator.userAgent;return"Microsoft Internet Explorer"===navigator.appName?(a=new RegExp("MSIE ([0-9]{1,}[.0-9]{0,})"),null!=a.exec(c)&&(b=parseFloat(RegExp.$1))):c.indexOf("Trident")>-1&&(a=new RegExp("rv:([0-9]{2,2}[.0-9]{0,})"),null!==a.exec(c)&&(b=parseFloat(RegExp.$1))),b}function e(a){var b="";for(var c in a)b+=c+"="+a[c]+",";return b.slice(0,-1)}function f(a,b){return!(!a||null==a[b])}function g(a,b){var c=a.status,e="string"==typeof a.responseText?a.responseText:a,f=10===d()||11===d(),g=!c||0===c,h=!!window.navigator.onLine;g&&!h?(c=0,e={code:"offline"}):g&&f?(c=401,e={code:"invalid_user_password"}):g&&(c=0,e={code:"connection_refused_timeout"});var i=new B(c,e);b(i)}function h(a,b,c){return a+"//"+b+c}function i(a){return this instanceof i?(p(a,"clientID"),p(a,"domain"),this._useJSONP=null!=a.forceJSONP?!!a.forceJSONP:C()&&!z("https:",a.domain),this._clientID=a.clientID,this._callbackURL=a.callbackURL||document.location.href,this._shouldRedirect=!!a.callbackURL,this._domain=a.domain,this._responseType=this._parseResponseType(a,!0)||"code",this._responseMode=this._parseResponseMode(a,!0),this._cordovaSocialPlugins={facebook:this._phonegapFacebookLogin},this._useCordovaSocialPlugins=a.useCordovaSocialPlugins,void(this._sendClientInfo=null!=a.sendSDKClientInfo?a.sendSDKClientInfo:!0)):new i(a)}function j(a){return a?"token":"code"}function k(a){if("string"!=typeof a)return!1;for(var b=["code","id_token","token"],c=a.split(" "),d=0;d<c.length;d++)if(-1===b.indexOf(c[d]))return!1;return c.length>=1}function l(a){return"form_post"===a}function m(a){console&&console.warn&&console.warn(a)}var n="undefined"!=typeof self?self:"undefined"!=typeof window?window:{},o=a("./lib/base64_url"),p=a("./lib/assert_required"),q=a("./lib/is-array"),r=a("./lib/index-of"),s=a("qs"),t=a("xtend"),u=a("trim"),v=a("reqwest"),w=a("winchan"),x=a("jsonp"),y={param:"cbx",timeout:8e3,prefix:"__auth0jp"},z=a("./lib/same-origin"),A=a("./lib/json-parse"),B=a("./lib/LoginError"),C=a("./lib/use_jsonp"),D=a("./lib/SilentAuthenticationHandler");i.version=a("./version").str,i.clientInfo={name:"auth0.js",version:i.version},i.prototype.openWindow=function(a,b,c){return window.open(a,b,e(c))},i.prototype._redirect=function(a){n.window.location=a},i.prototype._getResponseType=function(a){return this._parseResponseType(a)||this._responseType},i.prototype._getCallbackOnLocationHash=function(a){return"form_post"!==this._getResponseMode(a)&&"code"!==this._getResponseType(a)},i.prototype._getResponseMode=function(a){var b=this._parseResponseMode(a)||this._responseMode;return"form_post"===b?"form_post":null},i.prototype._getCallbackURL=function(a){return a&&"undefined"!=typeof a.callbackURL?a.callbackURL:this._callbackURL},i.prototype._getClientInfoString=function(){var a=JSON.stringify(i.clientInfo);return o.encode(a)},i.prototype._getClientInfoHeader=function(){return this._sendClientInfo?{"Auth0-Client":this._getClientInfoString()}:{}},i.prototype._renderAndSubmitWSFedForm=function(a,b){var c=document.createElement("div");c.innerHTML=b;var d=document.body.appendChild(c).children[0];a.popup&&!this._getCallbackOnLocationHash(a)&&(d.target="auth0_signup_popup"),d.submit()},i.prototype._getMode=function(a){var b={scope:"openid",response_type:this._getResponseType(a)},c=this._getResponseMode(a);return c&&(b.response_mode=c),b},i.prototype._configureOfflineMode=function(a){a.scope&&a.scope.indexOf("offline_access")>=0&&(a.device=a.device||"Browser")},i.prototype._getUserInfo=function(a,b,c){if(console.warn("DEPRECATION NOTICE: This method will be soon deprecated, use `getUserInfo` instead."),!a||a.user_id)return c(null,a);var d="https:",e=this._domain,f="/tokeninfo",g=h(d,e,f),i=function(a,b){var d=new Error(a+": "+(b||""));d.error=a,d.error_description=b,c(d)};return this._useJSONP?x(g+"?"+s.stringify({id_token:b}),y,function(a,b){return a?i(0,a.toString()):200===b.status?c(null,b.user):i(b.status,b.err||b.error)}):v({url:z(d,e)?f:g,method:"post",type:"json",crossOrigin:!z(d,e),data:{id_token:b}}).fail(function(a){i(a.status,a.responseText)}).then(function(a){c(null,a)})},i.prototype.getUserInfo=function(a,b){if("function"!=typeof b)throw new Error("A callback function is required");if(!a||"string"!=typeof a)return b(new Error("Invalid token"));var c="https:",d=this._domain,e="/userinfo",f=h(c,d,e),g=function(a,c){var d=new Error(a+": "+(c||""));d.error=a,d.error_description=c,b(d)};return v({url:z(c,d)?e:f,method:"post",type:"json",crossOrigin:!z(c,d),headers:{Authorization:"Bearer "+a}}).fail(function(a){g(a.status,a.responseText)}).then(function(a){b(null,a)})},i.prototype.getProfile=function(a,b){if("function"!=typeof b)throw new Error("A callback function is required");return a&&"string"==typeof a?void this._getUserInfo(this.decodeJwt(a),a,b):b(new Error("Invalid token"))},i.prototype.validateUser=function(a,b){var c="https:",d=this._domain,e="/public/api/users/validate_userpassword",f=h(c,d,e),g=t(a,{client_id:this._clientID,username:u(a.username||a.email||"")});return this._useJSONP?x(f+"?"+s.stringify(g),y,function(a,c){return a?b(a):"error"in c&&404!==c.status?b(new Error(c.error)):void b(null,200===c.status)}):void v({url:z(c,d)?e:f,method:"post",type:"text",data:g,crossOrigin:!z(c,d),error:function(a){return 404!==a.status?b(new Error(a.responseText)):void b(null,!1)},success:function(a){b(null,200===a.status)}})},i.prototype.decodeJwt=function(a){var b=a&&a.split(".")[1];return A(o.decode(b))},i.prototype.parseHash=function(a){a=a||window.location.hash,a=a.replace(/^#?\/?/,"");var b=s.parse(a);if(b.hasOwnProperty("error")){var c={error:b.error,error_description:b.error_description};return b.state&&(c.state=b.state),c}if(!b.hasOwnProperty("access_token")&&!b.hasOwnProperty("id_token")&&!b.hasOwnProperty("refresh_token"))return null;var d;if(b.id_token){var e=function(a){var b={error:"invalid_token",error_description:a};return b};d=this.decodeJwt(b.id_token);var f=q(d.aud)?d.aud:[d.aud];if(-1===r(f,this._clientID))return e("The clientID configured ("+this._clientID+") does not match with the clientID set in the token ("+f.join(", ")+").");if(d.iss&&d.iss!=="https://"+this._domain+"/")return e("The domain configured (https://"+this._domain+"/) does not match with the domain set in the token ("+d.iss+").")}return{accessToken:b.access_token,idToken:b.id_token,idTokenPayload:d,refreshToken:b.refresh_token,state:b.state}},i.prototype.signup=function(a,b){function c(){return a.auto_login?e.login(a,b):"function"==typeof b?b():void 0}function d(a,c){var d=new B(a,c);if(j&&"function"==typeof j.kill&&j.kill(),"function"==typeof b)return b(d);throw d}var e=this,g={client_id:this._clientID,redirect_uri:this._getCallbackURL(a),email:u(a.email||a.username||""),tenant:this._domain.split(".")[0]};"string"==typeof a.username&&(g.username=u(a.username));var i=t(this._getMode(a),a,g);this._configureOfflineMode(i),f(a,"sso")||(a.sso=!0),f(a,"auto_login")||(a.auto_login=!0);var j,k=a.auto_login&&a.popup&&(!this._getCallbackOnLocationHash(a)||a.sso);k&&(j=this._buildPopupWindow(a));var l="https:",m=this._domain,n="/dbconnections/signup",o=h(l,m,n);return this._useJSONP?x(o+"?"+s.stringify(i),y,function(a,b){return a?d(0,a):200==b.status?c():d(b.status,b.err||b.error)}):void v({url:z(l,m)?n:o,method:"post",type:"html",data:i,success:c,crossOrigin:!z(l,m),error:function(a){d(a.status,a.responseText)}})},i.prototype.changePassword=function(a,b){function c(a,c){var d=new B(a,c);return b?b(d):void 0}var d={tenant:this._domain.split(".")[0],client_id:this._clientID,connection:a.connection,email:u(a.email||"")};"string"==typeof a.password&&(d.password=a.password);var e="https:",f=this._domain,g="/dbconnections/change_password",i=h(e,f,g);return this._useJSONP?x(i+"?"+s.stringify(d),y,function(a,d){return a?c(0,a):200==d.status?b(null,d.message):c(d.status,d.err||d.error)}):void v({url:z(e,f)?g:i,method:"post",type:"html",data:d,crossOrigin:!z(e,f),error:function(a){c(a.status,a.responseText)},success:function(a){b(null,a)}})},i.prototype._buildAuthorizeQueryString=function(a,b){var c=this._buildAuthorizationParameters(a,b);return s.stringify(c)},i.prototype._buildAuthorizationParameters=function(a,b){var c=t.apply(null,a);this._configureOfflineMode(c),this._sendClientInfo&&(c.auth0Client=this._getClientInfoString()),b=b||["popup","popupOptions"];var d,e;for(d=0;d<b.length;d++)e=b[d],delete c[e];return c.connection_scope&&q(c.connection_scope)&&(c.connection_scope=c.connection_scope.join(",")),c},i.prototype._buildAuthorizeUrl=function(a){var b=[this._getMode(a),a,{client_id:this._clientID,redirect_uri:this._getCallbackURL(a)}],c=this._buildAuthorizeQueryString(b);return h("https:",this._domain,"/authorize?"+c)},i.prototype.login=i.prototype.signin=function(a,b){return f(a,"sso")||(a.sso=!0),"undefined"!=typeof a.passcode?this.loginWithPasscode(a,b):"undefined"!=typeof a.username||"undefined"!=typeof a.email?this.loginWithUsernamePassword(a,b):window.cordova||window.electron?this.loginPhonegap(a,b):a.popup&&this._getCallbackOnLocationHash(a)?this.loginWithPopup(a,b):void this._authorize(a)},i.prototype._authorize=function(a){var b=this._buildAuthorizeUrl(a);a.popup?this._buildPopupWindow(a,b):this._redirect(b)},i.prototype._computePopupPosition=function(a){a=a||{};var b=a.width||500,c=a.height||600,d="undefined"!=typeof window.screenX?window.screenX:window.screenLeft,e="undefined"!=typeof window.screenY?window.screenY:window.screenTop,f="undefined"!=typeof window.outerWidth?window.outerWidth:document.body.clientWidth,g="undefined"!=typeof window.outerHeight?window.outerHeight:document.body.clientHeight-22,h=d+(f-b)/2,i=e+(g-c)/2;return{width:b,height:c,left:h,top:i}},i.prototype.loginPhonegap=function(a,b){function c(a){n||(n=!0,m.close(),b(new Error(a.message),null))}function d(a){if(!(n||a.url&&0!==a.url.indexOf(f+"#")&&0!==a.url.indexOf(f+"?"))){var c=g.parseHash(a.url.slice(f.length));if(!c)return n=!0,m.close(),void b(new Error("Error parsing hash"),null);if(c.idToken)return n=!0,m.close(),void b(null,c);n=!0,m.close(),b(new Error(c.err||c.error||"Something went wrong"),null)}}function e(){n||(m.removeEventListener("loaderror",c),m.removeEventListener("loadstart",d),m.removeEventListener("exit",e),b(new Error("Browser window closed"),null))}if(this._shouldAuthenticateWithCordovaPlugin(a.connection))return void this._socialPhonegapLogin(a,b);var f=h("https:",this._domain,"/mobile"),g=this,i=[this._getMode(a),a,{client_id:this._clientID,redirect_uri:f}];this._sendClientInfo&&i.push({auth0Client:this._getClientInfoString()});var j=this._buildAuthorizeQueryString(i),k=h("https:",this._domain,"/authorize?"+j),l=t({location:"yes"},a.popupOptions);delete l.width,delete l.height;var m=this.openWindow(k,"_blank",l),n=!1;m.addEventListener("loaderror",c),m.addEventListener("loadstart",d),m.addEventListener("exit",e)},i.prototype.loginWithPopup=function(a,b){var c=this;if(!b)throw new Error("popup mode should receive a mandatory callback");var d=[this._getMode(a),a,{client_id:this._clientID,owp:!0}];this._sendClientInfo&&d.push({auth0Client:this._getClientInfoString()});var f=this._buildAuthorizeQueryString(d),g=h("https:",this._domain,"/authorize?"+f),i=this._computePopupPosition(a.popupOptions),j=t(i,a.popupOptions),k=w.open({url:g,relay_url:"https://"+this._domain+"/relay.html",window_features:e(j)},function(a,d){return c._current_popup=null,a?b(new B(a),null,null,null,null,null):d?d.access_token||d.id_token?b(null,c._prepareResult(d)):d.err?b(new B(d.err.status,d.err.details||d.err),null,null,null,null,null):d.error?b(new B(d.status,d.details||d),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null)});k.focus()},i.prototype._shouldAuthenticateWithCordovaPlugin=function(a){var b=this._cordovaSocialPlugins[a];return this._useCordovaSocialPlugins&&!!b},i.prototype._socialPhonegapLogin=function(a,b){var c=this._cordovaSocialPlugins[a.connection],d=this;c(a.connection_scope,function(c,e,f){if(c)return void b(c,null,null,null,null);var g=t({access_token:e},a,f);d.loginWithSocialAccessToken(g,b)})},i.prototype._phonegapFacebookLogin=function(a,b){if(!window.facebookConnectPlugin||!window.facebookConnectPlugin.login)return void b(new Error("missing plugin phonegap-facebook-plugin"),null,null);var c;c=a&&q(a)?a:a?[a]:["public_profile"],window.facebookConnectPlugin.login(c,function(a){b(null,a.authResponse.accessToken,{})},function(a){b(new Error(a),null,null)})},i.prototype.loginWithUsernamePasswordAndSSO=function(a,b){var c=this,d=this._computePopupPosition(a.popupOptions),f=t(d,a.popupOptions),g={url:"https://"+this._domain+"/sso_dbconnection_popup/"+this._clientID,relay_url:"https://"+this._domain+"/relay.html",window_features:e(f),popup:this._current_popup,params:{domain:this._domain,clientID:this._clientID,options:{username:u(a.username||a.email||""),password:a.password,connection:a.connection,state:a.state,scope:a.scope}}};a._csrf&&(g.params.options._csrf=a._csrf),a.device&&(g.params.options.device=a.device);var h=w.open(g,function(a,d){return c._current_popup=null,a?b(new B(a),null,null,null,null,null):d?d.id_token?b(null,c._prepareResult(d)):d.err?b(new B(d.err.status,d.err.details||d.err),null,null,null,null,null):d.error?b(new B(d.status,d.details||d),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null):b(new B("Something went wrong"),null,null,null,null,null)});h.focus()},i.prototype.loginWithResourceOwner=function(a,b){var c=this,d=t(this._getMode(a),a,{client_id:this._clientID,username:u(a.username||a.email||""),grant_type:"password"});this._configureOfflineMode(d);var e="https:",f=this._domain,i="/oauth/ro",j=h(e,f,i);return this._sendClientInfo&&this._useJSONP&&(d.auth0Client=this._getClientInfoString()),this._useJSONP?x(j+"?"+s.stringify(d),y,function(a,d){if(a)return b(a);if("error"in d){var e=new B(d.status,d.error);return b(e)}b(null,c._prepareResult(d))}):void v({url:z(e,f)?i:j,method:"post",type:"json",data:d,headers:this._getClientInfoHeader(),crossOrigin:!z(e,f),success:function(a){b(null,c._prepareResult(a))},error:function(a){g(a,b)}})},i.prototype.loginWithSocialAccessToken=function(a,b){var c=this,d=this._buildAuthorizationParameters([{scope:"openid"},a,{client_id:this._clientID}]),e="https:",f=this._domain,i="/oauth/access_token",j=h(e,f,i);return this._useJSONP?x(j+"?"+s.stringify(d),y,function(a,d){if(a)return b(a);if("error"in d){var e=new B(d.status,d.error);return b(e)}b(null,c._prepareResult(d))}):void v({url:z(e,f)?i:j,method:"post",type:"json",data:d,headers:this._getClientInfoHeader(),crossOrigin:!z(e,f),success:function(a){b(null,c._prepareResult(a))},error:function(a){g(a,b)}})},i.prototype._buildPopupWindow=function(a,b){if(this._current_popup&&!this._current_popup.closed)return this._current_popup;b=b||"about:blank";var c=this,d={width:500,height:600},f=t(d,a.popupOptions||{}),g=e(f);if(this._current_popup=window.open(b,"auth0_signup_popup",g),!this._current_popup)throw new Error("Popup window cannot not been created. Disable popup blocker or make sure to call Auth0 login or singup on an UI event.");return this._current_popup.kill=function(){this.close(),c._current_popup=null},this._current_popup},i.prototype.loginWithUsernamePassword=function(a,b){function c(a){if(b)return b(a);throw a}if(b&&b.length>1&&(!a.sso||window.cordova))return this.loginWithResourceOwner(a,b);var d,e=this;if(a.popup&&!this._getCallbackOnLocationHash(a)&&(d=this._buildPopupWindow(a)),b&&b.length>1&&a.sso)return this.loginWithUsernamePasswordAndSSO(a,b);var f=t(this._getMode(a),a,{client_id:this._clientID,redirect_uri:this._getCallbackURL(a),username:u(a.username||a.email||""),tenant:this._domain.split(".")[0]});this._configureOfflineMode(f);var i="https:",j=this._domain,k="/usernamepassword/login",l=h(i,j,k);return this._useJSONP?x(l+"?"+s.stringify(f),y,function(c,f){if(c)return d&&d.kill&&d.kill(),b(c);if("error"in f){d&&d.kill&&d.kill();var g=new B(f.status,f.error);return b(g)}e._renderAndSubmitWSFedForm(a,f.form)}):void v({url:z(i,j)?k:l,method:"post",type:"html",data:f,headers:this._getClientInfoHeader(),crossOrigin:!z(i,j),success:function(b){e._renderAndSubmitWSFedForm(a,b)},error:function(a){d&&d.kill&&d.kill(),g(a,c)}})},i.prototype.loginWithPasscode=function(a,b){if(null==a.email&&null==a.phoneNumber)throw new Error("email or phoneNumber is required for authentication");if(null==a.passcode)throw new Error("passcode is required for authentication");if(a.connection=null==a.email?"sms":"email",!this._shouldRedirect)return a=t(a,{username:null==a.email?a.phoneNumber:a.email,password:a.passcode,sso:!1}),delete a.email,delete a.phoneNumber,delete a.passcode,this.loginWithResourceOwner(a,b);var c={connection:a.connection};a.phoneNumber&&(a.phone_number=a.phoneNumber,delete a.phoneNumber,c.phone_number=a.phone_number),a.email&&(c.email=a.email),a.verification_code=a.passcode,delete a.passcode,c.verification_code=a.verification_code;var d=this;this._verify(c,function(c){return c?b(c):void d._verify_redirect(a)})},i.prototype._verify=function(a,b){var c="https:",d=this._domain,e="/passwordless/verify",f=h(c,d,e),g=a;return this._useJSONP?(this._sendClientInfo&&(g.auth0Client=this._getClientInfoString()),x(f+"?"+s.stringify(g),y,function(a,c){return a?b(new Error("0: "+a.toString())):200===c.status?b(null,!0):b({status:c.status})})):v({url:z(c,d)?e:f,method:"post",headers:this._getClientInfoHeader(),crossOrigin:!z(c,d),data:g}).fail(function(a){try{b(JSON.parse(a.responseText))}catch(c){var d=new Error(a.status+"("+a.statusText+"): "+a.responseText);d.statusCode=a.status,d.error=a.statusText,d.message=a.responseText,b(d)}}).then(function(a){b(null,a)})},i.prototype._verify_redirect=function(a){var b=[this._getMode(a),a,{client_id:this._clientID,redirect_uri:this._getCallbackURL(a)}],c=this._buildAuthorizeQueryString(b),d=h("https:",this._domain,"/passwordless/verify_redirect?"+c);this._redirect(d)},i.prototype.renewIdToken=function(a,b){this.getDelegationToken({id_token:a,scope:"passthrough",api:"auth0"},b)},i.prototype.refreshToken=function(a,b){this.getDelegationToken({refresh_token:a,scope:"passthrough",api:"auth0"},b)},i.prototype.getDelegationToken=function(a,b){if(a=a||{},!a.id_token&&!a.refresh_token)throw new Error("You must send either an id_token or a refresh_token to get a delegation token.");var c=t({grant_type:"urn:ietf:params:oauth:grant-type:jwt-bearer",client_id:this._clientID,target:a.targetClientId||this._clientID,api_type:a.api},a);delete c.hasOwnProperty,delete c.targetClientId,delete c.api;var e="https:",f=this._domain,g="/delegation",i=h(e,f,g);return this._useJSONP?x(i+"?"+s.stringify(c),y,function(a,c){if(a)return b(a);if("error"in c){var d=new B(c.status,c.error_description||c.error);return b(d)}b(null,c)}):void v({url:z(e,f)?g:i,method:"post",type:"json",data:c,crossOrigin:!z(e,f),success:function(a){b(null,a)},error:function(a){try{b(JSON.parse(a.responseText))}catch(c){var e=a,f=10===d()||11===d(),g=!e.status||0===e.status;g&&!window.navigator.onLine?(e={},e.status=0,e.responseText={code:"offline"}):g&&f?(e={},e.status=401,e.responseText={code:"invalid_operation"}):g?(e={},e.status=0,e.responseText={code:"connection_refused_timeout"}):e.responseText=a,b(new B(e.status,e.responseText))}}})},i.prototype.silentAuthentication=function(a,b){var c=a.usePostMessage||!1;delete a.usePostMessage,a=t(a,{prompt:"none"});var d=new D(this,this._buildAuthorizeUrl(a));d.login(b,c)},i.prototype.logout=function(a,b){var c="/logout";b=b||{},"v2"==b.version&&(c="/v2"+c);var d=h("https:",this._domain,c);a&&(d+="?"+s.stringify(a)),this._redirect(d)},i.prototype.getSSOData=function(a,b){"function"==typeof a&&(b=a,a=!1);var c={sso:!1};if(this._useJSONP){var d=new Error("The SSO data can't be obtained using JSONP");return void setTimeout(function(){b(d,c)},0)}var e="https:",f=this._domain,g="/user/ssodata",i=h(e,f,g),j=z(e,f),k={};return a&&(k={ldaps:1,client_id:this._clientID}),v({url:j?g:i,method:"get",type:"json",data:k,crossOrigin:!j,withCredentials:!j,timeout:3e3}).fail(function(a){var d=new Error("There was an error in the request that obtains the user's SSO data.");d.cause=a,b(d,c)}).then(function(a){b(null,a)})},i.prototype.getConnections=function(a){return x("https://"+this._domain+"/public/api/"+this._clientID+"/connections",y,a)},i.prototype.startPasswordless=function(a,b){if("object"!=typeof a)throw new Error("An options object is required");if("function"!=typeof b)throw new Error("A callback function is required");if(!a.email&&!a.phoneNumber)throw new Error("An `email` or a `phoneNumber` is required.");var c="https:",d=this._domain,e="/passwordless/start",f=h(c,d,e),g={client_id:this._clientID};return a.email?(g.email=a.email,g.connection="email",a.authParams&&(g.authParams=a.authParams),a.send&&"link"!==a.send||(g.authParams||(g.authParams={}),g.authParams.redirect_uri=a.callbackURL||this._callbackURL,g.authParams.response_type=this._getResponseType(a)),a.send&&(g.send=a.send)):(g.phone_number=a.phoneNumber,g.connection="sms"),this._useJSONP?(this._sendClientInfo&&(g.auth0Client=this._getClientInfoString()),x(f+"?"+s.stringify(g),y,function(a,c){return a?b(new Error("0: "+a.toString())):200===c.status?b(null,!0):b(c.err||c.error)})):v({url:z(c,d)?e:f,method:"post",type:"json",headers:this._getClientInfoHeader(),crossOrigin:!z(c,d),data:g}).fail(function(a){try{b(JSON.parse(a.responseText))}catch(c){var d=new Error(a.status+"("+a.statusText+"): "+a.responseText);d.statusCode=a.status,d.error=a.statusText,d.message=a.responseText,b(d)}}).then(function(a){b(null,a)})},i.prototype.requestMagicLink=function(a,b){return this.startPasswordless(a,b)},i.prototype.requestEmailCode=function(a,b){return a.send="code",this.startPasswordless(a,b)},i.prototype.verifyEmailCode=function(a,b){return a.passcode=a.code,delete a.code,this.login(a,b)},i.prototype.requestSMSCode=function(a,b){return this.startPasswordless(a,b)},i.prototype.verifySMSCode=function(a,b){return a.passcode=a.code,delete a.code,this.login(a,b)},i.prototype.getUserCountry=function(a){var b="https:",c=this._domain,d="/user/geoloc/country",e=h(b,c,d);if(this._useJSONP){var f=new Error("The user's country can't be obtained using JSONP");return void setTimeout(function(){a(f)},0)}v({url:z(b,c)?d:e,method:"get",type:"json",headers:this._getClientInfoHeader(),crossOrigin:!z(b,c),success:function(b){a(null,b.country_code)},error:function(b){var c=new Error("There was an error in the request that obtains the user's country");c.cause=b,a(c)}})},i.prototype._prepareResult=function(a){if(a&&"object"==typeof a){var b=a.id_token?this.decodeJwt(a.id_token):void 0;return{accessToken:a.access_token,idToken:a.id_token,idTokenPayload:a.profile||b,refreshToken:a.refresh_token,state:a.state}}},i.prototype._parseResponseType=function(a,b){a||(a={}),b&&!this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&(this._providedCallbackOnLocationHash=!0),b&&!this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseType")&&(this._providedResponseOptions=!0),!this._providedCallbackOnLocationHash&&!this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&a.hasOwnProperty("responseType")&&m("The responseType option will be ignored. Both callbackOnLocationHash and responseType options were provided and they can't be used together."),this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseType")&&m("The responseType option will be ignored. The callbackOnLocationHash option was provided to the constructor and they can't be mixed."),this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&m("The callbackOnLocationHash option will be ignored. The responseType option was provided to the constructor and they can't be mixed."),this._providedCallbackOnLocationHash||a.hasOwnProperty("callbackOnLocationHash")||!a.responseType||k(a.responseType)||m('The responseType option will be ignored. Its valid values are "code", "id_token", "token" or any combination of them.');var c=void 0;return this._providedResponseOptions||null==a.callbackOnLocationHash||(c=j(a.callbackOnLocationHash)),!this._providedCallbackOnLocationHash&&!a.hasOwnProperty("callbackOnLocationHash")&&a.responseType&&k(a.responseType)&&(c=a.responseType),c},i.prototype._parseResponseMode=function(a,b){a||(a={}),b&&!this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseMode")&&(this._providedResponseOptions=!0),this._providedCallbackOnLocationHash&&a.hasOwnProperty("responseMode")&&m("The responseMode option will be ignored. The callbackOnLocationHash option was provided to the constructor and they can't be mixed."),!this._providedCallbackOnLocationHash&&!this._providedResponseOptions&&a.hasOwnProperty("callbackOnLocationHash")&&a.hasOwnProperty("responseMode")&&m("The responseMode option will be ignored. Both callbackOnLocationHash and responseMode options were provided and they can't be used together.");var c=void 0;return this._providedCallbackOnLocationHash||!a.responseMode||l(a.responseMode)||m('The responseMode option will be ignored. Its only valid value is "form_post".'),!this._providedCallbackOnLocationHash&&l(a.responseMode)&&(c=a.responseMode),c},b.exports=i},{"./lib/LoginError":3,"./lib/SilentAuthenticationHandler":4,"./lib/assert_required":5,"./lib/base64_url":6,"./lib/index-of":7,"./lib/is-array":8,"./lib/json-parse":9,"./lib/same-origin":10,"./lib/use_jsonp":11,"./version":34,jsonp:15,qs:20,reqwest:24,trim:25,winchan:26,xtend:28}],2:[function(a,b,c){var d=function(a){this.auth0=a.auth0,this.url=a.url,this.callback=a.callback,this.timeout=a.timeout||6e4,this.timeoutCallback=a.timeoutCallback||null,this.usePostMessage=a.usePostMessage||!1,this.iframe=null,this.timeoutHandle=null,this._destroyTimeout=null,this.transientMessageEventListener=null,this.transientEventListener=null};d.prototype.init=function(a){this.iframe=document.createElement("iframe"),this.iframe.style.display="none",this.iframe.src=this.url;var b=this;this.usePostMessage?(this.transientMessageEventListener=function(a){b.messageEventListener(a)},window.addEventListener("message",this.transientMessageEventListener,!1)):(this.transientEventListener=function(){b.loadEventListener()},this.iframe.addEventListener("load",this.transientEventListener,!1)),document.body.appendChild(this.iframe),this.timeoutHandle=setTimeout(function(){b.timeoutHandler()},this.timeout)},d.prototype.messageEventListener=function(a){this.callbackHandler(a.data),this.destroy()},d.prototype.loadEventListener=function(){var a=this.auth0.parseHash(this.iframe.contentWindow.location.hash);a&&(this.callbackHandler(a),this.destroy())},d.prototype.callbackHandler=function(a){var b=null;a.error&&(b=a,a=null),this.callback(b,a)},d.prototype.timeoutHandler=function(){this.timeoutCallback&&this.timeoutCallback(),this.destroy()},d.prototype.destroy=function(){var a=this;this.timeoutHandle&&clearTimeout(this.timeoutHandle),this._destroyTimeout=setTimeout(function(){a.usePostMessage?window.removeEventListener("message",a.transientMessageEventListener,!1):a.iframe.removeEventListener("load",a.transientEventListener,!1),document.body.removeChild(a.iframe)},0)},b.exports=d},{}],3:[function(a,b,c){function d(a,b){var c;if("string"==typeof b)try{c=e(b)}catch(d){c={message:b}}else c=b||{description:"server error"};c.code||(c.code=c.error),"unauthorized"===c.code&&(a=401);var f=c.description||c.message||c.error;"PasswordStrengthError"===c.name&&(f="Password is not strong enough.");var g=Error.call(this,f);return g.status=a,g.name=c.code,g.code=c.code,g.details=c,0===a&&(g.code&&"offline"===g.code||(g.code="Unknown",g.message="Unknown error.")),g}var e=a("./json-parse");b.exports=d,Object&&Object.create&&(d.prototype=Object.create(Error.prototype,{constructor:{value:d}}))},{"./json-parse":9}],4:[function(a,b,c){var d=a("./IframeHandler"),e=function(a,b,c){this.auth0=a,this.authenticationUrl=b,this.timeout=c||6e4,this.handler=null};e.prototype.timeoutCallback=function(){console.error("Timeout during silent authentication.")},e.prototype.login=function(a,b){this.handler=new d({auth0:this.auth0,url:this.authenticationUrl,callback:a,timeout:this.timeout,timeoutCallback:this.timeoutCallback,usePostMessage:b||!1}),this.handler.init()},b.exports=e},{"./IframeHandler":2}],5:[function(a,b,c){function d(a,b){if(!a[b])throw new Error(b+" is required.")}b.exports=d},{}],6:[function(a,b,c){function d(a){return f.btoa(a).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}function e(a){return a+=Array(5-a.length%4).join("="),a=a.replace(/\-/g,"+").replace(/\_/g,"/"),f.atob(a)}var f=a("Base64");b.exports={encode:d,decode:e}},{Base64:12}],7:[function(a,b,c){function d(a,b,c){return a.indexOf(b,c)}function e(a,b,c){var d;if(null==a)throw new TypeError('"array" is null or not defined');var e=Object(a),f=e.length>>>0;if(0===f)return-1;var g=+c||0;if(Math.abs(g)===1/0&&(g=0),g>=f)return-1;for(d=Math.max(g>=0?g:f-Math.abs(g),0);f>d;){if(d in e&&e[d]===b)return d;d++}return-1}b.exports=Array.prototype.indexOf?d:e},{}],8:[function(a,b,c){function d(a){return"[object Array]"===e.call(a)}var e=Object.prototype.toString;b.exports=null!=Array.isArray?Array.isArray:d},{}],9:[function(a,b,c){b.exports="undefined"==typeof JSON?a("json-fallback").parse:JSON.parse},{"json-fallback":14}],10:[function(a,b,c){function d(a,b,c){var d=window.location.protocol,e=window.location.hostname,f=window.location.port;return c=c||"",d===a&&e===b&&f===c}b.exports=d},{}],11:[function(a,b,c){function d(){var a=window.XMLHttpRequest?new XMLHttpRequest:null;return a&&"withCredentials"in a?!1:!0}b.exports=d},{}],12:[function(a,b,c){!function(){var a="undefined"!=typeof c?c:this,b="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",d=function(){try{document.createElement("$")}catch(a){return a}}();a.btoa||(a.btoa=function(a){for(var c,e,f=0,g=b,h="";a.charAt(0|f)||(g="=",f%1);h+=g.charAt(63&c>>8-f%1*8)){if(e=a.charCodeAt(f+=.75),e>255)throw d;c=c<<8|e}return h}),a.atob||(a.atob=function(a){if(a=a.replace(/=+$/,""),a.length%4==1)throw d;for(var c,e,f=0,g=0,h="";e=a.charAt(g++);~e&&(c=f%4?64*c+e:e,f++%4)?h+=String.fromCharCode(255&c>>(-2*f&6)):0)e=b.indexOf(e);return h})}()},{}],13:[function(a,b,c){},{}],14:[function(require,module,exports){var JSON={};!function(){"use strict";function f(a){return 10>a?"0"+a:a}function quote(a){return escapable.lastIndex=0,escapable.test(a)?'"'+a.replace(escapable,function(a){var b=meta[a];return"string"==typeof b?b:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function str(a,b){var c,d,e,f,g,h=gap,i=b[a];switch(i&&"object"==typeof i&&"function"==typeof i.toJSON&&(i=i.toJSON(a)),"function"==typeof rep&&(i=rep.call(b,a,i)),typeof i){case"string":return quote(i);case"number":return isFinite(i)?String(i):"null";case"boolean":case"null":return String(i);case"object":if(!i)return"null";if(gap+=indent,g=[],"[object Array]"===Object.prototype.toString.apply(i)){for(f=i.length,c=0;f>c;c+=1)g[c]=str(c,i)||"null";return e=0===g.length?"[]":gap?"[\n"+gap+g.join(",\n"+gap)+"\n"+h+"]":"["+g.join(",")+"]",gap=h,e}if(rep&&"object"==typeof rep)for(f=rep.length,c=0;f>c;c+=1)"string"==typeof rep[c]&&(d=rep[c],e=str(d,i),e&&g.push(quote(d)+(gap?": ":":")+e));else for(d in i)Object.prototype.hasOwnProperty.call(i,d)&&(e=str(d,i),e&&g.push(quote(d)+(gap?": ":":")+e));return e=0===g.length?"{}":gap?"{\n"+gap+g.join(",\n"+gap)+"\n"+h+"}":"{"+g.join(",")+"}",gap=h,e}}"function"!=typeof Date.prototype.toJSON&&(Date.prototype.toJSON=function(a){
+return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(a){return this.valueOf()});var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={"\b":"\\b","	":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},rep;"function"!=typeof JSON.stringify&&(JSON.stringify=function(a,b,c){var d;if(gap="",indent="","number"==typeof c)for(d=0;c>d;d+=1)indent+=" ";else"string"==typeof c&&(indent=c);if(rep=b,b&&"function"!=typeof b&&("object"!=typeof b||"number"!=typeof b.length))throw new Error("JSON.stringify");return str("",{"":a})}),"function"!=typeof JSON.parse&&(JSON.parse=function(text,reviver){function walk(a,b){var c,d,e=a[b];if(e&&"object"==typeof e)for(c in e)Object.prototype.hasOwnProperty.call(e,c)&&(d=walk(e,c),void 0!==d?e[c]=d:delete e[c]);return reviver.call(a,b,e)}var j;if(text=String(text),cx.lastIndex=0,cx.test(text)&&(text=text.replace(cx,function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})),/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,"")))return j=eval("("+text+")"),"function"==typeof reviver?walk({"":j},""):j;throw new SyntaxError("JSON.parse")})}(),module.exports=JSON},{}],15:[function(a,b,c){function d(){}function e(a,b,c){function e(){h.parentNode.removeChild(h),window[o]=d}"function"==typeof b&&(c=b,b={}),b||(b={});var h,i,j=b.prefix||"__jp",k=b.param||"callback",l=null!=b.timeout?b.timeout:6e4,m=encodeURIComponent,n=document.getElementsByTagName("script")[0]||document.head,o=j+g++;l&&(i=setTimeout(function(){e(),c&&c(new Error("Timeout"))},l)),window[o]=function(a){f("jsonp got",a),i&&clearTimeout(i),e(),c&&c(null,a)},a+=(~a.indexOf("?")?"&":"?")+k+"="+m(o),a=a.replace("?&","?"),f('jsonp req "%s"',a),h=document.createElement("script"),h.src=a,n.parentNode.insertBefore(h,n)}var f=a("debug")("jsonp");b.exports=e;var g=0},{debug:16}],16:[function(a,b,c){function d(){return"WebkitAppearance"in document.documentElement.style||window.console&&(console.firebug||console.exception&&console.table)||navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/)&&parseInt(RegExp.$1,10)>=31}function e(){var a=arguments,b=this.useColors;if(a[0]=(b?"%c":"")+this.namespace+(b?" %c":" ")+a[0]+(b?"%c ":" ")+"+"+c.humanize(this.diff),!b)return a;var d="color: "+this.color;a=[a[0],d,"color: inherit"].concat(Array.prototype.slice.call(a,1));var e=0,f=0;return a[0].replace(/%[a-z%]/g,function(a){"%%"!==a&&(e++,"%c"===a&&(f=e))}),a.splice(f,0,d),a}function f(){return"object"==typeof console&&console.log&&Function.prototype.apply.call(console.log,console,arguments)}function g(a){try{null==a?c.storage.removeItem("debug"):c.storage.debug=a}catch(b){}}function h(){var a;try{a=c.storage.debug}catch(b){}return a}function i(){try{return window.localStorage}catch(a){}}c=b.exports=a("./debug"),c.log=f,c.formatArgs=e,c.save=g,c.load=h,c.useColors=d,c.storage="undefined"!=typeof chrome&&"undefined"!=typeof chrome.storage?chrome.storage.local:i(),c.colors=["lightseagreen","forestgreen","goldenrod","dodgerblue","darkorchid","crimson"],c.formatters.j=function(a){return JSON.stringify(a)},c.enable(h())},{"./debug":17}],17:[function(a,b,c){function d(){return c.colors[k++%c.colors.length]}function e(a){function b(){}function e(){var a=e,b=+new Date,f=b-(j||b);a.diff=f,a.prev=j,a.curr=b,j=b,null==a.useColors&&(a.useColors=c.useColors()),null==a.color&&a.useColors&&(a.color=d());var g=Array.prototype.slice.call(arguments);g[0]=c.coerce(g[0]),"string"!=typeof g[0]&&(g=["%o"].concat(g));var h=0;g[0]=g[0].replace(/%([a-z%])/g,function(b,d){if("%%"===b)return b;h++;var e=c.formatters[d];if("function"==typeof e){var f=g[h];b=e.call(a,f),g.splice(h,1),h--}return b}),"function"==typeof c.formatArgs&&(g=c.formatArgs.apply(a,g));var i=e.log||c.log||console.log.bind(console);i.apply(a,g)}b.enabled=!1,e.enabled=!0;var f=c.enabled(a)?e:b;return f.namespace=a,f}function f(a){c.save(a);for(var b=(a||"").split(/[\s,]+/),d=b.length,e=0;d>e;e++)b[e]&&(a=b[e].replace(/\*/g,".*?"),"-"===a[0]?c.skips.push(new RegExp("^"+a.substr(1)+"$")):c.names.push(new RegExp("^"+a+"$")))}function g(){c.enable("")}function h(a){var b,d;for(b=0,d=c.skips.length;d>b;b++)if(c.skips[b].test(a))return!1;for(b=0,d=c.names.length;d>b;b++)if(c.names[b].test(a))return!0;return!1}function i(a){return a instanceof Error?a.stack||a.message:a}c=b.exports=e,c.coerce=i,c.disable=g,c.enable=f,c.enabled=h,c.humanize=a("ms"),c.names=[],c.skips=[],c.formatters={};var j,k=0},{ms:18}],18:[function(a,b,c){function d(a){if(a=""+a,!(a.length>1e4)){var b=/^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(a);if(b){var c=parseFloat(b[1]),d=(b[2]||"ms").toLowerCase();switch(d){case"years":case"year":case"yrs":case"yr":case"y":return c*l;case"days":case"day":case"d":return c*k;case"hours":case"hour":case"hrs":case"hr":case"h":return c*j;case"minutes":case"minute":case"mins":case"min":case"m":return c*i;case"seconds":case"second":case"secs":case"sec":case"s":return c*h;case"milliseconds":case"millisecond":case"msecs":case"msec":case"ms":return c}}}}function e(a){return a>=k?Math.round(a/k)+"d":a>=j?Math.round(a/j)+"h":a>=i?Math.round(a/i)+"m":a>=h?Math.round(a/h)+"s":a+"ms"}function f(a){return g(a,k,"day")||g(a,j,"hour")||g(a,i,"minute")||g(a,h,"second")||a+" ms"}function g(a,b,c){return b>a?void 0:1.5*b>a?Math.floor(a/b)+" "+c:Math.ceil(a/b)+" "+c+"s"}var h=1e3,i=60*h,j=60*i,k=24*j,l=365.25*k;b.exports=function(a,b){return b=b||{},"string"==typeof a?d(a):b["long"]?f(a):e(a)}},{}],19:[function(a,b,c){"use strict";var d=String.prototype.replace,e=/%20/g;b.exports={"default":"RFC3986",formatters:{RFC1738:function(a){return d.call(a,e,"+")},RFC3986:function(a){return a}},RFC1738:"RFC1738",RFC3986:"RFC3986"}},{}],20:[function(a,b,c){"use strict";var d=a("./stringify"),e=a("./parse"),f=a("./formats");b.exports={formats:f,parse:e,stringify:d}},{"./formats":19,"./parse":21,"./stringify":22}],21:[function(a,b,c){"use strict";var d=a("./utils"),e=Object.prototype.hasOwnProperty,f={allowDots:!1,allowPrototypes:!1,arrayLimit:20,decoder:d.decode,delimiter:"&",depth:5,parameterLimit:1e3,plainObjects:!1,strictNullHandling:!1},g=function(a,b){for(var c={},d=a.split(b.delimiter,b.parameterLimit===1/0?void 0:b.parameterLimit),f=0;f<d.length;++f){var g,h,i=d[f],j=-1===i.indexOf("]=")?i.indexOf("="):i.indexOf("]=")+1;-1===j?(g=b.decoder(i),h=b.strictNullHandling?null:""):(g=b.decoder(i.slice(0,j)),h=b.decoder(i.slice(j+1))),e.call(c,g)?c[g]=[].concat(c[g]).concat(h):c[g]=h}return c},h=function j(a,b,c){if(!a.length)return b;var d,e=a.shift();if("[]"===e)d=[],d=d.concat(j(a,b,c));else{d=c.plainObjects?Object.create(null):{};var f="["===e[0]&&"]"===e[e.length-1]?e.slice(1,e.length-1):e,g=parseInt(f,10);!isNaN(g)&&e!==f&&String(g)===f&&g>=0&&c.parseArrays&&g<=c.arrayLimit?(d=[],d[g]=j(a,b,c)):d[f]=j(a,b,c)}return d},i=function(a,b,c){if(a){var d=c.allowDots?a.replace(/\.([^\.\[]+)/g,"[$1]"):a,f=/^([^\[\]]*)/,g=/(\[[^\[\]]*\])/g,i=f.exec(d),j=[];if(i[1]){if(!c.plainObjects&&e.call(Object.prototype,i[1])&&!c.allowPrototypes)return;j.push(i[1])}for(var k=0;null!==(i=g.exec(d))&&k<c.depth;)k+=1,(c.plainObjects||!e.call(Object.prototype,i[1].replace(/\[|\]/g,""))||c.allowPrototypes)&&j.push(i[1]);return i&&j.push("["+d.slice(i.index)+"]"),h(j,b,c)}};b.exports=function(a,b){var c=b||{};if(null!==c.decoder&&void 0!==c.decoder&&"function"!=typeof c.decoder)throw new TypeError("Decoder has to be a function.");if(c.delimiter="string"==typeof c.delimiter||d.isRegExp(c.delimiter)?c.delimiter:f.delimiter,c.depth="number"==typeof c.depth?c.depth:f.depth,c.arrayLimit="number"==typeof c.arrayLimit?c.arrayLimit:f.arrayLimit,c.parseArrays=c.parseArrays!==!1,c.decoder="function"==typeof c.decoder?c.decoder:f.decoder,c.allowDots="boolean"==typeof c.allowDots?c.allowDots:f.allowDots,c.plainObjects="boolean"==typeof c.plainObjects?c.plainObjects:f.plainObjects,c.allowPrototypes="boolean"==typeof c.allowPrototypes?c.allowPrototypes:f.allowPrototypes,c.parameterLimit="number"==typeof c.parameterLimit?c.parameterLimit:f.parameterLimit,c.strictNullHandling="boolean"==typeof c.strictNullHandling?c.strictNullHandling:f.strictNullHandling,""===a||null===a||"undefined"==typeof a)return c.plainObjects?Object.create(null):{};for(var e="string"==typeof a?g(a,c):a,h=c.plainObjects?Object.create(null):{},j=Object.keys(e),k=0;k<j.length;++k){var l=j[k],m=i(l,e[l],c);h=d.merge(h,m,c)}return d.compact(h)}},{"./utils":23}],22:[function(a,b,c){"use strict";var d=a("./utils"),e=a("./formats"),f={brackets:function(a){return a+"[]"},indices:function(a,b){return a+"["+b+"]"},repeat:function(a){return a}},g=Date.prototype.toISOString,h={delimiter:"&",encode:!0,encoder:d.encode,serializeDate:function(a){return g.call(a)},skipNulls:!1,strictNullHandling:!1},i=function j(a,b,c,e,f,g,h,i,k,l,m){var n=a;if("function"==typeof h)n=h(b,n);else if(n instanceof Date)n=l(n);else if(null===n){if(e)return g?g(b):b;n=""}if("string"==typeof n||"number"==typeof n||"boolean"==typeof n||d.isBuffer(n))return g?[m(g(b))+"="+m(g(n))]:[m(b)+"="+m(String(n))];var o=[];if("undefined"==typeof n)return o;var p;if(Array.isArray(h))p=h;else{var q=Object.keys(n);p=i?q.sort(i):q}for(var r=0;r<p.length;++r){var s=p[r];f&&null===n[s]||(o=Array.isArray(n)?o.concat(j(n[s],c(b,s),c,e,f,g,h,i,k,l,m)):o.concat(j(n[s],b+(k?"."+s:"["+s+"]"),c,e,f,g,h,i,k,l,m)))}return o};b.exports=function(a,b){var c=a,d=b||{},g="undefined"==typeof d.delimiter?h.delimiter:d.delimiter,j="boolean"==typeof d.strictNullHandling?d.strictNullHandling:h.strictNullHandling,k="boolean"==typeof d.skipNulls?d.skipNulls:h.skipNulls,l="boolean"==typeof d.encode?d.encode:h.encode,m=l?"function"==typeof d.encoder?d.encoder:h.encoder:null,n="function"==typeof d.sort?d.sort:null,o="undefined"==typeof d.allowDots?!1:d.allowDots,p="function"==typeof d.serializeDate?d.serializeDate:h.serializeDate;if("undefined"==typeof d.format)d.format=e["default"];else if(!Object.prototype.hasOwnProperty.call(e.formatters,d.format))throw new TypeError("Unknown format option provided.");var q,r,s=e.formatters[d.format];if(null!==d.encoder&&void 0!==d.encoder&&"function"!=typeof d.encoder)throw new TypeError("Encoder has to be a function.");"function"==typeof d.filter?(r=d.filter,c=r("",c)):Array.isArray(d.filter)&&(r=d.filter,q=r);var t=[];if("object"!=typeof c||null===c)return"";var u;u=d.arrayFormat in f?d.arrayFormat:"indices"in d?d.indices?"indices":"repeat":"indices";var v=f[u];q||(q=Object.keys(c)),n&&q.sort(n);for(var w=0;w<q.length;++w){var x=q[w];k&&null===c[x]||(t=t.concat(i(c[x],x,v,j,k,m,r,n,o,p,s)))}return t.join(g)}},{"./formats":19,"./utils":23}],23:[function(a,b,c){"use strict";var d=Object.prototype.hasOwnProperty,e=function(){for(var a=[],b=0;256>b;++b)a.push("%"+((16>b?"0":"")+b.toString(16)).toUpperCase());return a}();c.arrayToObject=function(a,b){for(var c=b&&b.plainObjects?Object.create(null):{},d=0;d<a.length;++d)"undefined"!=typeof a[d]&&(c[d]=a[d]);return c},c.merge=function(a,b,e){if(!b)return a;if("object"!=typeof b){if(Array.isArray(a))a.push(b);else{if("object"!=typeof a)return[a,b];a[b]=!0}return a}if("object"!=typeof a)return[a].concat(b);var f=a;return Array.isArray(a)&&!Array.isArray(b)&&(f=c.arrayToObject(a,e)),Array.isArray(a)&&Array.isArray(b)?(b.forEach(function(b,f){d.call(a,f)?a[f]&&"object"==typeof a[f]?a[f]=c.merge(a[f],b,e):a.push(b):a[f]=b}),a):Object.keys(b).reduce(function(a,d){var f=b[d];return Object.prototype.hasOwnProperty.call(a,d)?a[d]=c.merge(a[d],f,e):a[d]=f,a},f)},c.decode=function(a){try{return decodeURIComponent(a.replace(/\+/g," "))}catch(b){return a}},c.encode=function(a){if(0===a.length)return a;for(var b="string"==typeof a?a:String(a),c="",d=0;d<b.length;++d){var f=b.charCodeAt(d);45===f||46===f||95===f||126===f||f>=48&&57>=f||f>=65&&90>=f||f>=97&&122>=f?c+=b.charAt(d):128>f?c+=e[f]:2048>f?c+=e[192|f>>6]+e[128|63&f]:55296>f||f>=57344?c+=e[224|f>>12]+e[128|f>>6&63]+e[128|63&f]:(d+=1,f=65536+((1023&f)<<10|1023&b.charCodeAt(d)),c+=e[240|f>>18]+e[128|f>>12&63]+e[128|f>>6&63]+e[128|63&f])}return c},c.compact=function(a,b){if("object"!=typeof a||null===a)return a;var d=b||[],e=d.indexOf(a);if(-1!==e)return d[e];if(d.push(a),Array.isArray(a)){for(var f=[],g=0;g<a.length;++g)a[g]&&"object"==typeof a[g]?f.push(c.compact(a[g],d)):"undefined"!=typeof a[g]&&f.push(a[g]);return f}var h=Object.keys(a);return h.forEach(function(b){a[b]=c.compact(a[b],d)}),a},c.isRegExp=function(a){return"[object RegExp]"===Object.prototype.toString.call(a)},c.isBuffer=function(a){return null===a||"undefined"==typeof a?!1:!!(a.constructor&&a.constructor.isBuffer&&a.constructor.isBuffer(a))}},{}],24:[function(require,module,exports){!function(a,b,c){"undefined"!=typeof module&&module.exports?module.exports=c():"function"==typeof define&&define.amd?define(c):b[a]=c()}("reqwest",this,function(){function succeed(a){var b=protocolRe.exec(a.url);return b=b&&b[1]||context.location.protocol,httpsRe.test(b)?twoHundo.test(a.request.status):!!a.request.response}function handleReadyState(a,b,c){return function(){return a._aborted?c(a.request):a._timedOut?c(a.request,"Request is aborted: timeout"):void(a.request&&4==a.request[readyState]&&(a.request.onreadystatechange=noop,succeed(a)?b(a.request):c(a.request)))}}function setHeaders(a,b){var c,d=b.headers||{};d.Accept=d.Accept||defaultHeaders.accept[b.type]||defaultHeaders.accept["*"];var e="undefined"!=typeof FormData&&b.data instanceof FormData;b.crossOrigin||d[requestedWith]||(d[requestedWith]=defaultHeaders.requestedWith),d[contentType]||e||(d[contentType]=b.contentType||defaultHeaders.contentType);for(c in d)d.hasOwnProperty(c)&&"setRequestHeader"in a&&a.setRequestHeader(c,d[c])}function setCredentials(a,b){"undefined"!=typeof b.withCredentials&&"undefined"!=typeof a.withCredentials&&(a.withCredentials=!!b.withCredentials)}function generalCallback(a){lastValue=a}function urlappend(a,b){return a+(/\?/.test(a)?"&":"?")+b}function handleJsonp(a,b,c,d){var e=uniqid++,f=a.jsonpCallback||"callback",g=a.jsonpCallbackName||reqwest.getcallbackPrefix(e),h=new RegExp("((^|\\?|&)"+f+")=([^&]+)"),i=d.match(h),j=doc.createElement("script"),k=0,l=-1!==navigator.userAgent.indexOf("MSIE 10.0");return i?"?"===i[3]?d=d.replace(h,"$1="+g):g=i[3]:d=urlappend(d,f+"="+g),context[g]=generalCallback,j.type="text/javascript",j.src=d,j.async=!0,"undefined"==typeof j.onreadystatechange||l||(j.htmlFor=j.id="_reqwest_"+e),j.onload=j.onreadystatechange=function(){return j[readyState]&&"complete"!==j[readyState]&&"loaded"!==j[readyState]||k?!1:(j.onload=j.onreadystatechange=null,j.onclick&&j.onclick(),b(lastValue),lastValue=void 0,head.removeChild(j),void(k=1))},head.appendChild(j),{abort:function(){j.onload=j.onreadystatechange=null,c({},"Request is aborted: timeout",{}),lastValue=void 0,head.removeChild(j),k=1}}}function getRequest(a,b){var c,d=this.o,e=(d.method||"GET").toUpperCase(),f="string"==typeof d?d:d.url,g=d.processData!==!1&&d.data&&"string"!=typeof d.data?reqwest.toQueryString(d.data):d.data||null,h=!1;return"jsonp"!=d.type&&"GET"!=e||!g||(f=urlappend(f,g),g=null),"jsonp"==d.type?handleJsonp(d,a,b,f):(c=d.xhr&&d.xhr(d)||xhr(d),c.open(e,f,d.async===!1?!1:!0),setHeaders(c,d),setCredentials(c,d),context[xDomainRequest]&&c instanceof context[xDomainRequest]?(c.onload=a,c.onerror=b,c.onprogress=function(){},h=!0):c.onreadystatechange=handleReadyState(this,a,b),d.before&&d.before(c),h?setTimeout(function(){c.send(g)},200):c.send(g),c)}function Reqwest(a,b){this.o=a,this.fn=b,init.apply(this,arguments)}function setType(a){return null===a?void 0:a.match("json")?"json":a.match("javascript")?"js":a.match("text")?"html":a.match("xml")?"xml":void 0}function init(o,fn){function complete(a){for(o.timeout&&clearTimeout(self.timeout),self.timeout=null;self._completeHandlers.length>0;)self._completeHandlers.shift()(a)}function success(resp){var type=o.type||resp&&setType(resp.getResponseHeader("Content-Type"));resp="jsonp"!==type?self.request:resp;var filteredResponse=globalSetupOptions.dataFilter(resp.responseText,type),r=filteredResponse;try{resp.responseText=r}catch(e){}if(r)switch(type){case"json":try{resp=context.JSON?context.JSON.parse(r):eval("("+r+")")}catch(err){return error(resp,"Could not parse JSON in response",err)}break;case"js":resp=eval(r);break;case"html":resp=r;break;case"xml":resp=resp.responseXML&&resp.responseXML.parseError&&resp.responseXML.parseError.errorCode&&resp.responseXML.parseError.reason?null:resp.responseXML}for(self._responseArgs.resp=resp,self._fulfilled=!0,fn(resp),self._successHandler(resp);self._fulfillmentHandlers.length>0;)resp=self._fulfillmentHandlers.shift()(resp);complete(resp)}function timedOut(){self._timedOut=!0,self.request.abort()}function error(a,b,c){for(a=self.request,self._responseArgs.resp=a,self._responseArgs.msg=b,self._responseArgs.t=c,self._erred=!0;self._errorHandlers.length>0;)self._errorHandlers.shift()(a,b,c);complete(a)}this.url="string"==typeof o?o:o.url,this.timeout=null,this._fulfilled=!1,this._successHandler=function(){},this._fulfillmentHandlers=[],this._errorHandlers=[],this._completeHandlers=[],this._erred=!1,this._responseArgs={};var self=this;fn=fn||function(){},o.timeout&&(this.timeout=setTimeout(function(){timedOut()},o.timeout)),o.success&&(this._successHandler=function(){o.success.apply(o,arguments)}),o.error&&this._errorHandlers.push(function(){o.error.apply(o,arguments)}),o.complete&&this._completeHandlers.push(function(){o.complete.apply(o,arguments)}),this.request=getRequest.call(this,success,error)}function reqwest(a,b){return new Reqwest(a,b)}function normalize(a){return a?a.replace(/\r?\n/g,"\r\n"):""}function serial(a,b){var c,d,e,f,g=a.name,h=a.tagName.toLowerCase(),i=function(a){a&&!a.disabled&&b(g,normalize(a.attributes.value&&a.attributes.value.specified?a.value:a.text))};if(!a.disabled&&g)switch(h){case"input":/reset|button|image|file/i.test(a.type)||(c=/checkbox/i.test(a.type),d=/radio/i.test(a.type),e=a.value,(!(c||d)||a.checked)&&b(g,normalize(c&&""===e?"on":e)));break;case"textarea":b(g,normalize(a.value));break;case"select":if("select-one"===a.type.toLowerCase())i(a.selectedIndex>=0?a.options[a.selectedIndex]:null);else for(f=0;a.length&&f<a.length;f++)a.options[f].selected&&i(a.options[f])}}function eachFormElement(){var a,b,c=this,d=function(a,b){var d,e,f;for(d=0;d<b.length;d++)for(f=a[byTag](b[d]),e=0;e<f.length;e++)serial(f[e],c)};for(b=0;b<arguments.length;b++)a=arguments[b],/input|select|textarea/i.test(a.tagName)&&serial(a,c),d(a,["input","select","textarea"])}function serializeQueryString(){return reqwest.toQueryString(reqwest.serializeArray.apply(null,arguments))}function serializeHash(){var a={};return eachFormElement.apply(function(b,c){b in a?(a[b]&&!isArray(a[b])&&(a[b]=[a[b]]),a[b].push(c)):a[b]=c},arguments),a}function buildParams(a,b,c,d){var e,f,g,h=/\[\]$/;if(isArray(b))for(f=0;b&&f<b.length;f++)g=b[f],c||h.test(a)?d(a,g):buildParams(a+"["+("object"==typeof g?f:"")+"]",g,c,d);else if(b&&"[object Object]"===b.toString())for(e in b)buildParams(a+"["+e+"]",b[e],c,d);else d(a,b)}var context=this;if("window"in context)var doc=document,byTag="getElementsByTagName",head=doc[byTag]("head")[0];else{var XHR2;try{XHR2=require("xhr2")}catch(ex){throw new Error("Peer dependency `xhr2` required! Please npm install xhr2")}}var httpsRe=/^http/,protocolRe=/(^\w+):\/\//,twoHundo=/^(20\d|1223)$/,readyState="readyState",contentType="Content-Type",requestedWith="X-Requested-With",uniqid=0,callbackPrefix="reqwest_"+ +new Date,lastValue,xmlHttpRequest="XMLHttpRequest",xDomainRequest="XDomainRequest",noop=function(){},isArray="function"==typeof Array.isArray?Array.isArray:function(a){return a instanceof Array},defaultHeaders={contentType:"application/x-www-form-urlencoded",requestedWith:xmlHttpRequest,accept:{"*":"text/javascript, text/html, application/xml, text/xml, */*",xml:"application/xml, text/xml",html:"text/html",text:"text/plain",json:"application/json, text/javascript",js:"application/javascript, text/javascript"}},xhr=function(a){if(a.crossOrigin===!0){var b=context[xmlHttpRequest]?new XMLHttpRequest:null;if(b&&"withCredentials"in b)return b;if(context[xDomainRequest])return new XDomainRequest;throw new Error("Browser does not support cross-origin requests")}return context[xmlHttpRequest]?new XMLHttpRequest:XHR2?new XHR2:new ActiveXObject("Microsoft.XMLHTTP")},globalSetupOptions={dataFilter:function(a){return a}};return Reqwest.prototype={abort:function(){this._aborted=!0,this.request.abort()},retry:function(){init.call(this,this.o,this.fn)},then:function(a,b){return a=a||function(){},b=b||function(){},this._fulfilled?this._responseArgs.resp=a(this._responseArgs.resp):this._erred?b(this._responseArgs.resp,this._responseArgs.msg,this._responseArgs.t):(this._fulfillmentHandlers.push(a),this._errorHandlers.push(b)),this},always:function(a){return this._fulfilled||this._erred?a(this._responseArgs.resp):this._completeHandlers.push(a),this},fail:function(a){return this._erred?a(this._responseArgs.resp,this._responseArgs.msg,this._responseArgs.t):this._errorHandlers.push(a),this},"catch":function(a){return this.fail(a)}},reqwest.serializeArray=function(){var a=[];return eachFormElement.apply(function(b,c){a.push({name:b,value:c})},arguments),a},reqwest.serialize=function(){if(0===arguments.length)return"";var a,b,c=Array.prototype.slice.call(arguments,0);return a=c.pop(),a&&a.nodeType&&c.push(a)&&(a=null),a&&(a=a.type),b="map"==a?serializeHash:"array"==a?reqwest.serializeArray:serializeQueryString,b.apply(null,c)},reqwest.toQueryString=function(a,b){var c,d,e=b||!1,f=[],g=encodeURIComponent,h=function(a,b){b="function"==typeof b?b():null==b?"":b,f[f.length]=g(a)+"="+g(b)};if(isArray(a))for(d=0;a&&d<a.length;d++)h(a[d].name,a[d].value);else for(c in a)a.hasOwnProperty(c)&&buildParams(c,a[c],e,h);return f.join("&").replace(/%20/g,"+")},reqwest.getcallbackPrefix=function(){return callbackPrefix},reqwest.compat=function(a,b){return a&&(a.type&&(a.method=a.type)&&delete a.type,a.dataType&&(a.type=a.dataType),a.jsonpCallback&&(a.jsonpCallbackName=a.jsonpCallback)&&delete a.jsonpCallback,a.jsonp&&(a.jsonpCallback=a.jsonp)),new Reqwest(a,b)},reqwest.ajaxSetup=function(a){a=a||{};for(var b in a)globalSetupOptions[b]=a[b]},reqwest})},{xhr2:13}],25:[function(a,b,c){function d(a){return a.replace(/^\s*|\s*$/g,"")}c=b.exports=d,c.left=function(a){return a.replace(/^\s*/,"")},c.right=function(a){return a.replace(/\s*$/,"")}},{}],26:[function(a,b,c){var d=function(){function a(a,b,c){a.attachEvent?a.attachEvent("on"+b,c):a.addEventListener&&a.addEventListener(b,c,!1)}function b(a,b,c){a.detachEvent?a.detachEvent("on"+b,c):a.removeEventListener&&a.removeEventListener(b,c,!1)}function c(){if("undefined"==typeof navigator)return!1;var a=-1,b=navigator.userAgent;if("Microsoft Internet Explorer"===navigator.appName){var c=new RegExp("MSIE ([0-9]{1,}[.0-9]{0,})");null!=c.exec(b)&&(a=parseFloat(RegExp.$1))}else if(b.indexOf("Trident")>-1){var c=new RegExp("rv:([0-9]{2,2}[.0-9]{0,})");null!==c.exec(b)&&(a=parseFloat(RegExp.$1))}return a>=8}function d(){try{var a=navigator.userAgent;return-1!=a.indexOf("Fennec/")||-1!=a.indexOf("Firefox/")&&-1!=a.indexOf("Android")}catch(b){}return!1}function e(){return"undefined"!=typeof window&&window.JSON&&window.JSON.stringify&&window.JSON.parse&&window.postMessage}function f(a){/^https?:\/\//.test(a)||(a=window.location.href);var b=/^(https?:\/\/[\-_a-zA-Z\.0-9:]+)/.exec(a);return b?b[1]:a}function g(){for(var a=(window.location,window.opener.frames),b=a.length-1;b>=0;b--)try{if(a[b].location.protocol===window.location.protocol&&a[b].location.host===window.location.host&&a[b].name===h)return a[b]}catch(c){}}var h="__winchan_relay_frame",i="die",j=c();return e()?{open:function(c,e){function g(){if(m&&document.body.removeChild(m),m=void 0,q&&(q=clearInterval(q)),b(window,"message",k),b(window,"unload",g),p)try{p.close()}catch(a){o.postMessage(i,n)}p=o=void 0}function k(a){if(a.origin===n)try{var b=JSON.parse(a.data);"ready"===b.a?o.postMessage(r,n):"error"===b.a?(g(),e&&(e(b.d),e=null)):"response"===b.a&&(g(),e&&(e(null,b.d),e=null))}catch(c){}}if(!e)throw"missing required callback argument";var l;c.url||(l="missing required 'url' parameter"),c.relay_url||(l="missing required 'relay_url' parameter"),l&&setTimeout(function(){e(l)},0),c.window_name||(c.window_name=null),(!c.window_features||d())&&(c.window_features=void 0);var m,n=f(c.url);if(n!==f(c.relay_url))return setTimeout(function(){e("invalid arguments: origin of url and relay_url must match")},0);var o;j&&(m=document.createElement("iframe"),m.setAttribute("src",c.relay_url),m.style.display="none",m.setAttribute("name",h),document.body.appendChild(m),o=m.contentWindow);var p=c.popup||window.open(c.url,c.window_name,c.window_features);c.popup&&(p.location.href=c.url),o||(o=p);var q=setInterval(function(){p&&p.closed&&(g(),e&&(e("User closed the popup window"),e=null))},500),r=JSON.stringify({a:"request",d:c.params});return a(window,"unload",g),a(window,"message",k),{close:g,focus:function(){if(p)try{p.focus()}catch(a){}}}},onOpen:function(c){function d(a){a=JSON.stringify(a),j?k.doPost(a,h):k.postMessage(a,h)}function e(a){var f;try{f=JSON.parse(a.data)}catch(g){}f&&"request"===f.a&&(b(window,"message",e),h=a.origin,c&&setTimeout(function(){c(h,f.d,function(a){c=void 0,d({a:"response",d:a})})},0))}function f(a){if(a.data===i)try{window.close()}catch(b){}}var h="*",k=j?g():window.opener;if(!k)throw"can't find relay frame";a(j?k:window,"message",e),a(j?k:window,"message",f);try{d({a:"ready"})}catch(l){a(k,"load",function(a){d({a:"ready"})})}var m=function(){try{b(j?k:window,"message",f)}catch(a){}c&&d({a:"error",d:"client closed window"}),c=void 0;try{window.close()}catch(e){}};return a(window,"unload",m),{detach:function(){b(window,"unload",m)}}}}:{open:function(a,b,c,d){setTimeout(function(){d("unsupported browser")},0)},onOpen:function(a){setTimeout(function(){a("unsupported browser")},0)}}}();"undefined"!=typeof b&&b.exports&&(b.exports=d)},{}],27:[function(a,b,c){function d(a){return null!==a&&("object"==typeof a||"function"==typeof a)}b.exports=d},{}],28:[function(a,b,c){function d(){for(var a={},b=0;b<arguments.length;b++){var c=arguments[b];if(f(c))for(var d=e(c),g=0;g<d.length;g++){var h=d[g];a[h]=c[h]}}return a}var e=a("object-keys"),f=a("./has-keys");b.exports=d},{"./has-keys":27,"object-keys":30}],29:[function(a,b,c){var d=Object.prototype.hasOwnProperty,e=Object.prototype.toString,f=function(a){var b="function"==typeof a&&!(a instanceof RegExp)||"[object Function]"===e.call(a);return b||"undefined"==typeof window||(b=a===window.setTimeout||a===window.alert||a===window.confirm||a===window.prompt),b};b.exports=function(a,b){if(!f(b))throw new TypeError("iterator must be a function");var c,e,g="string"==typeof a,h=a.length,i=arguments.length>2?arguments[2]:null;if(h===+h)for(c=0;h>c;c++)null===i?b(g?a.charAt(c):a[c],c,a):b.call(i,g?a.charAt(c):a[c],c,a);else for(e in a)d.call(a,e)&&(null===i?b(a[e],e,a):b.call(i,a[e],e,a))}},{}],30:[function(a,b,c){b.exports=Object.keys||a("./shim")},{"./shim":32}],31:[function(a,b,c){var d=Object.prototype.toString;b.exports=function e(a){var b=d.call(a),e="[object Arguments]"===b;return e||(e="[object Array]"!==b&&null!==a&&"object"==typeof a&&"number"==typeof a.length&&a.length>=0&&"[object Function]"===d.call(a.callee)),e}},{}],32:[function(a,b,c){!function(){"use strict";var c,d=Object.prototype.hasOwnProperty,e=Object.prototype.toString,f=a("./foreach"),g=a("./isArguments"),h=!{toString:null}.propertyIsEnumerable("toString"),i=function(){}.propertyIsEnumerable("prototype"),j=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"];c=function(a){var b=null!==a&&"object"==typeof a,c="[object Function]"===e.call(a),k=g(a),l=[];if(!b&&!c&&!k)throw new TypeError("Object.keys called on a non-object");if(k)f(a,function(a){l.push(a)});else{var m,n=i&&c;for(m in a)n&&"prototype"===m||!d.call(a,m)||l.push(m)}if(h){var o=a.constructor,p=o&&o.prototype===a;f(j,function(b){p&&"constructor"===b||!d.call(a,b)||l.push(b)})}return l},b.exports=c}()},{"./foreach":29,"./isArguments":31}],33:[function(a,b,c){var d="undefined"!=typeof self?self:"undefined"!=typeof window?window:{},e=a("./index");"function"==typeof d.window.define&&d.window.define.amd?d.window.define("auth0",function(){return e}):d.window&&(d.window.Auth0=e)},{"./index":1}],34:[function(a,b,c){b.exports={str:"7.4.0"}},{}]},{},[33]);

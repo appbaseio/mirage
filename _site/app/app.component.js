@@ -70,6 +70,8 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         $('body').removeClass('is-loadingApp');
+        this.queryParams = this.urlShare.getQueryParameters();
+        this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
         // get data from url
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
@@ -295,10 +297,10 @@ var AppComponent = (function () {
                 if (data && data.version && data.version.number) {
                     var version = data.version.number;
                     self.version = version;
-                    if (self.version.split('.')[0] !== '2') {
+                    if (!(self.version.split('.')[0] === '2' || self.version.split('.')[0] === '5')) {
                         self.errorShow({
                             title: 'Elasticsearch Version Not Supported',
-                            message: 'Mirage only supports v2.x of Elasticsearch Query DSL'
+                            message: 'Mirage only supports v2.x or v5.x of Elasticsearch Query DSL'
                         });
                     }
                 }
@@ -546,6 +548,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.setLayoutResizer = function () {
         this.setLayoutFlag = true;
+        var self = this;
         $('body').layout({
             east__size: "50%",
             center__paneSelector: "#paneCenter",
@@ -554,6 +557,13 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
+            if (self.allowHF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 166);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 166);
+                }, 300);
+            }
         }
         setSidebar();
         $(window).on('resize', setSidebar);

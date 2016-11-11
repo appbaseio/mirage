@@ -45,16 +45,29 @@ var TypesComponent = (function () {
         //this.mapping.resultQuery.result = [];
         var availableFields = [];
         var propInfo;
+        var allMappings = this.mapping[this.config.appname].mappings;
+        this.result.joiningQuery = [''];
         if (val && val.length) {
             val.forEach(function (type) {
                 var mapObjWithFields = {};
-                var mapObj = this.mapping[this.config.appname].mappings[type].properties;
+                var mapObj = allMappings[type].properties;
                 for (var field_1 in mapObj) {
                     mapObjWithFields[field_1] = mapObj[field_1];
                     if (mapObj[field_1].fields) {
                         for (var sub in mapObj[field_1].fields) {
                             var subname = field_1 + '.' + sub;
                             mapObjWithFields[subname] = mapObj[field_1].fields[sub];
+                        }
+                    }
+                    if (mapObj[field_1].properties) {
+                        for (var sub in mapObj[field_1].properties) {
+                            var subname = field_1 + '.' + sub;
+                            mapObjWithFields[subname] = mapObj[field_1].properties[sub];
+                        }
+                    }
+                    if (mapObj[field_1].type === 'nested') {
+                        if (this.result.joiningQuery.indexOf('nested') < 0) {
+                            this.result.joiningQuery.push('nested');
                         }
                     }
                 }
@@ -73,6 +86,10 @@ var TypesComponent = (function () {
                         case 'double':
                         case 'float':
                             obj.type = 'numeric';
+                            break;
+                        case 'text':
+                        case 'keyword':
+                            obj.type = 'string';
                             break;
                     }
                     availableFields.push(obj);
@@ -98,6 +115,17 @@ var TypesComponent = (function () {
             value: availableFields
         };
         this.setProp.emit(propInfo);
+        for (var type in allMappings) {
+            if (allMappings[type].hasOwnProperty('_parent')) {
+                if (val.indexOf(allMappings[type]['_parent'].type) > -1) {
+                    if (this.result.joiningQuery.indexOf('has_child') < 0) {
+                        this.result.joiningQuery.push('has_child');
+                        this.result.joiningQuery.push('has_parent');
+                        this.result.joiningQuery.push('parent_id');
+                    }
+                }
+            }
+        }
     };
     TypesComponent.prototype.setUrl = function (val) {
         var selectedTypes = val;

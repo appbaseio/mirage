@@ -1,5 +1,5 @@
 .query-build {
-  padding-bottom: 100px; }
+  /*padding-bottom: 100px;*/ }
 
 .single_query.bool_query.show_hidden {
   background: #eee; }
@@ -44,7 +44,7 @@
 
 .bool_query .nested-container {
   position: relative;
-  padding-left: 131px; }
+  padding-left: 155px; }
   .bool_query .nested-container .nested-query {
     position: absolute;
     left: 6px;
@@ -74,7 +74,8 @@
       display: inline-block;
       color: #828282;
       border-bottom: 1px dashed;
-      cursor: pointer; }
+      cursor: pointer;
+      overflow: hidden; }
       .single_query .editable-pack .editable-front:hover {
         color: #555; }
     .single_query .editable-pack .editable-back {
@@ -85,6 +86,33 @@
       display: none; }
     .single_query .editable-pack.on .editable-back {
       display: inline-block; }
+  .single_query div.checkbox {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 10px 0;
+    cursor: pointer; }
+    .single_query div.checkbox label {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 5px; }
+      .single_query div.checkbox label:before {
+        content: '';
+        background: #fff;
+        border: 2px solid #ddd;
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        padding: 2px;
+        margin-right: 10px;
+        text-align: center; }
+    .single_query div.checkbox input {
+      opacity: 0;
+      position: absolute; }
+      .single_query div.checkbox input:checked + label:before {
+        background: #FCC829;
+        box-shadow: inset 0px 0px 0px 3px #fff; }
   .single_query.bool_query {
     background: #f7f7f7; }
   .single_query.query_complete {

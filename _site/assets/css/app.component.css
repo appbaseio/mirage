@@ -37,11 +37,25 @@
 
 .app-container {
   position: relative;
-  padding-top: 80px;
-  padding-bottom: 60px;
+  padding-top: 88px;
+  padding-bottom: 0;
   height: 100%; }
+  .app-container .applogin-component {
+    position: relative;
+    height: 100%;
+    padding-top: 60px;
+    padding-bottom: 36px; }
   .app-container .query-main-container {
     position: relative;
     min-height: 100%;
     height: auto;
     display: block; }
+  .app-container.without-hf {
+    padding: 0; }
+    .app-container.without-hf .applogin-component {
+      position: relative;
+      height: 100%;
+      padding-top: 0;
+      padding-bottom: 0; }
+    .app-container.without-hf .query-result-container.layoutApplied {
+      padding-bottom: 15px; }

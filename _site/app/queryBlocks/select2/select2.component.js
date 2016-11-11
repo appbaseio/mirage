@@ -22,7 +22,13 @@ var select2Component = (function () {
     select2Component.prototype.ngAfterContentInit = function () {
         console.log(this.informationList);
         setTimeout(function () {
-            var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            var select2Selector;
+            if (this.querySelector && this.selector) {
+                select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            }
+            else {
+                select2Selector = $('.' + this.selector).find('select');
+            }
             if (typeof this.passWithCallback != 'undefined') {
                 select2Selector = $(this.querySelector).find('.' + this.selector + '-' + this.passWithCallback).find('select');
             }

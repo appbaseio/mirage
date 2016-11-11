@@ -23,6 +23,9 @@ import { SinglequeryComponent } from "./queryBlocks/singlequery/singlequery.comp
 import { EditableComponent } from './queryBlocks/editable/editable.component';
 // editable
 import { select2Component } from './queryBlocks/select2/select2.component';
+// subscribe modal
+import { SubscribeModalComponent } from './features/subscribe/subscribe.component';
+import { AuthOperation } from './features/subscribe/AuthOperation';
 // singlequery
 import { MatchQuery } from './queryBlocks/singlequery/queries/match.query';
 import { Match_phraseQuery } from './queryBlocks/singlequery/queries/match_phrase.query';
@@ -44,6 +47,13 @@ import { FuzzyQuery } from './queryBlocks/singlequery/queries/fuzzy.query';
 import { IdsQuery } from './queryBlocks/singlequery/queries/ids.query';
 import { CommonQuery } from './queryBlocks/singlequery/queries/common.query';
 import { GeoDistanceQuery } from './queryBlocks/singlequery/queries/geodistance.query';
+import { GeoBoundingBoxQuery } from './queryBlocks/singlequery/queries/geoboundingbox.query';
+import { GeoDistanceRangeQuery } from './queryBlocks/singlequery/queries/geodistancerange.query';
+import { GeoPolygonQuery } from './queryBlocks/singlequery/queries/geopolygon.query';
+import { GeoHashCellQuery } from './queryBlocks/singlequery/queries/geohashcell.query';
+import { GeoShapeQuery } from './queryBlocks/singlequery/queries/geoshape.query';
+import { SpanTermQuery } from './queryBlocks/singlequery/queries/span_term.query';
+import { SpanFirstQuery } from './queryBlocks/singlequery/queries/span_first.query';
 // Pipes
 import { prettyJson } from "./shared/pipes/prettyJson";
 import { prettyTime } from "./shared/pipes/prettyTime";
@@ -74,6 +84,8 @@ import { TimeComponent } from "./features/list/time/time.component";
   	SinglequeryComponent, 
   	EditableComponent,
   	select2Component,
+    SubscribeModalComponent,
+    AuthOperation,
   	EditableComponent,
   	SinglequeryComponent,
   	select2Component,
@@ -96,7 +108,14 @@ import { TimeComponent } from "./features/list/time/time.component";
   	FuzzyQuery,
   	IdsQuery,
     GeoDistanceQuery,
-  	CommonQuery,
+    GeoBoundingBoxQuery,
+    GeoDistanceRangeQuery,
+    GeoPolygonQuery,
+    GeoHashCellQuery,
+    GeoShapeQuery,
+    CommonQuery,
+    SpanTermQuery,
+  	SpanFirstQuery,
   	prettyJson,
   	TimeComponent,
   	prettyTime

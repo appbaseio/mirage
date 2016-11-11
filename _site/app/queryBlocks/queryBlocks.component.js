@@ -28,15 +28,26 @@ var QueryBlocksComponent = (function () {
                 parent_id: 0,
                 id: 0,
                 internal: [],
-                minimum_should_match: ''
+                minimum_should_match: '',
+                path: '',
+                type: '',
+                xid: 0,
+                parent_type: '',
+                score_mode: ''
             }
         };
+        this.joiningQuery = [''];
+        this.joiningQueryParam = 0;
         this.saveQuery = new core_1.EventEmitter();
         this.setProp = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
     }
     QueryBlocksComponent.prototype.ngOnInit = function () {
         this.handleEditable();
+        this.joiningQuery = this.result.joiningQuery;
+    };
+    QueryBlocksComponent.prototype.ngOnChanges = function () {
+        this.joiningQuery = this.result.joiningQuery;
     };
     // Add the boolean query
     // get the default format for query and internal query
@@ -67,9 +78,10 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.buildQuery = function () {
         var self = this;
         var results = this.result.resultQuery.result;
+        var es_final = {};
         if (results.length) {
             var finalresult = {};
-            var es_final = {
+            es_final = {
                 'query': {
                     'bool': finalresult
                 }
@@ -77,6 +89,7 @@ var QueryBlocksComponent = (function () {
             results.forEach(function (result) {
                 result.availableQuery = self.buildInsideQuery(result);
             });
+            var isBoolPresent = true;
             results.forEach(function (result0) {
                 results.forEach(function (result1) {
                     if (result1.parent_id == result0.id) {
@@ -88,6 +101,11 @@ var QueryBlocksComponent = (function () {
                         if (currentBool === 'should') {
                             current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
                         }
+                        if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
+                            current_query['bool']['nested']['path'] = result1.path;
+                            current_query['bool']['nested']['score_mode'] = result1.score_mode;
+                            isBoolPresent = false;
+                        }
                         result0.availableQuery.push(current_query);
                     }
                 });
@@ -95,12 +113,56 @@ var QueryBlocksComponent = (function () {
             results.forEach(function (result) {
                 if (result.parent_id === 0) {
                     var currentBool = self.queryList['boolQuery'][result['boolparam']];
-                    finalresult[currentBool] = result.availableQuery;
+                    if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'nested') {
+                        finalresult['nested'] = {
+                            path: result.path,
+                            score_mode: result.score_mode,
+                            query: {
+                                bool: (_a = {},
+                                    _a[currentBool] = result.availableQuery,
+                                    _a
+                                )
+                            }
+                        };
+                        isBoolPresent = false;
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+                        finalresult[currentBool] = {
+                            has_child: {
+                                type: result.type,
+                                score_mode: result.score_mode,
+                                query: result.availableQuery
+                            }
+                        };
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+                        finalresult[currentBool] = {
+                            has_parent: {
+                                parent_type: result.parent_type,
+                                query: result.availableQuery
+                            }
+                        };
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+                        finalresult[currentBool] = {
+                            parent_id: {
+                                type: result.type,
+                                id: result.xid
+                            }
+                        };
+                    }
+                    else {
+                        finalresult[currentBool] = result.availableQuery;
+                    }
                     if (currentBool === 'should') {
                         finalresult['minimum_should_match'] = result.minimum_should_match;
                     }
                 }
+                var _a;
             });
+            if (!isBoolPresent) {
+                es_final['query'] = es_final['query']['bool'];
+            }
             this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
             try {
                 this.editorHookHelp.setValue(self.result.resultQuery.final);
@@ -207,6 +269,11 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.setDocSampleEve = function (link) {
         this.setDocSample.emit(link);
     };
+    QueryBlocksComponent.prototype.setJoiningQueryEve = function (obj) {
+        this.joiningQueryParam = obj.param;
+        this.result.resultQuery.availableFields = obj.allFields;
+        this.buildQuery();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -240,6 +307,10 @@ var QueryBlocksComponent = (function () {
         __metadata('design:type', Object)
     ], QueryBlocksComponent.prototype, "urlShare", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], QueryBlocksComponent.prototype, "config", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], QueryBlocksComponent.prototype, "saveQuery", void 0);
@@ -255,7 +326,7 @@ var QueryBlocksComponent = (function () {
         core_1.Component({
             selector: 'query-blocks',
             templateUrl: './app/queryBlocks/queryBlocks.component.html',
-            inputs: ['config', 'detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
+            inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
         }), 
         __metadata('design:paramtypes', [])
     ], QueryBlocksComponent);

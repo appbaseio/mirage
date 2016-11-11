@@ -57,7 +57,7 @@ export class Match_phraseQuery implements OnInit, OnChanges {
 	public information: any = {
 		title: 'Match Phrase',
 		content: `<span class="description">Returns matches by interpreting the query as a phrase.</span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase">Read more</a>`
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase.html#query-dsl-match-query-phrase">Read more</a>`
 	};
 	public informationList: any = {
 		'analyzer': {

@@ -19,6 +19,13 @@ import { FuzzyQuery } from './queries/fuzzy.query';
 import { IdsQuery } from './queries/ids.query';
 import { CommonQuery } from './queries/common.query';
 import { GeoDistanceQuery } from './queries/geodistance.query';
+import { GeoBoundingBoxQuery } from './queries/geoboundingbox.query';
+import { GeoDistanceRangeQuery } from './queries/geodistancerange.query';
+import { GeoPolygonQuery } from './queries/geopolygon.query';
+import { GeoHashCellQuery } from './queries/geohashcell.query';
+import { GeoShapeQuery } from './queries/geoshape.query';
+import { SpanTermQuery } from './queries/span_term.query';
+import { SpanFirstQuery } from './queries/span_first.query';
 declare var $: any;
 
 @Component({
@@ -37,6 +44,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	public queryIndex: number;
 	public buildQuery: any;
 	public querySelector: any;
+	public allFields: any;
 	public selector = {
 		field: 'field-select',
 		query: 'query-select'
@@ -46,6 +54,9 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() selectedTypes: any;
 	@Input() result: any;
 	@Input() query: any;
+	@Input() boolQueryName: string;
+	@Input() joiningQuery: any = [''];
+	@Input() joiningQueryParam: any;
 	@Output() setDocSample = new EventEmitter < any >();
 	
 	@ViewChild(MatchQuery) private matchQuery: MatchQuery;
@@ -68,24 +79,34 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 	@ViewChild(IdsQuery) private idsQuery: IdsQuery;
 	@ViewChild(CommonQuery) private commonQuery: CommonQuery;
 	@ViewChild(GeoDistanceQuery) private geoDistanceQuery: GeoDistanceQuery;
+	@ViewChild(GeoBoundingBoxQuery) private geoBoundingBoxQuery: GeoBoundingBoxQuery;
+	@ViewChild(GeoDistanceRangeQuery) private geoDistanceRangeQuery: GeoDistanceRangeQuery;
+	@ViewChild(GeoPolygonQuery) private geoPolygonQuery: GeoPolygonQuery;
+	@ViewChild(GeoHashCellQuery) private geoHashCellQuery: GeoHashCellQuery;
+	@ViewChild(GeoShapeQuery) private geoShapeQuery: GeoShapeQuery;
+	@ViewChild(SpanTermQuery) private spanTermQuery: SpanTermQuery;
+	@ViewChild(SpanFirstQuery) private spanFirstQuery: SpanFirstQuery;
 	
 	public informationList: any = {};
 
 	// on initialize set the query selector
 	ngOnInit() {
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
+		this.allFields = this.result.resultQuery.availableFields.slice();
 	}
+	
 	ngOnChanges() {
+		this.allFields = this.result.resultQuery.availableFields.slice();
 		this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
-		setTimeout(function() {
+		setTimeout(() => {
+			this.result.resultQuery.availableFields = this.checkAvailableFields();
 			if(this.query.selectedField) {
-				console.log(this.result.resultQuery.availableFields);
 				var isFieldExists = this.getField(this.query.selectedField);
 				if(!isFieldExists.length) {
 					this.removeQuery();
 				}
 			}
-		}.bind(this), 300);
+		}, 300);
 	}
 
 	ngAfterViewInit() {
@@ -110,12 +131,66 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 			'ids': this.idsQuery.information,
 			'common': this.commonQuery.information,
 			'geo_distance': this.geoDistanceQuery.information,
+			'geo_bounding_box': this.geoBoundingBoxQuery.information,
+			'geo_distance_range': this.geoDistanceRangeQuery.information,
+			'geo_polygon': this.geoPolygonQuery.information,
+			'geohash_cell': this.geoHashCellQuery.information,
+			'geo_shape': this.geoShapeQuery.information,
+			'span_term': this.spanTermQuery.information,
+			'span_first': this.spanFirstQuery.information
 		};
+	}
+
+	checkAvailableFields() {
+		var fields = this.allFields;
+		var allMappings = this.mapping[this.config.appname].mappings;
+		if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
+			var mapObj = {};
+			this.selectedTypes.forEach((type: any) => {
+				Object.assign(mapObj, allMappings[type].properties);
+			});
+			for (let obj in mapObj) {
+				if (mapObj[obj].type === 'nested') {
+					fields = fields.filter(field => (field.name.indexOf(obj + ".") > -1));
+				}
+			}
+		}
+		if (this.joiningQuery[this.joiningQueryParam] == 'has_child') {
+			fields = [];
+			for (let type in allMappings) {
+				if (allMappings[type].hasOwnProperty('_parent')) {
+					let fieldObj = allMappings[type].properties;
+					for (let field in fieldObj) {
+						let index = typeof fieldObj[field]['index'] != 'undefined' ? fieldObj[field]['index'] : null;
+						let obj = {
+							name: field,
+							type: fieldObj[field]['type'],
+							index: index
+						}
+						switch (obj.type) {
+							case 'long':
+							case 'integer':
+							case 'short':
+							case 'byte':
+							case 'double':
+							case 'float':
+								obj.type = 'numeric';
+								break;
+							case 'text':
+							case 'keyword':
+								obj.type = 'string';
+								break;
+						}
+						fields.push(obj);
+					}
+				}
+			}
+		}
+		return fields;
 	}
 
 	getQueryFormat(outputQuery) {
 		this.query.appliedQuery = outputQuery;
-		console.log(this.query.appliedQuery);
 		this.buildQuery();
 	}
 

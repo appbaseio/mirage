@@ -17,7 +17,7 @@ var Match_phraseQuery = (function () {
         this.current_query = 'match_phrase';
         this.information = {
             title: 'Match Phrase',
-            content: "<span class=\"description\">Returns matches by interpreting the query as a phrase.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase\">Read more</a>"
+            content: "<span class=\"description\">Returns matches by interpreting the query as a phrase.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase.html#query-dsl-match-query-phrase\">Read more</a>"
         };
         this.informationList = {
             'analyzer': {

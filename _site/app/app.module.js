@@ -32,6 +32,9 @@ var singlequery_component_1 = require("./queryBlocks/singlequery/singlequery.com
 var editable_component_1 = require('./queryBlocks/editable/editable.component');
 // editable
 var select2_component_1 = require('./queryBlocks/select2/select2.component');
+// subscribe modal
+var subscribe_component_1 = require('./features/subscribe/subscribe.component');
+var AuthOperation_1 = require('./features/subscribe/AuthOperation');
 // singlequery
 var match_query_1 = require('./queryBlocks/singlequery/queries/match.query');
 var match_phrase_query_1 = require('./queryBlocks/singlequery/queries/match_phrase.query');
@@ -53,6 +56,13 @@ var fuzzy_query_1 = require('./queryBlocks/singlequery/queries/fuzzy.query');
 var ids_query_1 = require('./queryBlocks/singlequery/queries/ids.query');
 var common_query_1 = require('./queryBlocks/singlequery/queries/common.query');
 var geodistance_query_1 = require('./queryBlocks/singlequery/queries/geodistance.query');
+var geoboundingbox_query_1 = require('./queryBlocks/singlequery/queries/geoboundingbox.query');
+var geodistancerange_query_1 = require('./queryBlocks/singlequery/queries/geodistancerange.query');
+var geopolygon_query_1 = require('./queryBlocks/singlequery/queries/geopolygon.query');
+var geohashcell_query_1 = require('./queryBlocks/singlequery/queries/geohashcell.query');
+var geoshape_query_1 = require('./queryBlocks/singlequery/queries/geoshape.query');
+var span_term_query_1 = require('./queryBlocks/singlequery/queries/span_term.query');
+var span_first_query_1 = require('./queryBlocks/singlequery/queries/span_first.query');
 // Pipes
 var prettyJson_1 = require("./shared/pipes/prettyJson");
 var prettyTime_1 = require("./shared/pipes/prettyTime");
@@ -86,6 +96,8 @@ var AppModule = (function () {
                 singlequery_component_1.SinglequeryComponent,
                 editable_component_1.EditableComponent,
                 select2_component_1.select2Component,
+                subscribe_component_1.SubscribeModalComponent,
+                AuthOperation_1.AuthOperation,
                 editable_component_1.EditableComponent,
                 singlequery_component_1.SinglequeryComponent,
                 select2_component_1.select2Component,
@@ -108,7 +120,14 @@ var AppModule = (function () {
                 fuzzy_query_1.FuzzyQuery,
                 ids_query_1.IdsQuery,
                 geodistance_query_1.GeoDistanceQuery,
+                geoboundingbox_query_1.GeoBoundingBoxQuery,
+                geodistancerange_query_1.GeoDistanceRangeQuery,
+                geopolygon_query_1.GeoPolygonQuery,
+                geohashcell_query_1.GeoHashCellQuery,
+                geoshape_query_1.GeoShapeQuery,
                 common_query_1.CommonQuery,
+                span_term_query_1.SpanTermQuery,
+                span_first_query_1.SpanFirstQuery,
                 prettyJson_1.prettyJson,
                 time_component_1.TimeComponent,
                 prettyTime_1.prettyTime

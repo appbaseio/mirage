@@ -17,7 +17,7 @@ var Match_phase_prefixQuery = (function () {
         this.current_query = 'match_phrase_prefix';
         this.information = {
             title: 'Match Phrase with a Prefix',
-            content: "<span class=\"description\">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase-prefix\">Read more</a>"
+            content: "<span class=\"description\">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase-prefix.html#query-dsl-match-query-phrase-prefix\">Read more</a>"
         };
         this.informationList = {
             'analyzer': {

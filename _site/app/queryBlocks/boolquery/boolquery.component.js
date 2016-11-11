@@ -14,10 +14,34 @@ var BoolqueryComponent = (function () {
         this.queryList = this.queryList;
         this.removeArray = [];
         this.query = this.query;
+        this.informationList = {
+            'nested': {
+                title: 'nested',
+                content: "<span class=\"description\">Nested query allows you to run a query against the nested documents and filter parent docs by those that have at least one nested document matching the query.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html#query-dsl-nested-query\">Read more</a>"
+            },
+            'has_child': {
+                title: 'has_child',
+                content: "<span class=\"description\">has_child filter accepts a query and the child type to run against, and results in parent documents that have child docs matching the query.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-child-query.html#query-dsl-has-child-query\">Read more</a>"
+            },
+            'has_parent': {
+                title: 'has_parent',
+                content: "<span class=\"description\">has_parent query accepts a query and a parent type. The query is executed in the parent document space, which is specified by the parent type, and returns child documents which associated parents have matched.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-parent-query.html#query-dsl-has-parent-query\">Read more</a>"
+            },
+            'parent_id': {
+                title: 'parent_id',
+                content: "<span class=\"description\">parent_id query can be used to find child documents which belong to a particular parent. </span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/5.0/query-dsl-parent-id-query.html#query-dsl-parent-id-query\">Read more</a>"
+            }
+        };
+        this.joiningQuery = [''];
+        this.setJoiningQuery = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
     }
     BoolqueryComponent.prototype.ngOnInit = function () {
+        this.allFields = this.result.resultQuery.availableFields;
         this.exeBuild();
+    };
+    BoolqueryComponent.prototype.ngOnChanges = function () {
+        this.allFields = this.result.resultQuery.availableFields;
     };
     BoolqueryComponent.prototype.addSubQuery = function (id) {
         this.addBoolQuery(id);
@@ -51,6 +75,17 @@ var BoolqueryComponent = (function () {
         this.query.boolparam = boolVal;
         this.exeBuild();
     };
+    BoolqueryComponent.prototype.joiningQueryChange = function (val) {
+        if (val.val) {
+            val = this.joiningQuery.indexOf(val.val);
+        }
+        this.joiningQueryParam = val;
+        this.setJoiningQuery.emit({
+            param: val,
+            allFields: this.allFields
+        });
+        this.exeBuild();
+    };
     BoolqueryComponent.prototype.show_hidden_btns = function (event) {
         $('.bool_query').removeClass('show_hidden');
         $(event.currentTarget).addClass('show_hidden');
@@ -78,6 +113,18 @@ var BoolqueryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], BoolqueryComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "joiningQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "joiningQueryParam", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], BoolqueryComponent.prototype, "setJoiningQuery", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

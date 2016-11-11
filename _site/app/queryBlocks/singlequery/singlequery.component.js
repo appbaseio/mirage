@@ -29,6 +29,13 @@ var fuzzy_query_1 = require('./queries/fuzzy.query');
 var ids_query_1 = require('./queries/ids.query');
 var common_query_1 = require('./queries/common.query');
 var geodistance_query_1 = require('./queries/geodistance.query');
+var geoboundingbox_query_1 = require('./queries/geoboundingbox.query');
+var geodistancerange_query_1 = require('./queries/geodistancerange.query');
+var geopolygon_query_1 = require('./queries/geopolygon.query');
+var geohashcell_query_1 = require('./queries/geohashcell.query');
+var geoshape_query_1 = require('./queries/geoshape.query');
+var span_term_query_1 = require('./queries/span_term.query');
+var span_first_query_1 = require('./queries/span_first.query');
 var SinglequeryComponent = (function () {
     function SinglequeryComponent() {
         this.queryList = this.queryList;
@@ -37,24 +44,28 @@ var SinglequeryComponent = (function () {
             field: 'field-select',
             query: 'query-select'
         };
+        this.joiningQuery = [''];
         this.setDocSample = new core_1.EventEmitter();
         this.informationList = {};
     }
     // on initialize set the query selector
     SinglequeryComponent.prototype.ngOnInit = function () {
         this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
+        this.allFields = this.result.resultQuery.availableFields.slice();
     };
     SinglequeryComponent.prototype.ngOnChanges = function () {
+        var _this = this;
+        this.allFields = this.result.resultQuery.availableFields.slice();
         this.querySelector = '.query-' + this.queryIndex + '-' + this.internalIndex;
         setTimeout(function () {
-            if (this.query.selectedField) {
-                console.log(this.result.resultQuery.availableFields);
-                var isFieldExists = this.getField(this.query.selectedField);
+            _this.result.resultQuery.availableFields = _this.checkAvailableFields();
+            if (_this.query.selectedField) {
+                var isFieldExists = _this.getField(_this.query.selectedField);
                 if (!isFieldExists.length) {
-                    this.removeQuery();
+                    _this.removeQuery();
                 }
             }
-        }.bind(this), 300);
+        }, 300);
     };
     SinglequeryComponent.prototype.ngAfterViewInit = function () {
         this.informationList = {
@@ -78,11 +89,67 @@ var SinglequeryComponent = (function () {
             'ids': this.idsQuery.information,
             'common': this.commonQuery.information,
             'geo_distance': this.geoDistanceQuery.information,
+            'geo_bounding_box': this.geoBoundingBoxQuery.information,
+            'geo_distance_range': this.geoDistanceRangeQuery.information,
+            'geo_polygon': this.geoPolygonQuery.information,
+            'geohash_cell': this.geoHashCellQuery.information,
+            'geo_shape': this.geoShapeQuery.information,
+            'span_term': this.spanTermQuery.information,
+            'span_first': this.spanFirstQuery.information
         };
+    };
+    SinglequeryComponent.prototype.checkAvailableFields = function () {
+        var fields = this.allFields;
+        var allMappings = this.mapping[this.config.appname].mappings;
+        if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
+            var mapObj = {};
+            this.selectedTypes.forEach(function (type) {
+                Object.assign(mapObj, allMappings[type].properties);
+            });
+            var _loop_1 = function(obj) {
+                if (mapObj[obj].type === 'nested') {
+                    fields = fields.filter(function (field) { return (field.name.indexOf(obj + ".") > -1); });
+                }
+            };
+            for (var obj in mapObj) {
+                _loop_1(obj);
+            }
+        }
+        if (this.joiningQuery[this.joiningQueryParam] == 'has_child') {
+            fields = [];
+            for (var type in allMappings) {
+                if (allMappings[type].hasOwnProperty('_parent')) {
+                    var fieldObj = allMappings[type].properties;
+                    for (var field in fieldObj) {
+                        var index = typeof fieldObj[field]['index'] != 'undefined' ? fieldObj[field]['index'] : null;
+                        var obj = {
+                            name: field,
+                            type: fieldObj[field]['type'],
+                            index: index
+                        };
+                        switch (obj.type) {
+                            case 'long':
+                            case 'integer':
+                            case 'short':
+                            case 'byte':
+                            case 'double':
+                            case 'float':
+                                obj.type = 'numeric';
+                                break;
+                            case 'text':
+                            case 'keyword':
+                                obj.type = 'string';
+                                break;
+                        }
+                        fields.push(obj);
+                    }
+                }
+            }
+        }
+        return fields;
     };
     SinglequeryComponent.prototype.getQueryFormat = function (outputQuery) {
         this.query.appliedQuery = outputQuery;
-        console.log(this.query.appliedQuery);
         this.buildQuery();
     };
     // delete query
@@ -141,6 +208,18 @@ var SinglequeryComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SinglequeryComponent.prototype, "query", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SinglequeryComponent.prototype, "boolQueryName", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "joiningQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SinglequeryComponent.prototype, "joiningQueryParam", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -225,6 +304,34 @@ var SinglequeryComponent = (function () {
         core_1.ViewChild(geodistance_query_1.GeoDistanceQuery), 
         __metadata('design:type', geodistance_query_1.GeoDistanceQuery)
     ], SinglequeryComponent.prototype, "geoDistanceQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geoboundingbox_query_1.GeoBoundingBoxQuery), 
+        __metadata('design:type', geoboundingbox_query_1.GeoBoundingBoxQuery)
+    ], SinglequeryComponent.prototype, "geoBoundingBoxQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geodistancerange_query_1.GeoDistanceRangeQuery), 
+        __metadata('design:type', geodistancerange_query_1.GeoDistanceRangeQuery)
+    ], SinglequeryComponent.prototype, "geoDistanceRangeQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geopolygon_query_1.GeoPolygonQuery), 
+        __metadata('design:type', geopolygon_query_1.GeoPolygonQuery)
+    ], SinglequeryComponent.prototype, "geoPolygonQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geohashcell_query_1.GeoHashCellQuery), 
+        __metadata('design:type', geohashcell_query_1.GeoHashCellQuery)
+    ], SinglequeryComponent.prototype, "geoHashCellQuery", void 0);
+    __decorate([
+        core_1.ViewChild(geoshape_query_1.GeoShapeQuery), 
+        __metadata('design:type', geoshape_query_1.GeoShapeQuery)
+    ], SinglequeryComponent.prototype, "geoShapeQuery", void 0);
+    __decorate([
+        core_1.ViewChild(span_term_query_1.SpanTermQuery), 
+        __metadata('design:type', span_term_query_1.SpanTermQuery)
+    ], SinglequeryComponent.prototype, "spanTermQuery", void 0);
+    __decorate([
+        core_1.ViewChild(span_first_query_1.SpanFirstQuery), 
+        __metadata('design:type', span_first_query_1.SpanFirstQuery)
+    ], SinglequeryComponent.prototype, "spanFirstQuery", void 0);
     SinglequeryComponent = __decorate([
         core_1.Component({
             selector: 'single-query',

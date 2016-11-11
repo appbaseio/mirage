@@ -1,6 +1,6 @@
 @import "variables.scss";
 .query-build {
-	padding-bottom: 100px;
+	/*padding-bottom: 100px;*/
 }
 .single_query.bool_query.show_hidden {
 	background: #eee;
@@ -55,7 +55,7 @@
 	}
 	.nested-container {
 		position: relative;
-		padding-left: 131px;
+		padding-left: 155px;
 		.nested-query {
 			position: absolute;
 			left: 6px;
@@ -91,6 +91,7 @@
 			color: $grey-font;
 			border-bottom: 1px dashed;
 			cursor: pointer;
+			overflow: hidden;
 			&:hover {
 				color: $primary-font-color;
 			}
@@ -107,6 +108,42 @@
 			}
 			.editable-back {
 				display: inline-block;
+			}
+		}
+	}
+	div.checkbox {
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 0 10px 0;
+		cursor: pointer;
+
+		label {
+			position: relative;
+			display: inline-block;
+		    vertical-align: middle;
+		    margin: 5px;
+
+		    &:before {
+		    	content: '';
+			    background: #fff;
+			    border: 2px solid #ddd;
+			    display: inline-block;
+			    vertical-align: middle;
+			    width: 20px;
+			    height: 20px;
+			    padding: 2px;
+			    margin-right: 10px;
+			    text-align: center;
+		    }
+		}
+
+		input {
+			opacity: 0;
+		    position: absolute;
+
+		    &:checked + label:before {
+				background: #FCC829;
+    			box-shadow: inset 0px 0px 0px 3px #fff;
 			}
 		}
 	}
