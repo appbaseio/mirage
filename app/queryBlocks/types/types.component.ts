@@ -133,6 +133,7 @@ export class TypesComponent implements OnChanges {
 					if (this.result.joiningQuery.indexOf('has_child') < 0) {
 						this.result.joiningQuery.push('has_child');
 						this.result.joiningQuery.push('has_parent');
+						this.result.joiningQuery.push('parent_id');
 					}
 				}
 			}

@@ -28,6 +28,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			minimum_should_match: '',
 			path: '',
 			type: '',
+			xid: 0,
 			parent_type: '',
 			score_mode: ''
 		}
@@ -137,27 +138,28 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 						};
 						isBoolPresent = false;
 					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_child') {
-						finalresult['bool'] = {
-							[currentBool]: {
-								has_child: {
-									type: result.type,
-									score_mode: result.score_mode,
-									query: result.availableQuery
-								}
+						finalresult[currentBool] = {
+							has_child: {
+								type: result.type,
+								score_mode: result.score_mode,
+								query: result.availableQuery
 							}
 						};
-						isBoolPresent = false;
 					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
-						finalresult['bool'] = {
-							[currentBool]: {
-								has_parent: {
-									parent_type: result.parent_type,
-									query: result.availableQuery
-								}
+						finalresult[currentBool] = {
+							has_parent: {
+								parent_type: result.parent_type,
+								query: result.availableQuery
 							}
 						};
-						isBoolPresent = false;
-					} else {
+					} else if(self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+						finalresult[currentBool] = {
+							parent_id: {
+								type: result.type,
+								id: result.xid
+							}
+						};
+					}else {
 						finalresult[currentBool] = result.availableQuery;
 					}
 					if (currentBool === 'should') {

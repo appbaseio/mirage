@@ -32,6 +32,11 @@ export class BoolqueryComponent implements OnInit, OnChanges {
 			title: 'has_parent',
 			content: `<span class="description">has_parent query accepts a query and a parent type. The query is executed in the parent document space, which is specified by the parent type, and returns child documents which associated parents have matched.</span>
 				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-parent-query.html#query-dsl-has-parent-query">Read more</a>`
+		},
+		'parent_id': {
+			title: 'parent_id',
+			content: `<span class="description">parent_id query can be used to find child documents which belong to a particular parent. </span>
+				<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/query-dsl-parent-id-query.html#query-dsl-parent-id-query">Read more</a>`
 		}
 	};
 	@Input() mapping: any;
