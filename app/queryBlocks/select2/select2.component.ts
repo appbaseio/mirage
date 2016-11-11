@@ -28,7 +28,13 @@ export class select2Component implements OnChanges, AfterContentInit {
 	ngAfterContentInit() {
 		console.log(this.informationList);
 		setTimeout(function() {
-			var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+			var select2Selector;
+			if(this.querySelector && this.selector) {
+				select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+			}
+			else {
+				select2Selector = $('.' + this.selector).find('select');
+			}
 			if(typeof this.passWithCallback != 'undefined') {
 				select2Selector = $(this.querySelector).find('.' + this.selector+'-'+this.passWithCallback).find('select');	
 			}

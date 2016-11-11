@@ -52,7 +52,8 @@ var files = {
             'assets/vendor/jquery.layout/jquery.layout.js',
             'assets/vendor/jquery.simulate.js',
             'bower_components/lzma/src/lzma.js',
-            'assets/vendor/urlsafe-base64.bundle.js'
+            'bower_components/urlsafe-base64/app.js',
+            'bower_components/auth0.js/build/auth0.min.js'
         ],
         custom: [
             'assets/js/helper.js'

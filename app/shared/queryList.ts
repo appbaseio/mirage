@@ -16,7 +16,9 @@ export var queryList = {
 			'simple_query_string',
 			'match_phrase_prefix',
 			'ids',
-			'common'
+			'common',
+			'span_term',
+			'span_first'
 		],
 		numeric: [
 			'match',
@@ -64,8 +66,7 @@ export var queryList = {
 		'must',
 		'must_not',
 		'should',
-		'filter',
-		'nested'
+		'filter'
 	],
 	allowedDataTypes: [
 		'string',

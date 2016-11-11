@@ -1,15 +1,15 @@
-import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output } from "@angular/core";
 import { queryList } from "../shared/queryList";
 declare var $: any;
 
 @Component({
 	selector: 'query-blocks',
 	templateUrl: './app/queryBlocks/queryBlocks.component.html',
-	inputs: ['config', 'detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
+	inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
 })
 
-export class QueryBlocksComponent implements OnInit {
-	public queryList = queryList;
+export class QueryBlocksComponent implements OnInit, OnChanges {
+	public queryList: any = queryList;
 	public queryFormat: any = {
 		internal: {
 			field: '',
@@ -27,10 +27,15 @@ export class QueryBlocksComponent implements OnInit {
 			internal: [],
 			minimum_should_match: '',
 			path: '',
+			type: '',
+			xid: 0,
+			parent_type: '',
 			score_mode: ''
 		}
 	};
 	public editorHookHelp: any;
+	public joiningQuery: any = [''];
+	public joiningQueryParam: any = 0;
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
@@ -39,12 +44,18 @@ export class QueryBlocksComponent implements OnInit {
 	@Input() savedQueryList: any;
 	@Input() finalUrl: string;
 	@Input() urlShare: any;
+	@Input() config: any;
 	@Output() saveQuery = new EventEmitter < any > ();
 	@Output() setProp = new EventEmitter < any > ();
 	@Output() setDocSample = new EventEmitter < any >();
 
 	ngOnInit() {
 		this.handleEditable();
+		this.joiningQuery = this.result.joiningQuery;
+	}
+
+	ngOnChanges() {
+		this.joiningQuery = this.result.joiningQuery;
 	}
 
 
@@ -79,6 +90,7 @@ export class QueryBlocksComponent implements OnInit {
 		var self = this;
 		var results = this.result.resultQuery.result;
 		var es_final = {};
+
 		if(results.length) {
 			var finalresult = {};
 			es_final = {
@@ -102,7 +114,7 @@ export class QueryBlocksComponent implements OnInit {
 						if (currentBool === 'should') {
 							current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
 						}
-						if (currentBool === 'nested') {
+						if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
 							current_query['bool']['nested']['path'] = result1.path;
 							current_query['bool']['nested']['score_mode'] = result1.score_mode;
 							isBoolPresent = false;
@@ -114,20 +126,41 @@ export class QueryBlocksComponent implements OnInit {
 			results.forEach(function(result) {
 				if (result.parent_id === 0) {
 					var currentBool = self.queryList['boolQuery'][result['boolparam']];
-					if(currentBool !== 'nested') {
-						finalresult[currentBool] = result.availableQuery;
-					} else {
-						finalresult[currentBool] = {
+					if(self.joiningQuery[self.joiningQueryParam] === 'nested') {
+						finalresult['nested'] = {
 							path: result.path,
 							score_mode: result.score_mode,
 							query: {
 								bool: {
-									must: result.availableQuery
+									[currentBool]: result.availableQuery
 								}
 							}
 						};
-
 						isBoolPresent = false;
+					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+						finalresult[currentBool] = {
+							has_child: {
+								type: result.type,
+								score_mode: result.score_mode,
+								query: result.availableQuery
+							}
+						};
+					} else if(self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+						finalresult[currentBool] = {
+							has_parent: {
+								parent_type: result.parent_type,
+								query: result.availableQuery
+							}
+						};
+					} else if(self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+						finalresult[currentBool] = {
+							parent_id: {
+								type: result.type,
+								id: result.xid
+							}
+						};
+					}else {
+						finalresult[currentBool] = result.availableQuery;
 					}
 					if (currentBool === 'should') {
 						finalresult['minimum_should_match'] = result.minimum_should_match;
@@ -248,5 +281,11 @@ export class QueryBlocksComponent implements OnInit {
 
 	setDocSampleEve(link) {
 		this.setDocSample.emit(link);
+	}
+
+	setJoiningQueryEve(obj) {
+		this.joiningQueryParam = obj.param;
+		this.result.resultQuery.availableFields = obj.allFields;
+		this.buildQuery();
 	}
 }

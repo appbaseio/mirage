@@ -16,6 +16,13 @@ UrlShare.prototype.setInputs = function(inputs: any) {
 }
 
 UrlShare.prototype.createUrl = function() {
+    if(this.inputs && this.inputs.config) {
+        this.inputs.appname = this.inputs.config.appname;
+        this.inputs.url = this.inputs.config.url;
+    }
+    if(this.inputs.selectedTypes) {
+        this.inputs.selectedType = this.inputs.selectedTypes;
+    }
     var inputs = JSON.parse(JSON.stringify(this.inputs));
     try {
         delete inputs.result.resultQuery.final;
@@ -29,16 +36,29 @@ UrlShare.prototype.createUrl = function() {
             if(window.location.href.indexOf('#?default=true') > -1) {
                 window.location.href = window.location.href.split('?default=true')[0];
             }
-            window.location.href = '#?input_state=' + ciphertext;
+            let finalUrl = '#?input_state=' + ciphertext;
+            if(this.queryParams && this.queryParams.hf) {
+                finalUrl += '&hf='+this.queryParams.hf
+            }
+            window.location.href = finalUrl;
         }
     }
 }
 
 UrlShare.prototype.decryptUrl = function(cb) {
     return new Promise((resolve, reject) => {
-        var url = window.location.href.split('#?input_state=');
-        if (url.length > 1) {
-            this.decompress(url[1], function(error, data) {
+        this.queryParams = this.getQueryParameters();
+        if (this.queryParams.input_state) {
+        this.decompress(this.queryParams.input_state, function(error, data) {
+                if(data && data.appname && data.url) {
+                    data.config = {
+                        appname: data.appname,
+                        url: data.url
+                    };
+                } if(data && data.config) {
+                    data.appname = data.config.appname;
+                    data.url = data.config.url;
+                }
                 resolve({error: error, data: data});
             });    
         } else {
@@ -60,13 +80,7 @@ UrlShare.prototype.convertToUrl = function(type) {
 }
 
 UrlShare.prototype.dejavuLink = function() {
-    var obj = {
-        url: this.inputs.config.url,
-        appname: this.inputs.config.appname,
-        selectedType: this.inputs.selectedTypes
-    };
-    var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(obj), 'dejvu').toString();
-    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state='+ciphertext;
+    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state='+this.url;
     return final_url;
 }
 
@@ -106,6 +120,15 @@ UrlShare.prototype.decompress = function(compressed, cb) {
         });
     } else {
         return cb('Empty');
+    }
+}
+
+UrlShare.prototype.getQueryParameters = function(str) {
+    let hash = window.location.hash.split('#');
+    if(hash.length > 1) {
+      return (str || hash[1]).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
+    } else {
+      return null;
     }
 }
 
