@@ -67,10 +67,10 @@ Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for
 
 | Full-text Queries      | Term Level Queries    | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
 | :--------------------: |:---------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
-| 	✓ Match               | 	✓ Term             | ➕ Nested       | ✓ GeoDistance        | ➕ MoreLikeThis     | ➕ SpanTerm   |
-| 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ✓ GeoBoundingBox     | ➕ Template         | ➕ SpanMulti  |
-| 	✓ Query String        | 	✓ Range            | ➕ HasParent    |  ✓ GeoShape          | ❌ Script           | ➕ SpanFirst  |
-| 	✓ Simple Query String | 	✓ Exists           |                 | ✓ GeoDistanceRange   |                     | ➕ SpanNear   |
+| 	✓ Match               | 	✓ Term             | ✓ Nested       | ✓ GeoDistance        | ➕ MoreLikeThis     | ✓ SpanTerm   |
+| 	✓ Multi-match         | 	✓ Terms            | ✓ HasChild     | ✓ GeoBoundingBox     | ➕ Template         | ➕ SpanMulti  |
+| 	✓ Query String        | 	✓ Range            | ✓ HasParent    |  ✓ GeoShape          | ❌ Script           | ✓ SpanFirst  |
+| 	✓ Simple Query String | 	✓ Exists           | ✓ ParentId     | ✓ GeoDistanceRange   |                     | ➕ SpanNear   |
 | 	✓ Common Terms        | 	✓ Missing          |                 | ✓ GeoPolygon         |                     | ➕ SpanOr     |
 |                         | 	✓ Prefix           |                 | ✓ GeoHashCell        |                     | ➕ SpanNot    |
 |                         | 	✓ Wildcard         |                 |                      |                     | ➕ SpanContaining |
