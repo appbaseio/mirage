@@ -55,7 +55,6 @@ export class select2Component implements OnChanges, AfterContentInit {
 	}
 
 	setSelect2(field_select, callback) {
-
 		var select2Option: any = {
 			placeholder: "Select from the option"
 		};

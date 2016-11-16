@@ -55,7 +55,6 @@ export class BoolqueryComponent implements OnInit, OnChanges {
 
 	ngOnChanges() {
 		this.allFields = this.result.resultQuery.availableFields;
-		console.log("query changed", this.result);
 	}
 
 	addSubQuery(id: number) {
