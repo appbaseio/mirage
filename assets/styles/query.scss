@@ -111,7 +111,7 @@
 			}
 		}
 	}
-	div.checkbox {
+	div.checkbox, div.radio {
 		display: inline-block;
 		vertical-align: middle;
 		margin: 0 0 10px 0;
@@ -146,6 +146,16 @@
     			box-shadow: inset 0px 0px 0px 3px #fff;
 			}
 		}
+	}
+	div.radio {
+		label {
+			padding-left: 0;
+			padding-right: 15px;
+		}
+
+		input + label:before {
+	   		border-radius: 50%;
+	   	}
 	}
 	&.bool_query {
 		background: $grey-bg;

@@ -1,0 +1,56 @@
+<div class="form-group single_query col-xs-12 bool_query" (mouseover)="show_hidden_btns($event);" (mouseout)="hide_hidden_btns($event);">
+    <div class="action-btn-group bool-btn-group">
+        <a href="javascript:void(0)" class="btn btn-grey delete-nested-query" (click)="deleteSort();">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+    <div class="row m-b15">
+        <div class="row m-0 col-xs-12">
+            <div *ngFor="let sort of result.sort, let i=index" class="form-group col-xs-12 single_query internal-query sort-row-{{i}}" [ngClass]="{'query_complete': sort.selectedField}">
+                <div class="action-btn-group">
+                    <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortQuery(i);">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <editable class="col-xs-3 pd-l0 sort-field-select-{{i}}" 
+                    [editableField]="sort.selectedField"
+                    [editPlaceholder]="'field'"
+                    [editableInput]="'select2'"
+                    [result]="result"
+                    [selectOption]="allFields"
+                    [selector]="'sort-field-select'"
+                    [passWithCallback]="i"
+                    (callback)="sortFieldCallback($event)">
+                </editable>
+
+                <editable class="col-xs-3 pd-l0 sort-mode-select-{{i}}" 
+                    [editableField]="sort.mode"
+                    [editPlaceholder]="'mode'"
+                    [editableInput]="'select2'"
+                    [result]="result"
+                    [selectOption]="modeList"
+                    [selector]="'sort-mode-select'"
+                    [informationList]="informationList"
+                    [showInfoFlag]="true"
+                    [passWithCallback]="i"
+                    (callback)="sortModeCallback($event)">
+                </editable>
+
+                <div class="col-xs-6">
+                    <div class="radio">
+                        <input [id]="'r-' + i" type="radio" [name]="'order-' + i" [checked]="sort.order === 'asc'" autocomplete="off" (change)="setSortOrder('asc', i)">
+                        <label attr.for="{{ 'r-' + i }}">Asc</label>
+                    </div>
+                    <div class="radio">
+                        <input [id]="'rx-' + i" type="radio" [name]="'order-' + i" [checked]="sort.order === 'desc'" autocomplete="off" (change)="setSortOrder('desc', i)">
+                        <label attr.for="{{ 'rx-' +  i }}">Desc</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 add_condition_row" style="padding: 0">
+        <button class="btn btn-default add_condition" (click)="initSort()">Add New Sorting</button>
+    </div>
+</div>

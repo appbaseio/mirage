@@ -77,6 +77,15 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		}
 	}
 
+	addSortBlock() {
+		let sortObj = {
+            'selectedField': '',
+            'order': 'desc',
+            'mode': ''
+        }
+        this.result.sort.push(sortObj);
+	}
+
 	// add internal query
 	addQuery(boolQuery) {
 		var self = this;
@@ -93,10 +102,8 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 
 		if(results.length) {
 			var finalresult = {};
-			es_final = {
-				'query': {
-					'bool': finalresult
-				}
+			es_final['query'] = {
+				'bool': finalresult
 			};
 			results.forEach(function(result) {
 				result.availableQuery = self.buildInsideQuery(result);
@@ -171,26 +178,40 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			if (!isBoolPresent) {
 				es_final['query'] = es_final['query']['bool'];
 			}
-
-			this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-			try {
-				this.editorHookHelp.setValue(self.result.resultQuery.final);
-			} catch(e) {}
 		} else {
 			if(this.selectedTypes.length) {
-				var match_all = {
-					'query': {
-						'match_all': {}
-					}
+				es_final['query'] = {
+					'match_all': {}
 				};
-				this.result.resultQuery.final = JSON.stringify(match_all, null, 2);	
-				try {
-					this.editorHookHelp.setValue(self.result.resultQuery.final);			
-				} catch(e) {
-					console.log(e);
-				}
 			}
 		}
+
+		// apply sort
+		self.result.sort.map((sortObj) => {
+			if (sortObj.selectedField) {
+				if (!es_final.hasOwnProperty('sort')) {
+					es_final['sort'] = [];
+				}
+				let obj = {
+					[sortObj.selectedField]: {
+						'order': sortObj.order
+					}
+				};
+				if (sortObj.mode) {
+					obj[sortObj.selectedField]['mode'] = sortObj.mode;
+				}
+
+				es_final['sort'].push(obj);
+			}
+		});
+
+		this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+		try {
+			this.editorHookHelp.setValue(self.result.resultQuery.final);
+		} catch(e) {
+			console.log(e);
+		}
+
 		//set input state
 		try {
 			this.urlShare.inputs['result'] = this.result;

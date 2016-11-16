@@ -4,6 +4,10 @@
 			<types  [detectChange]="detectChange" [mapping] = "mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config] = "config" [finalUrl]="finalUrl"  (setProp)="setPropIn($event)" [urlShare]="urlShare" (buildQuery)="buildQuery($event);">
 			</types>
 		</div>
+		<div class="col-xs-12 m-b15 pd-0">
+			<button *ngIf="result.resultQuery.result.length < 1 && selectedTypes.length > 0" class="btn btn-theme pull-left" (click)="addBoolQuery(0);" style="margin-right: 5px">Add new query</button>
+			<button *ngIf="result.sort.length < 1 && selectedTypes.length > 0" class="btn btn-theme pull-left" (click)="addSortBlock();" style="margin-right: 5px">Apply Sorting</button>
+		</div>
 		<form class="row m-0"
 		 *ngFor="let queryIn of result.resultQuery.result"
 		 >
@@ -32,11 +36,34 @@
 					(setDocSample)="setDocSampleEve($event);"
 					(setJoiningQuery)="setJoiningQueryEve($event);">
 				</bool-query>
-			</div>	
+			</div>
 		</form>
+		<div *ngIf="result.sort.length">
+			<sort-block 
+				[mapping]="mapping"
+				[types]="types"
+				[selectedTypes]="selectedTypes" 
+				[result]="result" 
+				[config]="config" 
+				[query]="queryIn" 
+				[queryList]="queryList"
+				[addQuery]="addQuery"
+				[addBoolQuery]="addBoolQuery"
+				[removeQuery]="removeQuery"
+				[queryFormat]="queryFormat"
+				[buildQuery]="buildQuery"
+				[buildInsideQuery]="buildInsideQuery"
+				[buildSubQuery]="buildSubQuery"
+				[createQuery]="createQuery"
+				[setQueryFormat]="setQueryFormat"
+				[editorHookHelp]="editorHookHelp"
+				[urlShare]="urlShare"
+				[joiningQuery]="joiningQuery"
+				[joiningQueryParam]="joiningQueryParam">
+			</sort-block>
+		</div>
 		<div class="col-xs-12 pd-0">
-			<button *ngIf="result.resultQuery.result.length < 1 && selectedTypes.length > 0" class="btn btn-theme pull-left" (click)="addBoolQuery(0);">Add new query</button>
-			<span *ngIf="result.resultQuery.result.length >= 1" class=" pull-left">
+			<span *ngIf="result.resultQuery.result.length >= 1 || result.sort.length >= 1" class=" pull-left">
 				<button class="btn btn-theme" (click)="openModal();">Save Query</button>
 			</span>
 		</div>

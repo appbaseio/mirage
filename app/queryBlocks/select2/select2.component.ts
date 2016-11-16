@@ -26,7 +26,6 @@ export class select2Component implements OnChanges, AfterContentInit {
 	ngOnChanges() {}
 
 	ngAfterContentInit() {
-		console.log(this.informationList);
 		setTimeout(function() {
 			var select2Selector;
 			if(this.querySelector && this.selector) {
@@ -36,7 +35,11 @@ export class select2Component implements OnChanges, AfterContentInit {
 				select2Selector = $('.' + this.selector).find('select');
 			}
 			if(typeof this.passWithCallback != 'undefined') {
-				select2Selector = $(this.querySelector).find('.' + this.selector+'-'+this.passWithCallback).find('select');	
+				if(this.querySelector && this.selector) {
+					select2Selector = $(this.querySelector).find('.' + this.selector+'-'+this.passWithCallback).find('select');	
+				} else if (this.selector) {
+					select2Selector = $('.' + this.selector+'-'+this.passWithCallback).find('select');						
+				}
 			}
 			this.setSelect2(select2Selector, function(val) {
 				var obj: any = {
@@ -52,6 +55,7 @@ export class select2Component implements OnChanges, AfterContentInit {
 	}
 
 	setSelect2(field_select, callback) {
+
 		var select2Option: any = {
 			placeholder: "Select from the option"
 		};
