@@ -81,7 +81,11 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		let sortObj = {
             'selectedField': '',
             'order': 'desc',
-            'mode': ''
+            'availableOptionalParams': [
+                'mode',
+                'missing',
+                'unmapped_type'
+            ]
         }
         this.result.sort.push(sortObj);
 	}
@@ -199,6 +203,12 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 				};
 				if (sortObj.mode) {
 					obj[sortObj.selectedField]['mode'] = sortObj.mode;
+				}
+				if (sortObj.missing) {
+					obj[sortObj.selectedField]['missing'] = sortObj.missing;
+				}
+				if (sortObj.unmapped_type) {
+					obj[sortObj.selectedField]['unmapped_type'] = sortObj.unmapped_type;
 				}
 
 				es_final['sort'].push(obj);

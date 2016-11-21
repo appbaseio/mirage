@@ -47,6 +47,28 @@ export class SortBlockComponent implements OnInit, OnChanges {
             content: `<span class="description">Use the median of all values as sort value. Only applicable for number based array fields.</span>`
         }
     };
+    public optionalParamsInformation: any = {
+        'mode': {
+            title: 'mode',
+            content: `<span class="description">The mode option controls what array value is picked for sorting the document it belongs to.</span>`
+        },
+        'missing': {
+            title: 'missing',
+            content: `<span class="description">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>`
+        },
+        'unmapped_type': {
+            title: 'unmapped_type',
+            content: `<span class="description">unmapped_type option allows to ignore fields that have no mapping and not sort by them. The value of this parameter is used to determine what sort values to emit.</span>`
+        },
+        'nested': {
+            title: 'nested',
+            content: `<span class="description">Allows sorting withing nested objects</span>`
+        },
+        'geo_distance': {
+            title: 'geo_distance',
+            content: `<span class="description">Allow to sort by _geo_distance.</span>`
+        }
+    };
 
     @Input() mapping: any;
     @Input() types: any;
@@ -79,7 +101,11 @@ export class SortBlockComponent implements OnInit, OnChanges {
         let sortObj = {
             'selectedField': '',
             'order': 'desc',
-            'mode': ''
+            'availableOptionalParams': [
+                'mode',
+                'missing',
+                'unmapped_type'
+            ]
         }
         this.result.sort.push(sortObj);
         this.exeBuild();
@@ -98,6 +124,15 @@ export class SortBlockComponent implements OnInit, OnChanges {
     sortModeCallback(input: any) {
         this.result.sort[input.external].mode = input.val;
         this.exeBuild();
+    }
+
+    sortOptionalCallback(input: any) {
+        let obj = this.result.sort[input.external];
+        let index = obj.availableOptionalParams.indexOf(input.val);
+        if (index > -1) {
+            obj.availableOptionalParams.splice(index, 1);
+        }
+        obj[input.val] = '';
     }
 
     setSortOrder(order, index) {

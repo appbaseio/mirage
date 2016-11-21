@@ -12,7 +12,7 @@
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
-                <editable class="col-xs-3 pd-l0 sort-field-select-{{i}}" 
+                <editable class="col-xs-4 pd-l0 sort-field-select-{{i}}" 
                     [editableField]="sort.selectedField"
                     [editPlaceholder]="'field'"
                     [editableInput]="'select2'"
@@ -23,20 +23,7 @@
                     (callback)="sortFieldCallback($event)">
                 </editable>
 
-                <editable class="col-xs-3 pd-l0 sort-mode-select-{{i}}" 
-                    [editableField]="sort.mode"
-                    [editPlaceholder]="'mode'"
-                    [editableInput]="'select2'"
-                    [result]="result"
-                    [selectOption]="modeList"
-                    [selector]="'sort-mode-select'"
-                    [informationList]="informationList"
-                    [showInfoFlag]="true"
-                    [passWithCallback]="i"
-                    (callback)="sortModeCallback($event)">
-                </editable>
-
-                <div class="col-xs-6">
+                <div class="col-xs-4">
                     <div class="radio">
                         <input [id]="'r-' + i" type="radio" [name]="'order-' + i" [checked]="sort.order === 'asc'" autocomplete="off" (change)="setSortOrder('asc', i)">
                         <label attr.for="{{ 'r-' + i }}">Asc</label>
@@ -44,6 +31,48 @@
                     <div class="radio">
                         <input [id]="'rx-' + i" type="radio" [name]="'order-' + i" [checked]="sort.order === 'desc'" autocomplete="off" (change)="setSortOrder('desc', i)">
                         <label attr.for="{{ 'rx-' +  i }}">Desc</label>
+                    </div>
+                </div>
+
+                <editable class="col-xs-4 pd-l0 sort-optional-select-{{i}}" 
+                    [editableField]="''"
+                    [editPlaceholder]="'select-optional-parameter'"
+                    [editableInput]="'select2'"
+                    [result]="result"
+                    [selectOption]="sort.availableOptionalParams"
+                    [selector]="'sort-optional-select'"
+                    [informationList]="optionalParamsInformation"
+                    [showInfoFlag]="true"
+                    [passWithCallback]="i"
+                    (callback)="sortOptionalCallback($event)">
+                </editable>
+                
+                <div class="row m-0 clearfix">
+                    <div class="col-xs-4 pd-l0" *ngIf="sort.mode || sort.mode == ''">
+                        <editable class="sort-mode-select-{{i}}" 
+                            [editableField]="sort.mode"
+                            [editPlaceholder]="'mode'"
+                            [editableInput]="'select2'"
+                            [result]="result"
+                            [selectOption]="modeList"
+                            [selector]="'sort-mode-select'"
+                            [informationList]="informationList"
+                            [showInfoFlag]="true"
+                            [passWithCallback]="i"
+                            (callback)="sortModeCallback($event)">
+                        </editable>
+                    </div>
+                    <div class="col-xs-4 pd-l0" *ngIf="sort.missing || sort.missing == ''">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort.missing"
+                            placeholder="Missing values"
+                            (keyup)="exeBuild();" />
+                    </div>
+                    <div class="col-xs-4 pd-l0" *ngIf="sort.unmapped_type || sort.unmapped_type == ''">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort.unmapped_type"
+                            placeholder="Unmapped Type"
+                            (keyup)="exeBuild();" />
                     </div>
                 </div>
             </div>
