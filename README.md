@@ -1,4 +1,4 @@
- [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a> [![](https://labs.turbo.run/git-brag?user=appbaseio&repo=mirage)]()
+ [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a> [![](https://labs.turbo.run/git-brag?user=appbaseio&repo=mirage)](https://github.com/appbaseio/mirage/stargazers)
 
 ![](http://i.imgur.com/RoyFbSb.png?1)
 
