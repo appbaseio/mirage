@@ -56,10 +56,6 @@ export class SortBlockComponent implements OnInit, OnChanges {
             title: 'missing',
             content: `<span class="description">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>`
         },
-        'unmapped_type': {
-            title: 'unmapped_type',
-            content: `<span class="description">unmapped_type option allows to ignore fields that have no mapping and not sort by them. The value of this parameter is used to determine what sort values to emit.</span>`
-        },
         'nested': {
             title: 'nested',
             content: `<span class="description">Allows sorting withing nested objects</span>`
@@ -103,8 +99,7 @@ export class SortBlockComponent implements OnInit, OnChanges {
             'order': 'desc',
             'availableOptionalParams': [
                 'mode',
-                'missing',
-                'unmapped_type'
+                'missing'
             ]
         }
         this.result.sort.push(sortObj);
@@ -142,6 +137,12 @@ export class SortBlockComponent implements OnInit, OnChanges {
 
     removeSortQuery(index: any) {
         this.result.sort.splice(index, 1);
+        this.exeBuild();
+    }
+
+    removeSortOptionalQuery(index: any, type: any) {
+        this.result.sort[index].availableOptionalParams.push(type);
+        delete this.result.sort[index][type];
         this.exeBuild();
     }
 
