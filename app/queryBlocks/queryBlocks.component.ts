@@ -77,6 +77,16 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		}
 	}
 
+	removeInQuery(id: number) {
+		var resulQueries = this.result.resultQuery.result;
+		resulQueries.forEach(function(v: any, i: number) {
+			if (v.parent_id == id) {
+				resulQueries.splice(i, 1);
+			}
+		}.bind(this));
+		this.buildQuery();
+	}
+
 	addSortBlock() {
 		let sortObj = {
             'selectedField': '',
@@ -84,6 +94,11 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
             'availableOptionalParams': []
         }
         this.result.sort.push(sortObj);
+	}
+
+	removeSortBlock() {
+		this.result.sort = [];
+		this.buildQuery();
 	}
 
 	// add internal query
@@ -301,6 +316,22 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		sampleobj[query][field] = val.input;
 		return sampleobj;
 	}
+
+	toggleBoolQuery() {
+		if (this.result.resultQuery.result.length < 1 && this.selectedTypes.length > 0) {
+			this.addBoolQuery(0);
+		} else {
+			this.removeInQuery(0);
+		}
+	}
+
+	toggleSortQuery() {
+		if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+			this.addSortBlock();
+		} else {
+			this.removeSortBlock();
+		}
+	}	
 
 	// handle the body click event for editable
 	// close all the select2 whene clicking outside of editable-element

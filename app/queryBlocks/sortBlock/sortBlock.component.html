@@ -12,40 +12,38 @@
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
-                <editable class="col-xs-4 pd-l0 sort-field-select-{{i}}" 
-                    [editableField]="sort.selectedField"
-                    [editPlaceholder]="'field'"
-                    [editableInput]="'select2'"
-                    [result]="result"
-                    [selectOption]="allFields"
-                    [selector]="'sort-field-select'"
-                    [passWithCallback]="i"
-                    (callback)="sortFieldCallback($event)">
-                </editable>
+                <div class="clearfix">
+                    <editable class="col-xs-4 pd-l0 sort-field-select-{{i}}" 
+                        [editableField]="sort.selectedField"
+                        [editPlaceholder]="'field'"
+                        [editableInput]="'select2'"
+                        [result]="result"
+                        [selectOption]="allFields"
+                        [selector]="'sort-field-select'"
+                        [passWithCallback]="i"
+                        (callback)="sortFieldCallback($event)">
+                    </editable>
 
-                <div class="col-xs-4">
-                    <div class="radio">
-                        <input [id]="'r-' + i" type="radio" [name]="'order-' + i" [checked]="sort.order === 'asc'" autocomplete="off" (change)="setSortOrder('asc', i)">
-                        <label attr.for="{{ 'r-' + i }}">Asc</label>
+                    <div class="col-xs-4">
+                        <div class="toggle clearfix">
+                            <a [ngClass]="{'selected': sort.order === 'asc'}" (click)="setSortOrder('asc', i)">Asc</a>
+                            <a [ngClass]="{'selected': sort.order === 'desc'}" (click)="setSortOrder('desc', i)">Desc</a>
+                        </div>
                     </div>
-                    <div class="radio">
-                        <input [id]="'rx-' + i" type="radio" [name]="'order-' + i" [checked]="sort.order === 'desc'" autocomplete="off" (change)="setSortOrder('desc', i)">
-                        <label attr.for="{{ 'rx-' +  i }}">Desc</label>
-                    </div>
+
+                    <editable class="col-xs-4 pd-l0 sort-optional-select-{{i}}" 
+                        [editableField]="''"
+                        [editPlaceholder]="'select-optional-parameter'"
+                        [editableInput]="'select2'"
+                        [result]="result"
+                        [selectOption]="sort.availableOptionalParams"
+                        [selector]="'sort-optional-select'"
+                        [informationList]="optionalParamsInformation"
+                        [showInfoFlag]="true"
+                        [passWithCallback]="i"
+                        (callback)="sortOptionalCallback($event)">
+                    </editable>
                 </div>
-
-                <editable class="col-xs-4 pd-l0 sort-optional-select-{{i}}" 
-                    [editableField]="''"
-                    [editPlaceholder]="'select-optional-parameter'"
-                    [editableInput]="'select2'"
-                    [result]="result"
-                    [selectOption]="sort.availableOptionalParams"
-                    [selector]="'sort-optional-select'"
-                    [informationList]="optionalParamsInformation"
-                    [showInfoFlag]="true"
-                    [passWithCallback]="i"
-                    (callback)="sortOptionalCallback($event)">
-                </editable>
                 
                 <div class="row m-0 mt-10 single_query clearfix" *ngIf="sort.mode || sort.mode == ''">
                     <div class="action-btn-group">
