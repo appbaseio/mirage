@@ -24,6 +24,11 @@ export class SortBlockComponent implements OnInit, OnChanges {
         'avg',
         'median'
     ];
+    public distanceTypeList: any = [
+        'sloppy_arc',
+        'arc',
+        'plane'
+    ]
 
     public informationList: any = {
         'min': {
@@ -60,9 +65,23 @@ export class SortBlockComponent implements OnInit, OnChanges {
             title: 'nested',
             content: `<span class="description">Allows sorting withing nested objects</span>`
         },
-        'geo_distance': {
-            title: 'geo_distance',
+        '_geo_distance': {
+            title: '_geo_distance',
             content: `<span class="description">Allow to sort by _geo_distance.</span>`
+        }
+    };
+    public distanceTypeInformation: any = {
+        'sloppy_arc': {
+            title: 'sloppy_arc',
+            content: `<span class="description">(Default)</span>`
+        },
+        'arc': {
+            title: 'arc',
+            content: `<span class="description">slightly more precise but significantly slower.</span>`
+        },
+        'plane': {
+            title: 'plane',
+            content: `<span class="description">faster, but inaccurate on long distances and close to the poles.</span>`
         }
     };
 
@@ -97,10 +116,7 @@ export class SortBlockComponent implements OnInit, OnChanges {
         let sortObj = {
             'selectedField': '',
             'order': 'desc',
-            'availableOptionalParams': [
-                'mode',
-                'missing'
-            ]
+            'availableOptionalParams': []
         }
         this.result.sort.push(sortObj);
         this.exeBuild();
@@ -112,12 +128,48 @@ export class SortBlockComponent implements OnInit, OnChanges {
     }
 
     sortFieldCallback(input: any) {
-        this.result.sort[input.external].selectedField = input.val;
+        let obj = this.result.sort[input.external];
+        let geoFlag = false;
+
+        obj.selectedField = input.val;
+        obj.availableOptionalParams = [];
+
+        if (!obj.mode && obj.mode != '') {
+            obj.availableOptionalParams.push('mode');
+        }
+        if (!obj.missing && obj.missing != '') {
+            obj.availableOptionalParams.push('missing');
+        }
+
+        this.result.resultQuery.availableFields.map(field => {
+            if (field.name === input.val && field.type === 'geo_point') {
+                let index = obj.availableOptionalParams.indexOf('missing');
+                if (index > -1) {
+                    obj.availableOptionalParams.splice(index, 1);
+                }
+
+                if (!obj['_geo_distance']) {
+                    obj.availableOptionalParams.push('_geo_distance');
+                }
+                geoFlag = true;
+                this.modeList = ['min', 'max', 'avg', 'median'];
+            }
+        });
+
+        if (!geoFlag) {
+            delete obj['_geo_distance'];
+            this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
+        }
         this.exeBuild();
     }
 
     sortModeCallback(input: any) {
         this.result.sort[input.external].mode = input.val;
+        this.exeBuild();
+    }
+
+    sortDistanceTypeCallback(input: any) {
+        this.result.sort[input.external]['_geo_distance']['distance_type'] = input.val;
         this.exeBuild();
     }
 
@@ -127,7 +179,17 @@ export class SortBlockComponent implements OnInit, OnChanges {
         if (index > -1) {
             obj.availableOptionalParams.splice(index, 1);
         }
-        obj[input.val] = '';
+        if (input.val === '_geo_distance') {
+            obj['_geo_distance'] = {
+                'distance_type': 'sloppy_arc',
+                'lat': '',
+                'lon': '',
+                'unit': 'm'
+            }
+
+        } else {
+            obj[input.val] = '';
+        }
     }
 
     setSortOrder(order, index) {
@@ -143,6 +205,7 @@ export class SortBlockComponent implements OnInit, OnChanges {
     removeSortOptionalQuery(index: any, type: any) {
         this.result.sort[index].availableOptionalParams.push(type);
         delete this.result.sort[index][type];
+        this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
         this.exeBuild();
     }
 

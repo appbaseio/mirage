@@ -81,10 +81,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		let sortObj = {
             'selectedField': '',
             'order': 'desc',
-            'availableOptionalParams': [
-                'mode',
-                'missing'
-            ]
+            'availableOptionalParams': []
         }
         this.result.sort.push(sortObj);
 	}
@@ -195,16 +192,35 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 				if (!es_final.hasOwnProperty('sort')) {
 					es_final['sort'] = [];
 				}
-				let obj = {
-					[sortObj.selectedField]: {
-						'order': sortObj.order
+
+				let obj = {};
+				if (sortObj._geo_distance) {
+					obj = {
+						['_geo_distance']: {
+							[sortObj.selectedField]: {
+								'lat': sortObj._geo_distance.lat,
+								'lon': sortObj._geo_distance.lon
+							},
+							'order': sortObj.order,
+							'distance_type': sortObj._geo_distance.distance_type,
+							'unit': sortObj._geo_distance.unit
+						}
 					}
-				};
-				if (sortObj.mode) {
-					obj[sortObj.selectedField]['mode'] = sortObj.mode;
-				}
-				if (sortObj.missing) {
-					obj[sortObj.selectedField]['missing'] = sortObj.missing;
+					if (sortObj.mode) {
+						obj['_geo_distance']['mode'] = sortObj.mode;
+					}
+				} else {
+					obj = {
+						[sortObj.selectedField]: {
+							'order': sortObj.order
+						}
+					};
+					if (sortObj.mode) {
+						obj[sortObj.selectedField]['mode'] = sortObj.mode;
+					}
+					if (sortObj.missing) {
+						obj[sortObj.selectedField]['missing'] = sortObj.missing;
+					}
 				}
 
 				es_final['sort'].push(obj);

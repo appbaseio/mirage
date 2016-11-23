@@ -68,6 +68,7 @@
                         </editable>
                     </div>
                 </div>
+
                 <div class="row m-0 mt-10 single_query clearfix" *ngIf="sort.missing || sort.missing == ''">
                     <div class="action-btn-group">
                         <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortOptionalQuery(i, 'missing');">
@@ -79,6 +80,46 @@
                             [(ngModel)]="sort.missing"
                             placeholder="Missing values"
                             (keyup)="exeBuild();" />
+                    </div>
+                </div>
+
+                 <div class="row m-0 mt-10 single_query clearfix" *ngIf="sort._geo_distance">
+                    <div class="action-btn-group">
+                        <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortOptionalQuery(i, '_geo_distance');">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort._geo_distance.lat"
+                            placeholder="latitude"
+                            (keyup)="exeBuild();" />
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort._geo_distance.lon"
+                            placeholder="longitude"
+                            (keyup)="exeBuild();" />
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort._geo_distance.unit"
+                            placeholder="unit"
+                            (keyup)="exeBuild();" />
+                    </div>
+                    <div class="col-xs-4 pd-l0 mt-10">
+                        <editable class="sort-distanceType-select-{{i}}" 
+                            [editableField]="sort._geo_distance.distance_type"
+                            [editPlaceholder]="'_geo_distance.distance_type'"
+                            [editableInput]="'select2'"
+                            [result]="result"
+                            [selectOption]="distanceTypeList"
+                            [selector]="'sort-distanceType-select'"
+                            [informationList]="distanceTypeinformation"
+                            [showInfoFlag]="true"
+                            [passWithCallback]="i"
+                            (callback)="sortDistanceTypeCallback($event)">
+                        </editable>
                     </div>
                 </div>
             </div>
