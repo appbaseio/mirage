@@ -242,6 +242,7 @@
 }
 
 .toggle, .tabs {
+	display: inline-block;
 	border-radius: 4px;
 	height: 32px;
 	overflow: hidden;

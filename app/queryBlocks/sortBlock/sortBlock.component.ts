@@ -115,7 +115,7 @@ export class SortBlockComponent implements OnInit, OnChanges {
     initSort() {
         let sortObj = {
             'selectedField': '',
-            'order': 'desc',
+            'order': 'asc',
             'availableOptionalParams': []
         }
         this.result.sort.push(sortObj);

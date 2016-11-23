@@ -36,6 +36,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	public editorHookHelp: any;
 	public joiningQuery: any = [''];
 	public joiningQueryParam: any = 0;
+	public removeArray: any = [];
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
@@ -79,18 +80,31 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 
 	removeInQuery(id: number) {
 		var resulQueries = this.result.resultQuery.result;
+		this.removeArray.push(id);
+		var removeFlag = true;
 		resulQueries.forEach(function(v: any, i: number) {
 			if (v.parent_id == id) {
-				resulQueries.splice(i, 1);
+				this.removeInQuery(v.id);
+				removeFlag = false;
 			}
 		}.bind(this));
+
+		if (removeFlag) {
+			this.removeArray.forEach(function(remove_q: number) {
+				resulQueries.forEach(function(v: any, i: number) {
+					if (v.id == remove_q) {
+						resulQueries.splice(i, 1);
+					}
+				}.bind(this));
+			}.bind(this));
+		}
 		this.buildQuery();
 	}
 
 	addSortBlock() {
 		let sortObj = {
             'selectedField': '',
-            'order': 'desc',
+            'order': 'asc',
             'availableOptionalParams': []
         }
         this.result.sort.push(sortObj);
