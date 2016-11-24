@@ -68,6 +68,8 @@ var prettyJson_1 = require("./shared/pipes/prettyJson");
 var prettyTime_1 = require("./shared/pipes/prettyTime");
 // list
 var time_component_1 = require("./features/list/time/time.component");
+// sort
+var sortBlock_component_1 = require("./queryBlocks/sortBlock/sortBlock.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -93,6 +95,7 @@ var AppModule = (function () {
                 learn_component_1.LearnModalComponent,
                 boolquery_component_1.BoolqueryComponent,
                 types_component_1.TypesComponent,
+                sortBlock_component_1.SortBlockComponent,
                 singlequery_component_1.SinglequeryComponent,
                 editable_component_1.EditableComponent,
                 select2_component_1.select2Component,

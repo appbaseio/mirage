@@ -59,6 +59,8 @@ import { prettyJson } from "./shared/pipes/prettyJson";
 import { prettyTime } from "./shared/pipes/prettyTime";
 // list
 import { TimeComponent } from "./features/list/time/time.component";
+// sort
+import { SortBlockComponent } from "./queryBlocks/sortBlock/sortBlock.component";
 
 @NgModule({
   imports: [ 
@@ -81,6 +83,7 @@ import { TimeComponent } from "./features/list/time/time.component";
   	LearnModalComponent,
   	BoolqueryComponent,
   	TypesComponent,
+    SortBlockComponent,
   	SinglequeryComponent, 
   	EditableComponent,
   	select2Component,

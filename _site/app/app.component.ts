@@ -258,7 +258,8 @@ export class AppComponent implements OnInit, OnChanges {
 				'final': "{}"
 			},
 			output: {},
-			queryId: 1
+			queryId: 1,
+			sort: []
 		};
 	}
 

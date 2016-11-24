@@ -67,6 +67,22 @@ var QueryBlocksComponent = (function () {
             alert('Select type first.');
         }
     };
+    QueryBlocksComponent.prototype.removeQuery = function () {
+        this.result.resultQuery.result = [];
+        this.buildQuery();
+    };
+    QueryBlocksComponent.prototype.addSortBlock = function () {
+        var sortObj = {
+            'selectedField': '',
+            'order': 'asc',
+            'availableOptionalParams': []
+        };
+        this.result.sort.push(sortObj);
+    };
+    QueryBlocksComponent.prototype.removeSortBlock = function () {
+        this.result.sort = [];
+        this.buildQuery();
+    };
     // add internal query
     QueryBlocksComponent.prototype.addQuery = function (boolQuery) {
         var self = this;
@@ -81,10 +97,8 @@ var QueryBlocksComponent = (function () {
         var es_final = {};
         if (results.length) {
             var finalresult = {};
-            es_final = {
-                'query': {
-                    'bool': finalresult
-                }
+            es_final['query'] = {
+                'bool': finalresult
             };
             results.forEach(function (result) {
                 result.availableQuery = self.buildInsideQuery(result);
@@ -163,27 +177,63 @@ var QueryBlocksComponent = (function () {
             if (!isBoolPresent) {
                 es_final['query'] = es_final['query']['bool'];
             }
-            this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-            try {
-                this.editorHookHelp.setValue(self.result.resultQuery.final);
-            }
-            catch (e) { }
         }
         else {
             if (this.selectedTypes.length) {
-                var match_all = {
-                    'query': {
-                        'match_all': {}
-                    }
+                es_final['query'] = {
+                    'match_all': {}
                 };
-                this.result.resultQuery.final = JSON.stringify(match_all, null, 2);
-                try {
-                    this.editorHookHelp.setValue(self.result.resultQuery.final);
-                }
-                catch (e) {
-                    console.log(e);
-                }
             }
+        }
+        // apply sort
+        self.result.sort.map(function (sortObj) {
+            if (sortObj.selectedField) {
+                if (!es_final.hasOwnProperty('sort')) {
+                    es_final['sort'] = [];
+                }
+                var obj = {};
+                if (sortObj._geo_distance) {
+                    obj = (_a = {},
+                        _a['_geo_distance'] = (_b = {},
+                            _b[sortObj.selectedField] = {
+                                'lat': sortObj._geo_distance.lat,
+                                'lon': sortObj._geo_distance.lon
+                            },
+                            _b['order'] = sortObj.order,
+                            _b['distance_type'] = sortObj._geo_distance.distance_type,
+                            _b['unit'] = sortObj._geo_distance.unit,
+                            _b
+                        ),
+                        _a
+                    );
+                    if (sortObj.mode) {
+                        obj['_geo_distance']['mode'] = sortObj.mode;
+                    }
+                }
+                else {
+                    obj = (_c = {},
+                        _c[sortObj.selectedField] = {
+                            'order': sortObj.order
+                        },
+                        _c
+                    );
+                    if (sortObj.mode) {
+                        obj[sortObj.selectedField]['mode'] = sortObj.mode;
+                    }
+                    if (sortObj.missing) {
+                        obj[sortObj.selectedField]['missing'] = sortObj.missing;
+                    }
+                }
+                es_final['sort'].push(obj);
+            }
+            var _a, _b, _c;
+        });
+        this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+        try {
+            this.editorHookHelp.setValue(self.result.resultQuery.final);
+        }
+        catch (e) {
+            console.log(e);
         }
         //set input state
         try {
@@ -247,6 +297,22 @@ var QueryBlocksComponent = (function () {
         sampleobj[query] = {};
         sampleobj[query][field] = val.input;
         return sampleobj;
+    };
+    QueryBlocksComponent.prototype.toggleBoolQuery = function () {
+        if (this.result.resultQuery.result.length < 1 && this.selectedTypes.length > 0) {
+            this.addBoolQuery(0);
+        }
+        else {
+            this.removeQuery();
+        }
+    };
+    QueryBlocksComponent.prototype.toggleSortQuery = function () {
+        if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+            this.addSortBlock();
+        }
+        else {
+            this.removeSortBlock();
+        }
     };
     // handle the body click event for editable
     // close all the select2 whene clicking outside of editable-element
