@@ -248,7 +248,8 @@ var AppComponent = (function () {
                 'final': "{}"
             },
             output: {},
-            queryId: 1
+            queryId: 1,
+            sort: []
         };
     };
     AppComponent.prototype.connectHandle = function () {
