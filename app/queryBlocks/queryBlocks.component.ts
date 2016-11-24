@@ -36,6 +36,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	public editorHookHelp: any;
 	public joiningQuery: any = [''];
 	public joiningQueryParam: any = 0;
+	public removeArray: any = [];
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
@@ -77,6 +78,43 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		}
 	}
 
+	removeInQuery(id: number) {
+		var resulQueries = this.result.resultQuery.result;
+		this.removeArray.push(id);
+		var removeFlag = true;
+		resulQueries.forEach(function(v: any, i: number) {
+			if (v.parent_id == id) {
+				this.removeInQuery(v.id);
+				removeFlag = false;
+			}
+		}.bind(this));
+
+		if (removeFlag) {
+			this.removeArray.forEach(function(remove_q: number) {
+				resulQueries.forEach(function(v: any, i: number) {
+					if (v.id == remove_q) {
+						resulQueries.splice(i, 1);
+					}
+				}.bind(this));
+			}.bind(this));
+		}
+		this.buildQuery();
+	}
+
+	addSortBlock() {
+		let sortObj = {
+            'selectedField': '',
+            'order': 'asc',
+            'availableOptionalParams': []
+        }
+        this.result.sort.push(sortObj);
+	}
+
+	removeSortBlock() {
+		this.result.sort = [];
+		this.buildQuery();
+	}
+
 	// add internal query
 	addQuery(boolQuery) {
 		var self = this;
@@ -93,10 +131,8 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 
 		if(results.length) {
 			var finalresult = {};
-			es_final = {
-				'query': {
-					'bool': finalresult
-				}
+			es_final['query'] = {
+				'bool': finalresult
 			};
 			results.forEach(function(result) {
 				result.availableQuery = self.buildInsideQuery(result);
@@ -171,26 +207,62 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			if (!isBoolPresent) {
 				es_final['query'] = es_final['query']['bool'];
 			}
-
-			this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-			try {
-				this.editorHookHelp.setValue(self.result.resultQuery.final);
-			} catch(e) {}
 		} else {
 			if(this.selectedTypes.length) {
-				var match_all = {
-					'query': {
-						'match_all': {}
-					}
+				es_final['query'] = {
+					'match_all': {}
 				};
-				this.result.resultQuery.final = JSON.stringify(match_all, null, 2);	
-				try {
-					this.editorHookHelp.setValue(self.result.resultQuery.final);			
-				} catch(e) {
-					console.log(e);
-				}
 			}
 		}
+
+		// apply sort
+		self.result.sort.map((sortObj) => {
+			if (sortObj.selectedField) {
+				if (!es_final.hasOwnProperty('sort')) {
+					es_final['sort'] = [];
+				}
+
+				let obj = {};
+				if (sortObj._geo_distance) {
+					obj = {
+						['_geo_distance']: {
+							[sortObj.selectedField]: {
+								'lat': sortObj._geo_distance.lat,
+								'lon': sortObj._geo_distance.lon
+							},
+							'order': sortObj.order,
+							'distance_type': sortObj._geo_distance.distance_type,
+							'unit': sortObj._geo_distance.unit
+						}
+					}
+					if (sortObj.mode) {
+						obj['_geo_distance']['mode'] = sortObj.mode;
+					}
+				} else {
+					obj = {
+						[sortObj.selectedField]: {
+							'order': sortObj.order
+						}
+					};
+					if (sortObj.mode) {
+						obj[sortObj.selectedField]['mode'] = sortObj.mode;
+					}
+					if (sortObj.missing) {
+						obj[sortObj.selectedField]['missing'] = sortObj.missing;
+					}
+				}
+
+				es_final['sort'].push(obj);
+			}
+		});
+
+		this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+		try {
+			this.editorHookHelp.setValue(self.result.resultQuery.final);
+		} catch(e) {
+			console.log(e);
+		}
+
 		//set input state
 		try {
 			this.urlShare.inputs['result'] = this.result;
@@ -258,6 +330,22 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		sampleobj[query][field] = val.input;
 		return sampleobj;
 	}
+
+	toggleBoolQuery() {
+		if (this.result.resultQuery.result.length < 1 && this.selectedTypes.length > 0) {
+			this.addBoolQuery(0);
+		} else {
+			this.removeInQuery(0);
+		}
+	}
+
+	toggleSortQuery() {
+		if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+			this.addSortBlock();
+		} else {
+			this.removeSortBlock();
+		}
+	}	
 
 	// handle the body click event for editable
 	// close all the select2 whene clicking outside of editable-element
