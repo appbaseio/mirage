@@ -36,7 +36,6 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	public editorHookHelp: any;
 	public joiningQuery: any = [''];
 	public joiningQueryParam: any = 0;
-	public removeArray: any = [];
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
