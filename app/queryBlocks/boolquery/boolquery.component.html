@@ -7,7 +7,7 @@
 	<div class="row m-b15 nested-first">
 		<div class="col-xs-12 nested-container">
 			<button (click)="addSubQuery(query.id)" class="btn btn-default nested-query">
-				<i class="fa fa-plus"></i> Compound query
+				<i class="fa fa-plus"></i> Sub Query
 			</button>
 			<div class="col-xs-6">
 				<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
@@ -103,7 +103,7 @@
 		</form>
 	</div>
 	<div class="col-xs-12 add_condition_row">
-		<button class="btn btn-default add_condition" (click)="addQuery(query);">Add conditions</button>
+		<button class="btn btn-default add_condition" (click)="addQuery(query);"><i class="fa fa-plus"></i> Conditions</button>
 	</div>
 	<div class="subQuery col-xs-12">
 		<form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">
