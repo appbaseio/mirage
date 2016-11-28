@@ -1,5 +1,7 @@
-import { OnInit, OnChanges, Component, Input, Output, EventEmitter, AfterViewInit } from "@angular/core";
+import { OnInit, OnChanges, Component, Input, Output, ViewChild, EventEmitter, AfterViewInit } from "@angular/core";
 import { Headers, Http } from '@angular/http';
+import { AuthOperation } from '../subscribe/AuthOperation';
+import { StorageService } from "../../shared/storage.service";
 
 declare var $: any;
 
@@ -10,11 +12,18 @@ declare var $: any;
 })
 
 export class LearnModalComponent {
-	constructor(private http: Http) {}
+	
+	constructor(private http: Http, public storageService: StorageService) {
+		this.updateStatus = this.updateStatus.bind(this);
+	}
 
 	@Output() saveQuery = new EventEmitter();
 	@Output() newQuery = new EventEmitter();
 	public queries: any = [];
+	public subscribeOption: string = "major";
+	public profile: any = null;
+	public serverAddress: string = 'https://ossauth.appbase.io';
+	@ViewChild(AuthOperation) private authOperation: AuthOperation;
 
 	loadLearn() {
 		let self = this;
@@ -31,5 +40,13 @@ export class LearnModalComponent {
 		}).catch(function(e) {
 			console.log(e);
 		});
+	}
+
+	updateStatus(info: any) {
+		this.profile = info.profile;
+	}
+
+	subscribe() {
+		this.authOperation.login(this.subscribeOption);
 	}
 }
