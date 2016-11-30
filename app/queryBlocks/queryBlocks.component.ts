@@ -213,7 +213,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 							},
 							'order': sortObj.order,
 							'distance_type': sortObj._geo_distance.distance_type,
-							'unit': sortObj._geo_distance.unit
+							'unit': sortObj._geo_distance.unit || 'm'
 						}
 					}
 					if (sortObj.mode) {

@@ -9,3 +9,6 @@
     font-size: 16px; }
     #learnModal .learn-list-contianer .learn-list li {
       margin-bottom: 10px; }
+  #learnModal .learn-list-contianer .introBottom {
+    display: table;
+    width: 100%; }
