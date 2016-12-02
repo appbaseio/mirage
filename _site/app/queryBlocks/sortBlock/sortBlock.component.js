@@ -15,13 +15,6 @@ var SortBlockComponent = (function () {
         this.removeArray = [];
         this.query = this.query;
         this.allFields = [];
-        this.modeList = [
-            'min',
-            'max',
-            'sum',
-            'avg',
-            'median'
-        ];
         this.distanceTypeList = [
             'sloppy_arc',
             'arc',
@@ -52,25 +45,25 @@ var SortBlockComponent = (function () {
         this.optionalParamsInformation = {
             'mode': {
                 title: 'mode',
-                content: "<span class=\"description\">The mode option controls what array value is picked for sorting the document it belongs to.</span>"
+                content: "<span class=\"description\">The mode option controls what array value is picked for sorting the document it belongs to.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_sort_mode_option\">Read more</a>"
             },
             'missing': {
                 title: 'missing',
-                content: "<span class=\"description\">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>"
+                content: "<span class=\"description\">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_missing_values\">Read more</a>"
             },
             'nested': {
                 title: 'nested',
-                content: "<span class=\"description\">Allows sorting withing nested objects</span>"
+                content: "<span class=\"description\">Allows sorting withing nested objects</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#nested-sorting\">Read more</a>"
             },
             '_geo_distance': {
                 title: '_geo_distance',
-                content: "<span class=\"description\">Allow to sort by _geo_distance.</span>"
+                content: "<span class=\"description\">Allow to sort by _geo_distance.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#geo-sorting\">Read more</a>"
             }
         };
         this.distanceTypeInformation = {
             'sloppy_arc': {
                 title: 'sloppy_arc',
-                content: "<span class=\"description\">(Default)</span>"
+                content: "<span class=\"description\">Default distance type</span>"
             },
             'arc': {
                 title: 'arc',
@@ -82,6 +75,7 @@ var SortBlockComponent = (function () {
             }
         };
         this.joiningQuery = [''];
+        this.setDocSample = new core_1.EventEmitter();
     }
     SortBlockComponent.prototype.ngOnInit = function () {
         if (this.result.resultQuery.hasOwnProperty('availableFields')) {
@@ -105,7 +99,8 @@ var SortBlockComponent = (function () {
         var sortObj = {
             'selectedField': '',
             'order': 'asc',
-            'availableOptionalParams': []
+            'availableOptionalParams': [],
+            'modeList': []
         };
         this.result.sort.push(sortObj);
         this.exeBuild();
@@ -115,7 +110,6 @@ var SortBlockComponent = (function () {
         this.exeBuild();
     };
     SortBlockComponent.prototype.sortFieldCallback = function (input) {
-        var _this = this;
         var obj = this.result.sort[input.external];
         var geoFlag = false;
         obj.selectedField = input.val;
@@ -127,21 +121,31 @@ var SortBlockComponent = (function () {
             obj.availableOptionalParams.push('missing');
         }
         this.result.resultQuery.availableFields.map(function (field) {
-            if (field.name === input.val && field.type === 'geo_point') {
-                var index = obj.availableOptionalParams.indexOf('missing');
-                if (index > -1) {
-                    obj.availableOptionalParams.splice(index, 1);
+            if (field.name === input.val) {
+                if (field.type === 'geo_point') {
+                    var index = obj.availableOptionalParams.indexOf('missing');
+                    if (index > -1) {
+                        obj.availableOptionalParams.splice(index, 1);
+                    }
+                    if (obj.hasOwnProperty('missing')) {
+                        delete obj['missing'];
+                    }
+                    geoFlag = true;
+                    obj.modeList = ['min', 'max', 'avg', 'median'];
+                    obj['_geo_distance'] = {
+                        'distance_type': 'sloppy_arc',
+                        'lat': '',
+                        'lon': '',
+                        'unit': ''
+                    };
                 }
-                if (!obj['_geo_distance']) {
-                    obj.availableOptionalParams.push('_geo_distance');
+                else {
+                    obj.modeList = ['min', 'max', 'sum', 'avg', 'median'];
                 }
-                geoFlag = true;
-                _this.modeList = ['min', 'max', 'avg', 'median'];
             }
         });
         if (!geoFlag) {
             delete obj['_geo_distance'];
-            this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
         }
         this.exeBuild();
     };
@@ -159,17 +163,7 @@ var SortBlockComponent = (function () {
         if (index > -1) {
             obj.availableOptionalParams.splice(index, 1);
         }
-        if (input.val === '_geo_distance') {
-            obj['_geo_distance'] = {
-                'distance_type': 'sloppy_arc',
-                'lat': '',
-                'lon': '',
-                'unit': 'm'
-            };
-        }
-        else {
-            obj[input.val] = '';
-        }
+        obj[input.val] = '';
     };
     SortBlockComponent.prototype.setSortOrder = function (order, index) {
         this.result.sort[index].order = order;
@@ -182,7 +176,6 @@ var SortBlockComponent = (function () {
     SortBlockComponent.prototype.removeSortOptionalQuery = function (index, type) {
         this.result.sort[index].availableOptionalParams.push(type);
         delete this.result.sort[index][type];
-        this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
         this.exeBuild();
     };
     SortBlockComponent.prototype.show_hidden_btns = function (event) {
@@ -192,6 +185,9 @@ var SortBlockComponent = (function () {
     };
     SortBlockComponent.prototype.hide_hidden_btns = function () {
         $('.bool_query').removeClass('show_hidden');
+    };
+    SortBlockComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
     };
     __decorate([
         core_1.Input(), 
@@ -217,6 +213,10 @@ var SortBlockComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SortBlockComponent.prototype, "joiningQueryParam", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "setDocSample", void 0);
     SortBlockComponent = __decorate([
         core_1.Component({
             selector: 'sort-block',

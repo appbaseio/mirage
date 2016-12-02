@@ -13,8 +13,6 @@
   padding: 15px; }
   .queryLeft .bool_query:first-child .nested-first {
     padding-left: 15px; }
-  .queryLeft .bool_query .subQuery .nested-first {
-    padding-left: 0; }
 
 .bool_query .add_condition_row {
   padding: 0;
@@ -35,7 +33,6 @@
 
 .bool_query .subQuery {
   padding: 0;
-  padding-left: 15px;
   padding-top: 15px; }
   .bool_query .subQuery .single_query {
     border: 0;

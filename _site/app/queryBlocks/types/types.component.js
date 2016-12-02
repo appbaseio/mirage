@@ -47,53 +47,60 @@ var TypesComponent = (function () {
         var propInfo;
         var allMappings = this.mapping[this.config.appname].mappings;
         this.result.joiningQuery = [''];
+        function feedAvailableField(mapObj, parent) {
+            if (parent === void 0) { parent = null; }
+            var mapObjWithFields = {};
+            for (var field_1 in mapObj) {
+                mapObjWithFields[field_1] = mapObj[field_1];
+                if (mapObj[field_1].fields) {
+                    for (var sub in mapObj[field_1].fields) {
+                        var subname = field_1 + '.' + sub;
+                        subname = parent ? (parent + '.' + subname) : subname;
+                        mapObjWithFields[subname] = mapObj[field_1].fields[sub];
+                    }
+                }
+                if (mapObj[field_1].properties) {
+                    for (var sub in mapObj[field_1].properties) {
+                        var subname = field_1 + '.' + sub;
+                        subname = parent ? (parent + '.' + subname) : subname;
+                        mapObjWithFields[subname] = mapObj[field_1].properties[sub];
+                    }
+                    feedAvailableField.call(this, mapObj[field_1].properties, field_1);
+                }
+                if (mapObj[field_1].type === 'nested') {
+                    if (this.result.joiningQuery.indexOf('nested') < 0) {
+                        this.result.joiningQuery.push('nested');
+                    }
+                }
+            }
+            for (var field in mapObjWithFields) {
+                var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
+                var obj = {
+                    name: field,
+                    type: mapObjWithFields[field]['type'],
+                    index: index
+                };
+                switch (obj.type) {
+                    case 'long':
+                    case 'integer':
+                    case 'short':
+                    case 'byte':
+                    case 'double':
+                    case 'float':
+                        obj.type = 'numeric';
+                        break;
+                    case 'text':
+                    case 'keyword':
+                        obj.type = 'string';
+                        break;
+                }
+                availableFields.push(obj);
+            }
+        }
         if (val && val.length) {
             val.forEach(function (type) {
-                var mapObjWithFields = {};
                 var mapObj = allMappings[type].properties;
-                for (var field_1 in mapObj) {
-                    mapObjWithFields[field_1] = mapObj[field_1];
-                    if (mapObj[field_1].fields) {
-                        for (var sub in mapObj[field_1].fields) {
-                            var subname = field_1 + '.' + sub;
-                            mapObjWithFields[subname] = mapObj[field_1].fields[sub];
-                        }
-                    }
-                    if (mapObj[field_1].properties) {
-                        for (var sub in mapObj[field_1].properties) {
-                            var subname = field_1 + '.' + sub;
-                            mapObjWithFields[subname] = mapObj[field_1].properties[sub];
-                        }
-                    }
-                    if (mapObj[field_1].type === 'nested') {
-                        if (this.result.joiningQuery.indexOf('nested') < 0) {
-                            this.result.joiningQuery.push('nested');
-                        }
-                    }
-                }
-                for (var field in mapObjWithFields) {
-                    var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
-                    var obj = {
-                        name: field,
-                        type: mapObjWithFields[field]['type'],
-                        index: index
-                    };
-                    switch (obj.type) {
-                        case 'long':
-                        case 'integer':
-                        case 'short':
-                        case 'byte':
-                        case 'double':
-                        case 'float':
-                            obj.type = 'numeric';
-                            break;
-                        case 'text':
-                        case 'keyword':
-                            obj.type = 'string';
-                            break;
-                    }
-                    availableFields.push(obj);
-                }
+                feedAvailableField.call(this, mapObj);
             }.bind(this));
             this.setUrl(val);
             propInfo = {

@@ -41,7 +41,8 @@
                         [informationList]="optionalParamsInformation"
                         [showInfoFlag]="true"
                         [passWithCallback]="i"
-                        (callback)="sortOptionalCallback($event)">
+                        (callback)="sortOptionalCallback($event)"
+                        (setDocSample)="setDocSampleEve($event)">
                     </editable>
                 </div>
                 
@@ -57,7 +58,7 @@
                             [editPlaceholder]="'mode'"
                             [editableInput]="'select2'"
                             [result]="result"
-                            [selectOption]="modeList"
+                            [selectOption]="sort.modeList"
                             [selector]="'sort-mode-select'"
                             [informationList]="informationList"
                             [showInfoFlag]="true"
@@ -82,7 +83,7 @@
                 </div>
 
                  <div class="row m-0 mt-10 single_query clearfix" *ngIf="sort._geo_distance">
-                    <div class="action-btn-group">
+                    <div class="action-btn-group" *ngIf="!sort._geo_distance">
                         <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortOptionalQuery(i, '_geo_distance');">
                             <i class="fa fa-times"></i>
                         </a>
@@ -102,7 +103,7 @@
                     <div class="col-xs-4 pd-l0">
                         <input type="text" class="form-control"
                             [(ngModel)]="sort._geo_distance.unit"
-                            placeholder="unit"
+                            placeholder="unit default as m"
                             (keyup)="exeBuild();" />
                     </div>
                     <div class="col-xs-4 pd-l0 mt-10">
@@ -113,7 +114,7 @@
                             [result]="result"
                             [selectOption]="distanceTypeList"
                             [selector]="'sort-distanceType-select'"
-                            [informationList]="distanceTypeinformation"
+                            [informationList]="distanceTypeInformation"
                             [showInfoFlag]="true"
                             [passWithCallback]="i"
                             (callback)="sortDistanceTypeCallback($event)">

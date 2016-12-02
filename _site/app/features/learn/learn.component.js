@@ -10,12 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require('@angular/http');
+var AuthOperation_1 = require('../subscribe/AuthOperation');
+var storage_service_1 = require("../../shared/storage.service");
 var LearnModalComponent = (function () {
-    function LearnModalComponent(http) {
+    function LearnModalComponent(http, storageService) {
         this.http = http;
+        this.storageService = storageService;
         this.saveQuery = new core_1.EventEmitter();
         this.newQuery = new core_1.EventEmitter();
         this.queries = [];
+        this.subscribeOption = "major";
+        this.profile = null;
+        this.serverAddress = 'https://ossauth.appbase.io';
+        this.updateStatus = this.updateStatus.bind(this);
     }
     LearnModalComponent.prototype.loadLearn = function () {
         var self = this;
@@ -33,6 +40,12 @@ var LearnModalComponent = (function () {
             console.log(e);
         });
     };
+    LearnModalComponent.prototype.updateStatus = function (info) {
+        this.profile = info.profile;
+    };
+    LearnModalComponent.prototype.subscribe = function () {
+        this.authOperation.login(this.subscribeOption);
+    };
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -41,13 +54,17 @@ var LearnModalComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], LearnModalComponent.prototype, "newQuery", void 0);
+    __decorate([
+        core_1.ViewChild(AuthOperation_1.AuthOperation), 
+        __metadata('design:type', AuthOperation_1.AuthOperation)
+    ], LearnModalComponent.prototype, "authOperation", void 0);
     LearnModalComponent = __decorate([
         core_1.Component({
             selector: 'learn-modal',
             templateUrl: './app/features/learn/learn.component.html',
             inputs: ['saveQuery', 'newQuery']
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, storage_service_1.StorageService])
     ], LearnModalComponent);
     return LearnModalComponent;
 }());

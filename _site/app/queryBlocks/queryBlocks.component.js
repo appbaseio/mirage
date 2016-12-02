@@ -186,48 +186,50 @@ var QueryBlocksComponent = (function () {
             }
         }
         // apply sort
-        self.result.sort.map(function (sortObj) {
-            if (sortObj.selectedField) {
-                if (!es_final.hasOwnProperty('sort')) {
-                    es_final['sort'] = [];
-                }
-                var obj = {};
-                if (sortObj._geo_distance) {
-                    obj = (_a = {},
-                        _a['_geo_distance'] = (_b = {},
-                            _b[sortObj.selectedField] = {
-                                'lat': sortObj._geo_distance.lat,
-                                'lon': sortObj._geo_distance.lon
+        if (self.result.sort) {
+            self.result.sort.map(function (sortObj) {
+                if (sortObj.selectedField) {
+                    if (!es_final.hasOwnProperty('sort')) {
+                        es_final['sort'] = [];
+                    }
+                    var obj = {};
+                    if (sortObj._geo_distance) {
+                        obj = (_a = {},
+                            _a['_geo_distance'] = (_b = {},
+                                _b[sortObj.selectedField] = {
+                                    'lat': sortObj._geo_distance.lat,
+                                    'lon': sortObj._geo_distance.lon
+                                },
+                                _b['order'] = sortObj.order,
+                                _b['distance_type'] = sortObj._geo_distance.distance_type,
+                                _b['unit'] = sortObj._geo_distance.unit || 'm',
+                                _b
+                            ),
+                            _a
+                        );
+                        if (sortObj.mode) {
+                            obj['_geo_distance']['mode'] = sortObj.mode;
+                        }
+                    }
+                    else {
+                        obj = (_c = {},
+                            _c[sortObj.selectedField] = {
+                                'order': sortObj.order
                             },
-                            _b['order'] = sortObj.order,
-                            _b['distance_type'] = sortObj._geo_distance.distance_type,
-                            _b['unit'] = sortObj._geo_distance.unit,
-                            _b
-                        ),
-                        _a
-                    );
-                    if (sortObj.mode) {
-                        obj['_geo_distance']['mode'] = sortObj.mode;
+                            _c
+                        );
+                        if (sortObj.mode) {
+                            obj[sortObj.selectedField]['mode'] = sortObj.mode;
+                        }
+                        if (sortObj.missing) {
+                            obj[sortObj.selectedField]['missing'] = sortObj.missing;
+                        }
                     }
+                    es_final['sort'].push(obj);
                 }
-                else {
-                    obj = (_c = {},
-                        _c[sortObj.selectedField] = {
-                            'order': sortObj.order
-                        },
-                        _c
-                    );
-                    if (sortObj.mode) {
-                        obj[sortObj.selectedField]['mode'] = sortObj.mode;
-                    }
-                    if (sortObj.missing) {
-                        obj[sortObj.selectedField]['missing'] = sortObj.missing;
-                    }
-                }
-                es_final['sort'].push(obj);
-            }
-            var _a, _b, _c;
-        });
+                var _a, _b, _c;
+            });
+        }
         this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
         try {
             this.editorHookHelp.setValue(self.result.resultQuery.final);
@@ -307,11 +309,18 @@ var QueryBlocksComponent = (function () {
         }
     };
     QueryBlocksComponent.prototype.toggleSortQuery = function () {
-        if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
-            this.addSortBlock();
+        if (this.result.sort) {
+            console.log("coming");
+            if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+                this.addSortBlock();
+            }
+            else {
+                this.removeSortBlock();
+            }
         }
         else {
-            this.removeSortBlock();
+            this.result.sort = [];
+            this.addSortBlock();
         }
     };
     // handle the body click event for editable
