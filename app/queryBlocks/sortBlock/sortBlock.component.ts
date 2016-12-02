@@ -17,13 +17,6 @@ export class SortBlockComponent implements OnInit, OnChanges {
     public query: any = this.query;
     public buildQuery: any;
     public allFields: any = [];
-    public modeList: any = [
-        'min',
-        'max',
-        'sum',
-        'avg',
-        'median'
-    ];
     public distanceTypeList: any = [
         'sloppy_arc',
         'arc',
@@ -55,25 +48,29 @@ export class SortBlockComponent implements OnInit, OnChanges {
     public optionalParamsInformation: any = {
         'mode': {
             title: 'mode',
-            content: `<span class="description">The mode option controls what array value is picked for sorting the document it belongs to.</span>`
+            content: `<span class="description">The mode option controls what array value is picked for sorting the document it belongs to.</span>
+                        <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_sort_mode_option">Read more</a>`
         },
         'missing': {
             title: 'missing',
-            content: `<span class="description">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>`
+            content: `<span class="description">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>
+                        <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_missing_values">Read more</a>`
         },
         'nested': {
             title: 'nested',
-            content: `<span class="description">Allows sorting withing nested objects</span>`
+            content: `<span class="description">Allows sorting withing nested objects</span>
+                        <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#nested-sorting">Read more</a>`
         },
         '_geo_distance': {
             title: '_geo_distance',
-            content: `<span class="description">Allow to sort by _geo_distance.</span>`
+            content: `<span class="description">Allow to sort by _geo_distance.</span>
+                        <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#geo-sorting">Read more</a>`
         }
     };
     public distanceTypeInformation: any = {
         'sloppy_arc': {
             title: 'sloppy_arc',
-            content: `<span class="description">(Default)</span>`
+            content: `<span class="description">Default distance type</span>`
         },
         'arc': {
             title: 'arc',
@@ -91,6 +88,7 @@ export class SortBlockComponent implements OnInit, OnChanges {
     @Input() result: any;
     @Input() joiningQuery: any = [''];
     @Input() joiningQueryParam: any;
+    @Output() setDocSample = new EventEmitter < any >();
     
     ngOnInit() {
         if (this.result.resultQuery.hasOwnProperty('availableFields')) {
@@ -116,7 +114,8 @@ export class SortBlockComponent implements OnInit, OnChanges {
         let sortObj = {
             'selectedField': '',
             'order': 'asc',
-            'availableOptionalParams': []
+            'availableOptionalParams': [],
+            'modeList': []
         }
         this.result.sort.push(sortObj);
         this.exeBuild();
@@ -142,23 +141,33 @@ export class SortBlockComponent implements OnInit, OnChanges {
         }
 
         this.result.resultQuery.availableFields.map(field => {
-            if (field.name === input.val && field.type === 'geo_point') {
-                let index = obj.availableOptionalParams.indexOf('missing');
-                if (index > -1) {
-                    obj.availableOptionalParams.splice(index, 1);
-                }
+            if (field.name === input.val) {
+                if (field.type === 'geo_point') {
+                    let index = obj.availableOptionalParams.indexOf('missing');
+                    if (index > -1) {
+                        obj.availableOptionalParams.splice(index, 1);
+                    }
 
-                if (!obj['_geo_distance']) {
-                    obj.availableOptionalParams.push('_geo_distance');
+                    if (obj.hasOwnProperty('missing')) {
+                        delete obj['missing'];
+                    }
+
+                    geoFlag = true;
+                    obj.modeList = ['min', 'max', 'avg', 'median'];
+                    obj['_geo_distance'] = {
+                        'distance_type': 'sloppy_arc',
+                        'lat': '',
+                        'lon': '',
+                        'unit': ''
+                    }
+                } else {
+                    obj.modeList = ['min', 'max', 'sum', 'avg', 'median'];
                 }
-                geoFlag = true;
-                this.modeList = ['min', 'max', 'avg', 'median'];
             }
         });
 
         if (!geoFlag) {
             delete obj['_geo_distance'];
-            this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
         }
         this.exeBuild();
     }
@@ -179,17 +188,7 @@ export class SortBlockComponent implements OnInit, OnChanges {
         if (index > -1) {
             obj.availableOptionalParams.splice(index, 1);
         }
-        if (input.val === '_geo_distance') {
-            obj['_geo_distance'] = {
-                'distance_type': 'sloppy_arc',
-                'lat': '',
-                'lon': '',
-                'unit': 'm'
-            }
-
-        } else {
-            obj[input.val] = '';
-        }
+        obj[input.val] = '';
     }
 
     setSortOrder(order, index) {
@@ -205,7 +204,6 @@ export class SortBlockComponent implements OnInit, OnChanges {
     removeSortOptionalQuery(index: any, type: any) {
         this.result.sort[index].availableOptionalParams.push(type);
         delete this.result.sort[index][type];
-        this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
         this.exeBuild();
     }
 
@@ -217,5 +215,9 @@ export class SortBlockComponent implements OnInit, OnChanges {
 
     hide_hidden_btns() {
         $('.bool_query').removeClass('show_hidden');
+    }
+
+    setDocSampleEve(link) {
+        this.setDocSample.emit(link);
     }
 }
