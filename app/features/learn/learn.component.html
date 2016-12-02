@@ -1,4 +1,5 @@
 <!-- Learn Modal START -->
+<auth-operation (updateStatus)="updateStatus($event);"></auth-operation>
 <div class="modal fade modal-info" id="learnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -18,8 +19,14 @@
 							<li>
 								<a (click)="loadLearn();">Live demo with preloaded queries</a>
 							</li>
-							<li>
-								<a href="https://github.com/appbaseio/mirage/blob/dev/README.md" target="_blank">Read more on Github</a>
+							<li class="introBottom">
+								<a class="pull-left" href="https://github.com/appbaseio/mirage/blob/dev/README.md" target="_blank">Read more on Github</a>
+								<button  *ngIf="!profile" class="btn btn-primary pull-right" (click)="subscribe();">
+									<i class="fa fa-github"></i> Subscribe with Github
+								</button>
+								<button  *ngIf="profile" disabled="" class="btn btn-primary pull-right">
+									<i class="fa fa-check"></i> Subscribed
+								</button>
 							</li>
 						</ul>
 					</div>
