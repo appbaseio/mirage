@@ -197,45 +197,47 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		}
 
 		// apply sort
-		self.result.sort.map((sortObj) => {
-			if (sortObj.selectedField) {
-				if (!es_final.hasOwnProperty('sort')) {
-					es_final['sort'] = [];
-				}
+		if (self.result.sort) {
+			self.result.sort.map((sortObj) => {
+				if (sortObj.selectedField) {
+					if (!es_final.hasOwnProperty('sort')) {
+						es_final['sort'] = [];
+					}
 
-				let obj = {};
-				if (sortObj._geo_distance) {
-					obj = {
-						['_geo_distance']: {
+					let obj = {};
+					if (sortObj._geo_distance) {
+						obj = {
+							['_geo_distance']: {
+								[sortObj.selectedField]: {
+									'lat': sortObj._geo_distance.lat,
+									'lon': sortObj._geo_distance.lon
+								},
+								'order': sortObj.order,
+								'distance_type': sortObj._geo_distance.distance_type,
+								'unit': sortObj._geo_distance.unit || 'm'
+							}
+						}
+						if (sortObj.mode) {
+							obj['_geo_distance']['mode'] = sortObj.mode;
+						}
+					} else {
+						obj = {
 							[sortObj.selectedField]: {
-								'lat': sortObj._geo_distance.lat,
-								'lon': sortObj._geo_distance.lon
-							},
-							'order': sortObj.order,
-							'distance_type': sortObj._geo_distance.distance_type,
-							'unit': sortObj._geo_distance.unit || 'm'
+								'order': sortObj.order
+							}
+						};
+						if (sortObj.mode) {
+							obj[sortObj.selectedField]['mode'] = sortObj.mode;
+						}
+						if (sortObj.missing) {
+							obj[sortObj.selectedField]['missing'] = sortObj.missing;
 						}
 					}
-					if (sortObj.mode) {
-						obj['_geo_distance']['mode'] = sortObj.mode;
-					}
-				} else {
-					obj = {
-						[sortObj.selectedField]: {
-							'order': sortObj.order
-						}
-					};
-					if (sortObj.mode) {
-						obj[sortObj.selectedField]['mode'] = sortObj.mode;
-					}
-					if (sortObj.missing) {
-						obj[sortObj.selectedField]['missing'] = sortObj.missing;
-					}
-				}
 
-				es_final['sort'].push(obj);
-			}
-		});
+					es_final['sort'].push(obj);
+				}
+			});
+		}
 
 		this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
 		try {
@@ -321,10 +323,16 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	}
 
 	toggleSortQuery() {
-		if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
-			this.addSortBlock();
+		if (this.result.sort) {
+			console.log("coming");
+			if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+				this.addSortBlock();
+			} else {
+				this.removeSortBlock();
+			}
 		} else {
-			this.removeSortBlock();
+			this.result.sort = [];
+			this.addSortBlock();
 		}
 	}	
 
