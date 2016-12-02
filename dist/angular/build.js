@@ -967,12 +967,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require('@angular/http');
+var AuthOperation_1 = require('../subscribe/AuthOperation');
+var storage_service_1 = require("../../shared/storage.service");
 var LearnModalComponent = (function () {
-    function LearnModalComponent(http) {
+    function LearnModalComponent(http, storageService) {
         this.http = http;
+        this.storageService = storageService;
         this.saveQuery = new core_1.EventEmitter();
         this.newQuery = new core_1.EventEmitter();
         this.queries = [];
+        this.subscribeOption = "major";
+        this.profile = null;
+        this.serverAddress = 'https://ossauth.appbase.io';
+        this.updateStatus = this.updateStatus.bind(this);
     }
     LearnModalComponent.prototype.loadLearn = function () {
         var self = this;
@@ -990,6 +997,12 @@ var LearnModalComponent = (function () {
             console.log(e);
         });
     };
+    LearnModalComponent.prototype.updateStatus = function (info) {
+        this.profile = info.profile;
+    };
+    LearnModalComponent.prototype.subscribe = function () {
+        this.authOperation.login(this.subscribeOption);
+    };
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -998,19 +1011,23 @@ var LearnModalComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], LearnModalComponent.prototype, "newQuery", void 0);
+    __decorate([
+        core_1.ViewChild(AuthOperation_1.AuthOperation), 
+        __metadata('design:type', AuthOperation_1.AuthOperation)
+    ], LearnModalComponent.prototype, "authOperation", void 0);
     LearnModalComponent = __decorate([
         core_1.Component({
             selector: 'learn-modal',
             templateUrl: './app/features/learn/learn.component.html',
             inputs: ['saveQuery', 'newQuery']
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, storage_service_1.StorageService])
     ], LearnModalComponent);
     return LearnModalComponent;
 }());
 exports.LearnModalComponent = LearnModalComponent;
 //# sourceMappingURL=learn.component.js.map
-},{"@angular/core":62,"@angular/http":64}],8:[function(require,module,exports){
+},{"../../shared/storage.service":58,"../subscribe/AuthOperation":13,"@angular/core":62,"@angular/http":64}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2156,48 +2173,50 @@ var QueryBlocksComponent = (function () {
             }
         }
         // apply sort
-        self.result.sort.map(function (sortObj) {
-            if (sortObj.selectedField) {
-                if (!es_final.hasOwnProperty('sort')) {
-                    es_final['sort'] = [];
-                }
-                var obj = {};
-                if (sortObj._geo_distance) {
-                    obj = (_a = {},
-                        _a['_geo_distance'] = (_b = {},
-                            _b[sortObj.selectedField] = {
-                                'lat': sortObj._geo_distance.lat,
-                                'lon': sortObj._geo_distance.lon
+        if (self.result.sort) {
+            self.result.sort.map(function (sortObj) {
+                if (sortObj.selectedField) {
+                    if (!es_final.hasOwnProperty('sort')) {
+                        es_final['sort'] = [];
+                    }
+                    var obj = {};
+                    if (sortObj._geo_distance) {
+                        obj = (_a = {},
+                            _a['_geo_distance'] = (_b = {},
+                                _b[sortObj.selectedField] = {
+                                    'lat': sortObj._geo_distance.lat,
+                                    'lon': sortObj._geo_distance.lon
+                                },
+                                _b['order'] = sortObj.order,
+                                _b['distance_type'] = sortObj._geo_distance.distance_type,
+                                _b['unit'] = sortObj._geo_distance.unit || 'm',
+                                _b
+                            ),
+                            _a
+                        );
+                        if (sortObj.mode) {
+                            obj['_geo_distance']['mode'] = sortObj.mode;
+                        }
+                    }
+                    else {
+                        obj = (_c = {},
+                            _c[sortObj.selectedField] = {
+                                'order': sortObj.order
                             },
-                            _b['order'] = sortObj.order,
-                            _b['distance_type'] = sortObj._geo_distance.distance_type,
-                            _b['unit'] = sortObj._geo_distance.unit,
-                            _b
-                        ),
-                        _a
-                    );
-                    if (sortObj.mode) {
-                        obj['_geo_distance']['mode'] = sortObj.mode;
+                            _c
+                        );
+                        if (sortObj.mode) {
+                            obj[sortObj.selectedField]['mode'] = sortObj.mode;
+                        }
+                        if (sortObj.missing) {
+                            obj[sortObj.selectedField]['missing'] = sortObj.missing;
+                        }
                     }
+                    es_final['sort'].push(obj);
                 }
-                else {
-                    obj = (_c = {},
-                        _c[sortObj.selectedField] = {
-                            'order': sortObj.order
-                        },
-                        _c
-                    );
-                    if (sortObj.mode) {
-                        obj[sortObj.selectedField]['mode'] = sortObj.mode;
-                    }
-                    if (sortObj.missing) {
-                        obj[sortObj.selectedField]['missing'] = sortObj.missing;
-                    }
-                }
-                es_final['sort'].push(obj);
-            }
-            var _a, _b, _c;
-        });
+                var _a, _b, _c;
+            });
+        }
         this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
         try {
             this.editorHookHelp.setValue(self.result.resultQuery.final);
@@ -2277,11 +2296,18 @@ var QueryBlocksComponent = (function () {
         }
     };
     QueryBlocksComponent.prototype.toggleSortQuery = function () {
-        if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
-            this.addSortBlock();
+        if (this.result.sort) {
+            console.log("coming");
+            if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+                this.addSortBlock();
+            }
+            else {
+                this.removeSortBlock();
+            }
         }
         else {
-            this.removeSortBlock();
+            this.result.sort = [];
+            this.addSortBlock();
         }
     };
     // handle the body click event for editable
@@ -7603,13 +7629,6 @@ var SortBlockComponent = (function () {
         this.removeArray = [];
         this.query = this.query;
         this.allFields = [];
-        this.modeList = [
-            'min',
-            'max',
-            'sum',
-            'avg',
-            'median'
-        ];
         this.distanceTypeList = [
             'sloppy_arc',
             'arc',
@@ -7640,25 +7659,25 @@ var SortBlockComponent = (function () {
         this.optionalParamsInformation = {
             'mode': {
                 title: 'mode',
-                content: "<span class=\"description\">The mode option controls what array value is picked for sorting the document it belongs to.</span>"
+                content: "<span class=\"description\">The mode option controls what array value is picked for sorting the document it belongs to.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_sort_mode_option\">Read more</a>"
             },
             'missing': {
                 title: 'missing',
-                content: "<span class=\"description\">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>"
+                content: "<span class=\"description\">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_missing_values\">Read more</a>"
             },
             'nested': {
                 title: 'nested',
-                content: "<span class=\"description\">Allows sorting withing nested objects</span>"
+                content: "<span class=\"description\">Allows sorting withing nested objects</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#nested-sorting\">Read more</a>"
             },
             '_geo_distance': {
                 title: '_geo_distance',
-                content: "<span class=\"description\">Allow to sort by _geo_distance.</span>"
+                content: "<span class=\"description\">Allow to sort by _geo_distance.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#geo-sorting\">Read more</a>"
             }
         };
         this.distanceTypeInformation = {
             'sloppy_arc': {
                 title: 'sloppy_arc',
-                content: "<span class=\"description\">(Default)</span>"
+                content: "<span class=\"description\">Default distance type</span>"
             },
             'arc': {
                 title: 'arc',
@@ -7670,6 +7689,7 @@ var SortBlockComponent = (function () {
             }
         };
         this.joiningQuery = [''];
+        this.setDocSample = new core_1.EventEmitter();
     }
     SortBlockComponent.prototype.ngOnInit = function () {
         if (this.result.resultQuery.hasOwnProperty('availableFields')) {
@@ -7693,7 +7713,8 @@ var SortBlockComponent = (function () {
         var sortObj = {
             'selectedField': '',
             'order': 'asc',
-            'availableOptionalParams': []
+            'availableOptionalParams': [],
+            'modeList': []
         };
         this.result.sort.push(sortObj);
         this.exeBuild();
@@ -7703,7 +7724,6 @@ var SortBlockComponent = (function () {
         this.exeBuild();
     };
     SortBlockComponent.prototype.sortFieldCallback = function (input) {
-        var _this = this;
         var obj = this.result.sort[input.external];
         var geoFlag = false;
         obj.selectedField = input.val;
@@ -7715,21 +7735,31 @@ var SortBlockComponent = (function () {
             obj.availableOptionalParams.push('missing');
         }
         this.result.resultQuery.availableFields.map(function (field) {
-            if (field.name === input.val && field.type === 'geo_point') {
-                var index = obj.availableOptionalParams.indexOf('missing');
-                if (index > -1) {
-                    obj.availableOptionalParams.splice(index, 1);
+            if (field.name === input.val) {
+                if (field.type === 'geo_point') {
+                    var index = obj.availableOptionalParams.indexOf('missing');
+                    if (index > -1) {
+                        obj.availableOptionalParams.splice(index, 1);
+                    }
+                    if (obj.hasOwnProperty('missing')) {
+                        delete obj['missing'];
+                    }
+                    geoFlag = true;
+                    obj.modeList = ['min', 'max', 'avg', 'median'];
+                    obj['_geo_distance'] = {
+                        'distance_type': 'sloppy_arc',
+                        'lat': '',
+                        'lon': '',
+                        'unit': ''
+                    };
                 }
-                if (!obj['_geo_distance']) {
-                    obj.availableOptionalParams.push('_geo_distance');
+                else {
+                    obj.modeList = ['min', 'max', 'sum', 'avg', 'median'];
                 }
-                geoFlag = true;
-                _this.modeList = ['min', 'max', 'avg', 'median'];
             }
         });
         if (!geoFlag) {
             delete obj['_geo_distance'];
-            this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
         }
         this.exeBuild();
     };
@@ -7747,17 +7777,7 @@ var SortBlockComponent = (function () {
         if (index > -1) {
             obj.availableOptionalParams.splice(index, 1);
         }
-        if (input.val === '_geo_distance') {
-            obj['_geo_distance'] = {
-                'distance_type': 'sloppy_arc',
-                'lat': '',
-                'lon': '',
-                'unit': 'm'
-            };
-        }
-        else {
-            obj[input.val] = '';
-        }
+        obj[input.val] = '';
     };
     SortBlockComponent.prototype.setSortOrder = function (order, index) {
         this.result.sort[index].order = order;
@@ -7770,7 +7790,6 @@ var SortBlockComponent = (function () {
     SortBlockComponent.prototype.removeSortOptionalQuery = function (index, type) {
         this.result.sort[index].availableOptionalParams.push(type);
         delete this.result.sort[index][type];
-        this.modeList = ['min', 'max', 'sum', 'avg', 'median'];
         this.exeBuild();
     };
     SortBlockComponent.prototype.show_hidden_btns = function (event) {
@@ -7780,6 +7799,9 @@ var SortBlockComponent = (function () {
     };
     SortBlockComponent.prototype.hide_hidden_btns = function () {
         $('.bool_query').removeClass('show_hidden');
+    };
+    SortBlockComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
     };
     __decorate([
         core_1.Input(), 
@@ -7805,6 +7827,10 @@ var SortBlockComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SortBlockComponent.prototype, "joiningQueryParam", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "setDocSample", void 0);
     SortBlockComponent = __decorate([
         core_1.Component({
             selector: 'sort-block',
@@ -7867,53 +7893,60 @@ var TypesComponent = (function () {
         var propInfo;
         var allMappings = this.mapping[this.config.appname].mappings;
         this.result.joiningQuery = [''];
+        function feedAvailableField(mapObj, parent) {
+            if (parent === void 0) { parent = null; }
+            var mapObjWithFields = {};
+            for (var field_1 in mapObj) {
+                mapObjWithFields[field_1] = mapObj[field_1];
+                if (mapObj[field_1].fields) {
+                    for (var sub in mapObj[field_1].fields) {
+                        var subname = field_1 + '.' + sub;
+                        subname = parent ? (parent + '.' + subname) : subname;
+                        mapObjWithFields[subname] = mapObj[field_1].fields[sub];
+                    }
+                }
+                if (mapObj[field_1].properties) {
+                    for (var sub in mapObj[field_1].properties) {
+                        var subname = field_1 + '.' + sub;
+                        subname = parent ? (parent + '.' + subname) : subname;
+                        mapObjWithFields[subname] = mapObj[field_1].properties[sub];
+                    }
+                    feedAvailableField.call(this, mapObj[field_1].properties, field_1);
+                }
+                if (mapObj[field_1].type === 'nested') {
+                    if (this.result.joiningQuery.indexOf('nested') < 0) {
+                        this.result.joiningQuery.push('nested');
+                    }
+                }
+            }
+            for (var field in mapObjWithFields) {
+                var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
+                var obj = {
+                    name: field,
+                    type: mapObjWithFields[field]['type'],
+                    index: index
+                };
+                switch (obj.type) {
+                    case 'long':
+                    case 'integer':
+                    case 'short':
+                    case 'byte':
+                    case 'double':
+                    case 'float':
+                        obj.type = 'numeric';
+                        break;
+                    case 'text':
+                    case 'keyword':
+                        obj.type = 'string';
+                        break;
+                }
+                availableFields.push(obj);
+            }
+        }
         if (val && val.length) {
             val.forEach(function (type) {
-                var mapObjWithFields = {};
                 var mapObj = allMappings[type].properties;
-                for (var field_1 in mapObj) {
-                    mapObjWithFields[field_1] = mapObj[field_1];
-                    if (mapObj[field_1].fields) {
-                        for (var sub in mapObj[field_1].fields) {
-                            var subname = field_1 + '.' + sub;
-                            mapObjWithFields[subname] = mapObj[field_1].fields[sub];
-                        }
-                    }
-                    if (mapObj[field_1].properties) {
-                        for (var sub in mapObj[field_1].properties) {
-                            var subname = field_1 + '.' + sub;
-                            mapObjWithFields[subname] = mapObj[field_1].properties[sub];
-                        }
-                    }
-                    if (mapObj[field_1].type === 'nested') {
-                        if (this.result.joiningQuery.indexOf('nested') < 0) {
-                            this.result.joiningQuery.push('nested');
-                        }
-                    }
-                }
-                for (var field in mapObjWithFields) {
-                    var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
-                    var obj = {
-                        name: field,
-                        type: mapObjWithFields[field]['type'],
-                        index: index
-                    };
-                    switch (obj.type) {
-                        case 'long':
-                        case 'integer':
-                        case 'short':
-                        case 'byte':
-                        case 'double':
-                        case 'float':
-                            obj.type = 'numeric';
-                            break;
-                        case 'text':
-                        case 'keyword':
-                            obj.type = 'string';
-                            break;
-                    }
-                    availableFields.push(obj);
-                }
+                feedAvailableField.call(this, mapObj);
             }.bind(this));
             this.setUrl(val);
             propInfo = {
