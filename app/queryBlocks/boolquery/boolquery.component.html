@@ -7,7 +7,7 @@
 	<div class="row m-b15 nested-first">
 		<div class="col-xs-12 nested-container">
 			<button (click)="addSubQuery(query.id)" class="btn btn-default nested-query">
-				<i class="fa fa-plus"></i> Compound query
+				<i class="fa fa-plus"></i> Sub Query
 			</button>
 			<div class="col-xs-6">
 				<editable [editableField]="queryList.boolQuery[query.boolparam]" [editableModal]="query.boolparam" [editPlaceholder]="'bool'" [editableInput]="'select'" [selectOption]="queryList.boolQuery" (callback)="booleanChange($event)"></editable>
@@ -22,14 +22,25 @@
 			</div>
 		</div>
 	</div>
-	<div class="row s-12" *ngIf="(joiningQuery.length > 1)">
+	<div class="row s-12" *ngIf="(joiningQuery && joiningQuery.length > 1)">
 		<div class="checkbox">
 			<input id="cb-1" type="checkbox" [(ngModel)]="showJoiningQuery" (change)="joiningQueryChange(0)" autocomplete="off">
             <label for="cb-1">Add Joining Query</label>
         </div>
 		<div class="nested-container" *ngIf="showJoiningQuery" style="padding-left: 15px">
 			<div class="col-xs-4 form-group form-element">
-				<editable [editableField]="joiningQuery[joiningQueryParam]" [editableModal]="joiningQuery" [editPlaceholder]="'select-joining-query'" [editableInput]="'select'" [selectOption]="joiningQuery" (callback)="joiningQueryChange($event)"></editable> 
+				<editable 
+					class="select-joining-query"
+					[editableField]="joiningQuery[joiningQueryParam]"
+					[editPlaceholder]="'select-joining-query'"
+					[editableInput]="'select2'"
+					[selectOption]="joiningQuery"
+					[selector]="'select-joining-query'"
+					[informationList]="informationList"
+					[showInfoFlag]="true"
+					[searchOff]="true"
+					(setDocSample)="setDocSampleEve($event);"
+					(callback)="joiningQueryChange($event)"></editable>
 			</div>
 			<div *ngIf="joiningQuery[joiningQueryParam] == 'nested'">
 				<div class="col-xs-4 form-group form-element">
@@ -37,6 +48,27 @@
 				</div>
 				<div class="col-xs-4 form-group form-element">
 					<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
+				</div>
+			</div>
+			<div *ngIf="joiningQuery[joiningQueryParam] == 'has_child'">
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="type" [(ngModel)] = "query.type"  (keyup)="exeBuild();" />
+				</div>
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="score_mode" [(ngModel)] = "query.score_mode"  (keyup)="exeBuild();" />
+				</div>
+			</div>
+			<div *ngIf="joiningQuery[joiningQueryParam] == 'has_parent'">
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="parent type" [(ngModel)] = "query.parent_type"  (keyup)="exeBuild();" />
+				</div>
+			</div>
+			<div *ngIf="joiningQuery[joiningQueryParam] == 'parent_id'">
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="type" [(ngModel)] = "query.type"  (keyup)="exeBuild();" />
+				</div>
+				<div class="col-xs-4 form-group form-element">
+					<input type="text" class="form-control" placeholder="id" [(ngModel)] = "query.xid"  (keyup)="exeBuild();" />
 				</div>
 			</div>
 		</div>
@@ -71,7 +103,7 @@
 		</form>
 	</div>
 	<div class="col-xs-12 add_condition_row">
-		<button class="btn btn-default add_condition" (click)="addQuery(query);">Add conditions</button>
+		<button class="btn btn-default add_condition" (click)="addQuery(query);"><i class="fa fa-plus"></i> Conditions</button>
 	</div>
 	<div class="subQuery col-xs-12">
 		<form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">

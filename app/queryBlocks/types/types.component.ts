@@ -55,23 +55,32 @@ export class TypesComponent implements OnChanges {
 		//this.mapping.resultQuery.result = [];
 		var availableFields: any = [];
 		var propInfo: any;
-		if (val && val.length) {
-			val.forEach(function(type: any) {
-				let mapObjWithFields = {};
-				var mapObj = this.mapping[this.config.appname].mappings[type].properties;
-				for (let field in mapObj) {
+		var allMappings = this.mapping[this.config.appname].mappings;
+		this.result.joiningQuery = [''];
+
+		function feedAvailableField(mapObj: any, parent: any = null) {
+			let mapObjWithFields = {};
+			for (let field in mapObj) {
 					mapObjWithFields[field] = mapObj[field];
 					if(mapObj[field].fields) {
 						for (let sub in mapObj[field].fields) {
 							let subname = field+'.'+sub;
+							subname = parent ? (parent + '.' + subname) : subname;
 							mapObjWithFields[subname] = mapObj[field].fields[sub];
-						}		
+						}
 					}
 					if(mapObj[field].properties) {
 						for (let sub in mapObj[field].properties) {
 							let subname = field+'.'+sub;
+							subname = parent ? (parent + '.' + subname) : subname;
 							mapObjWithFields[subname] = mapObj[field].properties[sub];
-						}		
+						}
+						feedAvailableField.call(this, mapObj[field].properties, field);
+					}
+					if (mapObj[field].type === 'nested') {
+						if (this.result.joiningQuery.indexOf('nested') < 0) {
+							this.result.joiningQuery.push('nested');
+						}
 					}
 				}
 				for (var field in mapObjWithFields) {
@@ -97,6 +106,12 @@ export class TypesComponent implements OnChanges {
 					}
 					availableFields.push(obj);
 				}
+		}
+
+		if (val && val.length) {
+			val.forEach(function(type: any) {
+				var mapObj = allMappings[type].properties;
+				feedAvailableField.call(this, mapObj);
 			}.bind(this));
 			this.setUrl(val);
 			propInfo = {
@@ -118,6 +133,18 @@ export class TypesComponent implements OnChanges {
 			value: availableFields
 		};
 		this.setProp.emit(propInfo);
+
+		for (let type in allMappings) {
+			if (allMappings[type].hasOwnProperty('_parent')) {
+				if (val && val.indexOf(allMappings[type]['_parent'].type) > -1) {
+					if (this.result.joiningQuery.indexOf('has_child') < 0) {
+						this.result.joiningQuery.push('has_child');
+						this.result.joiningQuery.push('has_parent');
+						this.result.joiningQuery.push('parent_id');
+					}
+				}
+			}
+		}
 	}
 
 	setUrl(val: any) {

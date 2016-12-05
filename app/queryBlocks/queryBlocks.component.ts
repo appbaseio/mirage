@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output } from "@angular/core";
 import { queryList } from "../shared/queryList";
 declare var $: any;
 
@@ -8,7 +8,7 @@ declare var $: any;
 	inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
 })
 
-export class QueryBlocksComponent implements OnInit {
+export class QueryBlocksComponent implements OnInit, OnChanges {
 	public queryList: any = queryList;
 	public queryFormat: any = {
 		internal: {
@@ -27,6 +27,9 @@ export class QueryBlocksComponent implements OnInit {
 			internal: [],
 			minimum_should_match: '',
 			path: '',
+			type: '',
+			xid: 0,
+			parent_type: '',
 			score_mode: ''
 		}
 	};
@@ -48,6 +51,11 @@ export class QueryBlocksComponent implements OnInit {
 
 	ngOnInit() {
 		this.handleEditable();
+		this.joiningQuery = this.result.joiningQuery;
+	}
+
+	ngOnChanges() {
+		this.joiningQuery = this.result.joiningQuery;
 	}
 
 
@@ -69,6 +77,25 @@ export class QueryBlocksComponent implements OnInit {
 		}
 	}
 
+	removeQuery() {
+		this.result.resultQuery.result = [];
+		this.buildQuery();
+	}
+
+	addSortBlock() {
+		let sortObj = {
+            'selectedField': '',
+            'order': 'asc',
+            'availableOptionalParams': []
+        }
+        this.result.sort.push(sortObj);
+	}
+
+	removeSortBlock() {
+		this.result.sort = [];
+		this.buildQuery();
+	}
+
 	// add internal query
 	addQuery(boolQuery) {
 		var self = this;
@@ -82,27 +109,11 @@ export class QueryBlocksComponent implements OnInit {
 		var self = this;
 		var results = this.result.resultQuery.result;
 		var es_final = {};
-		
-		this.joiningQuery = [''];
-
-		this.selectedTypes.map((type: any) => {
-			let fields = this.mapping[this.config.appname].mappings[type].properties;
-			for (let item in fields) {
-				if (fields[item].type === 'nested') {
-					if (this.joiningQuery.indexOf('nested') < 0) {
-						this.joiningQuery.push('nested');
-					}
-					break;
-				}
-			}
-		});
 
 		if(results.length) {
 			var finalresult = {};
-			es_final = {
-				'query': {
-					'bool': finalresult
-				}
+			es_final['query'] = {
+				'bool': finalresult
 			};
 			results.forEach(function(result) {
 				result.availableQuery = self.buildInsideQuery(result);
@@ -132,7 +143,7 @@ export class QueryBlocksComponent implements OnInit {
 			results.forEach(function(result) {
 				if (result.parent_id === 0) {
 					var currentBool = self.queryList['boolQuery'][result['boolparam']];
-					if(self.joiningQuery[self.joiningQueryParam] === 'nested') {
+					if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'nested') {
 						finalresult['nested'] = {
 							path: result.path,
 							score_mode: result.score_mode,
@@ -142,9 +153,30 @@ export class QueryBlocksComponent implements OnInit {
 								}
 							}
 						};
-
 						isBoolPresent = false;
-					} else {
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+						finalresult[currentBool] = {
+							has_child: {
+								type: result.type,
+								score_mode: result.score_mode,
+								query: result.availableQuery
+							}
+						};
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+						finalresult[currentBool] = {
+							has_parent: {
+								parent_type: result.parent_type,
+								query: result.availableQuery
+							}
+						};
+					} else if(self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+						finalresult[currentBool] = {
+							parent_id: {
+								type: result.type,
+								id: result.xid
+							}
+						};
+					}else {
 						finalresult[currentBool] = result.availableQuery;
 					}
 					if (currentBool === 'should') {
@@ -156,26 +188,64 @@ export class QueryBlocksComponent implements OnInit {
 			if (!isBoolPresent) {
 				es_final['query'] = es_final['query']['bool'];
 			}
-
-			this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-			try {
-				this.editorHookHelp.setValue(self.result.resultQuery.final);
-			} catch(e) {}
 		} else {
 			if(this.selectedTypes.length) {
-				var match_all = {
-					'query': {
-						'match_all': {}
-					}
+				es_final['query'] = {
+					'match_all': {}
 				};
-				this.result.resultQuery.final = JSON.stringify(match_all, null, 2);	
-				try {
-					this.editorHookHelp.setValue(self.result.resultQuery.final);			
-				} catch(e) {
-					console.log(e);
-				}
 			}
 		}
+
+		// apply sort
+		if (self.result.sort) {
+			self.result.sort.map((sortObj) => {
+				if (sortObj.selectedField) {
+					if (!es_final.hasOwnProperty('sort')) {
+						es_final['sort'] = [];
+					}
+
+					let obj = {};
+					if (sortObj._geo_distance) {
+						obj = {
+							['_geo_distance']: {
+								[sortObj.selectedField]: {
+									'lat': sortObj._geo_distance.lat,
+									'lon': sortObj._geo_distance.lon
+								},
+								'order': sortObj.order,
+								'distance_type': sortObj._geo_distance.distance_type,
+								'unit': sortObj._geo_distance.unit || 'm'
+							}
+						}
+						if (sortObj.mode) {
+							obj['_geo_distance']['mode'] = sortObj.mode;
+						}
+					} else {
+						obj = {
+							[sortObj.selectedField]: {
+								'order': sortObj.order
+							}
+						};
+						if (sortObj.mode) {
+							obj[sortObj.selectedField]['mode'] = sortObj.mode;
+						}
+						if (sortObj.missing) {
+							obj[sortObj.selectedField]['missing'] = sortObj.missing;
+						}
+					}
+
+					es_final['sort'].push(obj);
+				}
+			});
+		}
+
+		this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+		try {
+			this.editorHookHelp.setValue(self.result.resultQuery.final);
+		} catch(e) {
+			console.log(e);
+		}
+
 		//set input state
 		try {
 			this.urlShare.inputs['result'] = this.result;
@@ -243,6 +313,28 @@ export class QueryBlocksComponent implements OnInit {
 		sampleobj[query][field] = val.input;
 		return sampleobj;
 	}
+
+	toggleBoolQuery() {
+		if (this.result.resultQuery.result.length < 1 && this.selectedTypes.length > 0) {
+			this.addBoolQuery(0);
+		} else {
+			this.removeQuery();
+		}
+	}
+
+	toggleSortQuery() {
+		if (this.result.sort) {
+			console.log("coming");
+			if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+				this.addSortBlock();
+			} else {
+				this.removeSortBlock();
+			}
+		} else {
+			this.result.sort = [];
+			this.addSortBlock();
+		}
+	}	
 
 	// handle the body click event for editable
 	// close all the select2 whene clicking outside of editable-element

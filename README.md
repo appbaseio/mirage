@@ -1,5 +1,4 @@
-[![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a> [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md)
-
+ [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a> [![](https://labs.turbo.run/git-brag?user=appbaseio&repo=mirage&maxn=10)](https://github.com/appbaseio/mirage/stargazers)
 
 ![](http://i.imgur.com/RoyFbSb.png?1)
 
@@ -67,10 +66,10 @@ Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for
 
 | Full-text Queries      | Term Level Queries    | Joining Queries | Geo Queries          | Specialized Queries | Span Queries |
 | :--------------------: |:---------------------:| :--------------:| :-------------------:|:-------------------:|:------------:|
-| 	✓ Match               | 	✓ Term             | ➕ Nested       | ✓ GeoDistance        | ➕ MoreLikeThis     | ➕ SpanTerm   |
-| 	✓ Multi-match         | 	✓ Terms            | ➕ HasChild     | ✓ GeoBoundingBox     | ➕ Template         | ➕ SpanMulti  |
-| 	✓ Query String        | 	✓ Range            | ➕ HasParent    |  ✓ GeoShape          | ❌ Script           | ➕ SpanFirst  |
-| 	✓ Simple Query String | 	✓ Exists           |                 | ✓ GeoDistanceRange   |                     | ➕ SpanNear   |
+| 	✓ Match               | 	✓ Term             | ✓ Nested       | ✓ GeoDistance        | ➕ MoreLikeThis     | ✓ SpanTerm   |
+| 	✓ Multi-match         | 	✓ Terms            | ✓ HasChild     | ✓ GeoBoundingBox     | ➕ Template         | ➕ SpanMulti  |
+| 	✓ Query String        | 	✓ Range            | ✓ HasParent    |  ✓ GeoShape          | ❌ Script           | ✓ SpanFirst  |
+| 	✓ Simple Query String | 	✓ Exists           | ✓ ParentId     | ✓ GeoDistanceRange   |                     | ➕ SpanNear   |
 | 	✓ Common Terms        | 	✓ Missing          |                 | ✓ GeoPolygon         |                     | ➕ SpanOr     |
 |                         | 	✓ Prefix           |                 | ✓ GeoHashCell        |                     | ➕ SpanNot    |
 |                         | 	✓ Wildcard         |                 |                      |                     | ➕ SpanContaining |

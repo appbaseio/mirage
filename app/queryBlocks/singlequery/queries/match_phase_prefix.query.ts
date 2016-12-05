@@ -57,7 +57,7 @@ export class Match_phase_prefixQuery implements OnInit, OnChanges {
 	public information: any = {
 		title: 'Match Phrase with a Prefix',
 		content: `<span class="description">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>
-					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase-prefix">Read more</a>`
+					<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase-prefix.html#query-dsl-match-query-phrase-prefix">Read more</a>`
 	};
 	public informationList: any = {
 		'analyzer': {

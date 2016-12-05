@@ -1,0 +1,131 @@
+<div class="form-group single_query col-xs-12 bool_query" (mouseover)="show_hidden_btns($event);" (mouseout)="hide_hidden_btns($event);">
+    <div class="action-btn-group bool-btn-group">
+        <a href="javascript:void(0)" class="btn btn-grey delete-nested-query" (click)="deleteSort();">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+    <div class="row m-b15">
+        <div class="row m-0 col-xs-12">
+            <div *ngFor="let sort of result.sort, let i=index" class="form-group col-xs-12 single_query internal-query sort-query sort-row-{{i}}" [ngClass]="{'query_complete': sort.selectedField}">
+                <div class="action-btn-group">
+                    <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortQuery(i);">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="clearfix">
+                    <editable class="col-xs-4 pd-l0 sort-field-select-{{i}}" 
+                        [editableField]="sort.selectedField"
+                        [editPlaceholder]="'field'"
+                        [editableInput]="'select2'"
+                        [result]="result"
+                        [selectOption]="allFields"
+                        [selector]="'sort-field-select'"
+                        [passWithCallback]="i"
+                        (callback)="sortFieldCallback($event)">
+                    </editable>
+
+                    <div class="col-xs-4">
+                        <div class="toggle clearfix">
+                            <a [ngClass]="{'selected': sort.order === 'asc'}" (click)="setSortOrder('asc', i)">Asc</a>
+                            <a [ngClass]="{'selected': sort.order === 'desc'}" (click)="setSortOrder('desc', i)">Desc</a>
+                        </div>
+                    </div>
+
+                    <editable class="col-xs-4 pd-l0 sort-optional-select-{{i}}" 
+                        [editableField]="''"
+                        [editPlaceholder]="'select-optional-parameter'"
+                        [editableInput]="'select2'"
+                        [result]="result"
+                        [selectOption]="sort.availableOptionalParams"
+                        [selector]="'sort-optional-select'"
+                        [informationList]="optionalParamsInformation"
+                        [showInfoFlag]="true"
+                        [passWithCallback]="i"
+                        (callback)="sortOptionalCallback($event)"
+                        (setDocSample)="setDocSampleEve($event)">
+                    </editable>
+                </div>
+                
+                <div class="row m-0 mt-10 single_query clearfix" *ngIf="sort.mode || sort.mode == ''">
+                    <div class="action-btn-group">
+                        <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortOptionalQuery(i, 'mode');">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <editable class="sort-mode-select-{{i}}" 
+                            [editableField]="sort.mode"
+                            [editPlaceholder]="'mode'"
+                            [editableInput]="'select2'"
+                            [result]="result"
+                            [selectOption]="sort.modeList"
+                            [selector]="'sort-mode-select'"
+                            [informationList]="informationList"
+                            [showInfoFlag]="true"
+                            [passWithCallback]="i"
+                            (callback)="sortModeCallback($event)">
+                        </editable>
+                    </div>
+                </div>
+
+                <div class="row m-0 mt-10 single_query clearfix" *ngIf="sort.missing || sort.missing == ''">
+                    <div class="action-btn-group">
+                        <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortOptionalQuery(i, 'missing');">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort.missing"
+                            placeholder="Missing values"
+                            (keyup)="exeBuild();" />
+                    </div>
+                </div>
+
+                 <div class="row m-0 mt-10 single_query clearfix" *ngIf="sort._geo_distance">
+                    <div class="action-btn-group" *ngIf="!sort._geo_distance">
+                        <a href="javascript:void(0)" class="btn btn-grey" (click)="removeSortOptionalQuery(i, '_geo_distance');">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort._geo_distance.lat"
+                            placeholder="latitude"
+                            (keyup)="exeBuild();" />
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort._geo_distance.lon"
+                            placeholder="longitude"
+                            (keyup)="exeBuild();" />
+                    </div>
+                    <div class="col-xs-4 pd-l0">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="sort._geo_distance.unit"
+                            placeholder="unit default as m"
+                            (keyup)="exeBuild();" />
+                    </div>
+                    <div class="col-xs-4 pd-l0 mt-10">
+                        <editable class="sort-distanceType-select-{{i}}" 
+                            [editableField]="sort._geo_distance.distance_type"
+                            [editPlaceholder]="'_geo_distance.distance_type'"
+                            [editableInput]="'select2'"
+                            [result]="result"
+                            [selectOption]="distanceTypeList"
+                            [selector]="'sort-distanceType-select'"
+                            [informationList]="distanceTypeInformation"
+                            [showInfoFlag]="true"
+                            [passWithCallback]="i"
+                            (callback)="sortDistanceTypeCallback($event)">
+                        </editable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 add_condition_row" style="padding: 0">
+        <button class="btn btn-default add_condition" (click)="initSort()"><i class="fa fa-plus"></i> Conditions</button>
+    </div>
+</div>
