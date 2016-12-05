@@ -35,8 +35,11 @@ exports.UrlShare.prototype.createUrl = function () {
                 window.location.href = window.location.href.split('?default=true')[0];
             }
             var finalUrl = '#?input_state=' + ciphertext;
-            if (this.queryParams && this.queryParams.hf) {
-                finalUrl += '&hf=' + this.queryParams.hf;
+            for (var params in this.queryParams) {
+                if (params !== 'input_state') {
+                    console.log(params, this.queryParams[params]);
+                    finalUrl += '&' + params + '=' + this.queryParams[params];
+                }
             }
             window.location.href = finalUrl;
         }

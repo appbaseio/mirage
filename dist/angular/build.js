@@ -73,6 +73,8 @@ var AppComponent = (function () {
         $('body').removeClass('is-loadingApp');
         this.queryParams = this.urlShare.getQueryParameters();
         this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
+        this.allowF = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('f')) ? true : false);
+        this.allowH = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('h')) ? true : false);
         // get data from url
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
@@ -249,7 +251,8 @@ var AppComponent = (function () {
                 'final': "{}"
             },
             output: {},
-            queryId: 1
+            queryId: 1,
+            sort: []
         };
     };
     AppComponent.prototype.connectHandle = function () {
@@ -549,6 +552,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.setLayoutResizer = function () {
         this.setLayoutFlag = true;
+        var self = this;
         $('body').layout({
             east__size: "50%",
             center__paneSelector: "#paneCenter",
@@ -557,6 +561,27 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
+            if (!self.allowF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 140);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 140);
+                }, 300);
+            }
+            else if (!self.allowH) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 15);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 15);
+                }, 300);
+            }
+            else if (self.allowHF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 166);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 166);
+                }, 300);
+            }
         }
         setSidebar();
         $(window).on('resize', setSidebar);
@@ -610,7 +635,7 @@ var AppComponent = (function () {
 }());
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
-},{"./shared/appbase.service":46,"./shared/docService":47,"./shared/editorHook":48,"./shared/storage.service":53,"./shared/urlShare":54,"@angular/core":57}],2:[function(require,module,exports){
+},{"./shared/appbase.service":51,"./shared/docService":52,"./shared/editorHook":53,"./shared/storage.service":58,"./shared/urlShare":59,"@angular/core":62}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -645,6 +670,9 @@ var singlequery_component_1 = require("./queryBlocks/singlequery/singlequery.com
 var editable_component_1 = require('./queryBlocks/editable/editable.component');
 // editable
 var select2_component_1 = require('./queryBlocks/select2/select2.component');
+// subscribe modal
+var subscribe_component_1 = require('./features/subscribe/subscribe.component');
+var AuthOperation_1 = require('./features/subscribe/AuthOperation');
 // singlequery
 var match_query_1 = require('./queryBlocks/singlequery/queries/match.query');
 var match_phrase_query_1 = require('./queryBlocks/singlequery/queries/match_phrase.query');
@@ -671,11 +699,15 @@ var geodistancerange_query_1 = require('./queryBlocks/singlequery/queries/geodis
 var geopolygon_query_1 = require('./queryBlocks/singlequery/queries/geopolygon.query');
 var geohashcell_query_1 = require('./queryBlocks/singlequery/queries/geohashcell.query');
 var geoshape_query_1 = require('./queryBlocks/singlequery/queries/geoshape.query');
+var span_term_query_1 = require('./queryBlocks/singlequery/queries/span_term.query');
+var span_first_query_1 = require('./queryBlocks/singlequery/queries/span_first.query');
 // Pipes
 var prettyJson_1 = require("./shared/pipes/prettyJson");
 var prettyTime_1 = require("./shared/pipes/prettyTime");
 // list
 var time_component_1 = require("./features/list/time/time.component");
+// sort
+var sortBlock_component_1 = require("./queryBlocks/sortBlock/sortBlock.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -701,9 +733,12 @@ var AppModule = (function () {
                 learn_component_1.LearnModalComponent,
                 boolquery_component_1.BoolqueryComponent,
                 types_component_1.TypesComponent,
+                sortBlock_component_1.SortBlockComponent,
                 singlequery_component_1.SinglequeryComponent,
                 editable_component_1.EditableComponent,
                 select2_component_1.select2Component,
+                subscribe_component_1.SubscribeModalComponent,
+                AuthOperation_1.AuthOperation,
                 editable_component_1.EditableComponent,
                 singlequery_component_1.SinglequeryComponent,
                 select2_component_1.select2Component,
@@ -732,6 +767,8 @@ var AppModule = (function () {
                 geohashcell_query_1.GeoHashCellQuery,
                 geoshape_query_1.GeoShapeQuery,
                 common_query_1.CommonQuery,
+                span_term_query_1.SpanTermQuery,
+                span_first_query_1.SpanFirstQuery,
                 prettyJson_1.prettyJson,
                 time_component_1.TimeComponent,
                 prettyTime_1.prettyTime
@@ -744,13 +781,13 @@ var AppModule = (function () {
 }());
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map
-},{"./app.component":1,"./features/appselect/appselect.component":4,"./features/confirm/confirm-modal.component":5,"./features/docSidebar/docsidebar.component":6,"./features/learn/learn.component":7,"./features/list/list.query.component":8,"./features/list/time/time.component":9,"./features/modal/error-modal.component":10,"./features/save/save.query.component":11,"./features/share/share.url.component":12,"./jsonEditor/jsonEditor.component":13,"./queryBlocks/boolquery/boolquery.component":14,"./queryBlocks/editable/editable.component":15,"./queryBlocks/queryBlocks.component":16,"./queryBlocks/select2/select2.component":17,"./queryBlocks/singlequery/queries/common.query":18,"./queryBlocks/singlequery/queries/exists.query":19,"./queryBlocks/singlequery/queries/fuzzy.query":20,"./queryBlocks/singlequery/queries/geoboundingbox.query":21,"./queryBlocks/singlequery/queries/geodistance.query":22,"./queryBlocks/singlequery/queries/geodistancerange.query":23,"./queryBlocks/singlequery/queries/geohashcell.query":24,"./queryBlocks/singlequery/queries/geopolygon.query":25,"./queryBlocks/singlequery/queries/geoshape.query":26,"./queryBlocks/singlequery/queries/gt.query":27,"./queryBlocks/singlequery/queries/ids.query":28,"./queryBlocks/singlequery/queries/lt.query":29,"./queryBlocks/singlequery/queries/match.query":30,"./queryBlocks/singlequery/queries/match_phase_prefix.query":31,"./queryBlocks/singlequery/queries/match_phrase.query":32,"./queryBlocks/singlequery/queries/missing.query":33,"./queryBlocks/singlequery/queries/multi-match.query":34,"./queryBlocks/singlequery/queries/prefix.query":35,"./queryBlocks/singlequery/queries/query_string.query":36,"./queryBlocks/singlequery/queries/range.query":37,"./queryBlocks/singlequery/queries/regexp.query":38,"./queryBlocks/singlequery/queries/simple_query_string.query":39,"./queryBlocks/singlequery/queries/term.query":40,"./queryBlocks/singlequery/queries/terms.query":41,"./queryBlocks/singlequery/queries/wildcard.query":42,"./queryBlocks/singlequery/singlequery.component":43,"./queryBlocks/types/types.component":44,"./result/result.component":45,"./shared/pipes/prettyJson":50,"./shared/pipes/prettyTime":51,"@angular/core":57,"@angular/forms":58,"@angular/http":59,"@angular/platform-browser":61}],3:[function(require,module,exports){
+},{"./app.component":1,"./features/appselect/appselect.component":4,"./features/confirm/confirm-modal.component":5,"./features/docSidebar/docsidebar.component":6,"./features/learn/learn.component":7,"./features/list/list.query.component":8,"./features/list/time/time.component":9,"./features/modal/error-modal.component":10,"./features/save/save.query.component":11,"./features/share/share.url.component":12,"./features/subscribe/AuthOperation":13,"./features/subscribe/subscribe.component":14,"./jsonEditor/jsonEditor.component":15,"./queryBlocks/boolquery/boolquery.component":16,"./queryBlocks/editable/editable.component":17,"./queryBlocks/queryBlocks.component":18,"./queryBlocks/select2/select2.component":19,"./queryBlocks/singlequery/queries/common.query":20,"./queryBlocks/singlequery/queries/exists.query":21,"./queryBlocks/singlequery/queries/fuzzy.query":22,"./queryBlocks/singlequery/queries/geoboundingbox.query":23,"./queryBlocks/singlequery/queries/geodistance.query":24,"./queryBlocks/singlequery/queries/geodistancerange.query":25,"./queryBlocks/singlequery/queries/geohashcell.query":26,"./queryBlocks/singlequery/queries/geopolygon.query":27,"./queryBlocks/singlequery/queries/geoshape.query":28,"./queryBlocks/singlequery/queries/gt.query":29,"./queryBlocks/singlequery/queries/ids.query":30,"./queryBlocks/singlequery/queries/lt.query":31,"./queryBlocks/singlequery/queries/match.query":32,"./queryBlocks/singlequery/queries/match_phase_prefix.query":33,"./queryBlocks/singlequery/queries/match_phrase.query":34,"./queryBlocks/singlequery/queries/missing.query":35,"./queryBlocks/singlequery/queries/multi-match.query":36,"./queryBlocks/singlequery/queries/prefix.query":37,"./queryBlocks/singlequery/queries/query_string.query":38,"./queryBlocks/singlequery/queries/range.query":39,"./queryBlocks/singlequery/queries/regexp.query":40,"./queryBlocks/singlequery/queries/simple_query_string.query":41,"./queryBlocks/singlequery/queries/span_first.query":42,"./queryBlocks/singlequery/queries/span_term.query":43,"./queryBlocks/singlequery/queries/term.query":44,"./queryBlocks/singlequery/queries/terms.query":45,"./queryBlocks/singlequery/queries/wildcard.query":46,"./queryBlocks/singlequery/singlequery.component":47,"./queryBlocks/sortBlock/sortBlock.component":48,"./queryBlocks/types/types.component":49,"./result/result.component":50,"./shared/pipes/prettyJson":55,"./shared/pipes/prettyTime":56,"@angular/core":62,"@angular/forms":63,"@angular/http":64,"@angular/platform-browser":66}],3:[function(require,module,exports){
 "use strict";
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var app_module_1 = require('./app.module');
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 //# sourceMappingURL=main.js.map
-},{"./app.module":2,"@angular/platform-browser-dynamic":60}],4:[function(require,module,exports){
+},{"./app.module":2,"@angular/platform-browser-dynamic":65}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -840,7 +877,7 @@ var AppselectComponent = (function () {
 }());
 exports.AppselectComponent = AppselectComponent;
 //# sourceMappingURL=appselect.component.js.map
-},{"@angular/core":57}],5:[function(require,module,exports){
+},{"@angular/core":62}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -883,7 +920,7 @@ var ConfirmModalComponent = (function () {
 }());
 exports.ConfirmModalComponent = ConfirmModalComponent;
 //# sourceMappingURL=confirm-modal.component.js.map
-},{"@angular/core":57}],6:[function(require,module,exports){
+},{"@angular/core":62}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -933,7 +970,7 @@ var DocSidebarComponent = (function () {
 }());
 exports.DocSidebarComponent = DocSidebarComponent;
 //# sourceMappingURL=docsidebar.component.js.map
-},{"@angular/core":57,"@angular/platform-browser":61}],7:[function(require,module,exports){
+},{"@angular/core":62,"@angular/platform-browser":66}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -946,12 +983,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require('@angular/http');
+var AuthOperation_1 = require('../subscribe/AuthOperation');
+var storage_service_1 = require("../../shared/storage.service");
 var LearnModalComponent = (function () {
-    function LearnModalComponent(http) {
+    function LearnModalComponent(http, storageService) {
         this.http = http;
+        this.storageService = storageService;
         this.saveQuery = new core_1.EventEmitter();
         this.newQuery = new core_1.EventEmitter();
         this.queries = [];
+        this.subscribeOption = "major";
+        this.profile = null;
+        this.serverAddress = 'https://ossauth.appbase.io';
+        this.updateStatus = this.updateStatus.bind(this);
     }
     LearnModalComponent.prototype.loadLearn = function () {
         var self = this;
@@ -969,6 +1013,12 @@ var LearnModalComponent = (function () {
             console.log(e);
         });
     };
+    LearnModalComponent.prototype.updateStatus = function (info) {
+        this.profile = info.profile;
+    };
+    LearnModalComponent.prototype.subscribe = function () {
+        this.authOperation.login(this.subscribeOption);
+    };
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -977,19 +1027,23 @@ var LearnModalComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], LearnModalComponent.prototype, "newQuery", void 0);
+    __decorate([
+        core_1.ViewChild(AuthOperation_1.AuthOperation), 
+        __metadata('design:type', AuthOperation_1.AuthOperation)
+    ], LearnModalComponent.prototype, "authOperation", void 0);
     LearnModalComponent = __decorate([
         core_1.Component({
             selector: 'learn-modal',
             templateUrl: './app/features/learn/learn.component.html',
             inputs: ['saveQuery', 'newQuery']
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, storage_service_1.StorageService])
     ], LearnModalComponent);
     return LearnModalComponent;
 }());
 exports.LearnModalComponent = LearnModalComponent;
 //# sourceMappingURL=learn.component.js.map
-},{"@angular/core":57,"@angular/http":59}],8:[function(require,module,exports){
+},{"../../shared/storage.service":58,"../subscribe/AuthOperation":13,"@angular/core":62,"@angular/http":64}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1089,7 +1143,7 @@ var ListQueryComponent = (function () {
 }());
 exports.ListQueryComponent = ListQueryComponent;
 //# sourceMappingURL=list.query.component.js.map
-},{"@angular/core":57}],9:[function(require,module,exports){
+},{"@angular/core":62}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1130,7 +1184,7 @@ var TimeComponent = (function () {
 }());
 exports.TimeComponent = TimeComponent;
 //# sourceMappingURL=time.component.js.map
-},{"@angular/core":57}],10:[function(require,module,exports){
+},{"@angular/core":62}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1179,7 +1233,7 @@ var ErrorModalComponent = (function () {
 }());
 exports.ErrorModalComponent = ErrorModalComponent;
 //# sourceMappingURL=error-modal.component.js.map
-},{"@angular/core":57}],11:[function(require,module,exports){
+},{"@angular/core":62}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1230,7 +1284,7 @@ var SaveQueryComponent = (function () {
 }());
 exports.SaveQueryComponent = SaveQueryComponent;
 //# sourceMappingURL=save.query.component.js.map
-},{"../../shared/storage.service":53,"@angular/core":57}],12:[function(require,module,exports){
+},{"../../shared/storage.service":58,"@angular/core":62}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1337,7 +1391,209 @@ var ShareUrlComponent = (function () {
 }());
 exports.ShareUrlComponent = ShareUrlComponent;
 //# sourceMappingURL=share.url.component.js.map
-},{"@angular/core":57}],13:[function(require,module,exports){
+},{"@angular/core":62}],13:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require('@angular/http');
+var storage_service_1 = require("../../shared/storage.service");
+var AuthOperation = (function () {
+    function AuthOperation(http, storageService) {
+        this.http = http;
+        this.storageService = storageService;
+        this.updateStatus = new core_1.EventEmitter();
+        this.serverAddress = 'https://ossauth.appbase.io';
+        this.access_token_applied = false;
+    }
+    AuthOperation.prototype.ngOnInit = function () {
+        var authConfig = {
+            domain: 'appbaseio.auth0.com',
+            clientID: 'tCy6GxnrsyKec3UxXCuYLhU6XWFCMgRD',
+            callbackURL: location.href,
+            callbackOnLocationHash: true
+        };
+        this.auth0 = new Auth0(authConfig);
+        // check if already logged in
+        this.init.call(this);
+    };
+    AuthOperation.prototype.init = function () {
+        var self = this;
+        this.parseHash.call(this);
+        var parseHash = this.parseHash.bind(this);
+        setTimeout(function () {
+            console.log('hash watching Activated!');
+            window.onhashchange = function () {
+                if (!self.access_token_applied && location.hash.indexOf('access_token') > -1) {
+                    console.log('access_token found!');
+                    parseHash();
+                }
+            };
+        }, 300);
+    };
+    AuthOperation.prototype.isTokenExpired = function (token) {
+        var decoded = this.auth0.decodeJwt(token);
+        var now = (new Date()).getTime() / 1000;
+        return decoded.exp < now;
+    };
+    AuthOperation.prototype.login = function (subscribeOption) {
+        var savedState = window.location.hash;
+        this.storageService.set('subscribeOption', subscribeOption);
+        if (savedState.indexOf('access_token') < 0) {
+            this.storageService.set('savedState', savedState);
+        }
+        this.auth0.login({
+            connection: 'github'
+        }, function (err) {
+            if (err)
+                console.log("something went wrong: " + err.message);
+        });
+    };
+    AuthOperation.prototype.show_logged_in = function (token) {
+        this.token = token;
+        if (window.location.hash.indexOf('access_token') > -1) {
+            this.access_token_applied = true;
+            this.restoreStates();
+        }
+        else {
+            this.getUserProfile();
+        }
+    };
+    AuthOperation.prototype.show_sign_in = function () { };
+    AuthOperation.prototype.restoreStates = function () {
+        var domain = location.href.split('#')[0];
+        var savedState = this.storageService.get('savedState');
+        var finalPath = domain;
+        if (savedState && savedState.indexOf('access_token') < 0) {
+            finalPath += savedState;
+        }
+        else {
+            finalPath += '#';
+        }
+        window.location.href = finalPath;
+        location.reload();
+    };
+    AuthOperation.prototype.getUserProfile = function () {
+        var url = this.serverAddress + '/api/getUserProfile';
+        var subscribeOption = this.storageService.get('subscribeOption') && this.storageService.get('subscribeOption') !== 'null' ? this.storageService.get('subscribeOption') : null;
+        var request = {
+            token: this.storageService.get('mirage_id_token'),
+            origin_app: 'MIRAGE',
+            email_preference: subscribeOption
+        };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(request)
+        })
+            .done(function (res) {
+            this.storageService.set('subscribeOption', null);
+            this.updateStatus.emit({ 'profile': res.message });
+        }.bind(this))
+            .fail(function (err) {
+            console.error(err);
+        });
+    };
+    AuthOperation.prototype.parseHash = function () {
+        var token = this.storageService.get('mirage_id_token');
+        if (token !== null && !this.isTokenExpired(token)) {
+            this.show_logged_in(token);
+        }
+        else {
+            var result = this.auth0.parseHash(window.location.hash);
+            if (result && result.idToken) {
+                this.storageService.set('mirage_id_token', result.idToken);
+                this.show_logged_in(result.idToken);
+            }
+            else if (result && result.error) {
+                console.log('error: ' + result.error);
+                this.show_sign_in();
+            }
+            else {
+                this.show_sign_in();
+            }
+        }
+    };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], AuthOperation.prototype, "updateStatus", void 0);
+    AuthOperation = __decorate([
+        core_1.Component({
+            selector: 'auth-operation',
+            template: ''
+        }), 
+        __metadata('design:paramtypes', [http_1.Http, storage_service_1.StorageService])
+    ], AuthOperation);
+    return AuthOperation;
+}());
+exports.AuthOperation = AuthOperation;
+//# sourceMappingURL=AuthOperation.js.map
+},{"../../shared/storage.service":58,"@angular/core":62,"@angular/http":64}],14:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require('@angular/http');
+var AuthOperation_1 = require('./AuthOperation');
+var SubscribeModalComponent = (function () {
+    function SubscribeModalComponent(http) {
+        this.http = http;
+        this.options = {
+            option1: {
+                value: 'major',
+                text: 'New MIRAGE releases'
+            },
+            option2: {
+                value: 'all',
+                text: 'Limited major updates'
+            }
+        };
+        this.subscribeOption = "major";
+        this.profile = null;
+        this.updateStatus = this.updateStatus.bind(this);
+    }
+    SubscribeModalComponent.prototype.open = function () {
+        $('#subscribeModal').modal('show');
+    };
+    SubscribeModalComponent.prototype.updateStatus = function (info) {
+        this.profile = info.profile;
+    };
+    SubscribeModalComponent.prototype.subscribe = function () {
+        this.authOperation.login(this.subscribeOption);
+    };
+    __decorate([
+        core_1.ViewChild(AuthOperation_1.AuthOperation), 
+        __metadata('design:type', AuthOperation_1.AuthOperation)
+    ], SubscribeModalComponent.prototype, "authOperation", void 0);
+    SubscribeModalComponent = __decorate([
+        core_1.Component({
+            selector: 'subscribe-modal',
+            templateUrl: './app/features/subscribe/subscribe.component.html'
+        }), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], SubscribeModalComponent);
+    return SubscribeModalComponent;
+}());
+exports.SubscribeModalComponent = SubscribeModalComponent;
+//# sourceMappingURL=subscribe.component.js.map
+},{"./AuthOperation":13,"@angular/core":62,"@angular/http":64}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1498,7 +1754,7 @@ var JsonEditorComponent = (function () {
 }());
 exports.JsonEditorComponent = JsonEditorComponent;
 //# sourceMappingURL=jsonEditor.component.js.map
-},{"../shared/appbase.service":46,"@angular/core":57}],14:[function(require,module,exports){
+},{"../shared/appbase.service":51,"@angular/core":62}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1515,6 +1771,25 @@ var BoolqueryComponent = (function () {
         this.queryList = this.queryList;
         this.removeArray = [];
         this.query = this.query;
+        this.informationList = {
+            'nested': {
+                title: 'nested',
+                content: "<span class=\"description\">Nested query allows you to run a query against the nested documents and filter parent docs by those that have at least one nested document matching the query.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html#query-dsl-nested-query\">Read more</a>"
+            },
+            'has_child': {
+                title: 'has_child',
+                content: "<span class=\"description\">has_child filter accepts a query and the child type to run against, and results in parent documents that have child docs matching the query.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-child-query.html#query-dsl-has-child-query\">Read more</a>"
+            },
+            'has_parent': {
+                title: 'has_parent',
+                content: "<span class=\"description\">has_parent query accepts a query and a parent type. The query is executed in the parent document space, which is specified by the parent type, and returns child documents which associated parents have matched.</span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-parent-query.html#query-dsl-has-parent-query\">Read more</a>"
+            },
+            'parent_id': {
+                title: 'parent_id',
+                content: "<span class=\"description\">parent_id query can be used to find child documents which belong to a particular parent. </span>\n\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/5.0/query-dsl-parent-id-query.html#query-dsl-parent-id-query\">Read more</a>"
+            }
+        };
+        this.joiningQuery = [''];
         this.setJoiningQuery = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
     }
@@ -1558,6 +1833,9 @@ var BoolqueryComponent = (function () {
         this.exeBuild();
     };
     BoolqueryComponent.prototype.joiningQueryChange = function (val) {
+        if (val.val) {
+            val = this.joiningQuery.indexOf(val.val);
+        }
         this.joiningQueryParam = val;
         this.setJoiningQuery.emit({
             param: val,
@@ -1620,7 +1898,7 @@ var BoolqueryComponent = (function () {
 }());
 exports.BoolqueryComponent = BoolqueryComponent;
 //# sourceMappingURL=boolquery.component.js.map
-},{"@angular/core":57}],15:[function(require,module,exports){
+},{"@angular/core":62}],17:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1722,7 +2000,7 @@ var EditableComponent = (function () {
 }());
 exports.EditableComponent = EditableComponent;
 //# sourceMappingURL=editable.component.js.map
-},{"@angular/core":57}],16:[function(require,module,exports){
+},{"@angular/core":62}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1755,6 +2033,9 @@ var QueryBlocksComponent = (function () {
                 internal: [],
                 minimum_should_match: '',
                 path: '',
+                type: '',
+                xid: 0,
+                parent_type: '',
                 score_mode: ''
             }
         };
@@ -1766,6 +2047,10 @@ var QueryBlocksComponent = (function () {
     }
     QueryBlocksComponent.prototype.ngOnInit = function () {
         this.handleEditable();
+        this.joiningQuery = this.result.joiningQuery;
+    };
+    QueryBlocksComponent.prototype.ngOnChanges = function () {
+        this.joiningQuery = this.result.joiningQuery;
     };
     // Add the boolean query
     // get the default format for query and internal query
@@ -1785,6 +2070,22 @@ var QueryBlocksComponent = (function () {
             alert('Select type first.');
         }
     };
+    QueryBlocksComponent.prototype.removeQuery = function () {
+        this.result.resultQuery.result = [];
+        this.buildQuery();
+    };
+    QueryBlocksComponent.prototype.addSortBlock = function () {
+        var sortObj = {
+            'selectedField': '',
+            'order': 'asc',
+            'availableOptionalParams': []
+        };
+        this.result.sort.push(sortObj);
+    };
+    QueryBlocksComponent.prototype.removeSortBlock = function () {
+        this.result.sort = [];
+        this.buildQuery();
+    };
     // add internal query
     QueryBlocksComponent.prototype.addQuery = function (boolQuery) {
         var self = this;
@@ -1794,28 +2095,13 @@ var QueryBlocksComponent = (function () {
     };
     // builquery - this function handles everything to build the query
     QueryBlocksComponent.prototype.buildQuery = function () {
-        var _this = this;
         var self = this;
         var results = this.result.resultQuery.result;
         var es_final = {};
-        this.joiningQuery = [''];
-        this.selectedTypes.map(function (type) {
-            var fields = _this.mapping[_this.config.appname].mappings[type].properties;
-            for (var item in fields) {
-                if (fields[item].type === 'nested') {
-                    if (_this.joiningQuery.indexOf('nested') < 0) {
-                        _this.joiningQuery.push('nested');
-                    }
-                    break;
-                }
-            }
-        });
         if (results.length) {
             var finalresult = {};
-            es_final = {
-                'query': {
-                    'bool': finalresult
-                }
+            es_final['query'] = {
+                'bool': finalresult
             };
             results.forEach(function (result) {
                 result.availableQuery = self.buildInsideQuery(result);
@@ -1844,7 +2130,7 @@ var QueryBlocksComponent = (function () {
             results.forEach(function (result) {
                 if (result.parent_id === 0) {
                     var currentBool = self.queryList['boolQuery'][result['boolparam']];
-                    if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
+                    if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'nested') {
                         finalresult['nested'] = {
                             path: result.path,
                             score_mode: result.score_mode,
@@ -1856,6 +2142,31 @@ var QueryBlocksComponent = (function () {
                             }
                         };
                         isBoolPresent = false;
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+                        finalresult[currentBool] = {
+                            has_child: {
+                                type: result.type,
+                                score_mode: result.score_mode,
+                                query: result.availableQuery
+                            }
+                        };
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+                        finalresult[currentBool] = {
+                            has_parent: {
+                                parent_type: result.parent_type,
+                                query: result.availableQuery
+                            }
+                        };
+                    }
+                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+                        finalresult[currentBool] = {
+                            parent_id: {
+                                type: result.type,
+                                id: result.xid
+                            }
+                        };
                     }
                     else {
                         finalresult[currentBool] = result.availableQuery;
@@ -1869,27 +2180,65 @@ var QueryBlocksComponent = (function () {
             if (!isBoolPresent) {
                 es_final['query'] = es_final['query']['bool'];
             }
-            this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
-            try {
-                this.editorHookHelp.setValue(self.result.resultQuery.final);
-            }
-            catch (e) { }
         }
         else {
             if (this.selectedTypes.length) {
-                var match_all = {
-                    'query': {
-                        'match_all': {}
-                    }
+                es_final['query'] = {
+                    'match_all': {}
                 };
-                this.result.resultQuery.final = JSON.stringify(match_all, null, 2);
-                try {
-                    this.editorHookHelp.setValue(self.result.resultQuery.final);
-                }
-                catch (e) {
-                    console.log(e);
-                }
             }
+        }
+        // apply sort
+        if (self.result.sort) {
+            self.result.sort.map(function (sortObj) {
+                if (sortObj.selectedField) {
+                    if (!es_final.hasOwnProperty('sort')) {
+                        es_final['sort'] = [];
+                    }
+                    var obj = {};
+                    if (sortObj._geo_distance) {
+                        obj = (_a = {},
+                            _a['_geo_distance'] = (_b = {},
+                                _b[sortObj.selectedField] = {
+                                    'lat': sortObj._geo_distance.lat,
+                                    'lon': sortObj._geo_distance.lon
+                                },
+                                _b['order'] = sortObj.order,
+                                _b['distance_type'] = sortObj._geo_distance.distance_type,
+                                _b['unit'] = sortObj._geo_distance.unit || 'm',
+                                _b
+                            ),
+                            _a
+                        );
+                        if (sortObj.mode) {
+                            obj['_geo_distance']['mode'] = sortObj.mode;
+                        }
+                    }
+                    else {
+                        obj = (_c = {},
+                            _c[sortObj.selectedField] = {
+                                'order': sortObj.order
+                            },
+                            _c
+                        );
+                        if (sortObj.mode) {
+                            obj[sortObj.selectedField]['mode'] = sortObj.mode;
+                        }
+                        if (sortObj.missing) {
+                            obj[sortObj.selectedField]['missing'] = sortObj.missing;
+                        }
+                    }
+                    es_final['sort'].push(obj);
+                }
+                var _a, _b, _c;
+            });
+        }
+        this.result.resultQuery.final = JSON.stringify(es_final, null, 2);
+        try {
+            this.editorHookHelp.setValue(self.result.resultQuery.final);
+        }
+        catch (e) {
+            console.log(e);
         }
         //set input state
         try {
@@ -1953,6 +2302,29 @@ var QueryBlocksComponent = (function () {
         sampleobj[query] = {};
         sampleobj[query][field] = val.input;
         return sampleobj;
+    };
+    QueryBlocksComponent.prototype.toggleBoolQuery = function () {
+        if (this.result.resultQuery.result.length < 1 && this.selectedTypes.length > 0) {
+            this.addBoolQuery(0);
+        }
+        else {
+            this.removeQuery();
+        }
+    };
+    QueryBlocksComponent.prototype.toggleSortQuery = function () {
+        if (this.result.sort) {
+            console.log("coming");
+            if (this.result.sort.length < 1 && this.selectedTypes.length > 0) {
+                this.addSortBlock();
+            }
+            else {
+                this.removeSortBlock();
+            }
+        }
+        else {
+            this.result.sort = [];
+            this.addSortBlock();
+        }
     };
     // handle the body click event for editable
     // close all the select2 whene clicking outside of editable-element
@@ -2040,7 +2412,7 @@ var QueryBlocksComponent = (function () {
 }());
 exports.QueryBlocksComponent = QueryBlocksComponent;
 //# sourceMappingURL=queryBlocks.component.js.map
-},{"../shared/queryList":52,"@angular/core":57}],17:[function(require,module,exports){
+},{"../shared/queryList":57,"@angular/core":62}],19:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2063,11 +2435,21 @@ var select2Component = (function () {
     }
     select2Component.prototype.ngOnChanges = function () { };
     select2Component.prototype.ngAfterContentInit = function () {
-        console.log(this.informationList);
         setTimeout(function () {
-            var select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            var select2Selector;
+            if (this.querySelector && this.selector) {
+                select2Selector = $(this.querySelector).find('.' + this.selector).find('select');
+            }
+            else {
+                select2Selector = $('.' + this.selector).find('select');
+            }
             if (typeof this.passWithCallback != 'undefined') {
-                select2Selector = $(this.querySelector).find('.' + this.selector + '-' + this.passWithCallback).find('select');
+                if (this.querySelector && this.selector) {
+                    select2Selector = $(this.querySelector).find('.' + this.selector + '-' + this.passWithCallback).find('select');
+                }
+                else if (this.selector) {
+                    select2Selector = $('.' + this.selector + '-' + this.passWithCallback).find('select');
+                }
             }
             this.setSelect2(select2Selector, function (val) {
                 var obj = {
@@ -2181,7 +2563,7 @@ var select2Component = (function () {
 }());
 exports.select2Component = select2Component;
 //# sourceMappingURL=select2.component.js.map
-},{"../../shared/docService":47,"../../shared/globalshare.service":49,"@angular/core":57}],18:[function(require,module,exports){
+},{"../../shared/docService":52,"../../shared/globalshare.service":54,"@angular/core":62}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2369,7 +2751,7 @@ var CommonQuery = (function () {
 }());
 exports.CommonQuery = CommonQuery;
 //# sourceMappingURL=common.query.js.map
-},{"@angular/core":57}],19:[function(require,module,exports){
+},{"@angular/core":62}],21:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2468,7 +2850,7 @@ var ExistsQuery = (function () {
 }());
 exports.ExistsQuery = ExistsQuery;
 //# sourceMappingURL=exists.query.js.map
-},{"@angular/core":57}],20:[function(require,module,exports){
+},{"@angular/core":62}],22:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2657,7 +3039,7 @@ var FuzzyQuery = (function () {
 }());
 exports.FuzzyQuery = FuzzyQuery;
 //# sourceMappingURL=fuzzy.query.js.map
-},{"@angular/core":57}],21:[function(require,module,exports){
+},{"@angular/core":62}],23:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2857,7 +3239,7 @@ var GeoBoundingBoxQuery = (function () {
 }());
 exports.GeoBoundingBoxQuery = GeoBoundingBoxQuery;
 //# sourceMappingURL=geoboundingbox.query.js.map
-},{"@angular/core":57}],22:[function(require,module,exports){
+},{"@angular/core":62}],24:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3046,7 +3428,7 @@ var GeoDistanceQuery = (function () {
 }());
 exports.GeoDistanceQuery = GeoDistanceQuery;
 //# sourceMappingURL=geodistance.query.js.map
-},{"@angular/core":57}],23:[function(require,module,exports){
+},{"@angular/core":62}],25:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3244,7 +3626,7 @@ var GeoDistanceRangeQuery = (function () {
 }());
 exports.GeoDistanceRangeQuery = GeoDistanceRangeQuery;
 //# sourceMappingURL=geodistancerange.query.js.map
-},{"@angular/core":57}],24:[function(require,module,exports){
+},{"@angular/core":62}],26:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3422,7 +3804,7 @@ var GeoHashCellQuery = (function () {
 }());
 exports.GeoHashCellQuery = GeoHashCellQuery;
 //# sourceMappingURL=geohashcell.query.js.map
-},{"@angular/core":57}],25:[function(require,module,exports){
+},{"@angular/core":62}],27:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3594,7 +3976,7 @@ var GeoPolygonQuery = (function () {
 }());
 exports.GeoPolygonQuery = GeoPolygonQuery;
 //# sourceMappingURL=geopolygon.query.js.map
-},{"@angular/core":57}],26:[function(require,module,exports){
+},{"@angular/core":62}],28:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3771,7 +4153,7 @@ var GeoShapeQuery = (function () {
 }());
 exports.GeoShapeQuery = GeoShapeQuery;
 //# sourceMappingURL=geoshape.query.js.map
-},{"@angular/core":57}],27:[function(require,module,exports){
+},{"@angular/core":62}],29:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3939,7 +4321,7 @@ var GtQuery = (function () {
 }());
 exports.GtQuery = GtQuery;
 //# sourceMappingURL=gt.query.js.map
-},{"@angular/core":57}],28:[function(require,module,exports){
+},{"@angular/core":62}],30:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4062,7 +4444,7 @@ var IdsQuery = (function () {
 }());
 exports.IdsQuery = IdsQuery;
 //# sourceMappingURL=ids.query.js.map
-},{"@angular/core":57}],29:[function(require,module,exports){
+},{"@angular/core":62}],31:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4229,7 +4611,7 @@ var LtQuery = (function () {
 }());
 exports.LtQuery = LtQuery;
 //# sourceMappingURL=lt.query.js.map
-},{"@angular/core":57}],30:[function(require,module,exports){
+},{"@angular/core":62}],32:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4456,7 +4838,7 @@ var MatchQuery = (function () {
 }());
 exports.MatchQuery = MatchQuery;
 //# sourceMappingURL=match.query.js.map
-},{"@angular/core":57}],31:[function(require,module,exports){
+},{"@angular/core":62}],33:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4476,7 +4858,7 @@ var Match_phase_prefixQuery = (function () {
         this.current_query = 'match_phrase_prefix';
         this.information = {
             title: 'Match Phrase with a Prefix',
-            content: "<span class=\"description\">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase-prefix\">Read more</a>"
+            content: "<span class=\"description\">Returns matches similar to Match Phrase except the last term of the query text can be a prefix.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase-prefix.html#query-dsl-match-query-phrase-prefix\">Read more</a>"
         };
         this.informationList = {
             'analyzer': {
@@ -4635,7 +5017,7 @@ var Match_phase_prefixQuery = (function () {
 }());
 exports.Match_phase_prefixQuery = Match_phase_prefixQuery;
 //# sourceMappingURL=match_phase_prefix.query.js.map
-},{"@angular/core":57}],32:[function(require,module,exports){
+},{"@angular/core":62}],34:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4655,7 +5037,7 @@ var Match_phraseQuery = (function () {
         this.current_query = 'match_phrase';
         this.information = {
             title: 'Match Phrase',
-            content: "<span class=\"description\">Returns matches by interpreting the query as a phrase.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html#query-dsl-match-query-phrase\">Read more</a>"
+            content: "<span class=\"description\">Returns matches by interpreting the query as a phrase.</span>\n\t\t\t\t\t<a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase.html#query-dsl-match-query-phrase\">Read more</a>"
         };
         this.informationList = {
             'analyzer': {
@@ -4809,7 +5191,7 @@ var Match_phraseQuery = (function () {
 }());
 exports.Match_phraseQuery = Match_phraseQuery;
 //# sourceMappingURL=match_phrase.query.js.map
-},{"@angular/core":57}],33:[function(require,module,exports){
+},{"@angular/core":62}],35:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4970,7 +5352,7 @@ var MissingQuery = (function () {
 }());
 exports.MissingQuery = MissingQuery;
 //# sourceMappingURL=missing.query.js.map
-},{"@angular/core":57}],34:[function(require,module,exports){
+},{"@angular/core":62}],36:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5169,7 +5551,7 @@ var MultiMatchQuery = (function () {
 }());
 exports.MultiMatchQuery = MultiMatchQuery;
 //# sourceMappingURL=multi-match.query.js.map
-},{"@angular/core":57}],35:[function(require,module,exports){
+},{"@angular/core":62}],37:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5343,7 +5725,7 @@ var PrefixQuery = (function () {
 }());
 exports.PrefixQuery = PrefixQuery;
 //# sourceMappingURL=prefix.query.js.map
-},{"@angular/core":57}],36:[function(require,module,exports){
+},{"@angular/core":62}],38:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5542,7 +5924,7 @@ var QueryStringQuery = (function () {
 }());
 exports.QueryStringQuery = QueryStringQuery;
 //# sourceMappingURL=query_string.query.js.map
-},{"@angular/core":57}],37:[function(require,module,exports){
+},{"@angular/core":62}],39:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5717,7 +6099,7 @@ var RangeQuery = (function () {
 }());
 exports.RangeQuery = RangeQuery;
 //# sourceMappingURL=range.query.js.map
-},{"@angular/core":57}],38:[function(require,module,exports){
+},{"@angular/core":62}],40:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5901,7 +6283,7 @@ var RegexpQuery = (function () {
 }());
 exports.RegexpQuery = RegexpQuery;
 //# sourceMappingURL=regexp.query.js.map
-},{"@angular/core":57}],39:[function(require,module,exports){
+},{"@angular/core":62}],41:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6100,7 +6482,344 @@ var SimpleQueryStringQuery = (function () {
 }());
 exports.SimpleQueryStringQuery = SimpleQueryStringQuery;
 //# sourceMappingURL=simple_query_string.query.js.map
-},{"@angular/core":57}],40:[function(require,module,exports){
+},{"@angular/core":62}],42:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var SpanFirstQuery = (function () {
+    function SpanFirstQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'span_first';
+        this.information = {
+            title: 'Span First',
+            content: "<span class=\"description\">Matches spans near the beginning of a field. The span first query maps to Lucene SpanFirstQuery.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-first-query.html#query-dsl-span-first-query\">Read more</a>"
+        };
+        this.informationList = {
+            'boost': {
+                title: 'boost',
+                content: "<span class=\"description\">Sets the boost value of the query, defaults to <strong>1.0</strong></span>"
+            }
+        };
+        this.default_options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            input: {
+                placeholder: 'Input',
+                value: ''
+            },
+            end: {
+                placeholder: 'End',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    SpanFirstQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query]['match']['span_term'][this.selectedField]) {
+                this.inputs.input.value = this.appliedQuery[this.current_query]['match']['span_term'][this.fieldName].value;
+                this.inputs.end.value = this.appliedQuery[this.current_query].end;
+                for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                    if (option != 'value') {
+                        var obj = {
+                            name: option,
+                            value: this.appliedQuery[this.current_query][this.fieldName][option]
+                        };
+                        this.optionRows.push(obj);
+                    }
+                }
+            }
+        }
+        catch (e) { }
+        this.getFormat();
+        this.filterOptions();
+    };
+    SpanFirstQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.getFormat();
+            }
+        }
+    };
+    SpanFirstQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    SpanFirstQuery.prototype.setFormat = function () {
+        var queryFormat = {};
+        queryFormat[this.queryName] = {
+            'match': {
+                'span_term': (_a = {},
+                    _a[this.fieldName] = {},
+                    _a
+                )
+            }
+        };
+        if (this.optionRows.length) {
+            queryFormat[this.queryName]['match']['span_term'][this.fieldName]['value'] = this.inputs.input.value;
+            queryFormat[this.queryName]['end'] = this.inputs.end.value;
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName]['match']['span_term'][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName]['match']['span_term'][this.fieldName]['value'] = this.inputs.input.value;
+            queryFormat[this.queryName]['end'] = this.inputs.end.value;
+        }
+        return queryFormat;
+        var _a;
+    };
+    SpanFirstQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    SpanFirstQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    SpanFirstQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    SpanFirstQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SpanFirstQuery.prototype, "getQueryFormat", void 0);
+    SpanFirstQuery = __decorate([
+        core_1.Component({
+            selector: 'span-first-query',
+            template: "<span class=\"col-xs-6 pd-10\">\n                    <div class=\"form-group form-element query-primary-input\">\n                        <span class=\"input_with_option\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.input.value\"\n                                placeholder=\"{{inputs.input.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </span>\n                    </div>\n                    <div class=\"form-group form-element query-primary-input\">\n                        <span class=\"input_with_option\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.end.value\"\n                                placeholder=\"{{inputs.end.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </span>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SpanFirstQuery);
+    return SpanFirstQuery;
+}());
+exports.SpanFirstQuery = SpanFirstQuery;
+//# sourceMappingURL=span_first.query.js.map
+},{"@angular/core":62}],43:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var SpanTermQuery = (function () {
+    function SpanTermQuery() {
+        this.getQueryFormat = new core_1.EventEmitter();
+        this.queryName = '*';
+        this.fieldName = '*';
+        this.current_query = 'span_term';
+        this.information = {
+            title: 'Span Term',
+            content: "<span class=\"description\">Matches spans containing a term. The span term query maps to Lucene SpanTermQuery.</span>\n                    <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-term-query.html#query-dsl-span-term-query\">Read more</a>"
+        };
+        this.informationList = {
+            'boost': {
+                title: 'boost',
+                content: "<span class=\"description\">Sets the boost value of the query, defaults to <strong>1.0</strong></span>"
+            }
+        };
+        this.default_options = [
+            'boost'
+        ];
+        this.singleOption = {
+            name: '',
+            value: ''
+        };
+        this.optionRows = [];
+        this.inputs = {
+            input: {
+                placeholder: 'Input',
+                value: ''
+            }
+        };
+        this.queryFormat = {};
+    }
+    SpanTermQuery.prototype.ngOnInit = function () {
+        this.options = JSON.parse(JSON.stringify(this.default_options));
+        try {
+            if (this.appliedQuery[this.current_query][this.selectedField]) {
+                this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].value;
+                for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
+                    if (option != 'value') {
+                        var obj = {
+                            name: option,
+                            value: this.appliedQuery[this.current_query][this.fieldName][option]
+                        };
+                        this.optionRows.push(obj);
+                    }
+                }
+            }
+        }
+        catch (e) { }
+        this.getFormat();
+        this.filterOptions();
+    };
+    SpanTermQuery.prototype.ngOnChanges = function () {
+        if (this.selectedField != '') {
+            if (this.selectedField !== this.fieldName) {
+                this.fieldName = this.selectedField;
+                this.getFormat();
+            }
+        }
+        if (this.selectedQuery != '') {
+            if (this.selectedQuery !== this.queryName) {
+                this.queryName = this.selectedQuery;
+                this.getFormat();
+            }
+        }
+    };
+    SpanTermQuery.prototype.getFormat = function () {
+        if (this.queryName === this.current_query) {
+            this.queryFormat = this.setFormat();
+            this.getQueryFormat.emit(this.queryFormat);
+        }
+    };
+    SpanTermQuery.prototype.setFormat = function () {
+        var queryFormat = {};
+        queryFormat[this.queryName] = (_a = {},
+            _a[this.fieldName] = {},
+            _a
+        );
+        if (this.optionRows.length) {
+            queryFormat[this.queryName][this.fieldName]['value'] = this.inputs.input.value;
+            this.optionRows.forEach(function (singleRow) {
+                queryFormat[this.queryName][this.fieldName][singleRow.name] = singleRow.value;
+            }.bind(this));
+        }
+        else {
+            queryFormat[this.queryName][this.fieldName]['value'] = this.inputs.input.value;
+        }
+        return queryFormat;
+        var _a;
+    };
+    SpanTermQuery.prototype.selectOption = function (input) {
+        input.selector.parents('.editable-pack').removeClass('on');
+        this.optionRows[input.external].name = input.val;
+        this.filterOptions();
+        setTimeout(function () {
+            this.getFormat();
+        }.bind(this), 300);
+    };
+    SpanTermQuery.prototype.filterOptions = function () {
+        this.options = this.default_options.filter(function (opt) {
+            var flag = true;
+            this.optionRows.forEach(function (row) {
+                if (row.name === opt) {
+                    flag = false;
+                }
+            });
+            return flag;
+        }.bind(this));
+    };
+    SpanTermQuery.prototype.addOption = function () {
+        var singleOption = JSON.parse(JSON.stringify(this.singleOption));
+        this.filterOptions();
+        this.optionRows.push(singleOption);
+    };
+    SpanTermQuery.prototype.removeOption = function (index) {
+        this.optionRows.splice(index, 1);
+        this.filterOptions();
+        this.getFormat();
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "queryList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "selectedField", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "appliedQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "selectedQuery", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SpanTermQuery.prototype, "getQueryFormat", void 0);
+    SpanTermQuery = __decorate([
+        core_1.Component({
+            selector: 'span-term-query',
+            template: "<span class=\"col-xs-6 pd-10\">\n                    <div class=\"form-group form-element query-primary-input\">\n                        <span class=\"input_with_option\">\n                            <input type=\"text\" class=\"form-control col-xs-12\"\n                                [(ngModel)]=\"inputs.input.value\"\n                                placeholder=\"{{inputs.input.placeholder}}\"\n                                (keyup)=\"getFormat();\" />\n                        </span>\n                    </div>\n                    <button (click)=\"addOption();\" class=\"btn btn-info btn-xs add-option\"> <i class=\"fa fa-plus\"></i> </button>\n                </span>\n                <div class=\"col-xs-12 option-container\" *ngIf=\"optionRows.length\">\n                    <div class=\"col-xs-12 single-option\" *ngFor=\"let singleOption of optionRows, let i=index\">\n                        <div class=\"col-xs-6 pd-l0\">\n                            <editable\n                                class = \"additional-option-select-{{i}}\"\n                                [editableField]=\"singleOption.name\"\n                                [editPlaceholder]=\"'--choose option--'\"\n                                [editableInput]=\"'select2'\"\n                                [selectOption]=\"options\"\n                                [passWithCallback]=\"i\"\n                                [selector]=\"'additional-option-select'\"\n                                [querySelector]=\"querySelector\"\n                                [informationList]=\"informationList\"\n                                [showInfoFlag]=\"true\"\n                                [searchOff]=\"true\"\n                                (callback)=\"selectOption($event)\">\n                            </editable>\n                        </div>\n                        <div class=\"col-xs-6 pd-0\">\n                            <div class=\"form-group form-element\">\n                                <input class=\"form-control col-xs-12 pd-0\" type=\"text\" [(ngModel)]=\"singleOption.value\" placeholder=\"value\"  (keyup)=\"getFormat();\"/>\n                            </div>\n                        </div>\n                        <button (click)=\"removeOption(i)\" class=\"btn btn-grey delete-option btn-xs\">\n                            <i class=\"fa fa-times\"></i>\n                        </button>\n                    </div>\n                </div>",
+            inputs: ['getQueryFormat', 'querySelector']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SpanTermQuery);
+    return SpanTermQuery;
+}());
+exports.SpanTermQuery = SpanTermQuery;
+//# sourceMappingURL=span_term.query.js.map
+},{"@angular/core":62}],44:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6274,7 +6993,7 @@ var TermQuery = (function () {
 }());
 exports.TermQuery = TermQuery;
 //# sourceMappingURL=term.query.js.map
-},{"@angular/core":57}],41:[function(require,module,exports){
+},{"@angular/core":62}],45:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6387,7 +7106,7 @@ var TermsQuery = (function () {
 }());
 exports.TermsQuery = TermsQuery;
 //# sourceMappingURL=terms.query.js.map
-},{"@angular/core":57}],42:[function(require,module,exports){
+},{"@angular/core":62}],46:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6561,7 +7280,7 @@ var WildcardQuery = (function () {
 }());
 exports.WildcardQuery = WildcardQuery;
 //# sourceMappingURL=wildcard.query.js.map
-},{"@angular/core":57}],43:[function(require,module,exports){
+},{"@angular/core":62}],47:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6598,6 +7317,8 @@ var geodistancerange_query_1 = require('./queries/geodistancerange.query');
 var geopolygon_query_1 = require('./queries/geopolygon.query');
 var geohashcell_query_1 = require('./queries/geohashcell.query');
 var geoshape_query_1 = require('./queries/geoshape.query');
+var span_term_query_1 = require('./queries/span_term.query');
+var span_first_query_1 = require('./queries/span_first.query');
 var SinglequeryComponent = (function () {
     function SinglequeryComponent() {
         this.queryList = this.queryList;
@@ -6606,6 +7327,7 @@ var SinglequeryComponent = (function () {
             field: 'field-select',
             query: 'query-select'
         };
+        this.joiningQuery = [''];
         this.setDocSample = new core_1.EventEmitter();
         this.informationList = {};
     }
@@ -6654,16 +7376,18 @@ var SinglequeryComponent = (function () {
             'geo_distance_range': this.geoDistanceRangeQuery.information,
             'geo_polygon': this.geoPolygonQuery.information,
             'geohash_cell': this.geoHashCellQuery.information,
-            'geo_shape': this.geoShapeQuery.information
+            'geo_shape': this.geoShapeQuery.information,
+            'span_term': this.spanTermQuery.information,
+            'span_first': this.spanFirstQuery.information
         };
     };
     SinglequeryComponent.prototype.checkAvailableFields = function () {
-        var _this = this;
         var fields = this.allFields;
+        var allMappings = this.mapping[this.config.appname].mappings;
         if (this.joiningQuery[this.joiningQueryParam] == 'nested') {
             var mapObj = {};
             this.selectedTypes.forEach(function (type) {
-                Object.assign(mapObj, _this.mapping[_this.config.appname].mappings[type].properties);
+                Object.assign(mapObj, allMappings[type].properties);
             });
             var _loop_1 = function(obj) {
                 if (mapObj[obj].type === 'nested') {
@@ -6672,6 +7396,37 @@ var SinglequeryComponent = (function () {
             };
             for (var obj in mapObj) {
                 _loop_1(obj);
+            }
+        }
+        if (this.joiningQuery[this.joiningQueryParam] == 'has_child') {
+            fields = [];
+            for (var type in allMappings) {
+                if (allMappings[type].hasOwnProperty('_parent')) {
+                    var fieldObj = allMappings[type].properties;
+                    for (var field in fieldObj) {
+                        var index = typeof fieldObj[field]['index'] != 'undefined' ? fieldObj[field]['index'] : null;
+                        var obj = {
+                            name: field,
+                            type: fieldObj[field]['type'],
+                            index: index
+                        };
+                        switch (obj.type) {
+                            case 'long':
+                            case 'integer':
+                            case 'short':
+                            case 'byte':
+                            case 'double':
+                            case 'float':
+                                obj.type = 'numeric';
+                                break;
+                            case 'text':
+                            case 'keyword':
+                                obj.type = 'string';
+                                break;
+                        }
+                        fields.push(obj);
+                    }
+                }
             }
         }
         return fields;
@@ -6852,6 +7607,14 @@ var SinglequeryComponent = (function () {
         core_1.ViewChild(geoshape_query_1.GeoShapeQuery), 
         __metadata('design:type', geoshape_query_1.GeoShapeQuery)
     ], SinglequeryComponent.prototype, "geoShapeQuery", void 0);
+    __decorate([
+        core_1.ViewChild(span_term_query_1.SpanTermQuery), 
+        __metadata('design:type', span_term_query_1.SpanTermQuery)
+    ], SinglequeryComponent.prototype, "spanTermQuery", void 0);
+    __decorate([
+        core_1.ViewChild(span_first_query_1.SpanFirstQuery), 
+        __metadata('design:type', span_first_query_1.SpanFirstQuery)
+    ], SinglequeryComponent.prototype, "spanFirstQuery", void 0);
     SinglequeryComponent = __decorate([
         core_1.Component({
             selector: 'single-query',
@@ -6864,7 +7627,239 @@ var SinglequeryComponent = (function () {
 }());
 exports.SinglequeryComponent = SinglequeryComponent;
 //# sourceMappingURL=singlequery.component.js.map
-},{"./queries/common.query":18,"./queries/exists.query":19,"./queries/fuzzy.query":20,"./queries/geoboundingbox.query":21,"./queries/geodistance.query":22,"./queries/geodistancerange.query":23,"./queries/geohashcell.query":24,"./queries/geopolygon.query":25,"./queries/geoshape.query":26,"./queries/gt.query":27,"./queries/ids.query":28,"./queries/lt.query":29,"./queries/match.query":30,"./queries/match_phase_prefix.query":31,"./queries/match_phrase.query":32,"./queries/missing.query":33,"./queries/multi-match.query":34,"./queries/prefix.query":35,"./queries/query_string.query":36,"./queries/range.query":37,"./queries/regexp.query":38,"./queries/simple_query_string.query":39,"./queries/term.query":40,"./queries/terms.query":41,"./queries/wildcard.query":42,"@angular/core":57}],44:[function(require,module,exports){
+},{"./queries/common.query":20,"./queries/exists.query":21,"./queries/fuzzy.query":22,"./queries/geoboundingbox.query":23,"./queries/geodistance.query":24,"./queries/geodistancerange.query":25,"./queries/geohashcell.query":26,"./queries/geopolygon.query":27,"./queries/geoshape.query":28,"./queries/gt.query":29,"./queries/ids.query":30,"./queries/lt.query":31,"./queries/match.query":32,"./queries/match_phase_prefix.query":33,"./queries/match_phrase.query":34,"./queries/missing.query":35,"./queries/multi-match.query":36,"./queries/prefix.query":37,"./queries/query_string.query":38,"./queries/range.query":39,"./queries/regexp.query":40,"./queries/simple_query_string.query":41,"./queries/span_first.query":42,"./queries/span_term.query":43,"./queries/term.query":44,"./queries/terms.query":45,"./queries/wildcard.query":46,"@angular/core":62}],48:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var SortBlockComponent = (function () {
+    function SortBlockComponent() {
+        this.queryList = this.queryList;
+        this.removeArray = [];
+        this.query = this.query;
+        this.allFields = [];
+        this.distanceTypeList = [
+            'sloppy_arc',
+            'arc',
+            'plane'
+        ];
+        this.informationList = {
+            'min': {
+                title: 'min',
+                content: "<span class=\"description\">Pick the lowest value.</span>"
+            },
+            'max': {
+                title: 'max',
+                content: "<span class=\"description\">Pick the highest value.</span>"
+            },
+            'sum': {
+                title: 'sum',
+                content: "<span class=\"description\">Use the sum of all values as sort value. Only applicable for number based array fields.</span>"
+            },
+            'avg': {
+                title: 'avg',
+                content: "<span class=\"description\">Use the average of all values as sort value. Only applicable for number based array fields.</span>"
+            },
+            'median': {
+                title: 'median',
+                content: "<span class=\"description\">Use the median of all values as sort value. Only applicable for number based array fields.</span>"
+            }
+        };
+        this.optionalParamsInformation = {
+            'mode': {
+                title: 'mode',
+                content: "<span class=\"description\">The mode option controls what array value is picked for sorting the document it belongs to.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_sort_mode_option\">Read more</a>"
+            },
+            'missing': {
+                title: 'missing',
+                content: "<span class=\"description\">The missing parameter specifies how docs which are missing the field should be treated. The value can be set to _last, _first, or a custom value.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_missing_values\">Read more</a>"
+            },
+            'nested': {
+                title: 'nested',
+                content: "<span class=\"description\">Allows sorting withing nested objects</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#nested-sorting\">Read more</a>"
+            },
+            '_geo_distance': {
+                title: '_geo_distance',
+                content: "<span class=\"description\">Allow to sort by _geo_distance.</span>\n                        <a class=\"link\" href=\"https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#geo-sorting\">Read more</a>"
+            }
+        };
+        this.distanceTypeInformation = {
+            'sloppy_arc': {
+                title: 'sloppy_arc',
+                content: "<span class=\"description\">Default distance type</span>"
+            },
+            'arc': {
+                title: 'arc',
+                content: "<span class=\"description\">slightly more precise but significantly slower.</span>"
+            },
+            'plane': {
+                title: 'plane',
+                content: "<span class=\"description\">faster, but inaccurate on long distances and close to the poles.</span>"
+            }
+        };
+        this.joiningQuery = [''];
+        this.setDocSample = new core_1.EventEmitter();
+    }
+    SortBlockComponent.prototype.ngOnInit = function () {
+        if (this.result.resultQuery.hasOwnProperty('availableFields')) {
+            this.allFields = this.result.resultQuery.availableFields.map(function (ele) {
+                return ele.name;
+            });
+        }
+    };
+    SortBlockComponent.prototype.ngOnChanges = function () {
+        if (this.result.resultQuery.hasOwnProperty('availableFields')) {
+            this.allFields = this.result.resultQuery.availableFields.map(function (ele) {
+                return ele.name;
+            });
+        }
+    };
+    SortBlockComponent.prototype.exeBuild = function () {
+        var _this = this;
+        setTimeout(function () { return _this.buildQuery(); }, 300);
+    };
+    SortBlockComponent.prototype.initSort = function () {
+        var sortObj = {
+            'selectedField': '',
+            'order': 'asc',
+            'availableOptionalParams': [],
+            'modeList': []
+        };
+        this.result.sort.push(sortObj);
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.deleteSort = function () {
+        this.result.sort = [];
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.sortFieldCallback = function (input) {
+        var obj = this.result.sort[input.external];
+        var geoFlag = false;
+        obj.selectedField = input.val;
+        obj.availableOptionalParams = [];
+        if (!obj.mode && obj.mode != '') {
+            obj.availableOptionalParams.push('mode');
+        }
+        if (!obj.missing && obj.missing != '') {
+            obj.availableOptionalParams.push('missing');
+        }
+        this.result.resultQuery.availableFields.map(function (field) {
+            if (field.name === input.val) {
+                if (field.type === 'geo_point') {
+                    var index = obj.availableOptionalParams.indexOf('missing');
+                    if (index > -1) {
+                        obj.availableOptionalParams.splice(index, 1);
+                    }
+                    if (obj.hasOwnProperty('missing')) {
+                        delete obj['missing'];
+                    }
+                    geoFlag = true;
+                    obj.modeList = ['min', 'max', 'avg', 'median'];
+                    obj['_geo_distance'] = {
+                        'distance_type': 'sloppy_arc',
+                        'lat': '',
+                        'lon': '',
+                        'unit': ''
+                    };
+                }
+                else {
+                    obj.modeList = ['min', 'max', 'sum', 'avg', 'median'];
+                }
+            }
+        });
+        if (!geoFlag) {
+            delete obj['_geo_distance'];
+        }
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.sortModeCallback = function (input) {
+        this.result.sort[input.external].mode = input.val;
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.sortDistanceTypeCallback = function (input) {
+        this.result.sort[input.external]['_geo_distance']['distance_type'] = input.val;
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.sortOptionalCallback = function (input) {
+        var obj = this.result.sort[input.external];
+        var index = obj.availableOptionalParams.indexOf(input.val);
+        if (index > -1) {
+            obj.availableOptionalParams.splice(index, 1);
+        }
+        obj[input.val] = '';
+    };
+    SortBlockComponent.prototype.setSortOrder = function (order, index) {
+        this.result.sort[index].order = order;
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.removeSortQuery = function (index) {
+        this.result.sort.splice(index, 1);
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.removeSortOptionalQuery = function (index, type) {
+        this.result.sort[index].availableOptionalParams.push(type);
+        delete this.result.sort[index][type];
+        this.exeBuild();
+    };
+    SortBlockComponent.prototype.show_hidden_btns = function (event) {
+        $('.bool_query').removeClass('show_hidden');
+        $(event.currentTarget).addClass('show_hidden');
+        event.stopPropagation();
+    };
+    SortBlockComponent.prototype.hide_hidden_btns = function () {
+        $('.bool_query').removeClass('show_hidden');
+    };
+    SortBlockComponent.prototype.setDocSampleEve = function (link) {
+        this.setDocSample.emit(link);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "mapping", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "types", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "selectedTypes", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "joiningQuery", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "joiningQueryParam", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SortBlockComponent.prototype, "setDocSample", void 0);
+    SortBlockComponent = __decorate([
+        core_1.Component({
+            selector: 'sort-block',
+            templateUrl: './app/queryBlocks/sortBlock/sortBlock.component.html',
+            inputs: ['config', 'query', 'queryList', 'addQuery', 'removeQuery', 'addBoolQuery', 'queryFormat', 'buildQuery', 'buildInsideQuery', 'buildSubQuery', 'createQuery', 'setQueryFormat', 'editorHookHelp', 'urlShare', 'setDocSample']
+        }), 
+        __metadata('design:paramtypes', [])
+    ], SortBlockComponent);
+    return SortBlockComponent;
+}());
+exports.SortBlockComponent = SortBlockComponent;
+//# sourceMappingURL=sortBlock.component.js.map
+},{"@angular/core":62}],49:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6912,48 +7907,62 @@ var TypesComponent = (function () {
         //this.mapping.resultQuery.result = [];
         var availableFields = [];
         var propInfo;
+        var allMappings = this.mapping[this.config.appname].mappings;
+        this.result.joiningQuery = [''];
+        function feedAvailableField(mapObj, parent) {
+            if (parent === void 0) { parent = null; }
+            var mapObjWithFields = {};
+            for (var field_1 in mapObj) {
+                mapObjWithFields[field_1] = mapObj[field_1];
+                if (mapObj[field_1].fields) {
+                    for (var sub in mapObj[field_1].fields) {
+                        var subname = field_1 + '.' + sub;
+                        subname = parent ? (parent + '.' + subname) : subname;
+                        mapObjWithFields[subname] = mapObj[field_1].fields[sub];
+                    }
+                }
+                if (mapObj[field_1].properties) {
+                    for (var sub in mapObj[field_1].properties) {
+                        var subname = field_1 + '.' + sub;
+                        subname = parent ? (parent + '.' + subname) : subname;
+                        mapObjWithFields[subname] = mapObj[field_1].properties[sub];
+                    }
+                    feedAvailableField.call(this, mapObj[field_1].properties, field_1);
+                }
+                if (mapObj[field_1].type === 'nested') {
+                    if (this.result.joiningQuery.indexOf('nested') < 0) {
+                        this.result.joiningQuery.push('nested');
+                    }
+                }
+            }
+            for (var field in mapObjWithFields) {
+                var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
+                var obj = {
+                    name: field,
+                    type: mapObjWithFields[field]['type'],
+                    index: index
+                };
+                switch (obj.type) {
+                    case 'long':
+                    case 'integer':
+                    case 'short':
+                    case 'byte':
+                    case 'double':
+                    case 'float':
+                        obj.type = 'numeric';
+                        break;
+                    case 'text':
+                    case 'keyword':
+                        obj.type = 'string';
+                        break;
+                }
+                availableFields.push(obj);
+            }
+        }
         if (val && val.length) {
             val.forEach(function (type) {
-                var mapObjWithFields = {};
-                var mapObj = this.mapping[this.config.appname].mappings[type].properties;
-                for (var field_1 in mapObj) {
-                    mapObjWithFields[field_1] = mapObj[field_1];
-                    if (mapObj[field_1].fields) {
-                        for (var sub in mapObj[field_1].fields) {
-                            var subname = field_1 + '.' + sub;
-                            mapObjWithFields[subname] = mapObj[field_1].fields[sub];
-                        }
-                    }
-                    if (mapObj[field_1].properties) {
-                        for (var sub in mapObj[field_1].properties) {
-                            var subname = field_1 + '.' + sub;
-                            mapObjWithFields[subname] = mapObj[field_1].properties[sub];
-                        }
-                    }
-                }
-                for (var field in mapObjWithFields) {
-                    var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
-                    var obj = {
-                        name: field,
-                        type: mapObjWithFields[field]['type'],
-                        index: index
-                    };
-                    switch (obj.type) {
-                        case 'long':
-                        case 'integer':
-                        case 'short':
-                        case 'byte':
-                        case 'double':
-                        case 'float':
-                            obj.type = 'numeric';
-                            break;
-                        case 'text':
-                        case 'keyword':
-                            obj.type = 'string';
-                            break;
-                    }
-                    availableFields.push(obj);
-                }
+                var mapObj = allMappings[type].properties;
+                feedAvailableField.call(this, mapObj);
             }.bind(this));
             this.setUrl(val);
             propInfo = {
@@ -6975,6 +7984,17 @@ var TypesComponent = (function () {
             value: availableFields
         };
         this.setProp.emit(propInfo);
+        for (var type in allMappings) {
+            if (allMappings[type].hasOwnProperty('_parent')) {
+                if (val && val.indexOf(allMappings[type]['_parent'].type) > -1) {
+                    if (this.result.joiningQuery.indexOf('has_child') < 0) {
+                        this.result.joiningQuery.push('has_child');
+                        this.result.joiningQuery.push('has_parent');
+                        this.result.joiningQuery.push('parent_id');
+                    }
+                }
+            }
+        }
     };
     TypesComponent.prototype.setUrl = function (val) {
         var selectedTypes = val;
@@ -7055,7 +8075,7 @@ var TypesComponent = (function () {
 }());
 exports.TypesComponent = TypesComponent;
 //# sourceMappingURL=types.component.js.map
-},{"@angular/core":57}],45:[function(require,module,exports){
+},{"@angular/core":62}],50:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7085,7 +8105,7 @@ var ResultComponent = (function () {
 }());
 exports.ResultComponent = ResultComponent;
 //# sourceMappingURL=result.component.js.map
-},{"@angular/core":57}],46:[function(require,module,exports){
+},{"@angular/core":62}],51:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7220,7 +8240,7 @@ var AppbaseService = (function () {
 }());
 exports.AppbaseService = AppbaseService;
 //# sourceMappingURL=appbase.service.js.map
-},{"@angular/core":57,"@angular/http":59,"rxjs/add/operator/toPromise":69}],47:[function(require,module,exports){
+},{"@angular/core":62,"@angular/http":64,"rxjs/add/operator/toPromise":74}],52:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7253,7 +8273,7 @@ var DocService = (function () {
 }());
 exports.DocService = DocService;
 //# sourceMappingURL=docService.js.map
-},{"@angular/core":57,"rxjs/BehaviorSubject":62}],48:[function(require,module,exports){
+},{"@angular/core":62,"rxjs/BehaviorSubject":67}],53:[function(require,module,exports){
 "use strict";
 exports.EditorHook = function (config) {
     this.editorId = config.editorId;
@@ -7293,7 +8313,7 @@ exports.EditorHook.prototype.getInstance = function () {
     return this.editor;
 };
 //# sourceMappingURL=editorHook.js.map
-},{}],49:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7326,7 +8346,7 @@ var GlobalShare = (function () {
 }());
 exports.GlobalShare = GlobalShare;
 //# sourceMappingURL=globalshare.service.js.map
-},{"@angular/core":57}],50:[function(require,module,exports){
+},{"@angular/core":62}],55:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7352,7 +8372,7 @@ var prettyJson = (function () {
 }());
 exports.prettyJson = prettyJson;
 //# sourceMappingURL=prettyJson.js.map
-},{"@angular/core":57}],51:[function(require,module,exports){
+},{"@angular/core":62}],56:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7378,7 +8398,7 @@ var prettyTime = (function () {
 }());
 exports.prettyTime = prettyTime;
 //# sourceMappingURL=prettyTime.js.map
-},{"@angular/core":57}],52:[function(require,module,exports){
+},{"@angular/core":62}],57:[function(require,module,exports){
 "use strict";
 exports.queryList = {
     analyzed: {
@@ -7398,7 +8418,9 @@ exports.queryList = {
             'simple_query_string',
             'match_phrase_prefix',
             'ids',
-            'common'
+            'common',
+            'span_term',
+            'span_first'
         ],
         numeric: [
             'match',
@@ -7459,7 +8481,7 @@ exports.queryList = {
     ]
 };
 //# sourceMappingURL=queryList.js.map
-},{}],53:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7488,7 +8510,7 @@ var StorageService = (function () {
 }());
 exports.StorageService = StorageService;
 //# sourceMappingURL=storage.service.js.map
-},{"@angular/core":57}],54:[function(require,module,exports){
+},{"@angular/core":62}],59:[function(require,module,exports){
 "use strict";
 exports.UrlShare = function () {
     this.secret = 'e';
@@ -7526,8 +8548,11 @@ exports.UrlShare.prototype.createUrl = function () {
                 window.location.href = window.location.href.split('?default=true')[0];
             }
             var finalUrl = '#?input_state=' + ciphertext;
-            if (this.queryParams && this.queryParams.hf) {
-                finalUrl += '&hf=' + this.queryParams.hf;
+            for (var params in this.queryParams) {
+                if (params !== 'input_state') {
+                    console.log(params, this.queryParams[params]);
+                    finalUrl += '&' + params + '=' + this.queryParams[params];
+                }
             }
             window.location.href = finalUrl;
         }
@@ -7624,7 +8649,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
     }
 };
 //# sourceMappingURL=urlShare.js.map
-},{}],55:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -10751,7 +11776,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":57}],56:[function(require,module,exports){
+},{"@angular/core":62}],61:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -28352,7 +29377,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":57}],57:[function(require,module,exports){
+},{"@angular/core":62}],62:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -38192,7 +39217,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"rxjs/Observable":63,"rxjs/Subject":65}],58:[function(require,module,exports){
+},{"rxjs/Observable":68,"rxjs/Subject":70}],63:[function(require,module,exports){
 /**
  * @license Angular v2.0.2
  * (c) 2010-2016 Google, Inc. https://angular.io/
@@ -42868,7 +43893,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
 
 }));
 
-},{"@angular/core":57,"rxjs/Observable":63,"rxjs/Subject":65,"rxjs/observable/fromPromise":71,"rxjs/operator/toPromise":72}],59:[function(require,module,exports){
+},{"@angular/core":62,"rxjs/Observable":68,"rxjs/Subject":70,"rxjs/observable/fromPromise":76,"rxjs/operator/toPromise":77}],64:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -44873,7 +45898,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":57,"@angular/platform-browser":61,"rxjs/Observable":63}],60:[function(require,module,exports){
+},{"@angular/core":62,"@angular/platform-browser":66,"rxjs/Observable":68}],65:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -45083,7 +46108,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/compiler":56,"@angular/core":57,"@angular/platform-browser":61}],61:[function(require,module,exports){
+},{"@angular/compiler":61,"@angular/core":62,"@angular/platform-browser":66}],66:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.2
@@ -47985,7 +49010,7 @@ exports.UrlShare.prototype.getQueryParameters = function (str) {
 }));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/common":55,"@angular/core":57}],62:[function(require,module,exports){
+},{"@angular/common":60,"@angular/core":62}],67:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -48040,7 +49065,7 @@ var BehaviorSubject = (function (_super) {
 }(Subject_1.Subject));
 exports.BehaviorSubject = BehaviorSubject;
 //# sourceMappingURL=BehaviorSubject.js.map
-},{"./Subject":65,"./util/ObjectUnsubscribedError":75,"./util/throwError":82}],63:[function(require,module,exports){
+},{"./Subject":70,"./util/ObjectUnsubscribedError":80,"./util/throwError":87}],68:[function(require,module,exports){
 "use strict";
 var root_1 = require('./util/root');
 var observable_1 = require('./symbol/observable');
@@ -48176,7 +49201,7 @@ var Observable = (function () {
 }());
 exports.Observable = Observable;
 //# sourceMappingURL=Observable.js.map
-},{"./symbol/observable":73,"./util/root":81,"./util/toSubscriber":83}],64:[function(require,module,exports){
+},{"./symbol/observable":78,"./util/root":86,"./util/toSubscriber":88}],69:[function(require,module,exports){
 "use strict";
 exports.empty = {
     isUnsubscribed: true,
@@ -48185,7 +49210,7 @@ exports.empty = {
     complete: function () { }
 };
 //# sourceMappingURL=Observer.js.map
-},{}],65:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -48392,7 +49417,7 @@ var SubjectObservable = (function (_super) {
     return SubjectObservable;
 }(Observable_1.Observable));
 //# sourceMappingURL=Subject.js.map
-},{"./Observable":63,"./SubjectSubscription":66,"./Subscriber":67,"./Subscription":68,"./symbol/rxSubscriber":74,"./util/ObjectUnsubscribedError":75,"./util/throwError":82}],66:[function(require,module,exports){
+},{"./Observable":68,"./SubjectSubscription":71,"./Subscriber":72,"./Subscription":73,"./symbol/rxSubscriber":79,"./util/ObjectUnsubscribedError":80,"./util/throwError":87}],71:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -48433,7 +49458,7 @@ var SubjectSubscription = (function (_super) {
 }(Subscription_1.Subscription));
 exports.SubjectSubscription = SubjectSubscription;
 //# sourceMappingURL=SubjectSubscription.js.map
-},{"./Subscription":68}],67:[function(require,module,exports){
+},{"./Subscription":73}],72:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -48685,7 +49710,7 @@ var SafeSubscriber = (function (_super) {
     return SafeSubscriber;
 }(Subscriber));
 //# sourceMappingURL=Subscriber.js.map
-},{"./Observer":64,"./Subscription":68,"./symbol/rxSubscriber":74,"./util/isFunction":79}],68:[function(require,module,exports){
+},{"./Observer":69,"./Subscription":73,"./symbol/rxSubscriber":79,"./util/isFunction":84}],73:[function(require,module,exports){
 "use strict";
 var isArray_1 = require('./util/isArray');
 var isObject_1 = require('./util/isObject');
@@ -48836,13 +49861,13 @@ var Subscription = (function () {
 }());
 exports.Subscription = Subscription;
 //# sourceMappingURL=Subscription.js.map
-},{"./util/UnsubscriptionError":76,"./util/errorObject":77,"./util/isArray":78,"./util/isFunction":79,"./util/isObject":80,"./util/tryCatch":84}],69:[function(require,module,exports){
+},{"./util/UnsubscriptionError":81,"./util/errorObject":82,"./util/isArray":83,"./util/isFunction":84,"./util/isObject":85,"./util/tryCatch":89}],74:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var toPromise_1 = require('../../operator/toPromise');
 Observable_1.Observable.prototype.toPromise = toPromise_1.toPromise;
 //# sourceMappingURL=toPromise.js.map
-},{"../../Observable":63,"../../operator/toPromise":72}],70:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/toPromise":77}],75:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -48948,12 +49973,12 @@ function dispatchError(arg) {
     }
 }
 //# sourceMappingURL=PromiseObservable.js.map
-},{"../Observable":63,"../util/root":81}],71:[function(require,module,exports){
+},{"../Observable":68,"../util/root":86}],76:[function(require,module,exports){
 "use strict";
 var PromiseObservable_1 = require('./PromiseObservable');
 exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 //# sourceMappingURL=fromPromise.js.map
-},{"./PromiseObservable":70}],72:[function(require,module,exports){
+},{"./PromiseObservable":75}],77:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 /**
@@ -48982,7 +50007,7 @@ function toPromise(PromiseCtor) {
 }
 exports.toPromise = toPromise;
 //# sourceMappingURL=toPromise.js.map
-},{"../util/root":81}],73:[function(require,module,exports){
+},{"../util/root":86}],78:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 var Symbol = root_1.root.Symbol;
@@ -49004,14 +50029,14 @@ else {
     exports.$$observable = '@@observable';
 }
 //# sourceMappingURL=observable.js.map
-},{"../util/root":81}],74:[function(require,module,exports){
+},{"../util/root":86}],79:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 var Symbol = root_1.root.Symbol;
 exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
     Symbol.for('rxSubscriber') : '@@rxSubscriber';
 //# sourceMappingURL=rxSubscriber.js.map
-},{"../util/root":81}],75:[function(require,module,exports){
+},{"../util/root":86}],80:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -49037,7 +50062,7 @@ var ObjectUnsubscribedError = (function (_super) {
 }(Error));
 exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 //# sourceMappingURL=ObjectUnsubscribedError.js.map
-},{}],76:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -49060,30 +50085,30 @@ var UnsubscriptionError = (function (_super) {
 }(Error));
 exports.UnsubscriptionError = UnsubscriptionError;
 //# sourceMappingURL=UnsubscriptionError.js.map
-},{}],77:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 "use strict";
 // typeof any so that it we don't have to cast when comparing a result to the error object
 exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
-},{}],78:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 "use strict";
 exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 //# sourceMappingURL=isArray.js.map
-},{}],79:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 "use strict";
 function isFunction(x) {
     return typeof x === 'function';
 }
 exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
-},{}],80:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 "use strict";
 function isObject(x) {
     return x != null && typeof x === 'object';
 }
 exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
-},{}],81:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 (function (global){
 "use strict";
 var objectTypes = {
@@ -49104,12 +50129,12 @@ if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === fre
 }
 //# sourceMappingURL=root.js.map
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],82:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 "use strict";
 function throwError(e) { throw e; }
 exports.throwError = throwError;
 //# sourceMappingURL=throwError.js.map
-},{}],83:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 "use strict";
 var Subscriber_1 = require('../Subscriber');
 var rxSubscriber_1 = require('../symbol/rxSubscriber');
@@ -49126,7 +50151,7 @@ function toSubscriber(nextOrObserver, error, complete) {
 }
 exports.toSubscriber = toSubscriber;
 //# sourceMappingURL=toSubscriber.js.map
-},{"../Subscriber":67,"../symbol/rxSubscriber":74}],84:[function(require,module,exports){
+},{"../Subscriber":72,"../symbol/rxSubscriber":79}],89:[function(require,module,exports){
 "use strict";
 var errorObject_1 = require('./errorObject');
 var tryCatchTarget;
@@ -49146,4 +50171,4 @@ function tryCatch(fn) {
 exports.tryCatch = tryCatch;
 ;
 //# sourceMappingURL=tryCatch.js.map
-},{"./errorObject":77}]},{},[3])
+},{"./errorObject":82}]},{},[3])

@@ -72,6 +72,8 @@ var AppComponent = (function () {
         $('body').removeClass('is-loadingApp');
         this.queryParams = this.urlShare.getQueryParameters();
         this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
+        this.allowF = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('f')) ? true : false);
+        this.allowH = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('h')) ? true : false);
         // get data from url
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
@@ -248,7 +250,8 @@ var AppComponent = (function () {
                 'final': "{}"
             },
             output: {},
-            queryId: 1
+            queryId: 1,
+            sort: []
         };
     };
     AppComponent.prototype.connectHandle = function () {
@@ -548,6 +551,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.setLayoutResizer = function () {
         this.setLayoutFlag = true;
+        var self = this;
         $('body').layout({
             east__size: "50%",
             center__paneSelector: "#paneCenter",
@@ -556,6 +560,27 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
+            if (!self.allowF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 140);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 140);
+                }, 300);
+            }
+            else if (!self.allowH) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 15);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 15);
+                }, 300);
+            }
+            else if (self.allowHF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 166);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 166);
+                }, 300);
+            }
         }
         setSidebar();
         $(window).on('resize', setSidebar);
