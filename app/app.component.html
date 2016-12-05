@@ -3,9 +3,9 @@
 		<div class="loadingBar"></div>
 	</div>
 </section>
-<div class="app-container" [ngClass]="{'without-hf': !allowHF}">
+<div class="app-container" [ngClass]="{'without-hf': !allowHF, 'without-h': !allowH, 'without-f': !allowF}">
 	<!-- HEADER START -->
-	<header class="header text-center" *ngIf="allowHF">
+	<header class="header text-center" *ngIf="allowH">
 		<span class="img-container">
 			<img src="assets/images/Mirage_Flat_9.png" alt="Mirage" class="img-responsive" />
 		</span>
@@ -17,7 +17,7 @@
 	<!-- HEADER END -->
 	<div class="applogin-component">
 		<!-- APPLOGIN START -->
-		<form class="col-xs-12 init-ES" id="init-ES"  *ngIf="allowHF" (ngSubmit)="connectHandle()" #initEs="ngForm">
+		<form class="col-xs-12 init-ES" id="init-ES"  *ngIf="allowH" (ngSubmit)="connectHandle()" #initEs="ngForm">
 			<div class="esContainer">
 				<span class="action-btns">
 					<share-url [urlShare]="urlShare"></share-url>
@@ -84,7 +84,7 @@
 		<doc-sidebar [docLink]="docLink" (setDocSample)="setDocSample($event);"></doc-sidebar>
 		<!-- Doc Sidebar end -->
 		<!-- Footer START -->
-		<footer class="text-center" *ngIf="allowHF">
+		<footer class="text-center" *ngIf="allowF">
 			<span class="footer-center">
 				<a id="mirage-learn-link" (click)="openLearn();">New to mirage?</a>
 			</span>
