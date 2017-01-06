@@ -318,9 +318,8 @@ var AppComponent = (function () {
     // get mappings
     AppComponent.prototype.getMappings = function (clearFlag) {
         var self = this;
-        this.appbaseService.get('/_mapping').then(function (res) {
+        this.appbaseService.getMappings().then(function (data) {
             self.connected = true;
-            var data = res.json();
             self.setInitialValue();
             self.finalUrl = self.config.host + '/' + self.config.appname;
             self.mapping = data;
@@ -363,6 +362,7 @@ var AppComponent = (function () {
                 // self.editorHookHelp.setValue('');
             }, 300);
         }).catch(function (e) {
+            console.log(e);
             self.initial_connect = true;
             self.errorShow({
                 title: 'Authentication Error',

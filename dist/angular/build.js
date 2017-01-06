@@ -319,9 +319,8 @@ var AppComponent = (function () {
     // get mappings
     AppComponent.prototype.getMappings = function (clearFlag) {
         var self = this;
-        this.appbaseService.get('/_mapping').then(function (res) {
+        this.appbaseService.getMappings().then(function (data) {
             self.connected = true;
-            var data = res.json();
             self.setInitialValue();
             self.finalUrl = self.config.host + '/' + self.config.appname;
             self.mapping = data;
@@ -364,6 +363,7 @@ var AppComponent = (function () {
                 // self.editorHookHelp.setValue('');
             }, 300);
         }).catch(function (e) {
+            console.log(e);
             self.initial_connect = true;
             self.errorShow({
                 title: 'Authentication Error',
@@ -8152,6 +8152,37 @@ var AppbaseService = (function () {
         var request_path = request_url + path + '/';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
+    };
+    AppbaseService.prototype.getMappings = function () {
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            getRequest('/_mapping').then(function (res) {
+                var mappingData = res.json();
+                getRequest('/_alias').then(function (res) {
+                    var aliasData = res.json();
+                    for (var index in aliasData) {
+                        for (var alias in aliasData[index].aliases) {
+                            mappingData[alias] = mappingData[index];
+                        }
+                    }
+                    resolve(mappingData);
+                }).catch(function (e) {
+                    resolve(mappingData);
+                });
+            }).catch(function (e) {
+                reject(e);
+            });
+        });
+        function getRequest(path) {
+            var headers = new http_1.Headers({
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': self.requestParam.auth
+            });
+            var request_url = self.requestParam.url.replace(self.config.username + ':' + self.config.password + '@', '');
+            var request_path = request_url + path + '/';
+            console.log(request_path);
+            return self.http.get(request_path, { headers: headers }).toPromise();
+        }
     };
     AppbaseService.prototype.getVersion = function () {
         var headers = new http_1.Headers({
