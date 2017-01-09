@@ -73,6 +73,8 @@ var AppComponent = (function () {
         $('body').removeClass('is-loadingApp');
         this.queryParams = this.urlShare.getQueryParameters();
         this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
+        this.allowF = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('f')) ? true : false);
+        this.allowH = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('h')) ? true : false);
         // get data from url
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
@@ -317,9 +319,8 @@ var AppComponent = (function () {
     // get mappings
     AppComponent.prototype.getMappings = function (clearFlag) {
         var self = this;
-        this.appbaseService.get('/_mapping').then(function (res) {
+        this.appbaseService.getMappings().then(function (data) {
             self.connected = true;
-            var data = res.json();
             self.setInitialValue();
             self.finalUrl = self.config.host + '/' + self.config.appname;
             self.mapping = data;
@@ -362,6 +363,7 @@ var AppComponent = (function () {
                 // self.editorHookHelp.setValue('');
             }, 300);
         }).catch(function (e) {
+            console.log(e);
             self.initial_connect = true;
             self.errorShow({
                 title: 'Authentication Error',
@@ -559,7 +561,21 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
-            if (self.allowHF) {
+            if (!self.allowF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 140);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 140);
+                }, 300);
+            }
+            else if (!self.allowH) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 15);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 15);
+                }, 300);
+            }
+            else if (self.allowHF) {
                 var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 166);
@@ -8137,6 +8153,37 @@ var AppbaseService = (function () {
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
     };
+    AppbaseService.prototype.getMappings = function () {
+        var self = this;
+        return new Promise(function (resolve, reject) {
+            getRequest('/_mapping').then(function (res) {
+                var mappingData = res.json();
+                getRequest('/_alias').then(function (res) {
+                    var aliasData = res.json();
+                    for (var index in aliasData) {
+                        for (var alias in aliasData[index].aliases) {
+                            mappingData[alias] = mappingData[index];
+                        }
+                    }
+                    resolve(mappingData);
+                }).catch(function (e) {
+                    resolve(mappingData);
+                });
+            }).catch(function (e) {
+                reject(e);
+            });
+        });
+        function getRequest(path) {
+            var headers = new http_1.Headers({
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': self.requestParam.auth
+            });
+            var request_url = self.requestParam.url.replace(self.config.username + ':' + self.config.password + '@', '');
+            var request_path = request_url + path + '/';
+            console.log(request_path);
+            return self.http.get(request_path, { headers: headers }).toPromise();
+        }
+    };
     AppbaseService.prototype.getVersion = function () {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json;charset=UTF-8',
@@ -8532,8 +8579,11 @@ exports.UrlShare.prototype.createUrl = function () {
                 window.location.href = window.location.href.split('?default=true')[0];
             }
             var finalUrl = '#?input_state=' + ciphertext;
-            if (this.queryParams && this.queryParams.hf) {
-                finalUrl += '&hf=' + this.queryParams.hf;
+            for (var params in this.queryParams) {
+                if (params !== 'input_state') {
+                    console.log(params, this.queryParams[params]);
+                    finalUrl += '&' + params + '=' + this.queryParams[params];
+                }
             }
             window.location.href = finalUrl;
         }

@@ -61,12 +61,27 @@
 		padding: 0;
 		.applogin-component {
 			position: relative;
-		    height: 100%;
-		    padding-top: 0;
-		    padding-bottom: 0;
+			height: 100%;
+			padding-top: 0;
+			padding-bottom: 0;
 		}
 		.query-result-container.layoutApplied {
 			padding-bottom: 15px;
+		}
+	}
+	&.without-h {
+		padding: 0;
+		.applogin-component {
+			position: relative;
+			height: 100%;
+			padding-top: 0;
+		}
+	}
+	&.without-f {
+		.applogin-component {
+			position: relative;
+			height: 100%;
+			padding-bottom: 0;
 		}
 	}
 }

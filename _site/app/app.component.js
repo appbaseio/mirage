@@ -72,6 +72,8 @@ var AppComponent = (function () {
         $('body').removeClass('is-loadingApp');
         this.queryParams = this.urlShare.getQueryParameters();
         this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
+        this.allowF = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('f')) ? true : false);
+        this.allowH = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('h')) ? true : false);
         // get data from url
         this.detectConfig(configCb.bind(this));
         function configCb(config) {
@@ -316,9 +318,8 @@ var AppComponent = (function () {
     // get mappings
     AppComponent.prototype.getMappings = function (clearFlag) {
         var self = this;
-        this.appbaseService.get('/_mapping').then(function (res) {
+        this.appbaseService.getMappings().then(function (data) {
             self.connected = true;
-            var data = res.json();
             self.setInitialValue();
             self.finalUrl = self.config.host + '/' + self.config.appname;
             self.mapping = data;
@@ -361,6 +362,7 @@ var AppComponent = (function () {
                 // self.editorHookHelp.setValue('');
             }, 300);
         }).catch(function (e) {
+            console.log(e);
             self.initial_connect = true;
             self.errorShow({
                 title: 'Authentication Error',
@@ -558,7 +560,21 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
-            if (self.allowHF) {
+            if (!self.allowF) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 140);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 140);
+                }, 300);
+            }
+            else if (!self.allowH) {
+                var bodyHeight = $('body').height();
+                setTimeout(function () {
+                    $('#mirage-container').css('height', bodyHeight - 15);
+                    $('#paneCenter, #paneEast').css('height', bodyHeight - 15);
+                }, 300);
+            }
+            else if (self.allowHF) {
                 var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 166);

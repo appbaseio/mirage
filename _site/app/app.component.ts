@@ -62,8 +62,10 @@ export class AppComponent implements OnInit, OnChanges {
 	submitted = false;
 	public queryParams: any;
 	public allowHF: boolean;
+	public allowH: boolean;
+	public allowF: boolean;
 	public setLayoutFlag = false;
-  	public deleteItemInfo: any = {
+	public deleteItemInfo: any = {
 		title: 'Confirm Deletion',
 		message: 'Do you want to delete this query?',
 		yesText: 'Delete',
@@ -75,16 +77,18 @@ export class AppComponent implements OnInit, OnChanges {
 	};
 	public appSelected: boolean = false;
 
-  	onSubmit() { this.submitted = true; }
+	onSubmit() { this.submitted = true; }
 
-  	setDocSample(link) { 
-  		this.docLink = link; 
-  	}
+	setDocSample(link) { 
+		this.docLink = link; 
+	}
 
 	ngOnInit() {
 		$('body').removeClass('is-loadingApp');
 		this.queryParams = this.urlShare.getQueryParameters();
-        this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
+		this.allowHF = !(this.queryParams && this.queryParams.hasOwnProperty('hf')) ? true : false;
+		this.allowF = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('f')) ? true : false);
+		this.allowH = !this.allowHF ? false : (!(this.queryParams && this.queryParams.hasOwnProperty('h')) ? true : false);
 		// get data from url
 		this.detectConfig(configCb.bind(this));
 		function configCb(config) {
@@ -142,40 +146,40 @@ export class AppComponent implements OnInit, OnChanges {
 	// get indices
 	getIndices() {
 		var es_host = document.URL.split('/_plugin/')[0];
-        var getIndices = this.appbaseService.getIndices(es_host);
-        getIndices.then(function(res) {
+		var getIndices = this.appbaseService.getIndices(es_host);
+		getIndices.then(function(res) {
 			try {
 				let data = res.json();
 				let historicApps = this.getAppsList();
 				var indices = [];
-                for(let indice in data.indices) {
-                    if(historicApps && historicApps.length) {
-                        historicApps.forEach(function(old_app, index) {
-                            if(old_app.appname === indice) {
-                                historicApps.splice(index, 1);
-                            }
-                        })
-                    }
-                    var obj = {
-                        appname: indice,
-                        url: es_host
-                    };
-                    indices.push(indice);
-                    historicApps.push(obj);
-                }
-                // default app is no app found
-                if(!historicApps.length) {
-                    var obj = {
-                        appname: 'sampleapp',
-                        url: es_host
-                    };
-                    historicApps.push(obj);
-                }
-                if(!this.config.url) {
-                	this.config.url = historicApps[0].url;
-                }
-            	this.storageService.set('mirage-appsList', JSON.stringify(historicApps));
-            	this.getAppsList();
+				for(let indice in data.indices) {
+					if(historicApps && historicApps.length) {
+						historicApps.forEach(function(old_app, index) {
+							if(old_app.appname === indice) {
+								historicApps.splice(index, 1);
+							}
+						})
+					}
+					var obj = {
+						appname: indice,
+						url: es_host
+					};
+					indices.push(indice);
+					historicApps.push(obj);
+				}
+				// default app is no app found
+				if(!historicApps.length) {
+					var obj = {
+						appname: 'sampleapp',
+						url: es_host
+					};
+					historicApps.push(obj);
+				}
+				if(!this.config.url) {
+					this.config.url = historicApps[0].url;
+				}
+				this.storageService.set('mirage-appsList', JSON.stringify(historicApps));
+				this.getAppsList();
 			} catch(e) {
 				console.log(e);
 			}
@@ -327,9 +331,8 @@ export class AppComponent implements OnInit, OnChanges {
 	// get mappings
 	getMappings(clearFlag) {
 		var self = this;
-		this.appbaseService.get('/_mapping').then(function(res) {
+		this.appbaseService.getMappings().then(function(data) {
 			self.connected = true;
-			let data = res.json();
 			self.setInitialValue();
 			self.finalUrl = self.config.host + '/' + self.config.appname;
 			self.mapping = data;
@@ -374,6 +377,7 @@ export class AppComponent implements OnInit, OnChanges {
 			}, 300);
 			
 		}).catch(function(e) {
+			console.log(e);
 			self.initial_connect = true;
 			self.errorShow({
 				title: 'Authentication Error',
@@ -580,7 +584,19 @@ export class AppComponent implements OnInit, OnChanges {
 		function setSidebar() {
 			var windowHeight = $(window).height();
 			$('.features-section').css('height', windowHeight);
-			if(self.allowHF) {
+			if(!self.allowF) {
+				var bodyHeight = $('body').height();
+				setTimeout(()=>{
+					$('#mirage-container').css('height', bodyHeight- 140);
+					$('#paneCenter, #paneEast').css('height', bodyHeight- 140);
+				}, 300);
+			} else if(!self.allowH) {
+				var bodyHeight = $('body').height();
+				setTimeout(()=>{
+					$('#mirage-container').css('height', bodyHeight- 15);
+					$('#paneCenter, #paneEast').css('height', bodyHeight- 15);
+				}, 300);
+			} else if(self.allowHF) {
 				var bodyHeight = $('body').height();
 				setTimeout(()=>{
 					$('#mirage-container').css('height', bodyHeight- 166);
