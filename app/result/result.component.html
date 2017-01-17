@@ -1,31 +1,42 @@
 <!-- Modal -->
 <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Query Result 
-          <span *ngIf="result_time_taken !== null">
-            ({{result_time_taken}} ms)
-          </span>
-        </h4>
-      </div>
-      <div class="modal-body">
-      	<!-- <div class="loading" *ngIf="mapping.isWatching">
-      		<i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
-      		Loading, please wait...
-      	</div> -->
-      	<div class="result_block">
-	        <textarea 
-				class="form-control m-b15"
-				name="responseBlock" 
-				id="responseBlock" cols="30" rows="10">
-			</textarea>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Query Result 
+					<span *ngIf="result_time_taken !== null">
+						({{result_time_taken}} ms)
+					</span>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<!-- <div class="loading" *ngIf="mapping.isWatching">
+				  <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+				  Loading, please wait...
+				</div> -->
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#resultJson" aria-controls="resultJson" role="tab" data-toggle="tab">Json</a></li>
+					<li role="presentation"><a href="#resultTable" aria-controls="resultTable" role="tab" data-toggle="tab">Table</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="resultJson">
+						<div class="result_block">
+							<textarea class="form-control m-b15" name="responseBlock" id="responseBlock" cols="30" rows="10">
+							</textarea>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="resultTable">
+						<iframe *ngIf="urlAvailable" width="100%" height="100%" [src]="url" frameborder="0"></iframe>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
 		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+	</div>
 </div>
