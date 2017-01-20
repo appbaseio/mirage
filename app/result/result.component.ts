@@ -1,11 +1,11 @@
-import { Component, OnInit, OnChanges } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output } from "@angular/core";
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 declare var $: any;
 
 @Component({
 	selector: 'query-result',
 	templateUrl: './app/result/result.component.html',
-	inputs: ['mapping', 'config', 'editorHookHelp', 'urlShare', 'responseHookHelp', 'result_time_taken', 'types', 'selectedTypes', 'result', 'config', 'responseHookHelp', 'result_time_taken']
+	inputs: ['mapping', 'config', 'editorHookHelp', 'urlShare', 'responseHookHelp', 'result_time_taken', 'result_random_token', 'types', 'result', 'config', 'responseHookHelp', 'result_time_taken']
 })
 
 export class ResultComponent implements OnInit, OnChanges {
@@ -16,7 +16,9 @@ export class ResultComponent implements OnInit, OnChanges {
 	public urlShare: any;
 	public editorHookHelp: any;
 	public urlAvailable: boolean = false;
-	
+	@Input() selectedTypes: any;
+	public dejavuDomain: string = 'http://localhost:1358/';
+
 	constructor(private sanitizer: DomSanitizer) {}
 
 	ngOnInit() {
@@ -24,17 +26,26 @@ export class ResultComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes) {
-		if(changes && changes['result_time_taken']) {
-			var prev = changes['result_time_taken'].previousValue;
-			var current = changes['result_time_taken'].currentValue;
+		if(changes && changes['result_random_token']) {
+			var prev = changes['result_random_token'].previousValue;
+			var current = changes['result_random_token'].currentValue;
 			if(current && prev !== current && this.editorHookHelp) {
 				var getQuery = this.editorHookHelp.getValue();
 				if(getQuery) {
+					console.log(this.selectedTypes);
 					getQuery = getQuery.trim();
-					getQuery = JSON.stringify(JSON.parse(getQuery));
-					var url = 'http://localhost:1358/#?input_state='+this.urlShare.url;
-					url = url+'&hf=false&sidebar=false&query='+getQuery;
-					this.url = this.sanitizeUrl(url);
+					getQuery = JSON.parse(getQuery);
+					var queryObj = {
+						query: getQuery,
+						type: this.selectedTypes
+					};
+					this.url = this.sanitizeUrl(this.dejavuDomain);
+					setTimeout(function() {
+						var url = this.dejavuDomain+'#?input_state='+this.urlShare.url;
+						url = url+'&h=false&sidebar=false&query='+JSON.stringify(queryObj);
+						this.url = this.sanitizeUrl(url);
+						console.log(this.url);
+					}.bind(this), 300);
 					this.urlAvailable = true;
 				}
 			}
