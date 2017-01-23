@@ -21,11 +21,15 @@
   border-radius: 4px;
   border: 3px solid;
   border-color: $primary-color;
+  background: $grey-bg;
 }
 .modal .modal-header {
   border: 0;
   padding: 5px 15px 0 15px;
   color: $primary-color;
+}
+.modal .modal-footer {
+  border: 0;
 }
 .modal .modal-header .close {
   width: 20px;
@@ -110,6 +114,9 @@
       position: relative;
       .CodeMirror {
         height: 100%;
+      }
+      .tab-content {
+        height: calc(100% - 30px);
       }
     }
   }
