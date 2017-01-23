@@ -48,6 +48,7 @@ var AppComponent = (function () {
         this.errorHookHelp = new editorHook_1.EditorHook({ editorId: 'errorEditor' });
         this.urlShare = new urlShare_1.UrlShare();
         this.result_time_taken = null;
+        this.result_random_token = null;
         this.version = '2.0';
         this.active = true;
         this.submitted = false;
@@ -417,7 +418,7 @@ var AppComponent = (function () {
                     this.urlShare.createUrl();
                     setTimeout(function () {
                         $('#setType').val(_this.selectedTypes).trigger("change");
-                        if ($('body').width() > 768 && !_this.setLayoutFlag) {
+                        if ($('body').width() > 768) {
                             _this.setLayoutResizer();
                         }
                         else {
@@ -546,6 +547,9 @@ var AppComponent = (function () {
         if (propInfo.name === 'result_time_taken') {
             this.result_time_taken = propInfo.value;
         }
+        if (propInfo.name === 'random_token') {
+            this.result_random_token = propInfo.value;
+        }
         //set input state
         this.urlShare.createUrl();
     };
@@ -560,22 +564,20 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
+            var bodyHeight = $('body').height();
             if (!self.allowF) {
-                var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 140);
                     $('#paneCenter, #paneEast').css('height', bodyHeight - 140);
                 }, 300);
             }
             else if (!self.allowH) {
-                var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 15);
                     $('#paneCenter, #paneEast').css('height', bodyHeight - 15);
                 }, 300);
             }
             else if (self.allowHF) {
-                var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 166);
                     $('#paneCenter, #paneEast').css('height', bodyHeight - 166);
