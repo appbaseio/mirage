@@ -8101,7 +8101,7 @@ var ResultComponent = (function () {
         this.sanitizer = sanitizer;
         this.urlAvailable = false;
         // public dejavuDomain: string = 'http://localhost:1358/';
-        this.dejavuDomain = window.location.protocol + '//opensource.appbase.io/dejavu/live/';
+        this.dejavuDomain = 'https://opensource.appbase.io/dejavu/live/';
     }
     ResultComponent.prototype.ngOnInit = function () {
         this.responseHookHelp.applyEditor({ readOnly: true });
