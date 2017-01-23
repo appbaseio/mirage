@@ -49,6 +49,7 @@ var AppComponent = (function () {
         this.errorHookHelp = new editorHook_1.EditorHook({ editorId: 'errorEditor' });
         this.urlShare = new urlShare_1.UrlShare();
         this.result_time_taken = null;
+        this.result_random_token = null;
         this.version = '2.0';
         this.active = true;
         this.submitted = false;
@@ -418,7 +419,7 @@ var AppComponent = (function () {
                     this.urlShare.createUrl();
                     setTimeout(function () {
                         $('#setType').val(_this.selectedTypes).trigger("change");
-                        if ($('body').width() > 768 && !_this.setLayoutFlag) {
+                        if ($('body').width() > 768) {
                             _this.setLayoutResizer();
                         }
                         else {
@@ -547,6 +548,9 @@ var AppComponent = (function () {
         if (propInfo.name === 'result_time_taken') {
             this.result_time_taken = propInfo.value;
         }
+        if (propInfo.name === 'random_token') {
+            this.result_random_token = propInfo.value;
+        }
         //set input state
         this.urlShare.createUrl();
     };
@@ -561,22 +565,20 @@ var AppComponent = (function () {
         function setSidebar() {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
+            var bodyHeight = $('body').height();
             if (!self.allowF) {
-                var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 140);
                     $('#paneCenter, #paneEast').css('height', bodyHeight - 140);
                 }, 300);
             }
             else if (!self.allowH) {
-                var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 15);
                     $('#paneCenter, #paneEast').css('height', bodyHeight - 15);
                 }, 300);
             }
             else if (self.allowHF) {
-                var bodyHeight = $('body').height();
                 setTimeout(function () {
                     $('#mirage-container').css('height', bodyHeight - 166);
                     $('#paneCenter, #paneEast').css('height', bodyHeight - 166);
@@ -1621,6 +1623,7 @@ var JsonEditorComponent = (function () {
             backdrop: 'static'
         });
         $('#resultModal').on('hide.bs.modal', function () {
+            $('#resultTabs a[href="#resultJson"]').tab('show');
             self.responseHookHelp.focus('{"Loading": "please wait......"}');
             var propInfo = {
                 name: 'result_time_taken',
@@ -1645,6 +1648,11 @@ var JsonEditorComponent = (function () {
                     value: res.json().took
                 };
                 self.setProp.emit(propInfo);
+                var propInfo1 = {
+                    name: 'random_token',
+                    value: Math.random()
+                };
+                self.setProp.emit(propInfo1);
                 self.result.output = JSON.stringify(res.json(), null, 2);
                 if ($('#resultModal').hasClass('in')) {
                     self.responseHookHelp.setValue(self.result.output);
@@ -8087,25 +8095,63 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var platform_browser_1 = require('@angular/platform-browser');
 var ResultComponent = (function () {
-    function ResultComponent() {
+    function ResultComponent(sanitizer) {
+        this.sanitizer = sanitizer;
+        this.urlAvailable = false;
+        // public dejavuDomain: string = 'http://localhost:1358/';
+        this.dejavuDomain = window.location.protocol + '//opensource.appbase.io/dejavu/live/';
     }
     ResultComponent.prototype.ngOnInit = function () {
         this.responseHookHelp.applyEditor({ readOnly: true });
     };
+    ResultComponent.prototype.ngOnChanges = function (changes) {
+        if (changes && changes['result_random_token']) {
+            var prev = changes['result_random_token'].previousValue;
+            var current = changes['result_random_token'].currentValue;
+            if (current && prev !== current && this.editorHookHelp) {
+                var getQuery = this.editorHookHelp.getValue();
+                if (getQuery) {
+                    console.log(this.selectedTypes);
+                    getQuery = getQuery.trim();
+                    getQuery = JSON.parse(getQuery);
+                    var queryObj = {
+                        query: getQuery,
+                        type: this.selectedTypes
+                    };
+                    this.url = this.sanitizeUrl(this.dejavuDomain);
+                    setTimeout(function () {
+                        var url = this.dejavuDomain + '#?input_state=' + this.urlShare.url;
+                        url = url + '&hf=false&sidebar=false&subscribe=false&query=' + JSON.stringify(queryObj);
+                        this.url = this.sanitizeUrl(url);
+                        console.log(this.url);
+                    }.bind(this), 300);
+                    this.urlAvailable = true;
+                }
+            }
+        }
+    };
+    ResultComponent.prototype.sanitizeUrl = function (url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ResultComponent.prototype, "selectedTypes", void 0);
     ResultComponent = __decorate([
         core_1.Component({
             selector: 'query-result',
             templateUrl: './app/result/result.component.html',
-            inputs: ['mapping', 'config', 'responseHookHelp', 'result_time_taken', 'types', 'selectedTypes', 'result', 'config', 'responseHookHelp', 'result_time_taken']
+            inputs: ['mapping', 'config', 'editorHookHelp', 'urlShare', 'responseHookHelp', 'result_time_taken', 'result_random_token', 'types', 'result', 'config', 'responseHookHelp', 'result_time_taken']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [platform_browser_1.DomSanitizer])
     ], ResultComponent);
     return ResultComponent;
 }());
 exports.ResultComponent = ResultComponent;
 //# sourceMappingURL=result.component.js.map
-},{"@angular/core":62}],51:[function(require,module,exports){
+},{"@angular/core":62,"@angular/platform-browser":66}],51:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
