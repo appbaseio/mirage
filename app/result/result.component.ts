@@ -18,7 +18,7 @@ export class ResultComponent implements OnInit, OnChanges {
 	public urlAvailable: boolean = false;
 	@Input() selectedTypes: any;
 	// public dejavuDomain: string = 'http://localhost:1358/';
-	public dejavuDomain: string = window.location.protocol+'//opensource.appbase.io/dejavu/live/';
+	public dejavuDomain: string = 'https://opensource.appbase.io/dejavu/live/';
 
 	constructor(private sanitizer: DomSanitizer) {}
 
