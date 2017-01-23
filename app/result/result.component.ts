@@ -17,7 +17,8 @@ export class ResultComponent implements OnInit, OnChanges {
 	public editorHookHelp: any;
 	public urlAvailable: boolean = false;
 	@Input() selectedTypes: any;
-	public dejavuDomain: string = 'http://localhost:1358/';
+	// public dejavuDomain: string = 'http://localhost:1358/';
+	public dejavuDomain: string = window.location.protocol+'//opensource.appbase.io/dejavu/live/';
 
 	constructor(private sanitizer: DomSanitizer) {}
 
@@ -42,7 +43,7 @@ export class ResultComponent implements OnInit, OnChanges {
 					this.url = this.sanitizeUrl(this.dejavuDomain);
 					setTimeout(function() {
 						var url = this.dejavuDomain+'#?input_state='+this.urlShare.url;
-						url = url+'&h=false&sidebar=false&query='+JSON.stringify(queryObj);
+						url = url+'&h=false&sidebar=false&subscribe=false&query='+JSON.stringify(queryObj);
 						this.url = this.sanitizeUrl(url);
 						console.log(this.url);
 					}.bind(this), 300);
