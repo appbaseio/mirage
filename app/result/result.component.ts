@@ -43,7 +43,7 @@ export class ResultComponent implements OnInit, OnChanges {
 					this.url = this.sanitizeUrl(this.dejavuDomain);
 					setTimeout(function() {
 						var url = this.dejavuDomain+'#?input_state='+this.urlShare.url;
-						url = url+'&h=false&sidebar=false&subscribe=false&query='+JSON.stringify(queryObj);
+						url = url+'&hf=false&sidebar=false&subscribe=false&query='+JSON.stringify(queryObj);
 						this.url = this.sanitizeUrl(url);
 						console.log(this.url);
 					}.bind(this), 300);
