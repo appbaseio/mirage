@@ -108,3 +108,5 @@
     position: relative; }
     #resultModal .modal-dialog .modal-body .CodeMirror {
       height: 100%; }
+  #resultModal .modal-dialog .modal-footer {
+    padding-top: 30px; }

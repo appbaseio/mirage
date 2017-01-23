@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnChanges {
 	public errorHookHelp = new EditorHook({ editorId: 'errorEditor' });
 	public urlShare = new UrlShare();
 	public result_time_taken = null;
+	public result_random_token = null;
 	public version: string = '2.0';
 	public docLink: string;
 	public currentDeleteQuery: any;
@@ -433,7 +434,7 @@ export class AppComponent implements OnInit, OnChanges {
 					this.urlShare.createUrl();
 					setTimeout(() => { 
 						$('#setType').val(this.selectedTypes).trigger("change"); 
-						if($('body').width() > 768 && !this.setLayoutFlag) {
+						if($('body').width() > 768) {
 							this.setLayoutResizer();
 						} else {
 							this.setMobileLayout();
@@ -568,6 +569,9 @@ export class AppComponent implements OnInit, OnChanges {
 		if(propInfo.name === 'result_time_taken') {
 			this.result_time_taken = propInfo.value;
 		}
+		if(propInfo.name === 'random_token') {
+			this.result_random_token = propInfo.value;
+		}
 
 		//set input state
 		this.urlShare.createUrl();
@@ -584,20 +588,18 @@ export class AppComponent implements OnInit, OnChanges {
 		function setSidebar() {
 			var windowHeight = $(window).height();
 			$('.features-section').css('height', windowHeight);
+			var bodyHeight = $('body').height();
 			if(!self.allowF) {
-				var bodyHeight = $('body').height();
 				setTimeout(()=>{
 					$('#mirage-container').css('height', bodyHeight- 140);
 					$('#paneCenter, #paneEast').css('height', bodyHeight- 140);
 				}, 300);
 			} else if(!self.allowH) {
-				var bodyHeight = $('body').height();
 				setTimeout(()=>{
 					$('#mirage-container').css('height', bodyHeight- 15);
 					$('#paneCenter, #paneEast').css('height', bodyHeight- 15);
 				}, 300);
 			} else if(self.allowHF) {
-				var bodyHeight = $('body').height();
 				setTimeout(()=>{
 					$('#mirage-container').css('height', bodyHeight- 166);
 					$('#paneCenter, #paneEast').css('height', bodyHeight- 166);
