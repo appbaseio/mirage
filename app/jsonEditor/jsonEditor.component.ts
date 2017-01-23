@@ -32,6 +32,7 @@ export class JsonEditorComponent implements OnInit {
 			backdrop: 'static'
 		});
 		$('#resultModal').on('hide.bs.modal', function() {
+			$('#resultTabs a[href="#resultJson"]').tab('show')
 			self.responseHookHelp.focus('{"Loading": "please wait......"}');
 			var propInfo = {
 				name: 'result_time_taken',
@@ -58,6 +59,11 @@ export class JsonEditorComponent implements OnInit {
 					value: res.json().took
 				};
 				self.setProp.emit(propInfo);
+				var propInfo1 = {
+					name: 'random_token',
+					value: Math.random()
+				};
+				self.setProp.emit(propInfo1);
 				self.result.output = JSON.stringify(res.json(), null, 2);
 				if($('#resultModal').hasClass('in')) {
 					self.responseHookHelp.setValue(self.result.output);
