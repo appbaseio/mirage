@@ -13,9 +13,8 @@
   a. [Hosted](#use-hosted-app)  
   b. [Chrome Extension](#get-the-chrome-extension)  
   c. [Appbase.io](#appbaseio-dashboard)  
-  d. [Run with Docker](#run-with-docker)  
-  e. [Elasticsearch Plugin (deprecated)](#install-as-elasticsearch-plugin)
-
+  d. [Run with Docker](#run-with-docker)  
+  e. [Elasticsearch Plugin (deprecated)](#install-as-elasticsearch-plugin)
 
 <br>
 
