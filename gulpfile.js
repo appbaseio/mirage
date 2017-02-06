@@ -9,7 +9,7 @@ var browserify = require('gulp-browserify');
 
 var files = {
     css: {
-        vandor: [
+        vendor: [
             'bower_components/font-awesome/css/font-awesome.min.css',
             'bower_components/bootstrap/dist/css/bootstrap.min.css',
             'bower_components/select2/dist/css/select2.min.css',
@@ -63,7 +63,7 @@ var files = {
 
 
 gulp.task('vendorcss', function() {
-    return gulp.src(files.css.vandor)
+    return gulp.src(files.css.vendor)
         .pipe(concat('vendor.min.css'))
         .pipe(gulp.dest('dist/css'));
 });
