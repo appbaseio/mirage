@@ -40,13 +40,13 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		stream: {
 			trigger: 'hover',
 			placement: 'top',
-			content: 'Set streaming mode.',
+			content: 'Shows an interactive stream of results, useful when your data is changing quickly.',
 			container: 'body'
 		},
 		historic: {
 			trigger: 'hover',
-			placement: 'top',
-			content: 'Set historic mode.',
+			placement: 'right',
+			content: 'Shows historical results, useful when your data is not changing quickly.',
 			container: 'body'
 		}
 	};

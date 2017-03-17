@@ -16,7 +16,7 @@ export class JsonEditorComponent implements OnInit, OnChanges {
 	public streamPopoverInfo: any = {
 		trigger: 'hover',
 		placement: 'right',
-		content: 'Stream is waiting for data updates.'
+		content: 'Stream is avtive, waiting for data updates ..'
 	};
 	@Input() finalUrl;
 	@Input() mapping: any;
