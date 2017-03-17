@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { AppbaseService } from "../shared/appbase.service";
 declare var $;
 
@@ -9,7 +9,7 @@ declare var $;
 	providers: [AppbaseService]
 })
 
-export class JsonEditorComponent implements OnInit, OnChanges {
+export class JsonEditorComponent implements OnInit {
 	public config;
 	public editorHookHelp;
 	public responseHookHelp;
