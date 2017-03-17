@@ -8,6 +8,9 @@
 					<span *ngIf="result_time_taken !== null">
 						({{result_time_taken}} ms)
 					</span>
+					<a class="stream-signal warning" *ngIf="responseMode === 'stream'">
+						<span class="spinner active"></span>
+					</a>
 				</h4>
 			</div>
 			<div class="modal-body" id="resultTabs">

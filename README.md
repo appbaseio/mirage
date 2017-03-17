@@ -1,4 +1,4 @@
- [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a> [![](https://labs.turbo.run/git-brag?user=appbaseio&repo=mirage&maxn=10)](https://github.com/appbaseio/mirage/stargazers)
+ [![](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/appbaseio/mirage/blob/dev/LICENSE.md) [![](https://img.shields.io/badge/angular-2.0.2-red.svg)](https://github.com/appbaseio/mirage/blob/dev/package.json#L20) <a href="https://codeclimate.com/github/appbaseio/mirage"><img src="https://codeclimate.com/github/appbaseio/mirage/badges/gpa.svg" /></a>
 
 ![](http://i.imgur.com/RoyFbSb.png?1)
 
@@ -13,8 +13,8 @@
   a. [Hosted](#use-hosted-app)  
   b. [Chrome Extension](#get-the-chrome-extension)  
   c. [Appbase.io](#appbaseio-dashboard)  
-  d. [Elasticsearch Plugin](#install-as-elasticsearch-plugin)
-
+  d. [Run with Docker](#run-with-docker)  
+  e. [Elasticsearch Plugin (deprecated)](#install-as-elasticsearch-plugin)
 
 <br>
 
@@ -144,7 +144,26 @@ Every app in appbase.io has a query explorer view, which uses mirage.
 
 or
 
+#### [Run with docker](https://dockerhub.com/r/appbaseio/mirage)
+
+Works with Elasticsearch versions 1.x, 2.x and 5.x.
+
+```sh
+docker run -p 3030:3030 -d appbaseio/mirage
+```
+**CORS settings**: To make sure you enable CORS settings for your ElasticSearch instance, add the following lines in the ES configuration file.
+
+```
+http.port: 9200
+http.cors.allow-origin: "/.*/"
+http.cors.enabled: true
+http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization
+http.cors.allow-credentials: true
+```
+
 #### Install as Elasticsearch Plugin
+
+[Deprecated] Works with Elasticsearch versions 1.x and 2.x. Site plugins have been disabled starting v5.0. We recommend running mirage with docker instead.
 
 ```sh
 plugin install appbaseio/mirage
@@ -156,7 +175,7 @@ plugin install appbaseio/mirage
 http.port: 9200
 http.cors.allow-origin: "/.*/"
 http.cors.enabled: true
-http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization
+http.cors.allow-headers: X-Requested-With,X-Auth-Token,Content-Type, Content-Length, Authorization
 http.cors.allow-credentials: true
 ```
 
