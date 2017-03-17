@@ -38,6 +38,20 @@ var QueryBlocksComponent = (function () {
         };
         this.joiningQuery = [''];
         this.joiningQueryParam = 0;
+        this.popoverInfo = {
+            stream: {
+                trigger: 'hover',
+                placement: 'top',
+                content: 'Shows an interactive stream of results, useful when your data is changing quickly.',
+                container: 'body'
+            },
+            historic: {
+                trigger: 'hover',
+                placement: 'right',
+                content: 'Shows historical results, useful when your data is not changing quickly.',
+                container: 'body'
+            }
+        };
         this.saveQuery = new core_1.EventEmitter();
         this.setProp = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
@@ -45,6 +59,7 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.ngOnInit = function () {
         this.handleEditable();
         this.joiningQuery = this.result.joiningQuery;
+        this.setPopover();
     };
     QueryBlocksComponent.prototype.ngOnChanges = function () {
         this.joiningQuery = this.result.joiningQuery;
@@ -349,6 +364,29 @@ var QueryBlocksComponent = (function () {
         this.result.resultQuery.availableFields = obj.allFields;
         this.buildQuery();
     };
+    QueryBlocksComponent.prototype.setPopover = function () {
+        var _this = this;
+        setTimeout(function () {
+            $('.responseMode .stream').popover(_this.popoverInfo.stream);
+            $('.responseMode .historic').popover(_this.popoverInfo.historic);
+        }, 1000);
+    };
+    QueryBlocksComponent.prototype.changeMode = function (mode) {
+        this.responseMode = mode;
+        var propInfo = {
+            name: 'responseMode',
+            value: mode
+        };
+        this.setProp.emit(propInfo);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], QueryBlocksComponent.prototype, "isAppbaseApp", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], QueryBlocksComponent.prototype, "responseMode", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)

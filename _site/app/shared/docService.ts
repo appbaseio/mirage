@@ -11,7 +11,6 @@ export class DocService {
   navItem$ = this._navItemSource.asObservable();
   // service command
   emitNavChangeEvent(string) {
-  	debugger
     this._navItemSource.next(string);
   }
 }

@@ -54,6 +54,8 @@ var AppComponent = (function () {
         this.active = true;
         this.submitted = false;
         this.setLayoutFlag = false;
+        this.responseMode = 'historic';
+        this.isAppbaseApp = true;
         this.deleteItemInfo = {
             title: 'Confirm Deletion',
             message: 'Do you want to delete this query?',
@@ -321,6 +323,7 @@ var AppComponent = (function () {
     AppComponent.prototype.getMappings = function (clearFlag) {
         var self = this;
         this.appbaseService.getMappings().then(function (data) {
+            self.isAppbaseApp = self.config.host === 'https://scalr.api.appbase.io' ? true : false;
             self.connected = true;
             self.setInitialValue();
             self.finalUrl = self.config.host + '/' + self.config.appname;
@@ -550,6 +553,9 @@ var AppComponent = (function () {
         }
         if (propInfo.name === 'random_token') {
             this.result_random_token = propInfo.value;
+        }
+        if (propInfo.name === 'responseMode') {
+            this.responseMode = propInfo.value;
         }
         //set input state
         this.urlShare.createUrl();
@@ -1611,6 +1617,11 @@ var appbase_service_1 = require("../shared/appbase.service");
 var JsonEditorComponent = (function () {
     function JsonEditorComponent(appbaseService) {
         this.appbaseService = appbaseService;
+        this.streamPopoverInfo = {
+            trigger: 'hover',
+            placement: 'right',
+            content: 'Stream is avtive, waiting for data updates ..'
+        };
         this.setProp = new core_1.EventEmitter();
         this.errorShow = new core_1.EventEmitter();
     }
@@ -1672,6 +1683,9 @@ var JsonEditorComponent = (function () {
                 };
                 self.errorShow.emit(obj);
             });
+            if (this.responseMode === 'stream') {
+                this.setStream(validate);
+            }
         }
         else {
             var obj = {
@@ -1680,6 +1694,35 @@ var JsonEditorComponent = (function () {
             };
             this.errorShow.emit(obj);
         }
+    };
+    JsonEditorComponent.prototype.setStream = function (validate) {
+        var _this = this;
+        var selectedTypes = $('#setType').val();
+        var body = validate.payload;
+        setTimeout(function () {
+            $('.stream-signal').show();
+            $('.stream-signal').popover(_this.streamPopoverInfo);
+        }, 300);
+        this.appbaseService.searchStream(selectedTypes, body)
+            .on('data', this.onStreamData.bind(this))
+            .on('error', this.onStreamError.bind(this));
+    };
+    JsonEditorComponent.prototype.onStreamData = function (res) {
+        $('.stream-signal').addClass('warning').addClass('success');
+        var streamResponse = JSON.stringify(res, null, 2);
+        if ($('#resultModal').hasClass('in')) {
+            this.responseHookHelp.prepend(streamResponse + "\n");
+        }
+        else {
+            setTimeout(function () {
+                this.responseHookHelp.prepend(streamResponse + "\n");
+            }, 300);
+        }
+    };
+    JsonEditorComponent.prototype.onStreamError = function (res) {
+        setTimeout(function () {
+            $('.stream-signal').hide();
+        }, 300);
     };
     // get the textarea value using editor hook
     // Checking if all the internal queries have field and query,
@@ -1741,6 +1784,10 @@ var JsonEditorComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], JsonEditorComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], JsonEditorComponent.prototype, "responseMode", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
@@ -2049,6 +2096,20 @@ var QueryBlocksComponent = (function () {
         };
         this.joiningQuery = [''];
         this.joiningQueryParam = 0;
+        this.popoverInfo = {
+            stream: {
+                trigger: 'hover',
+                placement: 'top',
+                content: 'Shows an interactive stream of results, useful when your data is changing quickly.',
+                container: 'body'
+            },
+            historic: {
+                trigger: 'hover',
+                placement: 'right',
+                content: 'Shows historical results, useful when your data is not changing quickly.',
+                container: 'body'
+            }
+        };
         this.saveQuery = new core_1.EventEmitter();
         this.setProp = new core_1.EventEmitter();
         this.setDocSample = new core_1.EventEmitter();
@@ -2056,6 +2117,7 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.ngOnInit = function () {
         this.handleEditable();
         this.joiningQuery = this.result.joiningQuery;
+        this.setPopover();
     };
     QueryBlocksComponent.prototype.ngOnChanges = function () {
         this.joiningQuery = this.result.joiningQuery;
@@ -2360,6 +2422,29 @@ var QueryBlocksComponent = (function () {
         this.result.resultQuery.availableFields = obj.allFields;
         this.buildQuery();
     };
+    QueryBlocksComponent.prototype.setPopover = function () {
+        var _this = this;
+        setTimeout(function () {
+            $('.responseMode .stream').popover(_this.popoverInfo.stream);
+            $('.responseMode .historic').popover(_this.popoverInfo.historic);
+        }, 1000);
+    };
+    QueryBlocksComponent.prototype.changeMode = function (mode) {
+        this.responseMode = mode;
+        var propInfo = {
+            name: 'responseMode',
+            value: mode
+        };
+        this.setProp.emit(propInfo);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], QueryBlocksComponent.prototype, "isAppbaseApp", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], QueryBlocksComponent.prototype, "responseMode", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -7425,6 +7510,7 @@ var SinglequeryComponent = (function () {
                             case 'byte':
                             case 'double':
                             case 'float':
+                            case 'date':
                                 obj.type = 'numeric';
                                 break;
                             case 'text':
@@ -7957,6 +8043,7 @@ var TypesComponent = (function () {
                     case 'byte':
                     case 'double':
                     case 'float':
+                    case 'date':
                         obj.type = 'numeric';
                         break;
                     case 'text':
@@ -8139,6 +8226,10 @@ var ResultComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], ResultComponent.prototype, "selectedTypes", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], ResultComponent.prototype, "responseMode", void 0);
     ResultComponent = __decorate([
         core_1.Component({
             selector: 'query-result',
@@ -8176,6 +8267,7 @@ var AppbaseService = (function () {
             username: null,
             password: null
         };
+        this.resultStream = null;
     }
     AppbaseService.prototype.setAppbase = function (config) {
         this.config.username = config.username;
@@ -8188,6 +8280,12 @@ var AppbaseService = (function () {
             this.requestParam.url = config.url;
         }
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
+        this.appbaseRef = new Appbase({
+            "url": "https://scalr.api.appbase.io",
+            "appname": config.appname,
+            "username": config.username,
+            "password": config.password
+        });
     };
     AppbaseService.prototype.get = function (path) {
         var headers = new http_1.Headers({
@@ -8309,6 +8407,16 @@ var AppbaseService = (function () {
             return null;
         }
     };
+    AppbaseService.prototype.searchStream = function (type, body) {
+        if (this.resultStream) {
+            this.resultStream.stop();
+        }
+        this.resultStream = this.appbaseRef.searchStream({
+            type: type,
+            body: body
+        });
+        return this.resultStream;
+    };
     AppbaseService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
@@ -8339,7 +8447,6 @@ var DocService = (function () {
     }
     // service command
     DocService.prototype.emitNavChangeEvent = function (string) {
-        debugger;
         this._navItemSource.next(string);
     };
     DocService = __decorate([
@@ -8388,6 +8495,13 @@ exports.EditorHook.prototype.getValue = function () {
 };
 exports.EditorHook.prototype.getInstance = function () {
     return this.editor;
+};
+exports.EditorHook.prototype.prepend = function (data) {
+    var totalLine = data.split(/\r\n|\r|\n/).length;
+    this.editor.replaceRange(data, { line: 0, ch: 0 });
+    for (var i = 0; i < totalLine - 1; i++) {
+        this.editor.addLineClass(i, "wrap", "streaming-response");
+    }
 };
 //# sourceMappingURL=editorHook.js.map
 },{}],54:[function(require,module,exports){

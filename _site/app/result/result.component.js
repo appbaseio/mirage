@@ -53,6 +53,10 @@ var ResultComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], ResultComponent.prototype, "selectedTypes", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], ResultComponent.prototype, "responseMode", void 0);
     ResultComponent = __decorate([
         core_1.Component({
             selector: 'query-result',

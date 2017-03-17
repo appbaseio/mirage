@@ -134,6 +134,7 @@ var SinglequeryComponent = (function () {
                             case 'byte':
                             case 'double':
                             case 'float':
+                            case 'date':
                                 obj.type = 'numeric';
                                 break;
                             case 'text':

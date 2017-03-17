@@ -53,6 +53,8 @@ var AppComponent = (function () {
         this.active = true;
         this.submitted = false;
         this.setLayoutFlag = false;
+        this.responseMode = 'historic';
+        this.isAppbaseApp = true;
         this.deleteItemInfo = {
             title: 'Confirm Deletion',
             message: 'Do you want to delete this query?',
@@ -320,6 +322,7 @@ var AppComponent = (function () {
     AppComponent.prototype.getMappings = function (clearFlag) {
         var self = this;
         this.appbaseService.getMappings().then(function (data) {
+            self.isAppbaseApp = self.config.host === 'https://scalr.api.appbase.io' ? true : false;
             self.connected = true;
             self.setInitialValue();
             self.finalUrl = self.config.host + '/' + self.config.appname;
@@ -549,6 +552,9 @@ var AppComponent = (function () {
         }
         if (propInfo.name === 'random_token') {
             this.result_random_token = propInfo.value;
+        }
+        if (propInfo.name === 'responseMode') {
+            this.responseMode = propInfo.value;
         }
         //set input state
         this.urlShare.createUrl();

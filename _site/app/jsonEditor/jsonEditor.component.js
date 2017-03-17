@@ -13,6 +13,11 @@ var appbase_service_1 = require("../shared/appbase.service");
 var JsonEditorComponent = (function () {
     function JsonEditorComponent(appbaseService) {
         this.appbaseService = appbaseService;
+        this.streamPopoverInfo = {
+            trigger: 'hover',
+            placement: 'right',
+            content: 'Stream is avtive, waiting for data updates ..'
+        };
         this.setProp = new core_1.EventEmitter();
         this.errorShow = new core_1.EventEmitter();
     }
@@ -74,6 +79,9 @@ var JsonEditorComponent = (function () {
                 };
                 self.errorShow.emit(obj);
             });
+            if (this.responseMode === 'stream') {
+                this.setStream(validate);
+            }
         }
         else {
             var obj = {
@@ -82,6 +90,35 @@ var JsonEditorComponent = (function () {
             };
             this.errorShow.emit(obj);
         }
+    };
+    JsonEditorComponent.prototype.setStream = function (validate) {
+        var _this = this;
+        var selectedTypes = $('#setType').val();
+        var body = validate.payload;
+        setTimeout(function () {
+            $('.stream-signal').show();
+            $('.stream-signal').popover(_this.streamPopoverInfo);
+        }, 300);
+        this.appbaseService.searchStream(selectedTypes, body)
+            .on('data', this.onStreamData.bind(this))
+            .on('error', this.onStreamError.bind(this));
+    };
+    JsonEditorComponent.prototype.onStreamData = function (res) {
+        $('.stream-signal').addClass('warning').addClass('success');
+        var streamResponse = JSON.stringify(res, null, 2);
+        if ($('#resultModal').hasClass('in')) {
+            this.responseHookHelp.prepend(streamResponse + "\n");
+        }
+        else {
+            setTimeout(function () {
+                this.responseHookHelp.prepend(streamResponse + "\n");
+            }, 300);
+        }
+    };
+    JsonEditorComponent.prototype.onStreamError = function (res) {
+        setTimeout(function () {
+            $('.stream-signal').hide();
+        }, 300);
     };
     // get the textarea value using editor hook
     // Checking if all the internal queries have field and query,
@@ -143,6 +180,10 @@ var JsonEditorComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], JsonEditorComponent.prototype, "result", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], JsonEditorComponent.prototype, "responseMode", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

@@ -183,6 +183,40 @@
   height: 32px;
   overflow: hidden;
   text-transform: uppercase; }
+  .toggle.head-tabs, .tabs.head-tabs {
+    height: auto;
+    overflow: auto; }
+  .toggle.responseMode, .tabs.responseMode {
+    height: auto;
+    padding-top: 5px;
+    margin-left: 20px; }
+    .toggle.responseMode a, .tabs.responseMode a {
+      font-size: 10px;
+      padding: 5px 6px;
+      height: auto;
+      border: 0;
+      background: #f7f7f7;
+      color: #828282 !important;
+      border: 0;
+      border-radius: 3px; }
+      .toggle.responseMode a:first-child, .tabs.responseMode a:first-child {
+        border-left: 0;
+        border-right: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0; }
+      .toggle.responseMode a:last-child, .tabs.responseMode a:last-child {
+        border-left: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0; }
+      .toggle.responseMode a.selected, .tabs.responseMode a.selected {
+        background: #FCC829;
+        color: #fff !important; }
+        .toggle.responseMode a.selected:hover, .tabs.responseMode a.selected:hover {
+          background: #FCC829;
+          color: #fff !important; }
+      .toggle.responseMode a:hover, .tabs.responseMode a:hover {
+        background: #f7f7f7;
+        color: #828282 !important; }
   .toggle a, .tabs a {
     width: 55px;
     display: inline-block;

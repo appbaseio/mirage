@@ -19,7 +19,6 @@ var DocService = (function () {
     }
     // service command
     DocService.prototype.emitNavChangeEvent = function (string) {
-        debugger;
         this._navItemSource.next(string);
     };
     DocService = __decorate([

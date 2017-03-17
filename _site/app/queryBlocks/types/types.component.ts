@@ -97,6 +97,7 @@ export class TypesComponent implements OnChanges {
 						case 'byte':
 						case 'double':
 						case 'float':
+						case 'date':
 							obj.type = 'numeric';
 							break;
 						case 'text':
