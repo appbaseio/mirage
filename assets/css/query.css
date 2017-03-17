@@ -183,6 +183,9 @@
   height: 32px;
   overflow: hidden;
   text-transform: uppercase; }
+  .toggle.head-tabs, .tabs.head-tabs {
+    height: auto;
+    overflow: auto; }
   .toggle a, .tabs a {
     width: 55px;
     display: inline-block;

@@ -244,6 +244,12 @@
 	overflow: hidden;
 	text-transform: uppercase;
 
+	&.head-tabs {
+		height: auto;
+		overflow: auto;
+	}
+
+
 	a {
 		width: 55px;
 		display: inline-block;

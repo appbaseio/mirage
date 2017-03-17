@@ -36,6 +36,22 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	public editorHookHelp: any;
 	public joiningQuery: any = [''];
 	public joiningQueryParam: any = 0;
+	public popoverInfo: any = {
+		stream: {
+			trigger: 'click hover',
+			placement: 'right',
+			content: 'Set streaming mode.',
+			container: 'body'
+		},
+		historic: {
+			trigger: 'click hover',
+			placement: 'right',
+			content: 'Set historic mode.',
+			container: 'body'
+		}
+	};
+	@Input() isAppbaseApp: boolean;
+	@Input() responseMode: string;
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
@@ -52,12 +68,12 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	ngOnInit() {
 		this.handleEditable();
 		this.joiningQuery = this.result.joiningQuery;
+		this.setPopover();
 	}
 
 	ngOnChanges() {
 		this.joiningQuery = this.result.joiningQuery;
 	}
-
 
 	// Add the boolean query
 	// get the default format for query and internal query
@@ -364,5 +380,21 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		this.joiningQueryParam = obj.param;
 		this.result.resultQuery.availableFields = obj.allFields;
 		this.buildQuery();
+	}
+
+	setPopover() {
+		setTimeout(() => {
+			$('.responseMode .stream').popover(this.popoverInfo.stream);
+			$('.responseMode .historic').popover(this.popoverInfo.historic);
+		}, 1000);
+	}
+
+	changeMode(mode) {
+		this.responseMode = mode;
+		const propInfo = {
+			name: 'responseMode',
+			value: mode
+		};
+		this.setProp.emit(propInfo);
 	}
 }
