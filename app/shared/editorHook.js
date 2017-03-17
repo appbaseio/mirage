@@ -36,4 +36,11 @@ exports.EditorHook.prototype.getValue = function () {
 exports.EditorHook.prototype.getInstance = function () {
     return this.editor;
 };
+exports.EditorHook.prototype.prepend = function (data) {
+    var totalLine = data.split(/\r\n|\r|\n/).length;
+    this.editor.replaceRange(data, { line: 0, ch: 0 });
+    for (var i = 0; i < totalLine - 1; i++) {
+        this.editor.addLineClass(i, "wrap", "streaming-response");
+    }
+};
 //# sourceMappingURL=editorHook.js.map

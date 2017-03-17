@@ -22,6 +22,7 @@ var AppbaseService = (function () {
             username: null,
             password: null
         };
+        this.resultStream = null;
     }
     AppbaseService.prototype.setAppbase = function (config) {
         this.config.username = config.username;
@@ -34,6 +35,12 @@ var AppbaseService = (function () {
             this.requestParam.url = config.url;
         }
         this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
+        this.appbaseRef = new Appbase({
+            "url": "https://scalr.api.appbase.io",
+            "appname": config.appname,
+            "username": config.username,
+            "password": config.password
+        });
     };
     AppbaseService.prototype.get = function (path) {
         var headers = new http_1.Headers({
@@ -154,6 +161,16 @@ var AppbaseService = (function () {
         else {
             return null;
         }
+    };
+    AppbaseService.prototype.searchStream = function (type, body) {
+        if (this.resultStream) {
+            this.resultStream.stop();
+        }
+        this.resultStream = this.appbaseRef.searchStream({
+            type: type,
+            body: body
+        });
+        return this.resultStream;
     };
     AppbaseService = __decorate([
         core_1.Injectable(), 
