@@ -1,6 +1,6 @@
 {
   "name": "mirage",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "🔎 GUI for Elasticsearch Queries",
   "author": "Farhan Chauhan, appbase.io",
   "license": "Apache-2.0",
@@ -28,6 +28,7 @@
     "@angular/platform-browser-dynamic": "~2.0.2",
     "@angular/upgrade": "~2.0.2",
     "angular-in-memory-web-api": "~0.1.5",
+    "appbase-js": "^0.11.1",
     "bootstrap": "^3.3.6",
     "core-js": "^2.4.0",
     "gulp-sass": "^2.3.1",

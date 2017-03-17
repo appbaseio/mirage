@@ -13,11 +13,17 @@ export class JsonEditorComponent implements OnInit {
 	public config;
 	public editorHookHelp;
 	public responseHookHelp;
+	public streamPopoverInfo: any = {
+		trigger: 'hover',
+		placement: 'right',
+		content: 'Stream is avtive, waiting for data updates ..'
+	};
 	@Input() finalUrl;
 	@Input() mapping: any;
 	@Input() types: any;
 	@Input() selectedTypes: any;
 	@Input() result: any;
+	@Input() responseMode: string;
 	@Output() setProp = new EventEmitter < any > ();
 	@Output() errorShow = new EventEmitter();
 
@@ -32,6 +38,7 @@ export class JsonEditorComponent implements OnInit {
 			backdrop: 'static'
 		});
 		$('#resultModal').on('hide.bs.modal', function() {
+			$('#resultTabs a[href="#resultJson"]').tab('show')
 			self.responseHookHelp.focus('{"Loading": "please wait......"}');
 			var propInfo = {
 				name: 'result_time_taken',
@@ -58,6 +65,11 @@ export class JsonEditorComponent implements OnInit {
 					value: res.json().took
 				};
 				self.setProp.emit(propInfo);
+				var propInfo1 = {
+					name: 'random_token',
+					value: Math.random()
+				};
+				self.setProp.emit(propInfo1);
 				self.result.output = JSON.stringify(res.json(), null, 2);
 				if($('#resultModal').hasClass('in')) {
 					self.responseHookHelp.setValue(self.result.output);
@@ -77,6 +89,9 @@ export class JsonEditorComponent implements OnInit {
 				};
 				self.errorShow.emit(obj);
 			});
+			if(this.responseMode === 'stream') {
+				this.setStream(validate);
+			}
 		} else {
 			var obj = {
 				title: 'Json validation',
@@ -84,6 +99,36 @@ export class JsonEditorComponent implements OnInit {
 			}
 			this.errorShow.emit(obj);
 		}
+	}
+
+	setStream(validate) {
+		const selectedTypes = $('#setType').val();
+		const body = validate.payload;
+		setTimeout(() => {
+			$('.stream-signal').show();
+			$('.stream-signal').popover(this.streamPopoverInfo);
+		}, 300);
+		this.appbaseService.searchStream(selectedTypes, body)
+			.on('data', this.onStreamData.bind(this))
+			.on('error', this.onStreamError.bind(this))
+	}
+
+	onStreamData(res) {
+		$('.stream-signal').addClass('warning').addClass('success');
+		const streamResponse = JSON.stringify(res, null, 2);
+		if($('#resultModal').hasClass('in')) {
+			this.responseHookHelp.prepend(streamResponse+"\n");
+		} else {
+			setTimeout(function() {
+				this.responseHookHelp.prepend(streamResponse+"\n");
+			}, 300);
+		}
+	}
+
+	onStreamError(res) {
+		setTimeout(() => {
+			$('.stream-signal').hide();
+		}, 300);
 	}
 
 	// get the textarea value using editor hook

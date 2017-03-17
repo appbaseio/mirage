@@ -174,6 +174,7 @@ export class SinglequeryComponent implements OnInit, OnChanges, AfterViewInit {
 							case 'byte':
 							case 'double':
 							case 'float':
+							case 'date':
 								obj.type = 'numeric';
 								break;
 							case 'text':

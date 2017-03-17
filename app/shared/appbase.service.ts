@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+declare var Appbase;
 
 @Injectable()
 
@@ -15,6 +16,7 @@ export class AppbaseService {
 		password: null
 	};
 	public appbaseRef: any;
+	public resultStream: any = null;
 	setAppbase(config: any) {
 		this.config.username = config.username;
 		this.config.password = config.password;
@@ -25,6 +27,12 @@ export class AppbaseService {
 			this.requestParam.url = config.url;
 		}
 		this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
+		this.appbaseRef = new Appbase({
+			"url": "https://scalr.api.appbase.io",
+			"appname": config.appname,
+			"username": config.username,
+			"password": config.password
+		});
 	}
 	get(path: string) {
 		let headers = new Headers({
@@ -43,8 +51,8 @@ export class AppbaseService {
 				let mappingData = res.json();
 				getRequest('/_alias').then(function(res) {
 					let aliasData = res.json();
-					for(let index in aliasData) {
-						for(let alias in aliasData[index].aliases) {
+					for (let index in aliasData) {
+						for (let alias in aliasData[index].aliases) {
 							mappingData[alias] = mappingData[index];
 						}
 					}
@@ -56,6 +64,7 @@ export class AppbaseService {
 				reject(e);
 			})
 		});
+
 		function getRequest(path) {
 			let headers = new Headers({
 				'Content-Type': 'application/json;charset=UTF-8',
@@ -143,5 +152,15 @@ export class AppbaseService {
 		} else {
 			return null;
 		}
+	}
+	searchStream(type, body) {
+		if (this.resultStream) {
+			this.resultStream.stop();
+		}
+		this.resultStream = this.appbaseRef.searchStream({
+			type: type,
+			body: body
+		});
+		return this.resultStream;
 	}
 }
