@@ -38,8 +38,8 @@
 .stream-signal {
   width: 2rem;
   height: 2rem;
-  float: right;
-  margin-right: 15px;
+  float: left;
+  margin-right: 8px;
   display: inline-block;
   border-radius: 50%;
   border: 2px solid #888;

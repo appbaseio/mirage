@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from "@angular/core";
 import { AppbaseService } from "../shared/appbase.service";
 declare var $;
 
@@ -9,13 +9,13 @@ declare var $;
 	providers: [AppbaseService]
 })
 
-export class JsonEditorComponent implements OnInit {
+export class JsonEditorComponent implements OnInit, OnChanges {
 	public config;
 	public editorHookHelp;
 	public responseHookHelp;
 	public streamPopoverInfo: any = {
-		trigger: 'click hover',
-		placement: 'left',
+		trigger: 'hover',
+		placement: 'right',
 		content: 'Stream is waiting for data updates.'
 	};
 	@Input() finalUrl;

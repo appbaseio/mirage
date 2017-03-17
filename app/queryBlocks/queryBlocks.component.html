@@ -18,8 +18,8 @@
 						Sorting
 					</a>
 					<span class="toggle clearfix responseMode" *ngIf="isAppbaseApp">
+						<a class="historic" [ngClass]="{'selected': responseMode === 'historic'}" (click)="changeMode('historic', i)">Hist.</a>
 						<a class="stream" [ngClass]="{'selected': responseMode === 'stream'}" (click)="changeMode('stream', i)">Stream</a>
-						<a class="historic" [ngClass]="{'selected': responseMode === 'historic'}" (click)="changeMode('historic', i)">Historic</a>
 					</span>
 				</div>
 			</div>

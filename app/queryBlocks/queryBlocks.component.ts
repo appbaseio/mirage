@@ -38,14 +38,14 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	public joiningQueryParam: any = 0;
 	public popoverInfo: any = {
 		stream: {
-			trigger: 'click hover',
-			placement: 'right',
+			trigger: 'hover',
+			placement: 'top',
 			content: 'Set streaming mode.',
 			container: 'body'
 		},
 		historic: {
-			trigger: 'click hover',
-			placement: 'right',
+			trigger: 'hover',
+			placement: 'top',
 			content: 'Set historic mode.',
 			container: 'body'
 		}
