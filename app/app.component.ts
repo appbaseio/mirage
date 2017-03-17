@@ -66,6 +66,8 @@ export class AppComponent implements OnInit, OnChanges {
 	public allowH: boolean;
 	public allowF: boolean;
 	public setLayoutFlag = false;
+	public responseMode: string = 'historic';
+	public isAppbaseApp: boolean = true;
 	public deleteItemInfo: any = {
 		title: 'Confirm Deletion',
 		message: 'Do you want to delete this query?',
@@ -300,7 +302,7 @@ export class AppComponent implements OnInit, OnChanges {
 			this.config.password = filteredConfig.password;	
 			this.config.host = filteredConfig.url;	
 			this.appbaseService.setAppbase(this.config);
-			this.getVersion();	
+			this.getVersion();
 			this.getMappings(clearFlag);
 		}
 	}
@@ -333,6 +335,7 @@ export class AppComponent implements OnInit, OnChanges {
 	getMappings(clearFlag) {
 		var self = this;
 		this.appbaseService.getMappings().then(function(data) {
+			self.isAppbaseApp = self.config.host === 'https://scalr.api.appbase.io' ? true : false;
 			self.connected = true;
 			self.setInitialValue();
 			self.finalUrl = self.config.host + '/' + self.config.appname;
@@ -572,7 +575,9 @@ export class AppComponent implements OnInit, OnChanges {
 		if(propInfo.name === 'random_token') {
 			this.result_random_token = propInfo.value;
 		}
-
+		if(propInfo.name === 'responseMode') {
+			this.responseMode = propInfo.value;
+		}
 		//set input state
 		this.urlShare.createUrl();
 	}
