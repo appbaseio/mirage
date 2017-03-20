@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var rename = require("gulp-rename");
 var watch = require('gulp-watch');
 var browserify = require('gulp-browserify');
+var fs = require('fs');
 
 var files = {
 	css: {
@@ -162,7 +163,7 @@ function addVersion(fileContent) {
 	return fileContent.replace("{{version}}", (new Date()).getTime());
 }
 
-gulp.task('gh_pages', ['build'], function() {
+gulp.task('build_gh_pages', ['build'], function() {
 	var fileContent = fs.readFileSync("mirageSample.appcache", "utf8");
 	return fs.writeFileSync('mirage.appcache', addVersion(fileContent));
 });
