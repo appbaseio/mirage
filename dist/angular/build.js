@@ -2105,7 +2105,7 @@ var QueryBlocksComponent = (function () {
             },
             historic: {
                 trigger: 'hover',
-                placement: 'right',
+                placement: 'top',
                 content: 'Shows historical results, useful when your data is not changing quickly.',
                 container: 'body'
             }
