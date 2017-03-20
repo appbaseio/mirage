@@ -7,3 +7,6 @@ CACHE MANIFEST
 ./dist/vendor/JSONURL.js
 ./dist/js/custom.min.js
 ./dist/angular/build.min.js
+
+NETWORK
+*

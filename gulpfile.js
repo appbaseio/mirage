@@ -163,7 +163,7 @@ function addVersion(fileContent) {
 	return fileContent.replace("{{version}}", (new Date()).getTime());
 }
 
-gulp.task('build_gh_pages', ['build'], function() {
+gulp.task('build_gh_pages', function() {
 	var fileContent = fs.readFileSync("mirageSample.appcache", "utf8");
 	return fs.writeFileSync('mirage.appcache', addVersion(fileContent));
 });
