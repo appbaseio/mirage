@@ -1,31 +1,41 @@
+<!DOCTYPE HTML>
 <html>
 
-  <head>
-    <title>Mirage</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="assets/images/favicon.ico" />
-    <link rel="stylesheet" href="dist/css/vendor.min.css" />
-    <link rel="stylesheet" href="dist/css/style.min.css" />
-    <script type="text/javascript" src="dist/js/vendor.min.js"></script>
-    <script type="text/javascript" src="dist/vendor/JSONURL.js"></script>
-    <script type="text/javascript" src="dist/js/custom.min.js"></script>
-  </head>
-  <!-- 3. Display the application -->
-  <body class="is-loadingApp">
-    <my-app>
-      <div class="loadingBar"></div>
-    </my-app>
-    <!-- Only for production -->
-    <script type="text/javascript" src="dist/angular/build.min.js"></script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<head>
+	<title>Mirage</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="shortcut icon" href="assets/images/favicon.ico" />
+	<link rel="stylesheet" href="dist/css/vendor.min.css" />
+	<link rel="stylesheet" href="dist/css/style.min.css" />
+	<script type="text/javascript" src="dist/js/vendor.min.js"></script>
+	<script type="text/javascript" src="dist/vendor/JSONURL.js"></script>
+	<script type="text/javascript" src="dist/js/custom.min.js"></script>
+</head>
+<!-- 3. Display the application -->
 
-      ga('create', 'UA-54082612-10', 'auto');
-      ga('send', 'pageview');
-    </script>
-  </body>
+<body class="is-loadingApp">
+	<my-app>
+		<div class="loadingBar"></div>
+	</my-app>
+	<!-- Only for production -->
+	<script type="text/javascript" src="dist/angular/build.min.js"></script>
+	<script>
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+	ga('create', 'UA-54082612-10', 'auto');
+	ga('send', 'pageview');
+	</script>
+</body>
+
 </html>
