@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 1490012889537
+# 1490013002250
 ./assets/images/favicon.ico
 ./dist/css/vendor.min.css
 ./dist/css/style.min.css
@@ -8,5 +8,5 @@ CACHE MANIFEST
 ./dist/js/custom.min.js
 ./dist/angular/build.min.js
 
-NETWORK
+NETWORK:
 *

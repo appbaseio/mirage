@@ -8,5 +8,5 @@ CACHE MANIFEST
 ./dist/js/custom.min.js
 ./dist/angular/build.min.js
 
-NETWORK
+NETWORK:
 *
