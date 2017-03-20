@@ -68,11 +68,13 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	ngOnInit() {
 		this.handleEditable();
 		this.joiningQuery = this.result.joiningQuery;
-		this.setPopover();
 	}
 
-	ngOnChanges() {
+	ngOnChanges(nextProps) {
 		this.joiningQuery = this.result.joiningQuery;
+		if(nextProps.isAppbaseApp.currentValue) {
+			this.setPopover();
+		}
 	}
 
 	// Add the boolean query
