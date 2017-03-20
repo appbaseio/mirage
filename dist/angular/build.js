@@ -572,24 +572,20 @@ var AppComponent = (function () {
             var windowHeight = $(window).height();
             $('.features-section').css('height', windowHeight);
             var bodyHeight = $('body').height();
-            if (!self.allowF) {
-                setTimeout(function () {
-                    $('#mirage-container').css('height', bodyHeight - 140);
-                    $('#paneCenter, #paneEast').css('height', bodyHeight - 140);
-                }, 300);
+            var mirageHeight = bodyHeight;
+            if (self.allowHF && self.allowF && !self.allowH) {
+                mirageHeight -= 15;
             }
-            else if (!self.allowH) {
-                setTimeout(function () {
-                    $('#mirage-container').css('height', bodyHeight - 15);
-                    $('#paneCenter, #paneEast').css('height', bodyHeight - 15);
-                }, 300);
+            if (self.allowHF && self.allowH && !self.allowF) {
+                mirageHeight -= 140;
             }
-            else if (self.allowHF) {
-                setTimeout(function () {
-                    $('#mirage-container').css('height', bodyHeight - 166);
-                    $('#paneCenter, #paneEast').css('height', bodyHeight - 166);
-                }, 300);
+            if (self.allowHF && self.allowH && self.allowF) {
+                mirageHeight -= 166;
             }
+            setTimeout(function () {
+                $('#mirage-container').css('height', mirageHeight);
+                $('#paneCenter, #paneEast').css('height', mirageHeight);
+            }, 300);
         }
         setSidebar();
         $(window).on('resize', setSidebar);
