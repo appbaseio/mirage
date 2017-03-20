@@ -59,10 +59,12 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.ngOnInit = function () {
         this.handleEditable();
         this.joiningQuery = this.result.joiningQuery;
-        this.setPopover();
     };
-    QueryBlocksComponent.prototype.ngOnChanges = function () {
+    QueryBlocksComponent.prototype.ngOnChanges = function (nextProps) {
         this.joiningQuery = this.result.joiningQuery;
+        if (nextProps.isAppbaseApp.currentValue) {
+            this.setPopover();
+        }
     };
     // Add the boolean query
     // get the default format for query and internal query
