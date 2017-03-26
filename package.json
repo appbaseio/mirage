@@ -14,6 +14,7 @@
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" \"gulp watch\" ",
     "test": "live-server --open=unit-tests.html",
     "build": "tsc && gulp build",
+    "build_gh_pages": "npm run build && gulp build_gh_pages",
     "build_es_plugin": "npm run build && gulp build_es_plugin",
     "build_chrome_extension": "npm run build && gulp build_chrome_extension"
   },

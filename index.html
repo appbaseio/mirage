@@ -1,29 +1,34 @@
+<!DOCTYPE HTML>
 <html>
 
-  <head>
-    <title>Mirage</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="assets/images/favicon.ico" />
-    <link rel="stylesheet" href="dist/css/vendor.min.css" />
-    <link rel="stylesheet" href="dist/css/style.min.css" />
-    <script type="text/javascript" src="dist/js/vendor.min.js"></script>
-    <script type="text/javascript" src="dist/vendor/JSONURL.js"></script>
-    <script type="text/javascript" src="dist/js/custom.min.js"></script>
-    <!-- Load libraries -->
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('app').catch(function(err){ console.error(err); });
-    </script>
-  </head>
-  <!-- 3. Display the application -->
-  <body class="is-loadingApp">
-    <my-app>
-      <div class="loadingBar"></div>
-    </my-app>
-    <!-- Only for production -->
-    <!-- 
+<head>
+	<title>Mirage</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="shortcut icon" href="assets/images/favicon.ico" />
+	<link rel="stylesheet" href="dist/css/vendor.min.css" />
+	<link rel="stylesheet" href="dist/css/style.min.css" />
+	<script type="text/javascript" src="dist/js/vendor.min.js"></script>
+	<script type="text/javascript" src="dist/vendor/JSONURL.js"></script>
+	<script type="text/javascript" src="dist/js/custom.min.js"></script>
+	<!-- Load libraries -->
+	<script src="systemjs.config.js"></script>
+	<script>
+	System.import('app').catch(function(err) {
+		console.error(err);
+	});
+	</script>
+</head>
+<!-- 3. Display the application -->
+
+<body class="is-loadingApp">
+	<my-app>
+		<div class="loadingBar"></div>
+	</my-app>
+	<!-- Only for production -->
+	<!-- 
       <script type="text/javascript" src="dist/angular/build.min.js"></script>
     -->
-  </body>
+</body>
+
 </html>
