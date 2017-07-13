@@ -144,7 +144,7 @@ Every app in appbase.io has a query explorer view, which uses mirage.
 
 or
 
-#### [Run with docker](https://dockerhub.com/r/appbaseio/mirage)
+#### [Run with docker](https://hub.docker.com/r/appbaseio/mirage)
 
 Works with Elasticsearch versions 1.x, 2.x and 5.x.
 
