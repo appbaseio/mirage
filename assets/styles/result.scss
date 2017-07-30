@@ -3,7 +3,7 @@
 	background: $grey-bg;
 	padding-bottom: 30px;
 	.queryRight {
-		padding: 15px 15px 15px 0;
+		padding: 32px 15px 15px 0;
 		background: $grey-bg;
 		border-left: 1px solid darken($grey-bg, 10%);
 		height: 100%;
@@ -18,14 +18,15 @@
 				top: 0;
 			}
 			&.run-row {
-				bottom: 0;
+				bottom: -25px;
 				padding-bottom: 0;
 			}
 		}
 		.codeMirror-container {
 			height: 100%;
 			position: relative;
-			padding: 25px 0 40px 0;
+			padding: 0;
+			overflow: auto;
 			.CodeMirror {
 				height: 100%;
 			}
