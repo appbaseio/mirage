@@ -317,7 +317,6 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	}
 
 	buildSubQuery() {
-		console.log('subquery getting called -------');
 		var result = this.result.resultQuery.result[0];
 		result.forEach(function(val0) {
 			if (val0.parent_id != 0) {
