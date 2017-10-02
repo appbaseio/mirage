@@ -134,14 +134,21 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 					'bool': finalresult
 				};
 			} else {
-				if (results[0].availableQuery && results[0].internal.length > 1) {
+				if (results[0].availableQuery && results[0].internal.length > 1 ) {
 					es_final['query'] = {
 						'bool': finalresult
 					};
 				} else {
-					es_final['query'] = finalresult;
+					console.log(self.queryList['boolQuery'][results[0]['boolparam']])
+					if (self.queryList['boolQuery'][results[0]['boolparam']] === 'must') {
+						es_final['query'] = finalresult;
+					} else {
+						console.log('in bool else');
+						es_final['query'] = {
+							'bool': finalresult
+						};
+					}
 				}
-
 			}
 
 			results.forEach(function(result) {
@@ -206,7 +213,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 							}
 						};
 					} else {
-						if (result.internal.length > 1) {
+						if (result.internal.length > 1 || currentBool !== 'must') {
 							finalresult[currentBool] = result.availableQuery;
 						} else {
 							if (results.length > 1) {
