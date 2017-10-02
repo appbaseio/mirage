@@ -139,11 +139,9 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 						'bool': finalresult
 					};
 				} else {
-					console.log(self.queryList['boolQuery'][results[0]['boolparam']])
 					if (self.queryList['boolQuery'][results[0]['boolparam']] === 'must') {
 						es_final['query'] = finalresult;
 					} else {
-						console.log('in bool else');
 						es_final['query'] = {
 							'bool': finalresult
 						};
