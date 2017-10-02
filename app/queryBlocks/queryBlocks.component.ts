@@ -127,12 +127,23 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		var self = this;
 		var results = this.result.resultQuery.result;
 		var es_final = {};
-
 		if(results.length) {
 			var finalresult = {};
-			es_final['query'] = {
-				'bool': finalresult
-			};
+			if(results.length > 1) {
+				es_final['query'] = {
+					'bool': finalresult
+				};
+			} else {
+				if (results[0].availableQuery && results[0].internal.length > 1) {
+					es_final['query'] = {
+						'bool': finalresult
+					};
+				} else {
+					es_final['query'] = finalresult;
+				}
+
+			}
+
 			results.forEach(function(result) {
 				result.availableQuery = self.buildInsideQuery(result);
 			});
@@ -194,16 +205,32 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 								id: result.xid
 							}
 						};
-					}else {
-						finalresult[currentBool] = result.availableQuery;
+					} else {
+						if (result.internal.length > 1) {
+							finalresult[currentBool] = result.availableQuery;
+						} else {
+							if (results.length > 1) {
+								finalresult[currentBool] = result.availableQuery;
+							} else {
+								finalresult = result.availableQuery[0];
+								es_final['query'] = finalresult;
+							}
+						}
+
 					}
 					if (currentBool === 'should') {
 						finalresult['minimum_should_match'] = result.minimum_should_match;
+					} else {
+						// condition required to reset when someone changes back from should to another bool type
+						if (finalresult.hasOwnProperty('minimum_should_match')) {
+							delete finalresult['minimum_should_match'];
+						}
 					}
 				}
 			});
 
 			if (!isBoolPresent) {
+				console.log('Bool is not present');
 				es_final['query'] = es_final['query']['bool'];
 			}
 		} else {
@@ -286,6 +313,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 	}
 
 	buildSubQuery() {
+		console.log('subquery getting called -------');
 		var result = this.result.resultQuery.result[0];
 		result.forEach(function(val0) {
 			if (val0.parent_id != 0) {
@@ -313,7 +341,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 		if (val.field === '') {
 			queryParam.fieldFlag = false;
 		}
-			
+
 		if (queryParam.queryFlag) {
 			return val.appliedQuery;
 		} else {
@@ -352,7 +380,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			this.result.sort = [];
 			this.addSortBlock();
 		}
-	}	
+	}
 
 	// handle the body click event for editable
 	// close all the select2 whene clicking outside of editable-element
