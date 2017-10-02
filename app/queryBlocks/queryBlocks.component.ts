@@ -230,7 +230,6 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
 			});
 
 			if (!isBoolPresent) {
-				console.log('Bool is not present');
 				es_final['query'] = es_final['query']['bool'];
 			}
 		} else {
