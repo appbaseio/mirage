@@ -49,7 +49,6 @@ var AppbaseService = (function () {
         });
         var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
         var request_path = request_url + path + '/';
-        console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
     };
     AppbaseService.prototype.getMappings = function () {
@@ -88,8 +87,8 @@ var AppbaseService = (function () {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': this.requestParam.auth
         });
-        var request_url = this.requestParam.pureurl.replace(this.config.username + ':' + this.config.password + '@', '');
-        var request_path = request_url + '/';
+        var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
+        var request_path = request_url + '/_settings?human';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
     };
