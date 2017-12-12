@@ -313,13 +313,15 @@ export class AppComponent implements OnInit, OnChanges {
 		this.appbaseService.getVersion().then(function(res) {
 			try {
 				let data = res.json();
-				if(data && data.version && data.version.number) {
-					let version = data.version.number;
+				let source = data && data[self.config.appname];
+				if(source && source.settings && source.settings.index && source.settings.index.version) {
+					let version = source.settings.index.version.created_string;
 					self.version = version; 
-					if(!(self.version.split('.')[0] === '2' || self.version.split('.')[0] === '5')) {
+					if(!(self.version.split('.')[0] === '2' || self.version.split('.')[0] === '5'
+						|| self.version.split('.')[0] === '6')) {
 						self.errorShow({
 							title: 'Elasticsearch Version Not Supported',
-							message: 'Mirage only supports v2.x or v5.x of Elasticsearch Query DSL'
+							message: 'Mirage only supports v2.x, v5.x and v6.x* of Elasticsearch Query DSL'
 						});
 					}
 				}

@@ -1,23 +1,16 @@
-FROM node:latest
+FROM node:7-alpine
 MAINTAINER appbase.io <info@appbase.io>
 
-ENV APP_USER  "app"
-ENV APP_DIR "/project"
-
-RUN useradd --user-group --create-home --shell /bin/false $APP_USER
-
-WORKDIR $APP_DIR
+WORKDIR /mirage
 
 RUN npm install -g bower
 RUN npm install -g gulp
 RUN npm install -g http-server
 
-ADD . $APP_DIR
-RUN chown -R $APP_USER:$APP_USER $APP_DIR
-USER $APP_USER
+ADD . /mirage
 
 RUN npm install
-RUN bower install
+RUN bower install --allow-root
 RUN npm build
 
 EXPOSE 3030
