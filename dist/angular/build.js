@@ -301,13 +301,15 @@ var AppComponent = (function () {
         this.appbaseService.getVersion().then(function (res) {
             try {
                 var data = res.json();
-                if (data && data.version && data.version.number) {
-                    var version = data.version.number;
+                var source = data && data[self.config.appname];
+                if (source && source.settings && source.settings.index && source.settings.index.version) {
+                    var version = source.settings.index.version.created_string;
                     self.version = version;
-                    if (!(self.version.split('.')[0] === '2' || self.version.split('.')[0] === '5')) {
+                    if (!(self.version.split('.')[0] === '2' || self.version.split('.')[0] === '5'
+                        || self.version.split('.')[0] === '6')) {
                         self.errorShow({
                             title: 'Elasticsearch Version Not Supported',
-                            message: 'Mirage only supports v2.x or v5.x of Elasticsearch Query DSL'
+                            message: 'Mirage only supports v2.x, v5.x and v6.x* of Elasticsearch Query DSL'
                         });
                     }
                 }
@@ -2168,9 +2170,28 @@ var QueryBlocksComponent = (function () {
         var es_final = {};
         if (results.length) {
             var finalresult = {};
-            es_final['query'] = {
-                'bool': finalresult
-            };
+            if (results.length > 1) {
+                es_final['query'] = {
+                    'bool': finalresult
+                };
+            }
+            else {
+                if (results[0].availableQuery && results[0].internal.length > 1) {
+                    es_final['query'] = {
+                        'bool': finalresult
+                    };
+                }
+                else {
+                    if (self.queryList['boolQuery'][results[0]['boolparam']] === 'must') {
+                        es_final['query'] = finalresult;
+                    }
+                    else {
+                        es_final['query'] = {
+                            'bool': finalresult
+                        };
+                    }
+                }
+            }
             results.forEach(function (result) {
                 result.availableQuery = self.buildInsideQuery(result);
             });
@@ -2237,10 +2258,27 @@ var QueryBlocksComponent = (function () {
                         };
                     }
                     else {
-                        finalresult[currentBool] = result.availableQuery;
+                        if (result.internal.length > 1 || currentBool !== 'must') {
+                            finalresult[currentBool] = result.availableQuery;
+                        }
+                        else {
+                            if (results.length > 1) {
+                                finalresult[currentBool] = result.availableQuery;
+                            }
+                            else {
+                                finalresult = result.availableQuery[0];
+                                es_final['query'] = finalresult;
+                            }
+                        }
                     }
                     if (currentBool === 'should') {
                         finalresult['minimum_should_match'] = result.minimum_should_match;
+                    }
+                    else {
+                        // condition required to reset when someone changes back from should to another bool type
+                        if (finalresult.hasOwnProperty('minimum_should_match')) {
+                            delete finalresult['minimum_should_match'];
+                        }
                     }
                 }
                 var _a;
@@ -8292,7 +8330,6 @@ var AppbaseService = (function () {
         });
         var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
         var request_path = request_url + path + '/';
-        console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
     };
     AppbaseService.prototype.getMappings = function () {
@@ -8331,8 +8368,8 @@ var AppbaseService = (function () {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': this.requestParam.auth
         });
-        var request_url = this.requestParam.pureurl.replace(this.config.username + ':' + this.config.password + '@', '');
-        var request_path = request_url + '/';
+        var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
+        var request_path = request_url + '/_settings?human';
         console.log(request_path);
         return this.http.get(request_path, { headers: headers }).toPromise();
     };
