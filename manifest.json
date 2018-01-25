@@ -1,6 +1,6 @@
 {
     "name":"mirage",
-    "version":"0.7.0",
+    "version":"0.8.0",
     "icons":{
         "16":"site/assets/images/icon_16.png",
         "32":"site/assets/images/icon_32.png",
@@ -21,6 +21,6 @@
         "default_icon": "site/assets/images/icon_32.png",
         "default_title": "Mirage"
     },
-    "description": "🔎 GUI for Elasticsearch Queries",
-    "author": "Farhan Chauhan, appbase.io"
+    "description": "🔎  GUI for Elasticsearch Queries",
+    "author": "appbase.io"
 }
