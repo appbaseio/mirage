@@ -1,8 +1,8 @@
 .query-result-container.layoutApplied {
   background: #f7f7f7;
-  padding-bottom: 30px; }
+  padding-bottom: 45px; }
   .query-result-container.layoutApplied .queryRight {
-    padding: 15px 15px 15px 0;
+    padding: 32px 15px 15px 0;
     background: #f7f7f7;
     border-left: 1px solid #dedede;
     height: 100%;
@@ -16,14 +16,18 @@
       .query-result-container.layoutApplied .queryRight .rightRow.url-row {
         top: 0; }
       .query-result-container.layoutApplied .queryRight .rightRow.run-row {
-        bottom: 0;
-        padding-bottom: 0; }
+        bottom: -23px;
+        padding-bottom: 0;
+        z-index: 10; }
     .query-result-container.layoutApplied .queryRight .codeMirror-container {
       height: 100%;
       position: relative;
-      padding: 25px 0 40px 0; }
+      padding: 0;
+      overflow: auto; }
       .query-result-container.layoutApplied .queryRight .codeMirror-container .CodeMirror {
         height: 100%; }
+      .query-result-container.layoutApplied .queryRight .codeMirror-container .form-group {
+        margin-bottom: 0; }
   @media screen and (max-width: 768px) {
     .query-result-container.layoutApplied {
       padding-bottom: 0; } }

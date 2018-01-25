@@ -26,22 +26,31 @@ export class AppbaseService {
 		} else {
 			this.requestParam.url = config.url;
 		}
-		this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
-		this.appbaseRef = new Appbase({
-			"url": "https://scalr.api.appbase.io",
-			"appname": config.appname,
-			"username": config.username,
-			"password": config.password
-		});
+
+		let appbaseRef: any = {
+			url: "https://scalr.api.appbase.io",
+			app: config.appname
+		}
+		
+		if (config.username) {
+			appbaseRef.credentials = `${config.username}:${config.password}`;
+			this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
+		};
+
+		this.appbaseRef = new Appbase(appbaseRef);
 	}
 	get(path: string) {
-		let headers = new Headers({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Authorization': this.requestParam.auth
-		});
+		let headersObj: any = {
+			'Content-Type': 'application/json;charset=UTF-8'
+		};
+		
+		if (this.requestParam.auth) {
+			headersObj.Authorization = this.requestParam.auth
+		}
+
+		let headers = new Headers(headersObj);
 		var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
 		var request_path = request_url + path + '/';
-		console.log(request_path);
 		return this.http.get(request_path, { headers: headers }).toPromise();
 	}
 	getMappings() {
@@ -66,10 +75,15 @@ export class AppbaseService {
 		});
 
 		function getRequest(path) {
-			let headers = new Headers({
-				'Content-Type': 'application/json;charset=UTF-8',
-				'Authorization': self.requestParam.auth
-			});
+			let headersObj: any = {
+				'Content-Type': 'application/json;charset=UTF-8'
+			};
+			
+			if (self.requestParam.auth) {
+				headersObj.Authorization = self.requestParam.auth
+			}
+	
+			let headers = new Headers(headersObj);
 			var request_url = self.requestParam.url.replace(self.config.username + ':' + self.config.password + '@', '');
 			var request_path = request_url + path + '/';
 			console.log(request_path);
@@ -77,43 +91,68 @@ export class AppbaseService {
 		}
 	}
 	getVersion() {
-		let headers = new Headers({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Authorization': this.requestParam.auth
-		});
-		var request_url = this.requestParam.pureurl.replace(this.config.username + ':' + this.config.password + '@', '');
-		var request_path = request_url + '/';
+		let headersObj: any = {
+			'Content-Type': 'application/json;charset=UTF-8'
+		};
+		
+		if (this.requestParam.auth) {
+			headersObj.Authorization = this.requestParam.auth
+		}
+
+		let headers = new Headers(headersObj);
+		var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
+		var request_path = request_url + '/_settings?human';
 		console.log(request_path);
 		return this.http.get(request_path, { headers: headers }).toPromise()
 	}
 	post(path: string, data: any) {
 		let requestData = JSON.stringify(data);
-		let headers = new Headers({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Authorization': this.requestParam.auth
-		});
+		let headersObj: any = {
+			'Content-Type': 'application/json;charset=UTF-8'
+		};
+		
+		if (this.requestParam.auth) {
+			headersObj.Authorization = this.requestParam.auth
+		}
+
+		let headers = new Headers(headersObj);
 		return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise()
 	}
 	posturl(url: string, data: any) {
 		let requestData = JSON.stringify(data);
-		let headers = new Headers({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Authorization': this.requestParam.auth
-		});
+		let headersObj: any = {
+			'Content-Type': 'application/json;charset=UTF-8'
+		};
+		
+		if (this.requestParam.auth) {
+			headersObj.Authorization = this.requestParam.auth
+		}
+
+		let headers = new Headers(headersObj);
 		return this.http.post(url, requestData, { headers: headers }).toPromise()
 	}
 	put(path: string, data: any) {
-		let headers = new Headers({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Authorization': this.requestParam.auth
-		});
+		let headersObj: any = {
+			'Content-Type': 'application/json;charset=UTF-8'
+		};
+		
+		if (this.requestParam.auth) {
+			headersObj.Authorization = this.requestParam.auth
+		}
+
+		let headers = new Headers(headersObj);
 		return this.http.put(this.requestParam.url + path, data, { headers: headers }).toPromise()
 	}
 	delete(path: string) {
-		let headers = new Headers({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Authorization': this.requestParam.auth
-		});
+		let headersObj: any = {
+			'Content-Type': 'application/json;charset=UTF-8'
+		};
+		
+		if (this.requestParam.auth) {
+			headersObj.Authorization = this.requestParam.auth
+		}
+
+		let headers = new Headers(headersObj);
 		return this.http.delete(this.requestParam.url + path, { headers: headers }).toPromise()
 	}
 	public handleError(error: any) {
@@ -127,8 +166,8 @@ export class AppbaseService {
 	filterurl(url: string) {
 		if (url) {
 			var obj = {
-				username: 'test',
-				password: 'test',
+				username: null,
+				password: null,
 				url: url
 			};
 			var urlsplit = url.split(':');
