@@ -1,7 +1,7 @@
 @import "variables.scss";
 .query-result-container.layoutApplied {
 	background: $grey-bg;
-	padding-bottom: 30px;
+	padding-bottom: 45px;
 	.queryRight {
 		padding: 32px 15px 15px 0;
 		background: $grey-bg;
@@ -18,8 +18,9 @@
 				top: 0;
 			}
 			&.run-row {
-				bottom: -25px;
+				bottom: -23px;
 				padding-bottom: 0;
+				z-index: 10;
 			}
 		}
 		.codeMirror-container {
@@ -29,6 +30,9 @@
 			overflow: auto;
 			.CodeMirror {
 				height: 100%;
+			}
+			.form-group {
+				margin-bottom: 0;
 			}
 		}
 	}
