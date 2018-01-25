@@ -1,8 +1,8 @@
 {
   "name": "mirage",
   "version": "0.8.0",
-  "description": "🔎 GUI for Elasticsearch Queries",
-  "author": "Farhan Chauhan, appbase.io",
+  "description": "🔎  GUI for Elasticsearch Queries",
+  "author": "Appbase Inc.",
   "license": "Apache-2.0",
   "main": "index.js",
   "scripts": {
