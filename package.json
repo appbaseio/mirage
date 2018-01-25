@@ -1,6 +1,6 @@
 {
   "name": "mirage",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "🔎 GUI for Elasticsearch Queries",
   "author": "Farhan Chauhan, appbase.io",
   "license": "Apache-2.0",
@@ -16,7 +16,8 @@
     "build": "tsc && gulp build",
     "build_gh_pages": "npm run build && gulp build_gh_pages",
     "build_es_plugin": "npm run build && gulp build_es_plugin",
-    "build_chrome_extension": "npm run build && gulp build_chrome_extension"
+    "build_chrome_extension": "npm run build && gulp build_chrome_extension",
+    "build:all": "npm run build && gulp build_gh_pages && gulp build_es_plugin && gulp build_chrome_extension"
   },
   "dependencies": {
     "@angular/common": "~2.0.2",
