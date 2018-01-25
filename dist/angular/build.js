@@ -8315,19 +8315,25 @@ var AppbaseService = (function () {
         else {
             this.requestParam.url = config.url;
         }
-        this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
-        this.appbaseRef = new Appbase({
-            "url": "https://scalr.api.appbase.io",
-            "appname": config.appname,
-            "username": config.username,
-            "password": config.password
-        });
+        var appbaseRef = {
+            url: "https://scalr.api.appbase.io",
+            app: config.appname
+        };
+        if (config.username) {
+            appbaseRef.credentials = config.username + ":" + config.password;
+            this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
+        }
+        ;
+        this.appbaseRef = new Appbase(appbaseRef);
     };
     AppbaseService.prototype.get = function (path) {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': this.requestParam.auth
-        });
+        var headersObj = {
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+        if (this.requestParam.auth) {
+            headersObj.Authorization = this.requestParam.auth;
+        }
+        var headers = new http_1.Headers(headersObj);
         var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
         var request_path = request_url + path + '/';
         return this.http.get(request_path, { headers: headers }).toPromise();
@@ -8353,10 +8359,13 @@ var AppbaseService = (function () {
             });
         });
         function getRequest(path) {
-            var headers = new http_1.Headers({
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Authorization': self.requestParam.auth
-            });
+            var headersObj = {
+                'Content-Type': 'application/json;charset=UTF-8'
+            };
+            if (self.requestParam.auth) {
+                headersObj.Authorization = self.requestParam.auth;
+            }
+            var headers = new http_1.Headers(headersObj);
             var request_url = self.requestParam.url.replace(self.config.username + ':' + self.config.password + '@', '');
             var request_path = request_url + path + '/';
             console.log(request_path);
@@ -8364,10 +8373,13 @@ var AppbaseService = (function () {
         }
     };
     AppbaseService.prototype.getVersion = function () {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': this.requestParam.auth
-        });
+        var headersObj = {
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+        if (this.requestParam.auth) {
+            headersObj.Authorization = this.requestParam.auth;
+        }
+        var headers = new http_1.Headers(headersObj);
         var request_url = this.requestParam.url.replace(this.config.username + ':' + this.config.password + '@', '');
         var request_path = request_url + '/_settings?human';
         console.log(request_path);
@@ -8375,32 +8387,44 @@ var AppbaseService = (function () {
     };
     AppbaseService.prototype.post = function (path, data) {
         var requestData = JSON.stringify(data);
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': this.requestParam.auth
-        });
+        var headersObj = {
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+        if (this.requestParam.auth) {
+            headersObj.Authorization = this.requestParam.auth;
+        }
+        var headers = new http_1.Headers(headersObj);
         return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise();
     };
     AppbaseService.prototype.posturl = function (url, data) {
         var requestData = JSON.stringify(data);
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': this.requestParam.auth
-        });
+        var headersObj = {
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+        if (this.requestParam.auth) {
+            headersObj.Authorization = this.requestParam.auth;
+        }
+        var headers = new http_1.Headers(headersObj);
         return this.http.post(url, requestData, { headers: headers }).toPromise();
     };
     AppbaseService.prototype.put = function (path, data) {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': this.requestParam.auth
-        });
+        var headersObj = {
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+        if (this.requestParam.auth) {
+            headersObj.Authorization = this.requestParam.auth;
+        }
+        var headers = new http_1.Headers(headersObj);
         return this.http.put(this.requestParam.url + path, data, { headers: headers }).toPromise();
     };
     AppbaseService.prototype.delete = function (path) {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': this.requestParam.auth
-        });
+        var headersObj = {
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+        if (this.requestParam.auth) {
+            headersObj.Authorization = this.requestParam.auth;
+        }
+        var headers = new http_1.Headers(headersObj);
         return this.http.delete(this.requestParam.url + path, { headers: headers }).toPromise();
     };
     AppbaseService.prototype.handleError = function (error) {
@@ -8414,8 +8438,8 @@ var AppbaseService = (function () {
     AppbaseService.prototype.filterurl = function (url) {
         if (url) {
             var obj = {
-                username: 'test',
-                password: 'test',
+                username: null,
+                password: null,
                 url: url
             };
             var urlsplit = url.split(':');
