@@ -131,7 +131,7 @@ export class AppComponent implements OnInit, OnChanges {
 		}
 		else {
 			this.urlShare.decryptUrl().then((data) => {
-				var decryptedData = data. data;
+				var decryptedData = data.data;
 				if(decryptedData && decryptedData.config) {
 					cb(decryptedData.config);
 				} else {
