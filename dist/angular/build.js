@@ -5020,7 +5020,8 @@ var Match_phase_prefixQuery = (function () {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery['match_phrase_prefix'][this.fieldName]) {
-                if (this.appliedQuery[this.current_query][this.fieldName]) {
+                if (this.appliedQuery[this.current_query][this.fieldName]
+                    && typeof this.appliedQuery[this.current_query][this.fieldName] === 'object') {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'query') {
@@ -5194,7 +5195,8 @@ var Match_phraseQuery = (function () {
         this.options = JSON.parse(JSON.stringify(this.default_options));
         try {
             if (this.appliedQuery[this.current_query][this.selectedField]) {
-                if (this.appliedQuery[this.current_query][this.fieldName]) {
+                if (this.appliedQuery[this.current_query][this.fieldName]
+                    && typeof this.appliedQuery[this.current_query][this.fieldName] === 'object') {
                     this.inputs.input.value = this.appliedQuery[this.current_query][this.fieldName].query;
                     for (var option in this.appliedQuery[this.current_query][this.fieldName]) {
                         if (option != 'query') {
