@@ -123,10 +123,11 @@ export class AppComponent implements OnInit, OnChanges {
 		let config = null;
 		let isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
 		let isInputState = window.location.href.indexOf('input_state=') > -1 ? true : false;
+		let isApp = window.location.href.indexOf('app=') > -1 ? true : false;
 		if(isDefault) {
 			config = this.defaultApp;
 			return cb(config);
-		} else if(!isInputState) {
+		} else if(!isInputState && !isApp) {
 			return cb('learn');
 		}
 		else {
