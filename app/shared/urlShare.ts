@@ -52,7 +52,7 @@ UrlShare.prototype.decryptUrl = function(cb) {
 	return new Promise((resolve, reject) => {
 		this.queryParams = this.getQueryParameters();
 		if (this.queryParams.input_state) {
-		this.decompress(this.queryParams.input_state, function(error, data) {
+			this.decompress(this.queryParams.input_state, function(error, data) {
 				if(data && data.appname && data.url) {
 					data.config = {
 						appname: data.appname,
@@ -64,6 +64,16 @@ UrlShare.prototype.decryptUrl = function(cb) {
 				}
 				resolve({error: error, data: data});
 			});
+		} else if(this.queryParams && this.queryParams.app) {
+			try {
+				const config = JSON.parse(this.queryParams.app);
+				const data = {
+					config
+				}
+				resolve({error: null, data: data});
+			} catch(e) {
+				resolve({error: e});
+			}
 		} else {
 			resolve({error:'Empty url'});
 		}
@@ -127,11 +137,13 @@ UrlShare.prototype.decompress = function(compressed, cb) {
 }
 
 UrlShare.prototype.getQueryParameters = function(str) {
-	let hash = window.location.hash.split('#');
-	if(hash.length > 1) {
-	  return (str || hash[1]).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
+	const tempurl = decodeURIComponent(window.location.href);
+	const hash = tempurl.split('#');
+	if (hash.length > 1) {
+		return (str || hash[1]).replace(/(^\?)/, '').split("&").map(function(n) {
+			return n = n.split("="), this[n[0]] = n[1], this }.bind({}))[0];
 	} else {
-	  return null;
+		return null;
 	}
 }
 
