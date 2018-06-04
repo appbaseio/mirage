@@ -107,11 +107,12 @@ var AppComponent = (function () {
         var config = null;
         var isDefault = window.location.href.indexOf('#?default=true') > -1 ? true : false;
         var isInputState = window.location.href.indexOf('input_state=') > -1 ? true : false;
+        var isApp = window.location.href.indexOf('app=') > -1 ? true : false;
         if (isDefault) {
             config = this.defaultApp;
             return cb(config);
         }
-        else if (!isInputState) {
+        else if (!isInputState && !isApp) {
             return cb('learn');
         }
         else {

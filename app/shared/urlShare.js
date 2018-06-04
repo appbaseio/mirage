@@ -64,6 +64,18 @@ exports.UrlShare.prototype.decryptUrl = function (cb) {
                 resolve({ error: error, data: data });
             });
         }
+        else if (_this.queryParams && _this.queryParams.app) {
+            try {
+                var config = JSON.parse(_this.queryParams.app);
+                var data = {
+                    config: config
+                };
+                resolve({ error: null, data: data });
+            }
+            catch (e) {
+                resolve({ error: e });
+            }
+        }
         else {
             resolve({ error: 'Empty url' });
         }
@@ -127,9 +139,12 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
     }
 };
 exports.UrlShare.prototype.getQueryParameters = function (str) {
-    var hash = window.location.hash.split('#');
+    var tempurl = decodeURIComponent(window.location.href);
+    var hash = tempurl.split('#');
     if (hash.length > 1) {
-        return (str || hash[1]).replace(/(^\?)/, '').split("&").map(function (n) { return n = n.split("="), this[n[0]] = n[1], this; }.bind({}))[0];
+        return (str || hash[1]).replace(/(^\?)/, '').split("&").map(function (n) {
+            return n = n.split("="), this[n[0]] = n[1], this;
+        }.bind({}))[0];
     }
     else {
         return null;
