@@ -1,0 +1,71 @@
+import time
+import requests
+import json
+import unittest
+
+appid = "7d7f3d3e77da87277aa7f5f5d7558225"
+ 
+def form_url_string(p_city, p_country):
+    global appid
+    s_appid = "&APPID=" + appid
+    s_request = "find?q={},{}&type=like&units=metric".format(p_city, p_country)
+    s_template = "http://api.openweathermap.org/data/2.5/" + s_request + s_appid
+    return s_template
+
+def exec_api_query(s_api_url):
+    res = requests.get(s_api_url)
+    if res.status_code !=200:
+        return None
+    else:
+        data = res.json()
+        return data
+
+def getData(p_city, p_country):
+    s_search_url = form_url_string(p_city, p_country)
+    data = exec_api_query(s_search_url)
+    if data is None:
+        return None
+
+    city = ["{} ({})".format(d['name'], d['sys']['country'])
+              for d in data['list']]
+    temperature = ["{} C*".format(d['main']['temp'])
+              for d in data['list']]
+    temp_min = ["{} C*".format(d['main']['temp_min'])
+              for d in data['list']]
+    temp_max = ["{} C*".format(d['main']['temp_max'])
+              for d in data['list']]
+    wind = ["{} m/s".format(d['wind']['speed'])
+              for d in data['list']]
+
+    return {
+        "city_name": city,
+        "temperature": temperature,
+        "temp_min": temp_min,
+        "temp_max": temp_max,
+        "wind": wind
+    }
+
+class weathertest(unittest.TestCase):
+    def test_form_url_string(self):
+        url = form_url_string("Kiev","UA")
+        self.assertEqual(
+            url,
+            'http://api.openweathermap.org/data/2.5/find?q=Kiev,UA&type=like&units=metric&APPID=7d7f3d3e77da87277aa7f5f5d7558225'
+        )
+
+
+print(getData("Kiev", "UA"))
+print(getData("Moscow", "RU"))
+print(getData("Minsk", "BY"))
+print(getData("Tokyo", "JP"))
+print(getData("London", "GB"))
+print(getData("Oslo", "NO"))
+print(getData("Tbilisi", "GE"))
+print(getData("Athens", "GR"))
+print(getData("Madrid", "ES"))
+print(getData ("Rome", "IT"))
+
+if __name__ == '__main__':
+    unittest.main()
+    
+time.sleep(999)
