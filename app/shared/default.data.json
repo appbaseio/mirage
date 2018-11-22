@@ -1,10 +1,10 @@
 {   
     "queries": [{
         "config": {
-            "url": "https://2FPZ2UJQW:1c50c6df-4652-4d74-906b-7bc0a6a731b6@scalr.api.appbase.io",
+            "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
             "appname": "gitxplore-live",
-            "username": "2FPZ2UJQW",
-            "password": "1c50c6df-4652-4d74-906b-7bc0a6a731b6",
+            "username": "bYTSo47tj",
+            "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
             "host": "https://scalr.api.appbase.io"
         },
         "selectedTypes": [
@@ -74,10 +74,10 @@
         "name": "gt-query",
         "tag": "learn-mirage",
         "config": {
-            "url": "https://2FPZ2UJQW:1c50c6df-4652-4d74-906b-7bc0a6a731b6@scalr.api.appbase.io",
+            "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
             "appname": "gitxplore-live",
-            "username": "2FPZ2UJQW",
-            "password": "1c50c6df-4652-4d74-906b-7bc0a6a731b6",
+            "username": "bYTSo47tj",
+            "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
             "host": "https://scalr.api.appbase.io"
         },
         "selectedTypes": [
@@ -143,10 +143,10 @@
         "name": "lt-query",
         "tag": "learn-mirage",
         "config": {
-            "url": "https://2FPZ2UJQW:1c50c6df-4652-4d74-906b-7bc0a6a731b6@scalr.api.appbase.io",
+            "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
             "appname": "gitxplore-live",
-            "username": "2FPZ2UJQW",
-            "password": "1c50c6df-4652-4d74-906b-7bc0a6a731b6",
+            "username": "bYTSo47tj",
+            "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
             "host": "https://scalr.api.appbase.io"
         },
         "selectedTypes": [
@@ -212,10 +212,10 @@
     "name": "match-query",
     "tag": "learn-mirage",
     "config": {
-        "url": "https://2FPZ2UJQW:1c50c6df-4652-4d74-906b-7bc0a6a731b6@scalr.api.appbase.io",
+        "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
         "appname": "gitxplore-live",
-        "username": "2FPZ2UJQW",
-        "password": "1c50c6df-4652-4d74-906b-7bc0a6a731b6",
+        "username": "bYTSo47tj",
+        "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
         "host": "https://scalr.api.appbase.io"
     },
     "selectedTypes": [
