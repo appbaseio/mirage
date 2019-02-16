@@ -1,45 +1,85 @@
 <!-- Modal -->
-<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Query Results
-					<span *ngIf="result_time_taken !== null">
-						({{result_time_taken}} ms)
-					</span>
-					<a class="stream-signal warning" *ngIf="responseMode === 'stream'">
-						<span class="spinner active"></span>
-					</a>
-				</h4>
-			</div>
-			<div class="modal-body" id="resultTabs">
-				<!-- <div class="loading" *ngIf="mapping.isWatching">
+<div
+  class="modal fade"
+  id="resultModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Query Results
+          <span *ngIf="result_time_taken !== null">
+            ({{ result_time_taken }} ms)
+          </span>
+          <a class="stream-signal warning" *ngIf="responseMode === 'stream'">
+            <span class="spinner active"></span>
+          </a>
+        </h4>
+      </div>
+      <div class="modal-body" id="resultTabs">
+        <!-- <div class="loading" *ngIf="mapping.isWatching">
 				  <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
 				  Loading, please wait...
 				</div> -->
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#resultJson" aria-controls="resultJson" role="tab" data-toggle="tab"> <i class="fa fa-terminal"></i> JSON</a></li>
-					<li role="presentation"><a href="#resultTable" aria-controls="resultTable" role="tab" data-toggle="tab"> <i class="fa fa-table"></i> Tabular</a></li>
-				</ul>
+        <!-- Nav tabs -->
+        <!-- <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a
+              href="#resultJson"
+              aria-controls="resultJson"
+              role="tab"
+              data-toggle="tab"
+            >
+              <i class="fa fa-terminal"></i> JSON</a
+            >
+          </li>
+          <li role="presentation">
+            <a
+              href="#resultTable"
+              aria-controls="resultTable"
+              role="tab"
+              data-toggle="tab"
+            >
+              <i class="fa fa-table"></i> Tabular</a
+            >
+          </li>
+        </ul> -->
 
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="resultJson">
-						<div class="result_block">
-							<textarea class="form-control m-b15" name="responseBlock" id="responseBlock" cols="30" rows="10">
-							</textarea>
-						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="resultTable">
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="resultJson">
+            <div class="result_block">
+              <textarea
+                class="form-control m-b15"
+                name="responseBlock"
+                id="responseBlock"
+                cols="30"
+                rows="10"
+              >
+              </textarea>
+            </div>
+          </div>
+          <!-- <div role="tabpanel" class="tab-pane" id="resultTable">
 						<iframe *ngIf="urlAvailable" width="100%" height="600px" [src]="url" frameborder="0"></iframe>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+					</div> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
