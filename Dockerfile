@@ -9,7 +9,7 @@ RUN yarn global add bower gulp http-server
 
 ADD . /mirage
 
-RUN bower install --allow-root && yarn && yarn cache clean && yarn build_gh_pages && rm -rf /mirage/node_modules && rm -rf /mirage/bower_components && yarn global remove gulp bower && apk del make gcc g++ python git && rm -rf /tmp/*
+RUN bower install --allow-root && yarn && yarn cache clean && yarn build_gh_pages && rm -rf /mirage/bower_components && rm -rf /tmp/*
 
 EXPOSE 3030
 CMD ["http-server", "-p 3030"]
