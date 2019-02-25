@@ -1,9 +1,9 @@
 "use strict";
 exports.UrlShare = function () {
-    this.secret = 'e';
+    this.secret = "e";
     this.decryptedData = {};
     this.inputs = {};
-    this.url = '';
+    this.url = "";
 };
 exports.UrlShare.prototype.getInputs = function () {
     return this.inputs;
@@ -31,14 +31,14 @@ exports.UrlShare.prototype.createUrl = function () {
     function compressCb(error, ciphertext) {
         if (!error) {
             this.url = ciphertext;
-            if (window.location.href.indexOf('#?default=true') > -1) {
-                window.location.href = window.location.href.split('?default=true')[0];
+            if (window.location.href.indexOf("#?default=true") > -1) {
+                window.location.href = window.location.href.split("?default=true")[0];
             }
-            var finalUrl = '#?input_state=' + ciphertext;
+            var finalUrl = "#?input_state=" + ciphertext;
             for (var params in this.queryParams) {
-                if (params !== 'input_state') {
+                if (params !== "input_state") {
                     console.log(params, this.queryParams[params]);
-                    finalUrl += '&' + params + '=' + this.queryParams[params];
+                    finalUrl += "&" + params + "=" + this.queryParams[params];
                 }
             }
             window.location.href = finalUrl;
@@ -77,28 +77,37 @@ exports.UrlShare.prototype.decryptUrl = function (cb) {
             }
         }
         else {
-            resolve({ error: 'Empty url' });
+            resolve({ error: "Empty url" });
         }
     });
 };
 exports.UrlShare.prototype.convertToUrl = function (type) {
     var ciphertext = this.url;
-    var final_url = '';
-    if (type == 'gh-pages') {
-        final_url = 'appbaseio.github.io/mirage/#?input_state=' + ciphertext;
+    var final_url = "";
+    if (type == "gh-pages") {
+        final_url = "appbaseio.github.io/mirage/#?input_state=" + ciphertext;
     }
     else {
-        final_url = window.location.protocol + '//' + window.location.host + '#?input_state=' + ciphertext;
+        final_url =
+            window.location.protocol +
+                "//" +
+                window.location.host +
+                "#?input_state=" +
+                ciphertext;
     }
     return final_url;
 };
 exports.UrlShare.prototype.dejavuLink = function () {
-    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state=' + this.url;
+    console.log("final url", this.inputs);
+    var final_url = "https://dejavu.appbase.io?mode=edit&appname=" +
+        this.inputs.appname +
+        "&url=" +
+        this.inputs.url;
     return final_url;
 };
 exports.UrlShare.prototype.compress = function (jsonInput, cb) {
     if (!jsonInput) {
-        return cb('Input should not be empty');
+        return cb("Input should not be empty");
     }
     else {
         var packed = JSON.stringify(jsonInput);
@@ -126,7 +135,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
                     cb(null, decryptedData);
                 }
                 else {
-                    cb('Not found');
+                    cb("Not found");
                 }
             }
             catch (e) {
@@ -135,15 +144,18 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
         });
     }
     else {
-        return cb('Empty');
+        return cb("Empty");
     }
 };
 exports.UrlShare.prototype.getQueryParameters = function (str) {
     var tempurl = decodeURIComponent(window.location.href);
-    var hash = tempurl.split('#');
+    var hash = tempurl.split("#");
     if (hash.length > 1) {
-        return (str || hash[1]).replace(/(^\?)/, '').split("&").map(function (n) {
-            return n = n.split("="), this[n[0]] = n[1], this;
+        return (str || hash[1])
+            .replace(/(^\?)/, "")
+            .split("&")
+            .map(function (n) {
+            return (n = n.split("=")), (this[n[0]] = n[1]), this;
         }.bind({}))[0];
     }
     else {

@@ -8221,21 +8221,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var platform_browser_1 = require('@angular/platform-browser');
+var platform_browser_1 = require("@angular/platform-browser");
 var ResultComponent = (function () {
     function ResultComponent(sanitizer) {
         this.sanitizer = sanitizer;
         this.urlAvailable = false;
         // public dejavuDomain: string = 'http://localhost:1358/';
-        this.dejavuDomain = 'https://opensource.appbase.io/dejavu/live/';
+        this.dejavuDomain = "https://dejavu.appbase.io/";
     }
     ResultComponent.prototype.ngOnInit = function () {
         this.responseHookHelp.applyEditor({ readOnly: true });
     };
     ResultComponent.prototype.ngOnChanges = function (changes) {
-        if (changes && changes['result_random_token']) {
-            var prev = changes['result_random_token'].previousValue;
-            var current = changes['result_random_token'].currentValue;
+        if (changes && changes["result_random_token"]) {
+            var prev = changes["result_random_token"].previousValue;
+            var current = changes["result_random_token"].currentValue;
             if (current && prev !== current && this.editorHookHelp) {
                 var getQuery = this.editorHookHelp.getValue();
                 if (getQuery) {
@@ -8248,8 +8248,15 @@ var ResultComponent = (function () {
                     };
                     this.url = this.sanitizeUrl(this.dejavuDomain);
                     setTimeout(function () {
-                        var url = this.dejavuDomain + '#?input_state=' + this.urlShare.url;
-                        url = url + '&hf=false&sidebar=false&subscribe=false&query=' + JSON.stringify(queryObj);
+                        var url = this.dejavuDomain +
+                            "?mode=edit&appswitcher=false&sidebar=false&oldBanner=false&appname=" +
+                            this.urlShare.inputs.appname +
+                            "&url=" +
+                            this.urlShare.inputs.url;
+                        url =
+                            url +
+                                "&hf=false&sidebar=false&subscribe=false&query=" +
+                                JSON.stringify(queryObj);
                         this.url = this.sanitizeUrl(url);
                         console.log(this.url);
                     }.bind(this), 300);
@@ -8271,9 +8278,22 @@ var ResultComponent = (function () {
     ], ResultComponent.prototype, "responseMode", void 0);
     ResultComponent = __decorate([
         core_1.Component({
-            selector: 'query-result',
-            templateUrl: './app/result/result.component.html',
-            inputs: ['mapping', 'config', 'editorHookHelp', 'urlShare', 'responseHookHelp', 'result_time_taken', 'result_random_token', 'types', 'result', 'config', 'responseHookHelp', 'result_time_taken']
+            selector: "query-result",
+            templateUrl: "./app/result/result.component.html",
+            inputs: [
+                "mapping",
+                "config",
+                "editorHookHelp",
+                "urlShare",
+                "responseHookHelp",
+                "result_time_taken",
+                "result_random_token",
+                "types",
+                "result",
+                "config",
+                "responseHookHelp",
+                "result_time_taken"
+            ]
         }), 
         __metadata('design:paramtypes', [platform_browser_1.DomSanitizer])
     ], ResultComponent);
@@ -8295,6 +8315,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/toPromise');
+function parse_url(url) {
+    var pattern = RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?');
+    var matches = url.match(pattern);
+    var hasAuth = matches[4].indexOf('@') > -1;
+    var href = '';
+    var auth = '';
+    var username = '';
+    var password = '';
+    if (hasAuth) {
+        var urlSplit = matches[4].split('@');
+        auth = urlSplit[0];
+        href = matches[2] + '://' + urlSplit[1];
+        var authSplit = auth.split(':');
+        username = authSplit[0];
+        password = authSplit[1];
+    }
+    else {
+        href = matches[2] + '://' + matches[4];
+    }
+    return {
+        scheme: matches[2],
+        href: href,
+        auth: auth,
+        path: matches[5],
+        query: matches[7],
+        fragment: matches[9],
+        username: username,
+        password: password
+    };
+}
 var AppbaseService = (function () {
     function AppbaseService(http) {
         this.http = http;
@@ -8309,9 +8359,10 @@ var AppbaseService = (function () {
         this.resultStream = null;
     }
     AppbaseService.prototype.setAppbase = function (config) {
-        this.config.username = config.username;
-        this.config.password = config.password;
-        this.requestParam.pureurl = config.url;
+        var parsedUrl = parse_url(config.url);
+        this.config.username = parsedUrl.username;
+        this.config.password = parsedUrl.password;
+        this.requestParam.pureurl = parsedUrl.href;
         if (config.appname) {
             this.requestParam.url = config.url + '/' + config.appname;
         }
@@ -8319,14 +8370,18 @@ var AppbaseService = (function () {
             this.requestParam.url = config.url;
         }
         var appbaseRef = {
-            url: "https://scalr.api.appbase.io",
+            url: parsedUrl.href,
             app: config.appname
         };
-        if (config.username) {
-            appbaseRef.credentials = config.username + ":" + config.password;
-            this.requestParam.auth = "Basic " + btoa(config.username + ':' + config.password);
+        console.log('setting up appbase');
+        if (parsedUrl.username) {
+            appbaseRef.credentials = parsedUrl.username + ":" + parsedUrl.password;
+            this.requestParam.auth =
+                'Basic ' + btoa(parsedUrl.username + ':' + parsedUrl.password);
         }
-        ;
+        else {
+            this.requestParam.auth = '';
+        }
         this.appbaseRef = new Appbase(appbaseRef);
     };
     AppbaseService.prototype.get = function (path) {
@@ -8344,9 +8399,11 @@ var AppbaseService = (function () {
     AppbaseService.prototype.getMappings = function () {
         var self = this;
         return new Promise(function (resolve, reject) {
-            getRequest('/_mapping').then(function (res) {
+            getRequest('/_mapping')
+                .then(function (res) {
                 var mappingData = res.json();
-                getRequest('/_alias').then(function (res) {
+                getRequest('/_alias')
+                    .then(function (res) {
                     var aliasData = res.json();
                     for (var index in aliasData) {
                         for (var alias in aliasData[index].aliases) {
@@ -8354,10 +8411,12 @@ var AppbaseService = (function () {
                         }
                     }
                     resolve(mappingData);
-                }).catch(function (e) {
+                })
+                    .catch(function (e) {
                     resolve(mappingData);
                 });
-            }).catch(function (e) {
+            })
+                .catch(function (e) {
                 reject(e);
             });
         });
@@ -8372,7 +8431,9 @@ var AppbaseService = (function () {
             var request_url = self.requestParam.url.replace(self.config.username + ':' + self.config.password + '@', '');
             var request_path = request_url + path + '/';
             console.log(request_path);
-            return self.http.get(request_path, { headers: headers }).toPromise();
+            return self.http
+                .get(request_path, { headers: headers })
+                .toPromise();
         }
     };
     AppbaseService.prototype.getVersion = function () {
@@ -8397,7 +8458,11 @@ var AppbaseService = (function () {
             headersObj.Authorization = this.requestParam.auth;
         }
         var headers = new http_1.Headers(headersObj);
-        return this.http.post(this.requestParam.url + path, requestData, { headers: headers }).toPromise();
+        return this.http
+            .post(this.requestParam.url + path, requestData, {
+            headers: headers
+        })
+            .toPromise();
     };
     AppbaseService.prototype.posturl = function (url, data) {
         var requestData = JSON.stringify(data);
@@ -8408,7 +8473,9 @@ var AppbaseService = (function () {
             headersObj.Authorization = this.requestParam.auth;
         }
         var headers = new http_1.Headers(headersObj);
-        return this.http.post(url, requestData, { headers: headers }).toPromise();
+        return this.http
+            .post(url, requestData, { headers: headers })
+            .toPromise();
     };
     AppbaseService.prototype.put = function (path, data) {
         var headersObj = {
@@ -8418,7 +8485,9 @@ var AppbaseService = (function () {
             headersObj.Authorization = this.requestParam.auth;
         }
         var headers = new http_1.Headers(headersObj);
-        return this.http.put(this.requestParam.url + path, data, { headers: headers }).toPromise();
+        return this.http
+            .put(this.requestParam.url + path, data, { headers: headers })
+            .toPromise();
     };
     AppbaseService.prototype.delete = function (path) {
         var headersObj = {
@@ -8428,7 +8497,9 @@ var AppbaseService = (function () {
             headersObj.Authorization = this.requestParam.auth;
         }
         var headers = new http_1.Headers(headersObj);
-        return this.http.delete(this.requestParam.url + path, { headers: headers }).toPromise();
+        return this.http
+            .delete(this.requestParam.url + path, { headers: headers })
+            .toPromise();
     };
     AppbaseService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
@@ -8440,29 +8511,12 @@ var AppbaseService = (function () {
     };
     AppbaseService.prototype.filterurl = function (url) {
         if (url) {
+            var parsedUrl = parse_url(url);
             var obj = {
-                username: null,
-                password: null,
-                url: url
+                username: parsedUrl.username,
+                password: parsedUrl.password,
+                url: parsedUrl.href
             };
-            var urlsplit = url.split(':');
-            try {
-                obj.username = urlsplit[1].replace('//', '');
-                var httpPrefix = url.split('://');
-                if (urlsplit[2]) {
-                    var pwsplit = urlsplit[2].split('@');
-                    obj.password = pwsplit[0];
-                    if (url.indexOf('@') !== -1) {
-                        obj.url = httpPrefix[0] + '://' + pwsplit[1];
-                        if (urlsplit[3]) {
-                            obj.url += ':' + urlsplit[3];
-                        }
-                    }
-                }
-            }
-            catch (e) {
-                console.log(e);
-            }
             return obj;
         }
         else {
@@ -8766,10 +8820,10 @@ exports.StorageService = StorageService;
 },{"@angular/core":62}],59:[function(require,module,exports){
 "use strict";
 exports.UrlShare = function () {
-    this.secret = 'e';
+    this.secret = "e";
     this.decryptedData = {};
     this.inputs = {};
-    this.url = '';
+    this.url = "";
 };
 exports.UrlShare.prototype.getInputs = function () {
     return this.inputs;
@@ -8797,14 +8851,14 @@ exports.UrlShare.prototype.createUrl = function () {
     function compressCb(error, ciphertext) {
         if (!error) {
             this.url = ciphertext;
-            if (window.location.href.indexOf('#?default=true') > -1) {
-                window.location.href = window.location.href.split('?default=true')[0];
+            if (window.location.href.indexOf("#?default=true") > -1) {
+                window.location.href = window.location.href.split("?default=true")[0];
             }
-            var finalUrl = '#?input_state=' + ciphertext;
+            var finalUrl = "#?input_state=" + ciphertext;
             for (var params in this.queryParams) {
-                if (params !== 'input_state') {
+                if (params !== "input_state") {
                     console.log(params, this.queryParams[params]);
-                    finalUrl += '&' + params + '=' + this.queryParams[params];
+                    finalUrl += "&" + params + "=" + this.queryParams[params];
                 }
             }
             window.location.href = finalUrl;
@@ -8843,28 +8897,37 @@ exports.UrlShare.prototype.decryptUrl = function (cb) {
             }
         }
         else {
-            resolve({ error: 'Empty url' });
+            resolve({ error: "Empty url" });
         }
     });
 };
 exports.UrlShare.prototype.convertToUrl = function (type) {
     var ciphertext = this.url;
-    var final_url = '';
-    if (type == 'gh-pages') {
-        final_url = 'appbaseio.github.io/mirage/#?input_state=' + ciphertext;
+    var final_url = "";
+    if (type == "gh-pages") {
+        final_url = "appbaseio.github.io/mirage/#?input_state=" + ciphertext;
     }
     else {
-        final_url = window.location.protocol + '//' + window.location.host + '#?input_state=' + ciphertext;
+        final_url =
+            window.location.protocol +
+                "//" +
+                window.location.host +
+                "#?input_state=" +
+                ciphertext;
     }
     return final_url;
 };
 exports.UrlShare.prototype.dejavuLink = function () {
-    var final_url = 'http://appbaseio.github.io/dejavu/live/#?input_state=' + this.url;
+    console.log("final url", this.inputs);
+    var final_url = "https://dejavu.appbase.io?mode=edit&appname=" +
+        this.inputs.appname +
+        "&url=" +
+        this.inputs.url;
     return final_url;
 };
 exports.UrlShare.prototype.compress = function (jsonInput, cb) {
     if (!jsonInput) {
-        return cb('Input should not be empty');
+        return cb("Input should not be empty");
     }
     else {
         var packed = JSON.stringify(jsonInput);
@@ -8892,7 +8955,7 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
                     cb(null, decryptedData);
                 }
                 else {
-                    cb('Not found');
+                    cb("Not found");
                 }
             }
             catch (e) {
@@ -8901,15 +8964,18 @@ exports.UrlShare.prototype.decompress = function (compressed, cb) {
         });
     }
     else {
-        return cb('Empty');
+        return cb("Empty");
     }
 };
 exports.UrlShare.prototype.getQueryParameters = function (str) {
     var tempurl = decodeURIComponent(window.location.href);
-    var hash = tempurl.split('#');
+    var hash = tempurl.split("#");
     if (hash.length > 1) {
-        return (str || hash[1]).replace(/(^\?)/, '').split("&").map(function (n) {
-            return n = n.split("="), this[n[0]] = n[1], this;
+        return (str || hash[1])
+            .replace(/(^\?)/, "")
+            .split("&")
+            .map(function (n) {
+            return (n = n.split("=")), (this[n[0]] = n[1]), this;
         }.bind({}))[0];
     }
     else {
