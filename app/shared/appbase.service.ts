@@ -5,7 +5,7 @@ declare var Appbase;
 
 function parse_url(url: string) {
 	var pattern = RegExp(
-		'^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?',
+		'^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?'
 	);
 	var matches = url.match(pattern);
 	var hasAuth = matches[4].indexOf('@') > -1;
@@ -32,7 +32,7 @@ function parse_url(url: string) {
 		query: matches[7],
 		fragment: matches[9],
 		username: username,
-		password: password,
+		password: password
 	};
 }
 
@@ -41,11 +41,11 @@ export class AppbaseService {
 	constructor(private http: Http) {}
 	public requestParam: any = {
 		url: null,
-		auth: null,
+		auth: null
 	};
 	public config: any = {
 		username: null,
-		password: null,
+		password: null
 	};
 	public appbaseRef: any;
 	public resultStream: any = null;
@@ -62,7 +62,7 @@ export class AppbaseService {
 
 		let appbaseRef: any = {
 			url: parsedUrl.href,
-			app: config.appname,
+			app: config.appname
 		};
 		console.log('setting up appbase');
 		if (parsedUrl.username) {
@@ -79,7 +79,7 @@ export class AppbaseService {
 	}
 	get(path: string) {
 		let headersObj: any = {
-			'Content-Type': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json;charset=UTF-8'
 		};
 
 		if (this.requestParam.auth) {
@@ -89,7 +89,7 @@ export class AppbaseService {
 		let headers = new Headers(headersObj);
 		var request_url = this.requestParam.url.replace(
 			this.config.username + ':' + this.config.password + '@',
-			'',
+			''
 		);
 		var request_path = request_url + path + '/';
 		return this.http.get(request_path, { headers: headers }).toPromise();
@@ -121,7 +121,7 @@ export class AppbaseService {
 
 		function getRequest(path) {
 			let headersObj: any = {
-				'Content-Type': 'application/json;charset=UTF-8',
+				'Content-Type': 'application/json;charset=UTF-8'
 			};
 
 			if (self.requestParam.auth) {
@@ -131,7 +131,7 @@ export class AppbaseService {
 			let headers = new Headers(headersObj);
 			var request_url = self.requestParam.url.replace(
 				self.config.username + ':' + self.config.password + '@',
-				'',
+				''
 			);
 			var request_path = request_url + path + '/';
 			console.log(request_path);
@@ -142,7 +142,7 @@ export class AppbaseService {
 	}
 	getVersion() {
 		let headersObj: any = {
-			'Content-Type': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json;charset=UTF-8'
 		};
 
 		if (this.requestParam.auth) {
@@ -152,7 +152,7 @@ export class AppbaseService {
 		let headers = new Headers(headersObj);
 		var request_url = this.requestParam.url.replace(
 			this.config.username + ':' + this.config.password + '@',
-			'',
+			''
 		);
 		var request_path = request_url + '/_settings?human';
 		console.log(request_path);
@@ -161,7 +161,7 @@ export class AppbaseService {
 	post(path: string, data: any) {
 		let requestData = JSON.stringify(data);
 		let headersObj: any = {
-			'Content-Type': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json;charset=UTF-8'
 		};
 
 		if (this.requestParam.auth) {
@@ -171,14 +171,14 @@ export class AppbaseService {
 		let headers = new Headers(headersObj);
 		return this.http
 			.post(this.requestParam.url + path, requestData, {
-				headers: headers,
+				headers: headers
 			})
 			.toPromise();
 	}
 	posturl(url: string, data: any) {
 		let requestData = JSON.stringify(data);
 		let headersObj: any = {
-			'Content-Type': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json;charset=UTF-8'
 		};
 
 		if (this.requestParam.auth) {
@@ -192,7 +192,7 @@ export class AppbaseService {
 	}
 	put(path: string, data: any) {
 		let headersObj: any = {
-			'Content-Type': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json;charset=UTF-8'
 		};
 
 		if (this.requestParam.auth) {
@@ -206,7 +206,7 @@ export class AppbaseService {
 	}
 	delete(path: string) {
 		let headersObj: any = {
-			'Content-Type': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json;charset=UTF-8'
 		};
 
 		if (this.requestParam.auth) {
@@ -232,7 +232,7 @@ export class AppbaseService {
 			var obj = {
 				username: parsedUrl.username,
 				password: parsedUrl.password,
-				url: parsedUrl.href,
+				url: parsedUrl.href
 			};
 			return obj;
 		} else {
@@ -245,7 +245,7 @@ export class AppbaseService {
 		}
 		this.resultStream = this.appbaseRef.searchStream({
 			type: type,
-			body: body,
+			body: body
 		});
 		return this.resultStream;
 	}
