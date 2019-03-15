@@ -1,6 +1,6 @@
 {
   "name": "mirage",
-  "version": "0.10.1",
+  "version": "0.10.3",
   "description": "🔎  GUI for Elasticsearch Queries",
   "author": "Appbase Inc.",
   "license": "Apache-2.0",
