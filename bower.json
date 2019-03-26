@@ -2,25 +2,17 @@
   "name": "mirage",
   "description": "🔎 GUI for Elasticsearch Queries",
   "main": "index.js",
-  "authors": [
-    "Farhan Chauhan <farhan687@gmail.com>"
-  ],
+  "authors": ["Farhan Chauhan <farhan687@gmail.com>"],
   "license": "Apache-2.0",
   "moduleType": [],
   "homepage": "",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
   "dependencies": {
     "bootstrap": "~3.3.6",
     "select2": "~4.0.1",
     "font-awesome": "~4.5.0",
-    "codemirror": "^5.14.2",
+    "codemirror": "^5.44.0",
     "crypto-js": "^3.1.6",
     "moment": "2.13.0",
     "jquery": "~2.2.4",

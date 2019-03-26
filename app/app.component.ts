@@ -16,6 +16,12 @@ const trimUrl = (url: string): string => {
   return url;
 };
 
+const defaultQuery = {
+  query: {
+    match_all: {}
+  }
+};
+
 declare var $: any;
 
 @Component({
@@ -433,7 +439,10 @@ export class AppComponent implements OnInit, OnChanges {
           } else {
             self.setMobileLayout();
           }
-          // self.editorHookHelp.setValue('');
+          var currentValue = self.editorHookHelp.getValue();
+          if (!currentValue && currentValue !== "{}") {
+            self.editorHookHelp.setValue(JSON.stringify(defaultQuery, null, 2));
+          }
         }, 300);
       })
       .catch(function(e) {
@@ -560,7 +569,7 @@ export class AppComponent implements OnInit, OnChanges {
       tag: ""
     };
     this.detectChange += "check";
-    this.editorHookHelp.setValue("");
+    this.editorHookHelp.setValue(JSON.stringify(defaultQuery, null, 2));
   }
 
   sidebarToggle() {

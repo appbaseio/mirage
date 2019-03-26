@@ -1,129 +1,129 @@
 @import "variables.scss";
 .query-result-container.layoutApplied {
-	background: $grey-bg;
-	padding-bottom: 45px;
-	.queryRight {
-		padding: 32px 15px 15px 0;
-		background: $grey-bg;
-		border-left: 1px solid darken($grey-bg, 10%);
-		height: 100%;
-		position: relative;
-		.rightRow {
-			position: absolute;
-			left: 0;
-			width: 100%;
-			margin: 0;
-			padding: 0 15px;
-			&.url-row {
-				top: 0;
-			}
-			&.run-row {
-				bottom: -23px;
-				padding-bottom: 0;
-				z-index: 10;
-			}
-		}
-		.codeMirror-container {
-			height: 100%;
-			position: relative;
-			padding: 0;
-			overflow: auto;
-			.CodeMirror {
-				height: 100%;
-			}
-			.form-group {
-				margin-bottom: 0;
-			}
-		}
-	}
-	@media screen and (max-width: 768px) {
-		padding-bottom: 0;
-	}
+  background: $grey-bg;
+  padding-bottom: 45px;
+  .queryRight {
+    padding: 32px 15px 15px 0;
+    background: $grey-bg;
+    border-left: 1px solid darken($grey-bg, 10%);
+    height: 100%;
+    position: relative;
+    .rightRow {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0 15px;
+      &.url-row {
+        top: 0;
+      }
+      &.run-row {
+        bottom: -23px;
+        padding-bottom: 0;
+        z-index: 10;
+      }
+    }
+    .codeMirror-container {
+      height: 95%;
+      position: relative;
+      padding: 0;
+      overflow: auto;
+      .CodeMirror {
+        height: 100%;
+      }
+      .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    padding-bottom: 0;
+  }
 }
 
 .codemirror {
-	margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 .streaming-response {
-	-webkit-animation: streaming 2.0s ease-in-out;
-	animation: streaming 2.0s ease-in-out;
+  -webkit-animation: streaming 2s ease-in-out;
+  animation: streaming 2s ease-in-out;
 }
 .stream-signal {
-	width: 2rem;
-	height: 2rem;
-	float: left;
-	margin-right: 8px;
-	display: inline-block;
-	border-radius: 50%;
-	border: 2px solid #888;
-	position: relative;
-	&:before {
-		content: " ";
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		background: transparent;
-		left: 0;
-		top: 0;
-		border-radius: 50%;
-		border: 2px solid #fff;
-	}
-	&.warning {
-		background-color: #f0ad4e;
-	}
-	&.success {
-		background-color: #5cb85c;
-	}
-	.spinner {
-		width: 100%;
-		height: 100%;
-		display: block;
-		background-color: rgba(0, 0, 0, 0.20);
-		border-radius: 100%;
-		&.active {
-			background-color: #333;
-			-webkit-animation: stream-signal 1.0s infinite ease-in-out;
-			animation: stream-signal 1.0s infinite ease-in-out;
-		}
-	}
+  width: 2rem;
+  height: 2rem;
+  float: left;
+  margin-right: 8px;
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid #888;
+  position: relative;
+  &:before {
+    content: " ";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  &.warning {
+    background-color: #f0ad4e;
+  }
+  &.success {
+    background-color: #5cb85c;
+  }
+  .spinner {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 100%;
+    &.active {
+      background-color: #333;
+      -webkit-animation: stream-signal 1s infinite ease-in-out;
+      animation: stream-signal 1s infinite ease-in-out;
+    }
+  }
 }
 
 @-webkit-keyframes stream-signal {
-	0% {
-		-webkit-transform: scale(0)
-	}
-	100% {
-		-webkit-transform: scale(1.0);
-		opacity: 0;
-	}
+  0% {
+    -webkit-transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
 }
 
 @keyframes stream-signal {
-	0% {
-		-webkit-transform: scale(0);
-		transform: scale(0);
-	}
-	100% {
-		-webkit-transform: scale(1.0);
-		transform: scale(1.0);
-		opacity: 0;
-	}
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
 }
 
 @-webkit-keyframes streaming {
-	0% {
-		background: #B6EF7E
-	}
-	100% {
-		background: transparent;
-	}
+  0% {
+    background: #b6ef7e;
+  }
+  100% {
+    background: transparent;
+  }
 }
 
 @keyframes streaming {
-	0% {
-		background: #B6EF7E
-	}
-	100% {
-		background: transparent;
-	}
+  0% {
+    background: #b6ef7e;
+  }
+  100% {
+    background: transparent;
+  }
 }
