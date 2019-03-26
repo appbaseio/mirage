@@ -1,15 +1,27 @@
 <div class="queryRight row">
-    <div class="col-xs-12 pd-r0 rightRow url-row">
-        <div class="form-group m-b15 form-element header-element">
-            <input type="text" class="form-control" placeholder="final url" [(ngModel)]="finalUrl" (keyup)="setPropIn()" />
-        </div>
+  <div class="col-xs-12 pd-r0 rightRow url-row">
+    <div class="form-group m-b15 form-element header-element">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="final url"
+        [(ngModel)]="finalUrl"
+        (keyup)="setPropIn()"
+      />
     </div>
-    <div class="col-xs-12 pd-r0 codeMirror-container">
-        <div class="form-group">
-            <textarea class="form-control m-b15" name="editor" id="editor" cols="30" rows="10"></textarea>
-        </div>
+  </div>
+  <div class="col-xs-12 pd-r0 codeMirror-container">
+    <div class="form-group">
+      <textarea
+        class="form-control m-b15"
+        name="editor"
+        id="editor"
+        cols="30"
+        rows="10"
+      ></textarea>
     </div>
-    <div class="run-row rightRow">
-    	<button class="btn btn-theme" (click) = "runQuery()">Run Query</button>
-    </div>
+  </div>
+  <div class="run-row rightRow" [ngStyle]="{ bottom: getBottom() + 'px' }">
+    <button class="btn btn-theme" (click)="runQuery()">Run Query</button>
+  </div>
 </div>

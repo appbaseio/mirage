@@ -64,7 +64,7 @@
 						<query-blocks *ngIf="connected" [finalUrl]="finalUrl" [detectChange]="detectChange" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [savedQueryList]="savedQueryList" [query_info]="query_info" (saveQuery)="saveQuery($event)" (setProp)="setProp($event)" [urlShare]="urlShare" (setDocSample)="setDocSample($event);" [responseMode]="responseMode" [isAppbaseApp]="isAppbaseApp"></query-blocks>
 					</div>
 					<div class="col-xs-12 col-md-6 ui-layout-east query-result-container" [ngClass]="{layoutApplied: setLayoutFlag}" id="paneEast">
-						<query-jsoneditor *ngIf="connected" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl" (errorShow)="errorShow($event);" (setProp)="setProp($event)" [responseMode]="responseMode"></query-jsoneditor>
+						<query-jsoneditor *ngIf="connected" [allowF]="allowF" [mapping]="mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config]="config" [editorHookHelp]="editorHookHelp" [responseHookHelp]="responseHookHelp" [finalUrl]="finalUrl" (errorShow)="errorShow($event);" (setProp)="setProp($event)" [responseMode]="responseMode"></query-jsoneditor>
 					</div>
 				</div>
 				<!-- Query main container end -->
