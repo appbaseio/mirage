@@ -1,23 +1,33 @@
 "use strict";
 exports.EditorHook = function (config) {
     this.editorId = config.editorId;
-    this.$editor = '#' + config.editorId;
+    this.$editor = "#" + config.editorId;
 };
 exports.EditorHook.prototype.applyEditor = function (settings) {
     var self = this;
     this.settings = settings;
     var defaultOptions = {
         lineNumbers: true,
-        mode: "javascript",
+        mode: {
+            name: "javascript",
+            json: true
+        },
         autoCloseBrackets: true,
         matchBrackets: true,
         showCursorWhenSelecting: true,
+        indentWithTabs: true,
         tabSize: 2,
-        extraKeys: { "Ctrl-Q": function (cm) { cm.foldCode(cm.getCursor()); } },
+        extraKeys: {
+            "Ctrl-Q": function (cm) {
+                cm.foldCode(cm.getCursor());
+            }
+        },
         foldGutter: true,
         gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     };
-    var options = settings ? jQuery.extend(defaultOptions, settings) : defaultOptions;
+    var options = settings
+        ? jQuery.extend(defaultOptions, settings)
+        : defaultOptions;
     self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 };
 exports.EditorHook.prototype.setValue = function (value) {

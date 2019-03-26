@@ -20,6 +20,11 @@ var trimUrl = function (url) {
     }
     return url;
 };
+var defaultQuery = {
+    query: {
+        match_all: {}
+    }
+};
 var AppComponent = (function () {
     function AppComponent(appbaseService, storageService, docService) {
         this.appbaseService = appbaseService;
@@ -401,7 +406,10 @@ var AppComponent = (function () {
                 else {
                     self.setMobileLayout();
                 }
-                // self.editorHookHelp.setValue('');
+                var currentValue = self.editorHookHelp.getValue();
+                if (!currentValue && currentValue !== "{}") {
+                    self.editorHookHelp.setValue(JSON.stringify(defaultQuery, null, 2));
+                }
             }, 300);
         })
             .catch(function (e) {
@@ -511,7 +519,7 @@ var AppComponent = (function () {
             tag: ""
         };
         this.detectChange += "check";
-        this.editorHookHelp.setValue("");
+        this.editorHookHelp.setValue(JSON.stringify(defaultQuery, null, 2));
     };
     AppComponent.prototype.sidebarToggle = function () {
         this.sidebar = this.sidebar ? false : true;

@@ -21,6 +21,11 @@ var trimUrl = function (url) {
     }
     return url;
 };
+var defaultQuery = {
+    query: {
+        match_all: {}
+    }
+};
 var AppComponent = (function () {
     function AppComponent(appbaseService, storageService, docService) {
         this.appbaseService = appbaseService;
@@ -402,7 +407,10 @@ var AppComponent = (function () {
                 else {
                     self.setMobileLayout();
                 }
-                // self.editorHookHelp.setValue('');
+                var currentValue = self.editorHookHelp.getValue();
+                if (!currentValue && currentValue !== "{}") {
+                    self.editorHookHelp.setValue(JSON.stringify(defaultQuery, null, 2));
+                }
             }, 300);
         })
             .catch(function (e) {
@@ -512,7 +520,7 @@ var AppComponent = (function () {
             tag: ""
         };
         this.detectChange += "check";
-        this.editorHookHelp.setValue("");
+        this.editorHookHelp.setValue(JSON.stringify(defaultQuery, null, 2));
     };
     AppComponent.prototype.sidebarToggle = function () {
         this.sidebar = this.sidebar ? false : true;
@@ -1454,20 +1462,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var http_1 = require('@angular/http');
+var http_1 = require("@angular/http");
 var storage_service_1 = require("../../shared/storage.service");
 var AuthOperation = (function () {
     function AuthOperation(http, storageService) {
         this.http = http;
         this.storageService = storageService;
         this.updateStatus = new core_1.EventEmitter();
-        this.serverAddress = 'https://ossauth.appbase.io';
+        this.serverAddress = "https://ossauth.appbase.io";
         this.access_token_applied = false;
     }
     AuthOperation.prototype.ngOnInit = function () {
         var authConfig = {
-            domain: 'appbaseio.auth0.com',
-            clientID: 'tCy6GxnrsyKec3UxXCuYLhU6XWFCMgRD',
+            domain: "appbaseio.auth0.com",
+            clientID: "tCy6GxnrsyKec3UxXCuYLhU6XWFCMgRD",
             callbackURL: location.href,
             callbackOnLocationHash: true
         };
@@ -1480,10 +1488,10 @@ var AuthOperation = (function () {
         this.parseHash.call(this);
         var parseHash = this.parseHash.bind(this);
         setTimeout(function () {
-            console.log('hash watching Activated!');
             window.onhashchange = function () {
-                if (!self.access_token_applied && location.hash.indexOf('access_token') > -1) {
-                    console.log('access_token found!');
+                if (!self.access_token_applied &&
+                    location.hash.indexOf("access_token") > -1) {
+                    console.log("access_token found!");
                     parseHash();
                 }
             };
@@ -1491,17 +1499,17 @@ var AuthOperation = (function () {
     };
     AuthOperation.prototype.isTokenExpired = function (token) {
         var decoded = this.auth0.decodeJwt(token);
-        var now = (new Date()).getTime() / 1000;
+        var now = new Date().getTime() / 1000;
         return decoded.exp < now;
     };
     AuthOperation.prototype.login = function (subscribeOption) {
         var savedState = window.location.hash;
-        this.storageService.set('subscribeOption', subscribeOption);
-        if (savedState.indexOf('access_token') < 0) {
-            this.storageService.set('savedState', savedState);
+        this.storageService.set("subscribeOption", subscribeOption);
+        if (savedState.indexOf("access_token") < 0) {
+            this.storageService.set("savedState", savedState);
         }
         this.auth0.login({
-            connection: 'github'
+            connection: "github"
         }, function (err) {
             if (err)
                 console.log("something went wrong: " + err.message);
@@ -1509,7 +1517,7 @@ var AuthOperation = (function () {
     };
     AuthOperation.prototype.show_logged_in = function (token) {
         this.token = token;
-        if (window.location.hash.indexOf('access_token') > -1) {
+        if (window.location.hash.indexOf("access_token") > -1) {
             this.access_token_applied = true;
             this.restoreStates();
         }
@@ -1519,54 +1527,57 @@ var AuthOperation = (function () {
     };
     AuthOperation.prototype.show_sign_in = function () { };
     AuthOperation.prototype.restoreStates = function () {
-        var domain = location.href.split('#')[0];
-        var savedState = this.storageService.get('savedState');
+        var domain = location.href.split("#")[0];
+        var savedState = this.storageService.get("savedState");
         var finalPath = domain;
-        if (savedState && savedState.indexOf('access_token') < 0) {
+        if (savedState && savedState.indexOf("access_token") < 0) {
             finalPath += savedState;
         }
         else {
-            finalPath += '#';
+            finalPath += "#";
         }
         window.location.href = finalPath;
         location.reload();
     };
     AuthOperation.prototype.getUserProfile = function () {
-        var url = this.serverAddress + '/api/getUserProfile';
-        var subscribeOption = this.storageService.get('subscribeOption') && this.storageService.get('subscribeOption') !== 'null' ? this.storageService.get('subscribeOption') : null;
+        var url = this.serverAddress + "/api/getUserProfile";
+        var subscribeOption = this.storageService.get("subscribeOption") &&
+            this.storageService.get("subscribeOption") !== "null"
+            ? this.storageService.get("subscribeOption")
+            : null;
         var request = {
-            token: this.storageService.get('mirage_id_token'),
-            origin_app: 'MIRAGE',
+            token: this.storageService.get("mirage_id_token"),
+            origin_app: "MIRAGE",
             email_preference: subscribeOption
         };
         $.ajax({
-            type: 'POST',
+            type: "POST",
             url: url,
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
             data: JSON.stringify(request)
         })
             .done(function (res) {
-            this.storageService.set('subscribeOption', null);
-            this.updateStatus.emit({ 'profile': res.message });
+            this.storageService.set("subscribeOption", null);
+            this.updateStatus.emit({ profile: res.message });
         }.bind(this))
             .fail(function (err) {
             console.error(err);
         });
     };
     AuthOperation.prototype.parseHash = function () {
-        var token = this.storageService.get('mirage_id_token');
+        var token = this.storageService.get("mirage_id_token");
         if (token !== null && !this.isTokenExpired(token)) {
             this.show_logged_in(token);
         }
         else {
             var result = this.auth0.parseHash(window.location.hash);
             if (result && result.idToken) {
-                this.storageService.set('mirage_id_token', result.idToken);
+                this.storageService.set("mirage_id_token", result.idToken);
                 this.show_logged_in(result.idToken);
             }
             else if (result && result.error) {
-                console.log('error: ' + result.error);
+                console.log("error: " + result.error);
                 this.show_sign_in();
             }
             else {
@@ -1580,8 +1591,8 @@ var AuthOperation = (function () {
     ], AuthOperation.prototype, "updateStatus", void 0);
     AuthOperation = __decorate([
         core_1.Component({
-            selector: 'auth-operation',
-            template: ''
+            selector: "auth-operation",
+            template: ""
         }), 
         __metadata('design:paramtypes', [http_1.Http, storage_service_1.StorageService])
     ], AuthOperation);
@@ -1661,9 +1672,9 @@ var JsonEditorComponent = (function () {
     function JsonEditorComponent(appbaseService) {
         this.appbaseService = appbaseService;
         this.streamPopoverInfo = {
-            trigger: 'hover',
-            placement: 'right',
-            content: 'Stream is avtive, waiting for data updates ..'
+            trigger: "hover",
+            placement: "right",
+            content: "Stream is avtive, waiting for data updates .."
         };
         this.setProp = new core_1.EventEmitter();
         this.errorShow = new core_1.EventEmitter();
@@ -1671,16 +1682,21 @@ var JsonEditorComponent = (function () {
     // Set codemirror instead of normal textarea
     JsonEditorComponent.prototype.ngOnInit = function () {
         var self = this;
+        console.log("allowed footer", self.allowF);
+        self.finalUrl =
+            self.finalUrl.indexOf("/_search") > -1
+                ? self.finalUrl
+                : self.finalUrl + "/_search";
         this.editorHookHelp.applyEditor();
-        $('#resultModal').modal({
+        $("#resultModal").modal({
             show: false,
-            backdrop: 'static'
+            backdrop: "static"
         });
-        $('#resultModal').on('hide.bs.modal', function () {
-            $('#resultTabs a[href="#resultJson"]').tab('show');
+        $("#resultModal").on("hide.bs.modal", function () {
+            $('#resultTabs a[href="#resultJson"]').tab("show");
             self.responseHookHelp.focus('{"Loading": "please wait......"}');
             var propInfo = {
-                name: 'result_time_taken',
+                name: "result_time_taken",
                 value: null
             };
             self.setProp.emit(propInfo);
@@ -1694,21 +1710,23 @@ var JsonEditorComponent = (function () {
         this.appbaseService.setAppbase(this.config);
         var validate = this.checkValidQuery();
         if (validate.flag) {
-            $('#resultModal').modal('show');
-            this.appbaseService.posturl(self.finalUrl, validate.payload).then(function (res) {
+            $("#resultModal").modal("show");
+            this.appbaseService
+                .posturl(self.finalUrl, validate.payload)
+                .then(function (res) {
                 self.result.isWatching = false;
                 var propInfo = {
-                    name: 'result_time_taken',
+                    name: "result_time_taken",
                     value: res.json().took
                 };
                 self.setProp.emit(propInfo);
                 var propInfo1 = {
-                    name: 'random_token',
+                    name: "random_token",
                     value: Math.random()
                 };
                 self.setProp.emit(propInfo1);
                 self.result.output = JSON.stringify(res.json(), null, 2);
-                if ($('#resultModal').hasClass('in')) {
+                if ($("#resultModal").hasClass("in")) {
                     self.responseHookHelp.setValue(self.result.output);
                 }
                 else {
@@ -1716,23 +1734,24 @@ var JsonEditorComponent = (function () {
                         self.responseHookHelp.setValue(self.result.output);
                     }, 300);
                 }
-            }).catch(function (data) {
-                $('#resultModal').modal('hide');
+            })
+                .catch(function (data) {
+                $("#resultModal").modal("hide");
                 self.result.isWatching = false;
                 self.result.output = JSON.stringify(data, null, 4);
                 var obj = {
-                    title: 'Response Error',
+                    title: "Response Error",
                     message: self.result.output
                 };
                 self.errorShow.emit(obj);
             });
-            if (this.responseMode === 'stream') {
+            if (this.responseMode === "stream") {
                 this.setStream(validate);
             }
         }
         else {
             var obj = {
-                title: 'Json validation',
+                title: "Json validation",
                 message: validate.message
             };
             this.errorShow.emit(obj);
@@ -1740,20 +1759,23 @@ var JsonEditorComponent = (function () {
     };
     JsonEditorComponent.prototype.setStream = function (validate) {
         var _this = this;
-        var selectedTypes = $('#setType').val();
+        var selectedTypes = $("#setType").val();
         var body = validate.payload;
         setTimeout(function () {
-            $('.stream-signal').show();
-            $('.stream-signal').popover(_this.streamPopoverInfo);
+            $(".stream-signal").show();
+            $(".stream-signal").popover(_this.streamPopoverInfo);
         }, 300);
-        this.appbaseService.searchStream(selectedTypes, body)
-            .on('data', this.onStreamData.bind(this))
-            .on('error', this.onStreamError.bind(this));
+        this.appbaseService
+            .searchStream(selectedTypes, body)
+            .on("data", this.onStreamData.bind(this))
+            .on("error", this.onStreamError.bind(this));
     };
     JsonEditorComponent.prototype.onStreamData = function (res) {
-        $('.stream-signal').addClass('warning').addClass('success');
+        $(".stream-signal")
+            .addClass("warning")
+            .addClass("success");
         var streamResponse = JSON.stringify(res, null, 2);
-        if ($('#resultModal').hasClass('in')) {
+        if ($("#resultModal").hasClass("in")) {
             this.responseHookHelp.prepend(streamResponse + "\n");
         }
         else {
@@ -1764,7 +1786,7 @@ var JsonEditorComponent = (function () {
     };
     JsonEditorComponent.prototype.onStreamError = function (res) {
         setTimeout(function () {
-            $('.stream-signal').hide();
+            $(".stream-signal").hide();
         }, 300);
     };
     // get the textarea value using editor hook
@@ -1781,7 +1803,7 @@ var JsonEditorComponent = (function () {
         };
         this.result.resultQuery.result.forEach(function (result) {
             result.internal.forEach(function (query) {
-                if (query.field === '' || query.query === '') {
+                if (query.field === "" || query.query === "") {
                     returnObj.flag = false;
                 }
             });
@@ -1802,10 +1824,16 @@ var JsonEditorComponent = (function () {
     };
     JsonEditorComponent.prototype.setPropIn = function () {
         var propInfo = {
-            name: 'finalUrl',
+            name: "finalUrl",
             value: this.finalUrl
         };
         this.setProp.emit(propInfo);
+    };
+    JsonEditorComponent.prototype.getBottom = function () {
+        if (this.allowF) {
+            return -23;
+        }
+        return 10;
     };
     __decorate([
         core_1.Input(), 
@@ -1839,11 +1867,21 @@ var JsonEditorComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], JsonEditorComponent.prototype, "errorShow", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], JsonEditorComponent.prototype, "allowF", void 0);
     JsonEditorComponent = __decorate([
         core_1.Component({
-            selector: 'query-jsoneditor',
-            templateUrl: './app/jsonEditor/jsonEditor.component.html',
-            inputs: ['config', 'editorHookHelp', 'responseHookHelp', 'setProp', 'errorShow'],
+            selector: "query-jsoneditor",
+            templateUrl: "./app/jsonEditor/jsonEditor.component.html",
+            inputs: [
+                "config",
+                "editorHookHelp",
+                "responseHookHelp",
+                "setProp",
+                "errorShow"
+            ],
             providers: [appbase_service_1.AppbaseService]
         }), 
         __metadata('design:paramtypes', [appbase_service_1.AppbaseService])
@@ -2116,41 +2154,41 @@ var QueryBlocksComponent = (function () {
         this.queryList = queryList_1.queryList;
         this.queryFormat = {
             internal: {
-                field: '',
-                query: '',
-                selectedField: '',
-                selectedQuery: '',
-                input: '',
-                analyzeTest: '',
-                type: ''
+                field: "",
+                query: "",
+                selectedField: "",
+                selectedQuery: "",
+                input: "",
+                analyzeTest: "",
+                type: ""
             },
             bool: {
                 boolparam: 0,
                 parent_id: 0,
                 id: 0,
                 internal: [],
-                minimum_should_match: '',
-                path: '',
-                type: '',
+                minimum_should_match: "",
+                path: "",
+                type: "",
                 xid: 0,
-                parent_type: '',
-                score_mode: ''
+                parent_type: "",
+                score_mode: ""
             }
         };
-        this.joiningQuery = [''];
+        this.joiningQuery = [""];
         this.joiningQueryParam = 0;
         this.popoverInfo = {
             stream: {
-                trigger: 'hover',
-                placement: 'top',
-                content: 'Shows an interactive stream of results, useful when your data is changing quickly.',
-                container: 'body'
+                trigger: "hover",
+                placement: "top",
+                content: "Shows an interactive stream of results, useful when your data is changing quickly.",
+                container: "body"
             },
             historic: {
-                trigger: 'hover',
-                placement: 'top',
-                content: 'Shows historical results, useful when your data is not changing quickly.',
-                container: 'body'
+                trigger: "hover",
+                placement: "top",
+                content: "Shows historical results, useful when your data is not changing quickly.",
+                container: "body"
             }
         };
         this.saveQuery = new core_1.EventEmitter();
@@ -2163,7 +2201,9 @@ var QueryBlocksComponent = (function () {
     };
     QueryBlocksComponent.prototype.ngOnChanges = function (nextProps) {
         this.joiningQuery = this.result.joiningQuery;
-        if (nextProps && (nextProps.isAppbaseApp && nextProps.isAppbaseApp.currentValue) || (nextProps.selectedTypes && nextProps.selectedTypes.currentValue.length)) {
+        if ((nextProps &&
+            (nextProps.isAppbaseApp && nextProps.isAppbaseApp.currentValue)) ||
+            (nextProps.selectedTypes && nextProps.selectedTypes.currentValue.length)) {
             this.setPopover();
         }
     };
@@ -2182,7 +2222,7 @@ var QueryBlocksComponent = (function () {
             this.buildQuery();
         }
         else {
-            alert('Select type first.');
+            alert("Select type first.");
         }
     };
     QueryBlocksComponent.prototype.removeQuery = function () {
@@ -2191,9 +2231,9 @@ var QueryBlocksComponent = (function () {
     };
     QueryBlocksComponent.prototype.addSortBlock = function () {
         var sortObj = {
-            'selectedField': '',
-            'order': 'asc',
-            'availableOptionalParams': []
+            selectedField: "",
+            order: "asc",
+            availableOptionalParams: []
         };
         this.result.sort.push(sortObj);
     };
@@ -2216,23 +2256,23 @@ var QueryBlocksComponent = (function () {
         if (results.length) {
             var finalresult = {};
             if (results.length > 1) {
-                es_final['query'] = {
-                    'bool': finalresult
+                es_final["query"] = {
+                    bool: finalresult
                 };
             }
             else {
                 if (results[0].availableQuery && results[0].internal.length > 1) {
-                    es_final['query'] = {
-                        'bool': finalresult
+                    es_final["query"] = {
+                        bool: finalresult
                     };
                 }
                 else {
-                    if (self.queryList['boolQuery'][results[0]['boolparam']] === 'must') {
-                        es_final['query'] = finalresult;
+                    if (self.queryList["boolQuery"][results[0]["boolparam"]] === "must") {
+                        es_final["query"] = finalresult;
                     }
                     else {
-                        es_final['query'] = {
-                            'bool': finalresult
+                        es_final["query"] = {
+                            bool: finalresult
                         };
                     }
                 }
@@ -2245,16 +2285,18 @@ var QueryBlocksComponent = (function () {
                 results.forEach(function (result1) {
                     if (result1.parent_id == result0.id) {
                         var current_query = {
-                            'bool': {}
+                            bool: {}
                         };
-                        var currentBool = self.queryList['boolQuery'][result1['boolparam']];
-                        current_query['bool'][currentBool] = result1.availableQuery;
-                        if (currentBool === 'should') {
-                            current_query['bool']['minimum_should_match'] = result1.minimum_should_match;
+                        var currentBool = self.queryList["boolQuery"][result1["boolparam"]];
+                        current_query["bool"][currentBool] = result1.availableQuery;
+                        if (currentBool === "should") {
+                            current_query["bool"]["minimum_should_match"] =
+                                result1.minimum_should_match;
                         }
-                        if (self.joiningQuery[self.joiningQueryParam] === 'nested') {
-                            current_query['bool']['nested']['path'] = result1.path;
-                            current_query['bool']['nested']['score_mode'] = result1.score_mode;
+                        if (self.joiningQuery[self.joiningQueryParam] === "nested") {
+                            current_query["bool"]["nested"]["path"] = result1.path;
+                            current_query["bool"]["nested"]["score_mode"] =
+                                result1.score_mode;
                             isBoolPresent = false;
                         }
                         result0.availableQuery.push(current_query);
@@ -2263,9 +2305,10 @@ var QueryBlocksComponent = (function () {
             });
             results.forEach(function (result) {
                 if (result.parent_id === 0) {
-                    var currentBool = self.queryList['boolQuery'][result['boolparam']];
-                    if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'nested') {
-                        finalresult['nested'] = {
+                    var currentBool = self.queryList["boolQuery"][result["boolparam"]];
+                    if (self.joiningQuery &&
+                        self.joiningQuery[self.joiningQueryParam] === "nested") {
+                        finalresult["nested"] = {
                             path: result.path,
                             score_mode: result.score_mode,
                             query: {
@@ -2277,7 +2320,8 @@ var QueryBlocksComponent = (function () {
                         };
                         isBoolPresent = false;
                     }
-                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_child') {
+                    else if (self.joiningQuery &&
+                        self.joiningQuery[self.joiningQueryParam] === "has_child") {
                         finalresult[currentBool] = {
                             has_child: {
                                 type: result.type,
@@ -2286,7 +2330,8 @@ var QueryBlocksComponent = (function () {
                             }
                         };
                     }
-                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'has_parent') {
+                    else if (self.joiningQuery &&
+                        self.joiningQuery[self.joiningQueryParam] === "has_parent") {
                         finalresult[currentBool] = {
                             has_parent: {
                                 parent_type: result.parent_type,
@@ -2294,7 +2339,8 @@ var QueryBlocksComponent = (function () {
                             }
                         };
                     }
-                    else if (self.joiningQuery && self.joiningQuery[self.joiningQueryParam] === 'parent_id') {
+                    else if (self.joiningQuery &&
+                        self.joiningQuery[self.joiningQueryParam] === "parent_id") {
                         finalresult[currentBool] = {
                             parent_id: {
                                 type: result.type,
@@ -2303,7 +2349,7 @@ var QueryBlocksComponent = (function () {
                         };
                     }
                     else {
-                        if (result.internal.length > 1 || currentBool !== 'must') {
+                        if (result.internal.length > 1 || currentBool !== "must") {
                             finalresult[currentBool] = result.availableQuery;
                         }
                         else {
@@ -2312,74 +2358,72 @@ var QueryBlocksComponent = (function () {
                             }
                             else {
                                 finalresult = result.availableQuery[0];
-                                es_final['query'] = finalresult;
+                                es_final["query"] = finalresult;
                             }
                         }
                     }
-                    if (currentBool === 'should') {
-                        finalresult['minimum_should_match'] = result.minimum_should_match;
+                    if (currentBool === "should") {
+                        finalresult["minimum_should_match"] = result.minimum_should_match;
                     }
                     else {
                         // condition required to reset when someone changes back from should to another bool type
-                        if (finalresult.hasOwnProperty('minimum_should_match')) {
-                            delete finalresult['minimum_should_match'];
+                        if (finalresult.hasOwnProperty("minimum_should_match")) {
+                            delete finalresult["minimum_should_match"];
                         }
                     }
                 }
                 var _a;
             });
             if (!isBoolPresent) {
-                es_final['query'] = es_final['query']['bool'];
+                es_final["query"] = es_final["query"]["bool"];
             }
         }
         else {
-            if (this.selectedTypes.length) {
-                es_final['query'] = {
-                    'match_all': {}
-                };
-            }
+            es_final["query"] = {
+                match_all: {}
+            };
         }
         // apply sort
         if (self.result.sort) {
             self.result.sort.map(function (sortObj) {
                 if (sortObj.selectedField) {
-                    if (!es_final.hasOwnProperty('sort')) {
-                        es_final['sort'] = [];
+                    if (!es_final.hasOwnProperty("sort")) {
+                        es_final["sort"] = [];
                     }
                     var obj = {};
                     if (sortObj._geo_distance) {
                         obj = (_a = {},
-                            _a['_geo_distance'] = (_b = {},
+                            _a["_geo_distance"] = (_b = {},
                                 _b[sortObj.selectedField] = {
-                                    'lat': sortObj._geo_distance.lat,
-                                    'lon': sortObj._geo_distance.lon
+                                    lat: sortObj._geo_distance.lat,
+                                    lon: sortObj._geo_distance.lon
                                 },
-                                _b['order'] = sortObj.order,
-                                _b['distance_type'] = sortObj._geo_distance.distance_type,
-                                _b['unit'] = sortObj._geo_distance.unit || 'm',
+                                _b.order = sortObj.order,
+                                _b.distance_type = sortObj._geo_distance.distance_type,
+                                _b.unit = sortObj._geo_distance.unit || "m",
                                 _b
                             ),
                             _a
                         );
                         if (sortObj.mode) {
-                            obj['_geo_distance']['mode'] = sortObj.mode;
+                            obj["_geo_distance"]["mode"] = sortObj.mode;
                         }
                     }
                     else {
                         obj = (_c = {},
                             _c[sortObj.selectedField] = {
-                                'order': sortObj.order
+                                order: sortObj.order
                             },
                             _c
                         );
                         if (sortObj.mode) {
-                            obj[sortObj.selectedField]['mode'] = sortObj.mode;
+                            obj[sortObj.selectedField]["mode"] = sortObj.mode;
                         }
                         if (sortObj.missing) {
-                            obj[sortObj.selectedField]['missing'] = sortObj.missing;
+                            obj[sortObj.selectedField]["missing"] = sortObj.missing;
                         }
                     }
-                    es_final['sort'].push(obj);
+                    es_final["sort"].push(obj);
                 }
                 var _a, _b, _c;
             });
@@ -2393,7 +2437,7 @@ var QueryBlocksComponent = (function () {
         }
         //set input state
         try {
-            this.urlShare.inputs['result'] = this.result;
+            this.urlShare.inputs["result"] = this.result;
             this.urlShare.createUrl();
         }
         catch (e) {
@@ -2417,7 +2461,7 @@ var QueryBlocksComponent = (function () {
             if (val0.parent_id != 0) {
                 result.forEach(function (val1) {
                     if (val0.parent_id == val1.id) {
-                        val1.appliedQuery['bool']['must'].push(val0.appliedQuery);
+                        val1.appliedQuery["bool"]["must"].push(val0.appliedQuery);
                     }
                 }.bind(this));
             }
@@ -2426,15 +2470,15 @@ var QueryBlocksComponent = (function () {
     // Createquery until query is selected
     QueryBlocksComponent.prototype.createQuery = function (val, childExists) {
         var queryParam = {
-            query: '*',
-            field: '*',
+            query: "*",
+            field: "*",
             queryFlag: true,
             fieldFlag: true
         };
-        if (val.analyzeTest === '' || val.type === '' || val.query === '') {
+        if (val.analyzeTest === "" || val.type === "" || val.query === "") {
             queryParam.queryFlag = false;
         }
-        if (val.field === '') {
+        if (val.field === "") {
             queryParam.fieldFlag = false;
         }
         if (queryParam.queryFlag) {
@@ -2455,7 +2499,8 @@ var QueryBlocksComponent = (function () {
         return sampleobj;
     };
     QueryBlocksComponent.prototype.toggleBoolQuery = function () {
-        if (this.result.resultQuery.result.length < 1 && this.selectedTypes.length > 0) {
+        if (this.result.resultQuery.result.length < 1 &&
+            this.selectedTypes.length > 0) {
             this.addBoolQuery(0);
         }
         else {
@@ -2480,17 +2525,19 @@ var QueryBlocksComponent = (function () {
     // handle the body click event for editable
     // close all the select2 whene clicking outside of editable-element
     QueryBlocksComponent.prototype.handleEditable = function () {
-        $('body').on('click', function (e) {
+        $("body").on("click", function (e) {
             var target = $(e.target);
-            if (target.hasClass('.editable-pack') || target.parents('.editable-pack').length) { }
+            if (target.hasClass(".editable-pack") ||
+                target.parents(".editable-pack").length) {
+            }
             else {
-                $('.editable-pack').removeClass('on');
+                $(".editable-pack").removeClass("on");
             }
         });
     };
     // open save query modal
     QueryBlocksComponent.prototype.openModal = function () {
-        $('#saveQueryModal').modal('show');
+        $("#saveQueryModal").modal("show");
     };
     QueryBlocksComponent.prototype.setPropIn = function (propObj) {
         this.setProp.emit(propObj);
@@ -2506,14 +2553,14 @@ var QueryBlocksComponent = (function () {
     QueryBlocksComponent.prototype.setPopover = function () {
         var _this = this;
         setTimeout(function () {
-            $('.responseMode .stream').popover(_this.popoverInfo.stream);
-            $('.responseMode .historic').popover(_this.popoverInfo.historic);
+            $(".responseMode .stream").popover(_this.popoverInfo.stream);
+            $(".responseMode .historic").popover(_this.popoverInfo.historic);
         }, 1000);
     };
     QueryBlocksComponent.prototype.changeMode = function (mode) {
         this.responseMode = mode;
         var propInfo = {
-            name: 'responseMode',
+            name: "responseMode",
             value: mode
         };
         this.setProp.emit(propInfo);
@@ -2576,9 +2623,15 @@ var QueryBlocksComponent = (function () {
     ], QueryBlocksComponent.prototype, "setDocSample", void 0);
     QueryBlocksComponent = __decorate([
         core_1.Component({
-            selector: 'query-blocks',
-            templateUrl: './app/queryBlocks/queryBlocks.component.html',
-            inputs: ['detectChange', 'editorHookHelp', 'saveQuery', 'setProp', 'setDocSample']
+            selector: "query-blocks",
+            templateUrl: "./app/queryBlocks/queryBlocks.component.html",
+            inputs: [
+                "detectChange",
+                "editorHookHelp",
+                "saveQuery",
+                "setProp",
+                "setDocSample"
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], QueryBlocksComponent);
@@ -8054,10 +8107,10 @@ var TypesComponent = (function () {
         this.buildQuery = new core_1.EventEmitter();
     }
     TypesComponent.prototype.ngOnChanges = function (changes) {
-        if (changes['detectChange'] && this.types.length) {
-            var setType = $('#setType');
-            if (setType.attr('class').indexOf('selec2') > -1) {
-                setType.select2('destroy').html('');
+        if (changes["detectChange"] && this.types.length) {
+            var setType = $("#setType");
+            if (setType.attr("class").indexOf("selec2") > -1) {
+                setType.select2("destroy").html("");
             }
             setType.select2({
                 placeholder: "Select types to apply query",
@@ -8085,7 +8138,7 @@ var TypesComponent = (function () {
         var availableFields = [];
         var propInfo;
         var allMappings = this.mapping[this.config.appname].mappings;
-        this.result.joiningQuery = [''];
+        this.result.joiningQuery = [""];
         function feedAvailableField(mapObj, parent) {
             if (parent === void 0) { parent = null; }
             var mapObjWithFields = {};
@@ -8093,45 +8146,47 @@ var TypesComponent = (function () {
                 mapObjWithFields[field_1] = mapObj[field_1];
                 if (mapObj[field_1].fields) {
                     for (var sub in mapObj[field_1].fields) {
-                        var subname = field_1 + '.' + sub;
-                        subname = parent ? (parent + '.' + subname) : subname;
+                        var subname = field_1 + "." + sub;
+                        subname = parent ? parent + "." + subname : subname;
                         mapObjWithFields[subname] = mapObj[field_1].fields[sub];
                     }
                 }
                 if (mapObj[field_1].properties) {
                     for (var sub in mapObj[field_1].properties) {
-                        var subname = field_1 + '.' + sub;
-                        subname = parent ? (parent + '.' + subname) : subname;
+                        var subname = field_1 + "." + sub;
+                        subname = parent ? parent + "." + subname : subname;
                         mapObjWithFields[subname] = mapObj[field_1].properties[sub];
                     }
                     feedAvailableField.call(this, mapObj[field_1].properties, field_1);
                 }
-                if (mapObj[field_1].type === 'nested') {
-                    if (this.result.joiningQuery.indexOf('nested') < 0) {
-                        this.result.joiningQuery.push('nested');
+                if (mapObj[field_1].type === "nested") {
+                    if (this.result.joiningQuery.indexOf("nested") < 0) {
+                        this.result.joiningQuery.push("nested");
                     }
                 }
             }
             for (var field in mapObjWithFields) {
-                var index = typeof mapObjWithFields[field]['index'] != 'undefined' ? mapObjWithFields[field]['index'] : null;
+                var index = typeof mapObjWithFields[field]["index"] != "undefined"
+                    ? mapObjWithFields[field]["index"]
+                    : null;
                 var obj = {
                     name: field,
-                    type: mapObjWithFields[field]['type'],
+                    type: mapObjWithFields[field]["type"],
                     index: index
                 };
                 switch (obj.type) {
-                    case 'long':
-                    case 'integer':
-                    case 'short':
-                    case 'byte':
-                    case 'double':
-                    case 'float':
-                    case 'date':
-                        obj.type = 'numeric';
+                    case "long":
+                    case "integer":
+                    case "short":
+                    case "byte":
+                    case "double":
+                    case "float":
+                    case "date":
+                        obj.type = "numeric";
                         break;
-                    case 'text':
-                    case 'keyword':
-                        obj.type = 'string';
+                    case "text":
+                    case "keyword":
+                        obj.type = "string";
                         break;
                 }
                 availableFields.push(obj);
@@ -8144,31 +8199,31 @@ var TypesComponent = (function () {
             }.bind(this));
             this.setUrl(val);
             propInfo = {
-                name: 'selectedTypes',
+                name: "selectedTypes",
                 value: val
             };
             this.setProp.emit(propInfo);
         }
         else {
             propInfo = {
-                name: 'selectedTypes',
+                name: "selectedTypes",
                 value: []
             };
             this.setProp.emit(propInfo);
             this.setUrl([]);
         }
         propInfo = {
-            name: 'availableFields',
+            name: "availableFields",
             value: availableFields
         };
         this.setProp.emit(propInfo);
         for (var type in allMappings) {
-            if (allMappings[type].hasOwnProperty('_parent')) {
-                if (val && val.indexOf(allMappings[type]['_parent'].type) > -1) {
-                    if (this.result.joiningQuery.indexOf('has_child') < 0) {
-                        this.result.joiningQuery.push('has_child');
-                        this.result.joiningQuery.push('has_parent');
-                        this.result.joiningQuery.push('parent_id');
+            if (allMappings[type].hasOwnProperty("_parent")) {
+                if (val && val.indexOf(allMappings[type]["_parent"].type) > -1) {
+                    if (this.result.joiningQuery.indexOf("has_child") < 0) {
+                        this.result.joiningQuery.push("has_child");
+                        this.result.joiningQuery.push("has_parent");
+                        this.result.joiningQuery.push("parent_id");
                     }
                 }
             }
@@ -8177,26 +8232,26 @@ var TypesComponent = (function () {
     TypesComponent.prototype.setUrl = function (val) {
         var selectedTypes = val;
         if (!this.finalUrl) {
-            console.log('Finalurl is not present');
+            console.log("Finalurl is not present");
         }
         else {
-            var finalUrl = this.finalUrl.split('/');
-            var lastUrl = '';
+            var finalUrl = this.finalUrl.split("/");
+            var lastUrl = "";
             finalUrl[3] = this.config.appname;
             if (finalUrl.length > 4) {
-                finalUrl[4] = selectedTypes.join(',');
-                finalUrl[5] = '_search';
-                lastUrl = finalUrl.join('/');
+                finalUrl[4] = selectedTypes.join(",");
+                finalUrl[5] = "_search";
+                lastUrl = finalUrl.join("/");
             }
             else {
-                var typeJoin = '/' + selectedTypes.join(',');
-                if (!selectedTypes.length) {
-                    typeJoin = '';
+                var typeJoin = "" + selectedTypes.join(",");
+                if (selectedTypes.length) {
+                    typeJoin = "/" + selectedTypes.join(",");
                 }
-                lastUrl = this.finalUrl + typeJoin + '/_search';
+                lastUrl = this.finalUrl + typeJoin + "/_search";
             }
             var propInfo = {
-                name: 'finalUrl',
+                name: "finalUrl",
                 value: lastUrl
             };
             this.setProp.emit(propInfo);
@@ -8243,9 +8298,9 @@ var TypesComponent = (function () {
     ], TypesComponent.prototype, "buildQuery", void 0);
     TypesComponent = __decorate([
         core_1.Component({
-            selector: 'types',
-            templateUrl: './app/queryBlocks/types/types.component.html',
-            inputs: ['detectChange', 'setProp', 'buildQuery']
+            selector: "types",
+            templateUrl: "./app/queryBlocks/types/types.component.html",
+            inputs: ["detectChange", "setProp", "buildQuery"]
         }), 
         __metadata('design:paramtypes', [])
     ], TypesComponent);
@@ -8621,23 +8676,33 @@ exports.DocService = DocService;
 "use strict";
 exports.EditorHook = function (config) {
     this.editorId = config.editorId;
-    this.$editor = '#' + config.editorId;
+    this.$editor = "#" + config.editorId;
 };
 exports.EditorHook.prototype.applyEditor = function (settings) {
     var self = this;
     this.settings = settings;
     var defaultOptions = {
         lineNumbers: true,
-        mode: "javascript",
+        mode: {
+            name: "javascript",
+            json: true
+        },
         autoCloseBrackets: true,
         matchBrackets: true,
         showCursorWhenSelecting: true,
+        indentWithTabs: true,
         tabSize: 2,
-        extraKeys: { "Ctrl-Q": function (cm) { cm.foldCode(cm.getCursor()); } },
+        extraKeys: {
+            "Ctrl-Q": function (cm) {
+                cm.foldCode(cm.getCursor());
+            }
+        },
         foldGutter: true,
         gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     };
-    var options = settings ? jQuery.extend(defaultOptions, settings) : defaultOptions;
+    var options = settings
+        ? jQuery.extend(defaultOptions, settings)
+        : defaultOptions;
     self.editor = CodeMirror.fromTextArea(document.getElementById(self.editorId), options);
 };
 exports.EditorHook.prototype.setValue = function (value) {
