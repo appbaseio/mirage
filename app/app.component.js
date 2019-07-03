@@ -338,10 +338,11 @@ var AppComponent = (function () {
                     self.version = version;
                     if (!(self.version.split(".")[0] === "2" ||
                         self.version.split(".")[0] === "5" ||
-                        self.version.split(".")[0] === "6")) {
+                        self.version.split(".")[0] === "6" ||
+                        self.version.split(".")[0] === "7")) {
                         self.errorShow({
                             title: "Elasticsearch Version Not Supported",
-                            message: "Mirage only supports v2.x, v5.x and v6.x* of Elasticsearch Query DSL"
+                            message: "Mirage only supports v2.x, v5.x, v6.x and v7.x* of Elasticsearch Query DSL"
                         });
                     }
                 }
