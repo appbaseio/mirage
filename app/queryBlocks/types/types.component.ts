@@ -31,7 +31,10 @@ export class TypesComponent implements OnChanges {
     var self = this;
     if (this.version >= 6) {
       setTimeout(function() {
-        self.changeType(["_doc"]);
+        self.selectedTypes = ["_doc"];
+        $("#setType")
+          .val(self.selectedTypes)
+          .trigger("change");
       });
     }
   }
