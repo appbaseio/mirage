@@ -1,86 +1,126 @@
 <div class="row queryLeft">
-	<div class="col-xs-12 pd-0">
-		<div class="form-group m-b15">
-			<types  [detectChange]="detectChange" [mapping] = "mapping" [types]="types" [selectedTypes]="selectedTypes" [result]="result" [config] = "config" [finalUrl]="finalUrl"  (setProp)="setPropIn($event)" [urlShare]="urlShare" (buildQuery)="buildQuery($event);">
-			</types>
-		</div>
-		<div class="col-xs-12 m-b15 pd-0 clearfix" *ngIf="selectedTypes.length > 0">
-			<div class="col-xs-8 pd-0">
-				<div class="tabs head-tabs">
-					<a [ngClass]="{'selected': result.resultQuery.result.length > 0}" (click)="toggleBoolQuery();">
-						<i class="fa fa-plus"></i>
-						<i class="fa fa-minus"></i>
-						Query
-					</a>
-					<a [ngClass]="{'selected': (result.sort) && (result.sort.length > 0)}" (click)="toggleSortQuery();">
-						<i class="fa fa-plus"></i>
-						<i class="fa fa-minus"></i>
-						Sorting
-					</a>
-					<span class="toggle clearfix responseMode" *ngIf="isAppbaseApp">
-						<a class="historic" [ngClass]="{'selected': responseMode === 'historic'}" (click)="changeMode('historic', i)">Hist.</a>
-						<a class="stream" [ngClass]="{'selected': responseMode === 'stream'}" (click)="changeMode('stream', i)">Stream</a>
-					</span>
-				</div>
-			</div>
-			<span *ngIf="result.resultQuery.result.length >= 1 || (result.sort && result.sort.length >= 1)" class="col-xs-4 pd-0">
-				<button class="btn btn-theme pull-right" style="margin-top: 3px" (click)="openModal();">Save State</button>
-			</span>
-		</div>
-		<form class="row m-0"
-		 *ngFor="let queryIn of result.resultQuery.result"
-		 >
-			<div *ngIf="queryIn.parent_id == 0">
-				<bool-query 
-					[mapping]="mapping"
-					[types]="types"
-					[selectedTypes]="selectedTypes" 
-					[result]="result" 
-					[config]="config" 
-					[query]="queryIn" 
-					[queryList]="queryList"
-					[addQuery]="addQuery"
-					[addBoolQuery]="addBoolQuery"
-					[removeQuery]="removeQuery"
-					[queryFormat]="queryFormat"
-					[buildQuery]="buildQuery"
-					[buildInsideQuery]="buildInsideQuery"
-					[buildSubQuery]="buildSubQuery"
-					[createQuery]="createQuery"
-					[setQueryFormat]="setQueryFormat"
-					[editorHookHelp]="editorHookHelp"
-					[urlShare]="urlShare"
-					[joiningQuery]="joiningQuery"
-					[joiningQueryParam]="joiningQueryParam"
-					(setDocSample)="setDocSampleEve($event);"
-					(setJoiningQuery)="setJoiningQueryEve($event);">
-				</bool-query>
-			</div>
-		</form>
-		<div *ngIf="result.sort && result.sort.length">
-			<sort-block 
-				[mapping]="mapping"
-				[types]="types"
-				[selectedTypes]="selectedTypes" 
-				[result]="result" 
-				[config]="config" 
-				[query]="queryIn" 
-				[queryList]="queryList"
-				[addQuery]="addQuery"
-				[addBoolQuery]="addBoolQuery"
-				[removeQuery]="removeQuery"
-				[queryFormat]="queryFormat"
-				[buildQuery]="buildQuery"
-				[buildInsideQuery]="buildInsideQuery"
-				[buildSubQuery]="buildSubQuery"
-				[createQuery]="createQuery"
-				[setQueryFormat]="setQueryFormat"
-				[editorHookHelp]="editorHookHelp"
-				[urlShare]="urlShare"
-				[joiningQuery]="joiningQuery"
-				[joiningQueryParam]="joiningQueryParam"
-				(setDocSample)="setDocSampleEve($event);">
-			</sort-block>
-		</div>
-	</div>
+  <div class="col-xs-12 pd-0">
+    <div class="form-group m-b15">
+      <types
+        [detectChange]="detectChange"
+        [mapping]="mapping"
+        [types]="types"
+        [selectedTypes]="selectedTypes"
+        [result]="result"
+        [config]="config"
+        [finalUrl]="finalUrl"
+        (setProp)="setPropIn($event)"
+        [urlShare]="urlShare"
+        [version]="version"
+        (buildQuery)="buildQuery($event)"
+      >
+      </types>
+    </div>
+    <div class="col-xs-12 m-b15 pd-0 clearfix" *ngIf="selectedTypes.length > 0">
+      <div class="col-xs-8 pd-0">
+        <div class="tabs head-tabs">
+          <a
+            [ngClass]="{ selected: result.resultQuery.result.length > 0 }"
+            (click)="toggleBoolQuery()"
+          >
+            <i class="fa fa-plus"></i>
+            <i class="fa fa-minus"></i>
+            Query
+          </a>
+          <a
+            [ngClass]="{ selected: result.sort && result.sort.length > 0 }"
+            (click)="toggleSortQuery()"
+          >
+            <i class="fa fa-plus"></i>
+            <i class="fa fa-minus"></i>
+            Sorting
+          </a>
+          <span class="toggle clearfix responseMode" *ngIf="isAppbaseApp">
+            <a
+              class="historic"
+              [ngClass]="{ selected: responseMode === 'historic' }"
+              (click)="changeMode('historic', i)"
+              >Hist.</a
+            >
+            <a
+              class="stream"
+              [ngClass]="{ selected: responseMode === 'stream' }"
+              (click)="changeMode('stream', i)"
+              >Stream</a
+            >
+          </span>
+        </div>
+      </div>
+      <span
+        *ngIf="
+          result.resultQuery.result.length >= 1 ||
+          (result.sort && result.sort.length >= 1)
+        "
+        class="col-xs-4 pd-0"
+      >
+        <button
+          class="btn btn-theme pull-right"
+          style="margin-top: 3px"
+          (click)="openModal()"
+        >
+          Save State
+        </button>
+      </span>
+    </div>
+    <form class="row m-0" *ngFor="let queryIn of result.resultQuery.result">
+      <div *ngIf="queryIn.parent_id == 0">
+        <bool-query
+          [mapping]="mapping"
+          [types]="types"
+          [selectedTypes]="selectedTypes"
+          [result]="result"
+          [config]="config"
+          [query]="queryIn"
+          [queryList]="queryList"
+          [addQuery]="addQuery"
+          [addBoolQuery]="addBoolQuery"
+          [removeQuery]="removeQuery"
+          [queryFormat]="queryFormat"
+          [buildQuery]="buildQuery"
+          [buildInsideQuery]="buildInsideQuery"
+          [buildSubQuery]="buildSubQuery"
+          [createQuery]="createQuery"
+          [setQueryFormat]="setQueryFormat"
+          [editorHookHelp]="editorHookHelp"
+          [urlShare]="urlShare"
+          [joiningQuery]="joiningQuery"
+          [joiningQueryParam]="joiningQueryParam"
+          (setDocSample)="setDocSampleEve($event)"
+          (setJoiningQuery)="setJoiningQueryEve($event)"
+        >
+        </bool-query>
+      </div>
+    </form>
+    <div *ngIf="result.sort && result.sort.length">
+      <sort-block
+        [mapping]="mapping"
+        [types]="types"
+        [selectedTypes]="selectedTypes"
+        [result]="result"
+        [config]="config"
+        [query]="queryIn"
+        [queryList]="queryList"
+        [addQuery]="addQuery"
+        [addBoolQuery]="addBoolQuery"
+        [removeQuery]="removeQuery"
+        [queryFormat]="queryFormat"
+        [buildQuery]="buildQuery"
+        [buildInsideQuery]="buildInsideQuery"
+        [buildSubQuery]="buildSubQuery"
+        [createQuery]="createQuery"
+        [setQueryFormat]="setQueryFormat"
+        [editorHookHelp]="editorHookHelp"
+        [urlShare]="urlShare"
+        [joiningQuery]="joiningQuery"
+        [joiningQueryParam]="joiningQueryParam"
+        (setDocSample)="setDocSampleEve($event)"
+      >
+      </sort-block>
+    </div>
+  </div>
 </div>
