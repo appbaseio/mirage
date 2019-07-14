@@ -75,6 +75,7 @@ export class QueryBlocksComponent implements OnInit, OnChanges {
   @Input() finalUrl: string;
   @Input() urlShare: any;
   @Input() config: any;
+  @Input() version: number;
   @Output() saveQuery = new EventEmitter<any>();
   @Output() setProp = new EventEmitter<any>();
   @Output() setDocSample = new EventEmitter<any>();
