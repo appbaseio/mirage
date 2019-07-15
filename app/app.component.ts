@@ -72,7 +72,7 @@ export class AppComponent implements OnInit, OnChanges {
   public urlShare = new UrlShare();
   public result_time_taken = null;
   public result_random_token = null;
-  public version: string = "2.0";
+  public version: number = 2;
   public docLink: string;
   public currentDeleteQuery: any;
   active = true;
@@ -361,16 +361,12 @@ export class AppComponent implements OnInit, OnChanges {
             source.settings.index &&
             source.settings.index.version
           ) {
-            let version = source.settings.index.version.created_string;
-            self.version = version;
-            if (
-              !(
-                self.version.split(".")[0] === "2" ||
-                self.version.split(".")[0] === "5" ||
-								self.version.split(".")[0] === "6" ||
-								self.version.split(".")[0] === "7"
-              )
-            ) {
+            let version =
+              source.settings.index.version.upgraded ||
+              source.settings.index.version.created;
+            self.version = parseInt(version.charAt(0), 10);
+            self.appbaseService.setVersion(self.version);
+            if (self.version > 7) {
               self.errorShow({
                 title: "Elasticsearch Version Not Supported",
                 message:

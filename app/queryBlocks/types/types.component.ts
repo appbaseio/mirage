@@ -21,10 +21,23 @@ export class TypesComponent implements OnChanges {
   @Input() result: any;
   @Input() finalUrl: string;
   @Input() urlShare: any;
+  @Input() version: number;
   @Output() setProp = new EventEmitter<any>();
   @Output() buildQuery = new EventEmitter<any>();
 
   constructor() {}
+
+  ngOnInit() {
+    var self = this;
+    if (this.version >= 6) {
+      setTimeout(function() {
+        self.selectedTypes = ["_doc"];
+        $("#setType")
+          .val(self.selectedTypes)
+          .trigger("change");
+      });
+    }
+  }
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     if (changes["detectChange"] && this.types.length) {
