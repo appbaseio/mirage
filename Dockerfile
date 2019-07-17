@@ -1,4 +1,4 @@
-FROM node:7-alpine
+FROM node:10-alpine
 MAINTAINER appbase.io <info@appbase.io>
 
 WORKDIR /mirage
