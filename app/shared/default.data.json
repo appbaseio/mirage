@@ -1,14 +1,14 @@
 {   
     "queries": [{
         "config": {
-            "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
-            "appname": "App3",
-            "username": "CnqEgei0f",
-            "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+            "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
+            "appname": "gitxplore-live",
+            "username": "bYTSo47tj",
+            "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
             "host": "https://scalr.api.appbase.io"
         },
         "selectedTypes": [
-            "tweets"
+            "gitxplore-live"
         ],
         "result": {
             "resultQuery": {
@@ -19,21 +19,21 @@
                     "id": 1,
                     "internal": [{
                         "field": {
-                            "name": "age",
-                            "type": "numeric",
+                            "name": "forks",
+                            "type": "integer",
                             "index": null
                         },
                         "query": "1",
-                        "selectedField": "age",
+                        "selectedField": "forks",
                         "selectedQuery": "range",
                         "input": "",
                         "analyzeTest": "analyzed",
-                        "type": "numeric",
+                        "type": "integer",
                         "appliedQuery": {
                             "range": {
-                                "age": {
-                                    "gte": "15",
-                                    "lte": "30"
+                                "forks": {
+                                    "gte": "10",
+                                    "lte": "500"
                                 }
                             }
                         }
@@ -41,34 +41,27 @@
                     "minimum_should_match": "",
                     "availableQuery": [{
                         "range": {
-                            "age": {
-                                "gte": "15",
-                                "lte": "30"
+                            "forks": {
+                                "gte": "10",
+                                "lte": "500"
                             }
                         }
                     }]
                 }],
                 "availableFields": [{
-                    "name": "age",
-                    "type": "numeric",
+                    "name": "forks",
+                    "type": "integer",
                     "index": null
                 }, {
-                    "name": "hello",
+                    "name": "fullname",
                     "type": "string",
                     "index": null
                 }, {
-                    "name": "name",
-                    "type": "string",
-                    "index": null
-                }, {
-                    "name": "query",
-                    "index": null
-                }, {
-                    "name": "tweet",
+                    "name": "description",
                     "type": "string",
                     "index": null
                 }],
-                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"age\": {\n              \"gte\": \"15\",\n              \"lte\": \"30\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"forks\": {\n              \"gte\": \"10\",\n              \"lte\": \"500\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
             },
             "queryId": 2,
             "isWatching": false,
@@ -81,14 +74,14 @@
         "name": "gt-query",
         "tag": "learn-mirage",
         "config": {
-            "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
-            "appname": "App3",
-            "username": "CnqEgei0f",
-            "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+            "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
+            "appname": "gitxplore-live",
+            "username": "bYTSo47tj",
+            "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
             "host": "https://scalr.api.appbase.io"
         },
         "selectedTypes": [
-            "tweets"
+            "gitxplore-live"
         ],
         "result": {
             "resultQuery": {
@@ -99,20 +92,20 @@
                     "id": 2,
                     "internal": [{
                         "field": {
-                            "name": "age",
-                            "type": "numeric",
+                            "name": "forks",
+                            "type": "integer",
                             "index": null
                         },
                         "query": "2",
-                        "selectedField": "age",
+                        "selectedField": "forks",
                         "selectedQuery": "gt",
                         "input": "",
                         "analyzeTest": "analyzed",
                         "type": "numeric",
                         "appliedQuery": {
                             "range": {
-                                "age": {
-                                    "gt": "40"
+                                "forks": {
+                                    "gt": "400"
                                 }
                             }
                         }
@@ -120,33 +113,26 @@
                     "minimum_should_match": "",
                     "availableQuery": [{
                         "range": {
-                            "age": {
-                                "gt": "40"
+                            "forks": {
+                                "gt": "400"
                             }
                         }
                     }]
                 }],
                 "availableFields": [{
-                    "name": "age",
-                    "type": "numeric",
+                    "name": "forks",
+                    "type": "integer",
                     "index": null
                 }, {
-                    "name": "hello",
+                    "name": "fullname",
                     "type": "string",
                     "index": null
                 }, {
-                    "name": "name",
-                    "type": "string",
-                    "index": null
-                }, {
-                    "name": "query",
-                    "index": null
-                }, {
-                    "name": "tweet",
+                    "name": "description",
                     "type": "string",
                     "index": null
                 }],
-                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"age\": {\n              \"gt\": \"40\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"forks\": {\n              \"gt\": \"400\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
             },
             "queryId": 3,
             "isWatching": false,
@@ -157,14 +143,14 @@
         "name": "lt-query",
         "tag": "learn-mirage",
         "config": {
-            "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
-            "appname": "App3",
-            "username": "CnqEgei0f",
-            "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+            "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
+            "appname": "gitxplore-live",
+            "username": "bYTSo47tj",
+            "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
             "host": "https://scalr.api.appbase.io"
         },
         "selectedTypes": [
-            "tweets"
+            "gitxplore-live"
         ],
         "result": {
             "resultQuery": {
@@ -175,19 +161,19 @@
                     "id": 2,
                     "internal": [{
                         "field": {
-                            "name": "age",
+                            "name": "forks",
                             "type": "numeric",
                             "index": null
                         },
                         "query": "3",
-                        "selectedField": "age",
+                        "selectedField": "forks",
                         "selectedQuery": "lt",
                         "input": "",
                         "analyzeTest": "analyzed",
                         "type": "numeric",
                         "appliedQuery": {
                             "range": {
-                                "age": {
+                                "forks": {
                                     "lt": "20"
                                 }
                             }
@@ -196,33 +182,26 @@
                     "minimum_should_match": "",
                     "availableQuery": [{
                         "range": {
-                            "age": {
+                            "forks": {
                                 "lt": "20"
                             }
                         }
                     }]
                 }],
                 "availableFields": [{
-                    "name": "age",
-                    "type": "numeric",
+                    "name": "forks",
+                    "type": "integer",
                     "index": null
                 }, {
-                    "name": "hello",
+                    "name": "fullname",
                     "type": "string",
                     "index": null
                 }, {
-                    "name": "name",
-                    "type": "string",
-                    "index": null
-                }, {
-                    "name": "query",
-                    "index": null
-                }, {
-                    "name": "tweet",
+                    "name": "description",
                     "type": "string",
                     "index": null
                 }],
-                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"age\": {\n              \"lt\": \"20\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+                "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"range\": {\n            \"forks\": {\n              \"lt\": \"20\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
             },
             "queryId": 3,
             "isWatching": false,
@@ -233,14 +212,14 @@
     "name": "match-query",
     "tag": "learn-mirage",
     "config": {
-        "url": "https://CnqEgei0f:a2176969-de4c-4ed0-bbbe-67e152de04f7@scalr.api.appbase.io",
-        "appname": "App3",
-        "username": "CnqEgei0f",
-        "password": "a2176969-de4c-4ed0-bbbe-67e152de04f7",
+        "url": "https://bYTSo47tj:d001826a-f4ef-42c5-b0aa-a94f29967ba0@scalr.api.appbase.io",
+        "appname": "gitxplore-live",
+        "username": "bYTSo47tj",
+        "password": "d001826a-f4ef-42c5-b0aa-a94f29967ba0",
         "host": "https://scalr.api.appbase.io"
     },
     "selectedTypes": [
-        "tweets"
+        "gitxplore-live"
     ],
     "result": {
         "resultQuery": {
@@ -253,19 +232,19 @@
                     "internal": [
                         {
                             "field": {
-                                "name": "tweet",
+                                "name": "fullname",
                                 "type": "string",
                                 "index": null
                             },
                             "query": "0",
-                            "selectedField": "tweet",
+                            "selectedField": "fullname",
                             "selectedQuery": "match",
                             "input": "",
                             "analyzeTest": "analyzed",
                             "type": "string",
                             "appliedQuery": {
                                 "match": {
-                                    "tweet": "grow up"
+                                    "fullname": "lodash-archive~lodash-fp"
                                 }
                             }
                         }
@@ -274,39 +253,26 @@
                     "availableQuery": [
                         {
                             "match": {
-                                "tweet": "grow up"
+                                "fullname": "lodash-archive~lodash-fp"
                             }
                         }
                     ]
                 }
             ],
-            "availableFields": [
-                {
-                    "name": "age",
-                    "type": "numeric",
-                    "index": null
-                },
-                {
-                    "name": "hello",
-                    "type": "string",
-                    "index": null
-                },
-                {
-                    "name": "name",
-                    "type": "string",
-                    "index": null
-                },
-                {
-                    "name": "query",
-                    "index": null
-                },
-                {
-                    "name": "tweet",
-                    "type": "string",
-                    "index": null
-                }
-            ],
-            "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"match\": {\n            \"tweet\": \"grow up\"\n          }\n        }\n      ]\n    }\n  }\n}"
+            "availableFields": [{
+                "name": "forks",
+                "type": "integer",
+                "index": null
+            }, {
+                "name": "fullname",
+                "type": "string",
+                "index": null
+            }, {
+                "name": "description",
+                "type": "string",
+                "index": null
+            }],
+            "final": "{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        {\n          \"match\": {\n            \"fullname\": \"lodash-archive~lodash-fp\"\n          }\n        }\n      ]\n    }\n  }\n}"
         },
         "queryId": 2,
         "isWatching": false

@@ -58,7 +58,7 @@ It offers a blocks based GUI for composing Elasticsearch queries and comes with 
 
 ### 3. Roadmap
 
-Mirage works with an Elasticsearch 2.x index currently. Below is the roadmap for query support.
+Mirage works with any Elasticsearch 2.x, 5.x, 6.x and 7.x index currently. Below is the roadmap for query support.
 
 ✓ indicates queries already supported.  
 ➕ indicates queries we would like to support and see [contributions for](#5-how-to-contribute).  
@@ -146,7 +146,7 @@ or
 
 #### [Run with docker](https://hub.docker.com/r/appbaseio/mirage)
 
-Works with Elasticsearch versions 1.x, 2.x and 5.x.
+Works with Elasticsearch versions 1.x, 2.x, 5.x, 6.x and 7.x.
 
 ```sh
 docker run -p 3030:3030 -d appbaseio/mirage
