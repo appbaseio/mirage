@@ -112,6 +112,17 @@ export class AppbaseService {
                   mappingData[alias] = mappingData[index];
                 }
               }
+
+              if (self.version > 6) {
+                console.log("=> v > 6 setting mapping");
+                mappingData = {
+                  [self.appbaseRef.appname]: {
+                    mappings: {
+                      _doc: mappingData[self.appbaseRef.appname].mappings
+                    }
+                  }
+                };
+              }
               resolve(mappingData);
             })
             .catch(function(e) {
