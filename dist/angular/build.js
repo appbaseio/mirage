@@ -8532,7 +8532,19 @@ var AppbaseService = (function () {
                             mappingData[alias] = mappingData[index];
                         }
                     }
+                    if (self.version > 6) {
+                        console.log("=> v > 6 setting mapping");
+                        mappingData = (_a = {},
+                            _a[self.appbaseRef.appname] = {
+                                mappings: {
+                                    _doc: mappingData[self.appbaseRef.appname].mappings
+                                }
+                            },
+                            _a
+                        );
+                    }
                     resolve(mappingData);
+                    var _a;
                 })
                     .catch(function (e) {
                     // this fix needs to be there for v7
